@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import 'https://fonts.googleapis.com/css?family=Old+Standard+TT%3A400%2C700&#038;ver=4.9.5';
+@import 'https://fonts.googleapis.com/css?family=Arapey%3A400%2C400i&#038;ver=4.9.5';
+
+.page-header{
+    position: relative;
+    background-size: cover !important;
+    background-position: center !important;
+}
+.page-header .content{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    text-align: center;
+    padding:0 15px;
+}
+.hr-small{
+    width: 50px;
+    margin: 20px auto;
+    border-color: #1c1d1d;
+}
+.black-btn{
+    background: #1c1d1d !important;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.9rem;
+}
+.black-btn:hover{
+    transition: background-color 0.15s ease-out;
+    background-color: #3a3c3c !important;
+}

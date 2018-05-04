@@ -1,0 +1,25 @@
+  <div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)" (window:resize)="onResize($event)">
+  <div class="content">
+    <h3 class="black-title">Login</h3>
+    <hr class="hr-small">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':loginForm.get('email').invalid && loginForm.get('email').touched}">
+        <div class="invalid-feedback" *ngIf="loginForm.get('email').hasError('required')">Email Required.</div>
+        <div class="invalid-feedback" *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">Invalid Email</div>	
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':loginForm.get('password').invalid && loginForm.get('password').touched}">
+        <div class="invalid-feedback" *ngIf="loginForm.get('password').hasError('required')"> Password Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="form-control black-btn" value="Sign In" [disabled]="loginForm.invalid">
+      </div>
+    </form>
+    <div class="login-option">
+        <a href="#">Create Account</a>
+        <a href="#">Return to Store</a>
+        <a href="#">Forgot your password?</a>
+    </div>
+  </div>
+</div>   
