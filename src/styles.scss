@@ -1,0 +1,135 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT%3A400%2C700&#038;ver=4.9.5');
+@import url('https://fonts.googleapis.com/css?family=Arapey%3A400%2C400i&#038;ver=4.9.5');
+
+/*menu*/
+body {
+    overflow-x: hidden;
+}
+.mobile-nav__link{
+    color: white !important;
+    font-size: 1.3rem;
+    font-family: "Arapey",serif;
+    display:block;
+  text-decoration:none !important
+}
+#menu{
+  background:#1c1d1d !important;
+  overflow-x: initial !important;
+    overflow-y: initial !important;
+}
+.btn-menu{
+    color: white !important;
+    font-size: 20px;
+    text-decoration: none !important;
+}
+.mobile-nav{
+    overflow-y: scroll;
+    height: 90%;
+    padding: 0 20px !important;
+}
+#menu .item {
+    border-bottom: 1px solid #343535 !important;
+    padding:15px;
+}
+#menu .mobile-nav__item--secondary{
+  border-bottom:0 !important;
+}
+#menu .mobile-nav__item--secondary a{
+    font-size: 16px;
+    color: #bfbfbf;
+    line-height: 1.2;
+    font-family:"Arapey",serif !important;
+    text-decoration:none !important;
+    display:block;
+}
+#menu .mobile-nav__item--secondary a:hover{
+  color:white;
+}
+.container-close{
+  padding:20px;
+  border-bottom: 1px solid #343535 !important;
+}
+.container-close a{
+    padding: 30px 20px !important;
+    font-size: 1.2rem !important;
+    color: white !important;
+    text-decoration:none !important
+}
+.navbar{
+  position:fixed;
+  background:transparent !important;
+  width:100%;
+  z-index:9
+}
+.push{
+  position:relative;
+}
+#close-menu{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    display: none;
+}
+.panel{
+  position:fixed;
+  top: 0px;
+    bottom: 0px;
+    height: 100%;
+    left: -300px;
+    width: 300px;
+  transition: left 450ms ease;
+}
+#menu{
+  z-index:20
+}
+.page-header{
+    position: relative;
+    background-size: cover !important;
+    background-position: center !important;
+}
+.page-header .content{
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    text-align: center;
+    padding:0 15px;
+}
+.hr-small{
+    width: 50px;
+    margin: 20px auto;
+    border-color: #1c1d1d;
+}
+.black-btn{
+    background: #1c1d1d !important;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.9rem;
+}
+.black-btn:hover{
+    transition: background-color 0.15s ease-out;
+    background-color: #3a3c3c !important;
+}
+.black-title{
+    font-family: 'Old Standard TT', serif;
+    font-size: 1.9rem;
+    color: #1c1d1d;
+}
+.seafoodFormContainer{
+  .content{
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.5);
+      padding: 30px;
+  }
+  .form-control{
+    font-family: "Arapey",serif;
+    font-style:oblique
+  }
+}

@@ -9,16 +9,20 @@ import {AuthenticationService} from './services/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { RegisterComponent } from './register/register.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
   {path:'home', component:AppComponent},
+  {path:'register', component:RegisterComponent},
+  {path:'login', component:LoginComponent},
 ]
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

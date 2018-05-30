@@ -1,0 +1,36 @@
+  <div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/hero_slide.jpg)" (window:resize)="onResize($event)">
+   <div class="content">
+    <h3 class="black-title">Register</h3>
+    <hr class="hr-small">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" [ngClass]="{'is-invalid':registerForm.get('firstName').invalid && registerForm.get('firstName').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('firstName').hasError('required')">First Name Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" [ngClass]="{'is-invalid':registerForm.get('lastName').invalid && registerForm.get('lastName').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('lastName').hasError('required')">Last Name Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':registerForm.get('email').invalid && registerForm.get('email').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('email').hasError('required')">Email Required.</div>
+        <div class="invalid-feedback" *ngIf="registerForm.get('email').hasError('email') && !registerForm.get('email').hasError('required')">Invalid Email</div>	
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':registerForm.get('password').invalid && registerForm.get('password').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('required')"> Password Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" placeholder="Repeat Password" formControlName="rePassword" [ngClass]="{'is-invalid':registerForm.get('rePassword').invalid && registerForm.get('rePassword').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('rePassword').hasError('required')"> Password Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" placeholder="Location" formControlName="location" [ngClass]="{'is-invalid':registerForm.get('location').invalid && registerForm.get('location').touched}">
+        <div class="invalid-feedback" *ngIf="registerForm.get('location').hasError('required')"> Location Required.</div>
+      </div>
+      <div class="form-group">
+        <input type="submit" class="form-control black-btn" value="Register" [disabled]="registerForm.invalid">
+      </div>
+    </form>
+  </div>
+</div>   
