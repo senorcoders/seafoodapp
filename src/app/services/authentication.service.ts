@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'}),
-    responseType: 'text'
+    headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
   };
+const httpOptionsTypeResponse={
+      headers: new HttpHeaders({ "Content-Type": "application/json;charset=UTF-8"}),
+      responseType: "text" as 'text'
+};
 const  API="http://138.68.19.227:7000/api/";
 @Injectable()
 export class AuthenticationService {
@@ -34,7 +37,7 @@ export class AuthenticationService {
     }
   }
   register(data){
-    let body={"firstName":data.firstName,"lastName":data.lastName,"location":data.location,"email":data.email,"password":data.password,"role":{"name":"standar"}};
-    return this.http.post(`${API}signup`, JSON.stringify(body), httpOptions);
+    let body = {"firstName":data.firstName,"lastName":data.lastName,"location":data.location,"email":data.email,"password":data.password,"role":{"name":"standar"}};
+    return this.http.post(`${API}signup`, JSON.stringify(body), httpOptionsTypeResponse);
   }
 }

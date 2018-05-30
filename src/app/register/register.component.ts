@@ -41,15 +41,14 @@ registerForm: FormGroup;
     if(this.registerForm.get('password').value==this.registerForm.get('rePassword').value){
       this.auth.register(this.registerForm.value).subscribe(
         result=>{
-          let data={
-            "firstName":this.registerForm.get('firstName').value,
-            "lastName":this.registerForm.get('lastName').value,
-            "location":this.registerForm.get('location').value,
-            "email":this.registerForm.get('email').value,
-            "role":{"name":"standar"}
-          }
-          this.auth.setLoginData(data);
-          this.redirectHome();
+          this.auth.login(this.registerForm.value).subscribe(
+            result=>{
+              this.auth.setLoginData(result);
+              this.redirectHome();
+            },error=>{
+                this.showError(error.error)
+              }
+          )
         },
         error=>{
           console.log(error);
