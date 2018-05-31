@@ -2,6 +2,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT%3A400%2C700&#038;ver=4.9.5');
 @import url('https://fonts.googleapis.com/css?family=Arapey%3A400%2C400i&#038;ver=4.9.5');
+@import url('https://fonts.googleapis.com/css?family=Montserrat%3A200%2C300%2C400%2C500%2C600&#038;ver=4.9.5');
 
 /*menu*/
 body {
@@ -137,5 +138,107 @@ body {
   .form-control{
     font-family: "Arapey",serif;
     font-style:oblique
+  }
+}
+.small-title {
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+}
+.big-title {
+    font-size: 4rem;
+    font-family: 'Old Standard TT', serif;
+    color: white;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+.white-btn {
+    display: inline-block;
+    color: #000 !important;
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+    text-transform: uppercase;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    text-decoration: none !important;
+}
+/*footer */
+.footer {
+    font-family: "Arapey",serif;
+    color: #1c1d1d;
+    line-height: 1.563;
+    padding-bottom: 30px;
+}
+.prefooter{
+    background: #f6f6f6;
+    padding: 60px 0;
+    text-align: center;
+}
+.prefooter input[type='text']{
+    border: 0;
+    padding: 10px;
+    max-width: 100%;
+    font-family:"Arapey",serif;
+    font-style:oblique;
+    font-size:1.2rem
+    
+}
+.subscribe-form{
+  display: inline-block;
+    padding: 10px;
+    background: white;
+}
+.black-btn{
+    background: #1c1d1d;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.9rem;
+}
+.black-btn:hover{
+      transition: background-color 0.15s ease-out;
+    background-color: #3a3c3c;
+}
+.show-on-desktop{
+  display:none;
+}
+.footer li {
+    list-style: none;
+}
+.footer a {
+    color: #1c1d1d;
+    text-decoration: none;
+}
+.big-hr {
+    border-color: #1c1d1d;
+    width: 50px;
+    margin: 60px auto;
+}
+@media(max-width:768px){
+  .small-title{
+    font-size:0.9rem
+  }
+  .big-title{
+    font-size:3.9rem;
+  }
+  .hide-on-mobile{
+     display:none;
+  }
+  .show-on-desktop{
+    display:inline-block
+  }
+  .check-icon, .x-icon{
+    font-size:14px;
+  }
+  footer{
+    text-align:center;
+  }
+  .search-product-img{
+    margin-bottom:20px;
   }
 }

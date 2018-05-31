@@ -20,6 +20,9 @@
           </ul>
         </ng-template>
       </li>
+      <li class="item">
+        <span class="mobile-nav__link" (click)="logOut()">LogOut</span>
+      </li>
     </ul>
     <ng-template #menuAll>
       <ul class="mobile-nav">
@@ -40,4 +43,49 @@
 <div class="push">
   <div class="menu-link" id="close-menu"></div>
 <router-outlet></router-outlet>
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 prefooter">
+        <div class="subscribe-form">
+           <input type="text" placeholder="Sign up to our mailing list">
+           <input type="submit" class="hide-on-mobile black-btn" value="Subscribe">
+           <button class="black-btn show-on-desktop"><fa name="long-arrow-right"></fa></button>
+        </div>
+      </div>
+     </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <hr class="big-hr">
+      <div class="row">
+       <div class="col-lg-3">
+          <ul class="list-inline">
+            <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter1()">
+              <a routerLink="{{menuitem.state}}">{{menuitem.name}}</a>
+            </li>
+          </ul>      
+        </div>
+      <div class="col-lg-3 footer-menu">
+        <ul class="list-inline">
+          <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter2()">
+            <a routerLink="{{menuitem.state}}">{{menuitem.name}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 social-network">
+        <ul class="list-inline">
+          <li><fa name="facebook" style="margin-right:10px"></fa> Facebook</li>
+        </ul>
+      </div>
+      <div class=" col-lg-3 footer-info">
+        <p>
+          © 2018, Aqua Best Seafood Market <br> (NYC) - 276 Grand Street New York, <br> NY 10002 - 212-343-4211 - <br> info@aquabestnyc.com
+Powered by Shopify
+        </p>
+      </div>
+      </div>
+    </div>
+  </div>
+</footer>
 </div>

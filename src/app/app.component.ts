@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { MenuItems } from './core/menu/menu-items';
 import {AuthenticationService} from './services/authentication.service';
-declare const jQuery:any;
+import {IsLoginService} from './core/login/is-login.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,14 +10,21 @@ declare const jQuery:any;
 })
 export class AppComponent{
   isLogged:boolean=false;
-  constructor(private auth:AuthenticationService,private menuItems: MenuItems){
+  constructor(private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router){
   }
   ngOnInit(){
-    if(this.auth.isLogged()){
-      this.isLogged=true;
-    }
-    jQuery('.hasChildren').on('click', function(){
-      jQuery(this).parent().find('.submenu').toggle('slow')
+    this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
+      this.isLogged=val
     })
+    if(this.auth.isLogged()){
+      this.isLoggedSr.setLogin(true)
+    }else{
+      this.isLoggedSr.setLogin(false)
+    }
+  }
+  logOut(){
+    this.isLoggedSr.setLogin(false)
+    this.auth.logOut();
+    this.router.navigate(["/home"]);
   }
 }

@@ -4,6 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import {IsLoginService} from '../core/login/is-login.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,7 +16,7 @@ export class LoginComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService) {
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService, private isLoginService:IsLoginService) {
     this.redirectHome();
   }
 
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
         this.auth.setLoginData(data);
+        this.isLoginService.setLogin(true)
         this.redirectHome();
       },
       error=>{

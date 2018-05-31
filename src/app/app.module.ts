@@ -12,10 +12,12 @@ import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { MenuItems } from './core/menu/menu-items';
 import { HomeComponent } from './home/home.component';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { IsLoginService } from './core/login/is-login.service';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
-  {path:'home', component:AppComponent},
+  {path:'home', component:HomeComponent},
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
 ]
@@ -35,8 +37,13 @@ const appRoutes: Routes=[
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    AngularFontAwesomeModule
   ],
-  providers: [AuthenticationService, MenuItems],
+  providers: [
+    AuthenticationService, 
+    MenuItems,
+    IsLoginService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

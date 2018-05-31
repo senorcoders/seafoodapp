@@ -17,6 +17,10 @@
       menuWidth:'300px',
       speed:'450'
     });
+    jQuery('.hasChildren').on('click', function(){
+      console.log('click')
+      jQuery(this).parent().find('.submenu').toggle('slow')
+    })
     })
   </script>
 </body>
