@@ -8,54 +8,34 @@
 </header>
 <nav id="menu" class="panel" role="navigation">
     <div class="container-close"><a href="#" class="menu-link">X</a></div>
-    <ul class="mobile-nav">
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Caviar</a>
+    <ul class="mobile-nav" *ngIf="isLogged else menuAll">
+      <li class="item" *ngFor="let menuitem of menuItems.getLoginMenu()">
+        <a routerLink="{{menuitem.state}}" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+        <ng-template #submenu class="submenuContainer">
+          <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
+          <ul class="submenu" *ngIf="menuitem.type === 'sub'">
+            <li class="item mobile-nav__item--secondary" *ngFor="let childitem of menuitem.children">
+              <a routerLink="{{childitem.state}}">{{ childitem.name}}</a>
+            </li>
+          </ul>
+        </ng-template>
       </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Conch</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Crabs</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Crawfish</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Fish</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Lobsters</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Mussels &amp; Clams</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Oysters</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Scallops</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Shrimp</a>
-      </li>
-      <li class="item">
-        <a href="#" class="mobile-nav__link">Smoked Salmon</a>
-      </li>
-      <li class="item mobile-nav__item--secondary">
-        <a href="#" id="customer_login_link">Log In</a>
-      </li>
-      <li class="item mobile-nav__item--secondary">
-        <a href="#" id="customer_register_link">Create Account</a>
-      </li>
-      <li class="item mobile-nav__item--secondary"><a href="#">Home</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">About us</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">FAQ</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">Policy</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">Shipping Information</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">Support</a></li>
-      <li class="item mobile-nav__item--secondary"><a href="#">Wholesale Seafood</a></li>
     </ul>
+    <ng-template #menuAll>
+      <ul class="mobile-nav">
+        <li class="item" *ngFor="let menuitem of menuItems.getMenu()">
+          <a routerLink="{{menuitem.state}}" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+          <ng-template #submenu class="submenuContainer">
+            <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
+            <ul class="submenu" *ngIf="menuitem.type === 'sub'">
+              <li class="item mobile-nav__item--secondary" *ngFor="let childitem of menuitem.children">
+                <a routerLink="{{childitem.state}}">{{ childitem.name}}</a>
+              </li>
+            </ul>
+          </ng-template>
+        </li>
+      </ul>
+    </ng-template>
 	</nav>
 <div class="push">
   <div class="menu-link" id="close-menu"></div>

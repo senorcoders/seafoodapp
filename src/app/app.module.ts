@@ -10,6 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
+import { MenuItems } from './core/menu/menu-items';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -22,7 +24,8 @@ const appRoutes: Routes=[
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,7 @@ const appRoutes: Routes=[
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [AuthenticationService],
+  providers: [AuthenticationService, MenuItems],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
