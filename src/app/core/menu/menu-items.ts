@@ -103,4 +103,8 @@ export class MenuItems {
     getMenuFooter2():Menu[]{
     return menuFooter2;
   }
+  addMenuItem(Menu:Menu){
+    menu.push(Menu);
+    menuLogin.push(Menu);
+  }
 }

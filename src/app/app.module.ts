@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from './services/authentication.service';
+import {ProductService} from './services/product.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
@@ -14,12 +15,15 @@ import { MenuItems } from './core/menu/menu-items';
 import { HomeComponent } from './home/home.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
+import { AddProductComponent } from './add-product/add-product.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
   {path:'home', component:HomeComponent},
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
+  {path:'add', component:AddProductComponent},
+
 ]
 
 @NgModule({
@@ -27,7 +31,8 @@ const appRoutes: Routes=[
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    HomeComponent
+    HomeComponent,
+    AddProductComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +47,8 @@ const appRoutes: Routes=[
   providers: [
     AuthenticationService, 
     MenuItems,
-    IsLoginService
+    IsLoginService,
+    ProductService
   ],
   bootstrap: [AppComponent]
 })

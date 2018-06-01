@@ -4,4 +4,38 @@
       <h1 class="big-title">Fresh seafood</h1>
       <a href="" class="white-btn">Show Now <fa name="long-arrow-right"></fa></a>
     </div>
-</div>   
+</div>
+<div class="products-section">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="title">Featured Products</h2>
+        <hr class="hr-small">
+      </div>
+    </div>
+    <div class="content-products">
+      <ng-container *ngFor="let product of products; let index = index">
+        <div class="big-product" *ngIf="index==0 || index == 3 || index == 6; else otherSide">
+          <a href="#">
+            <div class="img-container">
+              <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="big-img" *ngIf="product.images==null">
+              <img src="{{API+product.images[0].src}}" class="big-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+            </div>
+            <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
+          </a>
+        </div>
+        <ng-template #otherSide>
+          <div class="small-product">
+            <a href="#">
+              <div class="img-container">
+                <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="small-img" *ngIf="product.images==null">
+                <img src="{{API+product.images[0].src}}" class="small-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+              </div>
+              <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
+            </a>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div> 
