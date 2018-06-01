@@ -68,25 +68,27 @@ export class AddProductComponent implements OnInit {
   onSubmit() {
     if (this.myform.valid) {
       console.log("Form Submitted!");
-      var data = {
-        "type" : this.types,
+      let data = {
+        "type" : this.types.value,
          "quality": "good",
-          "name": this.name,
-          "description": this.description,
+          "name": this.name.value,
+          "description": this.description.value,
           "country": "United States",
           "price": {
               "type": "US Dollar",
-              "value": this.price,
-              "description":  this.price + " for pack"
+              "value": this.price.value,
+              "description":  this.price.value + " for pack"
           },
           "weight": {
-              "type": this.measurement,
+              "type": this.measurement.value,
               "value": 5
           }
       }
+      console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
           this.myform.reset();
           console.log("Done", result);
+          alert("Product added succesfully!");
 
       });
     }

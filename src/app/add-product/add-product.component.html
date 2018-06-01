@@ -100,16 +100,20 @@
               [value]="type.id">{{type.name}}
       </option>
     </select>
+    <div class="form-control-feedback"
+         *ngIf="types.errors && (types.dirty || types.touched)">
+      <p *ngIf="types.errors.required">Fish Type is required</p>
+    </div>
   </div>
 
   <button type="submit"
           class="btn btn-primary">Submit
   </button>
 
-  <pre>{{myform.value | json}}</pre>
 </form>
     </div>
   </div>
   <div style="height: 100px;"></div>
+  
 
 </div>

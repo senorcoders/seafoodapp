@@ -18,8 +18,10 @@ export class ProductService {
     return this.http.get(`${API}FishType`)
   }
   saveData(endpoint, data){
-        return this.http.post(`${API}api/${endpoint}`, data, httpOptions);
+    console.log(JSON.stringify(data));
+        return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
 
 }
+ 
