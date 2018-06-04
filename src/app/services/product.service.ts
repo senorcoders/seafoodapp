@@ -5,9 +5,9 @@ import {Observable} from 'rxjs/Observable';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
 };
-const httpOptionsForm = {
-  headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
-};
+// const httpOptionsForm = {
+//   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
+// };
 const  API="http://138.68.19.227:7000/";
 @Injectable()
 export class ProductService {
@@ -27,11 +27,14 @@ export class ProductService {
   }
 
   postFile(fileToUpload, id){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     console.log(id, fileToUpload);
     const formData: FormData = new FormData();
     for(var i = 0; i < fileToUpload.length; i++) {
-      formData.append("images[]", fileToUpload[i], fileToUpload[i].name);
+      formData.append("images", fileToUpload[i]);
   }
+  
     return this.http
       .post(`${API}api/fish/images/${id}`, formData, httpOptionsForm);
 }
