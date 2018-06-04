@@ -31,6 +31,9 @@ export class AddProductComponent implements OnInit {
   types: FormControl;
   base:string="http://138.68.19.227:7000";
   pTypes:any = [];
+  country: FormControl;
+  fileToUpload: any;
+
 
   constructor(private product:ProductService){}
   ngOnInit() {
@@ -53,6 +56,8 @@ export class AddProductComponent implements OnInit {
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     this.types = new FormControl('', Validators.required);
+    this.country = new FormControl('', Validators.required);
+
   }
 
   createForm() {
@@ -61,7 +66,8 @@ export class AddProductComponent implements OnInit {
       price: this.price,
       measurement: this.measurement,
       description: this.description,
-      types: this.types
+      types: this.types,
+      country: this.country
     });
   }
 
@@ -73,7 +79,7 @@ export class AddProductComponent implements OnInit {
          "quality": "good",
           "name": this.name.value,
           "description": this.description.value,
-          "country": "United States",
+          "country": this.country.value,
           "price": {
               "type": "US Dollar",
               "value": this.price.value,
@@ -86,12 +92,29 @@ export class AddProductComponent implements OnInit {
       }
       console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
-          this.myform.reset();
-          console.log("Done", result);
-          alert("Product added succesfully!");
+        console.log("Done", result['id']);
+        this.uploadFileToActivity(result['id']);
 
       });
+    }else{
+      alert("All fields are required");
     }
   }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files;
+    console.log("Files", files);
+}
+
+uploadFileToActivity(productID) {
+  this.product.postFile(this.fileToUpload, productID).subscribe(data => {
+    // do something, if upload success
+    console.log("Data", data);
+    this.myform.reset();
+    alert("Product added succesfully!");
+    }, error => {
+      console.log(error);
+    });
+}
 
 }

@@ -16,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
 import { AddProductComponent } from './add-product/add-product.component';
+import { FileUploadModule } from 'ng2-file-upload';
+
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -37,12 +39,14 @@ const appRoutes: Routes=[
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule, 
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    FileUploadModule
+
   ],
   providers: [
     AuthenticationService, 
