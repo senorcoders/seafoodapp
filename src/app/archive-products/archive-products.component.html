@@ -1,0 +1,46 @@
+<div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)" (window:resize)="onResize($event)">
+    <div class="content">
+      <h3 class="small-title">Get seafood delivered to your home</h3>
+      <h1 class="big-title">Fresh seafood</h1>
+      <a href="" class="white-btn">Show Now <fa name="long-arrow-right"></fa></a>
+    </div>
+</div>
+<div class="products-section">
+  <div class="container">
+    <div class="row">
+      <h2 class="product-result-title">
+        Category Result: <i style="font-size: 2rem">{{category}}</i>
+      </h2>
+    </div>
+    <div class="row search-result" *ngFor="let product of products">
+     <div class="col-lg-4 col-md-4 search-product-img">
+       <a routerLink="/single-product/{{product.id}}">
+          <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="big-img" *ngIf="product.images==null || product.images.length==0; else showImage">
+          <ng-template #showImage>
+            <img src="{{API+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}">
+          </ng-template>
+       </a>
+     </div>
+     <div class="col-lg-8 col-md-8 search-product-desc">
+       <a routerLink="/single-product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
+       <div class="row">
+        <div class="col-lg-4 col-md-6">
+          <div class="search-price">{{product.price.type}}{{product.price.value}}<span class="search-price-type">{{product.price.description}}</span></div>
+        </div>
+        <div class="col-lg-8 col-md-6">
+          <span class="coming-from">From {{product.country}}</span>
+          <div class="seller-img">
+            <img src="../../assets/top-rater-seller.png" alt=""> Top-rated Seller
+          </div>
+        </div>
+       </div>
+     </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <span class="btn-pagination previous" (click)="previousPage()">Previous</span>
+        <span class="btn-pagination next" (click)="nextPage()">Next</span>
+      </div>
+    </div>
+  </div>
+</div>   

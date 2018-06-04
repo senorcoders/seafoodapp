@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
 import { AddProductComponent } from './add-product/add-product.component';
+import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -23,6 +24,7 @@ const appRoutes: Routes=[
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
   {path:'add', component:AddProductComponent},
+  {path:'archive-product/:category', component:ArchiveProductsComponent}
 
 ]
 
@@ -32,7 +34,8 @@ const appRoutes: Routes=[
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    AddProductComponent
+    AddProductComponent,
+    ArchiveProductsComponent
   ],
   imports: [
     BrowserModule,

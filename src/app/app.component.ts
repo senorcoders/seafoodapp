@@ -43,13 +43,13 @@ export class AppComponent{
   }
   addCategoryToMenu(){
     let obj={
-        state:'single-product',
+        state:'archive-product',
         name:'Categories',
         type:'sub',
         children:[]
     };
     this.productsCategories.forEach((category)=>{
-        obj.children.push({state: 'single-product', name: category.name},)
+        obj.children.push({state: `archive-product/${category.name}`, name: category.name},)
     });
     this.menuItems.addMenuItem(obj)
   }
