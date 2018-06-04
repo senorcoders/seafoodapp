@@ -24,7 +24,6 @@ export class AppComponent{
       this.isLoggedSr.setLogin(false)
     }
     this.getAllProductsCategories()
-    this.addCategoryToMenu()
   }
   logOut(){
     this.isLoggedSr.setLogin(false)
@@ -35,7 +34,7 @@ export class AppComponent{
     this.productService.getAllCategoriesProducts().subscribe(
       result=>{
         this.productsCategories=result;
-        console.log(this.productsCategories)
+        this.addCategoryToMenu();
       },
       error=>{
         console.log(error)
@@ -43,9 +42,15 @@ export class AppComponent{
     )
   }
   addCategoryToMenu(){
-    this.productsCategories.forEach(category=>{
-      console.log(category)
-    })
-    //this.menuItems.add()
+    let obj={
+        state:'single-product',
+        name:'Categories',
+        type:'sub',
+        children:[]
+    };
+    this.productsCategories.forEach((category)=>{
+        obj.children.push({state: 'single-product', name: category.name},)
+    });
+    this.menuItems.addMenuItem(obj)
   }
 }
