@@ -10,6 +10,7 @@ import {
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-product',
@@ -35,7 +36,7 @@ export class AddProductComponent implements OnInit {
   fileToUpload: any;
 
 
-  constructor(private product:ProductService){}
+  constructor(private product:ProductService, private toast:ToastrService){}
   ngOnInit() {
     this.createFormControls();
     this.createForm();
@@ -97,7 +98,8 @@ export class AddProductComponent implements OnInit {
 
       });
     }else{
-      alert("All fields are required");
+      this.toast.error("All fields are required", "Error",{positionClass:"toast-top-right"} );
+
     }
   }
 
@@ -111,7 +113,8 @@ uploadFileToActivity(productID) {
     // do something, if upload success
     console.log("Data", data);
     this.myform.reset();
-    alert("Product added succesfully!");
+    this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
     }, error => {
       console.log(error);
     });
