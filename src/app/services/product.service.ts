@@ -40,7 +40,7 @@ export class ProductService {
     return this.http.get(`${API}api/fish-type/${category}/${page}/10`);
   }
   searchProductByName(name){
-    return this.http.get(API+'fish/?where={"name":{"contains":"'+name+'"}}')
+    return this.http.get(`${API}api/fish/search/${name}`)
   }
 
   getProductDetail(id){
