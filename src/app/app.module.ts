@@ -19,6 +19,9 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
 
+import { FileUploadModule } from 'ng2-file-upload';
+
+
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
   {path:'home', component:HomeComponent},
@@ -42,12 +45,14 @@ const appRoutes: Routes=[
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule,
+    FormsModule, 
     ReactiveFormsModule,
-    HttpClientModule,
+    HttpClientModule, 
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    FileUploadModule
+
   ],
   providers: [
     AuthenticationService, 
