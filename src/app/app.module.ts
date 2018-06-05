@@ -19,6 +19,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
 import { FileUploadModule } from 'ng2-file-upload';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 
 const appRoutes: Routes=[
@@ -39,7 +40,8 @@ const appRoutes: Routes=[
     HomeComponent,
     AddProductComponent,
     ArchiveProductsComponent,
-    SearchComponent
+    SearchComponent,
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,
