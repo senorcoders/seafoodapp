@@ -20,6 +20,7 @@ import { ArchiveProductsComponent } from './archive-products/archive-products.co
 import { SearchComponent } from './search/search.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { SingleProductComponent } from './single-product/single-product.component';
+import { EditProductComponent } from './edit-product/edit-product.component';
 
 
 const appRoutes: Routes=[
@@ -30,7 +31,8 @@ const appRoutes: Routes=[
   {path:'add-product', component:AddProductComponent},
   {path:'archive-product/:category', component:ArchiveProductsComponent},
   {path:'search', component:SearchComponent},
-  {path:'product/:id', component:SingleProductComponent}
+  {path:'product/:id', component:SingleProductComponent},
+  {path:'edit-product/:id', component:EditProductComponent}
 
 ]
 
@@ -43,7 +45,8 @@ const appRoutes: Routes=[
     AddProductComponent,
     ArchiveProductsComponent,
     SearchComponent,
-    SingleProductComponent
+    SingleProductComponent,
+    EditProductComponent
   ],
   imports: [
     BrowserModule,

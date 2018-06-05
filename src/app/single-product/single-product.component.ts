@@ -8,7 +8,7 @@ import { ProductService } from '../services/product.service';
   styleUrls: ['./single-product.component.scss']
 })
 export class SingleProductComponent implements OnInit {
-  productID:any;
+  productID:any; 
   name:any;
   description:any;
   country: any;
