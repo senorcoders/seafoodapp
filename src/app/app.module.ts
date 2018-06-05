@@ -18,7 +18,6 @@ import { IsLoginService } from './core/login/is-login.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
-
 import { FileUploadModule } from 'ng2-file-upload';
 import { SingleProductComponent } from './single-product/single-product.component';
 
@@ -28,7 +27,7 @@ const appRoutes: Routes=[
   {path:'home', component:HomeComponent},
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
-  {path:'add', component:AddProductComponent},
+  {path:'add-product', component:AddProductComponent},
   {path:'archive-product/:category', component:ArchiveProductsComponent},
   {path:'search', component:SearchComponent},
   {path:'product/:id', component:SingleProductComponent}

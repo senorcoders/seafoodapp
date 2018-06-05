@@ -14,6 +14,8 @@ export class ArchiveProductsComponent implements OnInit {
   products:any;
   API:string="http://138.68.19.227:7000";
   prvPage =0;
+  showPrvP:boolean= false;
+  showNextP:boolean=false;
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
@@ -27,7 +29,7 @@ export class ArchiveProductsComponent implements OnInit {
     this.product.getProdutsByCategory(this.category,0).subscribe(
       result=>{
         this.products=result
-        console.log(this.products)
+        this.nextProductsExist()
       },
       error=>{
         this.showError(error.error);
@@ -39,13 +41,29 @@ export class ArchiveProductsComponent implements OnInit {
  showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
+  nextProductsExist(){
+    if(this.products.length>10){
+      this.showNextP=true;
+    }
+    else{
+      this.showNextP=false;
+    }
+  }
+  previousProductExist(){
+    if(this.prvPage>0){
+      this.showPrvP=true;
+    }
+    else{
+      this.showPrvP=false
+    }
+  }
   nextPage(){
     this.prvPage=this.prvPage+1;
     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
       result=>{
         this.products=result;
-        console.log(result)
-        console.log(this.products)
+        this.nextProductsExist();
+        this.previousProductExist()
       },
       error=>{
         console.log(error)
@@ -57,6 +75,7 @@ previousPage(){
     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
       result=>{
         this.products=result;
+        this.previousProductExist();
       },
       error=>{
         console.log(error)

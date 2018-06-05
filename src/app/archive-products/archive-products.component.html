@@ -38,8 +38,8 @@
     </div>
     <div class="row">
       <div class="col">
-        <span class="btn-pagination previous" (click)="previousPage()">Previous</span>
-        <span class="btn-pagination next" (click)="nextPage()">Next</span>
+        <span class="btn-pagination previous" (click)="previousPage()" *ngIf="showPrvP">Previous</span>
+        <span class="btn-pagination next" (click)="nextPage()" *ngIf="showNextP">Next</span>
       </div>
     </div>
   </div>
