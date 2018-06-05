@@ -11,6 +11,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-product',
@@ -33,12 +34,12 @@ export class EditProductComponent implements OnInit {
   base:string="http://138.68.19.227:7000";
   pTypes:any = [];
   country: FormControl;
-  fileToUpload: any;
+  fileToUpload: any = [];
   productID:any;
   show:boolean = false;
 
 
-  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router){}
+  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService){}
   ngOnInit() {
     //this.createFormControls();
     //this.createForm();
@@ -109,7 +110,14 @@ export class EditProductComponent implements OnInit {
       console.log(data);
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         console.log("Done", result);
-        this.uploadFileToActivity(this.productID);
+        console.log("Length", this.fileToUpload.length);
+        if(this.fileToUpload.length > 0){
+          this.uploadFileToActivity(this.productID);
+
+        }else{
+          this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
+        }
 
       });
     
@@ -118,8 +126,8 @@ export class EditProductComponent implements OnInit {
   deleteProduct(){
     this.product.deleteData('fish/'+this.productID).subscribe(result =>{
       console.log("Done", result);
-      alert("Product deleted succesfully!");
-      this.router.navigate(['/home']);
+      this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
+       this.router.navigate(['/home']);
 
     });
   }
@@ -134,7 +142,8 @@ uploadFileToActivity(productID) {
     // do something, if upload success
     console.log("Data", data);
     //this.myform.reset();
-    alert("Product updated succesfully!");
+    this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
     }, error => {
       console.log(error);
     });

@@ -22,6 +22,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
+import { AccountComponent } from './account/account.component';
 
 
 const appRoutes: Routes=[
@@ -34,7 +35,9 @@ const appRoutes: Routes=[
   {path:'search', component:SearchComponent},
   {path:'product/:id', component:SingleProductComponent},
   {path:'add-category', component:AddCategoryComponent},
-  {path:'edit-product/:id', component:EditProductComponent}
+  {path:'edit-product/:id', component:EditProductComponent},
+  {path:'account', component:AccountComponent}
+
 ]
 
 @NgModule({
@@ -48,7 +51,8 @@ const appRoutes: Routes=[
     SearchComponent,
     EditProductComponent,
     AddCategoryComponent,
-    SingleProductComponent
+    SingleProductComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
