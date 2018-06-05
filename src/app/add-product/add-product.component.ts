@@ -33,7 +33,7 @@ export class AddProductComponent implements OnInit {
   base:string="http://138.68.19.227:7000";
   pTypes:any = [];
   country: FormControl;
-  fileToUpload: any;
+  fileToUpload: any = [];
 
 
   constructor(private product:ProductService, private toast:ToastrService){}
@@ -94,7 +94,12 @@ export class AddProductComponent implements OnInit {
       console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
         console.log("Done", result['id']);
-        this.uploadFileToActivity(result['id']);
+        if(this.fileToUpload > 0){
+          this.uploadFileToActivity(result['id']);
+        }else{
+          this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
+        }
 
       });
     }else{

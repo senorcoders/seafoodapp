@@ -34,7 +34,7 @@ export class EditProductComponent implements OnInit {
   base:string="http://138.68.19.227:7000";
   pTypes:any = [];
   country: FormControl;
-  fileToUpload: any;
+  fileToUpload: any = [];
   productID:any;
   show:boolean = false;
 
@@ -110,7 +110,14 @@ export class EditProductComponent implements OnInit {
       console.log(data);
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         console.log("Done", result);
-        this.uploadFileToActivity(this.productID);
+        console.log("Length", this.fileToUpload.length);
+        if(this.fileToUpload.length > 0){
+          this.uploadFileToActivity(this.productID);
+
+        }else{
+          this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
+        }
 
       });
     
