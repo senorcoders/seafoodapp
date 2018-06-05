@@ -7,19 +7,31 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel='stylesheet' id='paraxify-css'  href='http://seafood.senorcoders.com/css/paraxify.css' type='text/css' media='all' />
+  <link rel="stylesheet" href="http://seafood.senorcoders.com/css/flexslider.css">
+
 </head>
 <body>
   <app-root></app-root>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+  <script type='text/javascript' src='http://seafood.senorcoders.com/js/paraxify.min.js?ver=4.9.5'></script>
+  <script src="http://seafood.senorcoders.com/js/jquery.flexslider-min.js"></script>
+
   <script>
   jQuery(document).ready(function(){
+    jQuery('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
       jQuery('.menu-link').bigSlide({
       menuWidth:'300px',
       speed:'450'
     });
     jQuery('.hasChildren').on('click', function(){
       jQuery(this).parent().find('.submenu').toggle('slow')
-    })
+    });
+    
     })
   </script>
 </body>

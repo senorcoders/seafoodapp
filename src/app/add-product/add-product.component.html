@@ -73,10 +73,10 @@
         'has-success': description.valid && (description.dirty || description.touched)
    }">
     <label>Description</label>
-    <input type="text"
-           class="form-control"
+    
+           <textarea class="form-control"
            formControlName="description"
-           required>
+           required></textarea>
     <div class="form-control-feedback"
          *ngIf="description.errors && (description.dirty || description.touched)">
       <p *ngIf="description.errors.required">Description is required</p>
