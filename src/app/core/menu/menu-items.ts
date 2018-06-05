@@ -41,7 +41,9 @@ const menuLogin=[
   type: 'sub',
   children:[
     {state:'add-product', name:'Add New'},
-    {state:'list-product', name:'List Product'}
+    {state:'my-products', name:'My Products'},
+    {state:'add-category', name:'Add Category'},
+    {state:'edit-category', name:'Edit Category'}
   ]
 },
 {
