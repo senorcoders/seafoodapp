@@ -40,4 +40,7 @@ export class SearchComponent implements OnInit {
    showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
+  smallDesc(str) {
+   return str.split(/\s+/).slice(0,20).join(" ");
+  }
 }
