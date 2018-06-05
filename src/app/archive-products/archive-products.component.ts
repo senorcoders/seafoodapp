@@ -42,7 +42,7 @@ export class ArchiveProductsComponent implements OnInit {
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   nextProductsExist(){
-    if(this.products.length>1){
+    if(this.products.length>10){
       this.showNextP=true;
     }
     else{
