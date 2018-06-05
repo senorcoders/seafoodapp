@@ -10,7 +10,7 @@ import {
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-edit-product',
@@ -38,7 +38,7 @@ export class EditProductComponent implements OnInit {
   show:boolean = false;
 
 
-  constructor(private product:ProductService, private route: ActivatedRoute){}
+  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router){}
   ngOnInit() {
     //this.createFormControls();
     //this.createForm();
@@ -113,6 +113,15 @@ export class EditProductComponent implements OnInit {
 
       });
     
+  }
+
+  deleteProduct(){
+    this.product.deleteData('fish/'+this.productID).subscribe(result =>{
+      console.log("Done", result);
+      alert("Product deleted succesfully!");
+      this.router.navigate(['/home']);
+
+    });
   }
 
   handleFileInput(files: FileList) {
