@@ -47,8 +47,18 @@ export class ProductService {
     return this.http.get(`${API}fish/${id}`);
 
   }
-
-
+  addCategory(data){
+    return this.http.post(`${API}fishtype`, data, httpOptions);
+  }
+  AddCategoryImage(file, id){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for(var i = 0; i < file.length; i++) {
+      formData.append("images", file[i]);
+    }
+    return this.http.post(`${API}api/fishtype/images/${id}`, formData, httpOptionsForm);
+  }
 
   postFile(fileToUpload, id){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
