@@ -25,6 +25,17 @@ export class ProductService {
         return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
+
+  updateData(endpoint, data){
+    console.log(JSON.stringify(data));
+        return this.http.put(`${API}${endpoint}`, data, httpOptions);
+
+  }
+
+  deleteData(endpoint){
+    return this.http.delete(`${API}${endpoint}`, httpOptions);
+
+  }
   getProdutsByCategory(category, page){
     return this.http.get(`${API}api/fish-type/${category}/${page}/10`);
   }

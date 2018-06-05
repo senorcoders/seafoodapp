@@ -81,7 +81,7 @@ export class AddProductComponent implements OnInit {
           "description": this.description.value,
           "country": this.country.value,
           "price": {
-              "type": "US Dollar",
+              "type": "$",
               "value": this.price.value,
               "description":  this.price.value + " for pack"
           },
