@@ -13,7 +13,7 @@ export class ArchiveProductsComponent implements OnInit {
   category:string;
   products:any;
   API:string="http://138.68.19.227:7000";
-  prvPage:integer =0;
+  prvPage =0;
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }

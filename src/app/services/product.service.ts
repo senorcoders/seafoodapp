@@ -25,6 +25,8 @@ export class ProductService {
   getProdutsByCategory(category, page){
     return this.http.get(`${API}api/fish-type/${category}/${page}/10`);
   }
-
+  searchProductByName(name){
+    return this.http.get(API+'fish/?where={"name":{"contains":"'+name+'"}}')
+  }
 }
  

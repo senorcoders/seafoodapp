@@ -36,8 +36,9 @@ export class AuthenticationService {
       return false;
     }
   }
-  register(data){
-    let body = {"firstName":data.firstName,"lastName":data.lastName,"location":data.location,"email":data.email,"password":data.password,"role":{"name":"standar"}};
+  register(data,role, dataExtra){
+    let body = {"firstName":data.firstName,"lastName":data.lastName,"email":data.email,"password":data.password,"role":role, "dataExtra":dataExtra};
+    console.log(JSON.stringify(body));
     return this.http.post(`${API}signup`, JSON.stringify(body), httpOptionsTypeResponse);
   }
 }
