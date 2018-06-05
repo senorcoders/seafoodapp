@@ -30,14 +30,17 @@ export class AddCategoryComponent implements OnInit {
   addCategory(){
     this.product.addCategory(this.categoryForm.value).subscribe(
       result=>{
-        this.product.AddCategoryImage(this.fileToUpload, result['id']).subscribe(
-         result=>{
-          this.showSuccess('Category Added');
-         },
-         error=>{
-          this.showError(error.error)
-         }
+        this.showSuccess('Category Added');
+        if(this.fileToUpload!=null){
+          this.product.AddCategoryImage(this.fileToUpload, result['id']).subscribe(
+          result=>{
+            this.showSuccess('Photo Category Added');
+          },
+          error=>{
+            this.showError(error.error)
+          }
         )
+      }
       },
       error=>{
         this.showError(error.error)
@@ -46,7 +49,7 @@ export class AddCategoryComponent implements OnInit {
     )
   }
   uploadImage(event:FileList) {
-    console.log("Files", this.fileToUpload);
+    this.fileToUpload=event;
     let preview = document.querySelector('#previewImg');
     let file    = event.item(0);
     //to convert base64

@@ -13,6 +13,7 @@ import * as jQuery from 'jquery';
 export class AppComponent{
   isLogged:boolean=false;
   productsCategories:any;
+  userData:any;
   constructor(private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService){
   }
   ngOnInit(){
@@ -21,6 +22,7 @@ export class AppComponent{
     })
     if(this.auth.isLogged()){
       this.isLoggedSr.setLogin(true)
+      this.userData=this.auth.getLoginData;
     }else{
       this.isLoggedSr.setLogin(false)
     }
