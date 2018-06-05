@@ -4,7 +4,6 @@ import {AuthenticationService} from './services/authentication.service';
 import {IsLoginService} from './core/login/is-login.service';
 import {ProductService} from './services/product.service';
 import { Router } from '@angular/router';
-import * as jQuery from 'jquery';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -63,8 +63,7 @@ const appRoutes: Routes=[
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
-    FileUploadModule
-
+    FileUploadModule,
   ],
   providers: [
     AuthenticationService, 
