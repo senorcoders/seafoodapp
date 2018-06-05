@@ -1,3 +1,17 @@
-<p>
-  add-category works!
-</p>
+<form [formGroup]="categoryForm" (submit)="addCategory()">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Category Name" formControlName="name" [ngClass]="{'is-invalid':categoryForm.get('name').invalid && categoryForm.get('name').touched}">
+    <div class="invalid-feedback" *ngIf="categoryForm.get('name').hasError('required')">Category Name is Required</div>
+  </div>
+  <div class="form-group">
+   <textarea placeholder="Category Description" formControlName="description" [ngClass]="{'is-invalid':categoryForm.get('description').invalid && categoryForm.get('description').touched}"></textarea>
+    <div class="invalid-feedback" *ngIf="categoryForm.get('description').hasError('required')">Description is Required</div>
+  </div>
+  <div class="form-group">
+    <input type="file" (change)="uploadImage($event.target.files)" class="form-control">
+    <img src="" height="200" alt="Image preview..." id="previewPlayerImg">
+  </div>
+  <div class="form-group">
+   <button type="submit" class="black-btn" [disabled]="categoryForm.invalid">Add Category</button>
+  </div>
+</form>

@@ -31,7 +31,8 @@ const appRoutes: Routes=[
   {path:'add-product', component:AddProductComponent},
   {path:'archive-product/:category', component:ArchiveProductsComponent},
   {path:'search', component:SearchComponent},
-  {path:'product/:id', component:SingleProductComponent}
+  {path:'product/:id', component:SingleProductComponent},
+  {path:'add-category', component:AddCategoryComponent}
 
 ]
 
