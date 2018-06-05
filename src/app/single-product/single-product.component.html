@@ -1,0 +1,88 @@
+<div class="content single-product" *ngIf="show; else elseBlock">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 product-img">
+        <div class="flexslider">
+          <ul class="slides">
+            <li *ngFor="let image of images; index as i; first as isFirst" [attr.data-thumb]="base +image.src">
+                <img [src]="base +image.src" />
+
+            </li>
+            <li data-thumb="http://via.placeholder.com/350x150">
+              <img src="http://via.placeholder.com/350x150" alt="">      
+            </li>
+            <li data-thumb="http://via.placeholder.com/350x150">
+              <img src="http://via.placeholder.com/350x150" alt="">      
+            </li>
+            <li data-thumb="http://via.placeholder.com/350x150">
+              <img src="http://via.placeholder.com/350x150" alt="">      
+            </li>
+          
+          </ul>
+        </div>
+        
+      </div>  
+      <div class="col-lg-4 product-content">
+        <h2 class="product-name">{{name}}</h2>
+        <h5>{{category}}</h5>
+        <div class="product-info">
+          <p>
+           {{description}}
+          <p>
+            <span class="price"><b>{{price}}</b></span>
+          </p>
+          <form action="#">
+            <div class="quantity">
+              <button type="button" id="add" class="add">+</button>
+              <div class="qty-wrapper">
+                <input type="number" step="1" min="1" max="" name="quantity" value="1" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
+                <span> pack</span>
+              </div>
+              <button type="button" id="sub" class="sub">-</button>
+            </div>
+            <button type="submit" class="single_add_to_cart_button button alt animated-rev">Add to cart<i class="hook-img"></i></button>
+          </form>
+        </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <h5 style="text-align:center;margin-top:20px;">What makes our Wild Gulf Shrimp different?</h5>
+        <div class="row">
+          <div class="col-lg-5 col-md-6 col-sm-6 col-5">
+          <ul class="check-icon">
+            <li>Wild Caught</li>
+            <li>Traceable</li>
+            <li>Domestic</li>
+            <li>Sustainable</li>
+          </ul>
+        </div>
+         <div class="col-lg-7 col-md-6 col-sm-6 col-7">
+          <ul class="x-icon">
+            <li>Never Farmed</li>
+            <li>No Hormones or GMOs</li>
+            <li>No Antibiotics</li>
+            <li>Not Processed Overseas</li>
+          </ul>
+        </div>
+        </div>
+        <div class="row" style="margin-top:40px">
+          <div class="col"><img src="http://seafood.senorcoders.com/assets/fish-150x150.png" class="img-fluid" alt=""></div>
+          <div class="col"><img src="http://seafood.senorcoders.com/assets/Seafood-Watch-150x150.png" class="img-fluid" alt=""></div>
+          <div class="col"><img src="http://seafood.senorcoders.com/assets/BCorp-150x150.png" class="img-fluid" alt=""></div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <img src="http://seafood.senorcoders.com/assets/STT_FishermanPage_Illustrations.png" alt="" class="img-fluid" style="width:100%; margin-top:20px">
+      </div>
+    </div>
+   
+  </div>
+</div>
+
+<ng-template #elseBlock>
+  
+  <div class="not-found-grid">
+    <p>Sorry, Product Not found</p>
+  </div>  
+</ng-template>

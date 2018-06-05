@@ -32,6 +32,13 @@ export class ProductService {
     return this.http.get(API+'fish/?where={"name":{"contains":"'+name+'"}}')
   }
 
+  getProductDetail(id){
+    return this.http.get(`${API}fish/${id}`);
+
+  }
+
+
+
   postFile(fileToUpload, id){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
