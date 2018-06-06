@@ -16,7 +16,7 @@
     <div class="content-products">
       <ng-container *ngFor="let product of products; let index = index">
         <div class="big-product" *ngIf="index==0 || index == 3 || index == 6; else otherSide">
-          <a href="#">
+          <a routerLink="/product/{{product.id}}">
             <div class="img-container">
               <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="big-img" *ngIf="product.images==null">
               <img src="{{API+product.images[0].src}}" class="big-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
@@ -26,7 +26,7 @@
         </div>
         <ng-template #otherSide>
           <div class="small-product">
-            <a href="#">
+            <a routerLink="/product/{{product.id}}">
               <div class="img-container">
                 <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="small-img" *ngIf="product.images==null">
                 <img src="{{API+product.images[0].src}}" class="small-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">

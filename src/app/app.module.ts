@@ -23,20 +23,22 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AccountComponent } from './account/account.component';
-
+import {SellerRouterService} from './services/seller-router.service';
+import {BuyerRouterService} from './services/buyer-router.service';
+import {RouterProtectionService} from './services/router-protection.service';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
   {path:'home', component:HomeComponent},
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
-  {path:'add-product', component:AddProductComponent},
-  {path:'archive-product/:category', component:ArchiveProductsComponent},
-  {path:'search', component:SearchComponent},
-  {path:'product/:id', component:SingleProductComponent},
-  {path:'add-category', component:AddCategoryComponent},
-  {path:'edit-product/:id', component:EditProductComponent},
-  {path:'account', component:AccountComponent}
+  {path:'add-product', component:AddProductComponent, canActivate:[SellerRouterService]},
+  {path:'archive-product/:category', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
+  {path:'search', component:SearchComponent, canActivate:[BuyerRouterService]},
+  {path:'product/:id', component:SingleProductComponent, canActivate:[RouterProtectionService]},
+  {path:'add-category', component:AddCategoryComponent, canActivate:[SellerRouterService]},
+  {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},
+  {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]}
 
 ]
 
@@ -69,7 +71,10 @@ const appRoutes: Routes=[
     AuthenticationService, 
     MenuItems,
     IsLoginService,
-    ProductService
+    ProductService,
+    SellerRouterService,
+    BuyerRouterService,
+    RouterProtectionService
   ],
   bootstrap: [AppComponent]
 })

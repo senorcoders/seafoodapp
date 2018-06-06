@@ -14,11 +14,6 @@ export interface Menu {
 }
 const menu=[
 {
-  state:'search',
-  name: 'Search Products',
-  type: 'link',
-},
-{
   state:'login',
   name: 'Login',
   type: 'link',
