@@ -47,8 +47,10 @@ export class AppComponent{
       }
     )
   }
+  goToPage(link){
+    this.router.navigate([`${link}`]);
+  }
   addCategoryToMenu(){
-   
     this.productsCategories.forEach((category)=>{
       this.menuItems.addMenuItem({state: `archive-product/${category.name}`, name: category.name, type:'link'},)
     });

@@ -27,7 +27,7 @@
     <ng-template #menuBuyer>
       <ul class="mobile-nav" *ngIf="isLogged && role==2 else menuAll">
       <li class="item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
-        <a routerLink="{{menuitem.state}}" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+        <a (click)="goToPage(menuitem.state)" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
         <ng-template #submenu class="submenuContainer">
           <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
           <ul class="submenu" *ngIf="menuitem.type === 'sub'">

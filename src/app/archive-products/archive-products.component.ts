@@ -15,12 +15,20 @@ export class ArchiveProductsComponent implements OnInit {
   prvPage =0;
   showPrvP:boolean= false;
   showNextP:boolean=false;
+  showNotFound=false;
   constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService) { }
   ngOnInit() {
-    this.category= this.route.snapshot.params['category'];
-    this.product.getProdutsByCategory(this.category,0).subscribe(
+    this.route.params.subscribe(params => {
+      this.category= this.route.snapshot.params['category'];
+      this.product.getProdutsByCategory(this.category,0).subscribe(
       result=>{
-        this.products=result
+        this.products=result;
+        if(this.products.length==0){
+          this.showNotFound=true;
+        }
+        else{
+          this.showNotFound=false;
+        }
         this.nextProductsExist()
       },
       error=>{
@@ -28,6 +36,7 @@ export class ArchiveProductsComponent implements OnInit {
         console.log(error)
       }
     )
+    });
   }
  showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})

@@ -11,6 +11,9 @@
       <h2 class="product-result-title">
         Category Result: <i style="font-size: 2rem">{{category}}</i>
       </h2>
+      <div class="col-lg-12" *ngIf="showNotFound">
+        <h1 class="notfound">No Products Were Found</h1>
+      </div>
     </div>
     <div class="row search-result" *ngFor="let product of products">
      <div class="col-lg-4 col-md-4 search-product-img">
