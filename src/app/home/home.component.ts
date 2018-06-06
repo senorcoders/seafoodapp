@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
 
 @Component({
@@ -7,16 +7,9 @@ import {ProductService} from'../services/product.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @HostListener('window:resize', ['$event'])
   products:any;
   API:string="http://138.68.19.227:7000";
-  onResize(event) {
-    this.setHeight(event.target.innerHeight);
-  }
   constructor(private product:ProductService) { }
-  setHeight(h){
-    document.getElementById("hero").style.height = h+"px";
-  }
   ngOnInit() {
     let data={
       pageNumber:0,
@@ -30,7 +23,6 @@ export class HomeComponent implements OnInit {
       console.log(error)
     }
    )
-    this.setHeight(window.innerHeight);
   }
 
 }

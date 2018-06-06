@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../services/product.service';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
@@ -8,23 +8,15 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  @HostListener('window:resize', ['$event'])
   searchForm:FormGroup;
   products:any;
   searchQuery:string;
   API:string="http://138.68.19.227:7000";
   constructor(private product: ProductService, private fb:FormBuilder, private toast:ToastrService) { }
   ngOnInit() {
-    this.setHeight(window.innerHeight);
     this.searchForm=this.fb.group({
       search: ['',Validators.required],
     })
-  }
-  onResize(event) {
-    this.setHeight(event.target.innerHeight);
-  }
-  setHeight(h){
-    document.getElementById("hero").style.height = h+"px";
   }
   searchProducts(){
     this.searchQuery=this.searchForm.get('search').value;
