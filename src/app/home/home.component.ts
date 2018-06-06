@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -8,7 +8,6 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  @HostListener('window:resize', ['$event'])
   products:any;
   API:string="http://138.68.19.227:7000";
   user:any;
@@ -48,6 +47,7 @@ export class HomeComponent implements OnInit {
     this.product.saveData("shoppingcart", cart).subscribe(result => {
          this.auth.setCart(result);
     })
+
   }
 
 

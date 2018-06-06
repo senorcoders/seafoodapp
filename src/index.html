@@ -22,7 +22,6 @@
   <script>
     
   jQuery(document).ready(function(){
-    
       jQuery('.menu-link').bigSlide({
       menuWidth:'300px',
       speed:'450'
@@ -30,7 +29,11 @@
     jQuery(document).on( 'click', '.hasChildren', function(){
       jQuery(this).parent().find('.submenu').toggle('slow')
     });
+    jQuery(document).on('click','a',function() {
+      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+      return false;
     });
+  });
 
      (function(jQuery){
     jQuery(window).load(function(){
