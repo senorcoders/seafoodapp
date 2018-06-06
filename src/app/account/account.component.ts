@@ -17,8 +17,17 @@ export class AccountComponent implements OnInit {
     location: "",
 
   };
+  logo:any;
   storeEndpoint:any = "api/store/user/";
+  heroEndpoint:any = 'api/store/hero/';
   buttonText:string;
+  new:boolean = false;
+  fileToUpload: any = [];
+  base:string="http://138.68.19.227:7000";
+  hero:any;
+  fileHero:any = [];
+
+
 
   constructor(private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
@@ -40,10 +49,13 @@ export class AccountComponent implements OnInit {
     this.productService.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
       if(typeof result !== 'undefined' && result.length > 0){
         this.store = result[0];
+        this.logo = result[0].logo;
+        this.hero = result[0].heroImage;
         console.log(this.store);
         this.buttonText = "Update";
       }else{
         this.buttonText = "Create";
+        this.new = true;
       }
      
 
@@ -58,6 +70,58 @@ export class AccountComponent implements OnInit {
     }, error =>{
       this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
     });
+  }
+
+  storeSubmit(){
+    if(this.store.description != "" && this.store.location != ""){
+      if(this.new){
+        this.createStore();
+      }
+
+    }else{
+      this.toast.error("Your store needs a description and location", "Error",{positionClass:"toast-top-right"} );
+
+    }  
+  }
+
+  createStore(){
+    let myStore = {
+      owner: this.info['id'],
+      description: this.store.description,
+      location: this.store.location
+    }
+      this.productService.postStoreForm(myStore, this.fileToUpload).subscribe(result => {
+        if(this.fileHero.length > 0){
+          this.uploadHero();
+        }else{
+          this.toast.success("Your store has been created successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+        }
+
+      }, error => {
+        this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+      })
+  }
+
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files;
+    console.log("Files", files);
+  }
+
+  handleFileHero(files: FileList){
+    this.fileHero = files;
+    console.log("Files", files);
+
+  }
+
+  uploadHero(){
+    this.productService.uploadFile(this.heroEndpoint+this.info.id, "hero", this.fileHero).subscribe(result => {
+      this.toast.success("Your store has been created successfully!",'Well Done',{positionClass:"toast-top-right"})
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+    })
   }
 
 }
