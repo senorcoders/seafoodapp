@@ -316,8 +316,35 @@
   </button>
 
 </form>
+
 <br>
 
+    </div>
+
+    <div class="col-md-12" *ngIf="info.role < 2">
+        <h2>Store Information</h2>
+      <form>
+
+        <div class="form-group">
+            <label>Store Description</label>
+            <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Store Location</label>
+            <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
+            <label>Upload Store Logo</label>
+            <input type="file" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Upload Hero Store</label>
+            <input type="file" class="form-control">
+        </div>
+        <button type="submit"
+          class="btn btn-primary">{{buttonText}} Store
+  </button>
+      </form>
     </div>
   </div>
   <div style="height: 100px;"></div>

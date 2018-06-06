@@ -32,6 +32,10 @@ export class ProductService {
 
   }
 
+  getData(endpoint){
+    return this.http.get(`${API}${endpoint}`)
+  }
+
   deleteData(endpoint){
     return this.http.delete(`${API}${endpoint}`, httpOptions);
 
