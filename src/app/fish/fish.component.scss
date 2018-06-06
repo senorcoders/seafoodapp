@@ -9,12 +9,21 @@
 	margin-top:20px;
 	max-width: 100%;
 }
-form{
+form, table{
 	width: 60%;
     margin: 0 auto;
+    color:#19465f
+}
+.delete{
+	cursor: pointer;
+	color: #ec4343;
+}
+.edit{
+	cursor: pointer;
+	color: #19465f;
 }
 @media(max-width: 768px){
-	form{
+	form, table{
 		width: 100%;
 	}
 }

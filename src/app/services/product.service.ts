@@ -50,6 +50,15 @@ export class ProductService {
   addCategory(data){
     return this.http.post(`${API}fishtype`, data, httpOptions);
   }
+  editCategory(id,data){
+    return this.http.put(`${API}fishtype/${id}`, data, httpOptions);
+  }
+  deleteCategory(id){
+    return this.http.delete(`${API}fishtype/${id}`, httpOptions)
+  }
+  deleteImageCategory(link){
+    return this.http.delete(link, httpOptions)
+  }
   AddCategoryImage(file, id){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
@@ -59,7 +68,6 @@ export class ProductService {
     }
     return this.http.post(`${API}api/fishtype/images/${id}`, formData, httpOptionsForm);
   }
-
   postFile(fileToUpload, id){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
