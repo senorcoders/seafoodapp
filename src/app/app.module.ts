@@ -19,7 +19,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { AddCategoryComponent } from './add-category/add-category.component';
+import { FishComponent } from './fish/fish.component';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AccountComponent } from './account/account.component';
@@ -37,7 +37,7 @@ const appRoutes: Routes=[
   {path:'archive-product/:category', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
   {path:'search', component:SearchComponent, canActivate:[BuyerRouterService]},
   {path:'product/:id', component:SingleProductComponent, canActivate:[RouterProtectionService]},
-  {path:'add-category', component:AddCategoryComponent, canActivate:[SellerRouterService]},
+  {path:'fish', component:FishComponent, canActivate:[SellerRouterService]},
   {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},
   {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]},
   {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
@@ -54,7 +54,7 @@ const appRoutes: Routes=[
     ArchiveProductsComponent,
     SearchComponent,
     EditProductComponent,
-    AddCategoryComponent,
+    FishComponent,
     SingleProductComponent,
     AccountComponent,
     MyProductsComponent

@@ -30,16 +30,19 @@ const menuSeller=[
   name: 'Account Information',
   type: 'link',
 },
-  {
+{
   state:'products',
   name: 'My Products',
   type: 'sub',
   children:[
     {state:'add-product', name:'Add New'},
-    {state:'my-products', name:'My Products'},
-    {state:'add-category', name:'Add Category'},
-    {state:'edit-category', name:'Edit Category'}
+    {state:'my-products', name:'My Products'}
   ]
+},
+{
+  state:'fish',
+  name:'Fish',
+  type: 'link'
 }
 ];
 const menuBuyer=[
