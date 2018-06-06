@@ -26,6 +26,7 @@ import { AccountComponent } from './account/account.component';
 import {SellerRouterService} from './services/seller-router.service';
 import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
+import { MyProductsComponent } from './my-products/my-products.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -38,7 +39,8 @@ const appRoutes: Routes=[
   {path:'product/:id', component:SingleProductComponent, canActivate:[RouterProtectionService]},
   {path:'add-category', component:AddCategoryComponent, canActivate:[SellerRouterService]},
   {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},
-  {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]}
+  {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]},
+  {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
 
 ]
 
@@ -54,7 +56,8 @@ const appRoutes: Routes=[
     EditProductComponent,
     AddCategoryComponent,
     SingleProductComponent,
-    AccountComponent
+    AccountComponent,
+    MyProductsComponent
   ],
   imports: [
     BrowserModule,
