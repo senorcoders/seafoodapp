@@ -32,6 +32,10 @@ export class ProductService {
 
   }
 
+  getData(endpoint){
+    return this.http.get(`${API}${endpoint}`)
+  }
+
   deleteData(endpoint){
     return this.http.delete(`${API}${endpoint}`, httpOptions);
 
@@ -80,6 +84,36 @@ export class ProductService {
     return this.http
       .post(`${API}api/fish/images/${id}`, formData, httpOptionsForm);
 }
+
+uploadFile(endpoint, field, fileToUpload){
+  console.log(endpoint, field, fileToUpload);
+  let httpOptionsForm:any = {headers: new HttpHeaders() };
+  httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+  const formData: FormData = new FormData();
+  for(var i = 0; i < fileToUpload.length; i++) {
+    formData.append(field, fileToUpload[i]);
+}
+
+  return this.http
+    .post(`${API}${endpoint}`, formData, httpOptionsForm);
+}
+
+  postStoreForm(data, fileToUpload){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    let description = data.description;
+    let location = data.location;
+    let owner = data.owner;
+    const formData: FormData = new FormData();
+    formData.append("description", description);
+    formData.append("location", location);
+    formData.append("owner", owner);
+    for(var i = 0; i < fileToUpload.length; i++) {
+      formData.append("logo", fileToUpload[i]);
+    }
+    return this.http
+      .post(`${API}api/store`, formData, httpOptionsForm);
+  }
 
 }
  

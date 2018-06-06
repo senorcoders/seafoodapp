@@ -26,6 +26,8 @@ export class AuthenticationService {
   }
   logOut(){
     localStorage.removeItem('login');
+    localStorage.removeItem('cart');
+
   }
   isLogged(){
     let data=this.getLoginData();
@@ -40,5 +42,16 @@ export class AuthenticationService {
     let body = {"firstName":data.firstName,"lastName":data.lastName,"email":data.email,"password":data.password,"role":role, "dataExtra":dataExtra};
     console.log(JSON.stringify(body));
     return this.http.post(`${API}signup`, JSON.stringify(body), httpOptionsTypeResponse);
+  }
+
+  setCart(data){
+    data = JSON.stringify(data);
+    localStorage.setItem('cart',data);
+
+  }
+
+  getCart(){
+    let data=localStorage.getItem('cart');
+    return JSON.parse(data);
   }
 }
