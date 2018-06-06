@@ -11,24 +11,28 @@ import { Router } from '@angular/router';
 })
 export class AppComponent{
   isLogged:boolean=false;
+  role:any;
   productsCategories:any;
   userData:any;
   constructor(private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService){
   }
   ngOnInit(){
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
-      this.isLogged=val
+      this.isLogged=val;
+    })
+    this.isLoggedSr.role.subscribe((role:number)=>{
+      this.role=role
     })
     if(this.auth.isLogged()){
-      this.isLoggedSr.setLogin(true)
-      this.userData=this.auth.getLoginData;
+      this.userData=this.auth.getLoginData();
+      this.isLoggedSr.setLogin(true, this.userData.role)
     }else{
-      this.isLoggedSr.setLogin(false)
+      this.isLoggedSr.setLogin(false,-1)
     }
-    this.getAllProductsCategories()
+    this.getAllProductsCategories();
   }
   logOut(){
-    this.isLoggedSr.setLogin(false)
+    this.isLoggedSr.setLogin(false,-1)
     this.auth.logOut();
     this.router.navigate(["/home"]);
   }

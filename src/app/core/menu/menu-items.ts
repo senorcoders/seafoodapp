@@ -29,7 +29,7 @@ const menu=[
   type: 'link',
 }
 ];
-const menuLogin=[
+const menuSeller=[
 {
   state:'account',
   name: 'Account Information',
@@ -45,6 +45,13 @@ const menuLogin=[
     {state:'add-category', name:'Add Category'},
     {state:'edit-category', name:'Edit Category'}
   ]
+}
+];
+const menuBuyer=[
+{
+  state:'account',
+  name: 'Account Information',
+  type: 'link',
 },
 {
   state:'search',
@@ -93,8 +100,11 @@ const menuFooter2=[
 ]
 @Injectable()
 export class MenuItems {
-  getLoginMenu():Menu[]{
-    return menuLogin;
+  getSellerMenu():Menu[]{
+    return menuSeller;
+  }
+  getbuyerMenu():Menu[]{
+    return menuBuyer;
   }
   getMenu():Menu[]{
     return menu;
@@ -106,7 +116,7 @@ export class MenuItems {
     return menuFooter2;
   }
   addMenuItem(Menu:Menu){
-    menu.push(Menu);
-    menuLogin.push(Menu);
+    menuBuyer.push(Menu);
+    // menuSeller.push(Menu);
   }
 }

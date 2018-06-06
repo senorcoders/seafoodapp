@@ -314,7 +314,7 @@ countries=[
             this.auth.login(this.sellerForm.value).subscribe(
               result=>{
                 this.auth.setLoginData(result);
-                this.isLoggedSr.setLogin(true)
+                this.isLoggedSr.setLogin(true, result['role'])
                 this.redirectHome();
               },error=>{
                   this.showError(error.error)
@@ -343,7 +343,7 @@ countries=[
             this.auth.login(this.buyerForm.value).subscribe(
               result=>{
                 this.auth.setLoginData(result);
-                this.isLoggedSr.setLogin(true)
+                this.isLoggedSr.setLogin(true,result['role'])
                 this.redirectHome();
               },error=>{
                   this.showError(error.error)

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
         this.auth.setLoginData(data);
-        this.isLoginService.setLogin(true)
+        this.isLoginService.setLogin(true,data['role'])
         this.redirectHome();
       },
       error=>{
