@@ -12,6 +12,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-edit-product',
@@ -22,7 +23,7 @@ export class EditProductComponent implements OnInit {
 
  langs: string[] = [
     'English',
-    'French',
+    'French', 
     'German',
   ];
   myform: FormGroup;
@@ -37,14 +38,25 @@ export class EditProductComponent implements OnInit {
   fileToUpload: any = [];
   productID:any;
   show:boolean = false;
+  user:any;
+  images:any = [];
 
 
-  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService){}
+  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     //this.createFormControls();
     //this.createForm();
+    this.user = this.auth.getLoginData();
     this.getTypes();
     this.productID= this.route.snapshot.params['id'];
+   if(this.user['role'] < 2){
+     this.getDetails();
+   }
+
+  }
+
+
+  getDetails(){
     this.product.getProductDetail(this.productID).subscribe(data => {
       console.log("Product", data);
       this.name = data['name'];
@@ -54,10 +66,10 @@ export class EditProductComponent implements OnInit {
       this.country = data['country'];
       this.show = true;
       this.types = data['type'].id;
+      this.images = data['images'];
   }, error=>{
     console.log("Error", error)
   });
-
   }
   
   getTypes(){
@@ -67,27 +79,6 @@ export class EditProductComponent implements OnInit {
     })
    
   }
-
-  // createFormControls() {
-  //   this.name = new FormControl('', Validators.required);
-  //   this.price = new FormControl('', Validators.required);
-  //   this.measurement = new FormControl('', Validators.required);
-  //   this.description = new FormControl('', Validators.required);
-  //   this.types = new FormControl('', Validators.required);
-  //   this.country = new FormControl('', Validators.required);
-
-  // }
-
-  // createForm() {
-  //   this.myform = new FormGroup({
-  //     name: this.name,
-  //     price: this.price,
-  //     measurement: this.measurement,
-  //     description: this.description,
-  //     types: this.types,
-  //     country: this.country
-  //   });
-  // }
 
   onSubmit() {
       console.log("Form Submitted!");
@@ -105,7 +96,8 @@ export class EditProductComponent implements OnInit {
           "weight": {
               "type": this.measurement,
               "value": 5
-          }
+          },
+          "images": this.images
       }
       console.log(data);
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
@@ -147,6 +139,11 @@ uploadFileToActivity(productID) {
     }, error => {
       console.log(error);
     });
+}
+
+deleteNode(i){
+  this.images.splice(i, 1);
+  console.log(this.images);
 }
 
 }
