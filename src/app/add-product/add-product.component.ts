@@ -11,6 +11,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-add-product',
@@ -34,13 +35,18 @@ export class AddProductComponent implements OnInit {
   pTypes:any = [];
   country: FormControl;
   fileToUpload: any = [];
+  info:any;
+  store:any = [];
+  storeEndpoint:any = 'api/store/user/';
+  existStore:boolean = true;
 
 
-  constructor(private product:ProductService, private toast:ToastrService){}
+  constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();
     this.createForm();
     this.getTypes();
+    this.getMyData();
   }
   
   getTypes(){
@@ -49,6 +55,20 @@ export class AddProductComponent implements OnInit {
       this.pTypes = result;
     })
    
+  }
+
+  getMyData(){
+    this.info = this.auth.getLoginData();
+    this.getStore();
+  }
+
+  getStore(){
+    this.product.getData(this.storeEndpoint + this.info.id).subscribe(results => {
+      this.store = results;
+      if(this.store.length < 1){
+        this.existStore = false;
+      }
+    })
   }
 
   createFormControls() {
@@ -77,6 +97,7 @@ export class AddProductComponent implements OnInit {
       console.log("Form Submitted!");
       let data = {
         "type" : this.types.value,
+        "store": this.store[0].id,
          "quality": "good",
           "name": this.name.value,
           "description": this.description.value,
@@ -94,7 +115,7 @@ export class AddProductComponent implements OnInit {
       console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
         console.log("Done", result['id']);
-        if(this.fileToUpload > 0){
+        if(this.fileToUpload.length > 0){
           this.uploadFileToActivity(result['id']);
         }else{
           this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})

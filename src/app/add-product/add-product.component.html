@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="existStore; else elseBlock">
   <div style="height: 100px;"></div>
   <div class="row">
     <div class="col-md-12">
@@ -390,3 +390,12 @@
   
 
 </div>
+<ng-template #elseBlock>
+  
+  <div class="not-found-grid">
+    <div style="padding: 0 30%;">
+        <p>Hey, You need to create a store before creating any products. Click <a routerLink="/account/">here</a> and create your own store!</p>
+
+    </div>
+  </div>  
+</ng-template>
