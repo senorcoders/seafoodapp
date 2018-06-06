@@ -115,7 +115,7 @@ export class AddProductComponent implements OnInit {
       console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
         console.log("Done", result['id']);
-        if(this.fileToUpload > 0){
+        if(this.fileToUpload.length > 0){
           this.uploadFileToActivity(result['id']);
         }else{
           this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})
