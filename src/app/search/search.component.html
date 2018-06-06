@@ -25,7 +25,7 @@
     </div>
     <div class="row search-result" *ngFor="let product of products">
      <div class="col-lg-4 col-md-4 search-product-img">
-       <a routerLink="/single-product/{{product.id}}">
+       <a routerLink="/product/{{product._id}}">
           <img src="http://seafood.senorcoders.com/assets/uploads/2018/04/Farmed-Salmon-Fillet_grande.jpg" class="big-img" *ngIf="product.images==null || product.images.length==0; else showImage">
           <ng-template #showImage>
             <img src="{{API+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}">
@@ -33,7 +33,7 @@
        </a>
      </div>
      <div class="col-lg-8 col-md-8 search-product-desc">
-       <a routerLink="/single-product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
+       <a routerLink="/product/{{product._id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
        <div class="row">
         <div class="col-lg-3 col-md-3">
           <div class="search-price">$ {{product.price.value}}<span class="search-price-type">{{product.price.description}}</span></div>
