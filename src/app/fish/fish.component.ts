@@ -121,7 +121,6 @@ export class FishComponent implements OnInit {
     if(this.fileToUpload !=null){
       //if the product has a image 
       if(this.currentImage!=null){
-        console.log('has image')
         this.product.deleteImageCategory(this.currentImage).subscribe(
           result=>{
             this.codeToEdit(id,true)
@@ -132,12 +131,10 @@ export class FishComponent implements OnInit {
         )
       }
       else{
-        console.log('not has image')
         this.codeToEdit(id,true)
       }
     }
     else{
-      console.log('just update')
       this.codeToEdit(id, false);
     }
   }
