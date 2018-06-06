@@ -76,6 +76,8 @@ export class AccountComponent implements OnInit {
     if(this.store.description != "" && this.store.location != ""){
       if(this.new){
         this.createStore();
+      }else{
+        this.updateStore();
       }
 
     }else{
@@ -84,6 +86,22 @@ export class AccountComponent implements OnInit {
     }  
   }
 
+  updateStore(){
+    let storeToUpdate = {
+      description: this.store.description,
+      location: this.store.location
+    }
+
+    this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
+      if(this.fileHero.length > 0){
+        this.uploadHero();
+      }else{
+        this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      }
+
+    })
+  }
   createStore(){
     let myStore = {
       owner: this.info['id'],
@@ -116,8 +134,8 @@ export class AccountComponent implements OnInit {
   }
 
   uploadHero(){
-    this.productService.uploadFile(this.heroEndpoint+this.info.id, "hero", this.fileHero).subscribe(result => {
-      this.toast.success("Your store has been created successfully!",'Well Done',{positionClass:"toast-top-right"})
+    this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
+      this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
     }, error => {
       this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
