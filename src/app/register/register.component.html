@@ -1,4 +1,4 @@
-  <div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/hero_slide.jpg)">
+  <div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/hero_slide.jpg)" *ngIf="showConfirmation">
    <div class="content">
     <h3 class="black-title">Register</h3>
     <hr class="hr-small">
@@ -98,5 +98,10 @@
         </div>
       </form>
      </div>
+  </div>
+</div>
+<div class="container-confirmation" *ngIf="!showConfirmation">
+  <div class="content">
+    <h1>Email has been sended to: {{email}}. Please verify it to continue the Registration </h1>
   </div>
 </div>   

@@ -29,6 +29,7 @@ import {RouterProtectionService} from './services/router-protection.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { SlickModule } from 'ngx-slick';
 import { CartComponent } from './cart/cart.component';
+import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -44,6 +45,7 @@ const appRoutes: Routes=[
   {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]},
   {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
+  {path:'verification/:id/:id', component:ConfirmationEmailComponent},
 
 ]
 
@@ -61,7 +63,8 @@ const appRoutes: Routes=[
     SingleProductComponent,
     AccountComponent,
     MyProductsComponent,
-    CartComponent
+    CartComponent,
+    ConfirmationEmailComponent
   ],
   imports: [
     BrowserModule,

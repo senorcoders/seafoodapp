@@ -14,6 +14,8 @@ buyerForm: FormGroup;
 sellerForm:FormGroup;
 buyerShow:boolean=true;
 sellerShow:boolean=false;
+showConfirmation=true;
+email:string;
 countries=[
 {name: "Afghanistan", code: "AF"},
 {name: "Åland Islands", code: "AX"},
@@ -311,15 +313,8 @@ countries=[
         }
         this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
           result=>{
-            this.auth.login(this.sellerForm.value).subscribe(
-              result=>{
-                this.auth.setLoginData(result);
-                this.isLoggedSr.setLogin(true, result['role'])
-                this.redirectHome();
-              },error=>{
-                  this.showError(error.error)
-                }
-            )
+            this.email=this.sellerForm.get('email').value;
+            this.showConfirmation=false;
           },
           error=>{
             console.log(error);
@@ -340,15 +335,8 @@ countries=[
         }
         this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
           result=>{
-            this.auth.login(this.buyerForm.value).subscribe(
-              result=>{
-                this.auth.setLoginData(result);
-                this.isLoggedSr.setLogin(true,result['role'])
-                this.redirectHome();
-              },error=>{
-                  this.showError(error.error)
-                }
-            )
+            this.email=this.buyerForm.get('email').value;
+            this.showConfirmation=false;
           },
           error=>{
             console.log(error);
