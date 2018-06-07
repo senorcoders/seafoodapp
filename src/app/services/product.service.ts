@@ -115,6 +115,9 @@ uploadFile(endpoint, field, fileToUpload){
     return this.http
       .post(`${API}api/store`, formData, httpOptionsForm);
   }
+  getStoreByProduct(id){
+    return this.http.get(`${API}store/${id}`)
+  }
 
 }
  
