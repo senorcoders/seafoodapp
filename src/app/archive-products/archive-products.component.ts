@@ -24,7 +24,6 @@ export class ArchiveProductsComponent implements OnInit {
       this.product.getProdutsByCategory(this.category,0).subscribe(
       result=>{
         this.products=result;
-        console.log(this.products)
         if(this.products.length==0){
           this.showNotFound=true;
         }
