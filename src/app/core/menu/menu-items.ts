@@ -50,11 +50,6 @@ const menuBuyer=[
   state:'account',
   name: 'Account Information',
   type: 'link',
-},
-{
-  state:'search',
-  name: 'Search Products',
-  type: 'link',
 }
 ];
 const menuFooter1=[

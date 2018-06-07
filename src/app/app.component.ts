@@ -4,6 +4,7 @@ import {AuthenticationService} from './services/authentication.service';
 import {IsLoginService} from './core/login/is-login.service';
 import {ProductService} from './services/product.service';
 import { Router } from '@angular/router';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -14,7 +15,8 @@ export class AppComponent{
   role:any;
   productsCategories:any;
   userData:any;
-  constructor(private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService){
+  searchForm: FormGroup;
+  constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService){
   }
   ngOnInit(){
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
@@ -30,6 +32,9 @@ export class AppComponent{
       this.isLoggedSr.setLogin(false,-1)
     }
     this.getAllProductsCategories();
+    this.searchForm=this.fb.group({
+      search:['', Validators.required]
+    })
   }
   logOut(){
     this.isLoggedSr.setLogin(false,-1)
@@ -47,13 +52,20 @@ export class AppComponent{
       }
     )
   }
-  goToPage(link){
-    this.router.navigate([`${link}`]);
+  search(){
+    this.router.navigate([`search/${this.searchForm.get('search').value}`]);
   }
   addCategoryToMenu(){
+    let obj={
+      state:'archive-product',
+      name:'Fish',
+      type:'sub',
+      children:[]
+    };
     this.productsCategories.forEach((category)=>{
-      this.menuItems.addMenuItem({state: `archive-product/${category.name}`, name: category.name, type:'link'},)
-    });
+      obj.children.push({state: `archive-product/${category.name}`, name: category.name},)
+     });
+    this.menuItems.addMenuItem(obj)
     
   }
 }

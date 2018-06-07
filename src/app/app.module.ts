@@ -35,7 +35,7 @@ const appRoutes: Routes=[
   {path:'login', component:LoginComponent},
   {path:'add-product', component:AddProductComponent, canActivate:[SellerRouterService]},
   {path:'archive-product/:category', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
-  {path:'search', component:SearchComponent, canActivate:[BuyerRouterService]},
+  {path:'search/:search', component:SearchComponent, canActivate:[BuyerRouterService]},
   {path:'product/:id', component:SingleProductComponent, canActivate:[RouterProtectionService]},
   {path:'fish', component:FishComponent, canActivate:[SellerRouterService]},
   {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},

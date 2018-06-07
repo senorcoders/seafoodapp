@@ -1,12 +1,78 @@
-<header>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="/" class="img-logo">SEAFOOD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1 else menuBuyer">
+      <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
+        <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+        <ng-template #submenu>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ menuitem.name}}</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+              <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.name}}</a>
+            </div>
+          </li>
+        </ng-template>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" (click)="logOut()">LogOut</a>
+      </li>
+    </ul>
+    <ng-template #menuBuyer>
+      <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2 else menuAll">
+        <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
+          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+          <ng-template #submenu>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ menuitem.name}}</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.name}}</a>
+              </div>
+            </li>
+          </ng-template>
+        </li>
+        <li class="nav-item">
+          <span class="nav-link" (click)="logOut()">LogOut</span>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0" [formGroup]="searchForm" (submit)="search()">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
+          <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">Search Required.</div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">Search</button>
+      </form>
+      <ng-template #menuAll>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item" *ngFor="let menuitem of menuItems.getMenu()">
+          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
+          <ng-template #submenu>
+            <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{ menuitem.name}}</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+              <li class="dropdown-menu" *ngFor="let childitem of menuitem.children">
+                <a routerLink="{{childitem.state}}" class="dropdown-item">{{ childitem.name}}</a>
+              </li>
+            </div>
+            </li>
+          </ng-template>
+        </li>
+      </ul>
+    </ng-template>
+    </ng-template>
+  </div>
+</nav>
+
+<!-- <header>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
       <a class="navbar-brand" routerLink="/" class="img-logo">SEAFOOD</a>
 		  <a href="#menu" class="menu-link btn-menu">&#9776;</a>
     </div>
   </nav>
-</header>
-<nav id="menu" class="panel" role="navigation">
+</header> -->
+<!-- <nav id="menu" class="panel" role="navigation">
     <div class="container-close"><a href="#" class="menu-link">X</a></div>
     <ul class="mobile-nav" *ngIf="isLogged && role==1 else menuBuyer">
       <li class="item" *ngFor="let menuitem of menuItems.getSellerMenu()">
@@ -57,9 +123,7 @@
       </ul>
     </ng-template>
     </ng-template>
-	</nav>
-<div class="push">
-  <div class="menu-link" id="close-menu"></div>
+	</nav> -->
 <router-outlet></router-outlet>
 <footer>
   <div class="container-fluid">
@@ -106,4 +170,3 @@ Powered by Shopify
     </div>
   </div>
 </footer>
-</div>
