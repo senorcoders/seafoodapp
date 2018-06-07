@@ -12,11 +12,7 @@
           
           </ul>
         </div>
-        <ngx-slick class="carousel" #slickModal="slick-modal" [config]="slideConfig" (afterChange)="afterChange($event)">
-          <div ngxSlickItem *ngFor="let image of images" class="slide">
-                <img src="{{ base +image.src }}" alt="" width="100%">
-          </div>
-      </ngx-slick>
+        
         
         
       </div>  

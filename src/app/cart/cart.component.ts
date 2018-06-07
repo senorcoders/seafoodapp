@@ -11,6 +11,7 @@ export class CartComponent implements OnInit {
   cart:any;
   products:any = [];
   empty:boolean = true;
+  total:any;
   constructor(private auth: AuthenticationService, private productService: ProductService) { }
 
   ngOnInit() {
@@ -26,6 +27,7 @@ export class CartComponent implements OnInit {
     this.productService.getData("shoppingcart/" + this.cart.id).subscribe(result => {
         console.log("Products", result);
         this.products = result['items'];
+        this.total = result['total'];
         if (this.products.length > 0){
           this.empty = false;
         }

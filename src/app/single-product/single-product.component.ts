@@ -95,7 +95,7 @@ export class SingleProductComponent implements OnInit {
   }
 
   goToCart(){
-    this.router.navigate([('/cart/')]);
+    this.router.navigate([('/cart')]);
   }
 
 }
