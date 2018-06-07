@@ -39,6 +39,25 @@
          <div class="col-lg-5 col-md-5">
          {{smallDesc(product.description)}}...
          </div>
+         <div class="col-12" *ngIf="product.store==null; else showStore">
+          <h3 class="store-info">Store Information</h3>
+          No Info about this store
+         </div>
+         <ng-template #showStore>
+            <div class="col-12"><h3 class="store-info">Store Information</h3></div>
+           <div class="col-lg-3 col-md-3">
+             <img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null || product.store.logo.length>0; else showDefault">
+             <ng-template #showDefault>
+               <img src="../../assets/seafood-souq-seller-logo-default.jpg" alt="" class="store-img">
+             </ng-template>
+            </div>
+            <div class="col-lg-9 col-md-9">
+              <b>Owner:</b> <br>
+              {{product.store.owner.firstName}} {{product.store.owner.lastName}}  <br>
+              <b>Store:</b> <br>
+              {{smallDesc(product.store.description)}}
+            </div>
+         </ng-template>
        </div>
      </div>
     </div>
