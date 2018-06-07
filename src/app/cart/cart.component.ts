@@ -9,7 +9,8 @@ import { ProductService } from '../services/product.service';
 })
 export class CartComponent implements OnInit {
   cart:any;
-  products:any = []
+  products:any = [];
+  empty:boolean = true;
   constructor(private auth: AuthenticationService, private productService: ProductService) { }
 
   ngOnInit() {
@@ -25,6 +26,9 @@ export class CartComponent implements OnInit {
     this.productService.getData("shoppingcart/" + this.cart.id).subscribe(result => {
         console.log("Products", result);
         this.products = result['items'];
+        if (this.products.length > 0){
+          this.empty = false;
+        }
     })
   }
 
