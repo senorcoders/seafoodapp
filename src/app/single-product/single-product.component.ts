@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -27,7 +27,10 @@ export class SingleProductComponent implements OnInit {
   priceType:any;
   measurement:any;
   showCart:boolean = false;
-  constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService) { }
+ 
+  slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
+  constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
+  private router: Router) { }
 
   ngOnInit() {
     this.productID= this.route.snapshot.params['id'];
@@ -89,6 +92,10 @@ export class SingleProductComponent implements OnInit {
         this.toast.success("Product added to the cart!",'Product added',{positionClass:"toast-top-right"});
 
     })
+  }
+
+  goToCart(){
+    this.router.navigate([('/cart/')]);
   }
 
 }

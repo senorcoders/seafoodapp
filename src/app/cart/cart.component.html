@@ -1,0 +1,51 @@
+<div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
+  <div class="content">
+    <h3 class="small-title">Get seafood delivered to your home</h3>
+    <h1 class="big-title">Fresh seafood</h1>
+    <a href="" class="white-btn">Show Now <fa name="long-arrow-right"></fa></a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+    <div class="col-md-9"></div>
+    <div class="col-md-3 text-right">
+      <a routerLink="/home" class="link-cart">Back To Shopping</a>
+    </div>
+  </div>
+  <div class="row flex-center" *ngFor="let product of products; index as i;">
+    <div class="col-md-2">
+      <div class="box-input">
+        <input type="number" [value]="product.quantity.value">
+      </div>
+    </div>
+    <div class="col-md-2">
+      @ ${{product.price.value}}
+    </div>
+    <div class="col-md-4">
+      {{product.fish.name}} -  {{product.fish.description}}
+    </div>
+    <div class="col-md-2 text-center">
+      ${{getTotalxItem(product.quantity.value, product.price.value)}}
+    </div>
+    <div class="col-md-2">
+      <button class="cart-btn" (click)="deleteNode(i)"> Delete</button>
+    </div>
+
+  </div>
+  <div class="row" >
+      <div class="col-md-12" style="padding-bottom: 20px;">
+        <hr class="cart-divider">
+      </div>
+      <div class="col-md-3">
+        <button class="cart-btn">Update All</button>
+      </div>
+      <div class="col-md-7 text-right">
+        <h3>Sub Total &nbsp;&nbsp;&nbsp;   $100</h3>
+      </div>
+      <div class="col-md-12 text-right" style="padding-bottom: 20px; padding-top: 20px;">
+        <button class="cart-btn">NEXT</button>
+      </div>
+  </div>
+
+</div>
