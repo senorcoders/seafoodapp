@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 product-img">
-        <div class="flexslider">
+        <!-- <div class="flexslider">
           <ul class="slides">
             <li *ngFor="let image of images; index as i; first as isFirst" [attr.data-thumb]="base +image.src">
                 <img [src]="base +image.src" />
@@ -11,7 +11,8 @@
             
           
           </ul>
-        </div>
+        </div> -->
+        <img [src]="base + images[0].src" alt="" class="img-fluid">
         
         
         

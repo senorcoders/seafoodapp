@@ -27,7 +27,6 @@ import {SellerRouterService} from './services/seller-router.service';
 import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
 import { MyProductsComponent } from './my-products/my-products.component';
-import { SlickModule } from 'ngx-slick';
 import { CartComponent } from './cart/cart.component';
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
 
@@ -76,7 +75,6 @@ const appRoutes: Routes=[
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     FileUploadModule,
-    SlickModule.forRoot()
 
   ],
   providers: [
