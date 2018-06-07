@@ -44,7 +44,8 @@ export class ProductService {
     return this.http.get(`${API}api/fish-type/${category}/${page}/10`);
   }
   searchProductByName(name){
-    return this.http.get(`${API}api/fish/search/${name}`)
+    let body={'search':name};
+    return this.http.post(`${API}api/fish/search/`, body, httpOptions)
   }
 
   getProductDetail(id){
