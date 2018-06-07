@@ -33,7 +33,10 @@ export class HomeComponent implements OnInit {
    )
     this.setHeight(window.innerHeight);
     if(this.auth.isLogged()){
-      this.creatCart();
+      console.log(this.auth.getCart());
+      if(this.auth.getCart() == null){
+        this.creatCart();
+      }
     }
   }
 

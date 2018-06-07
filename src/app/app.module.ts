@@ -27,6 +27,8 @@ import {SellerRouterService} from './services/seller-router.service';
 import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
 import { MyProductsComponent } from './my-products/my-products.component';
+import { SlickModule } from 'ngx-slick';
+import { CartComponent } from './cart/cart.component';
 
 const appRoutes: Routes=[
   {path:'', component:LoginComponent},
@@ -41,6 +43,7 @@ const appRoutes: Routes=[
   {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},
   {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]},
   {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
+  {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
 
 ]
 
@@ -57,7 +60,8 @@ const appRoutes: Routes=[
     FishComponent,
     SingleProductComponent,
     AccountComponent,
-    MyProductsComponent
+    MyProductsComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +73,8 @@ const appRoutes: Routes=[
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     FileUploadModule,
+    SlickModule.forRoot()
+
   ],
   providers: [
     AuthenticationService, 

@@ -1,0 +1,39 @@
+.box-input input{
+    width: 80px;
+    text-align: center;
+    border-color: #000;
+}
+
+.flex-center{
+    align-items: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    justify-content: center;
+}
+
+.cart-btn{
+    background: transparent;
+    border: 2px solid #000;
+    padding: 6px 30px;
+    cursor: pointer;
+}
+
+a.link-cart{
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 20px;
+}
+
+.cart-divider{
+    border-top: 3px solid;
+}
+
+.not-found-grid{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: red;
+}
+
