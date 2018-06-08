@@ -58,7 +58,7 @@ export class AppComponent{
   addCategoryToMenu(){
     let obj={
       state:'archive-product',
-      name:'Fish',
+      name:'Fish Type',
       type:'sub',
       children:[]
     };

@@ -40,8 +40,8 @@ const menuSeller=[
   ]
 },
 {
-  state:'fish',
-  name:'Fish',
+  state:'fish-type',
+  name:'Fish Type',
   type: 'link'
 }
 ];
