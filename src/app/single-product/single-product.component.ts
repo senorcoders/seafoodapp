@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-single-product',
@@ -30,12 +31,19 @@ export class SingleProductComponent implements OnInit {
  
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
-  private router: Router) { }
+  private router: Router) { 
+}
 
   ngOnInit() {
     this.productID= this.route.snapshot.params['id'];
-    this.getProductDetail();
+    this.getProductDetail(); 
     this.getCart();
+    setTimeout(function(){
+      jQuery('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+        });
+    },1000)
   }
 
 

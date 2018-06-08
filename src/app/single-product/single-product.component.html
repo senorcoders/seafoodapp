@@ -12,9 +12,16 @@
           
           </ul>
         </div> -->
-        <img [src]="base + images[0].src" alt="" class="img-fluid">
-        
-        
+        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="images==null || images.length==0;else slider">
+        <ng-template #slider>
+          <div class="flexslider">
+            <div class="slides">
+              <li *ngFor="let image of images; index as i;" attr.data-thumb="{{base}}{{image.src}}">
+                <img src="{{base}}{{image.src}}" alt="">
+              </li>
+            </div>
+          </div>  
+        </ng-template>      
         
       </div>  
       <div class="col-lg-4 product-content">

@@ -241,6 +241,12 @@ footer{
     width: 50px;
     margin: 60px auto;
 }
+.flex-direction-nav{
+  display:none !important;
+}
+.flex-control-thumbs li{
+    max-height: 100px !important;
+}
 @media(max-width: 998px){
   .navbar{
     padding: 0.5rem 1rem !important;
