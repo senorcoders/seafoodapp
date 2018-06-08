@@ -46,7 +46,7 @@
          <ng-template #showStore>
             <div class="col-12"><h3 class="store-info">Store Information</h3></div>
            <div class="col-lg-3 col-md-3">
-             <img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null || product.store.logo.length>0; else showDefault">
+             <img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null && product.store.logo.length>0; else showDefault">
              <ng-template #showDefault>
                <img src="../../assets/seafood-souq-seller-logo-default.jpg" alt="" class="store-img">
              </ng-template>

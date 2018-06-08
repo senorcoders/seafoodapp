@@ -63,67 +63,6 @@
     </ng-template>
   </div>
 </nav>
-
-<!-- <header>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
-      <a class="navbar-brand" routerLink="/" class="img-logo">SEAFOOD</a>
-		  <a href="#menu" class="menu-link btn-menu">&#9776;</a>
-    </div>
-  </nav>
-</header> -->
-<!-- <nav id="menu" class="panel" role="navigation">
-    <div class="container-close"><a href="#" class="menu-link">X</a></div>
-    <ul class="mobile-nav" *ngIf="isLogged && role==1 else menuBuyer">
-      <li class="item" *ngFor="let menuitem of menuItems.getSellerMenu()">
-        <a routerLink="{{menuitem.state}}" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
-        <ng-template #submenu class="submenuContainer">
-          <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
-          <ul class="submenu" *ngIf="menuitem.type === 'sub'">
-            <li class="item mobile-nav__item--secondary" *ngFor="let childitem of menuitem.children">
-              <a routerLink="{{childitem.state}}">{{ childitem.name}}</a>
-            </li>
-          </ul>
-        </ng-template>
-      </li>
-      <li class="item mobile-nav__item--secondary">
-        <span class="mobile-nav__link" (click)="logOut()">LogOut</span>
-      </li>
-    </ul>
-    <ng-template #menuBuyer>
-      <ul class="mobile-nav" *ngIf="isLogged && role==2 else menuAll">
-      <li class="item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
-        <a (click)="goToPage(menuitem.state)" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
-        <ng-template #submenu class="submenuContainer">
-          <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
-          <ul class="submenu" *ngIf="menuitem.type === 'sub'">
-            <li class="item mobile-nav__item--secondary" *ngFor="let childitem of menuitem.children">
-              <a routerLink="{{childitem.state}}">{{ childitem.name}}</a>
-            </li>
-          </ul>
-        </ng-template>
-      </li>
-      <li class="item mobile-nav__item--secondary">
-        <span class="mobile-nav__link" (click)="logOut()">LogOut</span>
-      </li>
-      </ul>
-      <ng-template #menuAll>
-      <ul class="mobile-nav">
-        <li class="item" *ngFor="let menuitem of menuItems.getMenu()">
-          <a routerLink="{{menuitem.state}}" class="mobile-nav__link" *ngIf="menuitem.type === 'link' else submenu">{{ menuitem.name}}</a>
-          <ng-template #submenu class="submenuContainer">
-            <span class="mobile-nav__link hasChildren">{{ menuitem.name}}</span>
-            <ul class="submenu" *ngIf="menuitem.type === 'sub'">
-              <li class="item mobile-nav__item--secondary" *ngFor="let childitem of menuitem.children">
-                <a routerLink="{{childitem.state}}">{{ childitem.name}}</a>
-              </li>
-            </ul>
-          </ng-template>
-        </li>
-      </ul>
-    </ng-template>
-    </ng-template>
-	</nav> -->
 <router-outlet></router-outlet>
 <footer>
   <div class="container-fluid">
@@ -162,8 +101,9 @@
       </div>
       <div class=" col-lg-3 footer-info">
         <p>
-          © 2018, Aqua Best Seafood Market <br> (NYC) - 276 Grand Street New York, <br> NY 10002 - 212-343-4211 - <br> info@aquabestnyc.com
-Powered by Shopify
+          2018, Seafood Souq <br>
+          Dubai Emirates <br>
+          <a href="mailto:info@seafoodsouq.com">info@seafoodsouq.com</a> 
         </p>
       </div>
       </div>

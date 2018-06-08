@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import{ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
-
+declare var jQuery:any;
 @Component({
   selector: 'app-add-category',
   templateUrl: './fish.component.html',
@@ -58,6 +58,7 @@ export class FishComponent implements OnInit {
               this.getCategories();
               this.removePreviusImg();
               this.fileToUpload=null;
+              jQuery('#previewImg').css('display','none')
             },
             error=>{
               this.showError(error.error)
@@ -99,6 +100,7 @@ export class FishComponent implements OnInit {
               this.getCategories();
               this.removePreviusImg();
               this.fileToUpload=null;
+              jQuery('#previewImg').css('display','none')
             },
             error=>{
               this.showError(error.error)
@@ -149,6 +151,7 @@ export class FishComponent implements OnInit {
         this.currentImage='';
         this.categoryForm.reset();
         this.buttonLabel="Add Fish";
+        jQuery('#previewImg').css('display','none')
       },
       error=>{
         this.showError('Something wrong happened')
@@ -157,6 +160,7 @@ export class FishComponent implements OnInit {
     )
   }
   uploadImage(event:FileList) {
+    jQuery('#previewImg').css('display','block')
     this.fileToUpload=event;
     let preview = document.querySelector('#previewImg');
     let file    = event.item(0);
