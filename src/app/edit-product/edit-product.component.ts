@@ -37,7 +37,7 @@ export class EditProductComponent implements OnInit {
   country: FormControl;
   fileToUpload: any = [];
   productID:any;
-  show:boolean = false;
+  show:boolean = true;
   user:any;
   images:any = [];
 
@@ -69,6 +69,7 @@ export class EditProductComponent implements OnInit {
       this.images = data['images'];
   }, error=>{
     console.log("Error", error)
+    this.show = false;
   });
   }
   

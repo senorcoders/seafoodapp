@@ -19,7 +19,7 @@ export class SingleProductComponent implements OnInit {
   priceDesc:any;
   base:any = "http://138.68.19.227:7000";
   category:any;
-  show:boolean = false;
+  show:boolean = true;
   cart:any;
   count:number = 1;
   cartEndpoint:any = 'api/shopping/add/';
@@ -53,6 +53,7 @@ export class SingleProductComponent implements OnInit {
       this.measurement = data['weight'].type;
   }, error=>{
     console.log("Error", error)
+    this.show=false
   });
   }
 
