@@ -39,8 +39,7 @@ export class AddProductComponent implements OnInit {
   store:any = [];
   storeEndpoint:any = 'api/store/user/';
   existStore:boolean = true;
-
-
+  primaryImg:any;
   constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();
@@ -129,13 +128,26 @@ export class AddProductComponent implements OnInit {
     }
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files;
+  handleFileInput(files: FileList, opt) {
+    if(opt != 'primary'){
+      this.fileToUpload = files;
+    }
+    else{
+      this.primaryImg=files;
+    }
     console.log("Files", files);
 }
 
 uploadFileToActivity(productID) {
-  this.product.postFile(this.fileToUpload, productID).subscribe(data => {
+  if(this.primaryImg.length > 0){
+  this.product.postFile(this.primaryImg, productID, 'primary').subscribe(
+    data => {
+      console.log(data)
+    },error => {
+      console.log(error);
+    });
+  }
+  this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
     // do something, if upload success
     console.log("Data", data);
     this.myform.reset();
@@ -144,6 +156,7 @@ uploadFileToActivity(productID) {
     }, error => {
       console.log(error);
     });
+  
 }
 
 }

@@ -371,10 +371,16 @@
   </div>
 
   <div class="form-group">
+    <label for="file">Choose Primary Image</label>
+    <input type="file"
+           id="primary" multiple
+           (change)="handleFileInput($event.target.files, 'primary' )" required>
+  </div>
+  <div class="form-group">
     <label for="file">Choose File</label>
     <input type="file"
            id="file" multiple
-           (change)="handleFileInput($event.target.files)" required>
+           (change)="handleFileInput($event.target.files, 'secundary')" required>
   </div>
 
   
