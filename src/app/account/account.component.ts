@@ -28,6 +28,7 @@ export class AccountComponent implements OnInit {
   hero:any;
   fileHero:any = [];
   heroSlider:SafeStyle;
+  password:any = "";
 
 
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
@@ -66,6 +67,10 @@ export class AccountComponent implements OnInit {
   }
 
   onSubmit(){
+    if(this.password != ""){
+      this.info.password = this.password;
+    }
+    console.log("To send", this.info);
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
         console.log("Resultado", result);
         this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
