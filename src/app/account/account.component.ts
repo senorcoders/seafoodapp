@@ -28,7 +28,7 @@ export class AccountComponent implements OnInit {
   hero:any;
   fileHero:any = [];
   heroSlider:SafeStyle;
-
+  showRepeat:boolean=false;
 
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
@@ -66,6 +66,7 @@ export class AccountComponent implements OnInit {
   }
 
   onSubmit(){
+
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
         console.log("Resultado", result);
         this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
@@ -135,7 +136,9 @@ export class AccountComponent implements OnInit {
     console.log("Files", files);
 
   }
-
+  showRep(){
+    this.showRepeat=true
+  }
   uploadHero(){
     this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
       this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
