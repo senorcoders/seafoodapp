@@ -73,18 +73,24 @@ export class ProductService {
     }
     return this.http.post(`${API}api/fishtype/images/${id}`, formData, httpOptionsForm);
   }
-  postFile(fileToUpload, id){
+  postFile(fileToUpload, id, opt){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     console.log(id, fileToUpload);
     const formData: FormData = new FormData();
-    for(var i = 0; i < fileToUpload.length; i++) {
-      formData.append("images", fileToUpload[i]);
+    if(opt != 'primary'){
+      for(var i = 0; i < fileToUpload.length; i++) {
+        formData.append("images", fileToUpload[i]);
+      }
+      return this.http.post(`${API}api/fish/images/${id}`, formData, httpOptionsForm);
+    }
+    else{
+      for(var i = 0; i < fileToUpload.length; i++) {
+        formData.append("image", fileToUpload[i]);
+      }
+      return this.http.post(`${API}api/fish/image/${id}`, formData, httpOptionsForm);
+    }
   }
-  
-    return this.http
-      .post(`${API}api/fish/images/${id}`, formData, httpOptionsForm);
-}
 
 uploadFile(endpoint, field, fileToUpload){
   console.log(endpoint, field, fileToUpload);
@@ -117,6 +123,15 @@ uploadFile(endpoint, field, fileToUpload){
   }
   getStoreByProduct(id){
     return this.http.get(`${API}store/${id}`)
+  }
+  updatePassword(email, oldpassword, newpassword){
+    let data={
+      'email':email,
+      'password':oldpassword,
+      'newPassword':newpassword
+    }
+    console.log(data)
+    return this.http.put(`${API}api/user/update-password`, data, httpOptions)
   }
 
 }
