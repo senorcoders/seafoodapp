@@ -1,5 +1,5 @@
 <div *ngIf="loggedIn; else elseBlock">
-<div class="page-header" id="hero">
+<div class="page-header" id="hero" *ngIf="info.role<2">
 	<div class="background-img" style="background:url(../../assets/hero_slide.jpg)" *ngIf="store.heroImage ==null || store.heroImage==''; else showImg"></div>
 	<ng-template #showImg>
 		<div class="background-img" [style.background-image]="heroSlider"></div>
@@ -12,7 +12,7 @@
 <div class="container">
   <div style="height: 100px;"></div>
   <div class="row">
-    <div class="col-md-6">
+    <div [ngClass]="info.role>=1 ? 'col-md-6' : 'col-md-12'">
       <h1 class="title">My Account</h1>
       <form 
       
@@ -41,12 +41,6 @@
            required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
 
   </div>
-
-  <div class="form-group">
-    <label>Password</label>
-    <input type="password" class="form-control" (click)="showRep()">
-  </div>
-  
   <div class="form-group">
     <label>Telephone</label>
     <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
@@ -327,13 +321,28 @@
   </button>
 
 </form>
-
+<h6 (click)="showChangePassword()" class="editPassword">Change Password</h6>
+<form (submit)="updatePassword()" *ngIf="showChangeP">
+	<div class="form-group">
+    <label> Current Password</label>
+    <input type="password" class="form-control" [(ngModel)]="currentPassword" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label> New Password</label>
+    <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>Repeat Password</label>
+    <input type="password" class="form-control" [(ngModel)]="repassword" [ngModelOptions]="{standalone: true}">
+  </div>
+  <button class="btn btn-primary">Change</button>
+</form>
 <br>
 
     </div>
 
     <div class="col-md-6" *ngIf="info.role < 2">
-        <h2>Store Information</h2>
+        <h1>Store Information</h1>
       <form (ngSubmit)="storeSubmit()">
 
         <div class="form-group">

@@ -28,8 +28,11 @@ export class AccountComponent implements OnInit {
   hero:any;
   fileHero:any = [];
   heroSlider:SafeStyle;
-  showRepeat:boolean=false;
-
+  password:any = "";
+  repassword:string;
+  showChangeP:boolean=false;
+  currentPassword:string;
+  email:string;
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
@@ -66,7 +69,7 @@ export class AccountComponent implements OnInit {
   }
 
   onSubmit(){
-
+    console.log("To send", this.info);
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
         console.log("Resultado", result);
         this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
@@ -136,8 +139,28 @@ export class AccountComponent implements OnInit {
     console.log("Files", files);
 
   }
-  showRep(){
-    this.showRepeat=true
+  updatePassword(){
+    
+      if(this.repassword == this.password){
+        this.productService.updatePassword(this.info.email,this.currentPassword,this.password).subscribe(
+          result=>{
+            this.toast.success('Password has been changed successfully!', "Error",{positionClass:"toast-top-right"} );
+            this.currentPassword='';
+            this.password="";
+            this.repassword='';
+            this.showChangeP=false;
+          },error=>{
+            console.log(error)
+            this.toast.error('Something wrong happened. Maybe your current password is not the correct one', "Error",{positionClass:"toast-top-right"} );
+          }
+        )
+      }
+      else{
+        this.toast.error('Password and Repeat password not matched', "Error",{positionClass:"toast-top-right"} );
+      }
+  }
+  showChangePassword(){
+    this.showChangeP=true
   }
   uploadHero(){
     this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
