@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-account',
@@ -26,10 +27,10 @@ export class AccountComponent implements OnInit {
   base:string="http://138.68.19.227:7000";
   hero:any;
   fileHero:any = [];
+  heroSlider:SafeStyle;
 
 
-
-  constructor(private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
+  constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
     if(this.auth.isLogged()){
@@ -53,6 +54,7 @@ export class AccountComponent implements OnInit {
         this.logo = result[0].logo;
         this.hero = result[0].heroImage;
         console.log(this.store);
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.store.heroImage})`);
         this.buttonText = "Update";
       }else{
         this.buttonText = "Create";
@@ -137,6 +139,7 @@ export class AccountComponent implements OnInit {
   uploadHero(){
     this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
       this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+      this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
     }, error => {
       this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
