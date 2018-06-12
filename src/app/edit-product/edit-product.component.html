@@ -12,7 +12,6 @@
                 <img class="card-img-top" [src]="base + primaryImg" alt="Primary Image">
                 <div class="card-body">
                     <a class="btn btn-primary" (click)="showUploadBtn()">Edit Image</a>
-                    <a class="btn btn-danger danger">Delete Image</a>
                 </div>
                 <input type="file" id="primary" (change)="updatePrimaryImg($event.target.files)" *ngIf="showUpload">
               </div>
