@@ -5,6 +5,7 @@ import {IsLoginService} from './core/login/is-login.service';
 import {ProductService} from './services/product.service';
 import { Router } from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,7 +17,8 @@ export class AppComponent{
   productsCategories:any;
   userData:any;
   searchForm: FormGroup;
-  constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService){
+  subscribeForm:FormGroup;
+  constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService){
   }
   ngOnInit(){
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
@@ -34,6 +36,9 @@ export class AppComponent{
     this.getAllProductsCategories();
     this.searchForm=this.fb.group({
       search:['', Validators.required]
+    })
+    this.subscribeForm=this.fb.group({
+      email:['',[Validators.required, Validators.email]]
     })
   }
   logOut(){
@@ -67,5 +72,21 @@ export class AppComponent{
      });
     this.menuItems.addMenuItem(obj)
     
+  }
+  subscribe(){
+    this.auth.subscribe(this.subscribeForm.get('email').value).subscribe(
+      result=>{
+        this.toast.success('Now you will receive all our news','Great !!!',{positionClass:"toast-top-right"})
+      },
+      error=>{
+        console.log(error)
+        if(error.error.code=="E_UNIQUE"){
+          this.toast.error('Your email already exists in our database','Error',{positionClass:"toast-top-right"})
+        }
+        else{
+          this.toast.error('Something bad happened. Please try again','Error',{positionClass:"toast-top-right"})
+        }
+      }
+    )
   }
 }

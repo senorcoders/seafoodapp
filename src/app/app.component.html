@@ -69,9 +69,15 @@
     <div class="row">
       <div class="col-md-12 prefooter">
         <div class="subscribe-form">
-           <input type="text" placeholder="Sign up to our mailing list">
-           <input type="submit" class="hide-on-mobile black-btn" value="Subscribe">
-           <button class="black-btn show-on-desktop"><fa name="long-arrow-right"></fa></button>
+          <form [formGroup]="subscribeForm" (submit)="subscribe()">
+           <div class="form-group">
+             <input type="email" class="form-control" placeholder="Sign up to our mailing list" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
+            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
+           <input type="submit" class="hide-on-mobile black-btn" value="Subscribe" [disabled]="subscribeForm.invalid">
+           <button class="black-btn show-on-desktop" [disabled]="subscribeForm.invalid"><fa name="long-arrow-right"></fa></button>
+           </div>
+          </form>
         </div>
       </div>
      </div>
