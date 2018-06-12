@@ -132,7 +132,15 @@ export class EditProductComponent implements OnInit {
     this.fileToUpload = files;
     console.log("Files", files);
 }
-
+addPrimaryImg(img:FileList){
+  this.product.postFile(img, this.productID, 'primary').subscribe(data => {
+    //this.myform.reset();
+    this.getDetails();
+    this.toast.success("Primary Image was added succesfully!",'Well Done',{positionClass:"toast-top-right"})
+    }, error => {
+      console.log(error);
+    });
+}
 uploadFileToActivity(productID) {
   this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
     // do something, if upload success

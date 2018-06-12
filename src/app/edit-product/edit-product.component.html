@@ -336,7 +336,7 @@
 
     <div class="form-group" *ngIf="!primaryImg">
         <label for="file">Choose Primary Image</label>
-        <input type="file" (change)="updatePrimaryImg($event.target.files )" required>
+        <input type="file" (change)="addPrimaryImg($event.target.files )" required>
     </div>
   
     <div class="form-group">
