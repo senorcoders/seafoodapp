@@ -138,8 +138,8 @@ uploadFileToActivity(productID) {
     // do something, if upload success
     console.log("Data", data);
     //this.myform.reset();
+    this.getDetails();
     this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
-
     }, error => {
       console.log(error);
     });
@@ -156,8 +156,11 @@ updatePrimaryImg(img:FileList){
   }
 }
 deleteNode(i){
-  this.images.splice(i, 1);
-  console.log(this.images);
+  let link = this.images[i].src.substring(1);
+  this.product.deleteData(link).subscribe(result =>{
+    this.toast.success("Image deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
+    this.images.splice(i, 1);
+  });
 }
 
 }
