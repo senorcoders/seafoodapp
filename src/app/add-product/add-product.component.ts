@@ -139,7 +139,7 @@ export class AddProductComponent implements OnInit {
 }
 
 uploadFileToActivity(productID) {
-  if(this.primaryImg.length > 0){
+  if(this.primaryImg && this.primaryImg.length > 0){
   this.product.postFile(this.primaryImg, productID, 'primary').subscribe(
     data => {
       console.log(data)
