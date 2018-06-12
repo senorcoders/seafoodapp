@@ -118,7 +118,7 @@ export class EditProductComponent implements OnInit {
   }
 
   deleteProduct(){
-    this.product.deleteData('fish/'+this.productID).subscribe(result =>{
+    this.product.deleteData('api/fish/'+this.productID).subscribe(result =>{
       console.log("Done", result);
       this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
        this.router.navigate(['/home']);

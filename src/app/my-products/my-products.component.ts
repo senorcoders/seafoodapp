@@ -48,7 +48,7 @@ export class MyProductsComponent implements OnInit {
 }
 
 deleteProduct(id, index){
-  this.productService.deleteData('fish/'+id).subscribe(result =>{
+  this.productService.deleteData('api/fish/'+id).subscribe(result =>{
     console.log("Done", result);
     this.deleteNode(index);
     this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
