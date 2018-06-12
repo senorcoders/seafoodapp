@@ -28,7 +28,7 @@ export class SingleProductComponent implements OnInit {
   priceType:any;
   measurement:any;
   showCart:boolean = false;
- 
+  mainImg:any;
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router) { 
@@ -59,6 +59,7 @@ export class SingleProductComponent implements OnInit {
       this.priceValue = data['price'].value;
       this.priceType = data['price'].type;
       this.measurement = data['weight'].type;
+      this.mainImg=data['imagePrimary']
   }, error=>{
     console.log("Error", error)
     this.show=false

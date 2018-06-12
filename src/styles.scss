@@ -246,7 +246,9 @@ footer{
   display:none !important;
 }
 .flex-control-thumbs li{
-    max-height: 100px !important;
+  max-height: 100px !important;
+  margin-bottom: 5px;
+  overflow: hidden;
 }
 @media(max-width: 998px){
   .navbar{

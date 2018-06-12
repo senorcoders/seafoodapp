@@ -16,6 +16,7 @@
         <ng-template #slider>
           <div class="flexslider">
             <div class="slides">
+              <li *ngIf="mainImg && mainImg!=''" attr.data-thumb="{{base}}{{mainImg}}"> <img src="{{base}}{{mainImg}}" alt=""></li>
               <li *ngFor="let image of images; index as i;" attr.data-thumb="{{base}}{{image.src}}">
                 <img src="{{base}}{{image.src}}" alt="">
               </li>
