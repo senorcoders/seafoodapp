@@ -41,7 +41,7 @@ export class EditProductComponent implements OnInit {
   user:any;
   images:any = [];
   primaryImg:string;
-  upLoadPrimary:any;
+  showUpload:boolean=false;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     //this.createFormControls();
@@ -125,25 +125,15 @@ export class EditProductComponent implements OnInit {
 
     });
   }
-
-  handleFileInput(files: FileList, opt) {
-    if(opt != 'primary'){
-      this.fileToUpload = files;
-    }
-    else{
-      this.upLoadPrimary=files;
-    }
+  showUploadBtn(){
+    this.showUpload=true;
+  }
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files;
     console.log("Files", files);
 }
 
 uploadFileToActivity(productID) {
-  if(this.upLoadPrimary.length > 0){
-    this.product.postFile(this.upLoadPrimary, productID, 'primary').subscribe(data => {
-    this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
-    }, error => {
-      console.log(error);
-    });
-  }
   this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
     // do something, if upload success
     console.log("Data", data);
@@ -154,12 +144,17 @@ uploadFileToActivity(productID) {
       console.log(error);
     });
 }
-// deleteImg(){
-// '+this.categories[index].images[0].src
-//   this.product.deleteImageCategory().subscribe(
-
-//   )
-// }
+updatePrimaryImg(img:FileList){
+  if(img.length > 0){
+    this.product.postFile(img, this.productID, 'primary').subscribe(data => {
+    this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
+    this.getDetails();
+    this.showUpload=false;
+    }, error => {
+      console.log(error);
+    });
+  }
+}
 deleteNode(i){
   this.images.splice(i, 1);
   console.log(this.images);

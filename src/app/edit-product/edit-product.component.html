@@ -11,8 +11,10 @@
                 <span class="primary-label">Primary Image</span>
                 <img class="card-img-top" [src]="base + primaryImg" alt="Primary Image">
                 <div class="card-body">
-                  <a class="btn btn-danger danger">Delete Image</a>
+                    <a class="btn btn-primary" (click)="showUploadBtn()">Edit Image</a>
+                    <a class="btn btn-danger danger">Delete Image</a>
                 </div>
+                <input type="file" id="primary" (change)="updatePrimaryImg($event.target.files)" *ngIf="showUpload">
               </div>
         </div>
         <div class="col-md-4" *ngFor="let image of images; index as i; first as isFirst">
@@ -333,10 +335,10 @@
      
     </div>
 
-    <!-- <div class="form-group">
+    <div class="form-group" *ngIf="!primaryImg">
         <label for="file">Choose Primary Image</label>
-        <input type="file" id="primary" multiple (change)="handleFileInput($event.target.files, 'primary' )" required [disabled]="primaryImg!=''">
-    </div> -->
+        <input type="file" (change)="updatePrimaryImg($event.target.files )" required>
+    </div>
   
     <div class="form-group">
       <label for="file">Choose File</label>
