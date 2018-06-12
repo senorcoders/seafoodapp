@@ -146,13 +146,15 @@ uploadFileToActivity(productID) {
 }
 updatePrimaryImg(img:FileList){
   if(img.length > 0){
-    this.product.postFile(img, this.productID, 'primary').subscribe(data => {
-    this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
-    this.getDetails();
-    this.showUpload=false;
-    }, error => {
-      console.log(error);
-    });
+    let link = this.primaryImg.substring(1);
+    this.product.updatePrimaryImage(img, link).subscribe(
+      result=>{
+        this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.getDetails();
+        this.showUpload=false;
+      }, error => {
+        console.log(error);
+      });
   }
 }
 deleteNode(i){

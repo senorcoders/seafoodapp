@@ -133,6 +133,14 @@ uploadFile(endpoint, field, fileToUpload){
     console.log(data)
     return this.http.put(`${API}api/user/update-password`, data, httpOptions)
   }
-
+  updatePrimaryImage(fileToUpload, link){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for(var i = 0; i < fileToUpload.length; i++) {
+      formData.append("image", fileToUpload[i]);
+    }
+    return this.http.put(`${API}${link}`, formData, httpOptionsForm);
+  }
 }
  
