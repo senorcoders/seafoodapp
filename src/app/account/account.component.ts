@@ -14,9 +14,9 @@ export class AccountComponent implements OnInit {
   loggedIn:boolean = false;
   info:any;
   store:any = {
+    name:"",
     description: "",
     location: "",
-
   };
   logo:any;
   storeEndpoint:any = "api/store/user/";
@@ -80,7 +80,7 @@ export class AccountComponent implements OnInit {
   }
 
   storeSubmit(){
-    if(this.store.description != "" && this.store.location != ""){
+    if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
       if(this.new){
         this.createStore();
       }else{
@@ -95,6 +95,7 @@ export class AccountComponent implements OnInit {
 
   updateStore(){
     let storeToUpdate = {
+      name:this.store.name,
       description: this.store.description,
       location: this.store.location
     }
@@ -112,6 +113,7 @@ export class AccountComponent implements OnInit {
   createStore(){
     let myStore = {
       owner: this.info['id'],
+      name:this.store.name,
       description: this.store.description,
       location: this.store.location
     }
