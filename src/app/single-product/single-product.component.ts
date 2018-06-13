@@ -49,12 +49,10 @@ setFlexslider(){
         controlNav: "thumbnails"
         });
       this.showLoading=false
-      console.log('hre')
     },100)
   }
   else{
     this.showLoading=false
-    console.log('here')
   }
 }
   getProductDetail(){

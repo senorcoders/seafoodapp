@@ -6,7 +6,7 @@
 	</ng-template>
     <div class="content">
       <h3 class="small-title">{{info.firstName}} {{info.lastName}}</h3>
-      <h1 class="big-title">{{store.description}}</h1>
+      <h1 class="big-title">{{store.name}}</h1>
     </div>
 </div>
 <div class="container">
@@ -344,7 +344,10 @@
     <div class="col-md-6" *ngIf="info.role < 2">
         <h1>Store Information</h1>
       <form (ngSubmit)="storeSubmit()">
-
+        <div class="form-group">
+            <label>Store Name</label>
+            <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+        </div>
         <div class="form-group">
             <label>Store Description</label>
             <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
