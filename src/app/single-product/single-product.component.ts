@@ -1,4 +1,4 @@
-import { Component, OnInit,  AfterViewChecked } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
@@ -10,7 +10,7 @@ declare var jQuery:any;
   templateUrl: './single-product.component.html',
   styleUrls: ['./single-product.component.scss']
 })
-export class SingleProductComponent implements OnInit,  AfterViewChecked {
+export class SingleProductComponent implements OnInit {
   productID:any; 
   name:any;
   description:any;
@@ -39,15 +39,23 @@ export class SingleProductComponent implements OnInit,  AfterViewChecked {
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
     this.getCart();
-    
   }
 
-ngAfterViewChecked(){
-  jQuery('.flexslider').flexslider({
-    animation: "slide",
-    controlNav: "thumbnails"
-  });
-  this.showLoading=false;
+setFlexslider(){
+  if(this.mainImg || this.images){
+    setTimeout(()=>{
+      jQuery('.flexslider').flexslider({
+        animation: "slide",
+        controlNav: "thumbnails"
+        });
+      this.showLoading=false
+      console.log('hre')
+    },100)
+  }
+  else{
+    this.showLoading=false
+    console.log('here')
+  }
 }
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
@@ -62,6 +70,7 @@ ngAfterViewChecked(){
       this.priceType = data['price'].type;
       this.measurement = data['weight'].type;
       this.mainImg=data['imagePrimary']
+      this.setFlexslider();
   }, error=>{
     console.log("Error", error)
     this.show=false
