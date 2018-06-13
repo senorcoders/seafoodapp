@@ -25,7 +25,7 @@
           <p>
             <span class="price"><b>$ {{price}}</b></span>
           </p>
-          <form action="#">
+          <form action="#" *ngIf="isLogged; else login">
             <div class="quantity">
               <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
               <div class="qty-wrapper">
@@ -37,6 +37,9 @@
             <button (click)="addToCart()" type="submit" class="single_add_to_cart_button button alt animated-rev">Add to cart<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="single_add_to_cart_button button alt animated-rev">View Cart<i class="hook-img"></i></button>
           </form>
+          <ng-template #login>
+            <p>If you want to buy this product. Please Login <a routerLink="/login">here</a></p>
+          </ng-template>
         </div>
         </div>
     </div>   

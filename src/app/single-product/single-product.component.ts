@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import {IsLoginService} from '../core/login/is-login.service';
 declare var jQuery:any;
 
 @Component({
@@ -31,14 +32,18 @@ export class SingleProductComponent implements OnInit {
   mainImg:any;
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
   showLoading:boolean=true;
+  isLogged:boolean;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
-  private router: Router) { 
+  private router: Router, private isLoggedSr: IsLoginService) { 
 }
 
   ngOnInit() {
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
     this.getCart();
+     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
+      this.isLogged=val;
+    })
   }
 
 setFlexslider(){
