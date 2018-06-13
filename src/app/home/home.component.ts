@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DomSanitizer } from '@angular/platform-browser';
+declare var jQuery:any;
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,11 +14,13 @@ export class HomeComponent implements OnInit {
   user:any;
   video:string="http://seafood.senorcoders.com/Water Sea Ocean.mp4";
   videoURLSafe:any;
+  showLoading:boolean=true;
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
   constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer) {
-  this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); }
+    this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
+  }
   setHeight(h){
     document.getElementById("hero").style.height = h+"px";
   }
@@ -42,7 +45,6 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
   creatCart(){
     this.user = this.auth.getLoginData();
     console.log("User", this.user);

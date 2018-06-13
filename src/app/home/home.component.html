@@ -1,4 +1,5 @@
-<div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
+<div class="page-header homepage" id="hero">
+  <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
   <div class="overlay"></div>
   <video width="100%" height="auto" autoplay="" muted="" loop="" style="background:transparent no-repeat 0 0; background-size:cover;" class="video-background">
         <source [src]='videoURLSafe' type="video/mp4">
