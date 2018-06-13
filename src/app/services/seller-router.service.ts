@@ -11,12 +11,12 @@ export class SellerRouterService {
 	    if(this.autorizacionService.role.value==1){
 	        return true;
 	    }else {
-	      this.router.navigate(['/home']);
+	      this.router.navigate(['/']);
 	    return false;
 	  }
 	}
 	else{
-		this.router.navigate(['/home']);
+		this.router.navigate(['/']);
 	    return false;
 	}
 }

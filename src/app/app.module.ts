@@ -31,8 +31,8 @@ import { CartComponent } from './cart/cart.component';
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
 
 const appRoutes: Routes=[
-  {path:'', component:LoginComponent},
-  {path:'home', component:HomeComponent},
+  {path:'', component:HomeComponent},
+  {path:'home', redirectTo: '/'},
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
   {path:'add-product', component:AddProductComponent, canActivate:[SellerRouterService]},

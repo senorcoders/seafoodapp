@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
   }
   redirectHome(){
      if(this.auth.isLogged()){
-      this.router.navigate(["/home"])
+      this.router.navigate(["/"])
     }
   }
   setHeight(h){

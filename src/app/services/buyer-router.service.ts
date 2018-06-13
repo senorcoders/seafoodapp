@@ -12,12 +12,12 @@ export class BuyerRouterService {
 	    if(this.autorizacionService.role.value==2){
 	        return true;
 	    }else {
-	      this.router.navigate(['/home']);
+	      this.router.navigate(['/']);
 	    return false;
 	  }
 	}
 	else{
-		this.router.navigate(['/home']);
+		this.router.navigate(['/']);
 	    return false;
 	}
 }
