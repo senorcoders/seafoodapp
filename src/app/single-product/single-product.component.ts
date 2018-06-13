@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  AfterViewChecked } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
@@ -10,7 +10,7 @@ declare var jQuery:any;
   templateUrl: './single-product.component.html',
   styleUrls: ['./single-product.component.scss']
 })
-export class SingleProductComponent implements OnInit {
+export class SingleProductComponent implements OnInit,  AfterViewChecked {
   productID:any; 
   name:any;
   description:any;
@@ -30,6 +30,7 @@ export class SingleProductComponent implements OnInit {
   showCart:boolean = false;
   mainImg:any;
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
+  showLoading:boolean=true;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router) { 
 }
@@ -38,15 +39,16 @@ export class SingleProductComponent implements OnInit {
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
     this.getCart();
-    setTimeout(function(){
-      jQuery('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: "thumbnails"
-        });
-    },1000)
+    
   }
 
-
+ngAfterViewChecked(){
+  jQuery('.flexslider').flexslider({
+    animation: "slide",
+    controlNav: "thumbnails"
+  });
+  this.showLoading=false;
+}
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
       console.log("Product", data);

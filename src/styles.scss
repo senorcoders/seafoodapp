@@ -265,6 +265,11 @@ footer{
   margin-bottom: 5px;
   overflow: hidden;
 }
+.loading{
+    width: auto;
+    height: auto;
+    max-width: 100%;
+}
 @media(max-width: 998px){
   .navbar{
     padding: 0.5rem 1rem !important;

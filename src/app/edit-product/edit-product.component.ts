@@ -42,6 +42,7 @@ export class EditProductComponent implements OnInit {
   images:any = [];
   primaryImg:string;
   showUpload:boolean=false;
+  showLoading:boolean=true;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     //this.createFormControls();
@@ -68,6 +69,9 @@ export class EditProductComponent implements OnInit {
       this.types = data['type'].id;
       this.images = data['images'];
       this.primaryImg=data['imagePrimary']
+      if(this.primaryImg){
+        this.showLoading=false;
+      }
   }, error=>{
     console.log("Error", error)
     this.show = false;
@@ -157,6 +161,7 @@ updatePrimaryImg(img:FileList){
     let link = this.primaryImg.substring(1);
     this.product.updatePrimaryImage(img, link).subscribe(
       result=>{
+        this.showLoading=true;
         this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
         this.getDetails();
         this.showUpload=false;

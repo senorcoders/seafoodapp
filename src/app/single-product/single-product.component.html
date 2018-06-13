@@ -2,17 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 product-img">
-        <!-- <div class="flexslider">
-          <ul class="slides">
-            <li *ngFor="let image of images; index as i; first as isFirst" [attr.data-thumb]="base +image.src">
-                <img [src]="base +image.src" />
-
-            </li>
-            
-          
-          </ul>
-        </div> -->
-        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="images==null || images.length==0;else slider">
+        <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
+        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="!images;else slider">
         <ng-template #slider>
           <div class="flexslider">
             <div class="slides">
