@@ -38,6 +38,21 @@ body {
 .dropdown-toggle{
   cursor: pointer;
 }
+.twitter i{
+  &:hover{
+    color:#1da1f2 !important;
+  }
+}
+.facebook i{
+  &:hover{
+    color:#4867aa !important;
+  }
+}
+.instagram i{
+  &:hover{
+    color:#ec6f6f !important;
+  }
+}
 .dropdown-menu{
   top: 98%;
   &:hover{
