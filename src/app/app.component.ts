@@ -18,6 +18,7 @@ export class AppComponent{
   userData:any;
   searchForm: FormGroup;
   subscribeForm:FormGroup;
+  fishTypeMenu:any=[];
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService){
   }
   ngOnInit(){
@@ -61,16 +62,19 @@ export class AppComponent{
     this.router.navigate([`search/${this.searchForm.get('search').value}`]);
   }
   addCategoryToMenu(){
-    let obj={
-      state:'archive-product',
-      name:'Fish Type',
-      type:'sub',
-      children:[]
-    };
+    // let obj={
+    //   state:'archive-product',
+    //   name:'Fish Type',
+    //   type:'sub',
+    //   children:[]
+    // };
+    // this.productsCategories.forEach((category)=>{
+    //   obj.children.push({state: `archive-product/${category.name}`, name: category.name},)
+    //  });
+    // this.menuItems.addMenuItem(obj)
     this.productsCategories.forEach((category)=>{
-      obj.children.push({state: `archive-product/${category.name}`, name: category.name},)
-     });
-    this.menuItems.addMenuItem(obj)
+      this.fishTypeMenu.push({state: `archive-product/${category.name}`, name: category.name},)
+    });
     
   }
   subscribe(){
