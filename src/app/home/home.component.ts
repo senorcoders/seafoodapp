@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   products:any;
   API:string="http://138.68.19.227:7000";
   user:any;
-  video:string="http://seafood.senorcoders.com/Water Sea Ocean.mp4";
+  video:string="http://senorcoders.com/Water Sea Ocean.mp4";
   videoURLSafe:any;
   showLoading:boolean=true;
   onResize(event) {
