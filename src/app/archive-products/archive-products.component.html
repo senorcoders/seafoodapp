@@ -16,58 +16,50 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-lg-3 col-md-6 result" *ngFor="let product of products">
+      <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products">
         <div class="search-result">
           <div class="col-lg-12 search-product-img">
-           <a routerLink="/product/{{product.id}}">
-              <img src="{{API+product.imagePrimary}}" alt="Primary" *ngIf="product.imagePrimary && product.imagePrimary!=''; else showSecundary">
-              <ng-template #showSecundary>
-                <img src="{{API+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}" *ngIf="product.images && product.images.length>0; else showDefault">
-                <ng-template #showDefault>
-                  <img src="../../assets/default-img-product.jpg" class="big-img">
-                </ng-template>
+            <img src="{{API+product.imagePrimary}}" alt="Primary" *ngIf="product.imagePrimary && product.imagePrimary!=''; else showSecundary">
+            <ng-template #showSecundary>
+              <img src="{{API+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}" *ngIf="product.images && product.images.length>0; else showDefault">
+              <ng-template #showDefault>
+                <img src="../../assets/default-img-product.jpg" class="big-img">
               </ng-template>
-           </a>
+            </ng-template>
+            <div class="btn-overlay">
+              <a routerLink="/product/{{product.id}}"class="btn-green">View Details</a>
+            </div>
           </div>
           <div class="col-lg-12 search-product-desc">
-           <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
            <div class="row">
-            <div class="col-lg-6">
-              <div class="search-price">$ {{product.price.value}} <span class="search-price-type">{{product.weight.type}}</span></div>
-            </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8 col-8">
+              <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                <b>Location:</b> <br>
-                From {{product.country}}
+                <b>Location: </b>{{product.country}}
               </span>
-            </div>
-             <div class="col-lg-12">
-             {{smallDesc(product.description)}}...
-             </div>
-             <div class="col-12" *ngIf="product.store==null; else showStore">
-              <h3 class="store-info">Store Information</h3>
-              No Info about this store
-             </div>
-             <ng-template #showStore>
-                <div class="col-12"><h3 class="store-info">Store Information</h3></div>
-               <div class="col-lg-3 col-md-3">
-                 <img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null && product.store.logo.length>0; else showDefault">
-                 <ng-template #showDefault>
-                   <img src="../../assets/seafood-souq-seller-logo-default.jpg" alt="" class="store-img">
-                 </ng-template>
-                </div>
-                <div class="col-lg-9 col-md-9">
+              <div *ngIf="product.store==null; else showStore" class="owner">
+                <b>Owner: </b>
+                <p>No owner</p>
+              </div>
+              <ng-template #showStore>
+                <div class="owner">
                   <b>Owner:</b> <br>
-                  {{product.store.owner.firstName}} {{product.store.owner.lastName}}  <br>
-                  <b>Store:</b> <br>
-                  {{smallDesc(product.store.description)}}
+                  {{product.store.owner.firstName}} {{product.store.owner.lastName}}
                 </div>
-             </ng-template>
-             <div class="col-lg-12 view-detail-cont">
-               <a routerLink="/product/{{product.id}}" class="btn-green">View Details</a>
-             </div>
+              </ng-template>
+              <div><b>Fish Description:</b><br>{{smallDesc(product.description)}}...</div>
+            </div>
+            <div class="col-lg-4 col-4">
+              <div class="search-price">
+                ${{product.price.value}} <br>
+                <span class="search-price-type">{{product.weight.type}}</span>
+              </div>
+            </div>
            </div>
          </div>
+         <div class="view-detail-cont">
+            <a routerLink="/product/{{product.id}}" class="btn-green">View Details</a>
+          </div>
        </div>
       </div>
     </div>
