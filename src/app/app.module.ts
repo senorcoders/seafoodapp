@@ -29,6 +29,8 @@ import {RouterProtectionService} from './services/router-protection.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
+import { SingleStoreComponent } from './single-store/single-store.component';
+import { NgxSmartModalModule } from 'ngx-smart-modal';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -45,6 +47,8 @@ const appRoutes: Routes=[
   {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
+  {path:'store/:id', component:SingleStoreComponent},
+
 
 ]
 
@@ -63,7 +67,8 @@ const appRoutes: Routes=[
     AccountComponent,
     MyProductsComponent,
     CartComponent,
-    ConfirmationEmailComponent
+    ConfirmationEmailComponent,
+    SingleStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,7 @@ const appRoutes: Routes=[
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     FileUploadModule,
-
+    NgxSmartModalModule.forRoot()
   ],
   providers: [
     AuthenticationService, 

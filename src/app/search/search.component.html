@@ -62,16 +62,16 @@
              <ng-template #showStore>
                 <div class="col-12"><h3 class="store-info">Store Information</h3></div>
                <div class="col-lg-3 col-md-3">
-                 <img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null && product.store.logo.length>0; else showDefault">
+                  <a routerLink="/store/{{product.store.owner.id}}"><img src="{{API+product.store.logo}}" alt="logo store" class="store-img" *ngIf="product.store.logo!=null && product.store.logo.length>0; else showDefault"></a>
                  <ng-template #showDefault>
-                   <img src="../../assets/seafood-souq-seller-logo-default.jpg" alt="" class="store-img">
+                   <a routerLink="/store/{{product.store.owner.id}}"> <img src="../../assets/seafood-souq-seller-logo-default.jpg" alt="" class="store-img"></a> 
                  </ng-template>
                 </div>
                 <div class="col-lg-9 col-md-9">
                   <b>Owner:</b> <br>
                   {{product.store.owner.firstName}} {{product.store.owner.lastName}}  <br>
                   <b>Store:</b> <br>
-                  {{smallDesc(product.store.description)}}
+                  <a routerLink="/store/{{product.store.owner.id}}">{{smallDesc(product.store.description)}}</a>
                 </div>
              </ng-template>
              <div class="col-lg-12 view-detail-cont">
