@@ -142,5 +142,8 @@ uploadFile(endpoint, field, fileToUpload){
     }
     return this.http.put(`${API}${link}`, formData, httpOptionsForm);
   }
+  suggestions(name){
+    return this.http.post(`${API}api/fish/suggestions`, name, httpOptions)
+  }
 }
  
