@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
+import { ToastrService } from 'ngx-toastr';
+import { element } from 'protractor';
 
 @Component({
   selector: 'app-cart',
@@ -12,7 +14,9 @@ export class CartComponent implements OnInit {
   products:any = [];
   empty:boolean = true;
   total:any;
-  constructor(private auth: AuthenticationService, private productService: ProductService) { }
+  shoppingEnpoint:any = 'shoppingcart/items';
+  constructor(private auth: AuthenticationService, private productService: ProductService,
+    private toast:ToastrService) { }
 
   ngOnInit() {
     this.getCart();
@@ -43,6 +47,39 @@ export class CartComponent implements OnInit {
     console.log(this.products);
   }
 
- 
+  getAllProductsCount(){
+    //console.log("products", this.products);
+    var items:any = {"items": []};
+    this.products.forEach((element, index) => {
+      
+      console.log("Producto", element);
+      let item = { "id": element['id'],
+                   "quantity": {
+                      "type": element['quantity'].type,
+                      "value": element['quantity'].value
+                  }}
+      items['items'].push(item);
+      console.log("Items", items);
+      console.log(index, this.products.length);
+      if (items['items'].length == this.products.length){
+        this.updatecart(items);
+        console.log("Actualizar");
+      } 
+
+    });
+   
+  }
+
+  updatecart(items){
+     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
+      console.log("Updated", result);
+      this.toast.success("Cart updated!",'Well Done',{positionClass:"toast-top-right"})
+
+    }, error => {
+      this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
+
+    })
+  }
+
 
 }
