@@ -5,6 +5,12 @@
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="form-inline mx-auto my-2 my-lg-0" [formGroup]="searchForm" (submit)="search()" *ngIf="isLogged && role>1">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
+          <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">Search Required.</div>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">Search</button>
+      </form>
+    
     <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1 else menuBuyer">
       <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
         <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.name}}</a>
@@ -17,15 +23,19 @@
           </li>
         </ng-template>
       </li>
+      <li class="nav-item" *ngIf="showCart">
+        <a class="nav-link" (click)="goCart()"><fa name="shopping-cart"></fa></a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logOut()">LogOut</a>
       </li>
       <li class="nav-item"><a href="#" class="nav-link twitter"><fa name="twitter"></fa></a></li>
       <li class="nav-item"><a href="#" class="nav-link instagram"><fa name="instagram"></fa></a></li>
       <li class="nav-item"><a href="#" class="nav-link facebook"><fa name="facebook"></fa></a></li>
+      <li class="nav-item"><a href="#" class="nav-link"><fa name="envelope"></fa></a></li>
     </ul>
     <ng-template #menuBuyer>
-      <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2 else menuAll">
+      <ul class="navbar-nav" *ngIf="isLogged && role==2 else menuAll">
         <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
           <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.name}}</a>
           <ng-template #submenu>
@@ -37,18 +47,17 @@
             </li>
           </ng-template>
         </li>
+        <li class="nav-item" *ngIf="showCart">
+          <a class="nav-link" (click)="goCart()"><fa name="shopping-cart"></fa></a>
+        </li>
         <li class="nav-item">
           <span class="nav-link" (click)="logOut()">LogOut</span>
         </li>
         <li class="nav-item"><a href="#" class="nav-link twitter"><fa name="twitter"></fa></a></li>
         <li class="nav-item"><a href="#" class="nav-link instagram"><fa name="instagram"></fa></a></li>
         <li class="nav-item"><a href="#" class="nav-link facebook"><fa name="facebook"></fa></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><fa name="envelope"></fa></a></li>
       </ul>
-      <form class="form-inline my-2 my-lg-0" [formGroup]="searchForm" (submit)="search()">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
-          <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">Search Required.</div>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">Search</button>
-      </form>
       <ng-template #menuAll>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngFor="let menuitem of menuItems.getMenu()">
@@ -67,6 +76,7 @@
         <li class="nav-item"><a href="#" class="nav-link twitter"><fa name="twitter"></fa></a></li>
         <li class="nav-item"><a href="#" class="nav-link instagram"><fa name="instagram"></fa></a></li>
         <li class="nav-item"><a href="#" class="nav-link facebook"><fa name="facebook"></fa></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><fa name="envelope"></fa></a></li>
       </ul>
     </ng-template>
     </ng-template>

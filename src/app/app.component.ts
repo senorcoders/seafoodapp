@@ -19,6 +19,8 @@ export class AppComponent{
   searchForm: FormGroup;
   subscribeForm:FormGroup;
   fishTypeMenu:any=[];
+  showCart:boolean=false;
+  cartItem:any;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService){
   }
   ngOnInit(){
@@ -41,6 +43,14 @@ export class AppComponent{
     this.subscribeForm=this.fb.group({
       email:['',[Validators.required, Validators.email]]
     })
+    this.cartItem=this.auth.getCart;
+    console.log(this.cartItem)
+    if(this.cartItem && this.cartItem.items!=''){
+      this.showCart=true;
+    }
+    else{
+      this.showCart=false;
+    }
   }
   logOut(){
     this.isLoggedSr.setLogin(false,-1)
@@ -60,6 +70,9 @@ export class AppComponent{
   }
   search(){
     this.router.navigate([`search/${this.searchForm.get('search').value}`]);
+  }
+  goCart(){
+    this.router.navigate(['/cart']);
   }
   addCategoryToMenu(){
     // let obj={
