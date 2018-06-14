@@ -27,7 +27,7 @@ const menu=[
 const menuSeller=[
 {
   state:'account',
-  name: 'Account Information',
+  name: 'Profile',
   type: 'link',
 },
 {
@@ -48,7 +48,7 @@ const menuSeller=[
 const menuBuyer=[
 {
   state:'account',
-  name: 'Account Information',
+  name: 'Profile',
   type: 'link',
 }
 ];
