@@ -182,7 +182,15 @@ body {
 }
 .search-product-desc{
   text-align:left;
-  color:#19465f
+  color:#19465f;
+  padding:0
+}
+.result {
+  padding: 0 5px;
+}
+.search-product-img{
+  padding:0;
+  margin-bottom: 20px;
 }
 .products-section a {
     text-decoration: none !important;
@@ -190,15 +198,37 @@ body {
 .search-product-name{
   color:#19465f;
   font-size:1.5rem;
+  text-align: center;
 }
 .search-price-type{
-    display: block;
     font-weight: normal;
     font-size: 1rem;
 }
+.view-detail-cont{
+  text-align: center;
+  margin-top: 20px;
+}
+.btn-green {
+  background: #123345;
+  display: inline-block;
+  color: white;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  &:hover{
+    background-color: #83b0d1;
+    -webkit-transition: background-color 0.5s;
+    -moz-transition: background-color 0.5s;
+    -ms-transition: background-color 0.5s;
+    -o-transition: background-color 0.5s;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    color:white;
+    text-decoration: none
+  }
+}
 .search-price{
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 .seller-img{
     font-size: .8rem;

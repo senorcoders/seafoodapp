@@ -13,6 +13,7 @@ export class SearchComponent implements OnInit {
   products:any;
   searchQuery:string;
   API:string="http://138.68.19.227:7000";
+  showNotFound=false;
   constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService) { }
   ngOnInit() {
     this.searchForm=this.fb.group({
@@ -28,6 +29,12 @@ export class SearchComponent implements OnInit {
     this.product.searchProductByName(query).subscribe(
       result=>{
         this.products=result;
+        if(this.products.length==0){
+          this.showNotFound=true;
+        }
+        else{
+          this.showNotFound=false;
+        }
       },
       error=>{
         console.log(error)
