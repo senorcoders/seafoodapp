@@ -154,9 +154,10 @@ body {
   padding:60px 0;
 }
 .search-result{
-    padding: 20px;
-    box-shadow: 2px 5px 20px -4px black;
-    margin-bottom: 20px;
+  padding: 20px;
+  margin-bottom: 60px;
+  box-shadow: 2px 5px 20px -4px black;
+  height: 100%;
 }
 .product-result-title{
     color: #19465f;
@@ -174,7 +175,6 @@ body {
   width:auto;
   height:auto;
   max-width:100%;
-  max-height:300px;
 }
 .search-product-img a{
     display: block;
@@ -188,10 +188,26 @@ body {
 }
 .result {
   padding: 0 5px;
+  margin-bottom: 40px;
 }
 .search-product-img{
   padding:0;
   margin-bottom: 20px;
+  position: relative;
+  text-align: center;
+  .btn-overlay{
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all ease .2s;
+  }
+  &:hover > .btn-overlay{
+    visibility: visible;
+    opacity: 1;
+    transition: all ease .2s;
+  }
 }
 .products-section a {
     text-decoration: none !important;
@@ -199,15 +215,23 @@ body {
 .search-product-name{
   color:#19465f;
   font-size:1.5rem;
-  text-align: center;
 }
 .search-price-type{
     font-weight: normal;
     font-size: 1rem;
 }
+.coming-from{
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  display: block;
+}
+.owner{
+  margin-bottom: 10px;
+}
 .view-detail-cont{
-  text-align: center;
-  margin-top: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
 .btn-green {
   background: #123345;
