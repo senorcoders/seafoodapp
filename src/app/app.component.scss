@@ -51,3 +51,32 @@ form{
 		}
 	}
 }
+.suggestion{
+	position: absolute;
+    bottom: 0;
+    background: white;
+    transform: translate(0,100%);
+    z-index: 1;
+    border: 1px solid #19465f;
+	ul{
+		padding: 0;
+	    list-style: none;
+	    margin: 0;
+	    li{
+	    	padding: 5px 50px 5px 20px;
+    		border-bottom: 1px solid #19465f;
+    		position: relative;
+    		cursor: pointer;
+    		&:last-child{
+    			border: 0;
+    		}
+    		.count{
+    			color: #19465f;
+			    position: absolute;
+			    right: 5px;
+			    top: 50%;
+			    transform: translate(0,-50%);
+    		}
+	    }
+	}
+}

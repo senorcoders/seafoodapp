@@ -21,6 +21,8 @@ export class AppComponent{
   fishTypeMenu:any=[];
   showCart:boolean=false;
   cartItem:any;
+  showSuggestion:boolean=false;
+  results:any;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService){
   }
   ngOnInit(){
@@ -44,7 +46,6 @@ export class AppComponent{
       email:['',[Validators.required, Validators.email]]
     })
     this.cartItem=this.auth.getCart;
-    console.log(this.cartItem)
     if(this.cartItem && this.cartItem.items!=''){
       this.showCart=true;
     }
@@ -69,7 +70,16 @@ export class AppComponent{
     )
   }
   search(){
+    this.showSuggestion=false;
+    this.results='';
     this.router.navigate([`search/${this.searchForm.get('search').value}`]);
+    this.searchForm.reset()
+  }
+  searchBySuggestion(name){
+    this.searchForm.reset()
+    this.results='';
+    this.showSuggestion=false;
+    this.router.navigate([`search/${name}`]);
   }
   goCart(){
     this.router.navigate(['/cart']);
@@ -105,5 +115,25 @@ export class AppComponent{
         }
       }
     )
+  }
+  suggestions(){
+    let search=this.searchForm.get('search').value
+    if(search && search.length>=3){
+      search={
+        name:search
+      }
+      this.productService.suggestions(search).subscribe(
+        result=>{
+          this.results=result;
+          this.showSuggestion=true;
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    }
+    else{
+      this.showSuggestion=false
+    }
   }
 }
