@@ -4,91 +4,182 @@ export interface ChildrenItems {
   state: string;
   name: string;
   type?: string;
+  translate:any;
 }
-
 export interface Menu {
   state: string;
-  name: string;
   type: string;
-  children?: ChildrenItems[];
+  translate:any;
+  children?: ChildrenItems[],
 }
 const menu=[
 {
   state:'login',
-  name: 'Login',
   type: 'link',
+  translate:{
+    en:{
+      name:'Login'
+    },
+    es:{
+      name:'Iniciar Session'
+    }
+  }
 },
 {
   state:'register',
-  name: 'Register',
   type: 'link',
+  translate:{
+    en:{
+      name:'Register'
+    },
+    es:{
+      name:'Registrarse'
+    }
+  }
 }
 ];
 const menuSeller=[
 {
   state:'account',
-  name: 'Profile',
   type: 'link',
+  translate:{
+    en:{
+      name:'Profile'
+    },
+    es:{
+      name:'Perfil'
+    }
+  }
 },
 {
   state:'products',
-  name: 'My Products',
   type: 'sub',
   children:[
-    {state:'add-product', name:'Add New'},
-    {state:'my-products', name:'My Products'}
-  ]
+    {state:'add-product', name:'add new', translate:{en:{name:'Add New'},es:{name:'Agregar'}}},
+    {state:'my-products', name:'my products',translate:{en:{name:'My Products'},es:{name:'Mis Productos'}}}
+  ],
+  translate:{
+    en:{
+      name:'My Products'
+    },
+    es:{
+      name:'Mis Productos'
+    }
+  }
 },
 {
   state:'fish-type',
-  name:'Fish Type',
-  type: 'link'
+  type: 'link',
+  translate:{
+    en:{
+      name:'Fish Type'
+    },
+    es:{
+      name:'Tipos de Pescados'
+    }
+  }
 }
 ];
 const menuBuyer=[
 {
   state:'account',
-  name: 'Profile',
   type: 'link',
+  translate:{
+    en:{
+      name: 'Profile'
+    },
+    es:{
+      name:'Perfil'
+    }
+  }
 }
 ];
 const menuFooter1=[
   {
     state:"",
-    name:"Homepage",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'Homepage'
+      },
+      es:{
+        name:'Página Principal'
+      }
+    }
   },
   {
     state:"about",
-    name:"About us",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'About us'
+      },
+      es:{
+        name:'Nosotros'
+      }
+    }
   },
   {
     state:"faq",
-    name:"FAQ",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'FAQ'
+      },
+      es:{
+        name:'FAQ'
+      }
+    }
   },
   {
     state:"policy",
-    name:"Policy",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'Policy'
+      },
+      es:{
+        name:'Políticas'
+      }
+    }
   }
 ];
 const menuFooter2=[
   {
     state:"shipping-information",
-    name:"Shipping Information",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'Shipping Information'
+      },
+      es:{
+        name:'Información sobre compras'
+      }
+    }
   },
   {
     state:"support",
-    name:"Support",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'Support'
+      },
+      es:{
+        name:'Soporte'
+      }
+    }
   },
   {
     state:"wholesale-seafood",
-    name:"Wholesale Seafood",
-    type:"link"
+    type:"link",
+    translate:{
+      en:{
+        name: 'Wholesale Seafood'
+      },
+      es:{
+        name:'Mariscos'
+      }
+    }
   }
 ]
 @Injectable()
