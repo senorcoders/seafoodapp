@@ -78,19 +78,19 @@
 
 <ngx-smart-modal  #myModal identifier="myModal">
     <h1>Contact us</h1>
-    <form>
+    <form (ngSubmit)="sendMail()">
         <div class="form-group">
           <label for="name"></label>
-          <input type="text" id="name" class="form-control" required placeholder="Your Name">
+          <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="Your Name">
         </div>
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+          <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
           <label for="message">Your message</label>
-          <textarea required class="form-control" id="message" rows="3"></textarea>
+          <textarea [(ngModel)]="form.message" [ngModelOptions]="{standalone: true}" required class="form-control" id="message" rows="3"></textarea>
         </div>
     
         <button type="submit" class="btn btn-primary">Send</button>
