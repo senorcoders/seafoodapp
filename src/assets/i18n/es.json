@@ -1,6 +1,10 @@
 {
 	"Menu":{
-		"logout": "Cerrar Session"
+		"logout": "Cerrar Session",
+		"search-input-placeholder":"Buscar",
+		"search-input-button":"Buscar",
+		"subscribe-button":"Suscribeme",
+		"subscribe-placeholder":"Suscríbase a nuestra lista de correo"
 	},
 	"Home":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
