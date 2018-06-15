@@ -129,5 +129,16 @@
 		"types":"Fish Types",
 		"edit":"Edit",
 		"delete":"Delete"
+	},
+	"Cart":{
+		"small-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Fresca comida maritima",
+		"banner-button":"Compra ahora",
+		"back":"Back To Shopping",
+		"delete":"Delete",
+		"update":"Update All",
+		"subtotal":"Sub Total",
+		"next":"NEXT",
+		"empty":"Your cart is empty"
 	}
 }

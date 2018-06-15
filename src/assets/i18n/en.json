@@ -129,5 +129,16 @@
 		"types":"Fish Types",
 		"edit":"Edit",
 		"delete":"Delete"
+	},
+	"Cart":{
+		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"big-title-banner":"Fresh seafood",
+		"banner-button":"Show Now",
+		"back":"Back To Shopping",
+		"delete":"Delete",
+		"update":"Update All",
+		"subtotal":"Sub Total",
+		"next":"NEXT",
+		"empty":"Your cart is empty"
 	}
 }
