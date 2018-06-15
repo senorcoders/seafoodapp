@@ -11,5 +11,20 @@
 		"big-title-banner":"Fresh seafood",
 		"banner-button":"Show Now",
 		"title":"Featured Products"
+	},
+	"Account":{
+		"title":"My Account",
+		"first-name":"First Name",
+		"last-name":"Last Name",
+		"email":"Email",
+		"tel":"Telephone",
+		"country":"Country",
+		"baking":"Baking Info",
+		"button-update":"Update Account",
+		"title-change-password":"Change Password",
+		"current":"Current Password",
+		"new":"New Password",
+		"repeat":"Repeat Password",
+		"button-password":"Change"
 	}
 }

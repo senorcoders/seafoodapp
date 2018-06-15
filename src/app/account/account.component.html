@@ -13,20 +13,20 @@
   <div style="height: 100px;"></div>
   <div class="row">
     <div [ngClass]="info.role<=1 ? 'col-md-6' : 'col-md-12'">
-      <h1 class="title">My Account</h1>
+      <h1 class="title">{{'Account.title' | translate}}</h1>
       <form 
       
       (ngSubmit)="onSubmit()">
 
     <div class="form-group" >
-      <label>First Name</label>
+      <label>{{'Account.first-name' | translate}}</label>
       <input type="text"
              class="form-control"
              required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
     </div>
 
     <div class="form-group" >
-      <label>Last Name</label>
+      <label>{{'Account.last-name' | translate}}</label>
       <input type="text"
              class="form-control"
              required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
@@ -35,19 +35,19 @@
 
     
   <div class="form-group" >
-    <label>Email</label>
+    <label>{{'Account.email' | translate}}</label>
     <input type="email"
            class="form-control"
            required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
 
   </div>
   <div class="form-group">
-    <label>Telephone</label>
+    <label>{{'Account.tel' | translate}}</label>
     <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
   </div>
   <div class="form-group"
   >
-<label>Country</label>
+<label>{{'Account.country' | translate}}</label>
 <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
  <option value="AF">Afghanistan</option>
  <option value="AX">Åland Islands</option>
@@ -302,7 +302,7 @@
 
 </div>
 <div class="form-group">
-  <label>Baking Info</label>
+  <label>{{'Account.baking' | translate}}</label>
   <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
 </div>
 <div class="form-group" *ngIf="info.role < 2">
@@ -317,25 +317,25 @@
 </div>
 
   <button type="submit"
-          class="btn btn-primary">Update Account
+          class="btn btn-primary">{{'Account.button-update' | translate}}
   </button>
 
 </form>
-<h6 (click)="showChangePassword()" class="editPassword">Change Password</h6>
+<h6 (click)="showChangePassword()" class="editPassword">{{'Account.title-change-password' | translate}}</h6>
 <form (submit)="updatePassword()" *ngIf="showChangeP">
 	<div class="form-group">
-    <label> Current Password</label>
+    <label>{{'Account.current' | translate}}</label>
     <input type="password" class="form-control" [(ngModel)]="currentPassword" [ngModelOptions]="{standalone: true}">
   </div>
   <div class="form-group">
-    <label> New Password</label>
+    <label>{{'Account.new' | translate}}</label>
     <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
   </div>
   <div class="form-group">
-    <label>Repeat Password</label>
+    <label>{{'Account.repeat' | translate}}</label>
     <input type="password" class="form-control" [(ngModel)]="repassword" [ngModelOptions]="{standalone: true}">
   </div>
-  <button class="btn btn-primary">Change</button>
+  <button class="btn btn-primary">{{'Account.button-password' | translate}}</button>
 </form>
 <br>
 
