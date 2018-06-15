@@ -1,6 +1,10 @@
 {
 	"Menu":{
-		"logout": "Logout"
+		"logout": "Logout",
+		"search-input-placeholder":"Search",
+		"search-input-button":"Search",
+		"subscribe-button":"subscribe",
+		"subscribe-placeholder":"Sign up to our mailing list"
 	},
 	"Home":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",

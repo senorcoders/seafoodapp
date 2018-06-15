@@ -6,13 +6,13 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <form class="form-inline mx-auto my-2 my-lg-0" [formGroup]="searchForm" (submit)="search()" *ngIf="isLogged && role>1">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()">
+        <input class="form-control mr-sm-2" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="{{search}}" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()">
         <div class="suggestion" *ngIf="showSuggestion">
           <ul>
             <li *ngFor="let result of results" (click)="searchBySuggestion(result.name)">{{result.name}} <span class="count">{{result.count}}</span></li>
           </ul>
         </div>
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">Search</button>
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">{{'Menu.search-input-button' | translate}}</button>
       </form>
     
     <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1 else menuBuyer">
@@ -112,10 +112,10 @@
         <div class="subscribe-form">
           <form [formGroup]="subscribeForm" (submit)="subscribe()">
            <div class="form-group">
-             <input type="email" class="form-control" placeholder="Sign up to our mailing list" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+             <input type="email" class="form-control" placeholder="{{'Menu.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
             <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
             <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
-           <input type="submit" class="hide-on-mobile black-btn" value="Subscribe" [disabled]="subscribeForm.invalid">
+           <input type="submit" class="hide-on-mobile black-btn" value="{{'Menu.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
            <button class="black-btn show-on-desktop" [disabled]="subscribeForm.invalid"><fa name="long-arrow-right"></fa></button>
            </div>
           </form>
