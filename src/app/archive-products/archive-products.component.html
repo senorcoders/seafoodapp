@@ -1,18 +1,18 @@
 <div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
     <div class="content">
-      <h3 class="small-title">Get seafood delivered to your home</h3>
-      <h1 class="big-title">Fresh seafood</h1>
-      <a href="" class="white-btn">Show Now <fa name="long-arrow-right"></fa></a>
+      <h3 class="small-title">{{'Archive-product.small-title-banner' | translate}}</h3>
+      <h1 class="big-title">{{'Archive-product.big-title-banner' | translate}}</h1>
+      <a href="" class="white-btn">{{'Archive-product.banner-button' | translate}}<fa name="long-arrow-right"></fa></a>
     </div>
 </div>
 <div class="products-section">
   <div class="container">
     <div class="row">
       <h2 class="product-result-title">
-        Category Result: <i style="font-size: 2rem">{{category}}</i>
+        {{'Archive-product.result-title' | translate}}: <i style="font-size: 2rem">{{category}}</i>
       </h2>
       <div class="col-lg-12" *ngIf="showNotFound">
-        <h1 class="notfound">No Products Were Found</h1>
+        <h1 class="notfound">{{'Archive-product.no-result' | translate}}</h1>
       </div>
     </div>
     <div class="row">
@@ -27,7 +27,7 @@
               </ng-template>
             </ng-template>
             <div class="btn-overlay">
-              <a routerLink="/product/{{product.id}}"class="btn-green">View Details</a>
+              <a routerLink="/product/{{product.id}}"class="btn-green">{{'Archive-product.view-button' | translate}}</a>
             </div>
           </div>
           <div class="col-lg-12 search-product-desc">
@@ -35,19 +35,19 @@
             <div class="col-lg-8 col-8">
               <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                <b>Location: </b>{{product.country}}
+                <b>{{'Archive-product.location' | translate}}: </b>{{product.country}}
               </span>
               <div *ngIf="product.store==null; else showStore" class="owner">
-                <b>Owner: </b>
-                <p>No owner</p>
+                <b>{{'Archive-product.owner' | translate}}: </b>
+                <p>{{'Archive-product.no-owner' | translate}}</p>
               </div>
               <ng-template #showStore>
                 <div class="owner">
-                  <b>Owner:</b> <br>
+                  <b>{{'Archive-product.owner' | translate}}:</b> <br>
                   <a routerLink="/store/{{product.store.owner.id}}"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
                 </div>
               </ng-template>
-              <div><b>Fish Description:</b><br>{{smallDesc(product.description)}}...</div>
+              <div><b>{{'Archive-product.description' | translate}}:</b><br>{{smallDesc(product.description)}}...</div>
             </div>
             <div class="col-lg-4 col-4">
               <div class="search-price">
@@ -58,15 +58,15 @@
            </div>
          </div>
          <div class="view-detail-cont">
-            <a routerLink="/product/{{product.id}}" class="btn-green">View Details</a>
+            <a routerLink="/product/{{product.id}}" class="btn-green">{{'Archive-product.view-button' | translate}}</a>
           </div>
        </div>
       </div>
     </div>
     <div class="row">
       <div class="col">
-        <span class="btn-pagination previous" (click)="previousPage()" *ngIf="showPrvP">Previous</span>
-        <span class="btn-pagination next" (click)="nextPage()" *ngIf="showNextP">Next</span>
+        <span class="btn-pagination previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+        <span class="btn-pagination next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
       </div>
     </div>
   </div>

@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row">
     <div class="col">
-      <h2 class="title">Add Fish Type</h2>
+      <h2 class="title">{{'FishType.add' | translate}}</h2>
       <hr class="hr-small">
       <form [formGroup]="categoryForm" (submit)="addCategory()">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Fish Type Name" formControlName="name" [ngClass]="{'is-invalid':categoryForm.get('name').invalid && categoryForm.get('name').touched}">
-          <div class="invalid-feedback" *ngIf="categoryForm.get('name').hasError('required')">Fish Name is Required</div>
+          <input type="text" class="form-control" placeholder="{{'FishType.name' | translate}}" formControlName="name" [ngClass]="{'is-invalid':categoryForm.get('name').invalid && categoryForm.get('name').touched}">
+          <div class="invalid-feedback" *ngIf="categoryForm.get('name').hasError('required')">{{'FishType.name' | translate}} {{'FishType.required' | translate}}</div>
         </div>
         <div class="form-group">
-         <textarea class="form-control" placeholder="Category Description" formControlName="description" [ngClass]="{'is-invalid':categoryForm.get('description').invalid && categoryForm.get('description').touched}"></textarea>
-          <div class="invalid-feedback" *ngIf="categoryForm.get('description').hasError('required')">Description is Required</div>
+         <textarea class="form-control" placeholder="{{'FishType.description' | translate}}" formControlName="description" [ngClass]="{'is-invalid':categoryForm.get('description').invalid && categoryForm.get('description').touched}"></textarea>
+          <div class="invalid-feedback" *ngIf="categoryForm.get('description').hasError('required')">{{'FishType.description' | translate}} {{'FishType.required' | translate}}</div>
         </div>
         <div class="form-group">
           <input type="file" (change)="uploadImage($event.target.files)" class="form-control" id="inputImg">
@@ -19,7 +19,7 @@
               <img src="" height="200" alt="Image preview..." id="previewImg">
             </div>
             <div class="col" *ngIf="showImage">
-              <h4>Current Image</h4>
+              <h4>{{'FishType.current-image' | translate}}</h4>
               <img src="{{currentImage}}" height="200">
             </div>
           </div>
@@ -32,14 +32,14 @@
   </div>
   <div class="row">
     <div class="col">
-      <h2 class="title">Fish Types</h2>
+      <h2 class="title">{{'FishType.types' | translate}}</h2>
       <hr class="hr-small">
       <table class="table table-striped">
         <thead>
           <tr>
-            <th scope="col">Fish Name</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Delete</th>
+            <th scope="col">{{'FishType.name' | translate}}</th>
+            <th scope="col">{{'FishType.edit' | translate}}</th>
+            <th scope="col">{{'FishType.delete' | translate}}</th>
           </tr>
         </thead>
         <tbody>

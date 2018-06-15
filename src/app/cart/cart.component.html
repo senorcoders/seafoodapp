@@ -1,8 +1,8 @@
 <div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
   <div class="content">
-    <h3 class="small-title">Get seafood delivered to your home</h3>
-    <h1 class="big-title">Fresh seafood</h1>
-    <a href="" class="white-btn">Show Now <fa name="long-arrow-right"></fa></a>
+    <h3 class="small-title">{{'Cart.small-title-banner' | translate}}</h3>
+    <h1 class="big-title">{{'Cart.big-title-banner' | translate}}</h1>
+    <a href="" class="white-btn">{{'Cart.banner-button' | translate}} <fa name="long-arrow-right"></fa></a>
   </div>
 </div> 
 
@@ -10,7 +10,7 @@
   <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="col-md-9"></div>
     <div class="col-md-3 text-right">
-      <a routerLink="/home" class="link-cart">Back To Shopping</a>
+      <a routerLink="/home" class="link-cart">{{'Cart.back' | translate}}</a>
     </div>
   </div>
   <div class="row flex-center" *ngFor="let product of products; index as i;">
@@ -29,7 +29,7 @@
       ${{getTotalxItem(product.quantity.value, product.price.value)}}
     </div>
     <div class="col-md-2">
-      <button class="cart-btn" (click)="deleteNode(i)"> Delete</button>
+      <button class="cart-btn" (click)="deleteNode(i)"> {{'Cart.delete' | translate}}</button>
     </div>
 
   </div>
@@ -38,13 +38,13 @@
         <hr class="cart-divider">
       </div>
       <div class="col-md-3">
-        <button class="cart-btn" (click)="getAllProductsCount()">Update All</button>
+        <button class="cart-btn" (click)="getAllProductsCount()">{{'Cart.update' | translate}}</button>
       </div>
       <div class="col-md-7 text-right">
-        <h3>Sub Total &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
+        <h3>{{'Cart.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
       </div>
       <div class="col-md-12 text-right" style="padding-bottom: 20px; padding-top: 20px;">
-        <button class="cart-btn">NEXT</button>
+        <button class="cart-btn">{{'Cart.next' | translate}}</button>
       </div>
   </div>
 
@@ -53,6 +53,6 @@
 <ng-template #elseBlock>
   
     <div class="not-found-grid">
-      <p>Your cart is empty :(</p>
+      <p>{{'Cart.empty' | translate}} :(</p>
     </div>  
   </ng-template>

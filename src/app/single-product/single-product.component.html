@@ -30,15 +30,15 @@
               <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
               <div class="qty-wrapper">
                 <input type="number" step="1" min="1" max="" name="quantity" [value]="count" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
-                <span> pack</span>
+                <span> {{'SingleProduct.pack' | translate}}</span>
               </div>
               <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
             </div>
-            <button (click)="addToCart()" type="submit" class="single_add_to_cart_button button alt animated-rev">Add to cart<i class="hook-img"></i></button>
-            <button *ngIf="showCart" (click)="goToCart()" class="single_add_to_cart_button button alt animated-rev">View Cart<i class="hook-img"></i></button>
+            <button (click)="addToCart()" type="submit" class="single_add_to_cart_button button alt animated-rev">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+            <button *ngIf="showCart" (click)="goToCart()" class="single_add_to_cart_button button alt animated-rev">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </form>
           <ng-template #login>
-            <p>If you want to buy this product. Please Login <a routerLink="/login">here</a></p>
+            <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
           </ng-template>
         </div>
         </div>
@@ -49,6 +49,6 @@
 <ng-template #elseBlock>
   
   <div class="not-found-grid">
-    <p>Sorry, Product Not found</p>
+    <p>{{'SingleProduct.no-found' | translate}}</p>
   </div>  
 </ng-template>

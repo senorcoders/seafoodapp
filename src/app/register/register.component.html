@@ -1,100 +1,101 @@
   <div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/hero_slide.jpg)" *ngIf="showConfirmation">
    <div class="content">
-    <h3 class="black-title">Register</h3>
+    <h3 class="black-title">{{'Register.title' | translate}}</h3>
     <hr class="hr-small">
     <div class="form-group">
-      <label>Are you Seller or Buyer?</label>
+      <label>{{'Register.select' | translate}}</label>
       <select class="form-control" (change)="showForm($event.target.value)">
-        <option value="2">Buyer</option>
-        <option value="1">Seller</option>
+        <option value="2">{{'Register.buyer' | translate}}</option>
+        <option value="1">{{'Register.seller' | translate}}</option>
       </select>
     </div>
     <div *ngIf="buyerShow">
       <form [formGroup]="buyerForm" (submit)="register()">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
-          <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">First Name Required.</div>
+          <input type="text" class="form-control" placeholder="{{'Register.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
-          <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">Last Name Required.</div>
+          <input type="text" class="form-control" placeholder="{{'Register.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}">
-          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">Email Required.</div>
-          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">Invalid Email</div>	
+          <input type="email" class="form-control" placeholder="{{'Register.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.required' | translate}}.</div>
+          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.invalid' | translate}}</div>	
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
-          <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('required')"> Password Required.</div>
+          <input type="password" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Repeat Password" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
-          <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> Password Required.</div>
+          <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Phone Number" formControlName="tel">
+          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel">
         </div>
         <div class="form-group">
-          <textarea type="text" class="form-control" placeholder="Full Banking Info" formControlName="fullBakingInfo"></textarea>
+          <textarea type="text" class="form-control" placeholder="{{'Register.banking' | translate}}" formControlName="fullBakingInfo"></textarea>
         </div>
         <div class="form-group">
           <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
             <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
           </select>
-          <div class="invalid-feedback" *ngIf="buyerForm.get('location').hasError('required')"> Location Required.</div>
+          <div class="invalid-feedback" *ngIf="buyerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="submit" class="form-control black-btn" value="Register" [disabled]="buyerForm.invalid">
+          <input type="submit" class="form-control black-btn" value="{{'Register.title' | translate}}" [disabled]="buyerForm.invalid">
         </div>
       </form>
     </div>
     <div *ngIf="sellerShow">
       <form [formGroup]="sellerForm" (submit)="register()">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="First Name" formControlName="firstName" [ngClass]="{'is-invalid':sellerForm.get('firstName').invalid && sellerForm.get('firstName').touched}">
-          <div class="invalid-feedback" *ngIf="sellerForm.get('firstName').hasError('required')">First Name Required.</div>
+          <input type="text" class="form-control" placeholder="{{'Register.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':sellerForm.get('firstName').invalid && sellerForm.get('firstName').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('firstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Last Name" formControlName="lastName" [ngClass]="{'is-invalid':sellerForm.get('lastName').invalid && sellerForm.get('lastName').touched}">
-          <div class="invalid-feedback" *ngIf="sellerForm.get('lastName').hasError('required')">Last Name Required.</div>
+          <input type="text" class="form-control" placeholder="{{'Register.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':sellerForm.get('lastName').invalid && sellerForm.get('lastName').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" placeholder="Email" formControlName="email" [ngClass]="{'is-invalid':sellerForm.get('email').invalid && sellerForm.get('email').touched}">
-          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('required')">Email Required.</div>
-          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('email') && !sellerForm.get('email').hasError('required')">Invalid Email</div>	
+          <input type="email" class="form-control" placeholder="{{'Register.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':sellerForm.get('email').invalid && sellerForm.get('email').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.required' | translate}}.</div>
+          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('email') && !sellerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.invalid' | translate}}</div>	
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':sellerForm.get('password').invalid && sellerForm.get('password').touched}">
-          <div class="invalid-feedback" *ngIf="sellerForm.get('password').hasError('required')"> Password Required.</div>
+          <input type="password" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':sellerForm.get('password').invalid && sellerForm.get('password').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('password').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" placeholder="Repeat Password" formControlName="rePassword" [ngClass]="{'is-invalid':sellerForm.get('rePassword').invalid && sellerForm.get('rePassword').touched}">
-          <div class="invalid-feedback" *ngIf="sellerForm.get('rePassword').hasError('required')"> Password Required.</div>
+          <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':sellerForm.get('rePassword').invalid && sellerForm.get('rePassword').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Phone Number" formControlName="tel">
+          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel">
         </div>
         <div class="form-group">
-          <textarea type="text" class="form-control" placeholder="Full Banking Info" formControlName="fullBakingInfo"></textarea>
+          <textarea type="text" class="form-control" placeholder="{{'Register.banking' | translate}}" formControlName="fullBakingInfo"></textarea>
         </div>
         <div class="form-group">
           <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
              <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
           </select>
-          <div class="invalid-feedback" *ngIf="sellerForm.get('location').hasError('required')"> Country Required.</div>
+          <div class="invalid-feedback" *ngIf="sellerForm.get('location').hasError('required')"> {{'Register.banking' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
+          <label>{{'Register.licence' | translate}}</label>
           <input type="file" class="form-control" formControlName="uploadTradeLicense">
         </div>
         <div class="form-group">
-          <label><input type="checkbox" class="form-control" formControlName="sfsAgreementForm">SFS Agreement Form</label>
+          <label><input type="checkbox" class="form-control" formControlName="sfsAgreementForm">{{'Register.sfs' | translate}}</label>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" formControlName="ifLocal" placeholder="SFS Agreement Form">
+          <input type="text" class="form-control" formControlName="ifLocal" placeholder="{{'Register.sfs' | translate}}">
         </div>
         <div class="form-group">
-          <input type="submit" class="form-control black-btn" value="Register" [disabled]="sellerForm.invalid">
+          <input type="submit" class="form-control black-btn" value="{{'Register.title' | translate}}" [disabled]="sellerForm.invalid">
         </div>
       </form>
      </div>
@@ -102,6 +103,6 @@
 </div>
 <div class="container-confirmation" *ngIf="!showConfirmation">
   <div class="content">
-    <h1>Email has been sended to: {{email}}. Please verify it to continue the Registration </h1>
+    <h1>{{'Register.message' | translate}}: {{email}}. {{'Register.verified' | translate}} </h1>
   </div>
 </div>   
