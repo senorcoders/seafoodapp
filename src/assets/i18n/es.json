@@ -155,5 +155,25 @@
 		"return":"Return to Store",
 		"forgot":"Forgot your password?",
 		"login":"Entrar"
+	},
+	"Register":{
+		"title":"Registro",
+		"select":"Are you Seller or Buyer?",
+		"buyer":"Buyer",
+		"seller":"Seller",
+		"first-name":"first Name",
+		"last-name":"Last Name",
+		"email":"Email",
+		"password":"Password",
+		"repeat":"Repeat Password",
+		"tel":"Phone Number",
+		"banking":"Full Banking Info",
+		"country":"Country",
+		"sfs":"SFS Agreement Form",
+		"required":"is required",
+		"invalid":"is invalid",
+		"licence":"Licence",
+		"message":"Email has been sended to",
+		"verified":"Please verify it to continue the Registration"
 	}
 }
