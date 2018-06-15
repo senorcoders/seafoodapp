@@ -69,6 +69,33 @@ body {
   text-transform: uppercase;
   color: #19465f;
 }
+.language{
+  background: transparent;
+  color: white;
+  border: 0;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  min-width: 50px;
+  option{
+    color: #123345;
+  }
+}
+.lang-cont{
+  position: relative;
+  &:after {
+    content: "\F0D7";
+    position: absolute;
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    color: white;
+    top: 52%;
+    transform: translate(0,-48%);
+    right: 15px;
+    z-index: -1
+  }
+}
 .page-header{
     position: relative;
     background-size: cover !important;

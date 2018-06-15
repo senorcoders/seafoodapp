@@ -91,6 +91,17 @@
       </li>
     </ul>
     </div>
+    <ul class="navbar-nav">
+      <li class="nav-item lang-cont">
+        <select class="language" (change)="changeLanguage($event)">
+          <option value="{{lang}}">{{lang}}</option>
+          <option *ngIf="lang=='es'; else es" value="en">en</option>
+          <ng-template #es>
+            <option value="es">es</option>
+          </ng-template>
+        </select>
+      </li>
+    </ul>
   </div>
 </nav>
 <router-outlet></router-outlet>

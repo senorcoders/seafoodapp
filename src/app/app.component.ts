@@ -150,4 +150,11 @@ export class AppComponent{
       this.showSuggestion=false
     }
   }
+  changeLanguage(e){
+    let value=e.srcElement.value;
+    if(value!=this.lang){
+      this.translate.use(value);
+      this.lang=value
+    }
+  }
 }
