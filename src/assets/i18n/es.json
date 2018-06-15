@@ -119,5 +119,15 @@
 		"select":"Please select a Fish type",
 		"delete":"Delete Product",
 		"no-found":"Sorry, Product Not found"
+	},
+	"FishType":{
+		"add":"Agregar tipo de pescado",
+		"name":"Fish Name",
+		"required":"is required",
+		"description":"Category Description",
+		"current-image":"Current Image",
+		"types":"Fish Types",
+		"edit":"Edit",
+		"delete":"Delete"
 	}
 }
