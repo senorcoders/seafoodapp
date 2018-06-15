@@ -1,0 +1,46 @@
+.logo-store{
+    position: absolute;
+    top: -50%;
+    max-width: 190px;
+}
+
+.single-store{
+padding: 50px 15px;
+}
+
+.products-section{
+	.container{
+		max-width: 100%;
+		padding: 0 40px;
+	}
+}
+.store-img{
+  max-width:100%;
+  height: auto;
+  max-height: 100px;
+}
+.store-info{
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+ ngx-smart-modal{
+    top: 35% !important;
+}
+
+.not-found-grid{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: red;
+}
+
+
+@media screen and (max-width: 768px){
+    .logo-store{
+        position: initial;
+    }
+}

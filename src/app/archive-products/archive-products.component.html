@@ -44,7 +44,7 @@
               <ng-template #showStore>
                 <div class="owner">
                   <b>Owner:</b> <br>
-                  {{product.store.owner.firstName}} {{product.store.owner.lastName}}
+                  <a routerLink="/store/{{product.store.owner.id}}"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
                 </div>
               </ng-template>
               <div><b>Fish Description:</b><br>{{smallDesc(product.description)}}...</div>
