@@ -93,5 +93,13 @@
 		"create":"Hey, You need to create a store before creating any products. Click",
 		"here":"here",
 		"store":"and create your own store!"
+	},
+	"SingleProduct":{
+		"add":"Agregar al carrito",
+		"view":"Ver Carrito",
+		"no-login":"If you want to buy this product. Please Login",
+		"here":"here",
+		"pack":"pack",
+		"no-found":"Sorry, Product Not found"
 	}
 }
