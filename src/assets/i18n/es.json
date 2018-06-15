@@ -101,5 +101,23 @@
 		"here":"here",
 		"pack":"pack",
 		"no-found":"Sorry, Product Not found"
+	},
+	"EditProduct":{
+		"title":"Editar Producto",
+		"primary-image":"Primary Image",
+		"edit-img":"Edit Image",
+		"delete-img-btn":"Delete Image",
+		"name":"Name",
+		"price":"Price Measurement",
+		"price-measurement":"Price Measurement",
+		"description":"Description",
+		"fish-types":"Fish Types",
+		"country":"Country",
+		"primary-image-ch":"Choose Primary Image",
+		"images":"Choose File",
+		"update":"Update",
+		"select":"Please select a Fish type",
+		"delete":"Delete Product",
+		"no-found":"Sorry, Product Not found"
 	}
 }
