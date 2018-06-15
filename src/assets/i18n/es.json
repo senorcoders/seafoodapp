@@ -65,5 +65,16 @@
 		"search-button":"Buscar",
 		"search-placeholder":"Buscar",
 		"no-empty":"El campo de búsqueda no puede quedar vacio"
+	},
+	"MyProducts":{
+		"small-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Fresca comida maritima",
+		"banner-button":"Compra ahora",
+		"title":"Mis Productos",
+		"description":"Descripción",
+		"view-button":"Ver Detalles",
+		"location":"Ubicación",
+		"edit-button":"Editar este producto",
+		"delete-button":"Borrar este producto"
 	}
 }

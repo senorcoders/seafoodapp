@@ -65,5 +65,16 @@
 		"search-button":"Search",
 		"search-placeholder":"Search",
 		"no-empty":"Search field not should be empty"
+	},
+	"MyProducts":{
+		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"big-title-banner":"Fresh seafood",
+		"banner-button":"Show Now",
+		"title":"My products",
+		"description":"Fish Description",
+		"view-button":"View Details",
+		"location":"Location",
+		"edit-button":"Edit this product",
+		"delete-button":"Delete this product"
 	}
 }
