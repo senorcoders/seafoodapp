@@ -140,5 +140,9 @@
 		"subtotal":"Sub Total",
 		"next":"NEXT",
 		"empty":"Your cart is empty"
+	},
+	"ConfirmationEmail":{
+		"text":"Your email has been verified successfully. Please",
+		"login":"Login Now"
 	}
 }
