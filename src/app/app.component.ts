@@ -6,6 +6,10 @@ import {ProductService} from './services/product.service';
 import { Router } from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import {TranslateService} from 'ng2-translate';
+const defaultLanguage = "en";
+const additionalLanguages = ["es"];
+const languages: string[] = [defaultLanguage].concat(additionalLanguages);
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,9 +27,19 @@ export class AppComponent{
   cartItem:any;
   showSuggestion:boolean=false;
   results:any;
-  constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService){
+  lang:any;
+  constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems, private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService, private toast:ToastrService, private translate: TranslateService){
   }
   ngOnInit(){
+    //language
+    this.translate.setDefaultLang(defaultLanguage);
+    this.translate.addLangs(additionalLanguages);
+    let initLang = this.translate.getBrowserLang();
+    this.lang=initLang;
+    if (languages.indexOf(initLang) === -1) {
+      initLang = defaultLanguage;
+    }
+    this.translate.use(initLang);
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
     })

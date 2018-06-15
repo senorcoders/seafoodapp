@@ -28,7 +28,9 @@ import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
+import { Http, HttpModule } from '@angular/http';
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
+import { TranslateModule,TranslateLoader, TranslateStaticLoader  } from 'ng2-translate';
 import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 
@@ -80,6 +82,11 @@ const appRoutes: Routes=[
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     FileUploadModule,
+    TranslateModule.forRoot({
+      provide: TranslateLoader,
+      useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
+      deps: [Http]
+    }),  
     NgxSmartModalModule.forRoot()
   ],
   providers: [

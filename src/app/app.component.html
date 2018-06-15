@@ -17,12 +17,12 @@
     
     <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1 else menuBuyer">
       <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
-        <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.name}}</a>
+        <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
         <ng-template #submenu>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.name}}</a>
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-              <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.name}}</a>
+              <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
             </div>
           </li>
         </ng-template>
@@ -31,7 +31,7 @@
         <a class="nav-link" (click)="goCart()"><fa name="shopping-cart"></fa></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" (click)="logOut()">LogOut</a>
+        <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
       </li>
       <li class="nav-item"><a href="#" class="nav-link twitter"><fa name="twitter"></fa></a></li>
       <li class="nav-item"><a href="#" class="nav-link instagram"><fa name="instagram"></fa></a></li>
@@ -41,12 +41,12 @@
     <ng-template #menuBuyer>
       <ul class="navbar-nav" *ngIf="isLogged && role==2 else menuAll">
         <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
-          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.name}}</a>
+          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
           <ng-template #submenu>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.name}}</a>
+              <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.name}}</a>
+                <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
               </div>
             </li>
           </ng-template>
@@ -55,7 +55,7 @@
           <a class="nav-link" (click)="goCart()"><fa name="shopping-cart"></fa></a>
         </li>
         <li class="nav-item">
-          <span class="nav-link" (click)="logOut()">LogOut</span>
+          <span class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</span>
         </li>
         <li class="nav-item"><a href="#" class="nav-link twitter"><fa name="twitter"></fa></a></li>
         <li class="nav-item"><a href="#" class="nav-link instagram"><fa name="instagram"></fa></a></li>
@@ -65,10 +65,10 @@
       <ng-template #menuAll>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item" *ngFor="let menuitem of menuItems.getMenu()">
-          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.name}}</a>
+          <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
           <ng-template #submenu>
             <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.name}}</a>
+            <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
               <li class="dropdown-menu" *ngFor="let childitem of menuitem.children">
                 <a routerLink="{{childitem.state}}" class="dropdown-item">{{ childitem.name}}</a>
@@ -119,14 +119,14 @@
        <div class="col-lg-3">
           <ul class="list-inline">
             <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter1()">
-              <a routerLink="{{menuitem.state}}">{{menuitem.name}}</a>
+              <a routerLink="{{menuitem.state}}">{{menuitem.translate[lang].name}}</a>
             </li>
           </ul>      
         </div>
       <div class="col-lg-3 footer-menu">
         <ul class="list-inline">
           <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter2()">
-            <a routerLink="{{menuitem.state}}">{{menuitem.name}}</a>
+            <a routerLink="{{menuitem.state}}">{{menuitem.translate[lang].name}}</a>
           </li>
         </ul>
       </div>
