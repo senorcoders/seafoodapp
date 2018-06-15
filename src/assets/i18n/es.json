@@ -27,6 +27,14 @@
 		"repeat":"Repeat Password",
 		"button-password":"Change"
 	},
+	"Store":{
+		"title":"Información sobre la tienda",
+		"name":"Store Name",
+		"description":"Store Description",
+		"location":"Store Location",
+		"logo":"Upload Store Logo",
+		"hero":"Upload Hero Store"
+	},
 	"Archive-product":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
 		"big-title-banner":"Fresca comida maritima",

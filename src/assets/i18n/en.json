@@ -27,6 +27,14 @@
 		"repeat":"Repeat Password",
 		"button-password":"Change"
 	},
+	"Store":{
+		"title":"Store Information",
+		"name":"Store Name",
+		"description":"Store Description",
+		"location":"Store Location",
+		"logo":"Upload Store Logo",
+		"hero":"Upload Hero Store"
+	},
 	"Archive-product":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
 		"big-title-banner":"Fresh seafood",

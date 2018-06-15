@@ -342,25 +342,25 @@
     </div>
 
     <div class="col-md-6" *ngIf="info.role < 2">
-        <h1>Store Information</h1>
+        <h1>{{'Store.title' | translate}}</h1>
       <form (ngSubmit)="storeSubmit()">
         <div class="form-group">
-            <label>Store Name</label>
+            <label>{{'Store.name' | translate}}</label>
             <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
-            <label>Store Description</label>
+            <label>{{'Store.description' | translate}}</label>
             <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
         </div>
         <div class="form-group">
-            <label>Store Location</label>
+            <label>{{'Store.location' | translate}}</label>
             <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
           <img [src]="base + logo" alt="" style="width: 150px;">
         </div>
         <div class="form-group">
-            <label>Upload Store Logo</label>
+            <label>{{'Store.logo' | translate}}</label>
             <input type="file" class="form-control" id="file" 
             (change)="handleFileInput($event.target.files)">
         </div>
@@ -368,7 +368,7 @@
             <img [src]="base + hero" alt="" style="width: 350px;">
           </div>
         <div class="form-group">
-            <label>Upload Hero Store</label>
+            <label>{{'Store.hero' | translate}}</label>
             <input type="file" class="form-control" type="file"
             id="fileHero" 
             (change)="handleFileHero($event.target.files)">
