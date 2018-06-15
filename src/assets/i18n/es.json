@@ -144,5 +144,16 @@
 	"ConfirmationEmail":{
 		"text":"Your email has been verified successfully. Please",
 		"login":"Login Now"
+	},
+	"Login":{
+		"title":"Inicia Session",
+		"email":"Email",
+		"password":"Password",
+		"required":"is required",
+		"invalid":"is invalid",
+		"account":"Create Account",
+		"return":"Return to Store",
+		"forgot":"Forgot your password?",
+		"login":"Entrar"
 	}
 }
