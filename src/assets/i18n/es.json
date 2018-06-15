@@ -76,5 +76,22 @@
 		"location":"Ubicación",
 		"edit-button":"Editar este producto",
 		"delete-button":"Borrar este producto"
+	},
+	"AddProduct":{
+		"title":"Agregar Productos",
+		"name":"Name",
+		"price":"Price Measurement",
+		"price-measurement":"Price Measurement",
+		"description":"Description",
+		"fish-types":"Fish Types",
+		"country":"Country",
+		"primary-image":"Choose Primary Image",
+		"images":"Choose File",
+		"submit":"Submit",
+		"select":"Please select a Fish type",
+		"required":"is required",
+		"create":"Hey, You need to create a store before creating any products. Click",
+		"here":"here",
+		"store":"and create your own store!"
 	}
 }
