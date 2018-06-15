@@ -26,5 +26,19 @@
 		"new":"New Password",
 		"repeat":"Repeat Password",
 		"button-password":"Change"
+	},
+	"Archive-product":{
+		"small-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Fresca comida maritima",
+		"banner-button":"Compra ahora",
+		"result-title":"Categorias",
+		"view-button":"Ver Detalles",
+		"location":"Ubicación",
+		"owner":"Propietario",
+		"description":"Descripción",
+		"no-result":"No se encontrarón productos",
+		"no-owner":"No hay Propietario",
+		"previous":"Previo",
+		"next":"Siguiente"
 	}
 }

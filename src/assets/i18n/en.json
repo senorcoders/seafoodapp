@@ -26,5 +26,19 @@
 		"new":"New Password",
 		"repeat":"Repeat Password",
 		"button-password":"Change"
+	},
+	"Archive-product":{
+		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"big-title-banner":"Fresh seafood",
+		"banner-button":"Show Now",
+		"result-title":"Category Result",
+		"view-button":"View Details",
+		"location":"Location",
+		"owner":"Owner",
+		"description":"Fish Description",
+		"no-result":"No Products Were Found",
+		"no-owner":"No Owner",
+		"previous":"previous",
+		"next":"next"
 	}
 }
