@@ -1,0 +1,52 @@
+<footer>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 prefooter">
+        <div class="subscribe-form">
+          <form [formGroup]="subscribeForm" (submit)="subscribe()">
+           <div class="form-group">
+             <input type="email" class="form-control" placeholder="{{'Menu.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
+            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
+           <input type="submit" class="hide-on-mobile black-btn" value="{{'Menu.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
+           <button class="black-btn show-on-desktop" [disabled]="subscribeForm.invalid"><fa name="long-arrow-right"></fa></button>
+           </div>
+          </form>
+        </div>
+      </div>
+     </div>
+  </div>
+  <div class="footer">
+    <div class="container">
+      <hr class="big-hr">
+      <div class="row">
+       <div class="col-lg-3">
+          <ul class="list-inline">
+            <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter1()">
+              <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
+            </li>
+          </ul>      
+        </div>
+      <div class="col-lg-3 footer-menu">
+        <ul class="list-inline">
+          <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter2()">
+            <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-lg-3 social-network">
+        <ul class="list-inline">
+          <li><fa name="facebook" style="margin-right:10px"></fa> Facebook</li>
+        </ul>
+      </div>
+      <div class=" col-lg-3 footer-info">
+        <p>
+          2018, Seafood Souq <br>
+          Dubai Emirates <br>
+          <a href="mailto:info@seafoodsouq.com">info@seafoodsouq.com</a> 
+        </p>
+      </div>
+      </div>
+    </div>
+  </div>
+</footer>
