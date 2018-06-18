@@ -36,6 +36,7 @@ import { ConfirmationEmailComponent } from './confirmation-email/confirmation-em
 import { TranslateModule,TranslateLoader, TranslateStaticLoader  } from 'ng2-translate';
 import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { FeaturedSellersComponent } from './featured-sellers/featured-sellers.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -75,7 +76,8 @@ const appRoutes: Routes=[
     MyProductsComponent,
     CartComponent,
     ConfirmationEmailComponent,
-    SingleStoreComponent
+    SingleStoreComponent,
+    FeaturedSellersComponent
   ],
   imports: [
     BrowserModule,
