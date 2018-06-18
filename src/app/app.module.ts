@@ -29,6 +29,7 @@ import { AccountComponent } from './account/account.component';
 import {SellerRouterService} from './services/seller-router.service';
 import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
+import {AdminRouterService} from './services/admin-router.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
 import { Http, HttpModule } from '@angular/http';
@@ -54,6 +55,7 @@ const appRoutes: Routes=[
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
   {path:'store/:id', component:SingleStoreComponent},
+  {path:'featured-seller1', component:FeaturedSellersComponent, canActivate:[AdminRouterService]}
 
 
 ]
@@ -104,7 +106,8 @@ const appRoutes: Routes=[
     SellerRouterService,
     BuyerRouterService,
     RouterProtectionService,
-    LanguageService
+    LanguageService,
+    AdminRouterService
   ],
   bootstrap: [AppComponent]
 })
