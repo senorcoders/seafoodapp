@@ -3,6 +3,8 @@ import {ProductService} from '../services/product.service';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -14,7 +16,8 @@ export class SearchComponent implements OnInit {
   searchQuery:string;
   API:string="http://138.68.19.227:7000";
   showNotFound=false;
-  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService) { }
+  image:SafeStyle=[];
+  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.searchForm=this.fb.group({
       search: ['',Validators.required],
@@ -29,6 +32,18 @@ export class SearchComponent implements OnInit {
     this.product.searchProductByName(query).subscribe(
       result=>{
         this.products=result;
+        //working on the images to use like background
+         this.products.forEach((data, index)=>{
+            if (data.imagePrimary && data.imagePrimary !='') {
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
+            }
+            else if(data.images && data.images.length>0){
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+            }
+            else{
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+            }
+         });
         if(this.products.length==0){
           this.showNotFound=true;
         }

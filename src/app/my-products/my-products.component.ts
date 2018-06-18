@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder } from '@angular/forms';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-my-products',
@@ -15,9 +16,9 @@ export class MyProductsComponent implements OnInit {
   products:any = [];
   store:any;
   base:string="http://138.68.19.227:7000";
+  image:SafeStyle=[];
 
-
-  constructor(private auth: AuthenticationService, private productService: ProductService, private toast:ToastrService) { }
+  constructor(private auth: AuthenticationService, private productService: ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.getMyData();
@@ -40,6 +41,18 @@ export class MyProductsComponent implements OnInit {
     this.productService.getData('store/' + this.store.id).subscribe(result => {
       console.log("Res", result);
       this.products = result['fish'];
+      //working on the images to use like background
+      this.products.forEach((data, index)=>{
+        if (data.imagePrimary && data.imagePrimary !='') {
+          this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)
+        }
+        else if(data.images && data.images.length>0){
+          this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`)
+        }
+            else{
+          this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+        }
+      });
     })
   }
 

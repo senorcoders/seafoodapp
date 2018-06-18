@@ -134,6 +134,12 @@ body {
     font-size: 1.9rem;
     color: #1c1d1d;
 }
+.bg-img-prod{
+  background-size: cover !important;
+  background-position: center;
+  height: 200px;
+  width: 100%;
+}
 .seafoodFormContainer{
   .content{
       max-width: 400px;
@@ -379,6 +385,9 @@ footer{
       top: 0 !important
     }
   }
+  .bg-img-prod{
+    height: 400px;
+  }
 }
 @media(max-width:768px){
   .small-title{
@@ -402,7 +411,9 @@ footer{
   .search-product-img{
     margin-bottom:20px;
   }
-
+  .bg-img-prod{
+    height: 300px;
+  }
 }
 
 .slick-prev:before, .slick-next:before{
