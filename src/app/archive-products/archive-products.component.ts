@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-archive-products',
@@ -17,13 +18,26 @@ export class ArchiveProductsComponent implements OnInit {
   showNextP:boolean=false;
   showNotFound=false;
   store:any=[];
-  constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService) { }
+  image:SafeStyle=[];
+  constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.category= this.route.snapshot.params['category'];
       this.product.getProdutsByCategory(this.category,0).subscribe(
       result=>{
         this.products=result;
+        //working on the images to use like background
+         this.products.forEach((data, index)=>{
+            if (data.imagePrimary && data.imagePrimary !='') {
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
+            }
+            else if(data.images && data.images.length>0){
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+            }
+            else{
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+            }
+         });
         if(this.products.length==0){
           this.showNotFound=true;
         }
