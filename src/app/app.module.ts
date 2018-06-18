@@ -12,9 +12,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { MenuItems } from './core/menu/menu-items';
+import {MenuNavComponent} from './core/menu/menu-nav.component';
+import {FooterComponent} from './core/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
+import { LanguageService } from './core/language/language.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
@@ -57,6 +60,8 @@ const appRoutes: Routes=[
 @NgModule({
   declarations: [
     AppComponent,
+    MenuNavComponent,
+    FooterComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
@@ -96,7 +101,8 @@ const appRoutes: Routes=[
     ProductService,
     SellerRouterService,
     BuyerRouterService,
-    RouterProtectionService
+    RouterProtectionService,
+    LanguageService
   ],
   bootstrap: [AppComponent]
 })
