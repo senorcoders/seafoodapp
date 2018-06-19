@@ -51,7 +51,7 @@
       <div class="col-4" *ngFor="let featuredSeller of featuredSellers; let i=index">
         <div class="logo" [style.background-image]="logos[i]"></div>
         <div class="store-content">
-          <a routerLink="store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
+          <a routerLink="featured-store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
         </div>
       </div>
     </div>

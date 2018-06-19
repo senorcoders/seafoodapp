@@ -199,5 +199,15 @@
 		"delete":"Delete",
 		"store":"Select Store",
 		"save":"Save Store"
+	},
+	"Featured-store":{
+		"view-button":"View Details",
+		"location":"Location",
+		"owner":"Owner",
+		"description":"Fish Description",
+		"no-result":"No Products Were Found",
+		"no-owner":"No Owner",
+		"previous":"previous",
+		"next":"next"
 	}
 }

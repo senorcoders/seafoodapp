@@ -39,6 +39,7 @@ import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
+import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -57,8 +58,8 @@ const appRoutes: Routes=[
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
   {path:'store/:id', component:SingleStoreComponent},
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
-  {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]}
-
+  {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
+  {path:'featured-store/:id', component:FeaturedStoreComponent}
 ]
 
 @NgModule({
@@ -81,7 +82,8 @@ const appRoutes: Routes=[
     ConfirmationEmailComponent,
     SingleStoreComponent,
     FeaturedProductsComponent,
-    FeaturedSellerComponent
+    FeaturedSellerComponent,
+    FeaturedStoreComponent
   ],
   imports: [
     BrowserModule,

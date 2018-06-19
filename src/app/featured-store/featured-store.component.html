@@ -1,0 +1,58 @@
+<div *ngIf="showLoading; else showContent" style="text-align: center;">
+	<img src="../../assets/loader.gif" alt="" class="loading">
+</div>
+<ng-template #showContent>
+	<div class="col-lg-12" *ngIf="showNotFound">
+      <h1 class="notfound">{{'Featured.no-result'| translate}}</h1>
+    </div>
+	<div class="page-header" id="hero" [style.background-image]="heroSlider">
+	  <div class="content">
+	    <h3 class="small-title">{{owner.firstName}} {{owner.lastName}}</h3>
+	    <h1 class="big-title">{{products.name}}</h1>
+	  </div>
+	</div>
+	<div class="products-section">
+	<div class="container">
+	  <div class="row">
+	    <!-- <h2 class="product-result-title">
+	      {{'Featured-store.result-title'| translate}}: <i style="font-size: 2rem"></i>
+	    </h2> -->
+	    <div class="col-lg-12" *ngIf="showNotFound">
+	      <h1 class="notfound">{{'Featured-store.no-result'| translate}}</h1>
+	    </div>
+	  </div>
+	  <div class="row">
+	    <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products.fish; let i=index">
+	      <div class="search-result">
+	        <div class="col-lg-12 search-product-img">
+	          <div [style.background-image]="image[i]" class="bg-img-prod"></div>
+	          <div class="btn-overlay">
+	            <a routerLink="/product/{{product.id}}"class="btn-green">{{'Featured-store.view-button'| translate}}</a>
+	          </div>
+	        </div>
+	        <div class="col-lg-12 search-product-desc">
+	         <div class="row">
+	          <div class="col-lg-8 col-8">
+	            <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
+	            <span class="coming-from">
+	              <b>{{'Featured-store.location'| translate}}: </b>{{products.location}}
+	            </span>
+	            <div><b>{{'Featured-store.description'| translate}}:</b><br>{{smallDesc(product.description)}}...</div>
+	          </div>
+	          <div class="col-lg-4 col-4">
+	            <div class="search-price">
+	              ${{product.price.value}} <br>
+	              <span class="search-price-type">{{product.weight.type}}</span>
+	            </div>
+	          </div>
+	         </div>
+	       </div>
+	       <div class="view-detail-cont">
+	          <a routerLink="/product/{{product.id}}" class="btn-green">{{'Featured-store.view-button'| translate}}</a>
+	        </div>
+	     </div>
+	    </div>
+	  </div>
+	</div>
+	</div>
+</ng-template>

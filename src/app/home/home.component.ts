@@ -85,7 +85,6 @@ export class HomeComponent implements OnInit {
           else{
             this.logos[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/seafood-souq-seller-logo-default.jpg)');
           }
-          console.log(this.logos)
         },
         error=>{
           console.log(error)
