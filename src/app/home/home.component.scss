@@ -46,6 +46,7 @@
 }
 .big-product {
    clear: both;
+   padding-top: 40px;
 }
 .big-product:nth-child(4) {
   float: right;
@@ -103,6 +104,63 @@
 .featuredSeller{
   clear: both;
 }
+.about-us{
+  text-align: justify;
+}
+.cat-img-3 {
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100%;
+  height: 200px;
+  position: relative;
+  margin-bottom: 10px;
+  &:hover{
+    .overlay-cat{
+      visibility: visible;
+      opacity: 1;
+      transition:ease all .3s
+    }
+  } 
+}
+.cat-img-2{
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100%;
+  height: 400px;
+  position: relative;
+  margin-bottom: 20px;
+  &:hover{
+    .overlay-cat{
+      visibility: visible;
+      opacity: 1;
+      transition:ease all .3s
+    }
+  }
+}
+.overlay-cat{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    height: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition:ease all .3s
+}
+.cat-content{
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+.title-cat{
+  font-family: 'Old Standard TT', serif;
+  text-transform: uppercase;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #d82929;
+}
 @media(max-width:998px){
   .homepage{
     background: url(../../assets/hero_slide.jpg) !important;
@@ -126,5 +184,8 @@
   .small-product img, .big-product img{
     width:100% !important;
     max-height:100% !important;
+  }
+  .cat-img-3{
+    height: 400px;
   }
 }

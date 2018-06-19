@@ -14,6 +14,17 @@
 <div class="products-section">
   <div class="container">
     <div class="row">
+      <div class="col-12">
+        <h2 class="title">{{"Home.about" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-12 about-us">
+        <p>
+          {{'Home.about-text' | translate}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
       <div class="col">
         <h2 class="title">{{"Home.title" | translate}}</h2>
         <hr class="hr-small">
@@ -54,6 +65,47 @@
         <img class="logo" src="{{logos[i]}}"/>
         <div class="store-content">
           <a routerLink="featured-store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row fish-categories">
+      <div class="col-12">
+        <h2 class="title">{{"Home.fist-type" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/salmon.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">salmon</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/tuna.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">Tuna</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/Oysters.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">oysters</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 cat-img-2" style="background: url(../assets/caviar.jpg);">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">caviar</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 cat-img-2" style="background: url(../assets/accesories.jpg);">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">accesories</h3></a>
+          </div>
         </div>
       </div>
     </div>
