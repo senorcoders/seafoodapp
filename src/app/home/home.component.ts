@@ -79,11 +79,12 @@ export class HomeComponent implements OnInit {
     this.featuredSellers.forEach((data, index)=>{
       this.product.getData('store/'+data.id).subscribe(
         result=>{
+          console.log(result)
           if(result['logo'] && result['logo']!=''){
-            this.logos[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['logo']})`);
+            this.logos[index]=this.API+result['logo'];
           }
           else{
-            this.logos[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/seafood-souq-seller-logo-default.jpg)');
+            this.logos[index]="../../assets/seafood-souq-seller-logo-default.jpg";
           }
         },
         error=>{
