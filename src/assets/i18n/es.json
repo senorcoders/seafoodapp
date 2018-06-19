@@ -10,7 +10,8 @@
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
 		"big-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
-		"title":"Productos Destacados"
+		"title":"Productos Destacados",
+		"featuredSeller":"Vendedores Destacados"
 	},
 	"Account":{
 		"title":"Mi Cuenta",
@@ -175,5 +176,38 @@
 		"licence":"Licence",
 		"message":"Email has been sended to",
 		"verified":"Please verify it to continue the Registration"
+	},
+	"Featured-product":{
+		"small-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Fresca comida maritima",
+		"banner-button":"Compra ahora",
+		"title":"Productos Destacados",
+		"table-title":"Productos agregados",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"store":"Seleccionar Tienda",
+		"product":"Seleccionar Producto",
+		"save":"Save Products"
+	},
+	"Featured-seller":{
+		"small-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Fresca comida maritima",
+		"banner-button":"Compra ahora",
+		"title":"Vendedores Destacados",
+		"table-title":"Vendedores agregados",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"store":"Select Store",
+		"save":"Save Store"
+	},
+	"Featured-store":{
+		"view-button":"Ver Detalles",
+		"location":"Ubicación",
+		"owner":"Propietario",
+		"description":"Descripción",
+		"no-result":"No se encontrarón productos",
+		"no-owner":"No hay Propietario",
+		"previous":"Previo",
+		"next":"Siguiente"
 	}
 }

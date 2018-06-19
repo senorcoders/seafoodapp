@@ -22,14 +22,14 @@
       <div class="row">
        <div class="col-lg-3">
           <ul class="list-inline">
-            <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter1()">
+            <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter1()">
               <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
             </li>
           </ul>      
         </div>
       <div class="col-lg-3 footer-menu">
         <ul class="list-inline">
-          <li class="menu-item" *ngFor="let menuitem of menuItems.getMenuFooter2()">
+          <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter2()">
             <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
           </li>
         </ul>

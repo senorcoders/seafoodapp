@@ -12,6 +12,64 @@ export interface Menu {
   translate:any;
   children?: ChildrenItems[],
 }
+const menuAdmin=[
+{
+  state:'account',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Profile'
+    },
+    es:{
+      name:'Perfil'
+    }
+  }
+},
+{
+  state:'products',
+  type: 'sub',
+  children:[
+    {state:'add-product', name:'add new', translate:{en:{name:'Add New'},es:{name:'Agregar'}}},
+    {state:'my-products', name:'my products',translate:{en:{name:'My Products'},es:{name:'Mis Productos'}}}
+  ],
+  translate:{
+    en:{
+      name:'My Products'
+    },
+    es:{
+      name:'Mis Productos'
+    }
+  }
+},
+{
+  state:'fish-type',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Fish Type'
+    },
+    es:{
+      name:'Tipos de Pescados'
+    }
+  }
+},
+{
+  state:'featured',
+  type:'sub',
+  children:[
+    {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller '},es:{name:'Vendedores Destacados'}}},
+    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}}
+  ],
+    translate:{
+    en:{
+      name:'Featured'
+    },
+    es:{
+      name:'Destacados'
+    }
+  }
+}
+]
 const menu=[
 {
   state:'login',
@@ -202,5 +260,8 @@ export class MenuItems {
   addMenuItem(Menu:Menu){
     menuBuyer.push(Menu);
     // menuSeller.push(Menu);
+  }
+  getMenuAdmin():Menu[]{
+    return menuAdmin;
   }
 }

@@ -29,6 +29,7 @@ import { AccountComponent } from './account/account.component';
 import {SellerRouterService} from './services/seller-router.service';
 import {BuyerRouterService} from './services/buyer-router.service';
 import {RouterProtectionService} from './services/router-protection.service';
+import {AdminRouterService} from './services/admin-router.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
 import { Http, HttpModule } from '@angular/http';
@@ -36,6 +37,9 @@ import { ConfirmationEmailComponent } from './confirmation-email/confirmation-em
 import { TranslateModule,TranslateLoader, TranslateStaticLoader  } from 'ng2-translate';
 import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
+import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -53,8 +57,9 @@ const appRoutes: Routes=[
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
   {path:'store/:id', component:SingleStoreComponent},
-
-
+  {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
+  {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
+  {path:'featured-store/:id', component:FeaturedStoreComponent}
 ]
 
 @NgModule({
@@ -75,7 +80,10 @@ const appRoutes: Routes=[
     MyProductsComponent,
     CartComponent,
     ConfirmationEmailComponent,
-    SingleStoreComponent
+    SingleStoreComponent,
+    FeaturedProductsComponent,
+    FeaturedSellerComponent,
+    FeaturedStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +110,8 @@ const appRoutes: Routes=[
     SellerRouterService,
     BuyerRouterService,
     RouterProtectionService,
-    LanguageService
+    LanguageService,
+    AdminRouterService
   ],
   bootstrap: [AppComponent]
 })

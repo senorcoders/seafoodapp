@@ -43,5 +43,17 @@
         </ng-template>
       </ng-container>
     </div>
+    <div class="row featuredSeller">
+      <div class="col-12">
+        <h2 class="title">{{"Home.featuredSeller" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-4" *ngFor="let featuredSeller of featuredSellers; let i=index">
+        <div class="logo" [style.background-image]="logos[i]"></div>
+        <div class="store-content">
+          <a routerLink="featured-store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div> 

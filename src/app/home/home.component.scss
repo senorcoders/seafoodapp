@@ -84,6 +84,16 @@
   left: 50%;
   transform: translate(-50%,-50%);
 }
+.logo{
+  height: 200px;
+  background-size: contain;
+  background-position: center;
+  width: 100%;
+  background-repeat: no-repeat;
+}
+.featuredSeller{
+  clear: both;
+}
 @media(max-width:998px){
   .homepage{
     background: url(../../assets/hero_slide.jpg) !important;

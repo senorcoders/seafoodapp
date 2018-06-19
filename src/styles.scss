@@ -362,6 +362,10 @@ footer{
     height: auto;
     max-width: 100%;
 }
+.select2{
+  max-width: 100% !important;
+  min-width: 200px !important;
+}
 @media(max-width: 1110px){
   .img-logo{
     margin-right: 0

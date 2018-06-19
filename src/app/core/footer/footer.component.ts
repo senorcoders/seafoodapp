@@ -13,8 +13,10 @@ import {LanguageService} from '../language/language.service';
 export class FooterComponent{
   subscribeForm:FormGroup;
   language:any;
+  MenuItems:any;
   constructor(private fb: FormBuilder,private menuItems: MenuItems, private router:Router, 
-    private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService){
+    private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService, private menu:MenuItems){
+    this.MenuItems=this.menu;
   }
   ngOnInit(){
     //language
