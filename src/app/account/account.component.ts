@@ -103,7 +103,11 @@ export class AccountComponent implements OnInit {
     this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
       if(this.fileHero.length > 0){
         this.uploadHero();
-      }else{
+      }
+      if(this.fileToUpload.length>0){
+        this.uploadLogo();
+      }
+      else{
         this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }
@@ -166,6 +170,15 @@ export class AccountComponent implements OnInit {
   }
   uploadHero(){
     this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
+      this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+      this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+    })
+  }
+  uploadLogo(){
+    this.productService.uploadFile('api/store/logo/'+this.store.id, "logo", this.fileToUpload).subscribe(result => {
       this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
       this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
     }, error => {
