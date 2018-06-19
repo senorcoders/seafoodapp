@@ -18,7 +18,6 @@ export class FeaturedProductsComponent implements OnInit {
   	this.productService.getData('api/store').subscribe(
   		result => {
 	      this.stores = result
-	      console.log(this.stores)
     	},
     	error=>{
     		console.log(error)
@@ -48,7 +47,7 @@ export class FeaturedProductsComponent implements OnInit {
   }
   saveFeatures(){
   	this.featureProducts.forEach((data)=>{
-  		this.productService.saveData('featuredseller',data).subscribe(
+  		this.productService.saveData('featuredproducts',data).subscribe(
   		result=>{
   			this.showSuccess('Featured Product save')
   		},

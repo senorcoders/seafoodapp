@@ -1,3 +1,39 @@
-<p>
-  featured-seller works!
-</p>
+<div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
+    <div class="content">
+      <h3 class="small-title">{{'Featured-seller.small-title-banner' | translate}}</h3>
+      <h1 class="big-title">{{'Featured-seller.big-title-banner' | translate}}</h1>
+      <a href="" class="white-btn">{{'Featured-seller.banner-button' | translate}}<fa name="long-arrow-right"></fa></a>
+    </div>
+</div>
+<div class="container">
+	<div class="row">
+		<div class="col-12"><h3 class="black-title">{{'Featured-seller.title' | translate}}</h3><hr class="hr-small"></div>
+		<div class="col-12">
+			<select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
+				<option value="">{{'Featured-seller.store' | translate}}</option>
+			  <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
+			</select>
+		</div>
+	</div>
+	<div class="row">
+    <div class="col">
+      <h2 class="black-title">{{'Featured-seller.table-title' | translate}}</h2>
+      <hr class="hr-small">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Featured-seller.name' | translate}}</th>
+            <th scope="col">{{'Featured-seller.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let featureStore of featureStores; let i=index">
+            <td>{{featureStore.name}}</td>
+            <td><span (click)="deleteFeatureStore(i)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="black-btn" (click)="saveFeatures()">{{'Featured-seller.save' | translate}}</a>
+    </div>
+  </div>
+</div>
