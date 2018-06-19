@@ -54,18 +54,18 @@ const menuAdmin=[
   }
 },
 {
-  state:'featured-seller',
+  state:'featured',
   type:'sub',
   children:[
-    {state:'featured-seller1', name:'Featured  Seller 1', translate:{en:{name:'Featured  Seller 1'},es:{name:'Vendedores Destacados'}}},
-    {state:'featured-seller2', name:'Featured  Seller 2',translate:{en:{name:'Featured  Seller 2'},es:{name:'Featured  Seller 2'}}}
+    {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller '},es:{name:'Vendedores Destacados'}}},
+    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}}
   ],
     translate:{
     en:{
-      name:'Featured Seller'
+      name:'Featured'
     },
     es:{
-      name:'Vendedores Destacados'
+      name:'Destacados'
     }
   }
 }

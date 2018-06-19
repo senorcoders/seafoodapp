@@ -3,11 +3,11 @@ import{ProductService} from '../services/product.service';
 declare var jQuery:any;
 import { ToastrService } from 'ngx-toastr';
 @Component({
-  selector: 'app-featured-sellers',
-  templateUrl: './featured-sellers.component.html',
-  styleUrls: ['./featured-sellers.component.scss']
+  selector: 'app-featured-products',
+  templateUrl: './featured-products.component.html',
+  styleUrls: ['./featured-products.component.scss']
 })
-export class FeaturedSellersComponent implements OnInit {
+export class FeaturedProductsComponent implements OnInit {
 	products:any;
 	stores:any;
 	featureProducts:any=[];

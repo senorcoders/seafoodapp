@@ -37,7 +37,8 @@ import { ConfirmationEmailComponent } from './confirmation-email/confirmation-em
 import { TranslateModule,TranslateLoader, TranslateStaticLoader  } from 'ng2-translate';
 import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
-import { FeaturedSellersComponent } from './featured-sellers/featured-sellers.component';
+import { FeaturedProductsComponent } from './featured-products/featured-products.component';
+import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -55,7 +56,7 @@ const appRoutes: Routes=[
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
   {path:'store/:id', component:SingleStoreComponent},
-  {path:'featured-seller1', component:FeaturedSellersComponent, canActivate:[AdminRouterService]}
+  {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]}
 
 
 ]
@@ -79,7 +80,8 @@ const appRoutes: Routes=[
     CartComponent,
     ConfirmationEmailComponent,
     SingleStoreComponent,
-    FeaturedSellersComponent
+    FeaturedProductsComponent,
+    FeaturedSellerComponent
   ],
   imports: [
     BrowserModule,
