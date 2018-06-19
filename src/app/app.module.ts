@@ -56,8 +56,8 @@ const appRoutes: Routes=[
   {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
   {path:'verification/:id/:id', component:ConfirmationEmailComponent},
   {path:'store/:id', component:SingleStoreComponent},
-  {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]}
-
+  {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
+  {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]}
 
 ]
 

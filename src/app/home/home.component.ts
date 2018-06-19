@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
 @Component({
   selector: 'app-home',
@@ -15,6 +15,10 @@ export class HomeComponent implements OnInit {
   video:string="http://senorcoders.com/Water Sea Ocean.mp4";
   videoURLSafe:any;
   showLoading:boolean=true;
+  featuredSellers:any;
+  showError:boolean=false;
+  error:string;
+  logos:SafeStyle=[];
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
@@ -36,7 +40,8 @@ export class HomeComponent implements OnInit {
     },error=>{
       console.log(error)
     }
-   )
+   );
+   this.getFeaturedSeller();
     this.setHeight(window.innerHeight);
     if(this.auth.isLogged()){
       console.log(this.auth.getCart());
@@ -57,6 +62,35 @@ export class HomeComponent implements OnInit {
     })
 
   }
-
-
+  getFeaturedSeller(){
+    this.product.getData('featuredseller').subscribe(
+      result=>{
+        this.featuredSellers=result;
+        this.getLogos();
+      },
+      error=>{
+        console.log(error);
+        this.showError=true;
+        this.error="No Seller found"
+      }
+    )
+  }
+  getLogos(){
+    this.featuredSellers.forEach((data, index)=>{
+      this.product.getData('store/'+data.id).subscribe(
+        result=>{
+          if(result['logo'] && result['logo']!=''){
+            this.logos[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['logo']})`);
+          }
+          else{
+            this.logos[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/seafood-souq-seller-logo-default.jpg)');
+          }
+          console.log(this.logos)
+        },
+        error=>{
+          console.log(error)
+        }
+      )
+    })
+  }
 }

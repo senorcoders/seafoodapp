@@ -10,7 +10,8 @@
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
 		"big-title-banner":"Fresh seafood",
 		"banner-button":"Show Now",
-		"title":"Featured Products"
+		"title":"Featured Products",
+		"featuredSeller":"Featured Seller"
 	},
 	"Account":{
 		"title":"My Account",
@@ -176,13 +177,27 @@
 		"message":"Email has been sended to",
 		"verified":"Please verify it to continue the Registration"
 	},
-	"Featured":{
+	"Featured-product":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
 		"big-title-banner":"Fresh seafood",
 		"banner-button":"Show Now",
 		"title":"Featured Products",
 		"table-title":"Products Added",
 		"name":"Name",
-		"delete":"Delete"
+		"delete":"Delete",
+		"store":"Select Store",
+		"product":"Select Product",
+		"save":"Save Products"
+	},
+	"Featured-seller":{
+		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"big-title-banner":"Fresh seafood",
+		"banner-button":"Show Now",
+		"title":"Featured Seller",
+		"table-title":"Seller Added",
+		"name":"Name",
+		"delete":"Delete",
+		"store":"Select Store",
+		"save":"Save Store"
 	}
 }
