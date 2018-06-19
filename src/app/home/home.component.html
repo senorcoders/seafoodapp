@@ -19,13 +19,15 @@
         <hr class="hr-small">
       </div>
     </div>
+    <div *ngIf="loadProduct; else showContent"><img src="../../assets/loader.gif" alt=""></div>
+    <ng-template #showContent>
     <div class="content-products">
-      <ng-container *ngFor="let product of products; let index = index">
-        <div class="big-product" *ngIf="index==0 || index == 3 || index == 6; else otherSide">
+      <ng-container *ngFor="let product of products; let i = index">
+        <div class="big-product" *ngIf="i==0 || i == 3 || i == 6; else otherSide">
           <a routerLink="/product/{{product.id}}">
             <div class="img-container">
-              <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null">
-              <img src="{{API+product.images[0].src}}" class="big-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+              <!-- <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null"> -->
+              <img src="{{images[i]}}" class="big-img">
             </div>
             <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
           </a>
@@ -34,8 +36,7 @@
           <div class="small-product">
             <a routerLink="/product/{{product.id}}">
               <div class="img-container">
-                <img src="../../assets/default-img-product.jpg" class="small-img" *ngIf="product.images==null">
-                <img src="{{API+product.images[0].src}}" class="small-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+                <img src="{{images[i]}}" class="small-img">
               </div>
               <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
             </a>
@@ -43,6 +44,7 @@
         </ng-template>
       </ng-container>
     </div>
+    </ng-template>
     <div class="row featuredSeller">
       <div class="col-12">
         <h2 class="title">{{"Home.featuredSeller" | translate}}</h2>

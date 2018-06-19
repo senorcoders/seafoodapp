@@ -9,7 +9,7 @@ declare var jQuery:any;
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  products:any;
+  products:any=[];
   API:string="http://138.68.19.227:7000";
   user:any;
   video:string="http://senorcoders.com/Water Sea Ocean.mp4";
@@ -18,7 +18,10 @@ export class HomeComponent implements OnInit {
   featuredSellers:any;
   showError:boolean=false;
   error:string;
-  logos:SafeStyle=[];
+  logos=[];
+  featuredProducts:any;
+  images=[];
+  loadProduct:boolean=true;
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
@@ -29,19 +32,19 @@ export class HomeComponent implements OnInit {
     document.getElementById("hero").style.height = h+"px";
   }
   ngOnInit() {
-    let data={
-      pageNumber:0,
-      numberProduct: 9
-    }
-   this.product.listProduct(data).subscribe(
-    result=>{
-      this.products=result;
-      console.log(this.products)
-    },error=>{
-      console.log(error)
-    }
-   );
+   //  let data={
+   //    pageNumber:0,
+   //    numberProduct: 9
+   //  }
+   // this.product.listProduct(data).subscribe(
+   //  result=>{
+   //    this.products=result;
+   //  },error=>{
+   //    console.log(error)
+   //  }
+   // );
    this.getFeaturedSeller();
+   this.getFeaturedProducts();
     this.setHeight(window.innerHeight);
     if(this.auth.isLogged()){
       console.log(this.auth.getCart());
@@ -62,6 +65,20 @@ export class HomeComponent implements OnInit {
     })
 
   }
+  getFeaturedProducts(){
+    this.product.getData('featuredproducts').subscribe(
+      result=>{
+        this.featuredProducts=result;
+        console.log(this.featuredProducts)
+        this.getImages();
+      },
+      error=>{
+        console.log(error);
+        this.showError=true;
+        this.error="No Seller found"
+      }
+    )
+  }
   getFeaturedSeller(){
     this.product.getData('featuredseller').subscribe(
       result=>{
@@ -75,11 +92,29 @@ export class HomeComponent implements OnInit {
       }
     )
   }
+  getImages(){
+    this.featuredProducts.forEach((data, index)=>{
+      this.product.getProductDetail(data.id).subscribe(result => {
+        this.products[index]=result;
+        if(result['imagePrimary'] && result['imagePrimary']!=''){
+          this.images[index]=this.API+result['imagePrimary']
+        }
+        else if(result['images'] && result['images'].length>0){
+          this.images[index]=this.API+result['images'][0].src
+        }
+        else{
+          this.images[index]="../../assets/default-img-product.jpg"
+        }
+      },error=>{
+        console.log(error)
+      })
+    })
+    setTimeout(()=>{this.loadProduct=false},200)
+  }
   getLogos(){
     this.featuredSellers.forEach((data, index)=>{
       this.product.getData('store/'+data.id).subscribe(
         result=>{
-          console.log(result)
           if(result['logo'] && result['logo']!=''){
             this.logos[index]=this.API+result['logo'];
           }
