@@ -14,18 +14,31 @@
 <div class="products-section">
   <div class="container">
     <div class="row">
+      <div class="col-12">
+        <h2 class="title">{{"Home.about" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-12 about-us">
+        <p>
+          {{'Home.about-text' | translate}}
+        </p>
+      </div>
+    </div>
+    <div class="row">
       <div class="col">
         <h2 class="title">{{"Home.title" | translate}}</h2>
         <hr class="hr-small">
       </div>
     </div>
+    <div *ngIf="loadProduct; else showContent"><img src="../../assets/loader.gif" alt=""></div>
+    <ng-template #showContent>
     <div class="content-products">
-      <ng-container *ngFor="let product of products; let index = index">
-        <div class="big-product" *ngIf="index==0 || index == 3 || index == 6; else otherSide">
+      <ng-container *ngFor="let product of products; let i = index">
+        <div class="big-product" *ngIf="i==0 || i == 3 || i == 6; else otherSide">
           <a routerLink="/product/{{product.id}}">
             <div class="img-container">
-              <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null">
-              <img src="{{API+product.images[0].src}}" class="big-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+              <!-- <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null"> -->
+              <img src="{{images[i]}}" class="big-img">
             </div>
             <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
           </a>
@@ -34,8 +47,7 @@
           <div class="small-product">
             <a routerLink="/product/{{product.id}}">
               <div class="img-container">
-                <img src="../../assets/default-img-product.jpg" class="small-img" *ngIf="product.images==null">
-                <img src="{{API+product.images[0].src}}" class="small-img" *ngIf="product.images!=null" alt="{{product.images[0].filename}}">
+                <img src="{{images[i]}}" class="small-img">
               </div>
               <p class="product-name">{{product.name}} - {{product.price.type}}{{product.price.value}}</p>
             </a>
@@ -43,6 +55,7 @@
         </ng-template>
       </ng-container>
     </div>
+    </ng-template>
     <div class="row featuredSeller">
       <div class="col-12">
         <h2 class="title">{{"Home.featuredSeller" | translate}}</h2>
@@ -52,6 +65,47 @@
         <img class="logo" src="{{logos[i]}}"/>
         <div class="store-content">
           <a routerLink="featured-store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
+        </div>
+      </div>
+    </div>
+    <div class="row fish-categories">
+      <div class="col-12">
+        <h2 class="title">{{"Home.fist-type" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/salmon.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">salmon</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/tuna.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">Tuna</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 cat-img-3" style="background: url(../assets/Oysters.jpg)">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">oysters</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 cat-img-2" style="background: url(../assets/caviar.jpg);">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">caviar</h3></a>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 cat-img-2" style="background: url(../assets/accesories.jpg);">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink=""><h3 class="title-cat">accesories</h3></a>
+          </div>
         </div>
       </div>
     </div>
