@@ -47,7 +47,6 @@ export class HomeComponent implements OnInit {
    this.getFeaturedProducts();
     this.setHeight(window.innerHeight);
     if(this.auth.isLogged()){
-      console.log(this.auth.getCart());
       if(this.auth.getCart() == null){
         this.creatCart();
       }
@@ -69,7 +68,6 @@ export class HomeComponent implements OnInit {
     this.product.getData('featuredproducts').subscribe(
       result=>{
         this.featuredProducts=result;
-        console.log(this.featuredProducts)
         this.getImages();
       },
       error=>{
@@ -93,6 +91,7 @@ export class HomeComponent implements OnInit {
     )
   }
   getImages(){
+    let val=this.featuredProducts.length;
     this.featuredProducts.forEach((data, index)=>{
       this.product.getProductDetail(data.id).subscribe(result => {
         this.products[index]=result;
@@ -105,11 +104,13 @@ export class HomeComponent implements OnInit {
         else{
           this.images[index]="../../assets/default-img-product.jpg"
         }
+        if (val-1==index) {
+          this.loadProduct=false
+        }
       },error=>{
         console.log(error)
       })
     })
-    setTimeout(()=>{this.loadProduct=false},200)
   }
   getLogos(){
     this.featuredSellers.forEach((data, index)=>{

@@ -8,23 +8,41 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12"><h3 class="black-title">{{'Featured-product.title' | translate}}</h3><hr class="hr-small"></div>
-		<div class="col-6">
-			<select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
-				<option value="">{{'Featured-product.store' | translate}}</option>
-			  <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
-			</select>
-		</div>
-		<div class="col-6">
-			<select class="js-example-basic-single products" name="stores" data-placeholder="Select Product">
-				<option value="">{{'Featured-product.product' | translate}}</option>
-			  <option value="{{product.id}}" *ngFor="let product of products">{{product.name}}</option>
-			</select>
-		</div>
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Featured-product.name' | translate}}</th>
+            <th scope="col">{{'Featured-product.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let featuredList of featuredLists; let i=index">
+            <td>{{featuredList.name}}</td>
+            <td><span (click)="deletefeaturedList(featuredList.id)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 	</div>
 	<div class="row">
-    <div class="col">
+    <div class="col-12">
       <h2 class="black-title">{{'Featured-product.table-title' | translate}}</h2>
       <hr class="hr-small">
+    </div>
+    <div class="col-6">
+      <select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
+        <option value="">{{'Featured-product.store' | translate}}</option>
+        <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
+      </select>
+    </div>
+    <div class="col-6">
+      <select class="js-example-basic-single products" name="stores" data-placeholder="Select Product">
+        <option value="">{{'Featured-product.product' | translate}}</option>
+        <option value="{{product.id}}" *ngFor="let product of products">{{product.name}}</option>
+      </select>
+    </div>
+    <div class="col-12" style="margin-top: 20px;">
       <table class="table table-striped">
         <thead>
           <tr>

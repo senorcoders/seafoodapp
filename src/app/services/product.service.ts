@@ -21,14 +21,12 @@ export class ProductService {
     return this.http.get(`${API}FishType`)
   }
   saveData(endpoint, data){
-    console.log(JSON.stringify(data));
-        return this.http.post(`${API}${endpoint}`, data, httpOptions);
+    return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
 
   updateData(endpoint, data){
-    console.log(JSON.stringify(data));
-        return this.http.put(`${API}${endpoint}`, data, httpOptions);
+    return this.http.put(`${API}${endpoint}`, data, httpOptions);
 
   }
 
@@ -93,7 +91,6 @@ export class ProductService {
   }
 
 uploadFile(endpoint, field, fileToUpload){
-  console.log(endpoint, field, fileToUpload);
   let httpOptionsForm:any = {headers: new HttpHeaders() };
   httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
   const formData: FormData = new FormData();
@@ -111,7 +108,9 @@ uploadFile(endpoint, field, fileToUpload){
     let description = data.description;
     let location = data.location;
     let owner = data.owner;
+    let name = data.name;
     const formData: FormData = new FormData();
+    formData.append("name", name);
     formData.append("description", description);
     formData.append("location", location);
     formData.append("owner", owner);
