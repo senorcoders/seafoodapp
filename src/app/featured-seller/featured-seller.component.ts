@@ -10,13 +10,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FeaturedSellerComponent implements OnInit {
 
-  	products:any;
+  products:any;
 	stores:any;
 	featureStores:any=[];
-  	constructor(private productService:ProductService, private toast:ToastrService) { }
+  featureLists:any;
+  constructor(private productService:ProductService, private toast:ToastrService) { }
 
 	ngOnInit() {
 	  	jQuery('.stores').select2();
+      this.getFeaturedList();
 	  	this.productService.getData('api/store').subscribe(
 	  		result => {
 		      this.stores = result
@@ -30,21 +32,43 @@ export class FeaturedSellerComponent implements OnInit {
 	      	this.addStore(e.target.value, name);
 	    })
   	}
+  getFeaturedList(){
+    this.productService.getData('featuredseller').subscribe(
+        result=>{
+          this.featureLists=result
+        },
+        error=>{
+          console.log(error)
+        }
+    )
+  }
   addStore(id,value){
-  	console.log(id, value)
   	this.featureStores.push({id:id,name:value})
   }
   deleteFeatureStore(id){
   	this.featureStores.splice(id,1)
+  }
+  deletefeatureList(id){
+    this.productService.deleteData('featuredseller/'+id).subscribe(
+      result=>{
+        this.showSuccess(result['name']+' has been deleted successfully')
+        this.getFeaturedList();
+      },
+      err=>{
+        this.showError('Something wrong happened, try again');
+        console.log(err)
+      }
+    )
   }
   saveFeatures(){
   	this.featureStores.forEach((data)=>{
   		this.productService.saveData('featuredseller',data).subscribe(
   		result=>{
   			this.showSuccess('Featured Seller save')
+        this.getFeaturedList();
   		},
   		error=>{
-  			console.log('Error, try again')
+  			this.showError('Error, try again')
   		}
 	)
   	})

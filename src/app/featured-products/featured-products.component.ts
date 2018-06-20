@@ -11,10 +11,12 @@ export class FeaturedProductsComponent implements OnInit {
 	products:any;
 	stores:any;
 	featureProducts:any=[];
+  featuredLists:any;
   constructor(private productService:ProductService, private toast:ToastrService) { }
 
   ngOnInit() {
   	jQuery('.stores').select2();
+    this.getFeaturedList();
   	this.productService.getData('api/store').subscribe(
   		result => {
 	      this.stores = result
@@ -31,7 +33,16 @@ export class FeaturedProductsComponent implements OnInit {
       this.addProduct(e.target.value,name);
     })
   }
-
+  getFeaturedList(){
+    this.productService.getData('featuredproducts').subscribe(
+        result=>{
+          this.featuredLists=result
+        },
+        error=>{
+          console.log(error)
+        }
+    )
+  }
   getProducts(data){
     this.productService.getData('store/' + data).subscribe(result => {
       this.products = result['fish'];
@@ -45,14 +56,27 @@ export class FeaturedProductsComponent implements OnInit {
   deleteFeatureProduct(id){
   	this.featureProducts.splice(id,1)
   }
+  deletefeaturedList(id){
+    this.productService.deleteData('featuredproducts/'+id).subscribe(
+      result=>{
+        this.showSuccess(result['name']+' has been deleted successfully')
+        this.getFeaturedList();
+      },
+      err=>{
+        this.showError('Something wrong happened, try again');
+        console.log(err)
+      }
+    )
+  }
   saveFeatures(){
   	this.featureProducts.forEach((data)=>{
   		this.productService.saveData('featuredproducts',data).subscribe(
   		result=>{
   			this.showSuccess('Featured Product save')
+        this.getFeaturedList();
   		},
   		error=>{
-  			console.log('Error, try again')
+  			this.showError('Error, try again')
   		}
 	)
   	})

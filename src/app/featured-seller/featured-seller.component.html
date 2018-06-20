@@ -8,17 +8,34 @@
 <div class="container">
 	<div class="row">
 		<div class="col-12"><h3 class="black-title">{{'Featured-seller.title' | translate}}</h3><hr class="hr-small"></div>
-		<div class="col-12">
-			<select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
-				<option value="">{{'Featured-seller.store' | translate}}</option>
-			  <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
-			</select>
-		</div>
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Featured-seller.name' | translate}}</th>
+            <th scope="col">{{'Featured-seller.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let featureList of featureLists; let i=index">
+            <td>{{featureList.name}}</td>
+            <td><span (click)="deletefeatureList(featureList.id)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 	</div>
 	<div class="row">
-    <div class="col">
+    <div class="col-12">
       <h2 class="black-title">{{'Featured-seller.table-title' | translate}}</h2>
       <hr class="hr-small">
+      <div style="margin-bottom: 20px;">
+        <label>{{'Featured-seller.store' | translate}}</label><br>
+        <select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
+          <option value=""></option>
+          <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
+        </select>
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>
