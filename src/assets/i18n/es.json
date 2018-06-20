@@ -212,5 +212,23 @@
 		"no-owner":"No hay Propietario",
 		"previous":"Previo",
 		"next":"Siguiente"
+	},
+	"Admin":{
+		"title":"Administradores",
+		"select-user":"Seleccionar Usuario",
+		"user":"Usuarios",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"create":"Crear nuevo administrador",
+		"first-name":"Nombre",
+		"last-name":"Apellido",
+		"email":"Correo Electronico",
+		"password":"Contraseña",
+		"repeat":"Repetir Contraseña",
+		"tel":"Teléfono",
+		"country":"Pais",
+		"edit":"Editar Usuarios",
+		"add":"Agregar nuevo",
+		"new":"Nuevo Administrador"
 	}
 }

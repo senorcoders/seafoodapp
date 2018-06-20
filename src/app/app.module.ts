@@ -40,6 +40,7 @@ import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
+import { AdministratorComponent } from './administrator/administrator.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -59,7 +60,8 @@ const appRoutes: Routes=[
   {path:'store/:id', component:SingleStoreComponent},
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
-  {path:'featured-store/:id', component:FeaturedStoreComponent}
+  {path:'featured-store/:id', component:FeaturedStoreComponent},
+  {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]}
 ]
 
 @NgModule({
@@ -83,7 +85,8 @@ const appRoutes: Routes=[
     SingleStoreComponent,
     FeaturedProductsComponent,
     FeaturedSellerComponent,
-    FeaturedStoreComponent
+    FeaturedStoreComponent,
+    AdministratorComponent
   ],
   imports: [
     BrowserModule,

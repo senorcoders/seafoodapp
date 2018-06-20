@@ -212,5 +212,23 @@
 		"no-owner":"No Owner",
 		"previous":"previous",
 		"next":"next"
+	},
+	"Admin":{
+		"title":"Administrators",
+		"select-user":"Select User",
+		"user":"Users",
+		"name":"Name",
+		"delete":"Delete",
+		"create":"Create new administrator",
+		"first-name":"first Name",
+		"last-name":"Last Name",
+		"email":"Email",
+		"password":"Password",
+		"repeat":"Repeat Password",
+		"tel":"Phone Number",
+		"country":"Country",
+		"edit":"Edit Users",
+		"add":"Add new one",
+		"new":"New Admin"
 	}
 }

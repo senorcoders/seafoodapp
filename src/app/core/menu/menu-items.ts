@@ -26,6 +26,18 @@ const menuAdmin=[
   }
 },
 {
+  state:'admin',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Admin'
+    },
+    es:{
+      name:'Admin'
+    }
+  }
+},
+{
   state:'products',
   type: 'sub',
   children:[
