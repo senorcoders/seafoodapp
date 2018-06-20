@@ -22,7 +22,9 @@
   <script>
     
   jQuery(document).ready(function(){
-      jQuery('.menu-link').bigSlide({
+    let val=jQuery('.navbar').height()
+    jQuery('.fish-type-menu .navbar-nav').css('top',val+'px')
+    jQuery('.menu-link').bigSlide({
       menuWidth:'300px',
       speed:'450'
     });
@@ -34,6 +36,10 @@
       return false;
     });
   });
+  jQuery(window).resize(function(){
+    let val=jQuery('.navbar').height()
+    jQuery('.fish-type-menu .navbar-nav').css('top',val+'px')
+  })
 
 //      (function(jQuery){
 //     jQuery(window).load(function(){
