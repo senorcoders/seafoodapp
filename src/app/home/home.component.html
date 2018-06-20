@@ -62,7 +62,7 @@
         <hr class="hr-small">
       </div>
       <div class="col-lg-4 col-md-6 featuredSellerItem" *ngFor="let featuredSeller of featuredSellers; let i=index">
-        <img class="logo" src="{{logos[i]}}"/>
+        <a routerLink="featured-store/{{featuredSeller.id}}"><img class="logo" src="{{logos[i]}}"/></a>
         <div class="store-content">
           <a routerLink="featured-store/{{featuredSeller.id}}">{{featuredSeller.name}}</a>
         </div>
