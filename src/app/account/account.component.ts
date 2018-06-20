@@ -45,7 +45,6 @@ export class AccountComponent implements OnInit {
 
   getPersonalData(){
     this.info = this.auth.getLoginData();
-    console.log(this.info);
     this.getStoreData();
   }
 
@@ -56,15 +55,13 @@ export class AccountComponent implements OnInit {
         this.store = result[0];
         this.logo = result[0].logo;
         this.hero = result[0].heroImage;
-        console.log(this.store);
         this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.store.heroImage})`);
         this.buttonText = "Update";
+        this.new = false;
       }else{
         this.buttonText = "Create";
         this.new = true;
       }
-     
-
     })
   }
 
@@ -88,7 +85,7 @@ export class AccountComponent implements OnInit {
       }
 
     }else{
-      this.toast.error("Your store needs a description and location", "Error",{positionClass:"toast-top-right"} );
+      this.toast.error("Your store needs a name, a description and location", "Error",{positionClass:"toast-top-right"} );
 
     }  
   }
@@ -101,13 +98,9 @@ export class AccountComponent implements OnInit {
     }
 
     this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
-      if(this.fileHero.length > 0){
-        this.uploadHero();
-      }
-      if(this.fileToUpload.length>0){
-        this.uploadLogo();
-      }
-      else{
+      if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+        this.updateFile(this.store.id);
+      }else{
         this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }
@@ -122,8 +115,8 @@ export class AccountComponent implements OnInit {
       location: this.store.location
     }
       this.productService.postStoreForm(myStore, this.fileToUpload).subscribe(result => {
-        if(this.fileHero.length > 0){
-          this.uploadHero();
+        if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+          this.uploadHero(result[0]['id']);
         }else{
           this.toast.success("Your store has been created successfully!",'Well Done',{positionClass:"toast-top-right"})
 
@@ -168,23 +161,35 @@ export class AccountComponent implements OnInit {
   showChangePassword(){
     this.showChangeP=true
   }
-  uploadHero(){
-    this.productService.uploadFile(this.heroEndpoint+this.store.id, "hero", this.fileHero).subscribe(result => {
-      this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+  uploadHero(id){
+    this.productService.uploadFile(this.heroEndpoint+id, "hero", this.fileHero).subscribe(result => {
+      this.toast.success("Your store has been created successfully!",'Well Done',{positionClass:"toast-top-right"})
       this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+      this.getStoreData();
     }, error => {
       this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
     })
   }
-  uploadLogo(){
-    this.productService.uploadFile('api/store/logo/'+this.store.id, "logo", this.fileToUpload).subscribe(result => {
-      this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
-      this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
-    }, error => {
-      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+  updateFile(id){
+    if(this.fileToUpload.length>0){
+      this.productService.uploadFile('api/store/logo/'+id, "logo", this.fileToUpload).subscribe(result => {
+        this.toast.success("Your store's logo has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+        this.getStoreData();
+      }, error => {
+        this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+      })
+    }
+    if(this.fileHero.length > 0){
+      this.productService.uploadFile(this.heroEndpoint+id, "hero", this.fileHero).subscribe(result => {
+        this.toast.success("Your store's hero has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+        this.getStoreData();
+      }, error => {
+        this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
-    })
+      })
+    }
   }
-
 }
