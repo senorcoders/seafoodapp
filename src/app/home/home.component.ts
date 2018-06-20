@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
   products:any=[];
   API:string="http://138.68.19.227:7000";
   user:any;
-  video:string="http://senorcoders.com/Water Sea Ocean.mp4";
-  videoURLSafe:any;
+  //video:string="http://senorcoders.com/Water Sea Ocean.mp4";
+  //videoURLSafe:any;
   showLoading:boolean=true;
   featuredSellers:any;
   showError:boolean=false;
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
     this.setHeight(event.target.innerHeight);
   }
   constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer) {
-    this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
+    //this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
   }
   setHeight(h){
     document.getElementById("hero").style.height = h+"px";
