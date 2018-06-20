@@ -61,4 +61,13 @@ export class AuthenticationService {
     console.log(data)
     return this.http.post(`${API}subscriptor`, data, httpOptions)
   }
+  getData(endpoint){
+    return this.http.get(API+endpoint)
+  }
+  editUser(endpoint){
+    let data={
+      role:0
+    }
+    return this.http.put(API+endpoint, data, httpOptions)
+  }
 }
