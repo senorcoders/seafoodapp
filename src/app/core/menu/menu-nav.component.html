@@ -108,7 +108,7 @@
     </ng-template>
     </ng-template>
     </ng-template>
-    <div class="fish-type-menu" *ngIf="isLogged && role==2 || role==0">
+    <div class="fish-type-menu" *ngIf="isLogged && role==2">
       <ul class="navbar-nav">
       <li class="nav-item" *ngFor="let type of fishTypeMenu">
         <a routerLink="{{type.state}}" class="nav-link" routerLinkActive="active-link">{{type.name}}</a>

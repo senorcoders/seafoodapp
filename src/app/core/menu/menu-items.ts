@@ -162,6 +162,18 @@ const menuBuyer=[
       name:'Perfil'
     }
   }
+},
+{
+  state:'favorites',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Favorites'
+    },
+    es:{
+      name:'Favoritos'
+    }
+  }
 }
 ];
 const menuFooter1=[

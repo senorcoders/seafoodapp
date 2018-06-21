@@ -9,7 +9,7 @@ export class BuyerRouterService {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot){
   	let isLogged=this.autorizacionService.isLogged.value;
   	if (isLogged) {
-	    if(this.autorizacionService.role.value==2 || this.autorizacionService.role.value==0){
+	    if(this.autorizacionService.role.value==2){
 	        return true;
 	    }else {
 	      this.router.navigate(['/']);

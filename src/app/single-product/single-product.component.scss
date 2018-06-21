@@ -18,6 +18,16 @@
 .single-product .price{
   font-size:1.2rem;
 }
+.favorite-content fa{
+    font-size: 2rem;
+    cursor: pointer;
+    &:hover{
+        color:#e63636
+    }
+}
+.isfavorite{
+    color:#e63636
+}
 .single_add_to_cart_button{
     background-color: #123345;
     position: relative;

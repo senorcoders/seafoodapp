@@ -144,5 +144,7 @@ uploadFile(endpoint, field, fileToUpload){
   suggestions(name){
     return this.http.post(`${API}api/fish/suggestions`, name, httpOptions)
   }
+  isFavorite(data){
+    return this.http.post(`${API}api/favoritefish`,data,httpOptions)
+  }
 }
- 

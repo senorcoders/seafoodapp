@@ -230,5 +230,11 @@
 		"edit":"Edit Users",
 		"add":"Add new one",
 		"new":"New Admin"
+	},
+	"Favorites":{
+		"title":"My Favorites",
+		"name":"Name",
+		"delete":"Delete",
+		"go":"View Product"
 	}
 }

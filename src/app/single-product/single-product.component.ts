@@ -33,6 +33,10 @@ export class SingleProductComponent implements OnInit {
   slideConfig = {"slidesToShow": 4, "slidesToScroll": 1};
   showLoading:boolean=true;
   isLogged:boolean;
+  isFavorite:boolean=false;
+  favorite:any;
+  idUser:string;
+  favoriteId:string;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService) { 
 }
@@ -44,8 +48,30 @@ export class SingleProductComponent implements OnInit {
      this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
     })
+    let data=this.auth.getLoginData();
+    this.idUser=data['id'];
+    this.getFavorite();
   }
-
+getFavorite(){
+  let data={
+    user:this.idUser,
+    fish:this.productID
+  }
+  this.productService.isFavorite(data).subscribe(
+    result=>{
+      if(result['msg']){
+        this.isFavorite=true
+        this.favoriteId=result['id']
+      }
+      else{
+        this.isFavorite=false
+      }
+    },
+    e=>{
+      console.log(e)
+    }
+  )
+}
 setFlexslider(){
   if(this.mainImg || this.images){
     setTimeout(()=>{
@@ -120,6 +146,38 @@ setFlexslider(){
 
   goToCart(){
     this.router.navigate([('/cart')]);
+  }
+  submitFavorite(){
+    if(this.isFavorite){
+      this.removeFavorite()
+    }
+    else{
+      this.addFavorite();
+    }
+  }
+  addFavorite(){
+    let data={
+      user:this.idUser,
+      fish:this.productID
+    }
+    this.productService.saveData('FavoriteFish',data).subscribe(
+      result=>{
+        this.isFavorite=true;
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  removeFavorite(){
+    this.productService.deleteData('FavoriteFish/'+this.favoriteId).subscribe(
+      result=>{
+        this.isFavorite=false;
+      },
+      e=>{
+        console.log(e)
+      }
+    )
   }
 
 }

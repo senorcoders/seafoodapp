@@ -1,0 +1,33 @@
+<div *ngIf="showLoading; else showContent" style="text-align: center;"><img src="../../assets/loader.gif" alt=""></div>
+<ng-template #showContent>
+	<div class="container">
+		<div class="row" *ngIf="hasFavorite; else noFavorite">
+			<div class="col-12">
+				<h3 class="black-title">{{'Favorites.title' | translate}}</h3><hr class="hr-small">
+			</div>
+			<div class="col-12">
+		      <table class="table table-striped">
+		        <thead>
+		          <tr>
+		            <th scope="col">{{'Favorites.name' | translate}}</th>
+		            <th scope="col">{{'Favorites.delete' | translate}}</th>
+		            <th scope="col">{{'Favorites.go' | translate}}</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr *ngFor="let favorite of favorites; let i=index">
+		            <td>{{favorite.fish.name}}</td>
+		            <td><span (click)="deletefavorite(favorite.id)" class="delete"><fa name="remove"></fa></span></td>
+		            <td><a routerLink="/product/{{favorite.fish.id}}" class="go"><fa name="eye"></fa></a></td>
+		          </tr>
+		        </tbody>
+		      </table>
+		    </div>
+		</div>
+		<ng-template #noFavorite>
+			<div class="col-12" style="text-align: center; color: red; font-size: 3rem">
+				You don't have Favorites Right Now.
+			</div>
+		</ng-template>
+	</div>
+</ng-template>

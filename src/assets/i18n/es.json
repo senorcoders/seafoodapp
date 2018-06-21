@@ -230,5 +230,11 @@
 		"edit":"Editar Usuarios",
 		"add":"Agregar nuevo",
 		"new":"Nuevo Administrador"
+	},
+	"Favorites":{
+		"title":"Mis Favoritos",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"go":"Ver Producto"
 	}
 }

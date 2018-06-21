@@ -26,13 +26,23 @@
             <span class="price"><b>$ {{priceValue}} {{measurement}}</b></span>
           </p>
           <form action="#" *ngIf="isLogged; else login">
-            <div class="quantity">
-              <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
-              <div class="qty-wrapper">
-                <input type="number" step="1" min="1" max="" name="quantity" [value]="count" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
-                <span> {{'SingleProduct.pack' | translate}}</span>
+            <div class="row" style="align-items: center;">
+              <div class="col-6">
+                <div class="quantity">
+                  <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
+                  <div class="qty-wrapper">
+                    <input type="number" step="1" min="1" max="" name="quantity" [value]="count" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
+                    <span> {{'SingleProduct.pack' | translate}}</span>
+                  </div>
+                  <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
+                </div>
               </div>
-              <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
+              <div class="col-6">
+                <div class="favorite-content">
+                  <fa name="heart-o" (click)="submitFavorite()" *ngIf="!isFavorite;else favorite"></fa>
+                  <ng-template #favorite><fa name="heart" (click)="submitFavorite()" class="isfavorite"></fa></ng-template>
+                </div>
+              </div>
             </div>
             <button (click)="addToCart()" type="submit" class="single_add_to_cart_button button alt animated-rev">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="single_add_to_cart_button button alt animated-rev">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>

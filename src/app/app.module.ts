@@ -41,6 +41,7 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
+import { FavoritesComponent } from './favorites/favorites.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -61,7 +62,8 @@ const appRoutes: Routes=[
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
   {path:'featured-store/:id', component:FeaturedStoreComponent},
-  {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]}
+  {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
+  {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]}
 ]
 
 @NgModule({
@@ -86,7 +88,8 @@ const appRoutes: Routes=[
     FeaturedProductsComponent,
     FeaturedSellerComponent,
     FeaturedStoreComponent,
-    AdministratorComponent
+    AdministratorComponent,
+    FavoritesComponent
   ],
   imports: [
     BrowserModule,
