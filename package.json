@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host seafood.senorcoders.com",
+    "start": "ng serve --host seafood.senorcoders.com --ssl true --ssl-cert '/etc/letsencrypt/live/seafood.senorcoders.com/fullchain.pem' --ssl-key ' /etc/letsencrypt/live/seafood.senorcoders.com/privkey.pem' ",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

@@ -42,9 +42,6 @@ import { FeaturedSellerComponent } from './featured-seller/featured-seller.compo
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../../environments/environment';
 import { TrackingComponent } from './tracking/tracking.component';
 
