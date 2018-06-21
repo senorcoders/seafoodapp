@@ -5,7 +5,7 @@
 /dist-server
 /tmp
 /out-tsc
-
+/ssl
 # dependencies
 /node_modules
 
