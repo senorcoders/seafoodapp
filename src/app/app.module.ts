@@ -113,10 +113,7 @@ const appRoutes: Routes=[
       useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
       deps: [Http]
     }),  
-    NgxSmartModalModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    NgxSmartModalModule.forRoot()
   ],
   providers: [
     AuthenticationService, 
