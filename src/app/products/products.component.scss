@@ -1,0 +1,30 @@
+.btn-pagination{   
+  background: #123345;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.8rem;
+    float: left;
+  cursor:pointer;
+  display:inline-block;
+  &:hover{
+    background-color: #83b0d1;
+    -webkit-transition: background-color 0.5s;
+  }
+}
+.previous{
+  float:left;
+}
+.next{
+  float:right
+}
+a.badge-danger{
+    color: #fff !important;
+    cursor: pointer;
+}
+.badge-green{
+  background: #123345;
+    color: white;
+}

@@ -244,5 +244,19 @@
 		"name":"Nombre",
 		"delete":"Borrar",
 		"go":"Ver Producto"
+	},
+	"Products":{
+		"title":"Products List",
+		"no-result":"No products Found",
+		"view-button":"View Details",
+		"location":"Location",
+		"owner":"Owner",
+		"description":"Fish Description",
+		"no-owner":"No Owner",
+		"previous":"previous",
+		"next":"next",
+		"search-button":"Search",
+		"search-placeholder":"Search",
+		"no-empty":"Search field not should be empty"
 	}
 }

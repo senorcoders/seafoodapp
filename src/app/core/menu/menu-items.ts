@@ -39,17 +39,13 @@ const menuAdmin=[
 },
 {
   state:'products',
-  type: 'sub',
-  children:[
-    {state:'add-product', name:'add new', translate:{en:{name:'Add New'},es:{name:'Agregar'}}},
-    {state:'my-products', name:'my products',translate:{en:{name:'My Products'},es:{name:'Mis Productos'}}}
-  ],
+  type: 'link',
   translate:{
     en:{
-      name:'My Products'
+      name:'Products'
     },
     es:{
-      name:'Mis Productos'
+      name:'Productos'
     }
   }
 },
