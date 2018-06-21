@@ -59,7 +59,7 @@ export class MenuNavComponent{
     this.searchForm=this.fb.group({
       search:['', Validators.required]
     })
-    this.cartItem=this.auth.getCart;
+    this.cartItem=this.auth.getCart();
     if(this.cartItem && this.cartItem.items!=''){
       this.showCart=true;
     }

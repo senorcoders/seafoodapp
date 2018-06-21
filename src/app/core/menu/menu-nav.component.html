@@ -27,7 +27,7 @@
         </ng-template>
       </li>
       <li class="nav-item" *ngIf="showCart">
-        <a class="nav-link" (click)="goCart()"><fa name="shopping-cart"></fa></a>
+        <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
