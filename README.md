@@ -10,9 +10,8 @@ npm start
 ## Deploying
 ```
  $ ng build --prod
- Just go to => [Seafood Souq](https://seafood.senorcoders.com/).
-
-
 ```
+ Just go to [Seafood Souq](https://seafood.senorcoders.com/).
+
 
 
