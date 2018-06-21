@@ -1,3 +1,4 @@
+<div class="firstSection">
 <div class="container" >
 	<div class="row">
 		<div class="col-12"><h3 class="black-title">{{'Admin.title' | translate}}</h3><hr class="hr-small"></div>
@@ -7,16 +8,29 @@
 		          <tr>
 		            <th scope="col">{{'Admin.first-name' | translate}}</th>
 		            <th scope="col">{{'Admin.last-name' | translate}}</th>
+                <th scope="col">{{'Admin.remove' | translate}}</th>
+                <th scope="col">{{'Admin.save' | translate}}</th>
 		          </tr>
 		        </thead>
 		        <tbody>
 		          <tr *ngFor="let admin of admins; let i=index">
 		            <td>{{admin.firstName}}</td>
 		            <td>{{admin.lastName}}</td>
+                <td>
+                  <select class="form-control" (change)="newRole(i,$event.target.value, admin.id)">
+                    <option value="">{{'Admin.role' | translate}}</option>
+                    <option value="1">{{'Admin.seller' | translate}}</option>
+                    <option value="2">{{'Admin.buyer' | translate}}</option>
+                  </select>
+                </td>
+                <td><fa name="check" class="save" (click)="removePrivilege(i)"></fa></td>
 		          </tr>
 		        </tbody>
 		    </table>
 	    </div>
+    <div class="col-12 update-table">
+      <a class="black-btn" (click)="updateTable()">{{'Admin.update-table' | translate}}</a>
+    </div>
 		<div class="col-12">
 			<a class="black-btn" (click)="showRegister()" style="margin-bottom: 20px;">{{'Admin.add' | translate}}</a>
       <div *ngIf="showForm">
@@ -56,35 +70,43 @@
           <input type="submit" class="form-control black-btn" value="{{'Admin.add' | translate}}" [disabled]="adminForm.invalid">
         </div>
       </form>
-    </div>
-		<br><label>{{'Admin.select-user' | translate}}</label><br>
-	      <select class="js-example-basic-single users" name="users">
-	        <option value=""></option>
-	        <option value="{{user.id}}" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
-	      </select>
-	    </div>
+      </div>
+	 </div>
 	</div>
-	<div class="row">
-    <div class="col-12">
-      <h2 class="black-title">{{'Admin.user' | translate}}</h2>
-      <hr class="hr-small">
-    </div>
-    <div class="col-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">{{'Admin.name' | translate}}</th>
-            <th scope="col">{{'Admin.delete' | translate}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let userList of userLists; let i=index">
-            <td>{{userList.name}}</td>
-            <td><span (click)="deleteUser(i)" class="delete"><fa name="remove"></fa></span></td>
-          </tr>
-        </tbody>
-      </table>
-      <a class="black-btn" (click)="updateUser()">{{'Admin.edit' | translate}}</a>
+</div>
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="black-title">{{'Admin.title-role' | translate}}</h2>
+        <hr class="hr-small">
+        <p style="text-align: center;">{{'Admin.message' | translate}}</p>
+        <label>{{'Admin.select-user' | translate}}</label><br>
+        <select class="js-example-basic-single users" name="users">
+          <option value=""></option>
+          <option value="{{user.id}}" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
+        </select>
+      </div>
+      <div class="col-12">
+        <h2 class="black-title">{{'Admin.user' | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+      <div class="col-12">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">{{'Admin.name' | translate}}</th>
+              <th scope="col">{{'Admin.delete' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let userList of userLists; let i=index">
+              <td>{{userList.name}}</td>
+              <td><span (click)="deleteUser(i)" class="delete"><fa name="remove"></fa></span></td>
+            </tr>
+          </tbody>
+        </table>
+        <a class="black-btn" (click)="updateUser()">{{'Admin.edit' | translate}}</a>
+      </div>
     </div>
   </div>
-</div>

@@ -259,6 +259,7 @@ export class AdministratorComponent implements OnInit {
 		{name: "Zimbabwe", code: "ZW"}];
 	adminForm:FormGroup;
 	admins:any;
+	roles:any=[];
   constructor(private auth: AuthenticationService, private toast: ToastrService, private fb:FormBuilder ) { }
 
   ngOnInit() {
@@ -280,7 +281,7 @@ export class AdministratorComponent implements OnInit {
     })
   }
   getUsers(){
-  	this.auth.getData('user').subscribe(
+  	this.auth.getData('user?where={"role":{">":0}}').subscribe(
   		result=>{
   			this.users=result
   		},
@@ -307,10 +308,11 @@ export class AdministratorComponent implements OnInit {
   }
   updateUser(){
   	this.userLists.forEach((data)=>{
-  		this.auth.editUser('user/'+data.id).subscribe(
+  		this.auth.editUser('user/'+data.id, 0).subscribe(
   			result=>{
   				this.toast.success('User: '+data.name+' is administrator', 'Well Done',{positionClass:"toast-top-right"})
   				this.userLists=[];
+  				this.getAdmins();
   			},
   			e=>{
   				this.toast.error('Something wrong happened, try again', 'Error',{positionClass:"toast-top-right"})
@@ -334,6 +336,7 @@ export class AdministratorComponent implements OnInit {
           	this.showForm=false;
           	this.adminForm.reset();
           	this.getAdmins();
+          	this.getUsers();
           },
           error=>{
           	this.toast.error('Something wrong happened, try again', 'Error',{positionClass:"toast-top-right"})
@@ -345,5 +348,40 @@ export class AdministratorComponent implements OnInit {
         this.toast.error('Passwords not match', 'Error',{positionClass:"toast-top-right"})
       } 
     
+  }
+  //save roles to after delete them
+  newRole(i,e,id){
+  	//if select something different to choose a role. add the value to the array
+  	if(e!=''){
+  		this.roles.push({index:i, val:e, id:id})
+  	}
+  	//if the value exist and select choose a role. remove the value from the array
+  	else{
+  		this.roles.splice(i,1)
+  	}
+  	console.log(this.roles)
+  }
+  //remove admin privileges
+  removePrivilege(i){
+  	this.roles.forEach((data, index)=>{
+  		if(data.index==i){
+  			this.auth.editUser('user/'+data.id, data.val).subscribe(
+	  			result=>{
+	  				this.toast.success('Administrator was changed', 'Well Done',{positionClass:"toast-top-right"})
+	  				this.userLists=[];
+	  				console.log(index)
+	  				this.roles.splice(index,1);
+	  				this.getUsers();
+	  			},
+	  			e=>{
+	  				this.toast.error('Something wrong happened, try again', 'Error',{positionClass:"toast-top-right"})
+	  				console.log(e)
+	  			}
+  			)
+  		}
+  	})
+  }
+  updateTable(){
+  	this.getAdmins()
   }
 }

@@ -64,9 +64,9 @@ export class AuthenticationService {
   getData(endpoint){
     return this.http.get(API+endpoint)
   }
-  editUser(endpoint){
+  editUser(endpoint,role){
     let data={
-      role:0
+      role:role
     }
     return this.http.put(API+endpoint, data, httpOptions)
   }

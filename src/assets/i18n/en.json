@@ -227,9 +227,17 @@
 		"repeat":"Repeat Password",
 		"tel":"Phone Number",
 		"country":"Country",
-		"edit":"Edit Users",
+		"edit":"Make Admin",
 		"add":"Add new one",
-		"new":"New Admin"
+		"new":"New Admin",
+		"title-role":"Change User Roles",
+		"message":"Choose one or multiple users to Change User(s) to an Admin role.",
+		"remove":"Remove admin privileges",
+		"role":"Choose a role",
+		"seller":"Seller",
+		"buyer":"Buyer",
+		"save":"Save",
+		"update-table":"Update table"
 	},
 	"Favorites":{
 		"title":"My Favorites",

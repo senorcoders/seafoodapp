@@ -1,3 +1,6 @@
+.firstSection{
+	background: rgba(230, 230, 230, 0.2);
+}
 .container{
 	padding-top: 100px;
 }
@@ -8,6 +11,7 @@
 	display: inline-block;
     color: white !important;
     cursor: pointer;
+    margin:20px 0
 }
 .delete{
 	cursor: pointer;
@@ -16,4 +20,9 @@
 .table-cont{
     height: 300px;
     overflow-y: scroll;
+    background: white;
+}
+.save{
+	cursor: pointer;
+	color:#3838e0
 }

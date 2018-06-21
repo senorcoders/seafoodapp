@@ -227,9 +227,17 @@
 		"repeat":"Repetir Contraseña",
 		"tel":"Teléfono",
 		"country":"Pais",
-		"edit":"Editar Usuarios",
+		"edit":"Make Admin",
 		"add":"Agregar nuevo",
-		"new":"Nuevo Administrador"
+		"new":"Nuevo Administrador",
+		"title-role":"Change User Roles",
+		"message":"Choose one or multiple users to Change User(s) to an Admin role.",
+		"remove":"Remove admin privileges",
+		"role":"Choose a role",
+		"seller":"Seller",
+		"buyer":"Buyer",
+		"save":"Save",
+		"update-table":"Update table"
 	},
 	"Favorites":{
 		"title":"Mis Favoritos",
