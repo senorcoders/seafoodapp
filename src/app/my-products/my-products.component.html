@@ -16,7 +16,7 @@
           <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products; let i=index">
         <div class="search-result">
           <div class="col-lg-12 search-product-img">
-            <div [style.background-image]="image[i]" class="bg-img-prod"></div>
+            <a routerLink="/product/{{product.id}}"><div [style.background-image]="image[i]" class="bg-img-prod"></div></a>
             <div class="btn-overlay">
               <a routerLink="/product/{{product.id}}"class="badge badge-green">{{'MyProducts.view-button' | translate}}</a>
             </div>

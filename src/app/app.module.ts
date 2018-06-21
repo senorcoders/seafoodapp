@@ -42,6 +42,11 @@ import { FeaturedSellerComponent } from './featured-seller/featured-seller.compo
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../../environments/environment';
+import { TrackingComponent } from './tracking/tracking.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -63,7 +68,8 @@ const appRoutes: Routes=[
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
   {path:'featured-store/:id', component:FeaturedStoreComponent},
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
-  {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]}
+  {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
+  {path: 'tracking', component:TrackingComponent}
 ]
 
 @NgModule({
@@ -89,7 +95,8 @@ const appRoutes: Routes=[
     FeaturedSellerComponent,
     FeaturedStoreComponent,
     AdministratorComponent,
-    FavoritesComponent
+    FavoritesComponent,
+    TrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -106,7 +113,10 @@ const appRoutes: Routes=[
       useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
       deps: [Http]
     }),  
-    NgxSmartModalModule.forRoot()
+    NgxSmartModalModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule
   ],
   providers: [
     AuthenticationService, 
