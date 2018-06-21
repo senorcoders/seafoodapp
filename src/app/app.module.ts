@@ -41,10 +41,6 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../../environments/environment';
 import { TrackingComponent } from './tracking/tracking.component';
 
 const appRoutes: Routes=[
@@ -110,10 +106,7 @@ const appRoutes: Routes=[
       useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
       deps: [Http]
     }),  
-    NgxSmartModalModule.forRoot(),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
-    AngularFireAuthModule
+    NgxSmartModalModule.forRoot()
   ],
   providers: [
     AuthenticationService, 
