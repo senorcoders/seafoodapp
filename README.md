@@ -1,5 +1,5 @@
 
-# seafoodapp
+# Seafood Souq
 ## start the app 
 npm start
 ## Port
