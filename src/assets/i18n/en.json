@@ -228,7 +228,7 @@
 		"tel":"Phone Number",
 		"country":"Country",
 		"edit":"Make Admin",
-		"add":"Add new one",
+		"add":"Add new",
 		"new":"New Admin",
 		"title-role":"Change User Roles",
 		"message":"Choose one or multiple users to Change User(s) to an Admin role.",
