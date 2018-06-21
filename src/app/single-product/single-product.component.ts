@@ -37,11 +37,15 @@ export class SingleProductComponent implements OnInit {
   favorite:any;
   idUser:string;
   favoriteId:string;
+  role:number;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService) { 
 }
 
   ngOnInit() {
+    this.isLoggedSr.role.subscribe((role:number)=>{
+      this.role=role
+    })
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
     this.getCart();

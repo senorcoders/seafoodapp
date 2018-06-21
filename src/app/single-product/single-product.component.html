@@ -27,7 +27,7 @@
           </p>
           <form action="#" *ngIf="isLogged; else login">
             <div class="row" style="align-items: center;">
-              <div class="col-6">
+              <div class="col">
                 <div class="quantity">
                   <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
                   <div class="qty-wrapper">
@@ -37,7 +37,7 @@
                   <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
                 </div>
               </div>
-              <div class="col-6">
+              <div class="col" *ngIf="role==2">
                 <div class="favorite-content">
                   <fa name="heart-o" (click)="submitFavorite()" *ngIf="!isFavorite;else favorite"></fa>
                   <ng-template #favorite><fa name="heart" (click)="submitFavorite()" class="isfavorite"></fa></ng-template>
