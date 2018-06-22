@@ -1,0 +1,78 @@
+<div class="container" >
+	<div class="row">
+		<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		<div class="col-12"><h3 class="black-title">{{'Seller.title' | translate}}</h3><hr class="hr-small"></div>
+		<div class="col-12 table-cont">
+	    	<table class="table table-striped">
+		        <thead>
+		          <tr>
+		            <th scope="col">{{'Seller.first-name' | translate}}</th>
+		            <th scope="col">{{'Seller.last-name' | translate}}</th>
+		            <th scope="col">{{'Seller.edit' | translate}}</th>
+                	<th scope="col">{{'Seller.delete' | translate}}</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr *ngFor="let user of users; let i=index">
+		            <td>{{user.firstName}}</td>
+		            <td>{{user.lastName}}</td>
+		            <td><fa name="pencil" class="edit" (click)="showEditForm(user.id)"></fa></td>
+		            <td><fa name="remove" class="delete" (click)="deleteUser(user.id)"></fa></td>
+		          </tr>
+		        </tbody>
+		    </table>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-12" *ngIf="showForm">
+			<h3 class="black-title">{{'Seller.edit-title' | translate}}</h3><hr class="hr-small">
+			<form [formGroup]="sellerForm" (submit)="editUser()">
+		        <div class="form-group">
+		        	<label>{{'Seller.first-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':sellerForm.get('firstName').invalid && sellerForm.get('firstName').touched}">
+		          <div class="invalid-feedback" *ngIf="sellerForm.get('firstName').hasError('required')">{{'Seller.first-name' | translate}} {{'Seller.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.last-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':sellerForm.get('lastName').invalid && sellerForm.get('lastName').touched}">
+		          <div class="invalid-feedback" *ngIf="sellerForm.get('lastName').hasError('required')">{{'Seller.last-name' | translate}} {{'Seller.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.email' | translate}}</label>
+		          <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':sellerForm.get('email').invalid && sellerForm.get('email').touched}">
+		          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('required')">{{'Seller.email' | translate}} {{'Seller.required' | translate}}.</div>
+		          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('email') && !sellerForm.get('email').hasError('required')">{{'Seller.email' | translate}} {{'Seller.invalid' | translate}}</div>	
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.tel' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="tel">
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.banking' | translate}}</label>
+		          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.country' | translate}}</label>
+		          <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
+		             <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+		          </select>
+		          <div class="invalid-feedback" *ngIf="sellerForm.get('location').hasError('required')"> {{'Seller.banking' | translate}} {{'Seller.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		          <label>{{'Seller.licence' | translate}}</label>
+		          <input type="file" class="form-control" formControlName="uploadTradeLicense">
+		        </div>
+		        <div class="form-group">
+		          <label><input type="checkbox" formControlName="sfsAgreementForm">{{'Seller.sfs' | translate}}</label>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Seller.sfs' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="ifLocal">
+		        </div>
+		        <div class="form-group">
+		          <input type="submit" class="form-control black-btn" value="{{'Seller.title' | translate}}" [disabled]="sellerForm.invalid">
+		        </div>
+	      	</form>
+		</div>
+	</div>
+</div>

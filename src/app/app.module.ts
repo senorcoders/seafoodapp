@@ -46,6 +46,7 @@ import { FavoritesComponent } from './favorites/favorites.component';
 import { environment } from '../../environments/environment';
 import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
+import { SellerComponent } from './seller/seller.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -69,7 +70,9 @@ const appRoutes: Routes=[
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
   {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
   {path: 'tracking', component:TrackingComponent},
-  {path: 'products', component:ProductsComponent, canActivate:[AdminRouterService]}
+  {path: 'products', component:ProductsComponent, canActivate:[AdminRouterService]},
+  {path:'seller', component:SellerComponent, canActivate:[AdminRouterService]},
+  //{path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
 ]
 
 @NgModule({
@@ -97,7 +100,8 @@ const appRoutes: Routes=[
     AdministratorComponent,
     FavoritesComponent,
     TrackingComponent,
-    ProductsComponent
+    ProductsComponent,
+    SellerComponent
   ],
   imports: [
     BrowserModule,

@@ -26,14 +26,19 @@ const menuAdmin=[
   }
 },
 {
-  state:'admin',
-  type: 'link',
+  state:'users',
+  type: 'sub',
+  children:[
+  {state:'admin', name:"Admins", translate:{en:{name:"Admins"}, es:{name:"Admins"}}},
+  {state:'seller', name:"Sellers", translate:{en:{name:"Sellers"}, es:{name:"Vendedores"}}},
+  {state:'buyer', name:"Buyers", translate:{en:{name:"Buyers"}, es:{name:"Compradores"}}}
+  ],
   translate:{
     en:{
-      name:'Admin'
+      name:'Users'
     },
     es:{
-      name:'Admin'
+      name:'Usuarios'
     }
   }
 },

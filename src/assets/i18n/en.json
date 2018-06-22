@@ -258,5 +258,22 @@
 		"search-button":"Search",
 		"search-placeholder":"Search",
 		"no-empty":"Search field not should be empty"
+	},
+	"Seller":{
+		"title":"Seller List",
+		"edit":"Edit",
+		"edit-title":"Edit User",
+		"save":"Save",
+		"delete":"Delete",
+		"first-name":"First Name",
+		"last-name":"Last Name",
+		"email":"Email",
+		"tel":"Phone Number",
+		"banking":"Full Banking Info",
+		"country":"Country",
+		"sfs":"SFS Agreement Form",
+		"required":"is required",
+		"invalid":"is invalid",
+		"licence":"Licence"
 	}
 }

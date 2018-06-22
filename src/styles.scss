@@ -295,6 +295,14 @@ body {
     font-size: .8rem;
     margin-top: 10px;
 }
+.delete{
+  cursor: pointer;
+    color: #ec4343;
+}
+.edit{
+  cursor: pointer;
+  color:#3838e0
+}
 /*footer */
 footer{
   clear:both
