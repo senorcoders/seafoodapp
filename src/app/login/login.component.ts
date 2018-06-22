@@ -5,6 +5,8 @@ import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
+import {CartService} from '../core/cart/cart.service';
+import {ProductService} from '../services/product.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -16,7 +18,9 @@ export class LoginComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService, private isLoginService:IsLoginService) {
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, 
+    private toast:ToastrService, private isLoginService:IsLoginService, private cart:CartService,
+    private product: ProductService) {
     this.redirectHome();
   }
 
@@ -40,7 +44,19 @@ export class LoginComponent implements OnInit {
       data=>{
         this.auth.setLoginData(data);
         this.isLoginService.setLogin(true,data['role'])
-        this.redirectHome();
+        //get login data
+        let login=this.auth.getLoginData();
+        //set buyer id to get cart
+        let buyer={"buyer":login.id};
+        //get cart
+        this.product.saveData("shoppingcart",buyer).subscribe(
+          result=>{
+            //set the cart
+            this.cart.setCart(result)
+            this.redirectHome();
+          },
+          e=>{console.log(e)}
+        )
       },
       error=>{
         console.log(error);

@@ -5,7 +5,13 @@
     <a href="" class="white-btn">{{'Cart.banner-button' | translate}} <fa name="long-arrow-right"></fa></a>
   </div>
 </div> 
-
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
+    </div>
+  </div>
+</div>
 <div class="container" *ngIf="!empty; else elseBlock">
   <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="col-md-9"></div>
@@ -29,7 +35,7 @@
       ${{getTotalxItem(product.quantity.value, product.price.value)}}
     </div>
     <div class="col-md-2">
-      <button class="cart-btn" (click)="deleteNode(i)"> {{'Cart.delete' | translate}}</button>
+      <button class="cart-btn" (click)="deleteItem(i,product.id)"> {{'Cart.delete' | translate}}</button>
     </div>
 
   </div>

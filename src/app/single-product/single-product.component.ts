@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import {IsLoginService} from '../core/login/is-login.service';
+import {CartService} from '../core/cart/cart.service';
 declare var jQuery:any;
 
 @Component({
@@ -39,7 +40,7 @@ export class SingleProductComponent implements OnInit {
   favoriteId:string;
   role:number;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
-  private router: Router, private isLoggedSr: IsLoginService) { 
+  private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService) { 
 }
 
   ngOnInit() {
@@ -111,7 +112,9 @@ setFlexslider(){
   }
 
   getCart(){
-    this.cart = this.auth.getCart();
+    this.cartService.cart.subscribe((cart:any)=>{
+      this.cart=cart
+    })
   }
 
   increaseCount(){
@@ -140,9 +143,9 @@ setFlexslider(){
       }
   }
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
-        console.log("Item added", result);
         this.showCart = true;
-        console.log(this.showCart);
+        //set the new value to cart
+        this.cartService.setCart(result)
         this.toast.success("Product added to the cart!",'Product added',{positionClass:"toast-top-right"});
 
     })

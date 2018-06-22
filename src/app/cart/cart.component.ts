@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
+import { CartService } from '../core/cart/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,71 +11,80 @@ import { element } from 'protractor';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  cart:any;
+  buyerId:any;
   products:any = [];
-  empty:boolean = true;
+  empty:boolean;
+  showLoading:boolean=true;
   total:any;
   shoppingEnpoint:any = 'shoppingcart/items';
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService) { }
+    private toast:ToastrService, private Cart: CartService) { }
 
   ngOnInit() {
     this.getCart();
   }
 
   getCart(){
-   this.cart =  this.auth.getCart();
-   this.getItems();
+    this.Cart.cart.subscribe((cart:any)=>{
+      if(cart && cart['items'] !=''){
+        this.products=cart['items'];
+        this.total=cart['total'];
+        this.buyerId=cart['buyer']
+        this.empty=false;
+        this.showLoading=false;
+      }
+      else{
+        this.showLoading=false;
+        this.empty = true;
+      }
+    })
   }
 
   getItems(){
-    this.productService.getData("shoppingcart/" + this.cart.id).subscribe(result => {
-        console.log("Products", result);
-        this.products = result['items'];
-        this.total = result['total'];
-        if (this.products.length > 0){
-          this.empty = false;
-        }
-    })
+    let cart = {
+      "buyer": this.buyerId
+    }
+    this.productService.saveData("shoppingcart", cart).subscribe(result => {
+      this.Cart.setCart(result)
+      this.toast.success("Cart updated!",'Well Done',{positionClass:"toast-top-right"})
+    },e=>{console.log(e)})
   }
 
   getTotalxItem(count, price){
     return count*price;
   }
-
-  deleteNode(i){
-    this.products.splice(i, 1);
-    console.log(this.products);
+  deleteItem(i, id){
+    this.productService.deleteData(`itemshopping/${id}`).subscribe(
+      result=>{
+        this.getItems();
+      },
+      e=>{
+        this.toast.error("Error deleting item!", "Error",{positionClass:"toast-top-right"} );
+        console.log(e)
+      }
+    )
   }
 
   getAllProductsCount(){
-    //console.log("products", this.products);
     var items:any = {"items": []};
     this.products.forEach((element, index) => {
-      
-      console.log("Producto", element);
-      let item = { "id": element['id'],
-                   "quantity": {
-                      "type": element['quantity'].type,
-                      "value": element['quantity'].value
-                  }}
+      let item = { 
+        "id": element['id'],
+        "quantity": {
+          "type": element['quantity'].type,
+          "value": element['quantity'].value
+        }
+      }
       items['items'].push(item);
-      console.log("Items", items);
-      console.log(index, this.products.length);
       if (items['items'].length == this.products.length){
         this.updatecart(items);
-        console.log("Actualizar");
       } 
-
     });
-   
   }
 
   updatecart(items){
-     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
-      console.log("Updated", result);
-      this.toast.success("Cart updated!",'Well Done',{positionClass:"toast-top-right"})
-
+    this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
+      this.getItems()
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
 

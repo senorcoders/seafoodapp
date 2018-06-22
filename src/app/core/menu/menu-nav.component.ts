@@ -8,6 +8,7 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {TranslateService} from 'ng2-translate';
 import {LanguageService} from '../language/language.service';
+import { CartService } from '../cart/cart.service';
 const defaultLanguage = "en";
 const additionalLanguages = ["es"];
 const languages: string[] = [defaultLanguage].concat(additionalLanguages);
@@ -30,7 +31,8 @@ export class MenuNavComponent{
   lang:any;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems,
    private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService,
-   private toast:ToastrService, private translate: TranslateService,private languageService:LanguageService){
+   private toast:ToastrService, private translate: TranslateService,private languageService:LanguageService,
+   private cart:CartService){
   }
   ngOnInit(){
     //language
@@ -52,20 +54,40 @@ export class MenuNavComponent{
     if(this.auth.isLogged()){
       this.userData=this.auth.getLoginData();
       this.isLoggedSr.setLogin(true, this.userData.role)
+      //create the cart
+      let cart={
+        "buyer": this.userData['id']
+      }
+      this.productService.saveData("shoppingcart", cart).subscribe(result => {
+        //set cart value
+        this.cart.setCart(result)
+        if(result && result['items']!=''){
+          this.showCart=true;
+        }
+        else{
+          this.showCart=false;
+        }
+      }),
+      e=>{console.log(e);
+        this.showCart=false
+      }
     }else{
       this.isLoggedSr.setLogin(false,-1)
     }
+    //subscribe to cart service to get the cart items.
+    this.cart.cart.subscribe((cart:any)=>{
+      this.cartItem=cart
+      if(this.cartItem && this.cartItem.items!=''){
+          this.showCart=true;
+        }
+        else{
+          this.showCart=false;
+        }
+    })
     this.getAllProductsCategories();
     this.searchForm=this.fb.group({
       search:['', Validators.required]
     })
-    this.cartItem=this.auth.getCart();
-    if(this.cartItem && this.cartItem.items!=''){
-      this.showCart=true;
-    }
-    else{
-      this.showCart=false;
-    }
   }
   logOut(){
     this.isLoggedSr.setLogin(false,-1)

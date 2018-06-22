@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { CartService } from '../core/cart/cart.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
 @Component({
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
-  constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer) {
+  constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
     //this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
   }
   setHeight(h){
@@ -46,23 +47,6 @@ export class HomeComponent implements OnInit {
    this.getFeaturedSeller();
    this.getFeaturedProducts();
     this.setHeight(window.innerHeight);
-    if(this.auth.isLogged()){
-      if(this.auth.getCart() == null){
-        this.creatCart();
-      }
-    }
-  }
-  creatCart(){
-    this.user = this.auth.getLoginData();
-    console.log("User", this.user);
-    let cart = {
-      "buyer": this.user['id']
-    }
-
-    this.product.saveData("shoppingcart", cart).subscribe(result => {
-         this.auth.setCart(result);
-    })
-
   }
   getFeaturedProducts(){
     this.product.getData('featuredproducts').subscribe(
