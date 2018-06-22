@@ -14,7 +14,7 @@ body {
     font-size: 1rem;
     text-transform: uppercase;
 }
-.navbar-nav{
+.nav-language{
   padding-right: 40px;
 }
 .navbar{
@@ -77,6 +77,7 @@ body {
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 50px;
+  padding: 1rem 5px;
   option{
     color: #123345;
   }

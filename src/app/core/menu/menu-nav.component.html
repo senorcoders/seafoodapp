@@ -26,9 +26,6 @@
           </li>
         </ng-template>
       </li>
-      <li class="nav-item" *ngIf="showCart">
-        <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
       </li>
@@ -50,9 +47,6 @@
             </li>
           </ng-template>
         </li>
-        <li class="nav-item" *ngIf="showCart">
-          <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
         </li>
@@ -73,9 +67,6 @@
               </div>
             </li>
           </ng-template>
-        </li>
-        <li class="nav-item" *ngIf="showCart">
-          <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
         </li>
         <li class="nav-item">
           <span class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</span>
@@ -115,7 +106,10 @@
       </li>
     </ul>
     </div>
-    <ul class="navbar-nav">
+    <ul class="navbar-nav nav-language">
+      <li class="nav-item" *ngIf="showCart && isLogged">
+        <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
+      </li>
       <li class="nav-item lang-cont">
         <select class="language" (change)="changeLanguage($event)">
           <option value="{{lang}}">{{lang}}</option>
