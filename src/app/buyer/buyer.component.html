@@ -1,0 +1,67 @@
+<div class="container" >
+	<div class="row">
+		<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		<div class="col-12"><h3 class="black-title">{{'Buyer.title' | translate}}</h3><hr class="hr-small"></div>
+		<div class="col-12 table-cont">
+	    	<table class="table table-striped">
+		        <thead>
+		          <tr>
+		            <th scope="col">{{'Buyer.first-name' | translate}}</th>
+		            <th scope="col">{{'Buyer.last-name' | translate}}</th>
+		            <th scope="col">{{'Buyer.edit' | translate}}</th>
+                	<th scope="col">{{'Buyer.delete' | translate}}</th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr *ngFor="let user of users; let i=index">
+		            <td>{{user.firstName}}</td>
+		            <td>{{user.lastName}}</td>
+		            <td><fa name="pencil" class="edit" (click)="showEditForm(user.id)"></fa></td>
+		            <td><fa name="remove" class="delete" (click)="deleteUser(user.id)"></fa></td>
+		          </tr>
+		        </tbody>
+		    </table>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col-12" *ngIf="showForm">
+			<h3 class="black-title">{{'Buyer.edit-title' | translate}}</h3><hr class="hr-small">
+			<form [formGroup]="buyerForm" (submit)="editUser()">
+		        <div class="form-group">
+		        	<label>{{'Buyer.first-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">{{'Buyer.first-name' | translate}} {{'Buyer.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.last-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Buyer.last-name' | translate}} {{'Buyer.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.email' | translate}}</label>
+		          <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.required' | translate}}.</div>
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.invalid' | translate}}</div>	
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.tel' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="tel">
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.banking' | translate}}</label>
+		          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.country' | translate}}</label>
+		          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':buyerForm.get('country').invalid && buyerForm.get('country').touched}">
+		             <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+		          </select>
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('country').hasError('required')"> {{'Buyer.country' | translate}} {{'Buyer.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		          <input type="submit" class="form-control black-btn" value="{{'Buyer.save' | translate}}" [disabled]="buyerForm.invalid">
+		        </div>
+	      	</form>
+		</div>
+	</div>
+</div>

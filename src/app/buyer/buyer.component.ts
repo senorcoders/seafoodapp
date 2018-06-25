@@ -6,14 +6,14 @@ import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-seller',
-  templateUrl: './seller.component.html',
-  styleUrls: ['./seller.component.scss']
+  selector: 'app-buyer',
+  templateUrl: './buyer.component.html',
+  styleUrls: ['./buyer.component.scss']
 })
-export class SellerComponent implements OnInit {
+export class BuyerComponent implements OnInit {
 	users:any;
 	showLoading:boolean=true;
-	sellerForm:FormGroup;
+	buyerForm:FormGroup;
 	showForm:boolean=false;
 	user:any;
 	countries=[
@@ -268,20 +268,17 @@ export class SellerComponent implements OnInit {
   	this.getUsers()
   }
   userForm(){
-  	this.sellerForm=this.fb.group({
+  	this.buyerForm=this.fb.group({
   		firstName:[this.user.firstName,Validators.required],
 		lastName: [this.user.lastName, Validators.required],
 		country: [this.user.dataExtra.country, Validators.required],
 		email: [this.user.email, [Validators.email, Validators.required]],
 		tel: [this.user.dataExtra.tel],
-		uploadTradeLicense: [this.user.dataExtra.uploadTradeLicense],
 		fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
-		sfsAgreementForm: [''],
-		ifLocal: [this.user.dataExtra.ifLocal]
   	})
   }
   getUsers(){
-	this.auth.getData('user?where={"role":1}').subscribe(
+	this.auth.getData('user?where={"role":2}').subscribe(
 		result=>{
 			this.users=result
 			this.showLoading=false
@@ -318,12 +315,12 @@ export class SellerComponent implements OnInit {
   	)
   }
   editUser(){
-  	let data=this.sellerForm.value;
+  	let data=this.buyerForm.value;
   	this.product.updateData('user/'+this.user.id,data).subscribe(
   		result=>{
 			this.toast.success('User has been edited', 'Well Done', { positionClass: "toast-top-right" })
   			this.showForm=false;
-  			this.sellerForm.reset();
+  			this.buyerForm.reset();
   			this.getUsers();
   		},
   		error=>{
