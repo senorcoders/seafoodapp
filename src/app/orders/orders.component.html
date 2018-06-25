@@ -11,12 +11,12 @@
 		</div>
 	</div>
 	<div *ngIf="showData">
-		<div class="row carts" *ngFor="let shoppingCart of shoppingCarts">
+		<div class="row carts" *ngFor="let shoppingCart of shoppingCarts;let i=index">
 			<div class="col-4" style="text-align: center;">
 				<a routerLink="/orders-items/{{shoppingCart.id}}"><img src="../../assets/shoppingcart-default.png" alt="" class="shoppingcart"></a>
 			</div>
 			<div class="col-8">
-				<a routerLink="/orders-items/{{shoppingCart.id}}" class="title">{{shoppingCart.paidDateTime}} - ${{shoppingCart.total}}</a>
+				<a routerLink="/orders-items/{{shoppingCart.id}}" class="title">{{dates[i]}} - ${{shoppingCart.total}}</a>
 				<div>
 					<a routerLink="/orders-items/{{shoppingCart.id}}" class="black-btn">{{'Orders.see-button' | translate}}</a>
 				</div>

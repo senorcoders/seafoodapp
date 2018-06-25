@@ -13,6 +13,7 @@ export class OrdersComponent implements OnInit {
 	shoppingCarts:any;
 	showLoading:boolean=true;
 	showData:boolean=false;
+	dates=[];
   constructor(private productService: ProductService, private Cart: CartService, private auth:AuthenticationService) { }
 
   ngOnInit() {
@@ -30,13 +31,20 @@ export class OrdersComponent implements OnInit {
   	this.productService.getData(`shoppingcart/?where={"status":{"like":"paid"},"buyer":"${this.userData.id}"}`).subscribe(
   		result=>{
   			this.showLoading=false;
-  			this.showData=true
   			this.shoppingCarts=result
-  			console.log(this.shoppingCarts)
+  			this.getDates();
+  			this.showData=true
   		},
   		e=>{
   			console.log(e)
   		}
   	)
+  }
+  getDates(){
+  	this.shoppingCarts.forEach((data, index)=>{
+  		//convert date
+  		let date=new Date(data.paidDateTime)
+  		this.dates[index]=date.toString().split("GMT",1)
+  	})
   }
 }
