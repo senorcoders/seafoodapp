@@ -1,0 +1,29 @@
+.black-title{
+	text-align: center;
+}
+.container{
+	padding: 100px 0;
+}
+.shoppingcart{
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	max-height: 150px;
+}
+.carts{
+	align-items: center;
+    box-shadow: 2px 5px 20px -4px black;
+    margin-bottom: 20px;
+    .title{
+    	display: block;
+	    text-decoration: none;
+	    font-size: 1.2rem;
+    }
+}
+.black-btn{
+	text-transform: capitalize;
+	display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+    color: white !important;
+}

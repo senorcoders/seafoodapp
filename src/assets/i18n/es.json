@@ -290,5 +290,9 @@
 		"country":"Country",
 		"required":"is required",
 		"invalid":"is invalid"
+	},
+	"Orders":{
+		"title":"My Orders",
+		"see-button":"See Products"
 	}
 }

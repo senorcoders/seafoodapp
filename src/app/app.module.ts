@@ -48,6 +48,8 @@ import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
 import { SellerComponent } from './seller/seller.component';
 import { BuyerComponent } from './buyer/buyer.component';
+import { ProductRatingComponent } from './product-rating/product-rating.component';
+import { OrdersComponent } from './orders/orders.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -74,6 +76,7 @@ const appRoutes: Routes=[
   {path: 'products', component:ProductsComponent, canActivate:[AdminRouterService]},
   {path:'seller', component:SellerComponent, canActivate:[AdminRouterService]},
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
+  {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
 ]
 
 @NgModule({
@@ -103,7 +106,9 @@ const appRoutes: Routes=[
     TrackingComponent,
     ProductsComponent,
     SellerComponent,
-    BuyerComponent
+    BuyerComponent,
+    ProductRatingComponent,
+    OrdersComponent
   ],
   imports: [
     BrowserModule,
