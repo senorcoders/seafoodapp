@@ -32,7 +32,7 @@ export class EditProductComponent implements OnInit {
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
-  base:string="http://138.68.19.227:7000";
+  base:string="https://apiseafood.senorcoders.com";
   pTypes:any = [];
   country: FormControl;
   fileToUpload: any = [];

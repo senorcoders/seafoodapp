@@ -20,7 +20,7 @@ export class SingleStoreComponent implements OnInit {
   };  
   hero:any;
   logo:any;
-  base:string="http://138.68.19.227:7000";
+  base:string="https://apiseafood.senorcoders.com";
   products:any = [];
   empty:boolean = false;
   form:any = {

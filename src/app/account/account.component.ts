@@ -24,7 +24,7 @@ export class AccountComponent implements OnInit {
   buttonText:string;
   new:boolean = false;
   fileToUpload: any = [];
-  base:string="http://138.68.19.227:7000";
+  base:string="https://apiseafood.senorcoders.com";
   hero:any;
   fileHero:any = [];
   heroSlider:SafeStyle;

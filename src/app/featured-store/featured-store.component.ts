@@ -11,7 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platf
 })
 export class FeaturedStoreComponent implements OnInit {
   products:any;
-  API:string="http://138.68.19.227:7000";
+  API:string="https://apiseafood.senorcoders.com";
   showNotFound=false;
   showLoading:boolean=true;
   image:SafeStyle=[];

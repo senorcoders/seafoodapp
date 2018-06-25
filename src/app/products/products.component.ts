@@ -18,7 +18,7 @@ export class ProductsComponent implements OnInit {
 	showNotFound=false;
 	image:SafeStyle=[];
 	searchForm:FormGroup;
-	API:string="http://138.68.19.227:7000";
+	API:string="https://apiseafood.senorcoders.com";
   constructor(private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder) { }
 
   ngOnInit() {
