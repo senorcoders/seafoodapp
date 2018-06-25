@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="black-title">{{'Orders-items.title' | translate}}</h2>
+			<hr class="hr-small">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		</div>
+	</div>
+	<div *ngIf="showData">
+		<div class="row carts" *ngFor="let product of products">
+			<div class="col-lg-4 col-md-4" style="text-align: center;">
+				<a routerLink="/product/{{product.fish.id}}"><img src="../../assets/shoppingcart-default.png" alt="" class="shoppingcart"></a>
+			</div>
+			<div class="col-lg-4 col-md-4">
+				<a routerLink="/product/{{product.fish.id}}" class="title">{{product.fish.name}}</a>
+				<p>Sold by: <a routerLink="/featured-store/{{product.fish.store.id}}" class="store">{{product.fish.store.name}}</a></p>
+				<p>${{product.fish.price.value}}</p>
+			</div>
+			<div class="col-lg-4 col-md-4 buttons">
+				<a routerLink="/product/{{product.fish.id}}" class="black-btn">{{'Orders-items.view' | translate}}</a><br>
+				<a routerLink="" class="black-btn">{{'Orders-items.support' | translate}}</a><br>
+				<a routerLink="/product-review/{{product.fish.id}}" class="black-btn">{{'Orders-items.review' | translate}}</a>
+			</div>
+		</div>
+	</div>
+</div>

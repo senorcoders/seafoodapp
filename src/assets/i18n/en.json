@@ -294,5 +294,11 @@
 	"Orders":{
 		"title":"My Orders",
 		"see-button":"See Products"
+	},
+	"Orders-items":{
+		"title":"Products",
+		"view":"See Product",
+		"review":"Write a product review",
+		"support":"Get Product support"
 	}
 }
