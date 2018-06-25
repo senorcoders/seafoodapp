@@ -84,7 +84,7 @@ export class FishComponent implements OnInit {
     })
     this.buttonLabel="Edit Fish";
     if(this.categories[index].images!=null){
-      this.currentImage='http://138.68.19.227:7000'+this.categories[index].images[0].src;
+      this.currentImage='https://apiseafood.senorcoders.com'+this.categories[index].images[0].src;
       this.showImage=true;
     }
   }

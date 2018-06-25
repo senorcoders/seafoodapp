@@ -14,7 +14,7 @@ export class SearchComponent implements OnInit {
   searchForm:FormGroup;
   products:any;
   searchQuery:string;
-  API:string="http://138.68.19.227:7000";
+  API:string="https://apiseafood.senorcoders.com";
   showNotFound=false;
   image:SafeStyle=[];
   constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }

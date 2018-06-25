@@ -15,7 +15,7 @@ export class MyProductsComponent implements OnInit {
   storeEndpoint:any = 'api/store/user/';
   products:any = [];
   store:any;
-  base:string="http://138.68.19.227:7000";
+  base:string="https://apiseafood.senorcoders.com";
   image:SafeStyle=[];
 
   constructor(private auth: AuthenticationService, private productService: ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }

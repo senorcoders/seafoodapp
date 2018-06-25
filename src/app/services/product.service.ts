@@ -8,7 +8,7 @@ const httpOptions = {
 // const httpOptionsForm = {
 //   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
 // };
-const  API="http://138.68.19.227:7000/";
+const  API="https://apiseafood.senorcoders.com/";
 @Injectable()
 export class ProductService {
 

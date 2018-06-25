@@ -12,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platf
 export class ArchiveProductsComponent implements OnInit {
   category:string;
   products:any;
-  API:string="http://138.68.19.227:7000";
+  API:string="https://apiseafood.senorcoders.com";
   prvPage =0;
   showPrvP:boolean= false;
   showNextP:boolean=false;

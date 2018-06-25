@@ -11,7 +11,7 @@ declare var jQuery:any;
 })
 export class HomeComponent implements OnInit {
   products:any=[];
-  API:string="http://138.68.19.227:7000";
+  API:string="https://apiseafood.senorcoders.com";
   user:any;
   //video:string="http://senorcoders.com/Water Sea Ocean.mp4";
   //videoURLSafe:any;
