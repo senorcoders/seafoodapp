@@ -8,7 +8,7 @@ const httpOptionsTypeResponse={
       headers: new HttpHeaders({ "Content-Type": "application/json;charset=UTF-8"}),
       responseType: "text" as 'text'
 };
-const  API="http://138.68.19.227:7000/";
+const  API="https://apiseafood.senorcoders.com/";
 @Injectable()
 export class AuthenticationService {
   constructor(private http: HttpClient) { }

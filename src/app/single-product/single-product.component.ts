@@ -20,7 +20,7 @@ export class SingleProductComponent implements OnInit {
   price:any;
   images: any = [];
   priceDesc:any;
-  base:any = "http://138.68.19.227:7000";
+  base:any = "https://apiseafood.senorcoders.com";
   category:any;
   show:boolean = true;
   cart:any;

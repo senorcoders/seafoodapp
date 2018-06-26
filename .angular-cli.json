@@ -63,8 +63,7 @@
     "component": {
     },
     "serve": {
-      "port": 1337,
-      "host": "seafood.senorcoders.com"
+      "port": 1337
     }
   }
 }
