@@ -26,6 +26,18 @@ const menuAdmin=[
   }
 },
 {
+  state:'comments',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Comment'
+    },
+    es:{
+      name:'Comentarios'
+    }
+  }
+},
+{
   state:'users',
   type: 'sub',
   children:[

@@ -315,5 +315,17 @@
 		"review-message":"Write your comment",
 		"is-invalid":"You have to write a comment",
 		"send":"Send"
+	},
+	"Comments":{
+		"pending-title":"Pending Comments",
+		"buyer":"Buyer",
+		"store":"Store",
+		"comment":"Comment",
+		"stars":"Stars",
+		"accept":"Accept",
+		"delete":"Delete",
+		"no-pending":"there are not Pending Comments",
+		"no-comments":"there are not Comments",
+		"comment-title":"All Comments"
 	}
 }

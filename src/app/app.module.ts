@@ -48,7 +48,7 @@ import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
 import { SellerComponent } from './seller/seller.component';
 import { BuyerComponent } from './buyer/buyer.component';
-import { ProductRatingComponent } from './product-rating/product-rating.component';
+import { CommentsComponent } from './comments/comments.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersItemsComponent } from './orders-items/orders-items.component';
 
@@ -78,6 +78,7 @@ const appRoutes: Routes=[
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
   {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
   {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
+  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]}
 ]
 
 @NgModule({
@@ -107,7 +108,7 @@ const appRoutes: Routes=[
     ProductsComponent,
     SellerComponent,
     BuyerComponent,
-    ProductRatingComponent,
+    CommentsComponent,
     OrdersComponent,
     OrdersItemsComponent
   ],
