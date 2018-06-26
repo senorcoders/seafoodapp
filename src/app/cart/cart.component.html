@@ -50,7 +50,7 @@
         <h3>{{'Cart.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
       </div>
       <div class="col-md-12 text-right" style="padding-bottom: 20px; padding-top: 20px;">
-        <button class="cart-btn">{{'Cart.next' | translate}}</button>
+        <button class="cart-btn" (click)="checkout()">{{'Cart.next' | translate}}</button>
       </div>
   </div>
 

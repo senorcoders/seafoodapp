@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import {TranslateService} from 'ng2-translate';
 import {LanguageService} from '../language/language.service';
 import { CartService } from '../cart/cart.service';
+import { OrdersService } from '../orders/orders.service';
 const defaultLanguage = "en";
 const additionalLanguages = ["es"];
 const languages: string[] = [defaultLanguage].concat(additionalLanguages);
@@ -29,10 +30,11 @@ export class MenuNavComponent{
   showSuggestion:boolean=false;
   results:any;
   lang:any;
+  showOrders:boolean=false;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems,
    private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService,
    private toast:ToastrService, private translate: TranslateService,private languageService:LanguageService,
-   private cart:CartService){
+   private cart:CartService, private orders:OrdersService){
   }
   ngOnInit(){
     //language
@@ -61,15 +63,30 @@ export class MenuNavComponent{
       this.productService.saveData("shoppingcart", cart).subscribe(result => {
         //set cart value
         this.cart.setCart(result)
-        if(result && result['items']!=''){
+        if(result && result['total']!==0){
           this.showCart=true;
         }
         else{
           this.showCart=false;
         }
-      }),
+      },
       e=>{console.log(e);
         this.showCart=false
+      })
+      //check if the user has orders
+      if(this.isLoggedSr.role.value==2){
+        this.productService.getData(`shoppingcart/?where={"status":{"like":"paid"},"buyer":"${this.userData.id}"}`).subscribe(
+        result=>{
+          if(result && result!=''){
+            this.showOrders=true;
+            this.orders.setOrders(true)
+          }
+        },
+        e=>{
+          this.showOrders=false;
+          this.orders.setOrders(false)
+          console.log(e)
+        })
       }
     }else{
       this.isLoggedSr.setLogin(false,-1)
@@ -77,12 +94,15 @@ export class MenuNavComponent{
     //subscribe to cart service to get the cart items.
     this.cart.cart.subscribe((cart:any)=>{
       this.cartItem=cart
-      if(this.cartItem && this.cartItem.items!=''){
+      if(this.cartItem && this.cartItem.total!==0){
           this.showCart=true;
         }
         else{
           this.showCart=false;
         }
+    })
+    this.orders.hasOrders.subscribe((hasOrder:any)=>{
+      this.showOrders=hasOrder
     })
     this.getAllProductsCategories();
     this.searchForm=this.fb.group({

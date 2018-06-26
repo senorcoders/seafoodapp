@@ -4,6 +4,8 @@ import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
 import { CartService } from '../core/cart/cart.service';
+import {Router} from '@angular/router';
+import { OrdersService } from '../core/orders/orders.service';
 
 @Component({
   selector: 'app-cart',
@@ -17,8 +19,9 @@ export class CartComponent implements OnInit {
   showLoading:boolean=true;
   total:any;
   shoppingEnpoint:any = 'shoppingcart/items';
+  shoppingCartId:string;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService) { }
+    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
 
   ngOnInit() {
     this.getCart();
@@ -27,6 +30,7 @@ export class CartComponent implements OnInit {
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
       if(cart && cart['items'] !=''){
+        this.shoppingCartId=cart['id']
         this.products=cart['items'];
         this.total=cart['total'];
         this.buyerId=cart['buyer']
@@ -90,6 +94,35 @@ export class CartComponent implements OnInit {
 
     })
   }
-
+  checkout(){
+    let date= new Date();
+    let data={
+      status:'paid',
+      paidDateTime: date.toISOString()
+    }
+    this.productService.updateData(`shoppingcart/${this.shoppingCartId}`,data).subscribe(
+      result=>{
+         let cart={
+          "buyer": this.buyerId
+        }
+        this.orders.setOrders(true)
+        this.productService.saveData("shoppingcart", cart).subscribe(
+          result => {
+          //set the new cart value
+          this.Cart.setCart(result)
+          this.router.navigate(['/orders'])
+          },
+          e=>{
+            console.log(e)
+          }
+        )
+      },
+      e=>{
+        this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
+        this.orders.setOrders(false)
+        console.log(e)
+      }
+    )
+  }
 
 }

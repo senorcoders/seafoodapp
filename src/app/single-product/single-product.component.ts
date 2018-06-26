@@ -39,6 +39,8 @@ export class SingleProductComponent implements OnInit {
   idUser:string;
   favoriteId:string;
   role:number;
+  storeId:string;
+  storeName:string;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService) { 
 }
@@ -103,7 +105,9 @@ setFlexslider(){
       this.priceValue = data['price'].value;
       this.priceType = data['price'].type;
       this.measurement = data['weight'].type;
-      this.mainImg=data['imagePrimary']
+      this.mainImg=data['imagePrimary'];
+      this.storeId=data['store'].id;
+      this.storeName=data['store'].name;
       this.setFlexslider();
   }, error=>{
     console.log("Error", error)

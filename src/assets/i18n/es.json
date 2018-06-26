@@ -4,7 +4,8 @@
 		"search-input-placeholder":"Buscar",
 		"search-input-button":"Buscar",
 		"subscribe-button":"Suscribeme",
-		"subscribe-placeholder":"Suscríbase a nuestra lista de correo"
+		"subscribe-placeholder":"Suscríbase a nuestra lista de correo",
+		"orders":"Mis compras"
 	},
 	"Home":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
@@ -290,5 +291,15 @@
 		"country":"Country",
 		"required":"is required",
 		"invalid":"is invalid"
+	},
+	"Orders":{
+		"title":"My Orders",
+		"see-button":"See Products"
+	},
+	"Orders-items":{
+		"title":"Products",
+		"view":"See Product",
+		"review":"Write a product review",
+		"support":"Get Product support"
 	}
 }

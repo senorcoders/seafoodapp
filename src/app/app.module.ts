@@ -19,6 +19,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
 import { LanguageService } from './core/language/language.service';
 import { CartService } from './core/cart/cart.service';
+import { OrdersService } from './core/orders/orders.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
@@ -48,6 +49,9 @@ import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
 import { SellerComponent } from './seller/seller.component';
 import { BuyerComponent } from './buyer/buyer.component';
+import { ProductRatingComponent } from './product-rating/product-rating.component';
+import { OrdersComponent } from './orders/orders.component';
+import { OrdersItemsComponent } from './orders-items/orders-items.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -74,6 +78,8 @@ const appRoutes: Routes=[
   {path: 'products', component:ProductsComponent, canActivate:[AdminRouterService]},
   {path:'seller', component:SellerComponent, canActivate:[AdminRouterService]},
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
+  {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
+  {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
 ]
 
 @NgModule({
@@ -103,7 +109,10 @@ const appRoutes: Routes=[
     TrackingComponent,
     ProductsComponent,
     SellerComponent,
-    BuyerComponent
+    BuyerComponent,
+    ProductRatingComponent,
+    OrdersComponent,
+    OrdersItemsComponent
   ],
   imports: [
     BrowserModule,
@@ -132,7 +141,8 @@ const appRoutes: Routes=[
     RouterProtectionService,
     LanguageService,
     AdminRouterService,
-    CartService
+    CartService,
+    OrdersService
   ],
   bootstrap: [AppComponent]
 })
