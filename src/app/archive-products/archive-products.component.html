@@ -45,7 +45,7 @@
               <ng-template #showStore>
                 <div class="owner">
                   <b>{{'Archive-product.owner' | translate}}:</b> <br>
-                  <a routerLink="/store/{{product.store.owner.id}}"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
+                  <a routerLink="/store/{{product.store.id}}"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
                 </div>
               </ng-template>
               <div><b>{{'Archive-product.description' | translate}}:</b><br>{{smallDesc(product.description)}}...</div>
