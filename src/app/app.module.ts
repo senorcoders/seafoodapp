@@ -19,6 +19,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
 import { LanguageService } from './core/language/language.service';
 import { CartService } from './core/cart/cart.service';
+import { OrdersService } from './core/orders/orders.service';
 import { AddProductComponent } from './add-product/add-product.component';
 import { ArchiveProductsComponent } from './archive-products/archive-products.component';
 import { SearchComponent } from './search/search.component';
@@ -140,7 +141,8 @@ const appRoutes: Routes=[
     RouterProtectionService,
     LanguageService,
     AdminRouterService,
-    CartService
+    CartService,
+    OrdersService
   ],
   bootstrap: [AppComponent]
 })

@@ -68,6 +68,7 @@
             </li>
           </ng-template>
         </li>
+        <li class="nav-item" *ngIf="showOrders"><a routerLink="/orders" class="nav-link">{{"Menu.orders" | translate}}</a></li>
         <li class="nav-item">
           <span class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</span>
         </li>

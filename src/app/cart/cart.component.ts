@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { element } from 'protractor';
 import { CartService } from '../core/cart/cart.service';
 import {Router} from '@angular/router';
+import { OrdersService } from '../core/orders/orders.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,7 +21,7 @@ export class CartComponent implements OnInit {
   shoppingEnpoint:any = 'shoppingcart/items';
   shoppingCartId:string;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService, private router:Router) { }
+    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
 
   ngOnInit() {
     this.getCart();
@@ -104,12 +105,12 @@ export class CartComponent implements OnInit {
          let cart={
           "buyer": this.buyerId
         }
+        this.orders.setOrders(true)
         this.productService.saveData("shoppingcart", cart).subscribe(
           result => {
           //set the new cart value
           this.Cart.setCart(result)
           this.router.navigate(['/orders'])
-          console.log(this.Cart.cart.value)
           },
           e=>{
             console.log(e)
@@ -118,6 +119,7 @@ export class CartComponent implements OnInit {
       },
       e=>{
         this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
+        this.orders.setOrders(false)
         console.log(e)
       }
     )
