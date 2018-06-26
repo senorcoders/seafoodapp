@@ -41,7 +41,6 @@ import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
-import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { environment } from '../../environments/environment';
@@ -71,7 +70,6 @@ const appRoutes: Routes=[
   {path:'store/:id', component:SingleStoreComponent},
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
-  {path:'featured-store/:id', component:FeaturedStoreComponent},
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
   {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
   {path: 'tracking', component:TrackingComponent},
@@ -103,7 +101,6 @@ const appRoutes: Routes=[
     SingleStoreComponent,
     FeaturedProductsComponent,
     FeaturedSellerComponent,
-    FeaturedStoreComponent,
     AdministratorComponent,
     FavoritesComponent,
     TrackingComponent,

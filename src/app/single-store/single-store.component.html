@@ -1,5 +1,5 @@
 <div *ngIf="!empty; else elseBlock">
-<div class="page-header" id="hero" [ngStyle]="{'background':  'url(' + base +  hero + ') '}">
+<div class="page-header" id="hero" [ngStyle]="{'background':  'url(' +  hero + ') '}">
   
   <div class="content">
     <h1 class="big-title">{{store.name}}</h1>
@@ -9,16 +9,16 @@
 
   <div class="row">
     <div class="col-md-4" style="text-align: center">
-      <img class="logo-store" src="{{base}}{{logo}}" alt="">
+      <img class="logo-store" src="{{logo}}" alt="">
     </div>
     <div class="col-md-8">
-      <h3>Store Details</h3>
+      <h3>{{'SingleStore.detail' | translate}}</h3>
       <p>{{store.name}} + {{store.location}}</p>
       <br>
-      <h3>Store Description</h3>
+      <h3>{{'SingleStore.desc' | translate}}</h3>
       <p>{{store.description}}</p>
       <br>
-      <button (click)="ngxSmartModalService.getModal('myModal').open()" type="button" class="btn btn-info">Message</button>
+      <button (click)="ngxSmartModalService.getModal('myModal').open()" type="button" class="btn btn-info">{{'SingleStore.message' | translate}}</button>
 
     </div>
   </div>
@@ -26,7 +26,7 @@
 
   <div class="row search-result" *ngIf="products.length > 0">
       <div class="col-md-12">
-        <h3>Available Fish</h3> <br>
+        <h3>{{'SingleStore.available' | translate}}</h3> <br>
       </div>
       <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products">
           <div class="search-result">
@@ -39,7 +39,7 @@
                 </ng-template>
               </ng-template>
               <div class="btn-overlay">
-                <a routerLink="/product/{{product.id}}" class="btn-green">View Details</a>
+                <a routerLink="/product/{{product.id}}" class="btn-green">{{'SingleStore.view-button' | translate}}</a>
               </div>
             </div>
             <div class="col-lg-12 search-product-desc">
@@ -47,10 +47,10 @@
               <div class="col-lg-8 col-8">
                 <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
                 <span class="coming-from">
-                  <b>Location: </b>{{product.country}}
+                  <b>{{'SingleStore.location' | translate}}: </b>{{product.country}}
                 </span>
                
-                <div><b>Fish Description:</b><br>{{smallDesc(product.description)}}...</div>
+                <div><b>{{'SingleStore.description' | translate}}:</b><br>{{smallDesc(product.description)}}...</div>
               </div>
               <div class="col-lg-4 col-4">
                 <div class="search-price">
@@ -61,7 +61,7 @@
              </div>
            </div>
            <div class="view-detail-cont">
-              <a routerLink="/product/{{product.id}}" class="btn-green">View Details</a>
+              <a routerLink="/product/{{product.id}}" class="btn-green">{{'SingleStore.view-button' | translate}}</a>
             </div>
          </div>
         </div>
@@ -72,27 +72,27 @@
 <ng-template #elseBlock>
   
     <div class="not-found-grid">
-      <p>Store does not exist!</p>
+      <p>{{'SingleStore.no-store' | translate}}</p>
     </div>  
   </ng-template>
 
 <ngx-smart-modal  #myModal identifier="myModal">
-    <h1>Contact us</h1>
+    <h1>{{'SingleStore.contact' | translate}}</h1>
     <form (ngSubmit)="sendMail()">
         <div class="form-group">
-          <label for="name"></label>
-          <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="Your Name">
+          <label for="name">{{'SingleStore.name' | translate}}</label>
+          <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="{{'SingleStore.name' | translate}}">
         </div>
         <div class="form-group">
-          <label for="exampleInputEmail1">Email address</label>
-          <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+          <label for="exampleInputEmail1">{{'SingleStore.email' | translate}}</label>
+          <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'SingleStore.email' | translate}}" required>
+          <small id="emailHelp" class="form-text text-muted">{{'SingleStore.no-share' | translate}}.</small>
         </div>
         <div class="form-group">
-          <label for="message">Your message</label>
+          <label for="message">{{'SingleStore.your-message' | translate}}</label>
           <textarea [(ngModel)]="form.message" [ngModelOptions]="{standalone: true}" required class="form-control" id="message" rows="3"></textarea>
         </div>
     
-        <button type="submit" class="btn btn-primary">Send</button>
+        <button type="submit" class="btn btn-primary">{{'SingleStore.send' | translate}}</button>
       </form>
     </ngx-smart-modal>

@@ -204,15 +204,25 @@
 		"store":"Select Store",
 		"save":"Save Store"
 	},
-	"Featured-store":{
-		"view-button":"Ver Detalles",
-		"location":"Ubicación",
-		"owner":"Propietario",
-		"description":"Descripción",
-		"no-result":"No se encontrarón productos",
-		"no-owner":"No hay Propietario",
-		"previous":"Previo",
-		"next":"Siguiente"
+	"SingleStore":{
+		"detail":"Store Details",
+		"desc":"Store Description",
+		"message":"Message",
+		"available":"Available Fish",
+		"view-button":"View Details",
+		"location":"Location",
+		"owner":"Owner",
+		"description":"Fish Description",
+		"no-result":"No Products Were Found",
+		"no-store":"Store does not exist!",
+		"contact":"Contact us",
+		"email":"Email address",
+		"name":"Your Name",
+		"your-message":"Your message",
+		"send":"send",
+		"no-share":"We'll never share your email with anyone else",
+		"previous":"previous",
+		"next":"next"
 	},
 	"Admin":{
 		"title":"Administradores",
