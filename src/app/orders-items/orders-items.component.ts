@@ -47,6 +47,5 @@ export class OrdersItemsComponent implements OnInit {
   			this.images[index]="../../assets/default-img-product.jpg";
   		}
   	})
-  	console.log(this.images)
   }
 }
