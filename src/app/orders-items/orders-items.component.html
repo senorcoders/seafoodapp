@@ -17,14 +17,31 @@
 			</div>
 			<div class="col-lg-4 col-md-4">
 				<a routerLink="/product/{{product.fish.id}}" class="title">{{product.fish.name}}</a>
-				<p>Sold by: <a routerLink="/featured-store/{{product.fish.store.id}}" class="store">{{product.fish.store.name}}</a> <br>
+				<p>Sold by: <a routerLink="/store/{{product.fish.store.id}}" class="store">{{product.fish.store.name}}</a> <br>
 				${{product.fish.price.value}}</p>
 			</div>
 			<div class="col-lg-4 col-md-4 buttons">
 				<a routerLink="/product/{{product.fish.id}}" class="black-btn">{{'Orders-items.view' | translate}}</a><br>
 				<a routerLink="" class="black-btn">{{'Orders-items.support' | translate}}</a><br>
-				<a routerLink="/product-review/{{product.fish.id}}" class="black-btn">{{'Orders-items.review' | translate}}</a>
+				<a (click)="ShowReviewForm(product.fish.store.id)" class="black-btn">{{'Orders-items.review' | translate}}</a>
 			</div>
 		</div>
+	</div>
+</div>
+<div class="comment-container" *ngIf="showForm" >
+	<div class="outside" (click)="closeForm()"></div>
+	<div class="content">
+		<h2 class="black-title">{{'Orders-items.review-title' | translate}}</h2>
+		<hr class="hr-small">
+		<div class="start">
+			<span *ngFor="let star of Stars"><fa name="star" (click)="getstar(star)" [ngClass]="{'is-active':star<=count}"></fa></span>
+		</div>
+		<form [formGroup]="reviewForm" (submit)="sendReview()">
+			<div class="form-group">
+				<textarea class="form-control" placeholder="{{'Orders-items.review-message' | translate}}" formControlName="comment" [ngClass]="{'is-invalid':reviewForm.get('comment').invalid && reviewForm.get('comment').touched}"></textarea>
+          		<div class="invalid-feedback" *ngIf="reviewForm.get('comment').hasError('required')">{{'Orders-items.is-invalid' | translate}}.</div>
+			</div>
+			<input type="submit" class="black-btn" value="{{'Orders-items.send' | translate}}">
+		</form>
 	</div>
 </div>

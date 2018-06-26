@@ -33,3 +33,35 @@
     font-weight: 600;
     font-size: 1.2rem;
 }
+.comment-container{
+	position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    .outside{
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 8;
+    }
+	.content{
+	  	position: absolute;
+		max-width: 500px;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		padding: 20px 40px;
+		background: white;
+		box-shadow: 2px 5px 20px -4px black;
+		z-index: 10;
+	}
+	.is-active{
+		color: #e6df03
+	}
+	.start{
+		margin-bottom: 20px;
+	}
+}

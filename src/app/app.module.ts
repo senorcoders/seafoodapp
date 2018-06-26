@@ -41,7 +41,6 @@ import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
-import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { environment } from '../../environments/environment';
@@ -49,7 +48,7 @@ import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
 import { SellerComponent } from './seller/seller.component';
 import { BuyerComponent } from './buyer/buyer.component';
-import { ProductRatingComponent } from './product-rating/product-rating.component';
+import { CommentsComponent } from './comments/comments.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersItemsComponent } from './orders-items/orders-items.component';
 
@@ -71,7 +70,6 @@ const appRoutes: Routes=[
   {path:'store/:id', component:SingleStoreComponent},
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
-  {path:'featured-store/:id', component:FeaturedStoreComponent},
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
   {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
   {path: 'tracking', component:TrackingComponent},
@@ -80,6 +78,7 @@ const appRoutes: Routes=[
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
   {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
   {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
+  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]}
 ]
 
 @NgModule({
@@ -103,14 +102,13 @@ const appRoutes: Routes=[
     SingleStoreComponent,
     FeaturedProductsComponent,
     FeaturedSellerComponent,
-    FeaturedStoreComponent,
     AdministratorComponent,
     FavoritesComponent,
     TrackingComponent,
     ProductsComponent,
     SellerComponent,
     BuyerComponent,
-    ProductRatingComponent,
+    CommentsComponent,
     OrdersComponent,
     OrdersItemsComponent
   ],
