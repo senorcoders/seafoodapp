@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
 import {ProductService} from '../services/product.service';
+import {OrdersService} from '../core/orders/orders.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   }
   constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, 
     private toast:ToastrService, private isLoginService:IsLoginService, private cart:CartService,
-    private product: ProductService) {
+    private product: ProductService, private orders:OrdersService) {
     this.redirectHome();
   }
 
@@ -48,6 +49,17 @@ export class LoginComponent implements OnInit {
         let login=this.auth.getLoginData();
         //set buyer id to get cart
         let buyer={"buyer":login.id};
+        //set orders if you have them
+        this.product.getData(`shoppingcart/?where={"status":{"like":"paid"},"buyer":"${login.id}"}`).subscribe(
+        result=>{
+          if(result && result!=''){
+            this.orders.setOrders(true)
+          }
+        },
+        e=>{
+          console.log(e)
+        }
+        )
         //get cart
         this.product.saveData("shoppingcart",buyer).subscribe(
           result=>{
