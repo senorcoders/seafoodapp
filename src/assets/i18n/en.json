@@ -310,6 +310,10 @@
 		"title":"Products",
 		"view":"See Product",
 		"review":"Write a product review",
-		"support":"Get Product support"
+		"support":"Get Product support",
+		"review-title":"Write a store's review",
+		"review-message":"Write your comment",
+		"is-invalid":"You have to write a comment",
+		"send":"Send"
 	}
 }
