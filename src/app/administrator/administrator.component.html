@@ -45,7 +45,8 @@
           <div class="invalid-feedback" *ngIf="adminForm.get('lastName').hasError('required')">{{'Admin.last-name' | translate}} {{'Admin.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="email" class="form-control" placeholder="{{'Admin.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':adminForm.get('email').invalid && adminForm.get('email').touched}">
+          <input type="email" class="form-control" placeholder="{{'Admin.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':adminForm.get('email').invalid && adminForm.get('email').touched}" (change)="verifyEmail($event.target.value)">
+          <div class="EmailNotification" *ngIf="showEmailVerification">{{'Register.EmailNotification' | translate}}</div>
           <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.required' | translate}}.</div>
           <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('email') && !adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.invalid' | translate}}</div>	
         </div>

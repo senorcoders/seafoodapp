@@ -16,6 +16,7 @@ buyerShow:boolean=true;
 sellerShow:boolean=false;
 showConfirmation=true;
 email:string;
+showEmailVerification:boolean=false;
 countries=[
 {name: "Afghanistan", code: "AF"},
 {name: "Åland Islands", code: "AX"},
@@ -359,6 +360,20 @@ countries=[
       this.buyerShow=true;
       this.sellerShow=false;
     }
+  }
+  verifyEmail(email){
+    this.auth.getData(`user?where={"email":{"like":"${email}"}}`).subscribe(
+      result=>{
+        console.log(result)
+        //if return data it means that email is already used
+        if(result && result['length']>0){
+          this.showEmailVerification=true
+        }
+        else{
+          this.showEmailVerification=false
+        }
+      },e=>{this.showEmailVerification=false}
+    )
   }
   showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})

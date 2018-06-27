@@ -13,6 +13,7 @@ export class AdministratorComponent implements OnInit {
 	users:any;
 	userLists:any=[];
 	showForm:boolean=false;
+	showEmailVerification:boolean=false;
 	countries=[
 		{name: "Afghanistan", code: "AF"},
 		{name: "Åland Islands", code: "AX"},
@@ -383,5 +384,19 @@ export class AdministratorComponent implements OnInit {
   }
   updateTable(){
   	this.getAdmins()
+  }
+  verifyEmail(email){
+    this.auth.getData(`user?where={"email":{"like":"${email}"}}`).subscribe(
+      result=>{
+        console.log(result)
+        //if return data it means that email is already used
+        if(result && result['length']>0){
+          this.showEmailVerification=true
+        }
+        else{
+          this.showEmailVerification=false
+        }
+      },e=>{this.showEmailVerification=false}
+    )
   }
 }
