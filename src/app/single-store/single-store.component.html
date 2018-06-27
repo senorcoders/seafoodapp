@@ -21,6 +21,32 @@
       <button (click)="ngxSmartModalService.getModal('myModal').open()" type="button" class="btn btn-info">{{'SingleStore.message' | translate}}</button>
 
     </div>
+    <div class="col-md-12 start">
+      <h4>{{'SingleStore.rating' | translate}}</h4>
+      <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+    </div>
+    <div class="col-md-12 comment-table">
+      <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">{{'SingleStore.comment-user' | translate}}</th>
+                <th scope="col">{{'SingleStore.comment' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let firstComment of firstComments; let i=index">
+                <td>{{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}}</td>
+                <td>{{firstComment.comment}}</td>
+              </tr>
+            </tbody>
+      </table>
+      <div *ngIf="showMore">
+        <span class="see-more" (click)="getAllComments()">{{'SingleStore.more' | translate}}</span>
+      </div>
+      <div *ngIf="showLess">
+        <span class="see-less" (click)="getFirstComments()">{{'SingleStore.less' | translate}}</span>
+      </div>
+    </div>
   </div>
   <br><br>
 

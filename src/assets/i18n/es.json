@@ -224,7 +224,12 @@
 		"send":"send",
 		"no-share":"We'll never share your email with anyone else",
 		"previous":"previous",
-		"next":"next"
+		"next":"next",
+		"comment-user":"User",
+		"rating":"Rating",
+		"comment":"Comment",
+		"more":"See more",
+		"less":"See Less"
 	},
 	"Admin":{
 		"title":"Administradores",
@@ -311,7 +316,7 @@
 	"Orders-items":{
 		"title":"Products",
 		"view":"See Product",
-		"review":"Write a product review",
+		"review":"Write a Seller review",
 		"support":"Get Product support",
 		"review-title":"Write a store's review",
 		"review-message":"Write your comment",
