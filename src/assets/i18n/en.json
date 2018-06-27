@@ -159,7 +159,9 @@
 		"account":"Create Account",
 		"return":"Return to Store",
 		"forgot":"Forgot your password?",
-		"login":"Sign in"
+		"login":"Sign in",
+		"send":"Send",
+		"forgot-password":"Recovery your password"
 	},
 	"Register":{
 		"title":"Register",
@@ -327,5 +329,13 @@
 		"no-pending":"there are not Pending Comments",
 		"no-comments":"there are not Comments",
 		"comment-title":"All Comments"
+	},
+	"Recovery":{
+		"title":"Recovery your password",
+		"code":"Code from your mail",
+		"required":"is required",
+		"password":"Password",
+		"repeat":"Repeat Password",
+		"send":"Send"
 	}
 }

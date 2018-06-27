@@ -19,7 +19,25 @@
     <div class="login-option">
         <a  routerLink="/register">{{'Login.account' | translate}}</a>
         <a routerLink="/">{{'Login.return' | translate}}</a>
-        <a href="#">{{'Login.forgot' | translate}}</a>
+        <a (click)="showPopup()">{{'Login.forgot' | translate}}</a>
     </div>
   </div>
 </div>   
+<div class="popup-form" *ngIf="showForm">
+  <div class="outside" (click)="closeForm()"></div>
+  <div class="content">
+    <h2 class="black-title">{{'Login.forgot-password' | translate}}</h2>
+    <hr class="hr-small">
+    <div class="start">
+      <span *ngFor="let star of Stars"><fa name="star" (click)="getstar(star)" [ngClass]="{'is-active':star<=count}"></fa></span>
+    </div>
+    <form [formGroup]="forgotForm" (submit)="forgotPassword()">
+      <div class="form-group">
+        <input type="email"class="form-control" placeholder="{{'Login.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':forgotForm.get('email').invalid && forgotForm.get('email').touched}"/>
+        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('required')">{{'Login.email' | translate}} {{'Login.required' | translate}}.</div>
+        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('email') && !forgotForm.get('email').hasError('required')">{{'Login.invalid' | translate}} {{'Login.email' | translate}}</div>
+      </div>
+      <input type="submit" class="black-btn" value="{{'Login.send' | translate}}" [disabled]="forgotForm.invalid">
+    </form>
+  </div>
+</div>

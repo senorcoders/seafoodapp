@@ -41,6 +41,7 @@ import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
+import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { environment } from '../../environments/environment';
@@ -51,6 +52,7 @@ import { BuyerComponent } from './buyer/buyer.component';
 import { CommentsComponent } from './comments/comments.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersItemsComponent } from './orders-items/orders-items.component';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -78,7 +80,8 @@ const appRoutes: Routes=[
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
   {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
   {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
-  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]}
+  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]},
+  {path:'recovery-password/:code', component:RecoveryPasswordComponent}
 ]
 
 @NgModule({
@@ -102,6 +105,7 @@ const appRoutes: Routes=[
     SingleStoreComponent,
     FeaturedProductsComponent,
     FeaturedSellerComponent,
+    FeaturedStoreComponent,
     AdministratorComponent,
     FavoritesComponent,
     TrackingComponent,
@@ -110,7 +114,8 @@ const appRoutes: Routes=[
     BuyerComponent,
     CommentsComponent,
     OrdersComponent,
-    OrdersItemsComponent
+    OrdersItemsComponent,
+    RecoveryPasswordComponent
   ],
   imports: [
     BrowserModule,

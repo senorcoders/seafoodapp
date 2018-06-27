@@ -15,6 +15,8 @@ import {OrdersService} from '../core/orders/orders.service';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup; 
+  forgotForm: FormGroup; 
+  showForm:boolean=false;
  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -78,5 +80,25 @@ export class LoginComponent implements OnInit {
   }
   showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+  }
+  showPopup(){
+    this.forgotForm=this.fb.group({
+      email:['',[Validators.required, Validators.email]]
+    })
+    this.showForm=true
+  }
+  closeForm(){
+    this.showForm=false
+  }
+  forgotPassword(){
+    this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
+      result=>{
+        this.toast.success('We send you a mail to your email','Well Done',{positionClass:"toast-top-right"})
+      },
+      e=>{
+        this.showError(e.error)
+        console.log(e)
+      }
+    )
   }
 }

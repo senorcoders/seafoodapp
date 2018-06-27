@@ -41,7 +41,7 @@
 				<textarea class="form-control" placeholder="{{'Orders-items.review-message' | translate}}" formControlName="comment" [ngClass]="{'is-invalid':reviewForm.get('comment').invalid && reviewForm.get('comment').touched}"></textarea>
           		<div class="invalid-feedback" *ngIf="reviewForm.get('comment').hasError('required')">{{'Orders-items.is-invalid' | translate}}.</div>
 			</div>
-			<input type="submit" class="black-btn" value="{{'Orders-items.send' | translate}}">
+			<input type="submit" class="black-btn" value="{{'Orders-items.send' | translate}}" [disabled]="reviewForm.invalid">
 		</form>
 	</div>
 </div>
