@@ -12,6 +12,7 @@
             <li *ngFor="let result of results" (click)="searchBySuggestion(result.name)">{{result.name}} <span class="count">{{result.count}}</span></li>
           </ul>
         </div>
+        <div class="closeContainer" *ngIf="showSuggestion" (click)="closeSuggestion()"></div>
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit" [disabled]="searchForm.invalid">{{'Menu.search-input-button' | translate}}</button>
       </form>
       <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==0 else menuSeller">
