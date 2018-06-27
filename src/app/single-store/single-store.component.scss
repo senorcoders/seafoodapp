@@ -37,8 +37,15 @@ padding: 50px 15px;
     font-size: 50px;
     color: red;
 }
-
-
+.see-more, .see-less{
+    cursor: pointer;
+    color: #406eff;
+    font-size: 1.1rem;
+}
+.comment-table{
+  max-height: 300px;
+  overflow-y: scroll;
+}
 @media screen and (max-width: 768px){
     .logo-store{
         position: initial;

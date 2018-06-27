@@ -53,6 +53,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersItemsComponent } from './orders-items/orders-items.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
+import { BarRatingModule } from "ngx-bar-rating";
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -132,7 +133,8 @@ const appRoutes: Routes=[
       useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
       deps: [Http]
     }),  
-    NgxSmartModalModule.forRoot()
+    NgxSmartModalModule.forRoot(),
+    BarRatingModule
   ],
   providers: [
     AuthenticationService, 

@@ -94,6 +94,7 @@ export class LoginComponent implements OnInit {
     this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
       result=>{
         this.toast.success('We send you a mail to your email','Well Done',{positionClass:"toast-top-right"})
+        this.showForm=false
       },
       e=>{
         this.showError(e.error)

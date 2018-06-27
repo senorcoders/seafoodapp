@@ -30,8 +30,13 @@ export class SingleStoreComponent implements OnInit {
   }
   formEndpoint:any = 'api/contact-form/';
   userID:any;
-
-
+  averageReview:any=0;
+  comments:any;
+  reviews:any;
+  Stars=[];
+  firstComments:any=[];
+  showMore:boolean=false;
+  showLess:boolean=false;
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -41,12 +46,52 @@ export class SingleStoreComponent implements OnInit {
   ngOnInit() {
     this.storeID= this.route.snapshot.params['id'];
     this.getPersonalData();
+    this.getReview()
   }
 
   getPersonalData(){
     this.getStoreData();
   }
-
+  getReview(){
+    this.productService.getData(`reviewsstore?where={"store":"${this.storeID}"}`).subscribe(
+      result=>{
+        this.reviews=result;
+        // this.comments=result['comment'];
+        this.getFirstComments();
+        this.calcStars();
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  getFirstComments(){
+    this.firstComments=[]
+    this.reviews.forEach((data,index)=>{
+      if(index<=2){
+        this.firstComments[index]=data;
+      }
+    })
+    if(this.reviews.length>3){
+      this.showMore=true
+      this.showLess=false
+    }
+    else{
+      this.showMore=false
+      this.showLess=false
+    }
+  }
+  getAllComments(){
+    this.showMore=false;
+    this.showLess=true;
+    this.firstComments=this.reviews
+  }
+  calcStars(){
+    this.reviews.forEach((data)=>{
+      this.averageReview+=data.stars
+    })
+    this.averageReview/=this.reviews.length
+  }
   getStoreData(){
     this.productService.getData(this.storeEndpoint+this.storeID).subscribe(result =>{
       if(result && result!=''){
