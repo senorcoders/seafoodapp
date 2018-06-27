@@ -159,7 +159,9 @@
 		"account":"Create Account",
 		"return":"Return to Store",
 		"forgot":"Forgot your password?",
-		"login":"Entrar"
+		"login":"Entrar",
+		"send":"Send",
+		"forgot-password":"Recovery your password"
 	},
 	"Register":{
 		"title":"Registro",
