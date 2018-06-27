@@ -91,3 +91,10 @@ form{
     right: 0;
     transform: translate(0,-100%);
 }
+.closeContainer{
+	position: fixed;
+	height: 100%;
+	width: 100%;
+	top: 0;
+    left: 0;
+}

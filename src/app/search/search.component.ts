@@ -11,7 +11,6 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platf
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  searchForm:FormGroup;
   products:any;
   searchQuery:string;
   API:string="https://apiseafood.senorcoders.com";
@@ -19,9 +18,6 @@ export class SearchComponent implements OnInit {
   image:SafeStyle=[];
   constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
-    this.searchForm=this.fb.group({
-      search: ['',Validators.required],
-    })
     this.route.params.subscribe(params => {
       this.searchQuery= this.route.snapshot.params['search'];
       this.searchProducts(this.searchQuery);

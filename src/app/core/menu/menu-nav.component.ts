@@ -176,6 +176,9 @@ export class MenuNavComponent{
       this.showSuggestion=false
     }
   }
+  closeSuggestion(){
+    this.showSuggestion=false
+  }
   changeLanguage(e){
     let value=e.srcElement.value;
     if(value!=this.lang){
