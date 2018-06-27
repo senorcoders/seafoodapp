@@ -80,7 +80,8 @@ const appRoutes: Routes=[
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
   {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
   {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
-  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]}
+  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]},
+  {path:'recovery-password/:code', component:RecoveryPasswordComponent}
 ]
 
 @NgModule({
