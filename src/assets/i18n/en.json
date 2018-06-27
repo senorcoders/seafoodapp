@@ -256,7 +256,8 @@
 		"seller":"Seller",
 		"buyer":"Buyer",
 		"save":"Save",
-		"update-table":"Update table"
+		"update-table":"Update table",
+		"required":"is required"
 	},
 	"Favorites":{
 		"title":"My Favorites",
