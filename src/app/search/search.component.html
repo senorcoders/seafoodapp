@@ -8,17 +8,6 @@
 <div class="products-section">
 <div class="container">
   <div class="row">
-    <form [formGroup]="searchForm" (submit)="searchProducts(searchForm.get('search').value)">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="{{'Search.search-placeholder'| translate}}" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
-        <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">{{'Search.no-empty'| translate}}</div>
-      </div>
-      <div class="form-group">
-        <input type="submit" class="form-control black-btn" value="{{'Search.search-button'| translate}}" [disabled]="searchForm.invalid">
-      </div>
-    </form>
-  </div>
-  <div class="row">
     <h2 class="product-result-title">
       {{'Search.result-title'| translate}}: <i style="font-size: 2rem">{{searchQuery}}</i>
     </h2>
