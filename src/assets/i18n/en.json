@@ -181,7 +181,8 @@
 		"invalid":"is invalid",
 		"licence":"Licence",
 		"message":"Email has been sended to",
-		"verified":"Please verify it to continue the Registration"
+		"verified":"Please verify it to continue the Registration",
+		"EmailNotification":"this email is already used"
 	},
 	"Featured-product":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
@@ -255,7 +256,8 @@
 		"seller":"Seller",
 		"buyer":"Buyer",
 		"save":"Save",
-		"update-table":"Update table"
+		"update-table":"Update table",
+		"required":"is required"
 	},
 	"Favorites":{
 		"title":"My Favorites",
