@@ -1,0 +1,50 @@
+<div class="container" >
+	<div class="row">
+		<div class="col-6 table-cont">
+			<h3 class="black-title">{{'Recent.title' | translate}}</h3><hr class="hr-small">
+	    	<table class="table table-striped">
+		        <thead>
+		          <tr>
+		            <th scope="col">{{'Recent.buyer' | translate}}</th>
+		            <th scope="col">{{'Recent.email' | translate}}</th>
+		            <th scope="col">{{'Recent.date' | translate}}</th>
+                	<th scope="col">{{'Recent.product' | translate}}</th>
+                	<th></th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr *ngFor="let product of products">
+		            <td>{{product.firstName}} {{product.lastName}}</td>
+		            <td>{{product.email}}</td>
+		            <td>{{product.date}}</td>
+                	<td><fa name="check" class="save" (click)="accept(user.id)"></fa></td>
+                	<td><fa name="remove" class="remove" (click)="refuse(user.id)"></fa></td>
+		          </tr>
+		        </tbody>
+		    </table>
+	    </div>
+	    <div class="col-6 table-cont">
+	    	<h3 class="black-title">{{'Recent.title2' | translate}}</h3><hr class="hr-small">
+	    	<table class="table table-striped">
+		        <thead>
+		          <tr>
+		            <th scope="col">{{'Recent.buyer' | translate}}</th>
+		            <th scope="col">{{'Recent.email' | translate}}</th>
+		            <th scope="col">{{'Recent.date' | translate}}</th>
+                	<th scope="col">{{'Recent.product' | translate}}</th>
+                	<th></th>
+		          </tr>
+		        </thead>
+		        <tbody>
+		          <tr *ngFor="let product of products">
+		            <td>{{product.firstName}} {{product.lastName}}</td>
+		            <td>{{product.email}}</td>
+		            <td>{{product.date}}</td>
+                	<td><fa name="check" class="save" (click)="accept(user.id)"></fa></td>
+                	<td><fa name="remove" class="remove" (click)="refuse(user.id)"></fa></td>
+		          </tr>
+		        </tbody>
+		    </table>
+	    </div>
+	</div>
+</div>
