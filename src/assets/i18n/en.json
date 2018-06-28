@@ -360,6 +360,10 @@
 		"buyer":"Buyer Name",
 		"email":"email",
 		"date":"Date Purchased",
-		"product":"My products to deliver"
+		"product":"My products to deliver",
+		"view":"View Order",
+		"product-shipped":"My products to deliver",
+		"no-shipped":"there are not Products Shipped",
+		"no-product":"You don't have product selled"
 	}
 }
