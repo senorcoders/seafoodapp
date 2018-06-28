@@ -128,6 +128,16 @@ body {
     font-family: 'Montserrat', sans-serif !important;
     font-size: 0.9rem;
 }
+.black-btn-sm{
+  background: #1c1d1d !important;
+  color: white !important;
+  cursor: pointer;
+  border: 0;
+  padding: 10px;
+  text-transform: capitalize;
+  font-family: 'Montserrat', sans-serif !important;
+  font-size: 0.8rem;
+}
 .black-btn:hover{
     transition: background-color 0.15s ease-out;
     background-color: #3a3c3c !important;

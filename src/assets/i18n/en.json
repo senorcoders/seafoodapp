@@ -356,10 +356,23 @@
 	},
 	"Recent":{
 		"title":"Recent Purchases",
-		"title2":"Recently Shipped",
+		"title2":"Purchases Shipped",
 		"buyer":"Buyer Name",
-		"email":"email",
 		"date":"Date Purchased",
-		"product":"My products to deliver"
+		"product":"My products to deliver",
+		"view":"View Order",
+		"product-shipped":"My products delivered",
+		"no-shipped":"there are not Products Shipped",
+		"no-product":"You don't have product selled"
+	},
+	"OrderPurchase":{
+		"title":"Orders Purchases",
+		"buyer":"Buyer Name",
+		"date":"Date Purchased",
+		"product":"My products to deliver",
+		"address":"Buyer Address",
+		"status":"Current Status",
+		"shipped":"Mark as shipped",
+		"pending":"Mark as pending"
 	}
 }

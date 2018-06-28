@@ -56,6 +56,7 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
 import { BarRatingModule } from "ngx-bar-rating";
 import { VerifyUserComponent } from './verify-user/verify-user.component';
 import { RecentPurchasesComponent } from './recent-purchases/recent-purchases.component';
+import { OrderPurchaseComponent } from './order-purchase/order-purchase.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -86,7 +87,8 @@ const appRoutes: Routes=[
   {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]},
   {path:'recovery-password/:code', component:RecoveryPasswordComponent},
   {path:'verify-users', component:VerifyUserComponent, canActivate:[AdminRouterService]},
-  {path:'recent-purchases', component:RecentPurchasesComponent, canActivate:[SellerRouterService]}
+  {path:'recent-purchases', component:RecentPurchasesComponent, canActivate:[SellerRouterService]},
+  {path:'order-purchase/:item', component:OrderPurchaseComponent, canActivate:[SellerRouterService]}
 ]
 
 @NgModule({
@@ -122,7 +124,8 @@ const appRoutes: Routes=[
     OrdersItemsComponent,
     RecoveryPasswordComponent,
     VerifyUserComponent,
-    RecentPurchasesComponent
+    RecentPurchasesComponent,
+    OrderPurchaseComponent
   ],
   imports: [
     BrowserModule,
