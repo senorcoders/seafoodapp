@@ -144,7 +144,8 @@ setFlexslider(){
       "quantity": {
           "type": this.measurement,
           "value": this.count
-      }
+      },
+      "shippingStatus":"pending"
   }
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
         this.showCart = true;
