@@ -1,5 +1,9 @@
 <div class="container" >
-	<div class="row"><div class="col-12" *ngIf="showLoading; else product"><img src="../../assets/loader.gif" alt=""></div></div>
+	<div class="row" *ngIf="showLoading; else product">
+		<div class="col-12">
+			<img src="../../assets/loader.gif" alt="" />
+		</div>
+	</div>
 	<ng-template #product>
 		<div class="row" *ngIf="showProduct; else noProduct">
 			<div class="col-12 table-cont">
@@ -8,7 +12,6 @@
 			        <thead>
 			          <tr>
 			            <th scope="col">{{'Recent.buyer' | translate}}</th>
-			            <th scope="col">{{'Recent.email' | translate}}</th>
 			            <th scope="col">{{'Recent.date' | translate}}</th>
 	                	<th scope="col">{{'Recent.product' | translate}}</th>
 	                	<th></th>
@@ -17,33 +20,39 @@
 			        <tbody>
 			          <tr *ngFor="let item of items; let i=index">
 			            <td>{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}</td>
-			            <td>{{item.shoppingCart.buyer.email}}</td>
 			            <td>{{dates[i]}}</td>
 	                	<td>{{item.fish.name}}</td>
-	                	<td><a routerLink="/product-shipped/{{item.id}}" class="black-btn">{{'Recent.view' | translate}}</a></td>
+	                	<td><a routerLink="/order-purchase/{{item.id}}" class="black-btn">{{'Recent.view' | translate}}</a></td>
 			          </tr>
 			        </tbody>
 			    </table>
 		    </div>
-		    <div class="col-12 table-cont" *ngIf="showShipped; else noShipped">
+		</div>
+		<ng-template #noProduct>
+			<div class="row">
+				<div class="col-12">
+					<h4 class="black-title">{{'Recent.no-product' | translate}}</h4>
+				</div>
+			</div>
+		</ng-template>
+		<div class="row">
+			<div class="col-12 table-cont" *ngIf="showShipped; else noShipped">
 		    	<h3 class="black-title">{{'Recent.title2' | translate}}</h3><hr class="hr-small">
 		    	<table class="table table-striped">
 			        <thead>
 			          <tr>
 			            <th scope="col">{{'Recent.buyer' | translate}}</th>
-			            <th scope="col">{{'Recent.email' | translate}}</th>
 			            <th scope="col">{{'Recent.date' | translate}}</th>
 	                	<th scope="col">{{'Recent.product-shipped' | translate}}</th>
 	                	<th></th>
 			          </tr>
 			        </thead>
 			        <tbody>
-			          <tr *ngFor="let shipped of firstShipped">
-			            <td>{{shipped.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}</td>
-			            <td>{{shipped.shoppingCart.buyer.email}}</td>
-			            <td>{{shipped.shoppingCart.date}}</td>
+			          <tr *ngFor="let shipped of firstShipped; let i= index">
+			            <td>{{shipped.shoppingCart.buyer.firstName}} {{shipped.shoppingCart.buyer.lastName}}</td>
+			            <td>{{datesShipping[i]}}</td>
 			            <td>{{shipped.fish.name}}</td>
-	                	<td><a routerLink="/product-shipped/{{item.id}}" class="black-btn">{{'Recent.view' | translate}}</a></td>
+	                	<td><a routerLink="/order-purchase/{{shipped.id}}" class="black-btn">{{'Recent.view' | translate}}</a></td>
 			          </tr>
 			        </tbody>
 			    </table>
@@ -58,12 +67,5 @@
 		    	<div class="col"><h4 class="black-title">{{'Recent.no-shipped' | translate}}</h4></div>
 		    </ng-template>
 		</div>
-		<ng-template #noProduct>
-			<div class="row">
-				<div class="col-12">
-					<h4 class="black-title">{{'Recent.no-product' | translate}}</h4>
-				</div>
-			</div>
-		</ng-template>
 	</ng-template>
 </div>

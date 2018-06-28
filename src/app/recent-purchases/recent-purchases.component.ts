@@ -16,7 +16,6 @@ export class RecentPurchasesComponent implements OnInit {
 	firstShipped=[];
 	shipped:any;
 	datesShipping=[];
-	itemsShipped:any
 	showMore:boolean=false;
 	showLess:boolean=false;
 	showLoading:boolean=true;
@@ -43,6 +42,7 @@ export class RecentPurchasesComponent implements OnInit {
   getPurchases(){
   	this.productS.getData('api/store/fish/paid/'+this.storeID).subscribe(
   		result=>{
+  			console.log(result)
   			if(result && result!=''){
 				this.items = result;
 				this.showLoading = false;
@@ -51,6 +51,7 @@ export class RecentPurchasesComponent implements OnInit {
   			}
   			else{
   				this.showProduct=false
+  				this.showLoading=false
   			}
   		},
   		e=>{
@@ -63,7 +64,8 @@ export class RecentPurchasesComponent implements OnInit {
   		result=>{
   			if(result && result!=''){
   				this.shipped=result;
-  				this.showShipped=true
+  				this.showShipped=true;
+  				this.getFirstPurchases();
   				this.getDatesShipped();
   			}
   			else{
@@ -104,7 +106,7 @@ export class RecentPurchasesComponent implements OnInit {
   	})
   }
   getDatesShipped(){
-  	this.itemsShipped.forEach((data, index)=>{
+  	this.shipped.forEach((data, index)=>{
   		//convert date
   		let date=new Date(data.shoppingCart.paidDateTime)
   		this.datesShipping[index]=date.toString().split("GMT",1)
