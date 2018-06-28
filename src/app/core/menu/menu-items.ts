@@ -43,7 +43,8 @@ const menuAdmin=[
   children:[
   {state:'admin', name:"Admins", translate:{en:{name:"Admins"}, es:{name:"Admins"}}},
   {state:'seller', name:"Sellers", translate:{en:{name:"Sellers"}, es:{name:"Vendedores"}}},
-  {state:'buyer', name:"Buyers", translate:{en:{name:"Buyers"}, es:{name:"Compradores"}}}
+  {state:'buyer', name:"Buyers", translate:{en:{name:"Buyers"}, es:{name:"Compradores"}}},
+  {state:'verify-users', name:"Verify Users", translate:{en:{name:"Verify Users"}, es:{name:"Verificar Usuarios"}}}
   ],
   translate:{
     en:{
@@ -131,6 +132,18 @@ const menuSeller=[
     },
     es:{
       name:'Perfil'
+    }
+  }
+},
+{
+  state:'recent-purchases',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Recent Purchases'
+    },
+    es:{
+      name:'Compras Recientes'
     }
   }
 },

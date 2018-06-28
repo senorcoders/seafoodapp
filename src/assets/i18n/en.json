@@ -180,8 +180,9 @@
 		"required":"is required",
 		"invalid":"is invalid",
 		"licence":"Licence",
-		"message":"Email has been sended to",
-		"verified":"Please verify it to continue the Registration",
+		"message":"A email has been sended to the administrator to check your request",
+		"verified":"We will send you a mail to",
+		"ok":"when everything is ready",
 		"EmailNotification":"this email is already used"
 	},
 	"Featured-product":{
@@ -344,5 +345,21 @@
 		"password":"Password",
 		"repeat":"Repeat Password",
 		"send":"Send"
+	},
+	"VerifyUser":{
+		"title":"Users for review",
+		"name":"Name",
+		"email":"email",
+		"accept":"Accept",
+		"refuse":"refuse",
+		"noInfo":"there are not users pending"
+	},
+	"Recent":{
+		"title":"Recent Purchases",
+		"title2":"Recently Shipped",
+		"buyer":"Buyer Name",
+		"email":"email",
+		"date":"Date Purchased",
+		"product":"My products to deliver"
 	}
 }

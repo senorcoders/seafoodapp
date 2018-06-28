@@ -283,7 +283,7 @@ countries=[
       password:['', Validators.required],
       rePassword:['', Validators.required],
       tel:['', Validators.required],
-      fullBakingInfo:[''],
+      fullBakingInfo:['']
     })
   }
   RegistersellerForm(){
