@@ -30,7 +30,10 @@
 		"current":"Current Password",
 		"new":"New Password",
 		"repeat":"Repeat Password",
-		"button-password":"Change"
+		"button-password":"Change",
+		"Address":"Address",
+		"City":"City",
+		"zipCode":"zipCode"
 	},
 	"Store":{
 		"title":"Información sobre la tienda",

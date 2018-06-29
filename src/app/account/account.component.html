@@ -45,6 +45,18 @@
     <label>{{'Account.tel' | translate}}</label>
     <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
   </div>
+  <div class="form-group">
+    <label>{{'Account.Address' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>{{'Account.City' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label>{{'Account.zipCode' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Register.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
+  </div>
   <div class="form-group"
   >
 <label>{{'Account.country' | translate}}</label>
