@@ -24,7 +24,7 @@
 			            <td>{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}</td>
 			            <td>{{date}}</td>
 	                	<td>{{item.fish.name}}</td>
-	                	<td>{{item.shoppingCart.buyer.dataExtra.Address}}, {{item.shoppingCart.buyer.dataExtra.City}}, {{item.shoppingCart.buyer.dataExtra.zipCode}}, {{item.shoppingCart.buyer.dataExtra.country}}</td>
+	                	<td class="address">{{item.shoppingCart.buyer.dataExtra.Address}}, {{item.shoppingCart.buyer.dataExtra.City}}, {{item.shoppingCart.buyer.dataExtra.zipCode}}, {{item.shoppingCart.buyer.dataExtra.country}}</td>
 	                	<td>{{item.shippingStatus}}</td>
 	                	<td>
 	                		<a (click)="showPopupForm()" class="black-btn-sm" *ngIf="showButton">{{'OrderPurchase.shipped' | translate}}</a>
