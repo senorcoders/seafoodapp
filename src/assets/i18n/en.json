@@ -373,6 +373,12 @@
 		"address":"Buyer Address",
 		"status":"Current Status",
 		"shipped":"Mark as shipped",
-		"pending":"Mark as pending"
+		"pending":"Mark as pending",
+		"action":"Action",
+		"tracking-title":"Tracking Information",
+		"tracking-code":"Tracking Code",
+		"tracking-file":"Tracking Image",
+		"tracking-submit":"Save",
+		"no-image":"you dont have tracking Image"
 	}
 }
