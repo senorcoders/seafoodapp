@@ -283,7 +283,10 @@ countries=[
       password:['', Validators.required],
       rePassword:['', Validators.required],
       tel:['', Validators.required],
-      fullBakingInfo:['']
+      fullBakingInfo:[''],
+      Address:['', Validators.required],
+      City:['', Validators.required],
+      zipCode:['', Validators.required]
     })
   }
   RegistersellerForm(){
@@ -298,7 +301,10 @@ countries=[
       uploadTradeLicense:[''],
       fullBakingInfo:[''],
       sfsAgreementForm:[''],
-      ifLocal:['']
+      ifLocal:[''],
+      Address:['', Validators.required],
+      City:['', Validators.required],
+      zipCode:['', Validators.required]
     })
   }
   register(){
@@ -310,7 +316,10 @@ countries=[
         "uploadTradeLicense": this.sellerForm.get('uploadTradeLicense').value,
         "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
         "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
-        "ifLocal": this.sellerForm.get('ifLocal').value
+        "ifLocal": this.sellerForm.get('ifLocal').value,
+        "Address":this.sellerForm.get('Address').value,
+        "City":this.sellerForm.get('City').value,
+        "zipCode":this.sellerForm.get('zipCode').value
         }
         this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
           result=>{
@@ -333,6 +342,9 @@ countries=[
         "country": this.buyerForm.get('location').value,
         "tel": this.buyerForm.get('tel').value,
         "fullBakingInfo": this.buyerForm.get('fullBakingInfo').value,
+        "Address":this.buyerForm.get('Address').value,
+        "City":this.buyerForm.get('City').value,
+        "zipCode":this.buyerForm.get('zipCode').value
         }
         this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
           result=>{

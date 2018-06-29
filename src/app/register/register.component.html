@@ -34,10 +34,23 @@
           <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel">
+          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
           <textarea type="text" class="form-control" placeholder="{{'Register.banking' | translate}}" formControlName="fullBakingInfo"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':buyerForm.get('Address').invalid && buyerForm.get('Address').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':buyerForm.get('City').invalid && buyerForm.get('City').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.zipCode' | translate}}" formControlName="zipCode"  [ngClass]="{'is-invalid':buyerForm.get('zipCode').invalid && buyerForm.get('zipCode').touched}">
+          <div class="invalid-feedback" *ngIf="buyerForm.get('zipCode').hasError('required')"> {{'Register.zipCode' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
           <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
@@ -75,10 +88,23 @@
           <div class="invalid-feedback" *ngIf="sellerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel">
+          <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
           <textarea type="text" class="form-control" placeholder="{{'Register.banking' | translate}}" formControlName="fullBakingInfo"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':sellerForm.get('Address').invalid && sellerForm.get('Address').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':sellerForm.get('City').invalid && sellerForm.get('City').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
+        </div>
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="{{'Register.zipCode' | translate}}" formControlName="zipCode"  [ngClass]="{'is-invalid':sellerForm.get('zipCode').invalid && sellerForm.get('zipCode').touched}">
+          <div class="invalid-feedback" *ngIf="sellerForm.get('zipCode').hasError('required')"> {{'Register.zipCode' | translate}} {{'Register.required' | translate}}.</div>
         </div>
         <div class="form-group">
           <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">

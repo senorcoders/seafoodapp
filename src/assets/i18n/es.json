@@ -183,7 +183,10 @@
 		"message":"A email has been sended to the administrator to check your request",
 		"verified":"We will send you a mail to",
 		"ok":"when everything is ready",
-		"EmailNotification":"this email is already used"
+		"EmailNotification":"this email is already used",
+		"Address":"Address",
+		"City":"City",
+		"zipCode":"zipCode"
 	},
 	"Featured-product":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
