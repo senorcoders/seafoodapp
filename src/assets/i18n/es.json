@@ -30,7 +30,10 @@
 		"current":"Current Password",
 		"new":"New Password",
 		"repeat":"Repeat Password",
-		"button-password":"Change"
+		"button-password":"Change",
+		"Address":"Address",
+		"City":"City",
+		"zipCode":"zipCode"
 	},
 	"Store":{
 		"title":"Información sobre la tienda",
@@ -183,7 +186,10 @@
 		"message":"A email has been sended to the administrator to check your request",
 		"verified":"We will send you a mail to",
 		"ok":"when everything is ready",
-		"EmailNotification":"this email is already used"
+		"EmailNotification":"this email is already used",
+		"Address":"Address",
+		"City":"City",
+		"zipCode":"zipCode"
 	},
 	"Featured-product":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
@@ -373,6 +379,12 @@
 		"address":"Buyer Address",
 		"status":"Current Status",
 		"shipped":"Mark as shipped",
-		"pending":"Mark as pending"
+		"pending":"Mark as pending",
+		"action":"Action",
+		"tracking-title":"Tracking Information",
+		"tracking-code":"Tracking Code",
+		"tracking-file":"Tracking Image",
+		"tracking-submit":"Save",
+		"no-image":"you dont have tracking Image"
 	}
 }

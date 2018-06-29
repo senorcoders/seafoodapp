@@ -16,6 +16,7 @@
 	                	<th scope="col">{{'OrderPurchase.product' | translate}}</th>
 	                	<th scope="col">{{'OrderPurchase.address' | translate}}</th>
 	                	<th scope="col">{{'OrderPurchase.status' | translate}}</th>
+	                	<th scope="col">{{'OrderPurchase.action' | translate}}</th>
 			          </tr>
 			        </thead>
 			        <tbody>
@@ -23,20 +24,37 @@
 			            <td>{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}</td>
 			            <td>{{date}}</td>
 	                	<td>{{item.fish.name}}</td>
-	                	<td>{{item.shoppingCart.buyer.dataExtra.country}}</td>
+	                	<td class="address">{{item.shoppingCart.buyer.dataExtra.Address}}, {{item.shoppingCart.buyer.dataExtra.City}}, {{item.shoppingCart.buyer.dataExtra.zipCode}}, {{item.shoppingCart.buyer.dataExtra.country}}</td>
+	                	<td>{{item.shippingStatus}}</td>
 	                	<td>
-	                		<a (click)="setShipped()" class="black-btn-sm" *ngIf="item.shippingStatus=='pending'; else pending">{{'OrderPurchase.shipped' | translate}}</a>
-	                		<ng-template #pending>
-	                			<a (click)="setPending()" class="black-btn-sm">{{'OrderPurchase.pending' | translate}}</a>
-	                		</ng-template>
+	                		<a (click)="showPopupForm()" class="black-btn-sm" *ngIf="showButton">{{'OrderPurchase.shipped' | translate}}</a>
 	                	</td>
 			          </tr>
 			        </tbody>
 			    </table>
 		    </div>
-		    <ng-template #noShipped>
-		    	<div class="col"><h4 class="black-title">{{'OrderPurchase.no-shipped' | translate}}</h4></div>
-		    </ng-template>
+		    <div class="col-12" *ngIf="item.shippingStatus=='shipped'">
+		    	<h3 class="black-title">{{'OrderPurchase.tracking-title' | translate}}</h3><hr class="hr-small">
+		    	<table class="table table-striped">
+			        <thead>
+			          	<tr>
+				            <th scope="col">{{'OrderPurchase.tracking-code' | translate}}</th>
+				            <th scope="col">{{'OrderPurchase.tracking-file' | translate}}</th>
+			        	</tr>
+			    	</thead>
+			    	<tbody>
+				        <tr>
+				            <td>{{item.trackingID}}</td>
+				            <td>
+				            	<img src="{{API}}{{item.trackingFile}}" alt="" *ngIf="showTrackingFile;else noImage">
+				            	<ng-template #noImage>
+				            		{{'OrderPurchase.no-image' | translate}}
+				            	</ng-template>
+				            </td>
+				        </tr>
+				    </tbody>
+				</table>
+		    </div>
 		</div>
 		<ng-template #noProduct>
 			<div class="row">
@@ -46,4 +64,23 @@
 			</div>
 		</ng-template>
 	</ng-template>
+</div>
+<div class="pop-up" *ngIf="showPopup">
+	<div class="outside" (click)="closeForm()"></div>
+	<div class="content">
+		<h3 class="black-title">{{'OrderPurchase.tracking-title' | translate}}</h3><hr class="hr-small">
+		<form [formGroup]="trackingForm" (submit)="sendTracking()">
+			<div class="form-group">
+	          <input type="text" class="form-control" placeholder="{{'OrderPurchase.tracking-code' | translate}}" formControlName="code">
+	        </div>
+	        <div class="form-group">
+	            <label>{{'OrderPurchase.tracking-file' | translate}}</label>
+	            <input type="file" class="form-control" id="file" 
+	            (change)="handleFileInput($event.target.files)">
+	        </div>
+	        <div class="form-group">
+	        	 <button type="submit" class="black-btn">{{'OrderPurchase.tracking-submit' | translate}}</button>
+	        </div>
+		</form>
+	</div>
 </div>
