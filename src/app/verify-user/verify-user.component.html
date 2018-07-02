@@ -16,7 +16,6 @@
 		          <tr *ngFor="let user of users">
 		            <td>{{user.firstName}} {{user.lastName}}</td>
 		            <td>{{user.email}}</td>
-		            <td>{{user.email}}</td>
                 	<td><fa name="check" class="save" (click)="accept(user.id)"></fa></td>
                 	<td><fa name="remove" class="delete" (click)="refuse(user.id)"></fa></td>
 		          </tr>

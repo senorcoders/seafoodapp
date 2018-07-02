@@ -17,6 +17,12 @@ export class AccountComponent implements OnInit {
     name:"",
     description: "",
     location: "",
+    type:"",
+    productType:"",
+    email:"",
+    Address:"",
+    City:"",
+    zipCode:""
   };
   logo:any;
   storeEndpoint:any = "api/store/user/";
@@ -94,7 +100,13 @@ export class AccountComponent implements OnInit {
     let storeToUpdate = {
       name:this.store.name,
       description: this.store.description,
-      location: this.store.location
+      location: this.store.location,
+      type:this.store.type,
+      productType:this.store.productType,
+      email:this.store.email,
+      Address:this.store.Address,
+      City:this.store.City,
+      zipCode:this.store.zipCode
     }
 
     this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
