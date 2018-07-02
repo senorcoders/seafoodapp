@@ -33,7 +33,16 @@
 		"button-password":"Change",
 		"Address":"Address",
 		"City":"City",
-		"zipCode":"zipCode"
+		"zipCode":"zipCode",
+		"company":"Company Name",
+		"designation":"Designation",
+		"company-type":"Company Type",
+		"company-email":"Company Email",
+		"company-address":"Company Address",
+		"company-country":"Country of Origin",
+		"company-tel":"Company Telephone",
+		"product-type":"Product Type",
+		"deliveryAddress":"Delivery Address"
 	},
 	"Store":{
 		"title":"Store Information",
@@ -198,7 +207,8 @@
 		"company-email":"Company Email",
 		"company-address":"Company Address",
 		"company-country":"Country of Origin",
-		"company-product":"Product Type"
+		"company-product":"Product Type",
+		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",

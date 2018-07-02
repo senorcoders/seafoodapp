@@ -45,20 +45,39 @@
     <label>{{'Account.tel' | translate}}</label>
     <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="info.role==2">
     <label>{{'Account.Address' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
+    <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="info.role==2">
     <label>{{'Account.City' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
+    <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
   </div>
-  <div class="form-group">
+  <div class="form-group" *ngIf="info.role==2">
     <label>{{'Account.zipCode' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Register.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
+    <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
   </div>
-  <div class="form-group"
-  >
+  <div class="form-group" *ngIf="info.role>0">
+    <label>{{'Account.designation' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group" *ngIf="info.role==2">
+    <label>{{'Account.company' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}" [(ngModel)]="info.dataExtra['companyName']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group" *ngIf="info.role==2">
+    <label>{{'Account.deliveryAddress' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Account.deliveryAddress' | translate}}" [(ngModel)]="info.dataExtra['deliveryAddress']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group" *ngIf="info.role==2">
+    <label>{{'Account.company-email' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="info.dataExtra['companyEmail']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group" *ngIf="info.role==2">
+    <label>{{'Account.company-tel' | translate}}</label>
+    <input type="text" class="form-control" placeholder="{{'Account.company-tel' | translate}}" [(ngModel)]="info.dataExtra['companyTel']" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group" *ngIf="info.role==2 || info.role==0">
 <label>{{'Account.country' | translate}}</label>
 <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
  <option value="AF">Afghanistan</option>
@@ -313,11 +332,11 @@
 </select>
 
 </div>
-<div class="form-group">
+<div class="form-group" *ngIf="info.role>1">
   <label>{{'Account.baking' | translate}}</label>
   <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
 </div>
-<div class="form-group" *ngIf="info.role < 2">
+<div class="form-group" *ngIf="info.role == 1">
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <div class="input-group-text">
@@ -365,8 +384,32 @@
             <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
         </div>
         <div class="form-group">
+          <label>{{'Account.company-type' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
+          <label>{{'Account.company-email' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group" *ngIf="info.role==1">
+          <label>{{'Account.product-type' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.product-type' | translate}}" [(ngModel)]="store.productType" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
             <label>{{'Store.location' | translate}}</label>
             <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
+          <label>{{'Account.Address' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
+          <label>{{'Account.City' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group">
+          <label>{{'Account.zipCode' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
         </div>
         <div class="form-group">
           <img [src]="base + logo" alt="" style="width: 150px;">

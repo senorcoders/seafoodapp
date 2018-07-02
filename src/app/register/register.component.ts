@@ -18,7 +18,9 @@ sellerShow:boolean=false;
 showConfirmation=true;
 email:string;
 showEmailVerification:boolean=false;
-file:any=[]
+file:any=[];
+userID:any;
+storeID:any;
 countries=[
 {name: "Afghanistan", code: "AF"},
 {name: "Åland Islands", code: "AX"},
@@ -291,7 +293,7 @@ countries=[
       zipCode:['', Validators.required],
       designation:['',Validators.required],
       companyName:['', Validators.required],
-      companyType:['', Validators.required],
+      deliveryAddress:['', Validators.required],
       companyEmail:['', [Validators.required, Validators.email]],
       companyTel:['', Validators.required]
     })
@@ -315,7 +317,8 @@ countries=[
       zipCode:['', Validators.required],
       companyName:['', Validators.required],
       companyType:['', Validators.required],
-      companyEmail:['', [Validators.required, Validators.email]]
+      companyEmail:['', [Validators.required, Validators.email]],
+      productType:['', [Validators.required]]
     })
   }
   register(){
@@ -323,26 +326,60 @@ countries=[
       if(this.sellerForm.get('password').value==this.sellerForm.get('rePassword').value){
         let dataExtra={
         "designation": this.sellerForm.get('designation').value,
-        "companyName": this.sellerForm.get('companyName').value,
-        "companyType": this.sellerForm.get('companyType').value,
-        "companyEmail": this.sellerForm.get('companyEmail').value,
-        "country": this.sellerForm.get('location').value,
         "tel": this.sellerForm.get('tel').value,
         "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
         "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
-        "ifLocal": this.sellerForm.get('ifLocal').value,
-        "Address":this.sellerForm.get('Address').value,
-        "City":this.sellerForm.get('City').value,
-        "zipCode":this.sellerForm.get('zipCode').value
+        "ifLocal": this.sellerForm.get('ifLocal').value
         }
+        //save new seller
         this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
           result=>{
             this.email=this.sellerForm.get('email').value;
-            this.showConfirmation=false;
-            console.log(result)
+            this.userID=result['id']
+            //save licence
             if(this.file.length>0){
-              this.uploadFile(result['id'])
+              this.uploadFile(this.userID)
             }
+            //save store just name and owner
+            let store={
+              "name": this.sellerForm.get('companyName').value,
+              "owner":this.userID,
+              "description":""
+            }
+            this.product.saveData('api/store/',store).subscribe(
+              result=>{
+                this.storeID=result[0].id;
+                //update store with full data, api is working in this way
+                let storeFullData={
+                  "type": this.sellerForm.get('companyType').value,
+                  "email": this.sellerForm.get('companyEmail').value,
+                  "location": this.sellerForm.get('location').value,
+                  "Address":this.sellerForm.get('Address').value,
+                  "City":this.sellerForm.get('City').value,
+                  "zipCode":this.sellerForm.get('zipCode').value,
+                  "productType":this.sellerForm.get('productType').value,
+                }
+                console.log(this.storeID)
+                this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
+                  result=>{
+                    this.showConfirmation=false;
+                  },
+                  error=>{
+                    this.showError(error.error)
+                    //if store has error. delete user and store
+                    this.product.deleteData('user/'+this.userID).subscribe(
+                      result=>{console.log(result)},e=>{console.log(e)})
+                    this.product.deleteData('store/'+this.storeID).subscribe(
+                      result=>{console.log(result)},e=>{console.log(e)})
+                    console.log(error)
+                  }
+                )
+              },
+              error=>{
+                this.showError(error.error)
+                console.log(error)
+              }
+            )
           },
           error=>{
             console.log(error);
@@ -365,7 +402,7 @@ countries=[
         "zipCode":this.buyerForm.get('zipCode').value,
         "designation": this.buyerForm.get('designation').value,
         "companyName": this.buyerForm.get('companyName').value,
-        "companyType": this.buyerForm.get('companyType').value,
+        "deliveryAddress": this.buyerForm.get('deliveryAddress').value,
         "companyEmail": this.buyerForm.get('companyEmail').value,
         "companyTel": this.buyerForm.get('companyTel').value
         }
@@ -413,10 +450,8 @@ countries=[
     )
   }
   uploadFile(id){
-    console.log(id)
       if(this.file.length>0){
         this.product.uploadFile('api/user/license/'+id, "license", this.file).subscribe(result => {
-           console.log(result)
           this.toast.success("Your Licence has been upload successfully!",'Well Done',{positionClass:"toast-top-right"})
         }, error => {
           this.toast.error("Something wrong happened, please try again", "Error",{positionClass:"toast-top-right"} );
