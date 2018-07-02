@@ -40,8 +40,7 @@ export class AuthenticationService {
   }
   register(data,role, dataExtra){
     let body = {"firstName":data.firstName,"lastName":data.lastName,"email":data.email,"password":data.password,"role":role, "dataExtra":dataExtra};
-    console.log(JSON.stringify(body));
-    return this.http.post(`${API}api/signup`, JSON.stringify(body), httpOptionsTypeResponse);
+    return this.http.post(`${API}api/signup`, JSON.stringify(body), httpOptions);
   }
 
   setCart(data){

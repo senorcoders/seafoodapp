@@ -189,7 +189,16 @@
 		"EmailNotification":"this email is already used",
 		"Address":"Address",
 		"City":"City",
-		"zipCode":"zipCode"
+		"zipCode":"zipCode",
+		"designation":"Designation",
+		"seller-info":"Seller Information",
+		"company-info":"Company Information",
+		"company":"Company Name",
+		"company-type":"Company Type",
+		"company-email":"Company Email",
+		"company-address":"Company Address",
+		"company-country":"Country of Origin",
+		"company-product":"Product Type"
 	},
 	"Featured-product":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",

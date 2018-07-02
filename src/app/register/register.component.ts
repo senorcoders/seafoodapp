@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
+import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
@@ -17,6 +18,7 @@ sellerShow:boolean=false;
 showConfirmation=true;
 email:string;
 showEmailVerification:boolean=false;
+file:any=[]
 countries=[
 {name: "Afghanistan", code: "AF"},
 {name: "Åland Islands", code: "AX"},
@@ -262,7 +264,7 @@ countries=[
 {name: "Zambia", code: "ZM"},
 {name: "Zimbabwe", code: "ZW"}
 ];
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService) {
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService) {
     this.redirectHome();
   }
 
@@ -286,7 +288,12 @@ countries=[
       fullBakingInfo:[''],
       Address:['', Validators.required],
       City:['', Validators.required],
-      zipCode:['', Validators.required]
+      zipCode:['', Validators.required],
+      designation:['',Validators.required],
+      companyName:['', Validators.required],
+      companyType:['', Validators.required],
+      companyEmail:['', [Validators.required, Validators.email]],
+      companyTel:['', Validators.required]
     })
   }
   RegistersellerForm(){
@@ -298,22 +305,29 @@ countries=[
       password:['', Validators.required],
       rePassword:['', Validators.required],
       tel:['',Validators.required],
+      designation:['',Validators.required],
       uploadTradeLicense:[''],
       fullBakingInfo:[''],
       sfsAgreementForm:[''],
       ifLocal:[''],
       Address:['', Validators.required],
       City:['', Validators.required],
-      zipCode:['', Validators.required]
+      zipCode:['', Validators.required],
+      companyName:['', Validators.required],
+      companyType:['', Validators.required],
+      companyEmail:['', [Validators.required, Validators.email]]
     })
   }
   register(){
     if(this.sellerShow){
       if(this.sellerForm.get('password').value==this.sellerForm.get('rePassword').value){
         let dataExtra={
+        "designation": this.sellerForm.get('designation').value,
+        "companyName": this.sellerForm.get('companyName').value,
+        "companyType": this.sellerForm.get('companyType').value,
+        "companyEmail": this.sellerForm.get('companyEmail').value,
         "country": this.sellerForm.get('location').value,
         "tel": this.sellerForm.get('tel').value,
-        "uploadTradeLicense": this.sellerForm.get('uploadTradeLicense').value,
         "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
         "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
         "ifLocal": this.sellerForm.get('ifLocal').value,
@@ -325,6 +339,10 @@ countries=[
           result=>{
             this.email=this.sellerForm.get('email').value;
             this.showConfirmation=false;
+            console.log(result)
+            if(this.file.length>0){
+              this.uploadFile(result['id'])
+            }
           },
           error=>{
             console.log(error);
@@ -344,7 +362,12 @@ countries=[
         "fullBakingInfo": this.buyerForm.get('fullBakingInfo').value,
         "Address":this.buyerForm.get('Address').value,
         "City":this.buyerForm.get('City').value,
-        "zipCode":this.buyerForm.get('zipCode').value
+        "zipCode":this.buyerForm.get('zipCode').value,
+        "designation": this.buyerForm.get('designation').value,
+        "companyName": this.buyerForm.get('companyName').value,
+        "companyType": this.buyerForm.get('companyType').value,
+        "companyEmail": this.buyerForm.get('companyEmail').value,
+        "companyTel": this.buyerForm.get('companyTel').value
         }
         this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
           result=>{
@@ -373,10 +396,12 @@ countries=[
       this.sellerShow=false;
     }
   }
+  upload(file:FileList){
+    this.file=file
+  }
   verifyEmail(email){
     this.auth.getData(`user?where={"email":{"like":"${email}"}}`).subscribe(
       result=>{
-        console.log(result)
         //if return data it means that email is already used
         if(result && result['length']>0){
           this.showEmailVerification=true
@@ -386,6 +411,17 @@ countries=[
         }
       },e=>{this.showEmailVerification=false}
     )
+  }
+  uploadFile(id){
+    console.log(id)
+      if(this.file.length>0){
+        this.product.uploadFile('api/user/license/'+id, "license", this.file).subscribe(result => {
+           console.log(result)
+          this.toast.success("Your Licence has been upload successfully!",'Well Done',{positionClass:"toast-top-right"})
+        }, error => {
+          this.toast.error("Something wrong happened, please try again", "Error",{positionClass:"toast-top-right"} );
+        })
+      }
   }
   showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
