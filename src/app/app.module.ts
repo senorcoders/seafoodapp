@@ -129,7 +129,7 @@ const appRoutes: Routes=[
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes,{useHash:true}),
+    RouterModule.forRoot(appRoutes),
     FormsModule, 
     ReactiveFormsModule,
     HttpClientModule, 
