@@ -191,7 +191,7 @@
 		"sfs":"SFS Agreement Form",
 		"required":"is required",
 		"invalid":"is invalid",
-		"licence":"Licence",
+		"licence":"License",
 		"message":"A email has been sended to the administrator to check your request",
 		"verified":"We will send you a mail to",
 		"ok":"when everything is ready",
@@ -320,7 +320,7 @@
 		"sfs":"SFS Agreement Form",
 		"required":"is required",
 		"invalid":"is invalid",
-		"licence":"Licence"
+		"licence":"License"
 	},
 	"Buyer":{
 		"title":"Buyer List",
