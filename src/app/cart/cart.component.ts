@@ -100,7 +100,7 @@ export class CartComponent implements OnInit {
       status:'paid',
       paidDateTime: date.toISOString()
     }
-    this.productService.updateData(`shoppingcart/${this.shoppingCartId}`,data).subscribe(
+    this.productService.updateData(`api/shoppingcart/${this.shoppingCartId}`,data).subscribe(
       result=>{
          let cart={
           "buyer": this.buyerId

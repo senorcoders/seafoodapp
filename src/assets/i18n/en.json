@@ -418,6 +418,10 @@
 		"name":"Name",
 		"delete":"Delete",
 		"message":"Your credentials not allow to see this information",
-		"required":"is invalid"
+		"required":"is invalid",
+		"list":"Document lists",
+		"link":"Link",
+		"get":"Get Link",
+		"download":"Download"
 	}
 }
