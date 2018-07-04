@@ -1,0 +1,27 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="black-title">{{"Chart.title" | translate}}</h2>
+        	<hr class="hr-small">
+		</div>
+		<div class="col-12">
+			<canvas id="all-purchases" width="400" height="400"></canvas>
+		</div>
+		<div class="col-12">
+			<h2 class="black-title">{{"Chart.title2" | translate}}</h2>
+        	<hr class="hr-small">
+		</div>
+		<div class="col-12">
+			<select class="js-example-basic-single fishType" name="fishType">
+	          <option value="">Choose a fish type</option>
+	          <option value="{{fishType.id}}" *ngFor="let fishType of fishTypes">{{fishType.name}}</option>
+	        </select>
+		</div>
+		<div class="col-12">
+			<div *ngIf="showMessage">
+				{{'Chart.message' | translate}}
+			</div>
+			<canvas id="purchases" width="400" height="400"></canvas>
+		</div>
+	</div>
+</div>
