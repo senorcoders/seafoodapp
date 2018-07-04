@@ -84,7 +84,8 @@ const menuAdmin=[
   type:'sub',
   children:[
     {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller '},es:{name:'Vendedores Destacados'}}},
-    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}}
+    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}},
+    {state:'chart', name:'Purchases Charts',translate:{en:{name:'Purchases Charts'},es:{name:'Gráficos de ventas'}}}
   ],
     translate:{
     en:{

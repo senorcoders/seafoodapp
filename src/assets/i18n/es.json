@@ -405,5 +405,9 @@
 		"tracking-file":"Tracking Image",
 		"tracking-submit":"Save",
 		"no-image":"you dont have tracking Image"
+	},
+	"Chart":{
+		"title":"Charts",
+		"message":"there are not product for this Fish Type"
 	}
 }
