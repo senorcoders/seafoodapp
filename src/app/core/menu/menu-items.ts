@@ -176,6 +176,18 @@ const menuSeller=[
       name:'Tipos de Pescados'
     }
   }
+},
+{
+  state:'documents',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Documents'
+    },
+    es:{
+      name:'Documentos'
+    }
+  }
 }
 ];
 const menuBuyer=[
