@@ -14,17 +14,29 @@ export class ChartComponent implements OnInit {
 	products:any;
 	productNames:any=[];
 	productQuantities:any=[];
+	allProductNames:any=[];
+	allProductQuantities:any=[];
 	showMessage:boolean=false;
 
   constructor(private productService:ProductService) { }
 
   ngOnInit() {
   	this.getFishTypes();
+  	this.getAllFish();
   	jQuery('.fishType').select2();
   	jQuery('.fishType').on('change', (e)=>{
   		this.name=jQuery(".fishType option:selected").text();
      	this.getFishTypeByID(e.target.value)
     })
+  }
+  getAllFish(){
+  	this.productService.getData('api/fish/type/').subscribe(
+  		result=>{
+  			this.products=result
+  			this.showMessage=false
+  			this.getValSelled('Allproduct')
+  		}
+  	)
   }
   getFishTypeByID(e){
   	this.productService.getData('api/fish/type/'+e).subscribe(
@@ -32,27 +44,44 @@ export class ChartComponent implements OnInit {
   			this.products=result
   			if(result['length']>0){
   				this.showMessage=false
-  				this.getValSelled()
+  				this.getValSelled('product')
   			}
   			else{
   				this.showMessage=true;
   				this.productNames=[];
   				this.productQuantities=[]
-  				this.generateChart();
+  				this.generateChart('purchases');
   			}
   		}
   	)
   }
-  getValSelled(){
+  getValSelled(val){
   	//start the array empty
-  	this.productNames=[];
-  	this.productQuantities=[];
-  	//convert json array into array
-  	this.products.forEach((data)=>{
-  		this.productQuantities.push(data.quantity[0].value);
-  		this.productNames.push(data.name)
-  	})
-  	this.generateChart()
+  	if(val=='product'){
+  		this.productNames=[];
+  		this.productQuantities=[];
+  		//convert json array into array
+	  	this.products.forEach((data)=>{
+	  		this.productQuantities.push(data.quantity[0].value);
+	  		this.productNames.push(data.name)
+	  	})
+	  	this.generateChart('purchases')
+  	}
+  	else{
+  		this.allProductNames=[];
+  		this.allProductQuantities=[];
+  		//convert json array into array
+	  	this.products.forEach((data)=>{
+	  		let total=0;
+	  		//when type has a lot of quantity
+	  		data.quantity.forEach((d)=>{
+	  			total+=d.value;
+	  		})
+	  		this.allProductQuantities.push(total);
+	  		this.allProductNames.push(data.type.name)
+	  	})
+	  	this.generateChart('all-purchases')
+  	}
   }
   getFishTypes(){
   	this.productService.getData('FishType').subscribe(
@@ -61,16 +90,26 @@ export class ChartComponent implements OnInit {
   		}
   	)
   }
-  generateChart(){
-  	let ctx = document.getElementById("purchases");
-  	let labels=this.productNames;
-  	let values=this.productQuantities;
+  generateChart(chart){
+  	let ctx = document.getElementById(chart);
+  	let labels;
+  	let values;
+  	let name;
+  	if(chart=='purchases'){
+		labels=this.productNames;
+  		values=this.productQuantities;
+  		name=this.name;
+  	}else{
+  		labels=this.allProductNames;
+  		values=this.allProductQuantities;
+  		name='Fish type'
+  	}
 	let myChart = new Chart(ctx, {
 		  type: 'bar',
 		  data: {
 			  labels: labels,
 			  datasets: [{
-				  label: this.name,
+				  label: name,
 				  data: values,
 				  backgroundColor: [
 					  'rgba(255, 99, 132, 0.2)',

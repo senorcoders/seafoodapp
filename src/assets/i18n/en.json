@@ -408,6 +408,16 @@
 	},
 	"Chart":{
 		"title":"Charts",
-		"message":"there are not product for this Fish Type"
+		"message":"there are not product for this Fish Type",
+		"title2":"Chart by Fish Type"
+	},
+	"Document":{
+		"title":"Upload Documents",
+		"select":"Select Documents",
+		"send":"Send",
+		"name":"Name",
+		"delete":"Delete",
+		"message":"Your credentials not allow to see this information",
+		"required":"is invalid"
 	}
 }
