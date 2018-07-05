@@ -50,7 +50,6 @@ export class AddProductComponent implements OnInit {
   
   getTypes(){
     this.product.getAllCategoriesProducts().subscribe(result =>{
-      console.log(result);
       this.pTypes = result;
     })
    
@@ -93,7 +92,6 @@ export class AddProductComponent implements OnInit {
 
   onSubmit() {
     if (this.myform.valid) {
-      console.log("Form Submitted!");
       let data = {
         "type" : this.types.value,
         "store": this.store[0].id,
@@ -111,10 +109,8 @@ export class AddProductComponent implements OnInit {
               "value": 5
           }
       }
-      console.log(data);
       this.product.saveData('fish', data).subscribe(result =>{
-        console.log("Done", result['id']);
-        if(this.fileToUpload.length > 0){
+        if(this.fileToUpload.length > 0 || this.primaryImg.length > 0){
           this.uploadFileToActivity(result['id']);
         }else{
           this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})
