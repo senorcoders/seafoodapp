@@ -54,6 +54,8 @@ export class RecentPurchasesComponent implements OnInit {
   			}
   		},
   		e=>{
+        this.showProduct=false
+        this.showLoading=false
   			console.log(e)
   		}
   	)
@@ -72,6 +74,8 @@ export class RecentPurchasesComponent implements OnInit {
   			}
   		},
   		e=>{
+        this.showShipped=false
+        this.showLoading=false
   			console.log(e)
   		}
   	)
