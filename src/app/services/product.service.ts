@@ -29,7 +29,9 @@ export class ProductService {
     return this.http.put(`${API}${endpoint}`, data, httpOptions);
 
   }
-
+  setShippedProduct(endpoint){
+    return this.http.put(`${API}${endpoint}`, httpOptions);
+  }
   getData(endpoint){
     return this.http.get(`${API}${endpoint}`)
   }

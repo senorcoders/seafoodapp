@@ -64,10 +64,7 @@ export class OrderPurchaseComponent implements OnInit {
   	)
   }
   setShipped(){
-  	let data={
-  		shippingStatus:"shipped"
-  	}
-  	this.productS.updateData('itemshopping/'+this.itemId, data).subscribe(
+  	this.productS.setShippedProduct('api/itemshopping/status/'+this.itemId).subscribe(
   		result=>{
   			this.toast.success('Product Shipped','Well Done',{positionClass:"toast-top-right"})
   			this.getItem();
