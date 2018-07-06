@@ -21,7 +21,12 @@
 			<div *ngIf="showMessage">
 				{{'Chart.message' | translate}}
 			</div>
-			<canvas id="purchases" width="400" height="400"></canvas>
+			<div class="row">
+				<div class="col" *ngFor="let chart of charts; let i=index">
+					<span (click)="deleteChart(i)" class="delete"><fa name="remove"></fa></span>
+					<canvas id="{{chart}}" width="400" height="400" class="chart"></canvas>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>

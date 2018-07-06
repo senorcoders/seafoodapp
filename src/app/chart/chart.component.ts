@@ -17,7 +17,7 @@ export class ChartComponent implements OnInit {
 	allProductNames:any=[];
 	allProductQuantities:any=[];
 	showMessage:boolean=false;
-
+  charts:any=[];
   constructor(private productService:ProductService) { }
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class ChartComponent implements OnInit {
   			this.products=result
   			if(result['length']>0){
   				this.showMessage=false
-  				this.getValSelled('product')
+  				this.getValSelled(this.name)
   			}
   			else{
   				this.showMessage=true;
@@ -56,8 +56,12 @@ export class ChartComponent implements OnInit {
   	)
   }
   getValSelled(val){
-  	//start the array empty
-  	if(val=='product'){
+    if(val!="Allproduct"){
+      //check if array has the current value
+      if(!this.charts.includes(val)){
+        this.charts.push(val)
+      }
+  	  //start the array empty
   		this.productNames=[];
   		this.productQuantities=[];
   		//convert json array into array
@@ -65,7 +69,8 @@ export class ChartComponent implements OnInit {
 	  		this.productQuantities.push(data.quantity[0].value);
 	  		this.productNames.push(data.name)
 	  	})
-	  	this.generateChart('purchases')
+      //wait a second to angular generate the html to generate the chart. if i not do this. generateChart will send a error
+      setTimeout(()=>{this.generateChart(val)},200)
   	}
   	else{
   		this.allProductNames=[];
@@ -83,6 +88,9 @@ export class ChartComponent implements OnInit {
 	  	this.generateChart('all-purchases')
   	}
   }
+  deleteChart(i){
+    this.charts.splice(i,1)
+  }
   getFishTypes(){
   	this.productService.getData('FishType').subscribe(
   		result=>{
@@ -95,7 +103,7 @@ export class ChartComponent implements OnInit {
   	let labels;
   	let values;
   	let name;
-  	if(chart=='purchases'){
+  	if(chart!='all-purchases'){
 		labels=this.productNames;
   		values=this.productQuantities;
   		name=this.name;
