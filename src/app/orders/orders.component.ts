@@ -10,7 +10,7 @@ import {AuthenticationService} from '../services/authentication.service';
 export class OrdersComponent implements OnInit {
 	//buyer:string;
 	userData:any;
-	shoppingCarts:any;
+	shoppingCarts:any=[];
 	showLoading:boolean=true;
 	showData:boolean=false;
 	dates=[];
@@ -28,7 +28,7 @@ export class OrdersComponent implements OnInit {
   	this.getCartPaid();
   }
   getCartPaid(){
-  	this.productService.getData(`shoppingcart/?where={"status":{"like":"paid"},"buyer":"${this.userData.id}"}`).subscribe(
+  	this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
   		result=>{
   			this.showLoading=false;
   			this.shoppingCarts=result
