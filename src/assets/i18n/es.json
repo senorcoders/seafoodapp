@@ -422,5 +422,11 @@
 		"list":"Document lists",
 		"link":"Link",
 		"download":"Download"
+	},
+	"TrackingOrder":{
+		"title":"Tracking Information",
+		"file":"Tracking Image",
+		"code":"Tracking Code",
+		"save":"Save"
 	}
 }
