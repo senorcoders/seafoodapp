@@ -59,6 +59,7 @@ import { RecentPurchasesComponent } from './recent-purchases/recent-purchases.co
 import { OrderPurchaseComponent } from './order-purchase/order-purchase.component';
 import { ChartComponent } from './chart/chart.component';
 import { DocumentsComponent } from './documents/documents.component';
+import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -93,6 +94,7 @@ const appRoutes: Routes=[
   {path:'order-purchase/:item', component:OrderPurchaseComponent, canActivate:[SellerRouterService]},
   {path:'chart', component:ChartComponent, canActivate:[AdminRouterService]},
   {path:'documents', component:DocumentsComponent, canActivate:[RouterProtectionService]},
+  {path:'tracking-code/:item', component:TrackingCodeComponent, canActivate:[RouterProtectionService]},
 ]
 
 @NgModule({
@@ -131,7 +133,8 @@ const appRoutes: Routes=[
     RecentPurchasesComponent,
     OrderPurchaseComponent,
     ChartComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    TrackingCodeComponent
   ],
   imports: [
     BrowserModule,

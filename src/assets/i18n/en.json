@@ -423,5 +423,11 @@
 		"link":"Link",
 		"get":"Get Link",
 		"download":"Download"
+	},
+	"TrackingOrder":{
+		"title":"Tracking Information",
+		"file":"Tracking Image",
+		"code":"Tracking Code",
+		"save":"Save"
 	}
 }

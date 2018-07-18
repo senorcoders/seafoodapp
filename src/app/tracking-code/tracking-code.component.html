@@ -1,0 +1,136 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h3 class="black-title">{{'TrackingOrder.title' | translate}}</h3><hr class="hr-small">
+			<form [formGroup]="trackingForm" (submit)="saveTracking()">
+				<div class="form-group">
+			    	<input type="text" class="form-control" placeholder="{{'OrderPurchase.tracking-code' | translate}}" formControlName="code">
+			    </div>
+				<div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="1" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file1">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[0]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview1" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+				<div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="2" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file2">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[1]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview2" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="3" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file3">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[2]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview3" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="4" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file4">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[3]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview4" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="5" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file5">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[4]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview5" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="6" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file6">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[5]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview6" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="7" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file7">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[6]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview7" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="8" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)"
+					        formControlName="file8">
+						    	</div>
+					    <div class="col" *ngIf="isVisible[7]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview8" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="9" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file9">
+						</div>
+					    <div class="col" *ngIf="isVisible[8]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview9" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	<div class="row">
+			    		<div class="col">
+				    		<label>{{'TrackingOrder.file' | translate}}</label>
+					        <input type="file" class="form-control" id="10" 
+					        (change)="handleFileInput($event.target.files, $event.target.id)" formControlName="file10">
+						</div>
+					    <div class="col" *ngIf="isVisible[9]">
+					    	<img src="./assets/default.jpg" alt=""  id="preview10" class="preview">
+					    </div>
+			    	</div>
+			    </div>
+			    <div class="form-group">
+			    	 <button type="submit" class="black-btn" [disabled]="trackingForm.invalid">{{'TrackingOrder.save' | translate}}</button>
+			    </div>
+			</form>
+		</div>
+	</div>
+</div>
