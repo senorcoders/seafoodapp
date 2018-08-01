@@ -1,21 +1,34 @@
 {
 	"Menu":{
+		"login":"Entrar",
+		"register":"Registrarse",
 		"logout": "Cerrar Session",
 		"search-input-placeholder":"Buscar",
 		"search-input-button":"Buscar",
-		"subscribe-button":"Suscribeme",
-		"subscribe-placeholder":"Suscríbase a nuestra lista de correo",
-		"orders":"Mis compras"
+		"orders":"Mis compras",
+		"perfil":"Mi perfil"
+	},
+	"Footer":{
+		"title":"Para más",
+		"subtitle":"Información",
+		"subscribe-button":"suscribete",
+		"subscribe-placeholder":"Email",
+		"menu-title":"Menú",
+		"contact-title":"Contacto",
+		"logout":"Cerrar Session"
 	},
 	"Home":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida",
+		"big-title-banner-2":"maritima hasta tu casa",
+		"small-title-banner":"Fresca Comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Productos Destacados",
 		"featuredSeller":"Vendedores Destacados",
-		"about":"Sobre Nosotros",
-		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis augue velit, ut fringilla justo blandit vel. Pellentesque metus est, vulputate vel tempus aliquet, volutpat id erat. Proin volutpat, velit eu malesuada sagittis, orci magna malesuada quam, a accumsan magna dui vestibulum lorem. In at euismod magna. Donec venenatis ullamcorper sem, placerat volutpat ipsum tincidunt sed. Proin at tempus metus. Morbi consequat vestibulum placerat. Donec sit amet fermentum elit, at molestie purus. Phasellus at porttitor odio, sed pretium massa. Integer fermentum lorem nunc, vitae accumsan turpis euismod ut. Proin vel arcu nec odio mollis rhoncus. Nam id elit imperdiet, consequat lacus at, porta odio. Donec facilisis sollicitudin nisi gravida luctus.",
-		"fist-type":"Tipos de Pescados"
+		"about":"Nosotros",
+		"more":"conoce más",
+		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
+		"fist-type":"Tipos de Pescados",
+		"details":"Ver Detalle"
 	},
 	"Account":{
 		"title":"Mi Cuenta",

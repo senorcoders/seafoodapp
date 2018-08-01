@@ -23,15 +23,15 @@ export class HomeComponent implements OnInit {
   featuredProducts:any;
   images=[];
   loadProduct:boolean=true;
-  onResize(event) {
-    this.setHeight(event.target.innerHeight);
-  }
+  // onResize(event) {
+  //   this.setHeight(event.target.innerHeight);
+  // }
   constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
     //this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
   }
-  setHeight(h){
-    document.getElementById("hero").style.height = h+"px";
-  }
+  // setHeight(h){
+  //   document.getElementById("hero").style.height = h+"px";
+  // }
   ngOnInit() {
    //  let data={
    //    pageNumber:0,
@@ -46,7 +46,7 @@ export class HomeComponent implements OnInit {
    // );
    this.getFeaturedSeller();
    this.getFeaturedProducts();
-    this.setHeight(window.innerHeight);
+    // this.setHeight(window.innerHeight);
   }
   getFeaturedProducts(){
     this.product.getData('featuredproducts').subscribe(
@@ -96,6 +96,15 @@ export class HomeComponent implements OnInit {
       })
     })
   }
+  getShortDesc(data){  
+    if(data.length>20){
+        let text=data.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return data
+    }
+  }
   getLogos(){
     this.featuredSellers.forEach((data, index)=>{
       this.product.getData('store/'+data.id).subscribe(
@@ -104,7 +113,7 @@ export class HomeComponent implements OnInit {
             this.logos[index]=this.API+result['logo'];
           }
           else{
-            this.logos[index]="../../assets/seafood-souq-seller-logo-default.jpg";
+            this.logos[index]="../../assets/seafood-souq-seller-logo-default.png";
           }
         },
         error=>{

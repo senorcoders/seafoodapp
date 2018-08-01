@@ -1,3 +1,38 @@
+.top-nav{
+    padding: 15px 0;
+    box-shadow: 0px 10px 11px -7px #eeeeee;
+	font-family: Avenir;
+	color: #969696;
+	.bar{
+		display: inline-block;
+	}
+	.address{
+    	.bar{
+    		margin: 0 10px 0 20px;
+    	}
+    	i{
+    		margin-left: 20px;
+    		margin-right: 5px;
+    	}
+	}
+	.access{
+		text-align: right;
+		.login{
+			cursor: pointer;
+			color: #969696 !important;
+			text-decoration: none !important;
+		}
+		.signup{
+			color: #eb1c24 !important;
+			text-transform: uppercase;
+			font-family: Avenir Medium;
+			text-decoration: none !important;
+		}
+		.bar{
+			margin:0 10px
+		}
+	}
+}
 form{
 	.form-group{
 		margin-bottom: 0;
@@ -7,11 +42,21 @@ form{
 	    border: 0;
 	    padding: 10px;
 	    max-width: 100%;
-	    font-family: "Arapey",serif;
-	    font-style: oblique;
-	    font-size: 1.2rem;
+	    font-family: Avenir;
+	    font-weight: lighter;
+	    font-size: 1rem;
 	    line-height: 1;
+	    background: #ebf1f6;
 	    width: auto;
+	    margin: 0 !important;
+	    border-radius: 0;
+	}
+	.search-btn{
+		border: 0;
+	    background: #eb1c24;
+	    color: white;
+	    font-family: Avenir Black;
+	    padding: 9px 20px;
 	}
 }
 .fish-type-menu{
@@ -57,16 +102,18 @@ form{
     background: white;
     transform: translate(0,100%);
     z-index: 1;
-    border: 1px solid #19465f;
+    border: 1px solid #ebf1f6;
 	ul{
 		padding: 0;
 	    list-style: none;
 	    margin: 0;
 	    li{
 	    	padding: 5px 50px 5px 20px;
-    		border-bottom: 1px solid #19465f;
+    		border-bottom: 1px solid #ebf1f6;
     		position: relative;
     		cursor: pointer;
+    		font-family: Avenir;
+    		font-weight: lighter;
     		&:last-child{
     			border: 0;
     		}
@@ -97,4 +144,19 @@ form{
 	width: 100%;
 	top: 0;
     left: 0;
+    z-index: 3;
+}
+@media(min-width: 998px){
+	.search-container{
+		z-index: 4;
+		position: absolute;
+	    top: 50%;
+	    left: 30%;
+	    transform: translate(0%,-50%);
+	}
+}
+@media(max-width: 998px){
+	.lang-cont{
+		text-align: right;
+	}
 }
