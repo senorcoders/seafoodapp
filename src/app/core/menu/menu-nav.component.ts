@@ -30,6 +30,7 @@ export class MenuNavComponent{
   showSuggestion:boolean=false;
   results:any;
   lang:any;
+  show:boolean=false;
   showOrders:boolean=false;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems,
    private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService,
@@ -114,6 +115,14 @@ export class MenuNavComponent{
     this.auth.logOut();
     this.router.navigate(["/home"]);
   }
+  openSearch(){
+    if(this.show){
+      this.show=false
+    }
+    else{
+      this.show=true
+    }
+  }
   getAllProductsCategories(){
     this.productService.getAllCategoriesProducts().subscribe(
       result=>{
@@ -127,14 +136,18 @@ export class MenuNavComponent{
   }
   search(){
     this.showSuggestion=false;
+    console.log(this.searchForm.get('search').value)
+    this.show=false;
     this.results='';
     this.router.navigate([`search/${this.searchForm.get('search').value}`]);
     this.searchForm.reset()
   }
   searchBySuggestion(name){
-    this.searchForm.reset()
+    this.searchForm.reset();
+    console.log(name)
     this.results='';
     this.showSuggestion=false;
+    this.show=false;
     this.router.navigate([`search/${name}`]);
   }
   goCart(){
@@ -178,6 +191,7 @@ export class MenuNavComponent{
   }
   closeSuggestion(){
     this.showSuggestion=false
+    this.show=false
   }
   changeLanguage(e){
     let value=e.srcElement.value;

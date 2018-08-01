@@ -14,18 +14,6 @@ export interface Menu {
 }
 const menuAdmin=[
 {
-  state:'account',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Profile'
-    },
-    es:{
-      name:'Perfil'
-    }
-  }
-},
-{
   state:'comments',
   type: 'link',
   translate:{
@@ -126,18 +114,6 @@ const menu=[
 ];
 const menuSeller=[
 {
-  state:'account',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Profile'
-    },
-    es:{
-      name:'Perfil'
-    }
-  }
-},
-{
   state:'recent-purchases',
   type: 'link',
   translate:{
@@ -192,18 +168,6 @@ const menuSeller=[
 ];
 const menuBuyer=[
 {
-  state:'account',
-  type: 'link',
-  translate:{
-    en:{
-      name: 'Profile'
-    },
-    es:{
-      name:'Perfil'
-    }
-  }
-},
-{
   state:'favorites',
   type: 'link',
   translate:{
@@ -214,95 +178,95 @@ const menuBuyer=[
       name:'Favoritos'
     }
   }
+},
+{
+  state:'orders',
+  type: 'link',
+  translate:{
+    en:{
+      name:'My Orders'
+    },
+    es:{
+      name:'Mis Compras'
+    }
+  }
 }
 ];
-const menuFooter1=[
+const menuFooter=[
   {
-    state:"",
+    state:"account",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Profile'
+      },
+      es:{
+        name:'Perfil'
+      }
+    }
+  },
+  {
+    state:"favorites",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Favorites'
+      },
+      es:{
+        name:'Favoritos'
+      }
+    }
+  },
+  {
+    state:"orders",
+    type:"link",
+    translate:{
+      en:{
+        name: 'My Orders'
+      },
+      es:{
+        name:'Mis comprass'
+      }
+    }
+  }
+];
+const menuFooterNoLogin=[
+  {
+    state:"home",
     type:"link",
     translate:{
       en:{
         name: 'Homepage'
       },
       es:{
-        name:'Página Principal'
+        name:'Inicio'
       }
     }
   },
   {
-    state:"about",
+    state:"register",
     type:"link",
     translate:{
       en:{
-        name: 'About us'
+        name: 'Register'
       },
       es:{
-        name:'Nosotros'
+        name:'Registrarse'
       }
     }
   },
   {
-    state:"faq",
+    state:"login",
     type:"link",
     translate:{
       en:{
-        name: 'FAQ'
+        name: 'Login'
       },
       es:{
-        name:'FAQ'
+        name:'Iniciar sessión'
       }
     }
   },
-  {
-    state:"policy",
-    type:"link",
-    translate:{
-      en:{
-        name: 'Policy'
-      },
-      es:{
-        name:'Políticas'
-      }
-    }
-  }
-];
-const menuFooter2=[
-  {
-    state:"shipping-information",
-    type:"link",
-    translate:{
-      en:{
-        name: 'Shipping Information'
-      },
-      es:{
-        name:'Información sobre compras'
-      }
-    }
-  },
-  {
-    state:"support",
-    type:"link",
-    translate:{
-      en:{
-        name: 'Support'
-      },
-      es:{
-        name:'Soporte'
-      }
-    }
-  },
-  {
-    state:"wholesale-seafood",
-    type:"link",
-    translate:{
-      en:{
-        name: 'Wholesale Seafood'
-      },
-      es:{
-        name:'Mariscos'
-      }
-    }
-  }
 ]
 @Injectable()
 export class MenuItems {
@@ -316,10 +280,10 @@ export class MenuItems {
     return menu;
   }
   getMenuFooter1():Menu[]{
-    return menuFooter1;
+    return menuFooter;
   }
-    getMenuFooter2():Menu[]{
-    return menuFooter2;
+  getMenuFooterNoLogin():Menu[]{
+    return menuFooterNoLogin;
   }
   addMenuItem(Menu:Menu){
     menuBuyer.push(Menu);

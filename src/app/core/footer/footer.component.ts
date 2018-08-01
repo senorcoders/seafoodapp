@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {LanguageService} from '../language/language.service';
+import {IsLoginService} from '../login/is-login.service';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -14,8 +15,10 @@ export class FooterComponent{
   subscribeForm:FormGroup;
   language:any;
   MenuItems:any;
+  isLogged:boolean=false;
   constructor(private fb: FormBuilder,private menuItems: MenuItems, private router:Router, 
-    private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService, private menu:MenuItems){
+    private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService, private menu:MenuItems,
+    private isLoggedSr: IsLoginService){
     this.MenuItems=this.menu;
   }
   ngOnInit(){
@@ -26,6 +29,14 @@ export class FooterComponent{
     this.subscribeForm=this.fb.group({
       email:['',[Validators.required, Validators.email]]
     })
+    this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
+      this.isLogged=val;
+    })
+  }
+  logOut(){
+    this.isLoggedSr.setLogin(false,-1)
+    this.auth.logOut();
+    this.router.navigate(["/home"]);
   }
   subscribe(){
     this.auth.subscribe(this.subscribeForm.get('email').value).subscribe(

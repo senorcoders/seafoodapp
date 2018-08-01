@@ -1,15 +1,16 @@
 <footer>
   <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 prefooter">
+    <div class="row prefooter">
+      <div class="col-md-6">
+        <h3 class="title">{{'Footer.title' | translate}}</h3>
+        <h2 class="subtitle">{{'Footer.subtitle' | translate}}</h2>
         <div class="subscribe-form">
           <form [formGroup]="subscribeForm" (submit)="subscribe()">
            <div class="form-group">
-             <input type="email" class="form-control" placeholder="{{'Menu.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+             <input type="email" class="form-control" placeholder="{{'Footer.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
             <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
             <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
-           <input type="submit" class="hide-on-mobile black-btn" value="{{'Menu.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
-           <button class="black-btn show-on-desktop" [disabled]="subscribeForm.invalid"><fa name="long-arrow-right"></fa></button>
+           <input type="submit" class="hide-on-mobile red-btn" value="{{'Footer.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
            </div>
           </form>
         </div>
@@ -18,34 +19,40 @@
   </div>
   <div class="footer">
     <div class="container">
-      <hr class="big-hr">
       <div class="row">
-       <div class="col-lg-3">
-          <ul class="list-inline">
-            <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter1()">
-              <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
-            </li>
-            <li><a routerLink="/tracking">Geo Tracking</a></li>
-          </ul>      
-        </div>
-      <div class="col-lg-3 footer-menu">
-        <ul class="list-inline">
-          <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter2()">
+       <div class="col-lg-4 col-md-4">
+          <a routerLink="/home"><img src="../../assets/footer-logo.png" alt="" style="max-width: 100%;width: auto;"></a>
+      </div>
+      <div class="col-lg-4 col-md-4 footer-menu">
+        <h2 class="footer-title">{{'Footer.menu-title' | translate}}</h2>
+        <ul class="list-inline" *ngIf="isLogged; else noLogin">
+          <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter1()">
             <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
           </li>
+          <li class="menu-item"><a (click)="logOut()">{{'Footer.logout' | translate}}</a></li>
         </ul>
+        <ng-template #noLogin>
+          <ul class="list-inline">
+            <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooterNoLogin()">
+              <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
+            </li>
+          </ul>
+        </ng-template>      
       </div>
-      <div class="col-lg-3 social-network">
-        <ul class="list-inline">
-          <li><fa name="facebook" style="margin-right:10px"></fa> Facebook</li>
-        </ul>
-      </div>
-      <div class=" col-lg-3 footer-info">
+      <div class=" col-lg-4 col-md-4 footer-info">
+        <h2 class="footer-title">{{'Footer.contact-title' | translate}}</h2>
         <p>
           2018, Seafood Souq <br>
           Dubai Emirates <br>
-          <a href="mailto:info@seafoodsouq.com">info@seafoodsouq.com</a> 
+          <a href="mailto:info@seafoodsouq.com" class="email-address">info@seafoodsouq.com</a> 
         </p>
+      </div>
+      <div class="social-network">
+        <ul class="list-inline">
+          <li><a href="#"><fa name="facebook"></fa></a></li>
+          <li><a href="#"><fa name="twitter"></fa></a></li>
+          <li><a href="#"><fa name="instagram"></fa></a></li>
+        </ul>
       </div>
       </div>
     </div>
