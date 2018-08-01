@@ -29,7 +29,8 @@
 		"about":"About us",
 		"more":"More Info",
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
-		"fist-type":"Fish Types"
+		"fist-type":"Fish Types",
+		"details":"View Details"
 	},
 	"Account":{
 		"title":"My Account",

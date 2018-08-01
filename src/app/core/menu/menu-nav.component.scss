@@ -146,6 +146,10 @@ form{
     left: 0;
     z-index: 3;
 }
+.navbar-light .navbar-toggler{
+	border: 0 !important;
+	outline: none !important
+}
 @media(min-width: 998px){
 	.search-container{
 		z-index: 4;
@@ -158,5 +162,10 @@ form{
 @media(max-width: 998px){
 	.lang-cont{
 		text-align: right;
+	}
+}
+@media(max-width: 600px){
+	.address{
+		display: none;
 	}
 }
