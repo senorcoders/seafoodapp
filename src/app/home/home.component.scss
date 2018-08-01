@@ -152,7 +152,7 @@ $ligth-bg:#ebf1f6;
   background-size: cover !important;
   background-position: center !important;
   width: 100%;
-  height: 200px;
+  height: 250px;
   position: relative;
   margin-bottom: 10px;
   &:hover{
@@ -163,11 +163,16 @@ $ligth-bg:#ebf1f6;
     }
   } 
 }
+.fish-categories{
+  .hr-small{
+    margin-bottom: 40px;
+  }
+}
 .cat-img-2{
   background-size: cover !important;
   background-position: center !important;
   width: 100%;
-  height: 410px;
+  height: 510px;
   position: relative;
   margin-bottom: 20px;
   &:hover{
@@ -183,7 +188,9 @@ $ligth-bg:#ebf1f6;
     top: 0;
     left: 0;
     width: 100%;
-    background: rgba(0, 0, 0, 0.45);
+    background: url(../../assets/overlay-trazado.png);
+    background-size: cover !important;
+    background-position: center !important;
     height: 100%;
     visibility: hidden;
     opacity: 0;
