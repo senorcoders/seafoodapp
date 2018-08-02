@@ -14,7 +14,6 @@ export class BuyerComponent implements OnInit {
 	users:any;
 	showLoading:boolean=true;
 	buyerForm:FormGroup;
-	showForm:boolean=false;
 	user:any;
 	countries=[
 		{name: "Afghanistan", code: "AF"},
@@ -266,6 +265,14 @@ export class BuyerComponent implements OnInit {
 
   ngOnInit() {
   	this.getUsers()
+  	this.buyerForm=this.fb.group({
+  		firstName:['',Validators.required],
+		lastName: ['', Validators.required],
+		country: ['', Validators.required],
+		email: ['', [Validators.email, Validators.required]],
+		tel: [''],
+		fullBakingInfo: [''],
+  	})
   }
   userForm(){
   	this.buyerForm=this.fb.group({
@@ -306,7 +313,6 @@ export class BuyerComponent implements OnInit {
   		result=>{
   			this.user=result
   			this.userForm()
-  			this.showForm=true;
   		},
   		e=>{
   			console.log(e)
@@ -319,7 +325,6 @@ export class BuyerComponent implements OnInit {
   	this.product.updateData('user/'+this.user.id,data).subscribe(
   		result=>{
 			this.toast.success('User has been edited', 'Well Done', { positionClass: "toast-top-right" })
-  			this.showForm=false;
   			this.buyerForm.reset();
   			this.getUsers();
   		},
