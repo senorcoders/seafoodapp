@@ -159,12 +159,23 @@ body {
     left: 50%;
     padding:0 15px;
 }
-.hr-small{
+app-home .hr-small{
     width: 80px;
     margin: 0 auto;
     background: #ebf1f6;
     height: 5px;
     border: 0;
+    margin-bottom: 0;
+    display: inherit;
+}
+.hr-small{
+  width: 80px;
+  margin: 0 auto;
+  background: #ebf1f6;
+  height: 5px;
+  border: 0;
+  margin-bottom: 20px;
+  display:block;
 }
 .black-btn{
     background: #1c1d1d !important;

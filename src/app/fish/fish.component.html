@@ -3,16 +3,19 @@
     <div class="col">
       <h2 class="title">{{'FishType.add' | translate}}</h2>
       <hr class="hr-small">
-      <form [formGroup]="categoryForm" (submit)="addCategory()">
+      <form [formGroup]="categoryForm" (submit)="addCategory()" class="form-design">
         <div class="form-group">
+          <label>{{'FishType.name' | translate}}</label>
           <input type="text" class="form-control" placeholder="{{'FishType.name' | translate}}" formControlName="name" [ngClass]="{'is-invalid':categoryForm.get('name').invalid && categoryForm.get('name').touched}">
           <div class="invalid-feedback" *ngIf="categoryForm.get('name').hasError('required')">{{'FishType.name' | translate}} {{'FishType.required' | translate}}</div>
         </div>
         <div class="form-group">
+          <label>{{'FishType.description' | translate}}</label>
          <textarea class="form-control" placeholder="{{'FishType.description' | translate}}" formControlName="description" [ngClass]="{'is-invalid':categoryForm.get('description').invalid && categoryForm.get('description').touched}"></textarea>
           <div class="invalid-feedback" *ngIf="categoryForm.get('description').hasError('required')">{{'FishType.description' | translate}} {{'FishType.required' | translate}}</div>
         </div>
         <div class="form-group">
+          <label>{{'FishType.image' | translate}}</label>
           <input type="file" (change)="uploadImage($event.target.files)" class="form-control" id="inputImg">
           <div class="row">
             <div class="col">
@@ -25,7 +28,7 @@
           </div>
         </div>
         <div class="form-group">
-         <button type="submit" class="black-btn" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
+         <button type="submit" class="btn-red" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
         </div>
       </form>
     </div>
