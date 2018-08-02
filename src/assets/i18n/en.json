@@ -33,7 +33,8 @@
 		"details":"View Details"
 	},
 	"Account":{
-		"title":"My Account",
+		"title":"Profile",
+		"subtitle":"My Account",
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",

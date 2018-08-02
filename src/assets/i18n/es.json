@@ -31,7 +31,8 @@
 		"details":"Ver Detalle"
 	},
 	"Account":{
-		"title":"Mi Cuenta",
+		"title":"Perfil",
+		"subtitle":"Mi Cuenta",
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",

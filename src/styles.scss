@@ -183,6 +183,8 @@ body {
   display: inline-block;
   color: #eb1c24;
   padding: 10px 30px;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 .black-btn-sm{
   background: #1c1d1d !important;
@@ -382,6 +384,10 @@ body {
 }
 /*footer */
 footer{
+  .footer-logo{
+    max-width: 100%;
+    width: 200px;
+  }
   .title{
     font-family: Avenir;
     font-weight: lighter;
