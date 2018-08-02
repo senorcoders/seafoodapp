@@ -1,539 +1,352 @@
 <div *ngIf="loggedIn; else elseBlock">
-<!-- <div class="page-header" id="hero" *ngIf="info.role<2">
-	<div class="background-img" style="background:url(../../assets/hero_slide.jpg)" *ngIf="store.heroImage ==null || store.heroImage==''; else showImg"></div>
-	<ng-template #showImg>
-		<div class="background-img" [style.background-image]="heroSlider"></div>
-	</ng-template>
-    <div class="content">
-      <h3 class="small-title">{{info.firstName}} {{info.lastName}}</h3>
-      <h1 class="big-title">{{store.name}}</h1>
-    </div>
-</div> -->
-<div class="container">
-  <div style="height: 100px;"></div>
-  <div class="row">
-    <div class="col-lg-3">
-      <h1 class="title">{{'Account.title' | translate}}</h1>
-      <h1 class="subtitle">{{'Account.subtitle' | translate}}</h1>
-    </div>
-    <!-- if user is a buyer -->
-    <div class="col-lg-9" *ngIf="info.role==2">
-      <form (ngSubmit)="onSubmit()">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.first-name' | translate}}</label>
-              <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
+  <div class="container">
+    <div style="height: 100px;"></div>
+    <div class="row">
+      <div class="col-lg-3">
+        <h1 class="title">{{'Account.title' | translate}}</h1>
+        <h1 class="subtitle">{{'Account.subtitle' | translate}}</h1>
+      </div>
+      <!-- if user is a buyer -->
+      <div class="col-lg-9" *ngIf="info.role==2">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.first-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.last-name' | translate}}</label>
-              <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group" >
-              <label>{{'Account.email' | translate}}</label>
-              <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.country' | translate}}</label>
-              <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
-               <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.Address' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group" *ngIf="info.role==2">
-              <label>{{'Account.City' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group" *ngIf="info.role==2">
-              <label>{{'Account.zipCode' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.tel' | translate}}</label>
-              <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group" *ngIf="info.role>0">
-              <label>{{'Account.designation' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.company' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}" [(ngModel)]="info.dataExtra['companyName']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group" *ngIf="info.role==2">
-              <label>{{'Account.deliveryAddress' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.deliveryAddress' | translate}}" [(ngModel)]="info.dataExtra['deliveryAddress']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.company-email' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="info.dataExtra['companyEmail']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.company-tel' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.company-tel' | translate}}" [(ngModel)]="info.dataExtra['companyTel']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="form-group">
-              <label>{{'Account.baking' | translate}}</label>
-              <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
-          </div>
-          <div class="col-lg-6">
-            <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
-          </div>
-        </div>
-      </form>
-    </div>
-    <!-- end buyer form -->
-    <!-- start seller form -->
-    <div class="col-lg-9" *ngIf="info.role==1">
-      <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.first-name' | translate}}</label>
-              <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.last-name' | translate}}</label>
-              <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group" >
-              <label>{{'Account.email' | translate}}</label>
-              <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.tel' | translate}}</label>
-              <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.designation' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label>SFS Agreement Form</label>
-              <div class="input-group mb-3">
-                <div class="input-group-prepend">
-                  <div class="input-group-text">
-                    <input type="checkbox" aria-label="Checkbox for following text input" [checked]="info.dataExtra['sfsAgreementForm']">
-                  </div>
-                </div>
-                <input type="text" class="form-control" [(ngModel)]="info.dataExtra['ifLocal']" [ngModelOptions]="{standalone: true}" aria-label="Text input with checkbox" placeholder="SFS Agreement Form">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.last-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" >
+                <label>{{'Account.email' | translate}}</label>
+                <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
+              </div>
+            </div>
           </div>
-          <div class="col-lg-6">
-            <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
+                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.Address' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
           </div>
-        </div>
-    </div>
-    <!-- end seller form -->
-    <!-- start admin form -->
-    <div class="col-lg-9" *ngIf="info.role==0">
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>{{'Account.first-name' | translate}}</label>
-            <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==2">
+                <label>{{'Account.City' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==2">
+                <label>{{'Account.zipCode' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>{{'Account.last-name' | translate}}</label>
-            <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.tel' | translate}}</label>
+                <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role>0">
+                <label>{{'Account.designation' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}" [(ngModel)]="info.dataExtra['companyName']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==2">
+                <label>{{'Account.deliveryAddress' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.deliveryAddress' | translate}}" [(ngModel)]="info.dataExtra['deliveryAddress']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-email' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="info.dataExtra['companyEmail']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-tel' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-tel' | translate}}" [(ngModel)]="info.dataExtra['companyTel']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>{{'Account.baking' | translate}}</label>
+                <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+            </div>
+            <div class="col-lg-6">
+              <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="col-12">
-          <div class="form-group" >
-            <label>{{'Account.email' | translate}}</label>
-            <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
-          </div>
-        </div>
+      <!-- end buyer form -->
+      <!-- start seller form -->
+      <div class="col-lg-9" *ngIf="info.role==1">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.first-name' | translate}}</label>
+                  <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.last-name' | translate}}</label>
+                  <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group" >
+                  <label>{{'Account.email' | translate}}</label>
+                  <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.tel' | translate}}</label>
+                  <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.designation' | translate}}</label>
+                  <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="form-group">
+                  <label>SFS Agreement Form</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input" [checked]="info.dataExtra['sfsAgreementForm']">
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="info.dataExtra['ifLocal']" [ngModelOptions]="{standalone: true}" aria-label="Text input with checkbox" placeholder="SFS Agreement Form">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+              </div>
+              <div class="col-lg-6">
+                <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+              </div>
+            </div>
+          </form>
       </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>{{'Account.tel' | translate}}</label>
-            <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
+      <!-- end seller form -->
+      <!-- start admin form -->
+      <div class="col-lg-9" *ngIf="info.role==0">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.first-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.last-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-lg-6">
-          <div class="form-group">
-            <label>{{'Account.country' | translate}}</label>
-            <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
-             <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-            </select>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" >
+                <label>{{'Account.email' | translate}}</label>
+                <input type="email" class="form-control" required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
+              </div>
+            </div>
           </div>
-        </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.tel' | translate}}</label>
+                <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
+                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+            </div>
+            <div class="col-lg-6">
+              <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+            </div>
+          </div>
+        </form>
       </div>
-      <div class="row">
-        <div class="col-lg-6">
-          <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
-        </div>
-        <div class="col-lg-6">
-          <a class="pink-btn" data-toggle="modal" data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
-        </div>
+      <!-- end admin form -->
+    </div>
+    <!-- start store form -->
+    <div class="row" style="margin-top: 80px" *ngIf="info.role==1">
+      <div class="col-lg-3">
+        <h1 class="subtitle">{{'Store.title' | translate}}</h1>
       </div>
-    </div>
-    <!-- end admin form -->
-  </div>
-  <!-- start store form -->
-  <div class="row" style="margin-top: 80px" *ngIf="info.role==1">
-    <div class="col-lg-3">
-      <h1 class="subtitle">{{'Store.title' | translate}}</h1>
-    </div>
-    <div class="col-lg-9">
-      <form (ngSubmit)="storeSubmit()">
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Store.name' | translate}}</label>
-              <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+      <div class="col-lg-9">
+        <form (ngSubmit)="storeSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Store.name' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-email' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.company-email' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>{{'Store.description' | translate}}</label>
+                <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <div class="form-group">
-              <label>{{'Store.description' | translate}}</label>
-              <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-type' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==1">
+                <label>{{'Account.product-type' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.product-type' | translate}}" [(ngModel)]="store.productType" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.company-type' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Store.location' | translate}}</label>
+                <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.Address' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="form-group" *ngIf="info.role==1">
-              <label>{{'Account.product-type' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.product-type' | translate}}" [(ngModel)]="store.productType" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.City' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.zipCode' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Store.location' | translate}}</label>
-              <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont">
+                <img [src]="base + logo" alt="" style="width: 150px;">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.logo' | translate}}</label>
+                <input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group img-cont">
+                <img [src]="base + hero" alt="" style="width: 350px;">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.hero' | translate}}</label>
+                <input type="file" class="form-control" type="file" id="fileHero" (change)="handleFileHero($event.target.files)">
+              </div>
             </div>
           </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.Address' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn-red">{{buttonText}} Store</button>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.City' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group">
-              <label>{{'Account.zipCode' | translate}}</label>
-              <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="form-group img-cont">
-              <img [src]="base + logo" alt="" style="width: 150px;">
-            </div>
-            <div class="form-group">
-              <label>{{'Store.logo' | translate}}</label>
-              <input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)">
-            </div>
-          </div>
-          <div class="col-lg-6">
-            <div class="form-group img-cont">
-              <img [src]="base + hero" alt="" style="width: 350px;">
-            </div>
-            <div class="form-group">
-              <label>{{'Store.hero' | translate}}</label>
-              <input type="file" class="form-control" type="file" id="fileHero" (change)="handleFileHero($event.target.files)">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <button type="submit" class="btn-red">{{buttonText}} Store</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <!-- end store form -->
-</div>
-   
- 
-    <!-- <div [ngClass]="info.role==1 ? 'col-md-6' : 'col-md-12'">
-      <h1 class="title">{{'Account.title' | translate}}</h1>
-      <form 
-      
-      (ngSubmit)="onSubmit()">
-
-    <div class="form-group" >
-      <label>{{'Account.first-name' | translate}}</label>
-      <input type="text"
-             class="form-control"
-             required [(ngModel)]="info.firstName" [ngModelOptions]="{standalone: true}">
-    </div>
-
-    <div class="form-group" >
-      <label>{{'Account.last-name' | translate}}</label>
-      <input type="text"
-             class="form-control"
-             required [(ngModel)]="info.lastName" [ngModelOptions]="{standalone: true}">
-
-    </div>
-
-    
-  <div class="form-group" >
-    <label>{{'Account.email' | translate}}</label>
-    <input type="email"
-           class="form-control"
-           required [(ngModel)]="info.email" [ngModelOptions]="{standalone: true}" disabled> 
-
-  </div>
-  <div class="form-group">
-    <label>{{'Account.tel' | translate}}</label>
-    <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.Address' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="info.dataExtra['Address']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.City' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="info.dataExtra['City']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.zipCode' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="info.dataExtra['zipCode']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role>0">
-    <label>{{'Account.designation' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.company' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}" [(ngModel)]="info.dataExtra['companyName']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.deliveryAddress' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.deliveryAddress' | translate}}" [(ngModel)]="info.dataExtra['deliveryAddress']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.company-email' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="info.dataExtra['companyEmail']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2">
-    <label>{{'Account.company-tel' | translate}}</label>
-    <input type="text" class="form-control" placeholder="{{'Account.company-tel' | translate}}" [(ngModel)]="info.dataExtra['companyTel']" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group" *ngIf="info.role==2 || info.role==0">
-<label>{{'Account.country' | translate}}</label>
-<select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
- <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-</select>
-
-</div>
-<div class="form-group" *ngIf="info.role>1">
-  <label>{{'Account.baking' | translate}}</label>
-  <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
-</div>
-<div class="form-group" *ngIf="info.role == 1">
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <div class="input-group-text">
-        <input type="checkbox" aria-label="Checkbox for following text input" [checked]="info.dataExtra['sfsAgreementForm']">
+        </form>
       </div>
     </div>
-    <input type="text" class="form-control" [(ngModel)]="info.dataExtra['ifLocal']" [ngModelOptions]="{standalone: true}" aria-label="Text input with checkbox" placeholder="SFS Agreement Form">
+    <!-- end store form -->
   </div>
 </div>
-
-  <button type="submit"
-          class="btn btn-primary">{{'Account.button-update' | translate}}
-  </button>
-
-</form>
-<h6 (click)="showChangePassword()" class="editPassword">{{'Account.title-change-password' | translate}}</h6>
-<form (submit)="updatePassword()" *ngIf="showChangeP">
-  <div class="form-group">
-    <label>{{'Account.current' | translate}}</label>
-    <input type="password" class="form-control" [(ngModel)]="currentPassword" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group">
-    <label>{{'Account.new' | translate}}</label>
-    <input type="password" class="form-control" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
-  </div>
-  <div class="form-group">
-    <label>{{'Account.repeat' | translate}}</label>
-    <input type="password" class="form-control" [(ngModel)]="repassword" [ngModelOptions]="{standalone: true}">
-  </div>
-  <button class="btn btn-primary">{{'Account.button-password' | translate}}</button>
-</form>
-<br>
-
-    </div>
-
-    <div class="col-md-6" *ngIf="info.role ==1">
-        <h1>{{'Store.title' | translate}}</h1>
-      <form (ngSubmit)="storeSubmit()">
-        <div class="form-group">
-            <label>{{'Store.name' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-            <label>{{'Store.description' | translate}}</label>
-            <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
-        </div>
-        <div class="form-group">
-          <label>{{'Account.company-type' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-          <label>{{'Account.company-email' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group" *ngIf="info.role==1">
-          <label>{{'Account.product-type' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.product-type' | translate}}" [(ngModel)]="store.productType" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-            <label>{{'Store.location' | translate}}</label>
-            <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-          <label>{{'Account.Address' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-          <label>{{'Account.City' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-          <label>{{'Account.zipCode' | translate}}</label>
-          <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
-        </div>
-        <div class="form-group">
-          <img [src]="base + logo" alt="" style="width: 150px;">
-        </div>
-        <div class="form-group">
-            <label>{{'Store.logo' | translate}}</label>
-            <input type="file" class="form-control" id="file" 
-            (change)="handleFileInput($event.target.files)">
-        </div>
-        <div class="form-group">
-            <img [src]="base + hero" alt="" style="width: 350px;">
-          </div>
-        <div class="form-group">
-            <label>{{'Store.hero' | translate}}</label>
-            <input type="file" class="form-control" type="file"
-            id="fileHero" 
-            (change)="handleFileHero($event.target.files)">
-        </div>
-        <button type="submit"
-          class="btn btn-primary">{{buttonText}} Store
-  </button>
-      </form>
-    </div>
-  </div>
-  <div style="height: 100px;"></div>
-  
-</div>
-</div>
-
 <ng-template #elseBlock>
-
-    <div class="not-found-grid">
-      <p>You're not allowed to see this page!</p>
-    </div>  
-  </ng-template> -->
+  <div class="not-found-grid">
+    <p>You're not allowed to see this page!</p>
+  </div>  
+</ng-template>
 <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

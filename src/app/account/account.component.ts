@@ -36,7 +36,6 @@ export class AccountComponent implements OnInit {
   heroSlider:SafeStyle;
   password:any = "";
   repassword:string;
-  showChangeP:boolean=false;
   currentPassword:string;
   email:string;
   countries=[
@@ -292,13 +291,10 @@ export class AccountComponent implements OnInit {
       this.getPersonalData();
     }
   }
-
-
   getPersonalData(){
     this.info = this.auth.getLoginData();
     this.getStoreData();
   }
-
   getStoreData(){
     this.productService.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
       let res:any = result;
@@ -315,7 +311,6 @@ export class AccountComponent implements OnInit {
       }
     })
   }
-
   onSubmit(){
     console.log("To send", this.info);
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
@@ -326,7 +321,6 @@ export class AccountComponent implements OnInit {
       this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
     });
   }
-
   storeSubmit(){
     if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
       if(this.new){
@@ -340,7 +334,6 @@ export class AccountComponent implements OnInit {
 
     }  
   }
-
   updateStore(){
     let storeToUpdate = {
       name:this.store.name,
@@ -384,12 +377,10 @@ export class AccountComponent implements OnInit {
 
       })
   }
-
   handleFileInput(files: FileList) {
     this.fileToUpload = files;
     console.log("Files", files);
   }
-
   handleFileHero(files: FileList){
     this.fileHero = files;
     console.log("Files", files);
@@ -404,7 +395,6 @@ export class AccountComponent implements OnInit {
             this.currentPassword='';
             this.password="";
             this.repassword='';
-            this.showChangeP=false;
           },error=>{
             console.log(error)
             this.toast.error('Something wrong happened. Maybe your current password is not the correct one', "Error",{positionClass:"toast-top-right"} );
@@ -414,9 +404,6 @@ export class AccountComponent implements OnInit {
       else{
         this.toast.error('Password and Repeat password not matched', "Error",{positionClass:"toast-top-right"} );
       }
-  }
-  showChangePassword(){
-    this.showChangeP=true
   }
   uploadHero(id){
     this.productService.uploadFile(this.heroEndpoint+id, "hero", this.fileHero).subscribe(result => {
