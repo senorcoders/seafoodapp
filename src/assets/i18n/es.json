@@ -297,7 +297,8 @@
 		"buyer":"Buyer",
 		"save":"Save",
 		"update-table":"Update table",
-		"required":"is required"
+		"required":"is required",
+		"country":"Choose a Country"
 	},
 	"Favorites":{
 		"title":"Mis Favoritos",

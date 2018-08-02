@@ -29,85 +29,103 @@
 		    </table>
 	    </div>
     <div class="col-12 update-table">
-      <a class="black-btn" (click)="updateTable()">{{'Admin.update-table' | translate}}</a>
+      <a class="btn-red-a" (click)="updateTable()">{{'Admin.update-table' | translate}}</a>
     </div>
 		<div class="col-12">
-			<a class="black-btn" (click)="showRegister()" style="margin-bottom: 20px;">{{'Admin.add' | translate}}</a>
-      <div *ngIf="showForm">
-      	<div class="col-12"><h3 class="black-title">{{'Admin.new' | translate}}</h3><hr class="hr-small"></div>
-      <form [formGroup]="adminForm" (submit)="register()">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="{{'Admin.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':adminForm.get('firstName').invalid && adminForm.get('firstName').touched}">
-          <div class="invalid-feedback" *ngIf="adminForm.get('firstName').hasError('required')">{{'Admin.first-name' | translate}} {{'Admin.required' | translate}}.</div>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="{{'Admin.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':adminForm.get('lastName').invalid && adminForm.get('lastName').touched}">
-          <div class="invalid-feedback" *ngIf="adminForm.get('lastName').hasError('required')">{{'Admin.last-name' | translate}} {{'Admin.required' | translate}}.</div>
-        </div>
-        <div class="form-group">
-          <input type="email" class="form-control" placeholder="{{'Admin.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':adminForm.get('email').invalid && adminForm.get('email').touched}" (change)="verifyEmail($event.target.value)">
-          <div class="EmailNotification" *ngIf="showEmailVerification">{{'Register.EmailNotification' | translate}}</div>
-          <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.required' | translate}}.</div>
-          <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('email') && !adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.invalid' | translate}}</div>	
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="{{'Admin.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':adminForm.get('password').invalid && adminForm.get('password').touched}">
-          <div class="invalid-feedback" *ngIf="adminForm.get('password').hasError('required')"> {{'Admin.password' | translate}} {{'Admin.required' | translate}}.</div>
-        </div>
-        <div class="form-group">
-          <input type="password" class="form-control" placeholder="{{'Admin.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':adminForm.get('rePassword').invalid && adminForm.get('rePassword').touched}">
-          <div class="invalid-feedback" *ngIf="adminForm.get('rePassword').hasError('required')"> {{'Admin.password' | translate}} {{'Admin.required' | translate}}.</div>
-        </div>
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="{{'Admin.tel' | translate}}" formControlName="tel">
-        </div>
-        <div class="form-group">
-          <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':adminForm.get('location').invalid && adminForm.get('location').touched}">
-            <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
-          </select>
-          <div class="invalid-feedback" *ngIf="adminForm.get('location').hasError('required')"> {{'Admin.country' | translate}} {{'Admin.required' | translate}}.</div>
-        </div>
-        <div class="form-group">
-          <input type="submit" class="form-control black-btn" value="{{'Admin.add' | translate}}" [disabled]="adminForm.invalid">
-        </div>
-      </form>
-      </div>
+			<a class="btn-red-a" style="margin-bottom: 20px;" data-toggle="modal" data-target="#adminForm">{{'Admin.add' | translate}}</a>
 	 </div>
 	</div>
 </div>
 </div>
 <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h2 class="black-title">{{'Admin.title-role' | translate}}</h2>
-        <hr class="hr-small">
-        <p style="text-align: center;">{{'Admin.message' | translate}}</p>
-        <label>{{'Admin.select-user' | translate}}</label><br>
-        <select class="js-example-basic-single users" name="users">
-          <option value=""></option>
-          <option value="{{user.id}}" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
-        </select>
+  <div class="row">
+    <div class="col-12">
+      <h2 class="black-title">{{'Admin.title-role' | translate}}</h2>
+      <hr class="hr-small">
+      <p style="text-align: center;">{{'Admin.message' | translate}}</p>
+      <label>{{'Admin.select-user' | translate}}</label><br>
+      <select class="js-example-basic-single users" name="users">
+        <option value=""></option>
+        <option value="{{user.id}}" *ngFor="let user of users">{{user.firstName}} {{user.lastName}}</option>
+      </select>
+    </div>
+    <div class="col-12">
+      <h2 class="black-title">{{'Admin.user' | translate}}</h2>
+      <hr class="hr-small">
+    </div>
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Admin.name' | translate}}</th>
+            <th scope="col">{{'Admin.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let userList of userLists; let i=index">
+            <td>{{userList.name}}</td>
+            <td><span (click)="deleteUser(i)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn-red-a" (click)="updateUser()">{{'Admin.edit' | translate}}</a>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="adminForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'Admin.new' | translate}}<hr class="hr-small"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="col-12">
-        <h2 class="black-title">{{'Admin.user' | translate}}</h2>
-        <hr class="hr-small">
-      </div>
-      <div class="col-12">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th scope="col">{{'Admin.name' | translate}}</th>
-              <th scope="col">{{'Admin.delete' | translate}}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let userList of userLists; let i=index">
-              <td>{{userList.name}}</td>
-              <td><span (click)="deleteUser(i)" class="delete"><fa name="remove"></fa></span></td>
-            </tr>
-          </tbody>
-        </table>
-        <a class="black-btn" (click)="updateUser()">{{'Admin.edit' | translate}}</a>
+      <div class="modal-body">
+        <form [formGroup]="adminForm" (submit)="register()" class="form-design">
+          <div class="form-group">
+            <label>{{'Admin.first-name' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Admin.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':adminForm.get('firstName').invalid && adminForm.get('firstName').touched}">
+            <div class="invalid-feedback" *ngIf="adminForm.get('firstName').hasError('required')">{{'Admin.first-name' | translate}} {{'Admin.required' | translate}}.</div>
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.last-name' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Admin.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':adminForm.get('lastName').invalid && adminForm.get('lastName').touched}">
+            <div class="invalid-feedback" *ngIf="adminForm.get('lastName').hasError('required')">{{'Admin.last-name' | translate}} {{'Admin.required' | translate}}.</div>
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.email' | translate}}</label>
+            <input type="email" class="form-control" placeholder="{{'Admin.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':adminForm.get('email').invalid && adminForm.get('email').touched}" (change)="verifyEmail($event.target.value)">
+            <div class="EmailNotification" *ngIf="showEmailVerification">{{'Register.EmailNotification' | translate}}</div>
+            <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.required' | translate}}.</div>
+            <div class="invalid-feedback" *ngIf="adminForm.get('email').hasError('email') && !adminForm.get('email').hasError('required')">{{'Admin.email' | translate}} {{'Admin.invalid' | translate}}</div>  
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.password' | translate}}</label>
+            <input type="password" class="form-control" placeholder="{{'Admin.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':adminForm.get('password').invalid && adminForm.get('password').touched}">
+            <div class="invalid-feedback" *ngIf="adminForm.get('password').hasError('required')"> {{'Admin.password' | translate}} {{'Admin.required' | translate}}.</div>
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.repeat' | translate}}</label>
+            <input type="password" class="form-control" placeholder="{{'Admin.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':adminForm.get('rePassword').invalid && adminForm.get('rePassword').touched}">
+            <div class="invalid-feedback" *ngIf="adminForm.get('rePassword').hasError('required')"> {{'Admin.password' | translate}} {{'Admin.required' | translate}}.</div>
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.tel' | translate}}</label>
+            <input type="text" class="form-control" placeholder="{{'Admin.tel' | translate}}" formControlName="tel">
+          </div>
+          <div class="form-group">
+            <label>{{'Admin.country' | translate}}</label>
+            <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':adminForm.get('location').invalid && adminForm.get('location').touched}">
+              <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+            </select>
+            <div class="invalid-feedback" *ngIf="adminForm.get('location').hasError('required')"> {{'Admin.country' | translate}} {{'Admin.required' | translate}}.</div>
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn-red" value="{{'Admin.add' | translate}}" [disabled]="adminForm.invalid">
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
