@@ -14,7 +14,6 @@ export class SellerComponent implements OnInit {
 	users:any;
 	showLoading:boolean=true;
 	sellerForm:FormGroup;
-	showForm:boolean=false;
 	user:any;
 	countries=[
 		{name: "Afghanistan", code: "AF"},
@@ -266,6 +265,17 @@ export class SellerComponent implements OnInit {
 
   ngOnInit() {
   	this.getUsers()
+  	this.sellerForm=this.fb.group({
+  		firstName:['',Validators.required],
+		lastName: ['', Validators.required],
+		country: ['', Validators.required],
+		email: ['', [Validators.email, Validators.required]],
+		tel: [''],
+		uploadTradeLicense: [''],
+		fullBakingInfo: [''],
+		sfsAgreementForm: [''],
+		ifLocal: ['']
+  	})
   }
   userForm(){
   	this.sellerForm=this.fb.group({
@@ -309,7 +319,6 @@ export class SellerComponent implements OnInit {
   		result=>{
   			this.user=result
   			this.userForm()
-  			this.showForm=true;
   		},
   		e=>{
   			console.log(e)
@@ -322,7 +331,6 @@ export class SellerComponent implements OnInit {
   	this.product.updateData('user/'+this.user.id,data).subscribe(
   		result=>{
 			this.toast.success('User has been edited', 'Well Done', { positionClass: "toast-top-right" })
-  			this.showForm=false;
   			this.sellerForm.reset();
   			this.getUsers();
   		},
