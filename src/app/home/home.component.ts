@@ -78,6 +78,7 @@ export class HomeComponent implements OnInit {
     let val=this.featuredProducts.length;
     this.featuredProducts.forEach((data, index)=>{
       this.product.getProductDetail(data.id).subscribe(result => {
+        console.log(result)
         this.products[index]=result;
         if(result['imagePrimary'] && result['imagePrimary']!=''){
           this.images[index]=this.API+result['imagePrimary']

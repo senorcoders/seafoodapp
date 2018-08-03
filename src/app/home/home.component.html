@@ -42,17 +42,15 @@
         <ng-container *ngFor="let product of products; let i = index">
           <div class="col-lg-4 products">
             <div class="bg">
-              <a routerLink="/product/{{product.id}}">
               <div class="img-container">
                 <!-- <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null"> -->
-                <img src="{{images[i]}}" class="product-img">
+                <a routerLink="/product/{{product.id}}"><img src="{{images[i]}}" class="product-img"></a>
               </div>
-              <h3 class="product-name">{{product.name}}</h3>
-              <span class="product-type">{{product.type.name}}</span>
+              <a routerLink="/product/{{product.id}}"><h3 class="product-name">{{product.name}}</h3></a>
+              <a routerLink="/fish-type/{{product.type.name}}"><span class="product-type">{{product.type.name}}</span></a>
               <hr class="black-line">
               <div class="desc">{{getShortDesc(product.description)}}</div>
               <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>
-            </a>
             </div>
           </div>
         </ng-container>
