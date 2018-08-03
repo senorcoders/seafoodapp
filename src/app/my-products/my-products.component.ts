@@ -39,7 +39,6 @@ export class MyProductsComponent implements OnInit {
 
   getProducts(){
     this.productService.getData('store/' + this.store.id).subscribe(result => {
-      console.log("Res", result);
       this.products = result['fish'];
       //working on the images to use like background
       this.products.forEach((data, index)=>{
