@@ -28,7 +28,6 @@ export class FavoritesComponent implements OnInit {
   	this.productService.getData('api/favoritefish/'+this.userId).subscribe(
   		result=>{
   			this.favorites=result;
-        console.log(result)
         this.favorites.forEach((data, index)=>{
             
             if (data.fish.imagePrimary && data.fish.imagePrimary !='') {
