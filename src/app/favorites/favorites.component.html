@@ -3,25 +3,28 @@
 	<div class="container">
 		<div class="row" *ngIf="hasFavorite; else noFavorite">
 			<div class="col-12">
-				<h3 class="black-title">{{'Favorites.title' | translate}}</h3><hr class="hr-small">
+				<h3 class="black-title">{{'Favorites.title' | translate}}</h3>
 			</div>
 			<div class="col-12">
-		      <table class="table table-striped">
-		        <thead>
-		          <tr>
-		            <th scope="col">{{'Favorites.name' | translate}}</th>
-		            <th scope="col">{{'Favorites.delete' | translate}}</th>
-		            <th scope="col">{{'Favorites.go' | translate}}</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          <tr *ngFor="let favorite of favorites; let i=index">
-		            <td>{{favorite.fish.name}}</td>
-		            <td><span (click)="deletefavorite(favorite.id)" class="delete"><fa name="remove"></fa></span></td>
-		            <td><a routerLink="/product/{{favorite.fish.id}}" class="go"><fa name="eye"></fa></a></td>
-		          </tr>
-		        </tbody>
-		      </table>
+				<div class="row">
+					<div class="col-lg-4 col-md-6" *ngFor="let favorite of favorites; let i=index">
+						<div class="favorites">
+							<div class="actions">
+								<div class="left"><fa name="heart" class="heart" (click)="deletefavorite(favorite.id)"></fa></div>
+								<div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deletefavorite(favorite.id)"></div>
+							</div>
+							<div class="product-img" [style.background-image]="images[i]"></div>
+							<div class="content">
+								<a routerLink="/product/{{favorite.fish.id}}">
+									<h2 class="name">{{favorite.fish.name}}</h2>
+								</a>
+								<h5 class="type">{{favorite.fish.type.name}}</h5>
+								<hr class="hr-small">
+								<span class="price">{{favorite.fish.price.type}} {{favorite.fish.price.value}} {{favorite.fish.weight.type}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
 		    </div>
 		</div>
 		<ng-template #noFavorite>
