@@ -15,6 +15,13 @@
 	    font-size: 1.2rem;
     }
 }
+.pink-btn{
+	margin-bottom: 20px
+}
+.buttons{
+	text-align: center;
+	margin-top: 20px;
+}
 .black-btn{
 	text-transform: capitalize;
 	display: inline-block;
@@ -22,11 +29,9 @@
     text-decoration: none;
     color: white !important;
 }
-.container{
-	padding:100px 15px;
-}
 .black-title{
-	text-align: center;
+	margin-bottom: 40px;
+	margin-top: 40px
 }
 .title{
 	color: #19465f;
@@ -63,5 +68,56 @@
 	}
 	.start{
 		margin-bottom: 20px;
+	}
+}
+
+.product-cont{
+	border: 2px solid #ebf1f6;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    .product-img {
+	    width: 100%;
+	    height: 200px;
+	    background-size: cover;
+	    background-position: center;
+	    border-top-right-radius: 40px;
+	    clear: both;
+	    border-bottom-right-radius: 15px;
+	}
+    .sold{
+		font-family: Avenir;
+	    font-weight: lighter;
+	    text-transform: capitalize;
+	    color:black;
+	}
+	.price{
+	    font-size: 1.2rem;
+	    color: #eb1c24;
+	    font-family: Avenir;
+	    font-weight: bold;
+	    display: block;
+	    text-transform: uppercase;
+	  }
+	.hr-small{
+		background: black;
+	    height: 1px;
+	    width: 80px;
+	    margin: 20px 0;
+	}
+	.content{
+		padding: 20px 0 5px;
+	    border-top: 2px solid #f0f2f3;
+	    margin-top: 5px;
+	    a{
+	    	text-decoration: none !important;
+	    }
+	}
+	.name{
+		font-family: Avenir;
+	    font-weight: bold;
+	    color: black;
+	    text-transform: uppercase;
+	    font-size: 1.6rem;
+	    letter-spacing: 2px;
 	}
 }

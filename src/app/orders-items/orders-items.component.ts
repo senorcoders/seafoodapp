@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-orders-items',
@@ -23,7 +24,7 @@ export class OrdersItemsComponent implements OnInit {
   Stars=[];
   count:number=0;
   constructor(private productService:ProductService, private router:ActivatedRoute,private auth:AuthenticationService,
-    private fb:FormBuilder, private toast: ToastrService) { }
+    private fb:FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   	this.router.params.subscribe(params => {
@@ -47,13 +48,13 @@ export class OrdersItemsComponent implements OnInit {
   getImages(){
   	this.products.forEach((data, index)=>{
   		if(data.fish.imagePrimary && data.fish.imagePrimary!=''){
-  			this.images[index]=this.API+data.fish.imagePrimary;
+  			 this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`)
   		}
   		else if(data.fish.images && data.fish.images!=''){
-  			this.images[index]=this.API+data.fish.images[0].src;
+  			this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`)
   		}
   		else{
-  			this.images[index]="../../assets/default-img-product.jpg";
+  			this.images[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
   		}
   	})
   }

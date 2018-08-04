@@ -2,7 +2,6 @@
 	<div class="row">
 		<div class="col-12">
 			<h2 class="black-title">{{'Orders-items.title' | translate}}</h2>
-			<hr class="hr-small">
 		</div>
 	</div>
 	<div class="row">
@@ -11,20 +10,41 @@
 		</div>
 	</div>
 	<div *ngIf="showData">
-		<div class="row carts" *ngFor="let product of products; let i=index">
-			<div class="col-lg-4 col-md-4" style="text-align: center;">
-				<a routerLink="/product/{{product.fish.id}}"><img src="{{images[i]}}" alt="" class="shoppingcart"></a>
+		<div class="row">
+			<div class="col-md-6 col-lg-4" *ngFor="let product of products; let i=index">
+				<div class="product-cont">
+					<a routerLink="/product/{{product.fish.id}}">
+						<div class="product-img" [style.background-image]="images[i]"></div>
+					</a>
+					<div class="content">
+						<a routerLink="/product/{{product.fish.id}}">
+							<h2 class="name">{{product.fish.name}}</h2>
+						</a>
+						<a routerLink="/store/{{product.fish.store.id}}">
+							<h5 class="sold">{{product.fish.store.name}}</h5>
+						</a>
+						<hr class="hr-small">
+						<span class="price">{{product.fish.price.type}} {{product.fish.price.value}} {{product.fish.weight.type}}</span>
+						<div class="buttons">
+							<a routerLink="/product/{{product.fish.id}}" class="pink-btn">{{'Orders-items.view' | translate}}</a>
+							<a (click)="ShowReviewForm(product.fish.store.id)" class="pink-btn">{{'Orders-items.review' | translate}}</a>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-lg-4 col-md-4">
+			<!-- <div class="col-lg-4 col-md-4" style="text-align: center;">
+				<a routerLink="/product/{{product.fish.id}}"><img src="{{images[i]}}" alt="" class="shoppingcart"></a>
+			</div> -->
+			<!-- <div class="col-lg-4 col-md-4">
 				<a routerLink="/product/{{product.fish.id}}" class="title">{{product.fish.name}}</a>
 				<p>Sold by: <a routerLink="/store/{{product.fish.store.id}}" class="store">{{product.fish.store.name}}</a> <br>
 				${{product.fish.price.value}}</p>
-			</div>
-			<div class="col-lg-4 col-md-4 buttons">
+			</div> -->
+			<!-- <div class="col-lg-4 col-md-4 buttons">
 				<a routerLink="/product/{{product.fish.id}}" class="black-btn">{{'Orders-items.view' | translate}}</a><br>
 				<a routerLink="" class="black-btn">{{'Orders-items.support' | translate}}</a><br>
 				<a (click)="ShowReviewForm(product.fish.store.id)" class="black-btn">{{'Orders-items.review' | translate}}</a>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </div>
