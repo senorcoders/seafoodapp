@@ -28,10 +28,12 @@
 							<h5 class="sold">{{product.fish.store.name}}</h5>
 						</a>
 						<hr class="hr-small">
+						<a (click)="ShowReviewForm(product.fish.store.id)" class="review">
+							<img src="../../assets/review-icon.png" alt="">{{'Orders-items.review' | translate}}</a>
+						<hr class="hr-small">
 						<span class="price">{{product.fish.price.type}} {{product.fish.price.value}} {{product.fish.weight.type}}</span>
 						<div class="buttons">
 							<a routerLink="/product/{{product.fish.id}}" class="pink-btn">{{'Orders-items.view' | translate}}</a>
-							<a (click)="ShowReviewForm(product.fish.store.id)" class="pink-btn">{{'Orders-items.review' | translate}}</a>
 						</div>
 					</div>
 				</div>

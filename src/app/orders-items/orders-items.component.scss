@@ -31,6 +31,19 @@ fa{
 .pink-btn{
 	margin-bottom: 20px
 }
+.review{
+    font-family: avenir;
+    font-size: 1.2rem;
+    color: black !important;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    img{
+    	margin-right: 10px;
+    }
+}
 .buttons{
 	text-align: center;
 	margin-top: 20px;

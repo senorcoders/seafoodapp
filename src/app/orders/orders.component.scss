@@ -14,6 +14,8 @@
     margin-bottom: 20px;
     padding: 15px;
     border-top-right-radius: 50px;
+    border: 1px solid #ebf1f6;
+    border-bottom-left-radius: 50px;
     .title{
     	display: block;
 	    text-decoration: none;
@@ -28,7 +30,6 @@
 }
 .black-line{
 	width: 50px;
-	margin: 10px auto;
 }
 .title{
 	font-family: Avenir;
@@ -44,14 +45,15 @@
 .btn-red-a{
 	margin-bottom: 0
 }
-.bg{
-	background: #ebf1f6;
-}
 @media(max-width: 768px){
 	.btn-cont{
 		text-align: center;
 	}
 	.carts{
 		text-align: center;
+	}
+	.black-line{
+		width: 50px;
+		margin: 10px auto;
 	}
 }

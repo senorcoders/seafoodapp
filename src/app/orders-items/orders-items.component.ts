@@ -37,6 +37,7 @@ export class OrdersItemsComponent implements OnInit {
     this.productService.getData(`api/items/${this.user.id}/${this.shoppingCartId}`).subscribe(
     	result => {
     		this.products=result;
+        console.log(this.products)
     		this.showLoading=false;
     		this.showData=true
     		this.getImages();
