@@ -355,7 +355,9 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products"
+		"see-button":"See Products",
+		"name":"Carrito de compras",
+		"hour":"Hora"
 	},
 	"Orders-items":{
 		"title":"Products",

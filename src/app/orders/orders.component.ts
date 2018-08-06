@@ -44,7 +44,29 @@ export class OrdersComponent implements OnInit {
   	this.shoppingCarts.forEach((data, index)=>{
   		//convert date
   		let date=new Date(data.paidDateTime)
-  		this.dates[index]=date.toString().split("GMT",1)
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      // get time am or pm
+      let hours=date.getHours()
+      let min = date.getMinutes();
+      let minutes;
+      if (min < 10) {
+        minutes = "0" + min;
+      }
+      else{
+        minutes=min
+      }
+      let ampm = "AM";
+      if( hours > 12 ) {
+          hours -= 12;
+          ampm = "PM";
+      }
+      let dates={
+        month: months[date.getMonth()],
+        day: date.getDate(),
+        year:date.getFullYear(),
+        time: hours+':'+ minutes +' ' +ampm
+      }
+  		this.dates[index]=dates;
   	})
   }
 }

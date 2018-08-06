@@ -27,20 +27,19 @@ export class OrdersItemsComponent implements OnInit {
     private fb:FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.user=this.auth.getLoginData();
   	this.router.params.subscribe(params => {
       this.shoppingCartId= this.router.snapshot.params['id'];
       this.getItems();
     })
-    this.user=this.auth.getLoginData();
   }
   getItems(){
-    this.productService.getData(`api/items/${this.shoppingCartId}`).subscribe(
+    this.productService.getData(`api/items/${this.user.id}/${this.shoppingCartId}`).subscribe(
     	result => {
     		this.products=result;
     		this.showLoading=false;
     		this.showData=true
     		this.getImages();
-      		console.log(result)
     	},
     	e=>{console.log(e)}
     )
@@ -91,5 +90,37 @@ export class OrdersItemsComponent implements OnInit {
   getstar(i){
     this.count=i;
     this.reviewForm.get('stars').setValue(this.count)
+  }
+  submitFavorite(fav, IdFish, IdFavorite){
+    if(fav){
+      this.removeFavorite(IdFavorite)
+    }
+    else{
+      this.addFavorite(IdFish);
+    }
+  }
+  addFavorite(id){
+    let data={
+      user:this.user.id,
+      fish:id
+    }
+    this.productService.saveData('FavoriteFish',data).subscribe(
+      result=>{
+        this.getItems();
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  removeFavorite(id){
+    this.productService.deleteData('FavoriteFish/'+id).subscribe(
+      result=>{
+        this.getItems()
+      },
+      e=>{
+        console.log(e)
+      }
+    )
   }
 }
