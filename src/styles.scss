@@ -150,6 +150,7 @@ body {
     background-size: cover !important;
     background-position: center !important;
     height: 550px;
+    text-align: center;
 }
 .page-header .content{
     position: absolute;
@@ -604,10 +605,10 @@ footer{
   min-width: 200px !important;
 }
 .br-fontawesome-o .br-unit:after{
-  color:black !important
+  color:#fc9951 !important
 }
 .br-fontawesome-o .br-selected:after, .br-fontawesome-o .br-fraction:after{
-    color: #e6df03 !important
+    color: #fc9951 !important
 }
 .pop-up{
   position: fixed;

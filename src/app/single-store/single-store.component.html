@@ -1,99 +1,96 @@
 <div *ngIf="!empty; else elseBlock">
 <div class="page-header" id="hero" [ngStyle]="{'background':  'url(' +  hero + ') '}">
-  
+  <div class="bg-overlay" style="background: url(../../assets/bg-store.png)"></div>
   <div class="content">
     <h1 class="big-title">{{store.name}}</h1>
+    <hr class="white-line">
+    <h3>{{'SingleStore.detail' | translate}}</h3>
+    <p>{{store.name}} + {{store.location}}</p>
+    <h3>{{'SingleStore.desc' | translate}}</h3>
+    <p>{{store.description}}</p>
+    <a class="btn-red-a" data-toggle="modal" data-target="#form">{{'SingleStore.message' | translate}}</a>
   </div>
 </div>
-<div class="container single-store">
-
-  <div class="row">
-    <div class="col-md-4" style="text-align: center">
-      <img class="logo-store" src="{{logo}}" alt="">
-    </div>
-    <div class="col-md-8">
-      <h3>{{'SingleStore.detail' | translate}}</h3>
-      <p>{{store.name}} + {{store.location}}</p>
-      <br>
-      <h3>{{'SingleStore.desc' | translate}}</h3>
-      <p>{{store.description}}</p>
-      <br>
-      <button (click)="ngxSmartModalService.getModal('myModal').open()" type="button" class="btn btn-info">{{'SingleStore.message' | translate}}</button>
-
-    </div>
-    <div class="col-md-12 start">
-      <h4>{{'SingleStore.rating' | translate}}</h4>
-      <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
-    </div>
-    <div class="col-md-12 comment-table">
-      <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">{{'SingleStore.comment-user' | translate}}</th>
-                <th scope="col">{{'SingleStore.comment' | translate}}</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let firstComment of firstComments; let i=index">
-                <td>{{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}}</td>
-                <td>{{firstComment.comment}}</td>
-              </tr>
-            </tbody>
-      </table>
-      <div *ngIf="showMore">
-        <span class="see-more" (click)="getAllComments()">{{'SingleStore.more' | translate}}</span>
-      </div>
-      <div *ngIf="showLess">
-        <span class="see-less" (click)="getFirstComments()">{{'SingleStore.less' | translate}}</span>
+<div class="single-store">
+  <div class="container">
+    <div class="row" style="position: relative;">
+      <div class="logo-cont">
+        <img class="logo-store" src="{{logo}}" alt="">
       </div>
     </div>
-  </div>
-  <br><br>
-
-  <div class="row search-result" *ngIf="products.length > 0">
+    <div class="row result-cont" *ngIf="products.length > 0">
       <div class="col-md-12">
         <h3>{{'SingleStore.available' | translate}}</h3> <br>
       </div>
-      <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products">
-          <div class="search-result">
-            <div class="col-lg-12 search-product-img">
-              <img src="{{base+product.imagePrimary}}" alt="Primary" *ngIf="product.imagePrimary && product.imagePrimary!=''; else showSecundary">
-              <ng-template #showSecundary>
-                <img src="{{base+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}" *ngIf="product.images && product.images.length>0; else showDefault">
-                <ng-template #showDefault>
-                  <img src="../../assets/default-img-product.jpg" class="big-img">
-                </ng-template>
-              </ng-template>
-              <div class="btn-overlay">
-                <a routerLink="/product/{{product.id}}" class="btn-green">{{'SingleStore.view-button' | translate}}</a>
-              </div>
+      <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
+        <div class="product-result">
+          <div class="col-lg-12 product-img" [style.background-image]="productImage[i]">
+          </div>
+          <div class="col-lg-12 search-product-desc">
+            <a routerLink="/product/{{product.id}}" class="search-product-name">{{product.name}}</a>
+            <span class="coming-from">
+              {{'SingleStore.location' | translate}}: {{product.country}}
+            </span>
+            <hr class="black-line">
+            <div class="description">
+              {{smallDesc(product.description)}}
             </div>
-            <div class="col-lg-12 search-product-desc">
-             <div class="row">
-              <div class="col-lg-8 col-8">
-                <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
-                <span class="coming-from">
-                  <b>{{'SingleStore.location' | translate}}: </b>{{product.country}}
-                </span>
-               
-                <div><b>{{'SingleStore.description' | translate}}:</b><br>{{smallDesc(product.description)}}...</div>
-              </div>
-              <div class="col-lg-4 col-4">
-                <div class="search-price">
-                  ${{product.price.value}} <br>
-                  <span class="search-price-type">{{product.weight.type}}</span>
-                </div>
-              </div>
-             </div>
-           </div>
-           <div class="view-detail-cont">
-              <a routerLink="/product/{{product.id}}" class="btn-green">{{'SingleStore.view-button' | translate}}</a>
+            <div class="price">
+              {{product.price.type}} {{product.price.value}} {{product.weight.type}}
             </div>
-         </div>
+          </div>
+          <div style="text-align: center;">
+            <a routerLink="/product/{{product.id}}" class="btn-red-a">{{'SingleStore.view-button' | translate}}</a>
+          </div>
         </div>
- 
-   </div>
-</div>
+      </div>
+    </div>
+    <div class="row rating">
+      <div class="col-md-12 start">
+        <h4>{{'SingleStore.rating' | translate}}</h4>
+        <hr class="black-line">
+        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+      </div>
+      <div class="col-md-12 comment-table">
+        <div class="row" *ngFor="let firstComment of firstComments; let i=index">
+          <div class="col-lg-2 col-md-2 ">
+            <div class="user-pic" style="background:url(../../assets/accesories.jpg)"></div>
+          </div>
+          <div class="col-lg-8 col-md-8">
+            <span class="user-name">
+              {{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}} 
+              <bar-rating [(rate)]="firstComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+            </span>
+            <span class="comment">{{firstComment.comment}}</span>
+          </div>
+          <div class="col-lg-2 col-md-2">
+            <span class="date">{{getDates(firstComment.createdAt)}}</span>
+          </div>
+        </div>
+        <!-- <table class="table table-striped">
+          <tbody>
+            <tr *ngFor="let firstComment of firstComments; let i=index">
+              <td><div class="user-pic" style="background:url(../../assets/accesories.jpg)" alt=""></div></td>
+              <td>
+                <span class="user-name">
+                  {{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}} 
+                  <bar-rating [(rate)]="firstComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+                </span>
+                <span class="comment">{{firstComment.comment}}</span>
+              </td>
+              <td class="row-date"><span class="date">{{getDates(firstComment.createdAt)}}</span></td>
+            </tr>
+          </tbody>
+        </table> -->
+        <div *ngIf="showMore">
+          <span class="see-more" (click)="getAllComments()">{{'SingleStore.more' | translate}}</span>
+        </div>
+        <div *ngIf="showLess">
+          <span class="see-less" (click)="getFirstComments()">{{'SingleStore.less' | translate}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 <ng-template #elseBlock>
   
@@ -101,24 +98,34 @@
       <p>{{'SingleStore.no-store' | translate}}</p>
     </div>  
   </ng-template>
-
-<ngx-smart-modal  #myModal identifier="myModal">
-    <h1>{{'SingleStore.contact' | translate}}</h1>
-    <form (ngSubmit)="sendMail()">
-        <div class="form-group">
-          <label for="name">{{'SingleStore.name' | translate}}</label>
-          <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="{{'SingleStore.name' | translate}}">
-        </div>
-        <div class="form-group">
-          <label for="exampleInputEmail1">{{'SingleStore.email' | translate}}</label>
-          <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'SingleStore.email' | translate}}" required>
-          <small id="emailHelp" class="form-text text-muted">{{'SingleStore.no-share' | translate}}.</small>
-        </div>
-        <div class="form-group">
-          <label for="message">{{'SingleStore.your-message' | translate}}</label>
-          <textarea [(ngModel)]="form.message" [ngModelOptions]="{standalone: true}" required class="form-control" id="message" rows="3"></textarea>
-        </div>
-    
-        <button type="submit" class="btn btn-primary">{{'SingleStore.send' | translate}}</button>
-      </form>
-    </ngx-smart-modal>
+<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'SingleStore.contact' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="sendMail()">
+          <div class="form-group">
+            <label for="name">{{'SingleStore.name' | translate}}</label>
+            <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="{{'SingleStore.name' | translate}}">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputEmail1">{{'SingleStore.email' | translate}}</label>
+            <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'SingleStore.email' | translate}}" required>
+            <small id="emailHelp" class="form-text text-muted">{{'SingleStore.no-share' | translate}}.</small>
+          </div>
+          <div class="form-group">
+            <label for="message">{{'SingleStore.your-message' | translate}}</label>
+            <textarea [(ngModel)]="form.message" [ngModelOptions]="{standalone: true}" required class="form-control" id="message" rows="3"></textarea>
+          </div>
+      
+          <button type="submit" class="btn btn-primary">{{'SingleStore.send' | translate}}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -263,7 +263,7 @@
 	"SingleStore":{
 		"detail":"Store Details",
 		"desc":"Store Description",
-		"message":"Message",
+		"message":"Send Message",
 		"available":"Available Fish",
 		"view-button":"View Details",
 		"location":"Location",

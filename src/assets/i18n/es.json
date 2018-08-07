@@ -261,7 +261,7 @@
 	"SingleStore":{
 		"detail":"Store Details",
 		"desc":"Store Description",
-		"message":"Message",
+		"message":"Enviar Mensaje",
 		"available":"Available Fish",
 		"view-button":"View Details",
 		"location":"Location",
