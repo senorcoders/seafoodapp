@@ -73,6 +73,7 @@ const menuAdmin=[
   children:[
     {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller '},es:{name:'Vendedores Destacados'}}},
     {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}},
+    {state:'featured-types', name:'Featured  Types',translate:{en:{name:'Featured Types'},es:{name:'Tipos Destacados'}}},
     {state:'chart', name:'Purchases Charts',translate:{en:{name:'Purchases Charts'},es:{name:'Gráficos de ventas'}}},
     {state:'documents', name:'Upload Document',translate:{en:{name:'Upload Document'},es:{name:'Subir Documentos'}}}
   ],

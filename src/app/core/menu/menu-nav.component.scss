@@ -150,6 +150,9 @@ form{
 	border: 0 !important;
 	outline: none !important
 }
+.top-mobile{
+	display: none;
+}
 @media(min-width: 998px){
 	.search-container{
 		z-index: 4;
@@ -162,6 +165,12 @@ form{
 @media(max-width: 998px){
 	.lang-cont{
 		text-align: right;
+	}
+	.top-mobile{
+		display: block;
+	}
+	.top-nav{
+		display: none;
 	}
 }
 @media(max-width: 600px){

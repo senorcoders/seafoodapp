@@ -23,7 +23,7 @@ export class TrackingCodeComponent implements OnInit {
 
   ngOnInit() {
   	this.trackingForm=this.fb.group({
-  		code:[''],
+  		//code:[''],
   		file1:['', Validators.required],
   		file2:['', Validators.required],
   		file3:['', Validators.required],

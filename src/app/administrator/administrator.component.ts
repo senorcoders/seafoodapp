@@ -12,7 +12,6 @@ declare var jQuery:any;
 export class AdministratorComponent implements OnInit {
 	users:any;
 	userLists:any=[];
-	showForm:boolean=false;
 	showEmailVerification:boolean=false;
 	countries=[
 		{name: "Afghanistan", code: "AF"},
@@ -301,9 +300,6 @@ export class AdministratorComponent implements OnInit {
   		}
   	)
   }
-  showRegister(){
-  	this.showForm=true;
-  }
   prepareUsers(id, name){
   	this.userLists.push({id:id,name:name})
   }
@@ -334,7 +330,6 @@ export class AdministratorComponent implements OnInit {
         this.auth.register(this.adminForm.value, 0, dataExtra).subscribe(
           result=>{
           	this.toast.success('New Admin Added', 'Well Done',{positionClass:"toast-top-right"})
-          	this.showForm=false;
           	this.adminForm.reset();
           	this.getAdmins();
           	this.getUsers();

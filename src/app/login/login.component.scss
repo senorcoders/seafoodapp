@@ -1,41 +1,111 @@
-.login-option a{
-    font-weight: 300;
-    font-size: 16px;
-    font-family: "Arapey",serif;
-    display:block;
-    margin-bottom:20px;
-    color:#1c1d1d !important;
-    text-decoration:none !important
+.login-option{
+    font-family: Avenir Medium;
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    a{
+        text-decoration: none !important;
+    }
+}
+.account{
+    color: #1c1d1d !important;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+.recovery{
+    color: #8c8c8c !important;
+    text-transform: capitalize;
+    font-size: 1rem;
 }
 .login-option a{
 	cursor: pointer;
 }
+.logo{
+    max-width: 100%;
+}
+.black-title {
+    font-family: Avenir;
+    font-size: 1.5rem;
+    color: #1c1d1d;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 30px;
+    text-align: right;
+}
+.return{
+    font-family: Avenir Medium;
+    color: #8c8c8c;
+    display: block;
+    text-decoration: none !important;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+}
+.right-side{
+    text-align: right;
+}
+form{
+    padding-top: 40px;
+    label{
+        font-family: Avenir Medium;
+        color: black;
+        font-size: 1.2rem;
+        letter-spacing: 2px;
+    }
+}
+.form-control{
+    background: #ebf1f6 !important;
+    border-radius: 0;
+    height: 40px;
+    color: black;
+    border: 0;
+}
+.btn-red{
+    border-radius: 0 !important;
+}
 .popup-form{
-	position: fixed;
+    position: fixed;
     background: rgba(0, 0, 0, 0.7);
     width: 100%;
     height: 100%;
     z-index: 9;
     top: 0;
     .outside{
-    	position: absolute;
-    	width: 100%;
-    	height: 100%;
-    	z-index: 8;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 8;
     }
     .black-title{
-    	text-align: center;
+        text-align: center;
     }
-	.content{
-	  	position: absolute;
-		max-width: 500px;
-		width: 100%;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		padding: 40px;
-		background: white;
-		box-shadow: 2px 5px 20px -4px black;
-		z-index: 10;
-	}
+    .content{
+        position: absolute;
+        max-width: 500px;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 40px;
+        background: white;
+        box-shadow: 2px 5px 20px -4px black;
+        z-index: 10;
+    }
+}
+@media(max-width: 998px){
+    .black-title{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .return{
+        margin-top: 10px;
+    }
+    .right-side{
+        text-align: center;
+    }
+    .login-option{
+        text-align: center;
+    }
+    .left-side{
+        text-align: center;
+    }
 }

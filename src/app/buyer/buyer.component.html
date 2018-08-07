@@ -16,17 +16,25 @@
 		          <tr *ngFor="let user of users; let i=index">
 		            <td>{{user.firstName}}</td>
 		            <td>{{user.lastName}}</td>
-		            <td><fa name="pencil" class="edit" (click)="showEditForm(user.id)"></fa></td>
+		            <td><fa name="pencil" class="edit" (click)="showEditForm(user.id)" data-toggle="modal" data-target="#editForm"></fa></td>
 		            <td><fa name="remove" class="delete" (click)="deleteUser(user.id)"></fa></td>
 		          </tr>
 		        </tbody>
 		    </table>
 	    </div>
 	</div>
-	<div class="row">
-		<div class="col-12" *ngIf="showForm">
-			<h3 class="black-title">{{'Buyer.edit-title' | translate}}</h3><hr class="hr-small">
-			<form [formGroup]="buyerForm" (submit)="editUser()">
+</div>
+<div class="modal fade" id="editForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'Buyer.edit-title' | translate}}<hr class="hr-small"></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form [formGroup]="buyerForm" (submit)="editUser()" class="form-design">
 		        <div class="form-group">
 		        	<label>{{'Buyer.first-name' | translate}}</label>
 		          <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
@@ -59,9 +67,10 @@
 		          <div class="invalid-feedback" *ngIf="buyerForm.get('country').hasError('required')"> {{'Buyer.country' | translate}} {{'Buyer.required' | translate}}.</div>
 		        </div>
 		        <div class="form-group">
-		          <input type="submit" class="form-control black-btn" value="{{'Buyer.save' | translate}}" [disabled]="buyerForm.invalid">
+		          <input type="submit" class="btn-red" value="{{'Buyer.save' | translate}}" [disabled]="buyerForm.invalid">
 		        </div>
 	      	</form>
-		</div>
-	</div>
+      </div>
+  </div>
+</div>
 </div>

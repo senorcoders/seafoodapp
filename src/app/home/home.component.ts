@@ -13,8 +13,6 @@ export class HomeComponent implements OnInit {
   products:any=[];
   API:string="https://apiseafood.senorcoders.com";
   user:any;
-  //video:string="http://senorcoders.com/Water Sea Ocean.mp4";
-  //videoURLSafe:any;
   showLoading:boolean=true;
   featuredSellers:any;
   showError:boolean=false;
@@ -22,31 +20,15 @@ export class HomeComponent implements OnInit {
   logos=[];
   featuredProducts:any;
   images=[];
+  featuredTypesImages=[];
   loadProduct:boolean=true;
-  // onResize(event) {
-  //   this.setHeight(event.target.innerHeight);
-  // }
+  featuredtypes:any;
   constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
-    //this.videoURLSafe = sanitizer.bypassSecurityTrustResourceUrl(this.video); 
   }
-  // setHeight(h){
-  //   document.getElementById("hero").style.height = h+"px";
-  // }
   ngOnInit() {
-   //  let data={
-   //    pageNumber:0,
-   //    numberProduct: 9
-   //  }
-   // this.product.listProduct(data).subscribe(
-   //  result=>{
-   //    this.products=result;
-   //  },error=>{
-   //    console.log(error)
-   //  }
-   // );
    this.getFeaturedSeller();
    this.getFeaturedProducts();
-    // this.setHeight(window.innerHeight);
+   this.getFeaturedTypes();
   }
   getFeaturedProducts(){
     this.product.getData('featuredproducts').subscribe(
@@ -121,5 +103,29 @@ export class HomeComponent implements OnInit {
         }
       )
     })
+  }
+  getFeaturedTypes(){
+    this.product.getData('featuredtypes/').subscribe(
+      result=>{
+        this.featuredtypes=result['featureds'];
+        this.featuredtypes.forEach((data, index)=>{
+          if(data.images && data.images.length>0){
+            this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+          }
+          else{
+            this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+          }
+        })
+        jQuery(document).ready(function(){
+          jQuery('#featuredtype2').appendTo('#featured1')
+        jQuery('#featured2').remove();
+        })
+        console.log(this.featuredtypes)
+        console.log(this.featuredTypesImages)
+      },
+      error=>{
+        console.log(error)
+      }
+    )
   }
 }

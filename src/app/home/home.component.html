@@ -42,17 +42,15 @@
         <ng-container *ngFor="let product of products; let i = index">
           <div class="col-lg-4 products">
             <div class="bg">
-              <a routerLink="/product/{{product.id}}">
               <div class="img-container">
                 <!-- <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null"> -->
-                <img src="{{images[i]}}" class="product-img">
+                <a routerLink="/product/{{product.id}}"><img src="{{images[i]}}" class="product-img"></a>
               </div>
-              <h3 class="product-name">{{product.name}}</h3>
-              <span class="product-type">{{product.type.name}}</span>
+              <a routerLink="/product/{{product.id}}"><h3 class="product-name">{{product.name}}</h3></a>
+              <a routerLink="/fish-type/{{product.type.name}}"><span class="product-type">{{product.type.name}}</span></a>
               <hr class="black-line">
               <div class="desc">{{getShortDesc(product.description)}}</div>
               <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>
-            </a>
             </div>
           </div>
         </ng-container>
@@ -77,7 +75,39 @@
     <h2 class="title">{{"Home.fist-type" | translate}}</h2>
     <hr class="hr-small">
   </div>
-  <div class="col-lg-4 col-md-4 cat-img-2" style="background: url(../assets/salmon.jpg)">
+  <ng-container *ngFor="let featuredtype of featuredtypes; let i=index">
+  <div class="col-lg-4 cat-img-2" [style.background-image]="featuredTypesImages[i]" *ngIf="i==0 || i==3; else twoBlock">
+    <div class="overlay-cat">
+      <div class="cat-content">
+        <a routerLink="/fish-type/{{featuredtype.name}}"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
+        <div class="description">
+          <h5 class="desc-title">{{'Home.description' | translate}}</h5>{{featuredtype.description}}
+        </div>
+        <a routerLink="/fish-type/{{featuredtype.name}}" class="white-btn">{{'Home.details' | translate}}</a>
+      </div>
+    </div>
+  </div>
+  <ng-template #twoBlock>
+    <div class="col-lg-4 two-img" id="featured{{i}}">
+      <div class="cat-img-3 " id="featuredtype{{i}}" [style.background-image]="featuredTypesImages[i]">
+        <div class="overlay-cat">
+          <div class="cat-content">
+            <a routerLink="/fish-type/{{featuredtype.name}}"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
+            <div class="description">
+              <h5 class="desc-title">{{'Home.description' | translate}}</h5>
+              {{featuredtype.description}}
+            </div>
+            <a routerLink="/fish-type/{{featuredtype.name}}" class="white-btn">{{'Home.details' | translate}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+  </ng-container>
+
+
+
+<!--   <div class="col-lg-4 col-md-4 cat-img-2" style="background: url(../assets/salmon.jpg)">
     <div class="overlay-cat">
       <div class="cat-content">
         <a routerLink="/archive-product/salmon"><h3 class="title-cat">salmon</h3></a>
@@ -85,7 +115,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-4 col-md-4">
+  <div class="col-lg-4 col-md-4 two-img">
     <div class="cat-img-3" style="background: url(../assets/tuna.jpg)">
       <div class="overlay-cat">
         <div class="cat-content">
@@ -110,5 +140,5 @@
         <a routerLink="/archive-product/Caviar" class="white-btn">{{'Home.details' | translate}}</a>
       </div>
     </div>
-  </div>
+  </div> -->
 </div>

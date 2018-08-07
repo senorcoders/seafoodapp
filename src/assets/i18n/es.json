@@ -28,10 +28,12 @@
 		"more":"conoce más",
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
 		"fist-type":"Tipos de Pescados",
-		"details":"Ver Detalle"
+		"details":"Ver Detalle",
+		"description":"Descripción"
 	},
 	"Account":{
-		"title":"Mi Cuenta",
+		"title":"Perfil",
+		"subtitle":"Mi Cuenta",
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
@@ -158,7 +160,8 @@
 		"current-image":"Current Image",
 		"types":"Fish Types",
 		"edit":"Edit",
-		"delete":"Delete"
+		"delete":"Delete",
+		"image":"Add Image"
 	},
 	"Cart":{
 		"small-title-banner":"Obten tu comida maritima hasta tu casa",
@@ -246,6 +249,15 @@
 		"store":"Select Store",
 		"save":"Save Store"
 	},
+	"Featured-types":{
+		"title":"Tipos Destacados",
+		"table-title":"Tipos agregados",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"types":"Select Tipos",
+		"save":"Save Types",
+		"no-result":"No result"
+	},
 	"SingleStore":{
 		"detail":"Store Details",
 		"desc":"Store Description",
@@ -296,7 +308,8 @@
 		"buyer":"Buyer",
 		"save":"Save",
 		"update-table":"Update table",
-		"required":"is required"
+		"required":"is required",
+		"country":"Choose a Country"
 	},
 	"Favorites":{
 		"title":"Mis Favoritos",
@@ -352,7 +365,9 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products"
+		"see-button":"See Products",
+		"name":"Carrito de compras",
+		"hour":"Hora"
 	},
 	"Orders-items":{
 		"title":"Products",

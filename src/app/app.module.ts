@@ -60,6 +60,7 @@ import { OrderPurchaseComponent } from './order-purchase/order-purchase.componen
 import { ChartComponent } from './chart/chart.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
+import { FeaturedTypesComponent } from './featured-types/featured-types.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -67,7 +68,7 @@ const appRoutes: Routes=[
   {path:'register', component:RegisterComponent},
   {path:'login', component:LoginComponent},
   {path:'add-product', component:AddProductComponent, canActivate:[SellerRouterService]},
-  {path:'archive-product/:category', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
+  {path:'fish-type/:category', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
   {path:'search/:search', component:SearchComponent, canActivate:[BuyerRouterService]},
   {path:'product/:id', component:SingleProductComponent},
   {path:'fish-type', component:FishComponent, canActivate:[SellerRouterService]},
@@ -79,6 +80,7 @@ const appRoutes: Routes=[
   {path:'store/:id', component:SingleStoreComponent},
   {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
   {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
+  {path:'featured-types', component:FeaturedTypesComponent, canActivate:[AdminRouterService]},
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
   {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
   {path: 'tracking', component:TrackingComponent},
@@ -134,7 +136,8 @@ const appRoutes: Routes=[
     OrderPurchaseComponent,
     ChartComponent,
     DocumentsComponent,
-    TrackingCodeComponent
+    TrackingCodeComponent,
+    FeaturedTypesComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-favorites',
@@ -14,7 +15,9 @@ export class FavoritesComponent implements OnInit {
 	userId:string;
 	hasFavorite:boolean;
 	showLoading:boolean=true;
-  constructor(public productService: ProductService, private toast:ToastrService, private router: Router, private auth:AuthenticationService) { }
+  images:any=[];
+  API:string="https://apiseafood.senorcoders.com";
+  constructor(public productService: ProductService, private toast:ToastrService, private router: Router, private auth:AuthenticationService,private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
   	let data=this.auth.getLoginData();
@@ -24,8 +27,19 @@ export class FavoritesComponent implements OnInit {
   getFavorites(){
   	this.productService.getData('api/favoritefish/'+this.userId).subscribe(
   		result=>{
-  			this.favorites=result
-  			console.log(this.favorites.length)
+  			this.favorites=result;
+        this.favorites.forEach((data, index)=>{
+            
+            if (data.fish.imagePrimary && data.fish.imagePrimary !='') {
+              this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`)
+            }
+            else if(data.fish.images && data.fish.images.length>0){
+              this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`)
+            }
+            else{
+              this.images[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+            }
+         });
   			this.showLoading=false
   			if(this.favorites.length>0){
   				this.hasFavorite=true;

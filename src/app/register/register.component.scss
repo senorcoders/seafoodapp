@@ -32,3 +32,73 @@
     color: #f52828;
     font-size: 0.9rem;
 }
+.logo{
+    max-width: 100%;
+}
+.black-title {
+    font-family: Avenir;
+    font-size: 1.5rem;
+    color: #1c1d1d;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 30px;
+    text-align: right;
+}
+.return{
+    font-family: Avenir Medium;
+    color: #8c8c8c;
+    display: block;
+    text-decoration: none !important;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+}
+.right-side{
+    text-align: right;
+}
+label{
+    font-family: Avenir Medium;
+    color: black;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+form{
+    padding-top: 40px;
+    text-align: left;
+    .black-title{
+        text-align: center;
+    }
+}
+.form-control{
+    background: #ebf1f6 !important;
+    border-radius: 0;
+    height: 40px;
+    color: black;
+    border: 0;
+}
+.btn-red{
+    border-radius: 0 !important;
+}
+.left-side{
+    text-align: left;
+}
+.top{
+    align-items:center
+}
+@media(max-width: 998px){
+    .black-title{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .return{
+        margin-top: 10px;
+    }
+    .right-side{
+        text-align: center;
+    }
+    .login-option{
+        text-align: center;
+    }
+    .left-side{
+        text-align: center;
+    }
+}

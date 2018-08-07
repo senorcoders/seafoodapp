@@ -30,10 +30,12 @@
 		"more":"More Info",
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
 		"fist-type":"Fish Types",
-		"details":"View Details"
+		"details":"View Details",
+		"description":"Description"
 	},
 	"Account":{
-		"title":"My Account",
+		"title":"Profile",
+		"subtitle":"My Account",
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
@@ -160,7 +162,8 @@
 		"current-image":"Current Image",
 		"types":"Fish Types",
 		"edit":"Edit",
-		"delete":"Delete"
+		"delete":"Delete",
+		"image":"Add Image"
 	},
 	"Cart":{
 		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
@@ -248,6 +251,15 @@
 		"store":"Select Store",
 		"save":"Save Store"
 	},
+	"Featured-types":{
+		"title":"Featured Types",
+		"table-title":"Types Added",
+		"name":"Name",
+		"delete":"Delete",
+		"types":"Select Types",
+		"save":"Save Types",
+		"no-result":"No result"
+	},
 	"SingleStore":{
 		"detail":"Store Details",
 		"desc":"Store Description",
@@ -298,7 +310,8 @@
 		"buyer":"Buyer",
 		"save":"Save",
 		"update-table":"Update table",
-		"required":"is required"
+		"required":"is required",
+		"country":"Choose a Country"
 	},
 	"Favorites":{
 		"title":"My Favorites",
@@ -354,7 +367,9 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products"
+		"see-button":"See Products",
+		"name":"Shopping Cart",
+		"hour":"Hour"
 	},
 	"Orders-items":{
 		"title":"Products",

@@ -27,6 +27,25 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- menu top -->
+        <ul class="navbar-nav ml-auto top-mobile" *ngIf="!isLogged; else noLoginMobile">
+          <li class="nav-item">
+            <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
+          </li>
+          <li class="nav-item">
+            <a routerLink="/account" class="nav-link">{{ "Menu.register" | translate }}</a>
+          </li>
+        </ul>
+        <ng-template #noLoginMobile>
+          <ul class="navbar-nav ml-auto top-mobile">
+            <li class="nav-item">
+              <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/account" class="nav-link" >{{ "Menu.perfil" | translate }}</a>
+            </li>
+          </ul>
+        </ng-template>
         <!-- star menu sbuyer -->
         <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
           <!-- start search -->

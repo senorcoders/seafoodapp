@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-orders-items',
@@ -23,23 +24,23 @@ export class OrdersItemsComponent implements OnInit {
   Stars=[];
   count:number=0;
   constructor(private productService:ProductService, private router:ActivatedRoute,private auth:AuthenticationService,
-    private fb:FormBuilder, private toast: ToastrService) { }
+    private fb:FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.user=this.auth.getLoginData();
   	this.router.params.subscribe(params => {
       this.shoppingCartId= this.router.snapshot.params['id'];
       this.getItems();
     })
-    this.user=this.auth.getLoginData();
   }
   getItems(){
-    this.productService.getData(`api/items/${this.shoppingCartId}`).subscribe(
+    this.productService.getData(`api/items/${this.user.id}/${this.shoppingCartId}`).subscribe(
     	result => {
     		this.products=result;
+        console.log(this.products)
     		this.showLoading=false;
     		this.showData=true
     		this.getImages();
-      		console.log(result)
     	},
     	e=>{console.log(e)}
     )
@@ -47,13 +48,13 @@ export class OrdersItemsComponent implements OnInit {
   getImages(){
   	this.products.forEach((data, index)=>{
   		if(data.fish.imagePrimary && data.fish.imagePrimary!=''){
-  			this.images[index]=this.API+data.fish.imagePrimary;
+  			 this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`)
   		}
   		else if(data.fish.images && data.fish.images!=''){
-  			this.images[index]=this.API+data.fish.images[0].src;
+  			this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`)
   		}
   		else{
-  			this.images[index]="../../assets/default-img-product.jpg";
+  			this.images[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
   		}
   	})
   }
@@ -90,5 +91,37 @@ export class OrdersItemsComponent implements OnInit {
   getstar(i){
     this.count=i;
     this.reviewForm.get('stars').setValue(this.count)
+  }
+  submitFavorite(fav, IdFish, IdFavorite){
+    if(fav){
+      this.removeFavorite(IdFavorite)
+    }
+    else{
+      this.addFavorite(IdFish);
+    }
+  }
+  addFavorite(id){
+    let data={
+      user:this.user.id,
+      fish:id
+    }
+    this.productService.saveData('FavoriteFish',data).subscribe(
+      result=>{
+        this.getItems();
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  removeFavorite(id){
+    this.productService.deleteData('FavoriteFish/'+id).subscribe(
+      result=>{
+        this.getItems()
+      },
+      e=>{
+        console.log(e)
+      }
+    )
   }
 }

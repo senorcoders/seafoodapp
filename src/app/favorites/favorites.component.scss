@@ -1,16 +1,79 @@
 .black-title{
-	text-align: center;
+	text-align: left;
+    margin-bottom: 40px;
     margin-top: 40px;
-}
-.black-btn{
-	display: inline-block;
-    color: white !important;
-    cursor: pointer;
 }
 .delete{
 	cursor: pointer;
     color: #ec4343;
 }
-.container{
-	padding-top: 100px;
+.left{
+	float: left;
+	i{
+		font-size: 1.5rem
+	}
+}
+.right{
+	padding-top: 5px;
+	float: right;
+	img{
+		width: 15px;
+		cursor: pointer;
+	}
+}
+.actions{
+	.heart{
+		font-size: 1.5rem;
+    	color: #ee434a;
+    	cursor: pointer;
+	}
+}
+.product-img {
+    width: 100%;
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-top-right-radius: 40px;
+    clear: both;
+    border-bottom-right-radius: 15px;
+}
+.favorites{
+	border: 2px solid #ebf1f6;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+.type{
+	font-family: Avenir;
+    font-weight: lighter;
+    text-transform: capitalize;
+}
+.price{
+    font-size: 1.2rem;
+    color: #eb1c24;
+    font-family: Avenir;
+    font-weight: bold;
+    display: block;
+    text-transform: uppercase;
+  }
+.hr-small{
+	background: black;
+    height: 1px;
+    width: 80px;
+    margin: 20px 0;
+}
+.content{
+	padding: 20px 0 5px;
+    border-top: 2px solid #f0f2f3;
+    margin-top: 5px;
+    a{
+    	text-decoration: none !important;
+    }
+}
+.name{
+	font-family: Avenir;
+    font-weight: bold;
+    color: black;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
 }
