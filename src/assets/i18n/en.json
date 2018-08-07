@@ -30,7 +30,8 @@
 		"more":"More Info",
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
 		"fist-type":"Fish Types",
-		"details":"View Details"
+		"details":"View Details",
+		"description":"Description"
 	},
 	"Account":{
 		"title":"Profile",
@@ -249,6 +250,15 @@
 		"delete":"Delete",
 		"store":"Select Store",
 		"save":"Save Store"
+	},
+	"Featured-types":{
+		"title":"Featured Types",
+		"table-title":"Types Added",
+		"name":"Name",
+		"delete":"Delete",
+		"types":"Select Types",
+		"save":"Save Types",
+		"no-result":"No result"
 	},
 	"SingleStore":{
 		"detail":"Store Details",

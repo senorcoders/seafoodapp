@@ -28,7 +28,8 @@
 		"more":"conoce más",
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
 		"fist-type":"Tipos de Pescados",
-		"details":"Ver Detalle"
+		"details":"Ver Detalle",
+		"description":"Descripción"
 	},
 	"Account":{
 		"title":"Perfil",
@@ -247,6 +248,15 @@
 		"delete":"Borrar",
 		"store":"Select Store",
 		"save":"Save Store"
+	},
+	"Featured-types":{
+		"title":"Tipos Destacados",
+		"table-title":"Tipos agregados",
+		"name":"Nombre",
+		"delete":"Borrar",
+		"types":"Select Tipos",
+		"save":"Save Types",
+		"no-result":"No result"
 	},
 	"SingleStore":{
 		"detail":"Store Details",

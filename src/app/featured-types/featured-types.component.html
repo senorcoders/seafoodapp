@@ -1,0 +1,49 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12"><h3 class="black-title">{{'Featured-types.title' | translate}}</h3><hr class="hr-small"></div>
+    <div class="col-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Featured-types.name' | translate}}</th>
+            <th scope="col">{{'Featured-types.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let featuredtype of featuredtypes; let i=index">
+            <td>{{featuredtype.name}}</td>
+            <td><span (click)="deletefeatureList(i)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+	</div>
+	<div class="row">
+    <div class="col-12">
+      <h2 class="black-title">{{'Featured-types.table-title' | translate}}</h2>
+      <hr class="hr-small">
+      <div style="margin-bottom: 20px;">
+        <label>{{'Featured-types.types' | translate}}</label><br>
+        <select class="js-example-basic-single types" name="types" data-placeholder="Select Types">
+          <option value=""></option>
+          <option value="{{type.id}}" *ngFor="let type of types">{{type.name}}</option>
+        </select>
+      </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'Featured-types.name' | translate}}</th>
+            <th scope="col">{{'Featured-types.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let featuredList of featuredLists; let i=index">
+            <td>{{featuredList.name}}</td>
+            <td><span (click)="deleteFeatureStore(i)" class="delete"><fa name="remove"></fa></span></td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="black-btn" (click)="saveFeatures()">{{'Featured-types.save' | translate}}</a>
+    </div>
+  </div>
+</div>
