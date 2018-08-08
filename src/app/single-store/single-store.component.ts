@@ -81,7 +81,6 @@ export class SingleStoreComponent implements OnInit {
       this.showMore=false
       this.showLess=false
     }
-    console.log(this.firstComments)
   }
   getAllComments(){
     this.showMore=false;
