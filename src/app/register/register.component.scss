@@ -19,6 +19,9 @@
     height: 100%;
     z-index: 9999;
     background: white;
+    h1{
+        font-family: Avenir Medium;
+    }
     .content{
         transform: translate(-50%,-50%);
         top: 50%;

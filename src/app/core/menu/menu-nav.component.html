@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-8 col-lg-9 address">
-        2018, Seafood Souq   <span class="bar">|</span> Dubai Emirates  <i class="fa fa-paper-plane-o"></i> info@seafoodsouq.com
+        2018, Seafood Souq   <span class="bar">|</span> Dubai Emirates  <i class="fa fa-paper-plane-o"></i> <a href="mailto:info@seafoodsouq.com" style="color: inherit;text-decoration: none;">info@seafoodsouq.com</a>
       </div>
       <div class="col-md-4 col-lg-3 access" *ngIf="!isLogged; else noLogin">
         <a routerLink="/login" class="login">{{ "Menu.login" | translate }}</a>
@@ -106,7 +106,7 @@
           </li>
         </ul>
         <!-- end menu admin -->
-        <ul class="navbar-nav nav-language">
+        <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
           <li class="nav-item" *ngIf="showCart && isLogged">
             <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
           </li>

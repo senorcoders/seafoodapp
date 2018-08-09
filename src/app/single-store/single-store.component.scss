@@ -25,6 +25,29 @@ padding: 50px 15px;
 		padding: 0 40px;
 	}
 }
+.modal-dialog{
+  max-width: 600px;
+}
+.modal-content{
+  border-radius: 20px;
+  padding: 10px 20px;
+}
+.modal-header{
+  border-bottom: 0;
+}
+.modal-body{
+  form{
+    font-family: Avenir;
+  }
+  label{
+    color: black;
+  }
+  input, textarea{
+    background: #ebf1f6;
+    border: 0;
+    border-radius: 0;
+  }
+}
 .store-img{
   max-width:100%;
   height: auto;
@@ -141,6 +164,10 @@ padding: 50px 15px;
   margin-top: 30px;
   margin-bottom: 0;
 }
+.btn-red{
+  max-width: 200px;
+  float: right;
+}
 .white-line{
   background: white;
   width: 100px;
@@ -151,7 +178,17 @@ padding: 50px 15px;
 ngx-smart-modal{
   top: 35% !important;
 }
-
+.modal-title{
+  text-align: right;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.modal-subtitle{
+  font-family: Avenir Medium;
+  color: #8c8c8c;
+  text-align: right;
+  letter-spacing: 2px;
+}
 .not-found-grid{
     height: 80vh;
     display: flex;
@@ -169,6 +206,7 @@ ngx-smart-modal{
     font-weight: bold;
     display: block;
     text-align: right;
+    margin-top: 20px;
 }
 .user-pic{
   background-size: cover !important;

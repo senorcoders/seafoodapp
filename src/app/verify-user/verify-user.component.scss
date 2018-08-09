@@ -1,6 +1,15 @@
 .container{
 	padding: 100px 15px;
 }
+h5{ 
+	font-family: Avenir;
+	font-size: 2rem;
+	text-align: center;
+	a{
+		color: #eb1c24;
+		text-decoration: none !important;
+	}
+}
 thead{
 	th{
 		text-transform: capitalize;
