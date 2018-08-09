@@ -24,9 +24,8 @@
   font-style: normal;
 }
 @font-face{
-  font-family: Avenir;
+  font-family: Avenir Light;
   src: url(./assets/fonts/Avenir-Light-07.ttf) format('truetype');
-  font-weight: lighter;
   font-style: normal;
 }
 @font-face{
@@ -162,6 +161,18 @@ body {
 }
 .homepage{
   text-align: left;
+}
+.flex-control-nav{
+    bottom: 0 !important;
+}
+.flex-control-paging li a{
+    border:1px solid white !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+.flex-control-paging li a.flex-active{
+    border: 1px solid white !important;
+    background: white !important
 }
 app-home .hr-small{
     width: 80px;
