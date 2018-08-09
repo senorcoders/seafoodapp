@@ -67,21 +67,6 @@
             <span class="date">{{getDates(firstComment.createdAt)}}</span>
           </div>
         </div>
-        <!-- <table class="table table-striped">
-          <tbody>
-            <tr *ngFor="let firstComment of firstComments; let i=index">
-              <td><div class="user-pic" style="background:url(../../assets/accesories.jpg)" alt=""></div></td>
-              <td>
-                <span class="user-name">
-                  {{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}} 
-                  <bar-rating [(rate)]="firstComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
-                </span>
-                <span class="comment">{{firstComment.comment}}</span>
-              </td>
-              <td class="row-date"><span class="date">{{getDates(firstComment.createdAt)}}</span></td>
-            </tr>
-          </tbody>
-        </table> -->
         <div *ngIf="showMore">
           <span class="see-more" (click)="getAllComments()">{{'SingleStore.more' | translate}}</span>
         </div>
@@ -92,12 +77,12 @@
     </div>
   </div>
 </div>
+</div>
 <ng-template #elseBlock>
-  
-    <div class="not-found-grid">
-      <p>{{'SingleStore.no-store' | translate}}</p>
-    </div>  
-  </ng-template>
+  <div class="not-found-grid">
+    <p>{{'SingleStore.no-store' | translate}}</p>
+  </div>  
+</ng-template>
 <div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

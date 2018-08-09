@@ -100,7 +100,7 @@ export class SingleStoreComponent implements OnInit {
           this.logo = this.base+result['logo'];
         }
         else{
-          this.logo="../../assets/seafood-souq-seller-logo-default.jpg"
+          this.logo="../../assets/seafood-souq-seller-logo-default.png"
         }
         if(result['heroImage'] && result['heroImage']!=''){
           this.hero = this.base+result['heroImage'];
@@ -125,7 +125,6 @@ export class SingleStoreComponent implements OnInit {
           }
         })  
       }else{
-        console.log("No tiene storre");
         this.empty = true;
       }
     })
