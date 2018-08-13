@@ -1,65 +1,48 @@
 <div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
     <div class="content">
-      <h3 class="small-title">{{'Archive-product.small-title-banner' | translate}}</h3>
       <h1 class="big-title">{{'Archive-product.big-title-banner' | translate}}</h1>
-      <a href="" class="white-btn">{{'Archive-product.banner-button' | translate}}<fa name="long-arrow-right"></fa></a>
+      <h3 class="small-title">{{'Archive-product.small-title-banner' | translate}}</h3>
+      <a href="" class="btn-red-a">{{'Archive-product.banner-button' | translate}}</a>
     </div>
 </div>
 <div class="products-section">
   <div class="container">
     <div class="row">
       <h2 class="product-result-title">
-        {{'Archive-product.result-title' | translate}}: <i style="font-size: 2rem">{{category}}</i>
+        {{'Archive-product.result-title' | translate}}: {{category}}
       </h2>
       <div class="col-lg-12" *ngIf="showNotFound">
         <h1 class="notfound">{{'Archive-product.no-result' | translate}}</h1>
       </div>
     </div>
-    <div class="row">
-      <div class="col-xl-3 col-lg-6 result" *ngFor="let product of products; let i=index">
+    <div class="row" style="margin-top: 150px">
+      <div class="col-xl-4 col-md-6 result" *ngFor="let product of products; let i=index">
         <div class="search-result">
           <div class="col-lg-12 search-product-img">
             <a routerLink="/product/{{product.id}}"><div [style.background-image]="image[i]" class="bg-img-prod"></div></a>
-            <!-- <img src="{{API+product.imagePrimary}}" alt="Primary" *ngIf="product.imagePrimary && product.imagePrimary!=''; else showSecundary">
-            <ng-template #showSecundary>
-              <img src="{{API+product.images[0].src}}" class="big-img" alt="{{product.images[0].filename}}" *ngIf="product.images && product.images.length>0; else showDefault">
-              <ng-template #showDefault>
-                <img src="../../assets/default-img-product.jpg" class="big-img">
-              </ng-template>
-            </ng-template> -->
-            <div class="btn-overlay">
-              <a routerLink="/product/{{product.id}}"class="btn-green">{{'Archive-product.view-button' | translate}}</a>
-            </div>
           </div>
           <div class="col-lg-12 search-product-desc">
-           <div class="row">
-            <div class="col-lg-8 col-8">
               <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                <b>{{'Archive-product.location' | translate}}: </b>{{product.country}}
+                {{'Archive-product.location' | translate}}: {{product.country}}
               </span>
               <div *ngIf="product.store==null; else showStore" class="owner">
-                <b>{{'Archive-product.owner' | translate}}: </b>
+                {{'Archive-product.owner' | translate}}:
                 <p>{{'Archive-product.no-owner' | translate}}</p>
               </div>
               <ng-template #showStore>
                 <div class="owner">
-                  <b>{{'Archive-product.owner' | translate}}:</b> <br>
-                  <a routerLink="/store/{{product.store.id}}"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
+                  {{'Archive-product.owner' | translate}}: <a routerLink="/store/{{product.store.id}}" class="owner-link"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
+                  <hr class="black-line">
                 </div>
               </ng-template>
-              <div><b>{{'Archive-product.description' | translate}}:</b><br>{{smallDesc(product.description)}}...</div>
-            </div>
-            <div class="col-lg-4 col-4">
-              <div class="search-price">
-                ${{product.price.value}} <br>
-                <span class="search-price-type">{{product.weight.type}}</span>
-              </div>
-            </div>
-           </div>
+              <div class="description">{{'Archive-product.description' | translate}}: {{smallDesc(product.description)}}</div>
+              <span class="price">
+                ${{product.price.value}}
+              </span>
          </div>
          <div class="view-detail-cont">
-            <a routerLink="/product/{{product.id}}" class="btn-green">{{'Archive-product.view-button' | translate}}</a>
+            <a routerLink="/product/{{product.id}}" class="pink-btn">{{'Archive-product.view-button' | translate}}</a>
           </div>
        </div>
       </div>
