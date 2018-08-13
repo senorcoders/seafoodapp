@@ -56,6 +56,12 @@ export class SearchComponent implements OnInit {
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   smallDesc(str) {
-   return str.split(/\s+/).slice(0,20).join(" ");
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
   }
 }

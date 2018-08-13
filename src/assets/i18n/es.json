@@ -68,8 +68,8 @@
 		"hero":"Upload Hero Store"
 	},
 	"Archive-product":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"result-title":"Categorias",
 		"view-button":"Ver Detalles",
@@ -82,10 +82,10 @@
 		"next":"Siguiente"
 	},
 	"Search":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
-		"result-title":"Categorias",
+		"result-title":"búsqueda",
 		"view-button":"Ver Detalles",
 		"location":"Ubicación",
 		"owner":"Propietario",

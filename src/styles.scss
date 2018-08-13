@@ -253,6 +253,7 @@ app-login{
   background-position: center;
   height: 200px;
   width: 100%;
+  border-top-right-radius: 20px;
 }
 .seafoodFormContainer{
   .content{
@@ -265,9 +266,8 @@ app-login{
 }
 .small-title {
   font-size: 2rem;
-  font-family: Avenir;
+  font-family: Avenir Light;
   color: #000000;
-  font-weight: lighter;
   margin-bottom: 20px;
 }
 .big-title {
@@ -298,22 +298,36 @@ app-login{
   margin-left:10px
 }
 /*search */
+app-search{
+  .big-title{
+    color: white;
+    letter-spacing: 2px;
+  }
+  .small-title{
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 90px
+  }
+}
 .search .row{
   margin-top:0
 }
 .search-result{
   padding: 20px;
   margin-bottom: 60px;
-  box-shadow: 2px 5px 20px -4px black;
+  border: 2px solid #ebf1f6;
   height: 100%;
 }
-.product-result-title{
-    color: #19465f;
-    font-size: 2rem;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    font-style: normal;
-    font-weight: 300;
-    margin-bottom:40px;
+.product-result-title, .notfound{
+  color: black;
+  font-size: 2rem;
+  font-family: Avenir Black;
+  font-style: normal;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
 }
 .img-logo{
   img{
@@ -339,37 +353,37 @@ app-login{
 .search-product-desc{
   text-align:left;
   color:#19465f;
-  padding:0
+  padding:0;
+  .price{
+    text-align:right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
 }
 .result {
   padding: 0 5px;
-  margin-bottom: 40px;
+  margin-bottom: 200px;
 }
 .search-product-img{
   padding:0;
+  margin-top: -150px;
   margin-bottom: 20px;
   position: relative;
   text-align: center;
-  .btn-overlay{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    visibility: hidden;
-    opacity: 0;
-    transition: all ease .2s;
-  }
-  &:hover > .btn-overlay{
-    visibility: visible;
-    opacity: 1;
-    transition: all ease .2s;
-  }
 }
-.products-section a {
-    text-decoration: none !important;
+.products-section{
+  padding-top: 100px;
+  .products-section a {
+      text-decoration: none !important;
+  }
 }
 .search-product-name{
-  color:#19465f;
-  font-size:1.5rem;
+    color: black;
+    font-size: 1.5rem;
+    font-family: Avenir;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
 }
 .search-price-type{
     font-weight: normal;
@@ -385,16 +399,28 @@ app-login{
   }
 .coming-from{
   font-size: 1.2rem;
-  margin-bottom: 10px;
   display: block;
+  font-family: Avenir;
 }
 .owner{
-  margin-bottom: 10px;
+  font-family: Avenir;
+  font-size: 1.2rem;
+  .black-line{
+    height: 0.5px;
+    margin: 5px 0 40px;
+  }
+  .owner-link{
+    color:#eb1c24;
+  }
 }
 .view-detail-cont{
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translate(-50%,0);
+  width: 200px;
+  max-width: 100%;
+  text-align: center;
 }
 .btn-green {
   background: #123345;
@@ -688,6 +714,11 @@ footer{
   }
   .bg-img-prod{
     height: 400px;
+  }
+  .search-result{
+    .bg-img-prod{
+      height: 200px;
+    }
   }
   .banner-img{
     width: 100%
