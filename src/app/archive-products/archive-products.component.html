@@ -18,7 +18,7 @@
         <h1 class="notfound">{{'Archive-product.no-result' | translate}}</h1>
       </div>
     </div>
-    <div class="row" style="margin-top: 150px">
+    <div class="row">
       <div class="col-xl-4 col-md-6 result" *ngFor="let product of products; let i=index">
         <div class="search-result">
           <div class="col-lg-12 search-product-img">
@@ -27,26 +27,14 @@
           <div class="col-lg-12 search-product-desc">
               <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                {{'Archive-product.location' | translate}}: {{product.country}}
+                <a routerLink="/store/{{product.store.name}}">{{product.store.name}}</a>
+                <hr class="black-line">
               </span>
-              <div *ngIf="product.store==null; else showStore" class="owner">
-                {{'Archive-product.owner' | translate}}:
-                <p>{{'Archive-product.no-owner' | translate}}</p>
-              </div>
-              <ng-template #showStore>
-                <div class="owner">
-                  {{'Archive-product.owner' | translate}}: <a routerLink="/store/{{product.store.id}}" class="owner-link"> {{product.store.owner.firstName}} {{product.store.owner.lastName}}</a>
-                  <hr class="black-line">
-                </div>
-              </ng-template>
-              <div class="description">{{'Archive-product.description' | translate}}: {{smallDesc(product.description)}}</div>
-              <span class="price">
-                ${{product.price.value}}
-              </span>
+              <div class="description">{{smallDesc(product.description)}}</div>
          </div>
-         <div class="view-detail-cont">
-            <a routerLink="/product/{{product.id}}" class="pink-btn">{{'Archive-product.view-button' | translate}}</a>
-          </div>
+          <span class="price">
+            {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+          </span>
        </div>
       </div>
     </div>

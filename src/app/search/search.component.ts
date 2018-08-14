@@ -33,6 +33,7 @@ export class SearchComponent implements OnInit {
     this.searchQuery=query;
     this.product.searchProductByName(query).subscribe(
       result=>{
+        console.log(result)
         this.products=result;
         //working on the images to use like background
          this.products.forEach((data, index)=>{

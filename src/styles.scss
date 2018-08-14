@@ -254,7 +254,7 @@ app-login{
   background-position: center;
   height: 200px;
   width: 100%;
-  border-top-right-radius: 20px;
+  border-top-right-radius: 40px;
 }
 .seafoodFormContainer{
   .content{
@@ -325,10 +325,16 @@ app-search, app-archive-products{
   margin-top:0
 }
 .search-result{
-  padding: 20px;
-  margin-bottom: 60px;
-  border: 2px solid #ebf1f6;
+  padding: 20px 30px;
+  background: white;
   height: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  .price{
+    position: absolute;
+    bottom: 10px;
+    right:30px
+  }
 }
 .product-result-title, .notfound{
   color: black;
@@ -365,36 +371,34 @@ app-search, app-archive-products{
   color:black;
   padding:0;
   font-family: Avenir;
-  .price{
-    text-align:right;
-    margin-top: 20px;
-    margin-bottom: 20px;
+  a{
+    text-decoration:none !important
   }
 }
 .result {
-  padding: 0 5px;
-  margin-bottom: 200px;
+  margin-bottom: 30px;
 }
 .search-product-img{
   padding:0;
-  margin-top: -150px;
   margin-bottom: 20px;
   position: relative;
   text-align: center;
 }
 .products-section{
   padding-top: 100px;
+  background: #ebf1f6;
   .products-section a {
       text-decoration: none !important;
   }
 }
 .search-product-name{
     color: black;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-family: Avenir;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
+    margin-bottom: 0;
 }
 .search-price-type{
     font-weight: normal;
@@ -408,10 +412,12 @@ app-search, app-archive-products{
     display: block;
     text-transform: uppercase;
   }
-.coming-from{
+.coming-from a{
   font-size: 1.2rem;
   display: block;
   font-family: Avenir;
+  text-decoration: none !important;
+  color: black !important;
 }
 .owner{
   font-family: Avenir;

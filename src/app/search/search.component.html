@@ -18,7 +18,7 @@
       <h1 class="notfound">{{'Search.no-result'| translate}}</h1>
     </div>
   </div>
-  <div class="row" style="margin-top: 150px">
+  <div class="row">
     <div class="col-xl-4 col-md-6 result" *ngFor="let product of products; let i=index">
       <div class="search-result">
         <div class="col-lg-12 search-product-img">
@@ -29,9 +29,10 @@
             <h3 class="search-product-name">{{product.name}}</h3>
           </a>
           <span class="coming-from">
-            {{'Search.location'| translate}}: {{product.country}}
+            <a routerLink="/store/{{product.store.name}}">{{product.store.name}}</a>
+            <hr class="black-line">
           </span>
-          <div *ngIf="product.store==null; else showStore" class="owner">
+          <!-- <div *ngIf="product.store==null; else showStore" class="owner">
             {{'Search.owner'| translate}}:
             <p>{{'Search.no-owner'| translate}}</p>
           </div>
@@ -40,15 +41,15 @@
               {{'Search.owner'| translate}}: <a routerLink="/store/{{product.store.owner.id}}"  class="owner-link"> {{product.store.owner.firstName}} {{product.store.owner.lastName}} </a>
               <hr class="black-line">
             </div>
-          </ng-template>
-          <div class="description">{{'Search.description'| translate}}: {{smallDesc(product.description)}}</div>
-          <span class="price">
-            ${{product.price.value}}
-          </span>
-       </div>
-       <div class="view-detail-cont">
-          <a routerLink="/product/{{product._id}}" class="pink-btn">{{'Search.view-button'| translate}}</a>
+          </ng-template> -->
+          <div class="description">{{smallDesc(product.description)}}</div>
         </div>
+        <span class="price">
+          {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+        </span>
+       <!-- <div class="view-detail-cont">
+          <a routerLink="/product/{{product._id}}" class="pink-btn">{{'Search.view-button'| translate}}</a>
+        </div> -->
      </div>
     </div>
   </div>
