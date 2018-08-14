@@ -10,6 +10,7 @@ import {TranslateService} from 'ng2-translate';
 import {LanguageService} from '../language/language.service';
 import { CartService } from '../cart/cart.service';
 import { OrdersService } from '../orders/orders.service';
+declare var jQuery:any;
 const defaultLanguage = "en";
 const additionalLanguages = ["es"];
 const languages: string[] = [defaultLanguage].concat(additionalLanguages);
@@ -38,6 +39,11 @@ export class MenuNavComponent{
    private cart:CartService, private orders:OrdersService){
   }
   ngOnInit(){
+    jQuery(document).ready(function(){
+      jQuery('#search-icon').on('click',function(){
+        setTimeout(function(){jQuery('#search-input').focus()},300)
+        })
+    })
     //language
     this.translate.setDefaultLang(defaultLanguage);
     this.translate.addLangs(additionalLanguages);

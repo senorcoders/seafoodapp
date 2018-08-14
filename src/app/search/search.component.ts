@@ -4,6 +4,7 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-search',
@@ -21,6 +22,11 @@ export class SearchComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.searchQuery= this.route.snapshot.params['search'];
       this.searchProducts(this.searchQuery);
+    })
+    jQuery(document).ready(function(){
+      jQuery([document.documentElement, document.body]).animate({
+        scrollTop: jQuery('#search-title').offset().top
+      }, 1000);
     })
   }
   searchProducts(query){
