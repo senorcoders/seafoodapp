@@ -142,7 +142,6 @@ export class MenuNavComponent{
   }
   search(){
     this.showSuggestion=false;
-    console.log(this.searchForm.get('search').value)
     this.show=false;
     this.results='';
     this.router.navigate([`search/${this.searchForm.get('search').value}`]);
@@ -150,7 +149,6 @@ export class MenuNavComponent{
   }
   searchBySuggestion(name){
     this.searchForm.reset();
-    console.log(name)
     this.results='';
     this.showSuggestion=false;
     this.show=false;
@@ -171,7 +169,7 @@ export class MenuNavComponent{
     //  });
     // this.menuItems.addMenuItem(obj)
     this.productsCategories.forEach((category)=>{
-      this.fishTypeMenu.push({state: `archive-product/${category.name}`, name: category.name},)
+      this.fishTypeMenu.push({state: `fish-type/${category.name}`, name: category.name},)
     });
     
   }

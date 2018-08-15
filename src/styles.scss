@@ -52,6 +52,7 @@ body {
     color: #000000 !important;
     font-size: 1.1rem;
     text-transform: capitalize;
+    font-family: Avenir;
 }
 .nav-language{
   align-items:center
@@ -59,12 +60,6 @@ body {
 .navbar{
   padding-left: 0;
   padding-right: 0;
-  // position:fixed;
-  // background:#1c1d1dc2 !important;
-  // width:100%;
-  // z-index:9;
-  // padding-top: 0 !important;
-  // padding-bottom: 0 !important;
   .nav-link{
     padding-bottom: 1rem !important;
     padding-top: 1rem !important;
@@ -308,7 +303,7 @@ app-login{
   top:0;
   z-index: 1;
 }
-app-search, app-archive-products{
+app-search, app-archive-products, app-cart{
   .big-title{
     color: white;
     letter-spacing: 2px;
@@ -718,16 +713,6 @@ footer{
   .navbar .nav-link{
     padding-bottom: 0.5rem !important;
     padding-top: 0.5rem !important;
-  }
-  .fish-type-menu{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: -33px;
-    .navbar-nav{
-      position: relative !important;
-      top: 0 !important
-    }
   }
   .bg-img-prod{
     height: 400px;
