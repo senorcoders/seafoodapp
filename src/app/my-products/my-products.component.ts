@@ -39,7 +39,7 @@ export class MyProductsComponent implements OnInit {
 
   getProducts(){
     this.productService.getData('store/' + this.store.id).subscribe(result => {
-      this.products = result['fish'];
+      this.products = result['fishs'];
       //working on the images to use like background
       this.products.forEach((data, index)=>{
         if (data.imagePrimary && data.imagePrimary !='') {
@@ -61,7 +61,6 @@ export class MyProductsComponent implements OnInit {
 
 deleteProduct(id, index){
   this.productService.deleteData('api/fish/'+id).subscribe(result =>{
-    console.log("Done", result);
     this.deleteNode(index);
     this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
 

@@ -303,7 +303,7 @@ app-login{
   top:0;
   z-index: 1;
 }
-app-search, app-archive-products, app-cart{
+app-search, app-archive-products, app-cart, app-my-products{
   .big-title{
     color: white;
     letter-spacing: 2px;
@@ -360,6 +360,7 @@ app-search, app-archive-products, app-cart{
     display: block;
     width: 100%;
     height: 100%;
+    clear: both;
 }
 .search-product-desc{
   text-align:left;
@@ -693,6 +694,51 @@ footer{
     width: 90px;
     margin: 10px 0;
     height: 1px;
+}
+.product-result{
+  padding: 20px 30px 80px;
+  background: white;
+  height: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  .bg-img-prod{
+    height: 200px !important
+  }
+  .actions{
+    cursor: pointer;
+    .left{
+      float: left;
+      .pencil{
+        font-size: 1.2rem !important;
+        color: #00a99d;
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+    }
+    .right{
+      float: right;
+      img{
+        width: 15px;
+      }
+    }
+  }
+  .search-product-desc{
+    .fish-type{
+      font-size: 1.2rem;
+      display: block;
+      font-family: Avenir;
+      text-decoration: none !important;
+      color: black !important;
+      text-transform: capitalize;
+    }
+  }
+  .button-container{
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    text-align: center;
+    left: 0;
+  }
 }
 @media(max-width: 1200px){
   .navbar .nav-link{
