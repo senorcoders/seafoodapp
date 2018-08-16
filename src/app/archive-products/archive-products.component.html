@@ -27,7 +27,7 @@
           <div class="col-lg-12 search-product-desc">
               <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                <a routerLink="/store/{{product.store.name}}">{{product.store.name}}</a>
+                <a routerLink="/store/{{product.store.id}}">{{product.store.name}}</a>
                 <hr class="black-line">
               </span>
               <div class="description">{{smallDesc(product.description)}}</div>

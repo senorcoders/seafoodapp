@@ -112,7 +112,7 @@ export class SingleStoreComponent implements OnInit {
         this.store.description = result['description'];
         this.store.location = result['location'];
         this.userID=result['owner'].id
-        this.products=result['fish'];
+        this.products=result['fishs'];
         this.products.forEach((data,index)=>{
           if(data.imagePrimary && data.imagePrimary !=''){
             this.productImage[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)

@@ -409,7 +409,7 @@
 		"message":"to go back to the Administrative homepage"
 	},
 	"Recent":{
-		"title":"Recent Purchases",
+		"title":"pending shipment",
 		"title2":"Purchases Shipped",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
