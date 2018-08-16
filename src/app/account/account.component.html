@@ -162,7 +162,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-6">
                 <div class="form-group">
                   <label>SFS Agreement Form</label>
                   <div class="input-group mb-3">
@@ -175,6 +175,14 @@
                   </div>
                 </div>
               </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" [(ngModel)]="info.country" [ngModelOptions]="{standalone: true}">
+                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
             </div>
             <div class="row">
               <div class="col-lg-6">
@@ -222,7 +230,7 @@
             <div class="col-lg-6">
               <div class="form-group">
                 <label>{{'Account.country' | translate}}</label>
-                <select class="form-control" [(ngModel)]="info.dataExtra['country']" [ngModelOptions]="{standalone: true}">
+                <select class="form-control" [(ngModel)]="info.country" [ngModelOptions]="{standalone: true}">
                  <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
                 </select>
               </div>

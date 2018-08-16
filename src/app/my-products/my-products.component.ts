@@ -39,7 +39,7 @@ export class MyProductsComponent implements OnInit {
 
   getProducts(){
     this.productService.getData('store/' + this.store.id).subscribe(result => {
-      this.products = result['fish'];
+      this.products = result['fishs'];
       //working on the images to use like background
       this.products.forEach((data, index)=>{
         if (data.imagePrimary && data.imagePrimary !='') {
@@ -55,13 +55,18 @@ export class MyProductsComponent implements OnInit {
     })
   }
 
-  smallDesc(str) {
-    return str.split(/\s+/).slice(0,20).join(" ");
-}
+ smallDesc(str) {
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
+  }
 
 deleteProduct(id, index){
   this.productService.deleteData('api/fish/'+id).subscribe(result =>{
-    console.log("Done", result);
     this.deleteNode(index);
     this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
 

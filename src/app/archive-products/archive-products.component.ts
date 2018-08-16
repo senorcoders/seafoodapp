@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+declare var jQuery:any;
 @Component({
   selector: 'app-archive-products',
   templateUrl: './archive-products.component.html',
@@ -52,6 +52,11 @@ export class ArchiveProductsComponent implements OnInit {
       }
     )
     });
+    jQuery(document).ready(function(){
+      jQuery([document.documentElement, document.body]).animate({
+        scrollTop: jQuery('#search-title').offset().top
+      }, 1000);
+    })
   }
  showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
@@ -97,7 +102,13 @@ previousPage(){
       }
     )
 }
-smallDesc(str) {
-    return str.split(/\s+/).slice(0,20).join(" ");
-}
+ smallDesc(str) {
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
+  }
 }

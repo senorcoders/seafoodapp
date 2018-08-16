@@ -39,7 +39,7 @@ export class HomeComponent implements OnInit {
       error=>{
         console.log(error);
         this.showError=true;
-        this.error="No Seller found"
+        this.error="No Product found"
       }
     )
   }
@@ -62,13 +62,13 @@ export class HomeComponent implements OnInit {
       this.product.getProductDetail(data.id).subscribe(result => {
         this.products[index]=result;
         if(result['imagePrimary'] && result['imagePrimary']!=''){
-          this.images[index]=this.API+result['imagePrimary']
+          this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['imagePrimary']})`)
         }
         else if(result['images'] && result['images'].length>0){
-          this.images[index]=this.API+result['images'][0].src
+          this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['images'][0].src})`)
         }
         else{
-          this.images[index]="../../assets/default-img-product.jpg"
+          this.images[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default-img-product.jpg)")
         }
         if (val-1==index) {
           this.loadProduct=false

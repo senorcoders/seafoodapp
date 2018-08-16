@@ -4,6 +4,7 @@ import {FormBuilder, Validators, FormGroup} from "@angular/forms";
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-search',
@@ -22,11 +23,17 @@ export class SearchComponent implements OnInit {
       this.searchQuery= this.route.snapshot.params['search'];
       this.searchProducts(this.searchQuery);
     })
+    jQuery(document).ready(function(){
+      jQuery([document.documentElement, document.body]).animate({
+        scrollTop: jQuery('#search-title').offset().top
+      }, 1000);
+    })
   }
   searchProducts(query){
     this.searchQuery=query;
     this.product.searchProductByName(query).subscribe(
       result=>{
+        console.log(result)
         this.products=result;
         //working on the images to use like background
          this.products.forEach((data, index)=>{
@@ -56,6 +63,12 @@ export class SearchComponent implements OnInit {
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   smallDesc(str) {
-   return str.split(/\s+/).slice(0,20).join(" ");
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
   }
 }

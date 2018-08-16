@@ -119,7 +119,6 @@ previousPage(){
 }
 deleteProduct(id, index){
   this.productService.deleteData('api/fish/'+id).subscribe(result =>{
-    console.log("Done", result);
     this.deleteNode(index);
     this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
 
@@ -160,11 +159,16 @@ searchProducts(query){
 }
 deleteNode(i){
   this.products.splice(i, 1);
-  console.log(this.products);
 }
 smallDesc(str) {
-    return str.split(/\s+/).slice(0,20).join(" ");
-}
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
+  }
    showSuccess(e){
     this.toast.success(e,'Well Done',{positionClass:"toast-top-right"})
   }

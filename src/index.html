@@ -25,12 +25,6 @@
   <script>
     
   jQuery(document).ready(function(){
-    let val=jQuery('.navbar').height()
-    jQuery('.fish-type-menu .navbar-nav').css('top',val+'px')
-    jQuery('.menu-link').bigSlide({
-      menuWidth:'300px',
-      speed:'450'
-    });
     jQuery(document).on( 'click', '.hasChildren', function(){
       jQuery(this).parent().find('.submenu').toggle('slow')
     });
@@ -38,21 +32,7 @@
       jQuery("html, body").animate({ scrollTop: 0 }, "slow");
       return false;
     });
-  });
-  jQuery(window).resize(function(){
-    let val=jQuery('.navbar').height()
-    jQuery('.fish-type-menu .navbar-nav').css('top',val+'px')
-  })
-
-//      (function(jQuery){
-//     jQuery(window).load(function(){
-//         jQuery('.flexslider').flexslider({
-//         animation: "slide", controlNav: "thumbnails", directionNav: false,
-
-//       });
-//     });
-// }(jQuery));
-    
+  });    
   </script>
 </body>
 </html>

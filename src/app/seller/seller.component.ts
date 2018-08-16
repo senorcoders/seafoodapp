@@ -281,7 +281,7 @@ export class SellerComponent implements OnInit {
   	this.sellerForm=this.fb.group({
   		firstName:[this.user.firstName,Validators.required],
 		lastName: [this.user.lastName, Validators.required],
-		country: [this.user.dataExtra.country, Validators.required],
+		country: [this.user.country, Validators.required],
 		email: [this.user.email, [Validators.email, Validators.required]],
 		tel: [this.user.dataExtra.tel],
 		uploadTradeLicense: [this.user.dataExtra.uploadTradeLicense],

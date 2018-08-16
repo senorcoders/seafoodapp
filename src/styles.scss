@@ -24,9 +24,8 @@
   font-style: normal;
 }
 @font-face{
-  font-family: Avenir;
+  font-family: Avenir Light;
   src: url(./assets/fonts/Avenir-Light-07.ttf) format('truetype');
-  font-weight: lighter;
   font-style: normal;
 }
 @font-face{
@@ -53,19 +52,14 @@ body {
     color: #000000 !important;
     font-size: 1.1rem;
     text-transform: capitalize;
+    font-family: Avenir;
 }
-// .nav-language{
-//   padding-right: 40px;
-// }
+.nav-language{
+  align-items:center
+}
 .navbar{
   padding-left: 0;
   padding-right: 0;
-  // position:fixed;
-  // background:#1c1d1dc2 !important;
-  // width:100%;
-  // z-index:9;
-  // padding-top: 0 !important;
-  // padding-bottom: 0 !important;
   .nav-link{
     padding-bottom: 1rem !important;
     padding-top: 1rem !important;
@@ -150,6 +144,7 @@ body {
     background-size: cover !important;
     background-position: center !important;
     height: 550px;
+    text-align: center;
 }
 .page-header .content{
     position: absolute;
@@ -157,7 +152,23 @@ body {
     top: 50%;
     transform: translate(-50%,-50%);
     left: 50%;
+    z-index: 1;
     padding:0 15px;
+}
+.homepage{
+  text-align: left;
+}
+.flex-control-nav{
+    bottom: 0 !important;
+}
+.flex-control-paging li a{
+    border:1px solid white !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+.flex-control-paging li a.flex-active{
+    border: 1px solid white !important;
+    background: white !important
 }
 app-home .hr-small{
     width: 80px;
@@ -238,6 +249,7 @@ app-login{
   background-position: center;
   height: 200px;
   width: 100%;
+  border-top-right-radius: 40px;
 }
 .seafoodFormContainer{
   .content{
@@ -250,9 +262,8 @@ app-login{
 }
 .small-title {
   font-size: 2rem;
-  font-family: Avenir;
+  font-family: Avenir Light;
   color: #000000;
-  font-weight: lighter;
   margin-bottom: 20px;
 }
 .big-title {
@@ -283,22 +294,51 @@ app-login{
   margin-left:10px
 }
 /*search */
+#hero .overlay{
+  background-size: cover !important;
+  background-position: center !important;
+  position: absolute;
+  width:100%;
+  height: 100%;
+  top:0;
+  z-index: 1;
+}
+app-search, app-archive-products, app-cart, app-my-products{
+  .big-title{
+    color: white;
+    letter-spacing: 2px;
+  }
+  .small-title{
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    margin-bottom: 90px
+  }
+}
 .search .row{
   margin-top:0
 }
 .search-result{
-  padding: 20px;
-  margin-bottom: 60px;
-  box-shadow: 2px 5px 20px -4px black;
+  padding: 20px 30px;
+  background: white;
   height: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  .price{
+    position: absolute;
+    bottom: 10px;
+    right:30px
+  }
 }
-.product-result-title{
-    color: #19465f;
-    font-size: 2rem;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-    font-style: normal;
-    font-weight: 300;
-    margin-bottom:40px;
+.product-result-title, .notfound{
+  color: black;
+  font-size: 2rem;
+  font-family: Avenir Black;
+  font-style: normal;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
 }
 .img-logo{
   img{
@@ -320,41 +360,41 @@ app-login{
     display: block;
     width: 100%;
     height: 100%;
+    clear: both;
 }
 .search-product-desc{
   text-align:left;
-  color:#19465f;
-  padding:0
+  color:black;
+  padding:0;
+  font-family: Avenir;
+  a{
+    text-decoration:none !important
+  }
 }
 .result {
-  padding: 0 5px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
 }
 .search-product-img{
   padding:0;
   margin-bottom: 20px;
   position: relative;
   text-align: center;
-  .btn-overlay{
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    visibility: hidden;
-    opacity: 0;
-    transition: all ease .2s;
-  }
-  &:hover > .btn-overlay{
-    visibility: visible;
-    opacity: 1;
-    transition: all ease .2s;
-  }
 }
-.products-section a {
-    text-decoration: none !important;
+.products-section{
+  padding-top: 100px;
+  background: #ebf1f6;
+  .products-section a {
+      text-decoration: none !important;
+  }
 }
 .search-product-name{
-  color:#19465f;
-  font-size:1.5rem;
+    color: black;
+    font-size: 1.3rem;
+    font-family: Avenir;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 0;
 }
 .search-price-type{
     font-weight: normal;
@@ -368,18 +408,32 @@ app-login{
     display: block;
     text-transform: uppercase;
   }
-.coming-from{
+.coming-from a{
   font-size: 1.2rem;
-  margin-bottom: 10px;
   display: block;
+  font-family: Avenir;
+  text-decoration: none !important;
+  color: black !important;
 }
 .owner{
-  margin-bottom: 10px;
+  font-family: Avenir;
+  font-size: 1.2rem;
+  .black-line{
+    height: 0.5px;
+    margin: 5px 0 40px;
+  }
+  .owner-link{
+    color:#eb1c24;
+  }
 }
 .view-detail-cont{
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 50%;
+  transform: translate(-50%,0);
+  width: 200px;
+  max-width: 100%;
+  text-align: center;
 }
 .btn-green {
   background: #123345;
@@ -604,10 +658,10 @@ footer{
   min-width: 200px !important;
 }
 .br-fontawesome-o .br-unit:after{
-  color:black !important
+  color:#fc9951 !important
 }
 .br-fontawesome-o .br-selected:after, .br-fontawesome-o .br-fraction:after{
-    color: #e6df03 !important
+    color: #fc9951 !important
 }
 .pop-up{
   position: fixed;
@@ -641,6 +695,82 @@ footer{
     margin: 10px 0;
     height: 1px;
 }
+.product-result{
+  padding: 20px 30px 80px;
+  background: white;
+  height: 100%;
+  margin-bottom: 20px;
+  position: relative;
+  .bg-img-prod{
+    height: 200px !important
+  }
+  .actions{
+    cursor: pointer;
+    .left{
+      float: left;
+      .pencil{
+        font-size: 1.2rem !important;
+        color: #00a99d;
+        padding-bottom: 10px;
+        display: inline-block;
+      }
+    }
+    .right{
+      float: right;
+      img{
+        width: 15px;
+      }
+    }
+  }
+  .search-product-desc{
+    .fish-type{
+      font-size: 1.2rem;
+      display: block;
+      font-family: Avenir;
+      text-decoration: none !important;
+      color: black !important;
+      text-transform: capitalize;
+    }
+  }
+  .button-container{
+    position: absolute;
+    width: 100%;
+    bottom: 20px;
+    text-align: center;
+    left: 0;
+  }
+}
+.searchAdmin{
+  margin-bottom: 40px;
+  margin-top: 20px;
+  .form-group{
+    margin-bottom: 0;
+  }
+  .form-control{
+    display: inline-block;
+      border: 0;
+      padding: 10px;
+      max-width: 100%;
+      font-family: Avenir;
+      font-weight: lighter;
+      font-size: 1rem;
+      line-height: 1;
+      background: white;
+      width: auto;
+      margin: 0 !important;
+      border-radius: 0;
+  }
+  .invalid-feedback{
+    position: absolute;
+  }
+  .search-btn{
+    border: 0;
+      background: #eb1c24;
+      color: white;
+      font-family: Avenir Black;
+      padding: 9px 20px;
+  }
+}
 @media(max-width: 1200px){
   .navbar .nav-link{
     padding-right: 1rem !important;
@@ -661,18 +791,13 @@ footer{
     padding-bottom: 0.5rem !important;
     padding-top: 0.5rem !important;
   }
-  .fish-type-menu{
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: -33px;
-    .navbar-nav{
-      position: relative !important;
-      top: 0 !important
-    }
-  }
   .bg-img-prod{
     height: 400px;
+  }
+  .search-result{
+    .bg-img-prod{
+      height: 200px;
+    }
   }
   .banner-img{
     width: 100%

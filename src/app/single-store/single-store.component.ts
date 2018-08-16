@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-store',
@@ -37,11 +38,12 @@ export class SingleStoreComponent implements OnInit {
   firstComments:any=[];
   showMore:boolean=false;
   showLess:boolean=false;
+  productImage:any=[];
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
     public ngxSmartModalService: NgxSmartModalService,
-    private toast:ToastrService) { }
+    private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.storeID= this.route.snapshot.params['id'];
@@ -56,7 +58,6 @@ export class SingleStoreComponent implements OnInit {
     this.productService.getData(`reviewsstore?where={"store":"${this.storeID}"}`).subscribe(
       result=>{
         this.reviews=result;
-        // this.comments=result['comment'];
         this.getFirstComments();
         this.calcStars();
       },
@@ -99,7 +100,7 @@ export class SingleStoreComponent implements OnInit {
           this.logo = this.base+result['logo'];
         }
         else{
-          this.logo="../../assets/seafood-souq-seller-logo-default.jpg"
+          this.logo="../../assets/seafood-souq-seller-logo-default.png"
         }
         if(result['heroImage'] && result['heroImage']!=''){
           this.hero = this.base+result['heroImage'];
@@ -111,15 +112,31 @@ export class SingleStoreComponent implements OnInit {
         this.store.description = result['description'];
         this.store.location = result['location'];
         this.userID=result['owner'].id
-        this.products=result['fish'];  
+        this.products=result['fish'];
+        this.products.forEach((data,index)=>{
+          if(data.imagePrimary && data.imagePrimary !=''){
+            this.productImage[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)
+          }
+          else if(data.images && data.images.length>0){
+              this.productImage[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`)
+          }
+          else{
+            this.productImage[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+          }
+        })  
       }else{
-        console.log("No tiene storre");
         this.empty = true;
       }
     })
   }
   smallDesc(str) {
-    return str.split(/\s+/).slice(0,20).join(" ");
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
   }
 
   sendMail(){
@@ -137,6 +154,11 @@ export class SingleStoreComponent implements OnInit {
       this.toast.error("All fields are required!", "Error",{positionClass:"toast-top-right"} );
 
     }
+  }
+   getDates(value){
+      let date=new Date(value)
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      return months[date.getMonth()] +' '+date.getDate()+', '+date.getFullYear()
   }
 
 }

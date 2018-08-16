@@ -418,7 +418,7 @@ countries=[
         )
       }
       else{
-        this.showError("Passwords not match");
+        this.toast.error("Passwords not match",'Error',{positionClass:"toast-top-right","disableTimeOut":true})
       } 
     }
   }

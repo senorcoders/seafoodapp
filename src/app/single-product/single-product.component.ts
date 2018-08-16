@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
 declare var jQuery:any;
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-single-product',
@@ -42,7 +43,7 @@ export class SingleProductComponent implements OnInit {
   storeId:string;
   storeName:string;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
-  private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService) { 
+  private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
 }
 
   ngOnInit() {
@@ -83,8 +84,8 @@ setFlexslider(){
   if(this.mainImg || this.images){
     setTimeout(()=>{
       jQuery('.flexslider').flexslider({
-        animation: "slide",
-        controlNav: "thumbnails"
+        animation: "slide"
+        //controlNav: "thumbnails"
         });
       this.showLoading=false
     },100)
@@ -95,17 +96,18 @@ setFlexslider(){
 }
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
-      console.log("Product", data);
       this.name = data['name'];
       this.description = data['description'];
-      this.images = data['images'];
+      data['images'].forEach((value)=>{
+        this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value.src})`));
+      })
       this.price = data['price'].description;
       this.category = data['type'].name;
       this.show = true;
       this.priceValue = data['price'].value;
       this.priceType = data['price'].type;
       this.measurement = data['weight'].type;
-      this.mainImg=data['imagePrimary'];
+      this.mainImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
       this.storeId=data['store'].id;
       this.storeName=data['store'].name;
       this.setFlexslider();

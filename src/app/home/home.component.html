@@ -43,8 +43,10 @@
           <div class="col-lg-4 products">
             <div class="bg">
               <div class="img-container">
-                <!-- <img src="../../assets/default-img-product.jpg" class="big-img" *ngIf="product.images==null"> -->
-                <a routerLink="/product/{{product.id}}"><img src="{{images[i]}}" class="product-img"></a>
+                <a routerLink="/product/{{product.id}}">
+                  <div class="product-img" [style.background-image]="images[i]"></div>
+                  <!-- <img src="{{images[i]}}" class="product-img"></a> -->
+                </a>
               </div>
               <a routerLink="/product/{{product.id}}"><h3 class="product-name">{{product.name}}</h3></a>
               <a routerLink="/fish-type/{{product.type.name}}"><span class="product-type">{{product.type.name}}</span></a>
