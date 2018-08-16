@@ -55,9 +55,15 @@ export class MyProductsComponent implements OnInit {
     })
   }
 
-  smallDesc(str) {
-    return str.split(/\s+/).slice(0,20).join(" ");
-}
+ smallDesc(str) {
+     if(str.length>20){
+        let text=str.split(/\s+/).slice(0,20).join(" ")
+        return text+'...' 
+    }
+    else{
+      return str
+    }
+  }
 
 deleteProduct(id, index){
   this.productService.deleteData('api/fish/'+id).subscribe(result =>{

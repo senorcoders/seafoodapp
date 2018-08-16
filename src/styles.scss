@@ -740,6 +740,37 @@ footer{
     left: 0;
   }
 }
+.searchAdmin{
+  margin-bottom: 40px;
+  margin-top: 20px;
+  .form-group{
+    margin-bottom: 0;
+  }
+  .form-control{
+    display: inline-block;
+      border: 0;
+      padding: 10px;
+      max-width: 100%;
+      font-family: Avenir;
+      font-weight: lighter;
+      font-size: 1rem;
+      line-height: 1;
+      background: white;
+      width: auto;
+      margin: 0 !important;
+      border-radius: 0;
+  }
+  .invalid-feedback{
+    position: absolute;
+  }
+  .search-btn{
+    border: 0;
+      background: #eb1c24;
+      color: white;
+      font-family: Avenir Black;
+      padding: 9px 20px;
+  }
+}
 @media(max-width: 1200px){
   .navbar .nav-link{
     padding-right: 1rem !important;
