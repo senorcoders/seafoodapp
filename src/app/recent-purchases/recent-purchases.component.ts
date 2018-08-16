@@ -50,7 +50,6 @@ export class RecentPurchasesComponent implements OnInit {
 				this.items = result;
 				this.showLoading = false;
 				this.showProduct = true;
-        console.log(result)
         this.getFirstNoShipped();
 				this.getDates();
   			}
@@ -151,10 +150,25 @@ export class RecentPurchasesComponent implements OnInit {
   	})
   }
   getDatesShipped(){
-  	this.shipped.forEach((data, index)=>{
-  		//convert date
-  		let date=new Date(data.shoppingCart.paidDateTime)
-  		this.datesShipping[index]=date.toString().split("GMT",1)
-  	})
+    this.shipped.forEach((data, index)=>{
+      //convert date
+      let date=new Date(data.shoppingCart.paidDateTime)
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let hours=date.getHours()
+      let min = date.getMinutes();
+      let minutes;
+      if (min < 10) {
+        minutes = "0" + min;
+      }
+      else{
+        minutes=min
+      }
+      let ampm = "AM";
+      if( hours > 12 ) {
+          hours -= 12;
+          ampm = "PM";
+      }
+      this.datesShipping[index]=months[date.getMonth()] +' '+date.getDate()+', '+date.getFullYear()+' '+hours+':'+ minutes +' ' +ampm
+    })
   }
 }

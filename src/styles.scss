@@ -814,8 +814,19 @@ footer{
     font-weight: bold;
     display: block;
     text-align: right;
-    margin-top: 20px;
+    margin-top: 20px; 
+  }
+  div{
+    font-family: Avenir;
+  }
+  label{
+    text-decoration: underline;
+    margin-right: 5px;
+    font-family: Avenir;
+  } 
 }
+.tracking{
+  margin-top: 30px
 }
 @media(max-width: 1200px){
   .navbar .nav-link{

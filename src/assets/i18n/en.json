@@ -425,7 +425,7 @@
 		"title":"Orders Purchases",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
-		"product":"My products to deliver",
+		"product":"product",
 		"address":"Buyer Address",
 		"status":"Current Status",
 		"shipped":"Mark as shipped",
