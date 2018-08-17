@@ -842,6 +842,18 @@ footer{
 .tracking{
   margin-top: 30px
 }
+app-administrator{
+  .select2-container--default .select2-selection--single{
+    border:0 !important;
+    background: transparent;
+  }
+  .select2{
+      width: 100% !important;
+      span{
+        font-family: Avenir
+      }
+  }
+}
 @media(max-width: 1200px){
   .navbar .nav-link{
     padding-right: 1rem !important;
