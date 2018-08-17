@@ -252,7 +252,7 @@
 	},
 	"Featured-types":{
 		"title":"Featured Types",
-		"table-title":"Types Added",
+		"table-title":"Add Types",
 		"name":"Name",
 		"delete":"Delete",
 		"types":"Select Types",

@@ -250,7 +250,7 @@
 	},
 	"Featured-types":{
 		"title":"Tipos Destacados",
-		"table-title":"Tipos agregados",
+		"table-title":"Agregar Tipos",
 		"name":"Nombre",
 		"delete":"Borrar",
 		"types":"Select Tipos",
