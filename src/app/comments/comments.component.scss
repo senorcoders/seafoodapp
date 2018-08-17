@@ -1,13 +1,20 @@
-.black-title{
-	text-align: center;
-}
 .save{
 	cursor: pointer;
-    color: #3838e0;
+    color: #ec4343;
+    float: right;
+    margin-right: 10px;
+    font-size: 1.3rem;
 }
 .notfound{
 	text-align: center;
     font-size: 2rem;
     font-family: Avenir;
     margin-bottom: 20px
+}
+.date a{
+	color: inherit !important;
+	text-decoration: none !important;
+}
+.black-title{
+	margin: 20px 0
 }

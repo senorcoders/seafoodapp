@@ -816,6 +816,11 @@ footer{
     text-align: right;
     margin-top: 20px; 
   }
+  .black-line{
+    width: 70px;
+    height: .5px;
+    background: black;
+  }
   div{
     font-family: Avenir;
   }
@@ -827,6 +832,7 @@ footer{
   .delete{
     width: 20px;
     cursor: pointer;
+    float: right;
   }
   .edit{
     cursor: pointer;

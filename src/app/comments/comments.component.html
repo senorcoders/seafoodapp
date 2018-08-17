@@ -9,32 +9,30 @@
 	    </div>
 	  </div>
 	  <div class="row" *ngIf="!showPending">
-		<div class="col-12">
+	  	<div class="col-12">
 			<h2 class="black-title">{{'Comments.pending-title' | translate}}</h2>
-      		<hr class="hr-small">
-			<table class="table table-striped">
-		        <thead>
-		          <tr>
-		            <th scope="col">{{'Comments.buyer' | translate}}</th>
-		            <th scope="col">{{'Comments.store' | translate}}</th>
-		            <th scope="col">{{'Comments.comment' | translate}}</th>
-		            <th scope="col">{{'Comments.stars' | translate}}</th>
-		            <th scope="col">{{'Comments.accept' | translate}}</th>
-		            <th scope="col">{{'Comments.delete' | translate}}</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          <tr *ngFor="let pendingcomment of pendingcomments">
-		            <td>{{pendingcomment.buyer.firstName}} {{pendingcomment.buyer.lastName}}</td>
-		            <td>{{pendingcomment.store.name}}</td>
-		            <td>{{pendingcomment.comment}}</td>
-		            <td>{{pendingcomment.stars}}</td>
-		            <td><span (click)="acceptComment(pendingcomment.id)" class="save"><fa name="check"></fa></span></td>
-		            <td><span (click)="deleteComment(pendingcomment.id)" class="delete"><fa name="remove"></fa></span></td>
-		          </tr>
-		        </tbody>
-		    </table>
 		</div>
+	  	<div class="col-12 table-design">
+	    	<div class="row row-bg" *ngFor="let pendingcomment of pendingcomments">
+	    		<div class="col-lg-12">
+	    			<h2 class="name">
+	    				{{pendingcomment.buyer.firstName}} {{pendingcomment.buyer.lastName}}
+	    				<img src="../../assets/trash-icon.png" alt="" (click)="deleteComment(pendingcomment.id)" class="delete">
+	    				<span (click)="acceptComment(pendingcomment.id)" class="save"><fa name="check"></fa></span>
+	    				 <bar-rating [(rate)]="pendingcomment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+	    			</h2>
+	    			<div class="date">
+	    				<a routerLink="/store/{{pendingcomment.store.id}}">
+	    					{{pendingcomment.store.name}}
+	    				</a>
+	    				<hr class="black-line">
+	    			</div>
+	    			<div class="product">
+	    				{{pendingcomment.comment}}
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
 	  </div>
 	  <div class="row" *ngIf="!showAcceptedComments">
 	  	<div class="col-lg-12">
@@ -42,29 +40,28 @@
 	    </div>
 	  </div>
 	  <div class="row" *ngIf="showAcceptedComments">
-	  	<div class="col-lg-12">
+	  	<div class="col-12">
 	      	<h2 class="black-title">{{'Comments.comment-title' | translate}}</h2>
-      		<hr class="hr-small">
-      		<table class="table table-striped">
-		        <thead>
-		          <tr>
-		            <th scope="col">{{'Comments.buyer' | translate}}</th>
-		            <th scope="col">{{'Comments.store' | translate}}</th>
-		            <th scope="col">{{'Comments.comment' | translate}}</th>
-		            <th scope="col">{{'Comments.stars' | translate}}</th>
-		            <th scope="col">{{'Comments.delete' | translate}}</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          <tr *ngFor="let acceptedComment of acceptedComments">
-		            <td>{{acceptedComment.buyer.firstName}} {{acceptedComment.buyer.lastName}}</td>
-		            <td>{{acceptedComment.store.name}}</td>
-		            <td>{{acceptedComment.comment}}</td>
-		            <td>{{acceptedComment.stars}}</td>
-		            <td><span (click)="deleteComment(acceptedComment.id)" class="delete"><fa name="remove"></fa></span></td>
-		          </tr>
-		        </tbody>
-		    </table>
+	    </div>
+		<div class="col-12 table-design">
+	    	<div class="row row-bg" *ngFor="let acceptedComment of acceptedComments">
+	    		<div class="col-lg-12">
+	    			<h2 class="name">
+	    				{{acceptedComment.buyer.firstName}} {{acceptedComment.buyer.lastName}}
+	    				<img src="../../assets/trash-icon.png" alt="" (click)="deleteComment(acceptedComment.id)" class="delete">
+	    				 <bar-rating [(rate)]="acceptedComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+	    			</h2>
+	    			<div class="date">
+	    				<a routerLink="/store/{{acceptedComment.store.id}}">
+	    					{{acceptedComment.store.name}}
+	    				</a>
+	    				<hr class="black-line">
+	    			</div>
+	    			<div class="product">
+	    				{{acceptedComment.comment}}
+	    			</div>
+	    		</div>
+	    	</div>
 	    </div>
 	  </div>
 	</div>
