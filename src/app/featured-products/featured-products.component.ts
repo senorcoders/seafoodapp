@@ -16,6 +16,7 @@ export class FeaturedProductsComponent implements OnInit {
 
   ngOnInit() {
   	jQuery('.stores').select2();
+    jQuery('.products').select2();
     this.getFeaturedList();
   	this.productService.getData('api/store').subscribe(
   		result => {
@@ -45,7 +46,7 @@ export class FeaturedProductsComponent implements OnInit {
   }
   getProducts(data){
     this.productService.getData('store/' + data).subscribe(result => {
-      this.products = result['fish'];
+      this.products = result['fishs'];
       jQuery('.products').select2()
     })
   }
