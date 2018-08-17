@@ -1,26 +1,21 @@
 <div class="container" *ngIf="isInfo; else noInfo">
 	<div class="row">
 		<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
-		<div class="col-12"><h3 class="black-title">{{'VerifyUser.title' | translate}}</h3><hr class="hr-small"></div>
-		<div class="col-12 table-cont">
-	    	<table class="table table-striped">
-		        <thead>
-		          <tr>
-		            <th scope="col">{{'VerifyUser.name' | translate}}</th>
-		            <th scope="col">{{'VerifyUser.email' | translate}}</th>
-		            <th scope="col">{{'VerifyUser.accept' | translate}}</th>
-                	<th scope="col">{{'VerifyUser.refuse' | translate}}</th>
-		          </tr>
-		        </thead>
-		        <tbody>
-		          <tr *ngFor="let user of users">
-		            <td>{{user.firstName}} {{user.lastName}}</td>
-		            <td>{{user.email}}</td>
-                	<td><fa name="check" class="save" (click)="accept(user.id)"></fa></td>
-                	<td><fa name="remove" class="delete" (click)="refuse(user.id)"></fa></td>
-		          </tr>
-		        </tbody>
-		    </table>
+		<div class="col-12"><h3 class="black-title">{{'VerifyUser.title' | translate}}</h3></div>
+		<div class="col-12 table-design">
+	        <div class="row row-bg" *ngFor="let user of users">
+	          <div class="col-lg-12">
+	            <h2 class="name">
+	              {{user.firstName}} {{user.lastName}}
+	              <img src="../../assets/trash-icon.png" alt="" (click)="refuse(user.id)" class="delete">
+	              <fa name="pencil" class="edit" (click)="accept(user.id)"></fa>
+	            </h2>
+	            <div class="product">
+	            	{{user.email}}
+	            	<hr class="black-line">
+	            </div>
+	          </div>
+	        </div>
 	    </div>
 	</div>
 </div>

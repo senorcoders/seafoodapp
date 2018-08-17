@@ -10,8 +10,10 @@ h5{
 		text-decoration: none !important;
 	}
 }
-thead{
-	th{
-		text-transform: capitalize;
-	}
+.edit{
+	float: right;
+	margin-right: 10px;
+}
+.black-title{
+	margin-bottom: 20px;
 }
