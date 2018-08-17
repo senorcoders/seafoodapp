@@ -150,7 +150,8 @@
 		"update":"Update",
 		"select":"Please select a Fish type",
 		"delete":"Delete Product",
-		"no-found":"Sorry, Product Not found"
+		"no-found":"Sorry, Product Not found",
+		"detail":"Product details"
 	},
 	"FishType":{
 		"add":"Agregar tipo de pescado",

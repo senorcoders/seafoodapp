@@ -824,6 +824,14 @@ footer{
     margin-right: 5px;
     font-family: Avenir;
   } 
+  .delete{
+    width: 20px;
+    cursor: pointer;
+  }
+  .edit{
+    cursor: pointer;
+    color: #19465f;
+  }
 }
 .tracking{
   margin-top: 30px

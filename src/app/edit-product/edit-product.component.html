@@ -4,32 +4,30 @@
     <div class="row">
       <div class="col-md-12">
           <h1 class="title">{{'EditProduct.title' | translate}}</h1>
-
       </div>
-        <div class="col-md-4" *ngIf="primaryImg">
-            <div class="card" style="width: 18rem;">
-                <span class="primary-label">{{'EditProduct.primary-image' | translate}}</span>
+        <div class="col-lg-4 col-md-6 mg-bt" *ngIf="primaryImg">
+            <div class="primaryImg-cont">
+                <div class="bg-img" [style.background-image]="primaryImg" *ngIf="!showLoading"></div>
+            </div>
+            <div class="bg">
                 <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
-                <img class="card-img-top" [src]="base + primaryImg" alt="Primary Image" *ngIf="!showLoading">
-                <div class="card-body">
-                    <a class="btn btn-primary" (click)="showUploadBtn()">{{'EditProduct.edit-img' | translate}}</a>
-                </div>
+                <span class="primary-label">{{'EditProduct.primary-image' | translate}}</span>
+                <hr class="hr-small">
+                <a class="pink-btn" (click)="showUploadBtn()" *ngIf="showEdit">{{'EditProduct.edit-img' | translate}}</a>
                 <input type="file" id="primary" (change)="updatePrimaryImg($event.target.files)" *ngIf="showUpload">
-              </div>
+            </div>
         </div>
-        <div class="col-md-4" *ngFor="let image of images; index as i; first as isFirst">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" [src]="base + image.src" alt="Card image cap">
-                <div class="card-body">
-                  <a (click)="deleteNode(i)" class="btn btn-danger danger">{{'EditProduct.delete-img-btn' | translate}}</a>
-                </div>
-              </div>
+        <div class="col-lg-4 col-md-6 mg-bt" *ngFor="let image of images; index as i; first as isFirst">
+            <div class="primaryImg-cont">
+                <div class="bg-img" [style.background-image]="image" *ngIf="!showLoading"></div>
+            </div>
+            <div class="bg">
+                <a (click)="deleteNode(i)" class="pink-btn">{{'EditProduct.delete-img-btn' | translate}}</a>
+            </div>
           </div>
-      <div class="col-md-12">
-        
-        <form 
-        
-        (ngSubmit)="onSubmit()">
+      <div class="col-md-12" style="margin-top: -70px;">
+        <h1 class="title" style="margin-bottom: 20px">{{'EditProduct.detail' | translate}}</h1>
+        <form (ngSubmit)="onSubmit()" class="form-design">
   
       <div class="form-group" >
         <label>{{'EditProduct.name' | translate}}</label>
@@ -346,17 +344,16 @@
              id="file" multiple
              (change)="handleFileInput($event.target.files)" >
     </div>
-  
-    
-  
-    <button type="submit"
-            class="btn btn-primary">{{'EditProduct.update' | translate}}
-    </button>
+    <div class="row">
+        <div class="col-md-6">
+            <button type="submit"class="btn-red">{{'EditProduct.update' | translate}}</button>
+        </div>
+        <div class="col-md-6">
+            <button (click)="deleteProduct()" type="button" class="pink-btn bt">{{'EditProduct.delete' | translate}}</button>
+        </div>
+    </div>
   
   </form>
-  <br>
-  <button (click)="deleteProduct()" type="button" class="btn btn-danger">{{'EditProduct.delete' | translate}}</button>
-
       </div>
     </div>
     <div style="height: 100px;"></div>

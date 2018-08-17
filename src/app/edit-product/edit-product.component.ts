@@ -1,18 +1,12 @@
 import { NgModule, Pipe, Component, OnInit } from '@angular/core';
-import {
-    ReactiveFormsModule,
-    FormsModule,
-    FormGroup,
-    FormControl,
-    Validators,
-    FormBuilder
-} from '@angular/forms';
-import {BrowserModule} from '@angular/platform-browser';
+import {ReactiveFormsModule,FormsModule,FormGroup,FormControl,Validators,FormBuilder} from '@angular/forms';
+// import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-edit-product',
@@ -20,7 +14,6 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./edit-product.component.scss']
 })
 export class EditProductComponent implements OnInit {
-
  langs: string[] = [
     'English',
     'French', 
@@ -40,10 +33,12 @@ export class EditProductComponent implements OnInit {
   show:boolean = true;
   user:any;
   images:any = [];
-  primaryImg:string;
+  primaryImg:any;
+  primaryImgLink:string;
   showUpload:boolean=false;
   showLoading:boolean=true;
-  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService){}
+  showEdit:boolean=true;
+  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
   ngOnInit() {
     //this.createFormControls();
     //this.createForm();
@@ -55,11 +50,8 @@ export class EditProductComponent implements OnInit {
    }
 
   }
-
-
   getDetails(){
     this.product.getProductDetail(this.productID).subscribe(data => {
-      console.log("Product", data);
       this.name = data['name'];
       this.description = data['description'];
       this.price = data['price'].value;
@@ -67,8 +59,11 @@ export class EditProductComponent implements OnInit {
       this.country = data['country'];
       this.show = true;
       this.types = data['type'].id;
-      this.images = data['images'];
-      this.primaryImg=data['imagePrimary']
+      data['images'].forEach((val, index)=>{
+        this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
+      })
+      this.primaryImgLink=data['imagePrimary'];
+      this.primaryImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.primaryImgLink})`)
       if(this.primaryImg){
         this.showLoading=false;
       }
@@ -80,14 +75,12 @@ export class EditProductComponent implements OnInit {
   
   getTypes(){
     this.product.getAllCategoriesProducts().subscribe(result =>{
-      console.log(result);
       this.pTypes = result;
     })
    
   }
 
   onSubmit() {
-      console.log("Form Submitted!");
       let data = {
         "type" : this.types,
          "quality": "good",
@@ -105,10 +98,7 @@ export class EditProductComponent implements OnInit {
           },
           "images": this.images
       }
-      console.log(data);
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
-        console.log("Done", result);
-        console.log("Length", this.fileToUpload.length);
         if(this.fileToUpload.length > 0){
           this.uploadFileToActivity(this.productID);
 
@@ -123,7 +113,6 @@ export class EditProductComponent implements OnInit {
 
   deleteProduct(){
     this.product.deleteData('api/fish/'+this.productID).subscribe(result =>{
-      console.log("Done", result);
       this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
        this.router.navigate(['/home']);
 
@@ -131,10 +120,10 @@ export class EditProductComponent implements OnInit {
   }
   showUploadBtn(){
     this.showUpload=true;
+    this.showEdit=false
   }
   handleFileInput(files: FileList) {
     this.fileToUpload = files;
-    console.log("Files", files);
 }
 addPrimaryImg(img:FileList){
   this.product.postFile(img, this.productID, 'primary').subscribe(data => {
@@ -148,7 +137,6 @@ addPrimaryImg(img:FileList){
 uploadFileToActivity(productID) {
   this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
     // do something, if upload success
-    console.log("Data", data);
     //this.myform.reset();
     this.getDetails();
     this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
@@ -158,13 +146,14 @@ uploadFileToActivity(productID) {
 }
 updatePrimaryImg(img:FileList){
   if(img.length > 0){
-    let link = this.primaryImg.substring(1);
+    let link = this.primaryImgLink.substring(1);
     this.product.updatePrimaryImage(img, link).subscribe(
       result=>{
         this.showLoading=true;
         this.toast.success("Primary Image updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
         this.getDetails();
         this.showUpload=false;
+        this.showEdit=true;
       }, error => {
         console.log(error);
       });
