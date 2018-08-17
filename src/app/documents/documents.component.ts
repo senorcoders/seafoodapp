@@ -12,7 +12,8 @@ export class DocumentsComponent implements OnInit {
 	role:any;
 	documents:any=[]
   files:any;
-  base="https://apiseafood.senorcoders.com"
+  base="https://apiseafood.senorcoders.com";
+  noDocument:boolean=false;
   constructor(private product:ProductService, private auth:IsLoginService, private toast:ToastrService) { }
 
   ngOnInit() {
@@ -42,6 +43,12 @@ export class DocumentsComponent implements OnInit {
     this.product.getData('api/admin/files').subscribe(
       result=>{
         this.documents=result
+        if(result && result!=''){
+          this.noDocument=false
+        }
+        else{
+          this.noDocument=true;
+        }
       },
       e=>{
         console.log(e)
@@ -54,7 +61,7 @@ export class DocumentsComponent implements OnInit {
     return name
   }
   saveDocument(){
-  	if(this.documents.length>0){
+  	if(this.files.length>0){
       this.product.uploadFile('api/admin/files','files',this.files).subscribe(
         result=>{
           this.showSuccess('Document has been uploaded')
