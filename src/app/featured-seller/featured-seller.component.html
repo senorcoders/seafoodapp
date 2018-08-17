@@ -1,56 +1,46 @@
-<div class="page-header" id="hero" style="background:url(../../assets/hero_slide.jpg)">
-    <div class="content">
-      <h3 class="small-title">{{'Featured-seller.small-title-banner' | translate}}</h3>
-      <h1 class="big-title">{{'Featured-seller.big-title-banner' | translate}}</h1>
-      <a href="" class="white-btn">{{'Featured-seller.banner-button' | translate}}<fa name="long-arrow-right"></fa></a>
-    </div>
-</div>
+<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
+  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
+  <div class="content">
+    <h1 class="big-title">{{'Featured-seller.big-title-banner'| translate}}</h1>
+    <h3 class="small-title">{{'Featured-seller.small-title-banner'| translate}}</h3>
+    <a href="" class="btn-red-a">{{'Featured-seller.banner-button'| translate}}</a>
+  </div>
+</div> 
 <div class="container">
 	<div class="row">
-		<div class="col-12"><h3 class="black-title">{{'Featured-seller.title' | translate}}</h3><hr class="hr-small"></div>
-    <div class="col-12">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">{{'Featured-seller.name' | translate}}</th>
-            <th scope="col">{{'Featured-seller.delete' | translate}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let featureList of featureLists; let i=index">
-            <td>{{featureList.name}}</td>
-            <td><span (click)="deletefeatureList(featureList.id)" class="delete"><fa name="remove"></fa></span></td>
-          </tr>
-        </tbody>
-      </table>
+		<div class="col-12"><h3 class="black-title">{{'Featured-seller.title' | translate}}</h3></div>
+    <div class="col-12 table-design">
+      <div class="row row-bg" *ngFor="let featureList of featureLists; let i=index">
+        <div class="col-lg-12">
+          <h2 class="name">
+            {{featureList.name}}
+            <img src="../../assets/trash-icon.png" alt="" (click)="deletefeatureList(featureList.id)" class="delete">
+          </h2>
+        </div>
+      </div>
     </div>
 	</div>
 	<div class="row">
     <div class="col-12">
       <h2 class="black-title">{{'Featured-seller.table-title' | translate}}</h2>
-      <hr class="hr-small">
-      <div style="margin-bottom: 20px;">
+      <div style="margin-bottom: 20px;" class="form-group">
         <label>{{'Featured-seller.store' | translate}}</label><br>
         <select class="js-example-basic-single stores" name="stores" data-placeholder="Select Store">
           <option value=""></option>
           <option value="{{store.id}}" *ngFor="let store of stores">{{store.name}}</option>
         </select>
       </div>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">{{'Featured-seller.name' | translate}}</th>
-            <th scope="col">{{'Featured-seller.delete' | translate}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let featureStore of featureStores; let i=index">
-            <td>{{featureStore.name}}</td>
-            <td><span (click)="deleteFeatureStore(i)" class="delete"><fa name="remove"></fa></span></td>
-          </tr>
-        </tbody>
-      </table>
-      <a class="black-btn" (click)="saveFeatures()">{{'Featured-seller.save' | translate}}</a>
+      <div class="col-12 table-design">
+        <div class="row row-bg" *ngFor="let featureStore of featureStores; let i=index">
+          <div class="col-lg-12">
+            <h2 class="name">
+              {{featureStore.name}}
+              <img src="../../assets/trash-icon.png" alt="" (click)="deleteFeatureStore(i)" class="delete">
+            </h2>
+          </div>
+        </div>
+      </div>
+      <a class="btn-red-a" (click)="saveFeatures()" style="margin-top: 20px;">{{'Featured-seller.save' | translate}}</a>
     </div>
   </div>
 </div>

@@ -303,7 +303,7 @@ app-login{
   top:0;
   z-index: 1;
 }
-app-search, app-archive-products, app-cart, app-my-products{
+app-search, app-archive-products, app-cart, app-my-products,app-featured-seller{
   .big-title{
     color: white;
     letter-spacing: 2px;
@@ -842,7 +842,7 @@ footer{
 .tracking{
   margin-top: 30px
 }
-app-administrator{
+app-administrator, app-featured-seller{
   .select2-container--default .select2-selection--single{
     border:0 !important;
     background: transparent;

@@ -228,8 +228,8 @@
 		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
-		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
-		"big-title-banner":"Fresh seafood",
+		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"small-title-banner":"Fresh seafood",
 		"banner-button":"Shop Now",
 		"title":"Featured Products",
 		"table-title":"Products Added",
@@ -240,11 +240,11 @@
 		"save":"Save Products"
 	},
 	"Featured-seller":{
-		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
-		"big-title-banner":"Fresh seafood",
+		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"small-title-banner":"Fresh seafood",
 		"banner-button":"Shop Now",
 		"title":"Featured Seller",
-		"table-title":"Seller Added",
+		"table-title":"Add Seller",
 		"name":"Name",
 		"delete":"Delete",
 		"store":"Select Store",

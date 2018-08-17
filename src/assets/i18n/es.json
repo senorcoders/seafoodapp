@@ -226,8 +226,8 @@
 		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Productos Destacados",
 		"table-title":"Productos agregados",
@@ -238,11 +238,11 @@
 		"save":"Save Products"
 	},
 	"Featured-seller":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Vendedores Destacados",
-		"table-title":"Vendedores agregados",
+		"table-title":"Agregar Vendedores",
 		"name":"Nombre",
 		"delete":"Borrar",
 		"store":"Select Store",
