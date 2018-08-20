@@ -28,7 +28,7 @@
     jQuery(document).on( 'click', '.hasChildren', function(){
       jQuery(this).parent().find('.submenu').toggle('slow')
     });
-    jQuery(document).on('click','a',function() {
+    jQuery(document).on('click','footer a',function() {
       jQuery("html, body").animate({ scrollTop: 0 }, "slow");
       return false;
     });

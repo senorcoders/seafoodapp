@@ -56,6 +56,12 @@ export class ArchiveProductsComponent implements OnInit {
       jQuery([document.documentElement, document.body]).animate({
         scrollTop: jQuery('#search-title').offset().top
       }, 1000);
+      jQuery('.fish-type-menu .nav-link').click(function(e){
+        jQuery('html, body').animate({
+          scrollTop: jQuery("#search-title").offset().top
+        }, 2000);
+      
+      })
     })
   }
  showError(e){
