@@ -17,41 +17,48 @@
   <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="col-md-9"></div>
     <div class="col-md-3 text-right">
-      <a routerLink="/home" class="link-cart">{{'Cart.back' | translate}}</a>
+      <a routerLink="/home" class="btn-red-a">{{'Cart.back' | translate}}</a>
     </div>
   </div>
-  <div class="row flex-center" *ngFor="let product of products; index as i;">
-    <div class="col-md-2">
-      <div class="box-input">
-        <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value">
+  <div class="table-design">
+    <div class="row row-bg" *ngFor="let product of products; index as i;">
+      <div class="col-md-2">
+        <div class="box-input">
+          <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value">
+        </div>
+      </div>
+      <div class="col-md-2">
+        @ ${{product.price.value}}
+      </div>
+      <div class="col-md-4">
+        <div class="product-name">
+          <a routerLink="/product/{{product.fish.id}}">{{product.fish.name}}</a>
+          <hr class="black-line">
+        </div>
+        <div class="product-description">
+          {{product.fish.description}}
+        </div>
+      </div>
+      <div class="col-md-2 text-center">
+        ${{getTotalxItem(product.quantity.value, product.price.value)}}
+      </div>
+      <div class="col-md-2">
+        <button class="pink-btn btn-rm" (click)="deleteItem(i,product.id)"> {{'Cart.delete' | translate}}</button>
       </div>
     </div>
-    <div class="col-md-2">
-      @ ${{product.price.value}}
-    </div>
-    <div class="col-md-4">
-      {{product.fish.name}} -  {{product.fish.description}}
-    </div>
-    <div class="col-md-2 text-center">
-      ${{getTotalxItem(product.quantity.value, product.price.value)}}
-    </div>
-    <div class="col-md-2">
-      <button class="cart-btn" (click)="deleteItem(i,product.id)"> {{'Cart.delete' | translate}}</button>
-    </div>
-
   </div>
   <div class="row" >
       <div class="col-md-12" style="padding-bottom: 20px;">
         <hr class="cart-divider">
       </div>
       <div class="col-md-3">
-        <button class="cart-btn" (click)="getAllProductsCount()">{{'Cart.update' | translate}}</button>
+        <button class="pink-btn" (click)="getAllProductsCount()">{{'Cart.update' | translate}}</button>
       </div>
       <div class="col-md-7 text-right">
-        <h3>{{'Cart.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
+        <h3 class="subtotal">{{'Cart.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
       </div>
       <div class="col-md-12 text-right" style="padding-bottom: 20px; padding-top: 20px;">
-        <button class="cart-btn" (click)="checkout()">{{'Cart.next' | translate}}</button>
+        <button class="btn-red" (click)="checkout()">{{'Cart.next' | translate}}</button>
       </div>
   </div>
 

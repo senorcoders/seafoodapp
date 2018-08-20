@@ -29,6 +29,7 @@ export class CartComponent implements OnInit {
 
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
+      console.log(cart)
       if(cart && cart['items'] !=''){
         this.shoppingCartId=cart['id']
         this.products=cart['items'];
