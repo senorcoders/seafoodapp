@@ -183,7 +183,7 @@ deleteProduct(id, index){
 
   });
 }
-searchProducts(query,number){
+searchProducts(query){
   this.showNextP=false;
   this.showPrvP=false;
 	this.showLoading=true;
