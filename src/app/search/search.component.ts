@@ -17,6 +17,9 @@ export class SearchComponent implements OnInit {
   API:string="https://apiseafood.senorcoders.com";
   showNotFound=false;
   image:SafeStyle=[];
+  showNextP:boolean=false;
+  showPrvP:boolean=false;
+  prvPage =1;
   constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -31,9 +34,8 @@ export class SearchComponent implements OnInit {
   }
   searchProducts(query){
     this.searchQuery=query;
-    this.product.searchProductByName(query).subscribe(
+    this.product.searchProductByName(query,1).subscribe(
       result=>{
-        console.log(result)
         this.products=result;
         //working on the images to use like background
          this.products.forEach((data, index)=>{
@@ -53,6 +55,7 @@ export class SearchComponent implements OnInit {
         else{
           this.showNotFound=false;
         }
+        this.nextProductsExist();
       },
       error=>{
         console.log(error)
@@ -61,6 +64,48 @@ export class SearchComponent implements OnInit {
   }
    showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+  }
+  nextProductsExist(){
+    if(this.products.length>=12){
+      this.showNextP=true;
+    }
+    else{
+      this.showNextP=false;
+    }
+  }
+   previousProductExist(){
+    if(this.prvPage>1){
+      this.showPrvP=true;
+    }
+    else{
+      this.showPrvP=false
+    }
+  }
+  nextPage(){
+    this.prvPage=this.prvPage+1;
+    this.product.searchProductByName(this.searchQuery, this.prvPage).subscribe(
+      result=>{
+        this.products=result;
+        this.nextProductsExist();
+        this.previousProductExist()
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
+  previousPage(){
+      this.prvPage=this.prvPage-1;
+      this.product.searchProductByName(this.searchQuery, this.prvPage).subscribe(
+        result=>{
+          this.products=result;
+          this.nextProductsExist()
+          this.previousProductExist();
+        },
+        error=>{
+          console.log(error)
+        }
+      )
   }
   smallDesc(str) {
      if(str.length>20){

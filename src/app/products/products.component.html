@@ -63,5 +63,11 @@
         <span class="btn-red-a next" (click)="nextPage()" *ngIf="showNextP">{{'Products.next' | translate}}</span>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <span class="btn-red-a previous" (click)="previousPageSearch()" *ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
+        <span class="btn-red-a next" (click)="nextPageSearch()" *ngIf="showNextPS">{{'Products.next' | translate}}</span>
+      </div>
+    </div>
   </div>
 </div>   

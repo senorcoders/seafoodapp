@@ -10,6 +10,8 @@
             <h2 class="name">
               {{admin.firstName}} {{admin.lastName}}
             </h2>
+            <span>{{admin.email}}</span>
+            <hr class="black-line">
             <select class="form-control" (change)="newRole(i,$event.target.value, admin.id)">
               <option value="">{{'Admin.role' | translate}}</option>
               <option value="1">{{'Admin.seller' | translate}}</option>

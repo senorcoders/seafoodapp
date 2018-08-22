@@ -68,7 +68,7 @@ export class ArchiveProductsComponent implements OnInit {
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   nextProductsExist(){
-    if(this.products.length>10){
+    if(this.products.length>=12){
       this.showNextP=true;
     }
     else{
@@ -101,6 +101,7 @@ previousPage(){
     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
       result=>{
         this.products=result;
+        this.nextProductsExist()
         this.previousProductExist();
       },
       error=>{

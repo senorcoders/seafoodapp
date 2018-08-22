@@ -4,6 +4,7 @@
     height: 100%;
     z-index: 9999;
     background: white;
+    top: 0;
     .content{
         transform: translate(-50%,-50%);
         top: 50%;
@@ -11,5 +12,11 @@
         width: 100%;
         position: absolute;
         text-align: center;
+    }
+    h1{
+        font-family: Avenir;
+    }
+    a{
+        color:#eb1c24;
     }
 }

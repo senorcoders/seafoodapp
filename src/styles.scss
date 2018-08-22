@@ -421,6 +421,8 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   .black-line{
     height: 0.5px;
     margin: 5px 0 40px;
+    background: transparent;
+    border-top: 1px solid black;
   }
   .owner-link{
     color:#eb1c24;
@@ -690,7 +692,7 @@ footer{
   }
 }
 .black-line{
-  background: #000;
+  border-top: 1px solid black;
     width: 90px;
     margin: 10px 0;
     height: 1px;
@@ -819,7 +821,7 @@ footer{
   .black-line{
     width: 70px;
     height: .5px;
-    background: black;
+    border-top:1px solid black;
   }
   div{
     font-family: Avenir;

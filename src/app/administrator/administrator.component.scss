@@ -24,6 +24,14 @@
 }
 .row-bg {
     background: white;
+    select{
+        background: #ebf1f6
+    }
+}
+.table-design .row-bg:nth-of-type(odd){
+    select{
+        background: white
+    }
 }
 .table-design{
     .pink-btn{
