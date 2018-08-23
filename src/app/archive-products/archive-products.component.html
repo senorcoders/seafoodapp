@@ -39,8 +39,9 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
+      <div class="col" style="text-align: center;">
         <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number)">{{number}}</span>
         <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
       </div>
     </div>

@@ -4,6 +4,7 @@ import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-archive-products',
   templateUrl: './archive-products.component.html',
@@ -19,13 +20,26 @@ export class ArchiveProductsComponent implements OnInit {
   showNotFound=false;
   store:any=[];
   image:SafeStyle=[];
-  constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }
+  page:any;
+  pageNumbers:any;
+  paginationNumbers:any=[];
+  constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.category= this.route.snapshot.params['category'];
-      this.product.getProdutsByCategory(this.category,0).subscribe(
+      this.page= this.route.snapshot.params['page'];
+      jQuery(document).ready(function(){
+        jQuery([document.documentElement, document.body]).animate({
+          scrollTop: jQuery('#search-title').offset().top
+        }, 1000);
+      });
+      this.product.getProdutsByCategory(this.category,this.page).subscribe(
       result=>{
-        this.products=result;
+        this.products=result['fish'];
+        this.pageNumbers=parseInt(result['pagesNumber']);
+        for (let i=1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i)
+        }
         //working on the images to use like background
          this.products.forEach((data, index)=>{
             if (data.imagePrimary && data.imagePrimary !='') {
@@ -44,7 +58,8 @@ export class ArchiveProductsComponent implements OnInit {
         else{
           this.showNotFound=false;
         }
-        this.nextProductsExist()
+        this.nextProductsExist();
+        this.previousProductExist();
       },
       error=>{
         this.showError(error.error);
@@ -52,63 +67,80 @@ export class ArchiveProductsComponent implements OnInit {
       }
     )
     });
-    jQuery(document).ready(function(){
-      jQuery([document.documentElement, document.body]).animate({
-        scrollTop: jQuery('#search-title').offset().top
-      }, 1000);
-      jQuery('.fish-type-menu .nav-link').click(function(e){
-        jQuery('html, body').animate({
-          scrollTop: jQuery("#search-title").offset().top
-        }, 2000);
+    // jQuery(document).ready(function(){
+    //   jQuery([document.documentElement, document.body]).animate({
+    //     scrollTop: jQuery('#search-title').offset().top
+    //   }, 1000);
+    //   jQuery('.fish-type-menu .nav-link').click(function(e){
+    //     jQuery('html, body').animate({
+    //       scrollTop: jQuery("#search-title").offset().top
+    //     }, 2000);
       
-      })
-    })
+    //   })
+    // })
   }
  showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   nextProductsExist(){
-    if(this.products.length>=12){
+    if(this.page<this.pageNumbers){
       this.showNextP=true;
-    }
-    else{
+    }else{
       this.showNextP=false;
     }
   }
   previousProductExist(){
-    if(this.prvPage>0){
+    if(this.page>1){
       this.showPrvP=true;
-    }
-    else{
-      this.showPrvP=false
+    }else{
+      this.showPrvP=false;
     }
   }
   nextPage(){
-    this.prvPage=this.prvPage+1;
-    this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist();
-        this.previousProductExist()
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+    this.paginationNumbers=[];
+    this.page++;
+    this.router.navigate([`/fish-type/${this.category}/${this.page}`]);
   }
-previousPage(){
-    this.prvPage=this.prvPage-1;
-    this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist()
-        this.previousProductExist();
-      },
-      error=>{
-        console.log(error)
-      }
-    )
-}
+  goTo(page){
+    this.paginationNumbers=[];
+    this.router.navigate([`/fish-type/${this.category}/${page}`]);
+  }
+  previousPage(){
+    this.paginationNumbers=[];
+    if(this.page>1){
+      this.page--;
+      this.router.navigate([`/fish-type/${this.category}/${this.page}`]);
+    }
+    else{
+      this.router.navigate([`/fish-type/${this.category}/${this.page}`]);
+    }
+  }
+//   nextPage(){
+//     this.prvPage=this.prvPage+1;
+//     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
+//       result=>{
+//         this.products=result;
+//         this.nextProductsExist();
+//         this.previousProductExist()
+//       },
+//       error=>{
+//         console.log(error)
+//       }
+//     )
+//   }
+// previousPage(){
+//     this.prvPage=this.prvPage-1;
+//     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
+//       result=>{
+//         this.products=result;
+//         this.nextProductsExist()
+//         this.previousProductExist();
+//       },
+//       error=>{
+//         console.log(error)
+//       }
+//     )
+// }
  smallDesc(str) {
      if(str.length>20){
         let text=str.split(/\s+/).slice(0,20).join(" ")
