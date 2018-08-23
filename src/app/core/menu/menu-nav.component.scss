@@ -68,6 +68,11 @@ form{
 	    padding: 9px 20px;
 	}
 }
+.admin-navbar{
+	.nav-link{
+		padding-right: 1rem !important
+	}
+}
 .fish-type-menu{
     .nav-item {
     	display: inline-block;
@@ -175,6 +180,13 @@ form{
 	.multiple .dropdown-menu{
 	  width: 750% !important;
 	  left: -400% !important;
+	}
+	.admin-navbar{
+		.nav-link{
+			padding-right: 0.5rem !important;
+		    font-size: 1rem;
+		    padding-left: 0.5rem !important;
+		}
 	}
 }
 @media(max-width: 992px){

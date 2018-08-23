@@ -74,7 +74,7 @@
           </ul>
           <!-- end menu seller -->
           <!-- start menu admin-->
-          <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==0">
+          <ul class="navbar-nav ml-auto admin-navbar" *ngIf="isLogged && role==0">
             <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()">
               <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
               <ng-template #submenu>
