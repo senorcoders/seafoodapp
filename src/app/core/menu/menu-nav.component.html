@@ -1,144 +1,316 @@
 <div class="top-nav">
   <div class="container">
     <div class="row" style="align-items: center;">
-      <div class="col-12 col-sm-4 col-md-4 address">
+      <div class="address">
        <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Seafood_Souq_blue.png" alt=""></a>
       </div>
-      <div class="col access" *ngIf="!isLogged; else noLogin">
-        <a routerLink="/login" class="login">{{ "Menu.login" | translate }}</a>
-        <span class="bar">|</span>
-        <a routerLink="/register" class="signup">{{ "Menu.register" | translate }}</a>
-      </div>
-      <ng-template #noLogin>
-        <div class="col-12 col-sm-8 col-md-8 access">
-          <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
-          <span class="bar">|</span>
-          <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
+      <nav class="navbar navbar-expand-lg navbar-light ml-auto">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <!-- menu top -->
+          <!-- <ul class="navbar-nav ml-auto top-mobile" *ngIf="!isLogged; else noLoginMobile">
+            <li class="nav-item">
+              <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/account" class="nav-link">{{ "Menu.register" | translate }}</a>
+            </li>
+          </ul> -->
+          <!-- <ng-template #noLoginMobile>
+            <ul class="navbar-nav ml-auto top-mobile">
+              <li class="nav-item">
+                <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/account" class="nav-link" >{{ "Menu.perfil" | translate }}</a>
+              </li>
+            </ul>
+          </ng-template> -->
+          <!-- star menu buyer -->
+          <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
+            <!-- start search -->
+            <li class="nav-item">
+              <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a>
+              <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()" *ngIf="show">
+                <input class="form-control" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()" id="search-input">
+                <div class="suggestion" *ngIf="showSuggestion">
+                  <ul>
+                    <li *ngFor="let result of results" (click)="searchBySuggestion(result.name)">{{result.name}} <span class="count">{{result.count}}</span></li>
+                  </ul>
+                </div>
+                <button type="submit" [disabled]="searchForm.invalid" class="search-btn">{{'Menu.search-input-button' | translate}}</button>
+              </form>
+              <div class="closeContainer" *ngIf="showSuggestion" (click)="closeSuggestion()"></div>
+            </li>
+            <!-- end search -->
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
+              <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+              <ng-template #submenu>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                    <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
+                  </div>
+                </li>
+              </ng-template>
+            </li>
+          </ul>
+          <!-- end menu bayer -->
+          <!-- start menu seller-->
+          <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
+              <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+              <ng-template #submenu>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                    <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
+                  </div>
+                </li>
+              </ng-template>
+            </li>
+          </ul>
+          <!-- end menu seller -->
+          <!-- start menu admin-->
+          <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==0">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()">
+              <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+              <ng-template #submenu>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                    <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
+                  </div>
+                </li>
+              </ng-template>
+            </li>
+          </ul>
+          <!-- end menu admin -->
+          <ul class="navbar-nav access" *ngIf="!isLogged; else noLogin">
+            <li class="nav-item">
+              <a routerLink="/login" class="login">{{ "Menu.login" | translate }}</a>
+            </li>
+            <li class="nav-item">
+              <span class="bar">|</span>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/register" class="signup">{{ "Menu.register" | translate }}</a>
+            </li>
+          </ul>
+          <ng-template #noLogin>
+            <ul class="navbar-nav access">
+              <li class="nav-item">
+                <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
+              </li>
+              <li class="nav-item">
+                 <span class="bar">|</span>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
+              </li>
+            </ul>
+          </ng-template>
+          <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
+            <li class="nav-item" *ngIf="showCart && isLogged">
+              <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
+            </li>
+            <li class="nav-item lang-cont">
+              <select class="language" (change)="changeLanguage($event)">
+                <option value="{{lang}}">{{lang}}</option>
+                <option *ngIf="lang=='es'; else es" value="en">en</option>
+                <ng-template #es>
+                  <option value="es">es</option>
+                </ng-template>
+              </select>
+            </li>
+          </ul>
+          <div class="fish-type-menu-mobile" *ngIf="isLogged && role==2">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a routerLink="/" class="nav-link">Salmon</a>
+              </li>
+              <li class="nav-item">
+                <a routerLink="/" class="nav-link">Tuna</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oysters, Clams & Mussels</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Oysters</a>
+                  <a class="dropdown-item" href="#">Clams</a>
+                  <a class="dropdown-item" href="#">Mussels</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lobster & Crab</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Lobster</a>
+                  <a class="dropdown-item" href="#">Crab</a>
+                  <a class="dropdown-item" href="#">Crayfish</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shrimp & Scallops</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">Shrimp-Prawns</a>
+                  <a class="dropdown-item" href="#">Scallops</a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Finfish</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <div class="row">
+                    <div class="col">
+                      <a class="dropdown-item" href="#">Bass</a>
+                      <a class="dropdown-item" href="#">Drum</a>
+                      <a class="dropdown-item" href="#">Hake-Hoki-Whiting</a>
+                      <a class="dropdown-item" href="#">Jacks</a>
+                      <a class="dropdown-item" href="#">Pollock</a>
+                      <a class="dropdown-item" href="#">Tilapia</a>
+                      <a class="dropdown-item" href="#">Other Finfish</a>
+                    </div>
+                    <div class="col">
+                      <a class="dropdown-item" href="#">Catfish-Swai-Basa</a>
+                      <a class="dropdown-item" href="#">Flounder-Sole</a>
+                      <a class="dropdown-item" href="#">Halibut</a>
+                      <a class="dropdown-item" href="#">Mackerel</a>
+                      <a class="dropdown-item" href="#">Swordfish</a>
+                      <a class="dropdown-item" href="#">Trout</a>
+                    </div>
+                    <div class="col">
+                      <a class="dropdown-item" href="#">Cod-Haddock</a>
+                      <a class="dropdown-item" href="#">Grouper-Snapper</a>
+                      <a class="dropdown-item" href="#">Herring-Sardines</a>
+                      <a class="dropdown-item" href="#">Perch</a>
+                      <a class="dropdown-item" href="#">Sturgeon</a>
+                      <a class="dropdown-item" href="#">Whitefish</a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Seafood</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                 <div class="row">
+                   <div class="col">
+                      <a class="dropdown-item" href="#">Octopus</a>
+                      <a class="dropdown-item" href="#">Squid</a>
+                      <a class="dropdown-item" href="#">Condiments</a>
+                   </div>
+                   <div class="col">
+                      <a class="dropdown-item" href="#">Sea Urchin</a>
+                      <a class="dropdown-item" href="#">Smoked Seafood</a>
+                   </div>
+                   <div class="col">
+                      <a class="dropdown-item" href="#">Shark</a>
+                      <a class="dropdown-item" href="#">Other Seafood</a>
+                   </div>
+                  </div>
+               </div>
+              </li>
+            </ul>
+          </div>
         </div>
-      </ng-template>
+      </nav>
     </div>
   </div>
 </div>
-<div class="menuContainer">
+<!-- <div class="menuContainer">
   <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- menu top -->
-        <!-- <ul class="navbar-nav ml-auto top-mobile" *ngIf="!isLogged; else noLoginMobile">
-          <li class="nav-item">
-            <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="/account" class="nav-link">{{ "Menu.register" | translate }}</a>
-          </li>
-        </ul> -->
-        <!-- <ng-template #noLoginMobile>
-          <ul class="navbar-nav ml-auto top-mobile">
-            <li class="nav-item">
-              <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
-            </li>
-            <li class="nav-item">
-              <a routerLink="/account" class="nav-link" >{{ "Menu.perfil" | translate }}</a>
-            </li>
-          </ul>
-        </ng-template> -->
-        <!-- star menu buyer -->
-        <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
-          <!-- start search -->
-          <li class="nav-item">
-            <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a>
-            <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()" *ngIf="show">
-              <input class="form-control" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()" id="search-input">
-              <div class="suggestion" *ngIf="showSuggestion">
-                <ul>
-                  <li *ngFor="let result of results" (click)="searchBySuggestion(result.name)">{{result.name}} <span class="count">{{result.count}}</span></li>
-                </ul>
-              </div>
-              <button type="submit" [disabled]="searchForm.invalid" class="search-btn">{{'Menu.search-input-button' | translate}}</button>
-            </form>
-            <div class="closeContainer" *ngIf="showSuggestion" (click)="closeSuggestion()"></div>
-          </li>
-          <!-- end search -->
-          <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
-            <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-            <ng-template #submenu>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                  <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
-                </div>
-              </li>
-            </ng-template>
-          </li>
-        </ul>
-        <!-- end menu bayer -->
-        <!-- start menu seller-->
-        <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==1">
-          <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
-            <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-            <ng-template #submenu>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                  <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
-                </div>
-              </li>
-            </ng-template>
-          </li>
-        </ul>
-        <!-- end menu seller -->
-        <!-- start menu admin-->
-        <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==0">
-          <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()">
-            <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-            <ng-template #submenu>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                  <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
-                </div>
-              </li>
-            </ng-template>
-          </li>
-        </ul>
-        <!-- end menu admin -->
-        <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
-          <li class="nav-item" *ngIf="showCart && isLogged">
-            <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
-          </li>
-          <li class="nav-item lang-cont">
-            <select class="language" (change)="changeLanguage($event)">
-              <option value="{{lang}}">{{lang}}</option>
-              <option *ngIf="lang=='es'; else es" value="en">en</option>
-              <ng-template #es>
-                <option value="es">es</option>
-              </ng-template>
-            </select>
-          </li>
-        </ul>
-        <div class="fish-type-menu-mobile" *ngIf="isLogged && role==2">
-          <ul class="navbar-nav">
-            <li class="nav-item" *ngFor="let type of fishTypeMenu">
-              <a routerLink="{{type.state}}" class="nav-link" routerLinkActive="active-link">{{type.name}}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    
   </div>
-</div>
+</div> -->
 <div class="fish-type-menu" *ngIf="isLogged && role==2">
   <div class="container">
     <div class="row">
       <div class="col-12">
         <nav class="navbar navbar-expand-lg navbar-light">
           <ul class="navbar-nav mx-auto">
-            <li class="nav-item" *ngFor="let type of fishTypeMenu">
-              <a routerLink="{{type.state}}" class="nav-link" routerLinkActive="active-link">{{type.name}}</a>
+            <li class="nav-item">
+              <a routerLink="/" class="nav-link">Salmon</a>
             </li>
+            <li class="nav-item">
+              <a routerLink="/" class="nav-link">Tuna</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oysters, Clams & Mussels</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Oysters</a>
+                <a class="dropdown-item" href="#">Clams</a>
+                <a class="dropdown-item" href="#">Mussels</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Lobster & Crab</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Lobster</a>
+                <a class="dropdown-item" href="#">Crab</a>
+                <a class="dropdown-item" href="#">Crayfish</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Shrimp & Scallops</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Shrimp-Prawns</a>
+                <a class="dropdown-item" href="#">Scallops</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown multiple">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Finfish</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <div class="row">
+                  <div class="col-4">
+                    <a class="dropdown-item" href="#">Bass</a>
+                    <a class="dropdown-item" href="#">Drum</a>
+                    <a class="dropdown-item" href="#">Hake-Hoki-Whiting</a>
+                    <a class="dropdown-item" href="#">Jacks</a>
+                    <a class="dropdown-item" href="#">Pollock</a>
+                    <a class="dropdown-item" href="#">Tilapia</a>
+                    <a class="dropdown-item" href="#">Other Finfish</a>
+                  </div>
+                  <div class="col-4">
+                    <a class="dropdown-item" href="#">Catfish-Swai-Basa</a>
+                    <a class="dropdown-item" href="#">Flounder-Sole</a>
+                    <a class="dropdown-item" href="#">Halibut</a>
+                    <a class="dropdown-item" href="#">Mackerel</a>
+                    <a class="dropdown-item" href="#">Swordfish</a>
+                    <a class="dropdown-item" href="#">Trout</a>
+                  </div>
+                  <div class="col-4">
+                    <a class="dropdown-item" href="#">Cod-Haddock</a>
+                    <a class="dropdown-item" href="#">Grouper-Snapper</a>
+                    <a class="dropdown-item" href="#">Herring-Sardines</a>
+                    <a class="dropdown-item" href="#">Perch</a>
+                    <a class="dropdown-item" href="#">Sturgeon</a>
+                    <a class="dropdown-item" href="#">Whitefish</a>
+                  </div>
+                </div>
+              </div>
+            </li>
+            <li class="nav-item dropdown more-menu">
+              <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">More Seafood</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+               <div class="row">
+                 <div class="col-4">
+                    <a class="dropdown-item" href="#">Octopus</a>
+                    <a class="dropdown-item" href="#">Squid</a>
+                    <a class="dropdown-item" href="#">Condiments</a>
+                 </div>
+                 <div class="col-4">
+                    <a class="dropdown-item" href="#">Sea Urchin</a>
+                    <a class="dropdown-item" href="#">Smoked Seafood</a>
+                 </div>
+                 <div class="col-4">
+                    <a class="dropdown-item" href="#">Shark</a>
+                    <a class="dropdown-item" href="#">Other Seafood</a>
+                 </div>
+                </div>
+             </div>
+            </li>
+            <!-- <li class="nav-item" *ngFor="let type of fishTypeMenu">
+              <a routerLink="{{type.state}}" class="nav-link" routerLinkActive="active-link">{{type.name}}</a>
+            </li> -->
           </ul>
         </nav>
       </div>

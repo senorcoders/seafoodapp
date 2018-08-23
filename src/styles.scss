@@ -348,9 +348,6 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   }
   //padding-left: 40px;
 }
-.menu-buyer{
-  margin-right: 200px;
-}
 .search-product-img img{
   width:auto;
   height:auto;
@@ -894,9 +891,6 @@ app-administrator, app-featured-seller, app-featured-products,app-featured-types
   }
 }
 @media(max-width:768px){
-  .access, .address{
-    text-align: center;
-  }
   .small-title{
     font-size:1.5rem
   }

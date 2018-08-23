@@ -1,3 +1,11 @@
+.multiple .dropdown-menu{
+  width: 620% !important;
+  left: -400% !important;
+}
+.more-menu .dropdown-menu{
+	width: 350% !important;
+    left: -270% !important;
+}
 .top-nav{
     padding: 15px 0;
     box-shadow: 0px 10px 11px -7px #eeeeee;
@@ -17,13 +25,14 @@
 	}
 	.access{
 		text-align: right;
+		margin-right: 10px;
 		.login{
 			cursor: pointer;
-			color: #969696 !important;
+			color: #969696;
 			text-decoration: none !important;
 		}
 		.signup{
-			color: #eb1c24 !important;
+			color: #eb1c24;
 			text-transform: uppercase;
 			font-family: Avenir Medium;
 			text-decoration: none !important;
@@ -67,8 +76,8 @@ form{
 		    padding-top: 5px !important;
 		    padding-bottom: 5px !important;
 		    position: relative;
-		    padding-right: 2rem !important;
-		    padding-right: 20px;
+		    padding-left: 20px !important;
+		    padding-right: 20px !important;
 		    &:after{
 		    	content: '/';
 			    position: absolute;
@@ -78,6 +87,9 @@ form{
 			    color:black !important;
 			    font-weight: normal !important;
 			    transform: translate(0%,-45%);
+				margin: 0 !important;
+			    height: auto !important;
+			    border: 0 !important;
 		    }
 		}
 		&:last-child .nav-link:after{
@@ -154,6 +166,17 @@ form{
 		display: none;
 	}
 }
+@media(max-width: 1200px){
+	.fish-type-menu .nav-item .nav-link{
+		padding-left: 15px !important;
+		padding-right: 15px !important;
+		font-size: 1rem !important
+	}
+	.multiple .dropdown-menu{
+	  width: 750% !important;
+	  left: -400% !important;
+	}
+}
 @media(max-width: 992px){
 	.lang-cont{
 		text-align: right;
@@ -161,9 +184,34 @@ form{
 	.top-mobile{
 		display: block;
 	}
-	// .top-nav{
-	// 	display: none;
-	// }
+	.navbar-toggler{
+		position: absolute;
+	    top: -50px;
+	    right: 15px;
+	}
+	.navbar{
+		margin: 0 !important;
+    	width: 100%;
+	}
+	.access{
+		padding-left: 15px;
+		text-align: left !important;
+		a{
+			color: #000000 !important;
+		    font-size: 1.1rem !important;
+		    text-transform: capitalize !important;
+		    font-family: Avenir !important;   
+		    padding-bottom: 0.5rem !important;
+    		padding-top: 0.5rem !important;
+    		display: block;
+		}
+	}
+	.dropdown-toggle::after{
+		display: none;
+	}
+	.bar{
+		display: none !important;
+	}
 	.nav-language {
     	align-items: flex-start;
 	}
@@ -178,8 +226,4 @@ form{
 	.address{
 	    text-align: center !important;
 	  }
-	.access{
-		text-align: center !important;
-		margin-top: 10px;
-	}
 }
