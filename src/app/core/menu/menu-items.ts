@@ -143,18 +143,6 @@ const menuSeller=[
   }
 },
 {
-  state:'fish-type',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Fish Type'
-    },
-    es:{
-      name:'Tipos de Pescados'
-    }
-  }
-},
-{
   state:'documents',
   type: 'link',
   translate:{

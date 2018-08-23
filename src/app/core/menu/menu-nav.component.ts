@@ -144,7 +144,7 @@ export class MenuNavComponent{
     this.showSuggestion=false;
     this.show=false;
     this.results='';
-    this.router.navigate([`search/${this.searchForm.get('search').value}`]);
+    this.router.navigate([`search/${this.searchForm.get('search').value}/1`]);
     this.searchForm.reset()
   }
   searchBySuggestion(name){
