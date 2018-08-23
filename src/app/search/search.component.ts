@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -19,24 +20,31 @@ export class SearchComponent implements OnInit {
   image:SafeStyle=[];
   showNextP:boolean=false;
   showPrvP:boolean=false;
-  prvPage =1;
-  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }
+  page:number;
+  pageNumbers:any;
+  paginationNumbers:any=[];
+  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.searchQuery= this.route.snapshot.params['search'];
+      this.page= this.route.snapshot.params['page'];
       this.searchProducts(this.searchQuery);
-    })
-    jQuery(document).ready(function(){
-      jQuery([document.documentElement, document.body]).animate({
-        scrollTop: jQuery('#search-title').offset().top
-      }, 1000);
+      jQuery(document).ready(function(){
+        jQuery([document.documentElement, document.body]).animate({
+          scrollTop: jQuery('#search-title').offset().top
+        }, 1000);
+      })
     })
   }
   searchProducts(query){
     this.searchQuery=query;
-    this.product.searchProductByName(query,1).subscribe(
+    this.product.searchProductByName(query,this.page).subscribe(
       result=>{
-        this.products=result;
+        this.products=result['fish'];
+        this.pageNumbers=parseInt(result['pagesCount']);
+        for (let i=1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i)
+        }
         //working on the images to use like background
          this.products.forEach((data, index)=>{
             if (data.imagePrimary && data.imagePrimary !='') {
@@ -56,6 +64,7 @@ export class SearchComponent implements OnInit {
           this.showNotFound=false;
         }
         this.nextProductsExist();
+        this.previousProductExist();
       },
       error=>{
         console.log(error)
@@ -66,46 +75,37 @@ export class SearchComponent implements OnInit {
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
   nextProductsExist(){
-    if(this.products.length>=12){
+    if(this.page<this.pageNumbers){
       this.showNextP=true;
-    }
-    else{
+    }else{
       this.showNextP=false;
     }
   }
    previousProductExist(){
-    if(this.prvPage>1){
+     if(this.page>1){
       this.showPrvP=true;
-    }
-    else{
-      this.showPrvP=false
+    }else{
+      this.showPrvP=false;
     }
   }
   nextPage(){
-    this.prvPage=this.prvPage+1;
-    this.product.searchProductByName(this.searchQuery, this.prvPage).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist();
-        this.previousProductExist()
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+    this.paginationNumbers=[];
+    this.page++;
+    this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+  }
+  goTo(page){
+    this.paginationNumbers=[];
+    this.router.navigate([`/search/${this.searchQuery}/${page}`]);
   }
   previousPage(){
-      this.prvPage=this.prvPage-1;
-      this.product.searchProductByName(this.searchQuery, this.prvPage).subscribe(
-        result=>{
-          this.products=result;
-          this.nextProductsExist()
-          this.previousProductExist();
-        },
-        error=>{
-          console.log(error)
-        }
-      )
+    this.paginationNumbers=[];
+    if(this.page>1){
+      this.page--;
+      this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+    }
+    else{
+      this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+    }
   }
   smallDesc(str) {
      if(str.length>20){
