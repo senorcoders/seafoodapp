@@ -1,16 +1,16 @@
 <div class="top-nav">
   <div class="container">
-    <div class="row">
-      <div class="col-md-8 col-lg-9 address">
-        2018, Seafood Souq   <span class="bar">|</span> Dubai Emirates  <i class="fa fa-paper-plane-o"></i> <a href="mailto:info@seafoodsouq.com" style="color: inherit;text-decoration: none;">info@seafoodsouq.com</a>
+    <div class="row" style="align-items: center;">
+      <div class="col-12 col-sm-4 col-md-4 address">
+       <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Seafood_Souq_blue.png" alt=""></a>
       </div>
-      <div class="col-md-4 col-lg-3 access" *ngIf="!isLogged; else noLogin">
+      <div class="col access" *ngIf="!isLogged; else noLogin">
         <a routerLink="/login" class="login">{{ "Menu.login" | translate }}</a>
         <span class="bar">|</span>
         <a routerLink="/register" class="signup">{{ "Menu.register" | translate }}</a>
       </div>
       <ng-template #noLogin>
-        <div class="col-md-4 col-lg-3 access">
+        <div class="col-12 col-sm-8 col-md-8 access">
           <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
           <span class="bar">|</span>
           <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
@@ -22,21 +22,20 @@
 <div class="menuContainer">
   <div class="container">
     <nav class="navbar navbar-expand-lg navbar-light">
-      <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Seafood_Souq_blue.png" alt=""></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- menu top -->
-        <ul class="navbar-nav ml-auto top-mobile" *ngIf="!isLogged; else noLoginMobile">
+        <!-- <ul class="navbar-nav ml-auto top-mobile" *ngIf="!isLogged; else noLoginMobile">
           <li class="nav-item">
             <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
           </li>
           <li class="nav-item">
             <a routerLink="/account" class="nav-link">{{ "Menu.register" | translate }}</a>
           </li>
-        </ul>
-        <ng-template #noLoginMobile>
+        </ul> -->
+        <!-- <ng-template #noLoginMobile>
           <ul class="navbar-nav ml-auto top-mobile">
             <li class="nav-item">
               <a class="nav-link" (click)="logOut()">{{ "Menu.logout" | translate }}</a>
@@ -45,7 +44,7 @@
               <a routerLink="/account" class="nav-link" >{{ "Menu.perfil" | translate }}</a>
             </li>
           </ul>
-        </ng-template>
+        </ng-template> -->
         <!-- star menu buyer -->
         <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
           <!-- start search -->

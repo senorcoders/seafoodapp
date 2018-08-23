@@ -161,9 +161,9 @@ form{
 	.top-mobile{
 		display: block;
 	}
-	.top-nav{
-		display: none;
-	}
+	// .top-nav{
+	// 	display: none;
+	// }
 	.nav-language {
     	align-items: flex-start;
 	}
@@ -174,8 +174,12 @@ form{
 		display: none;
 	}
 }
-@media(max-width: 600px){
+@media(max-width: 575px){
 	.address{
-		display: none;
+	    text-align: center !important;
+	  }
+	.access{
+		text-align: center !important;
+		margin-top: 10px;
 	}
 }
