@@ -41,6 +41,7 @@ export class AddProductComponent implements OnInit {
   storeEndpoint:any = 'api/store/user/';
   existStore:boolean = true;
   primaryImg:any;
+  countries=environment.countries;
   constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();
