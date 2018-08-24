@@ -214,7 +214,90 @@ const menuFooter=[
         name: 'My Orders'
       },
       es:{
-        name:'Mis comprass'
+        name:'Mis compras'
+      }
+    }
+  },{
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Browse'
+      },
+      es:{
+        name:'Navegar'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'SFSPay'
+      },
+      es:{
+        name:'SFSPay'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Help'
+      },
+      es:{
+        name:'Ayuda'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Contact us'
+      },
+      es:{
+        name:'Contáctanos'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Guides'
+      },
+      es:{
+        name:'Guías'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Terms & Conditions'
+      },
+      es:{
+        name:'Términos y Condiciones'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'About us'
+      },
+      es:{
+        name:'Sobre Nosotros'
       }
     }
   }
@@ -237,10 +320,22 @@ const menuFooterNoLogin=[
     type:"link",
     translate:{
       en:{
-        name: 'Register'
+        name: 'Seller Register'
       },
       es:{
-        name:'Registrarse'
+        name:'Registrarse como Vendedor'
+      }
+    }
+  },
+  {
+    state:"register",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Buyer Register'
+      },
+      es:{
+        name:'Registrarse como Comprador'
       }
     }
   },
@@ -252,7 +347,103 @@ const menuFooterNoLogin=[
         name: 'Login'
       },
       es:{
-        name:'Iniciar sessión'
+        name:'Iniciar sesión'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Browse'
+      },
+      es:{
+        name:'Navegar'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'SFSPay'
+      },
+      es:{
+        name:'SFSPay'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Help'
+      },
+      es:{
+        name:'Ayuda'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Contact us'
+      },
+      es:{
+        name:'Contáctanos'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Guides'
+      },
+      es:{
+        name:'Guías'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Terms & Conditions'
+      },
+      es:{
+        name:'Términos y Condiciones'
+      }
+    }
+  },
+  {
+    state:"home",
+    type:"link",
+    translate:{
+      en:{
+        name: 'About us'
+      },
+      es:{
+        name:'Sobre Nosotros'
+      }
+    }
+  },
+  {
+    state:"register",
+    type:"link",
+    translate:{
+      en:{
+        name: 'Company registration and contact details'
+      },
+      es:{
+        name:'Registro de empresa y detalles de contacto'
       }
     }
   },
