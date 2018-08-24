@@ -29,7 +29,14 @@
 		"about-text":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam lobortis  augue velit, ut fringilla justo blandit vel ut fringilla justo blandit vel.",
 		"fist-type":"Tipos de Pescados",
 		"details":"Ver Detalle",
-		"description":"Descripción"
+		"description":"Descripción",
+		"seller-reg-title": "Por qué registrarse como Vendedor",
+		"buyer-reg-title": "Por qué registrarse como Comprador",
+		"pricing": "Mejor Precio",
+		"buyers": "Acceso a más compradores",
+		"control": "Control",
+		"traceability": "Trazabilidad",
+		"choice": "Más opciones"
 	},
 	"Account":{
 		"title":"Perfil",
