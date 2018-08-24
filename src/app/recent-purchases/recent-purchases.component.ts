@@ -14,13 +14,17 @@ export class RecentPurchasesComponent implements OnInit {
 	storeID:string;
 	dates=[];
 	firstShipped=[];
+  firstNoShipped=[];
 	shipped:any;
 	datesShipping=[];
 	showMore:boolean=false;
 	showLess:boolean=false;
+  showMoreNoShipped:boolean=false;
+  showLessNoShipped:boolean=false;
 	showLoading:boolean=true;
 	showProduct:boolean=false;
 	showShipped:boolean=false;
+  firstProducts:any;
   constructor(private productS:ProductService, private toast:ToastrService, private auth:AuthenticationService) { }
 
   ngOnInit() {
@@ -45,7 +49,8 @@ export class RecentPurchasesComponent implements OnInit {
   			if(result && result!=''){
 				this.items = result;
 				this.showLoading = false;
-				this.showProduct = true
+				this.showProduct = true;
+        this.getFirstNoShipped();
 				this.getDates();
   			}
   			else{
@@ -101,18 +106,69 @@ export class RecentPurchasesComponent implements OnInit {
     this.showLess=true;
     this.firstShipped=this.shipped
   }
+  getFirstNoShipped(){
+    this.firstNoShipped=[]
+    this.items.forEach((data,index)=>{
+      if(index<=3){
+        this.firstNoShipped[index]=data;
+      }
+    })
+    if(this.items.length>3){
+      this.showMoreNoShipped=true
+      this.showLessNoShipped=false
+    }
+    else{
+      this.showMoreNoShipped=false
+      this.showLessNoShipped=false
+    }
+  }
+  getAllNoShipped(){
+    this.showMoreNoShipped=false;
+    this.showLessNoShipped=true;
+    this.firstNoShipped=this.items
+  }
   getDates(){
   	this.items.forEach((data, index)=>{
   		//convert date
-  		let date=new Date(data.shoppingCart.paidDateTime)
-  		this.dates[index]=date.toString().split("GMT",1)
+      let date=new Date(data.shoppingCart.paidDateTime)
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let hours=date.getHours()
+      let min = date.getMinutes();
+      let minutes;
+      if (min < 10) {
+        minutes = "0" + min;
+      }
+      else{
+        minutes=min
+      }
+      let ampm = "AM";
+      if( hours > 12 ) {
+          hours -= 12;
+          ampm = "PM";
+      }
+      this.dates[index]=months[date.getMonth()] +' '+date.getDate()+', '+date.getFullYear()+' '+hours+':'+ minutes +' ' +ampm
   	})
   }
   getDatesShipped(){
-  	this.shipped.forEach((data, index)=>{
-  		//convert date
-  		let date=new Date(data.shoppingCart.paidDateTime)
-  		this.datesShipping[index]=date.toString().split("GMT",1)
-  	})
+    this.shipped.forEach((data, index)=>{
+      //convert date
+      let date=new Date(data.shoppingCart.paidDateTime)
+      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      let hours=date.getHours()
+      let min = date.getMinutes();
+      let minutes;
+      if (min < 10) {
+        minutes = "0" + min;
+      }
+      else{
+        minutes=min
+      }
+      let ampm = "AM";
+      if( hours > 12 ) {
+          hours -= 12;
+          ampm = "PM";
+      }
+      this.datesShipping[index]=months[date.getMonth()] +' '+date.getDate()+', '+date.getFullYear()+' '+hours+':'+ minutes +' ' +ampm
+    })
   }
 }

@@ -152,7 +152,8 @@
 		"update":"Update",
 		"select":"Please select a Fish type",
 		"delete":"Delete Product",
-		"no-found":"Sorry, Product Not found"
+		"no-found":"Sorry, Product Not found",
+		"detail":"Product details"
 	},
 	"FishType":{
 		"add":"Add Fish Type",
@@ -212,6 +213,7 @@
 		"licence":"License",
 		"message":"Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
 		"EmailNotification":"this email is already used",
+		"submessage":"Click here to go back to home",
 		"Address":"Address",
 		"City":"City",
 		"zipCode":"Zip Code",
@@ -227,11 +229,11 @@
 		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
-		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
-		"big-title-banner":"Fresh seafood",
+		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"small-title-banner":"Fresh seafood",
 		"banner-button":"Shop Now",
 		"title":"Featured Products",
-		"table-title":"Products Added",
+		"table-title":"Add Products",
 		"name":"Name",
 		"delete":"Delete",
 		"store":"Select Store",
@@ -239,11 +241,11 @@
 		"save":"Save Products"
 	},
 	"Featured-seller":{
-		"small-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
-		"big-title-banner":"Fresh seafood",
+		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
+		"small-title-banner":"Fresh seafood",
 		"banner-button":"Shop Now",
 		"title":"Featured Seller",
-		"table-title":"Seller Added",
+		"table-title":"Add Seller",
 		"name":"Name",
 		"delete":"Delete",
 		"store":"Select Store",
@@ -251,7 +253,7 @@
 	},
 	"Featured-types":{
 		"title":"Featured Types",
-		"table-title":"Types Added",
+		"table-title":"Add Types",
 		"name":"Name",
 		"delete":"Delete",
 		"types":"Select Types",
@@ -371,7 +373,7 @@
 		"hour":"Hour"
 	},
 	"Orders-items":{
-		"title":"Products",
+		"title":"Ordered Items",
 		"view":"See Product",
 		"review":"Write a Seller review",
 		"support":"Get Product support",
@@ -411,7 +413,7 @@
 		"message":"to go back to the Administrative homepage"
 	},
 	"Recent":{
-		"title":"Recent Purchases",
+		"title":"pending shipment",
 		"title2":"Purchases Shipped",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
@@ -425,7 +427,7 @@
 		"title":"Orders Purchases",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
-		"product":"My products to deliver",
+		"product":"product",
 		"address":"Buyer Address",
 		"status":"Current Status",
 		"shipped":"Mark as shipped",
@@ -453,7 +455,8 @@
 		"list":"Document lists",
 		"link":"Link",
 		"get":"Get Link",
-		"download":"Download"
+		"download":"Download",
+		"no-document":"there are no Documents"
 	},
 	"TrackingOrder":{
 		"title":"Tracking Information",

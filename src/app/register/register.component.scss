@@ -22,6 +22,16 @@
     h1{
         font-family: Avenir Medium;
     }
+    a{
+        text-decoration: none !important;
+    }
+    h2{
+        font-size: 1.5rem;
+        color: #eb1c24 !important;
+        margin-top: 20px;
+        font-family: Avenir Medium;
+        
+    }
     .content{
         transform: translate(-50%,-50%);
         top: 50%;

@@ -32,26 +32,20 @@
             <a routerLink="/store/{{product.store.name}}">{{product.store.name}}</a>
             <hr class="black-line">
           </span>
-          <!-- <div *ngIf="product.store==null; else showStore" class="owner">
-            {{'Search.owner'| translate}}:
-            <p>{{'Search.no-owner'| translate}}</p>
-          </div>
-          <ng-template #showStore>
-            <div class="owner">
-              {{'Search.owner'| translate}}: <a routerLink="/store/{{product.store.owner.id}}"  class="owner-link"> {{product.store.owner.firstName}} {{product.store.owner.lastName}} </a>
-              <hr class="black-line">
-            </div>
-          </ng-template> -->
           <div class="description">{{smallDesc(product.description)}}</div>
         </div>
         <span class="price">
           {{product.price.type}} {{product.price.value}} {{product.weight.type}}
         </span>
-       <!-- <div class="view-detail-cont">
-          <a routerLink="/product/{{product._id}}" class="pink-btn">{{'Search.view-button'| translate}}</a>
-        </div> -->
      </div>
     </div>
   </div>
+   <div class="row">
+      <div class="col" style="text-align: center;">
+        <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number)">{{number}}</span>
+        <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+      </div>
+    </div>
 </div>
 </div>

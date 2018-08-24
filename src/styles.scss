@@ -303,7 +303,7 @@ app-login{
   top:0;
   z-index: 1;
 }
-app-search, app-archive-products, app-cart, app-my-products{
+app-search, app-archive-products, app-cart, app-my-products,app-featured-seller, app-featured-products{
   .big-title{
     color: white;
     letter-spacing: 2px;
@@ -347,9 +347,6 @@ app-search, app-archive-products, app-cart, app-my-products{
     height: auto;
   }
   //padding-left: 40px;
-}
-.menu-buyer{
-  margin-right: 200px;
 }
 .search-product-img img{
   width:auto;
@@ -421,6 +418,8 @@ app-search, app-archive-products, app-cart, app-my-products{
   .black-line{
     height: 0.5px;
     margin: 5px 0 40px;
+    background: transparent;
+    border-top: 1px solid black;
   }
   .owner-link{
     color:#eb1c24;
@@ -690,7 +689,7 @@ footer{
   }
 }
 .black-line{
-  background: #000;
+  border-top: 1px solid black;
     width: 90px;
     margin: 10px 0;
     height: 1px;
@@ -771,6 +770,94 @@ footer{
       padding: 9px 20px;
   }
 }
+.table-design{
+  .row-bg{
+    padding: 20px 0;
+    &:nth-of-type(odd){
+      background: #ebf1f6;
+    }
+    .name{
+      font-family: Avenir;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      align-items: center;
+      font-size: 1.2rem;
+    }
+    .date{
+      color: #7a7a7a;
+      font-family: Avenir;
+      font-weight: lighter;
+    }
+    .product{
+      color: black !important;
+      font-family: Avenir;
+      font-weight: lighter;
+      text-decoration: none !important;
+      text-transform: capitalize;
+    }
+    .pink-btn{
+      font-size: 0.7rem;
+      padding: 5px 10px;
+    }
+    .btn-cont{
+      text-align: right;
+    }
+  }
+  .see-more, .see-less{
+    cursor: pointer;
+    color: #eb1c24;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    font-family: Avenir;
+    font-weight: bold;
+    display: block;
+    text-align: right;
+    margin-top: 20px; 
+  }
+  .black-line{
+    width: 70px;
+    height: .5px;
+    border-top:1px solid black;
+  }
+  div{
+    font-family: Avenir;
+  }
+  label{
+    text-decoration: underline;
+    margin-right: 5px;
+    font-family: Avenir;
+  } 
+  .delete{
+    width: 20px;
+    cursor: pointer;
+    float: right;
+  }
+  .edit{
+    cursor: pointer;
+    color: #19465f;
+  }
+}
+.tracking{
+  margin-top: 30px
+}
+app-administrator, app-featured-seller, app-featured-products,app-featured-types{
+  select{
+    width: 100% !important;
+    border:0 !important;
+    background: transparent;
+  }
+  .select2-container--default .select2-selection--single{
+    border:0 !important;
+    background: transparent;
+  }
+  .select2{
+      width: 100% !important;
+      span{
+        font-family: Avenir
+      }
+  }
+}
 @media(max-width: 1200px){
   .navbar .nav-link{
     padding-right: 1rem !important;
@@ -804,9 +891,6 @@ footer{
   }
 }
 @media(max-width:768px){
-  .access, .address{
-    text-align: center;
-  }
   .small-title{
     font-size:1.5rem
   }

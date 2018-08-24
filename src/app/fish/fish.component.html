@@ -2,7 +2,6 @@
   <div class="row">
     <div class="col">
       <h2 class="title">{{'FishType.add' | translate}}</h2>
-      <hr class="hr-small">
       <form [formGroup]="categoryForm" (submit)="addCategory()" class="form-design">
         <div class="form-group">
           <label>{{'FishType.name' | translate}}</label>
@@ -36,8 +35,22 @@
   <div class="row">
     <div class="col">
       <h2 class="title">{{'FishType.types' | translate}}</h2>
-      <hr class="hr-small">
-      <table class="table table-striped">
+      <div class="row">
+        <div class="col table-design">
+          <div class="row row-bg" *ngFor="let category of categories; let i=index">
+            <div class="col">
+              <label>{{category.name}}</label>
+            </div>
+            <div class="col">
+              <span (click)="edit(i,category.id)" class="edit"><fa name="pencil"></fa></span>
+            </div>
+            <div class="col">
+              <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(category.id)" class="delete">
+            </div>
+          </div>
+        </div>
+      </div>
+<!--       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">{{'FishType.name' | translate}}</th>
@@ -46,13 +59,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let category of categories; let i=index">
-            <td>{{category.name}}</td>
-            <td><span (click)="edit(i,category.id)" class="edit"><fa name="pencil"></fa></span></td>
-            <td><span (click)="deleteCategory(category.id)" class="delete"><fa name="remove"></fa></span></td>
+          <tr >
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
 </div>

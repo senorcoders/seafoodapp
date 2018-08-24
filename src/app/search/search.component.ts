@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -17,24 +18,33 @@ export class SearchComponent implements OnInit {
   API:string="https://apiseafood.senorcoders.com";
   showNotFound=false;
   image:SafeStyle=[];
-  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer) { }
+  showNextP:boolean=false;
+  showPrvP:boolean=false;
+  page:number;
+  pageNumbers:any;
+  paginationNumbers:any=[];
+  constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.searchQuery= this.route.snapshot.params['search'];
+      this.page= this.route.snapshot.params['page'];
       this.searchProducts(this.searchQuery);
-    })
-    jQuery(document).ready(function(){
-      jQuery([document.documentElement, document.body]).animate({
-        scrollTop: jQuery('#search-title').offset().top
-      }, 1000);
+      jQuery(document).ready(function(){
+        jQuery([document.documentElement, document.body]).animate({
+          scrollTop: jQuery('#search-title').offset().top
+        }, 1000);
+      })
     })
   }
   searchProducts(query){
     this.searchQuery=query;
-    this.product.searchProductByName(query).subscribe(
+    this.product.searchProductByName(query,this.page).subscribe(
       result=>{
-        console.log(result)
-        this.products=result;
+        this.products=result['fish'];
+        this.pageNumbers=parseInt(result['pagesCount']);
+        for (let i=1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i)
+        }
         //working on the images to use like background
          this.products.forEach((data, index)=>{
             if (data.imagePrimary && data.imagePrimary !='') {
@@ -53,6 +63,8 @@ export class SearchComponent implements OnInit {
         else{
           this.showNotFound=false;
         }
+        this.nextProductsExist();
+        this.previousProductExist();
       },
       error=>{
         console.log(error)
@@ -61,6 +73,39 @@ export class SearchComponent implements OnInit {
   }
    showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+  }
+  nextProductsExist(){
+    if(this.page<this.pageNumbers){
+      this.showNextP=true;
+    }else{
+      this.showNextP=false;
+    }
+  }
+   previousProductExist(){
+     if(this.page>1){
+      this.showPrvP=true;
+    }else{
+      this.showPrvP=false;
+    }
+  }
+  nextPage(){
+    this.paginationNumbers=[];
+    this.page++;
+    this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+  }
+  goTo(page){
+    this.paginationNumbers=[];
+    this.router.navigate([`/search/${this.searchQuery}/${page}`]);
+  }
+  previousPage(){
+    this.paginationNumbers=[];
+    if(this.page>1){
+      this.page--;
+      this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+    }
+    else{
+      this.router.navigate([`/search/${this.searchQuery}/${this.page}`]);
+    }
   }
   smallDesc(str) {
      if(str.length>20){

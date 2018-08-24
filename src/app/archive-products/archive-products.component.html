@@ -27,7 +27,7 @@
           <div class="col-lg-12 search-product-desc">
               <a routerLink="/product/{{product.id}}"><h3 class="search-product-name">{{product.name}}</h3></a>
               <span class="coming-from">
-                <a routerLink="/store/{{product.store.name}}">{{product.store.name}}</a>
+                <a routerLink="/store/{{product.store.id}}">{{product.store.name}}</a>
                 <hr class="black-line">
               </span>
               <div class="description">{{smallDesc(product.description)}}</div>
@@ -39,9 +39,10 @@
       </div>
     </div>
     <div class="row">
-      <div class="col">
-        <span class="btn-pagination previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
-        <span class="btn-pagination next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+      <div class="col" style="text-align: center;">
+        <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number)">{{number}}</span>
+        <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
       </div>
     </div>
   </div>

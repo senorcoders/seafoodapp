@@ -41,11 +41,11 @@ export class ProductService {
 
   }
   getProdutsByCategory(category, page){
-    return this.http.get(`${API}api/fish-type/${category}/${page}/10`);
+    return this.http.get(`${API}api/fish-type/${category}/${page}/12`);
   }
-  searchProductByName(name){
+  searchProductByName(name,page){
     let body={'search':name};
-    return this.http.post(`${API}api/fish/search/`, body, httpOptions)
+    return this.http.post(`${API}api/fish/search/${page}/12`, body, httpOptions)
   }
 
   getProductDetail(id){

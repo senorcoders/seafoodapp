@@ -38,9 +38,7 @@ export class OrderPurchaseComponent implements OnInit {
   				this.item=result;
   				this.showLoading=false;
   				this.showProduct=true;
-  				//convert date
-		  		let date=new Date(result['shoppingCart'].paidDateTime)
-		  		this.date=date.toString().split("GMT",1)
+		  		this.getDates(result['shoppingCart'].paidDateTime)
 		  		//hide or show button
 		  		if(result['shippingStatus']=="shipped"){
 		  			this.showButton=false;
@@ -137,4 +135,23 @@ export class OrderPurchaseComponent implements OnInit {
 	closeForm(){
 		this.showPopup=false;
 	}
+  getDates(value){
+    let date=new Date(value)
+    let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let hours=date.getHours()
+    let min = date.getMinutes();
+    let minutes;
+    if (min < 10) {
+      minutes = "0" + min;
+    }
+    else{
+      minutes=min
+    }
+    let ampm = "AM";
+    if( hours > 12 ) {
+        hours -= 12;
+        ampm = "PM";
+    }
+    this.date=months[date.getMonth()] +' '+date.getDate()+', '+date.getFullYear()+' '+hours+':'+ minutes +' ' +ampm
+  }
 }

@@ -81,11 +81,11 @@
   <div class="col-lg-4 cat-img-2" [style.background-image]="featuredTypesImages[i]" *ngIf="i==0 || i==3; else twoBlock">
     <div class="overlay-cat">
       <div class="cat-content">
-        <a routerLink="/fish-type/{{featuredtype.name}}"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
+        <a routerLink="/fish-type/{{featuredtype.name}}/1"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
         <div class="description">
           <h5 class="desc-title">{{'Home.description' | translate}}</h5>{{featuredtype.description}}
         </div>
-        <a routerLink="/fish-type/{{featuredtype.name}}" class="white-btn">{{'Home.details' | translate}}</a>
+        <a routerLink="/fish-type/{{featuredtype.name}}/1" class="white-btn">{{'Home.details' | translate}}</a>
       </div>
     </div>
   </div>
@@ -94,12 +94,12 @@
       <div class="cat-img-3 " id="featuredtype{{i}}" [style.background-image]="featuredTypesImages[i]">
         <div class="overlay-cat">
           <div class="cat-content">
-            <a routerLink="/fish-type/{{featuredtype.name}}"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
+            <a routerLink="/fish-type/{{featuredtype.name}}/1"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
             <div class="description">
               <h5 class="desc-title">{{'Home.description' | translate}}</h5>
               {{featuredtype.description}}
             </div>
-            <a routerLink="/fish-type/{{featuredtype.name}}" class="white-btn">{{'Home.details' | translate}}</a>
+            <a routerLink="/fish-type/{{featuredtype.name}}/1" class="white-btn">{{'Home.details' | translate}}</a>
           </div>
         </div>
       </div>

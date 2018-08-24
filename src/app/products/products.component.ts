@@ -13,11 +13,16 @@ export class ProductsComponent implements OnInit {
 	products:any;
 	showLoading:boolean=true;
 	prvPage =0;
+  prvPageS=1;
 	showPrvP:boolean= false;
 	showNextP:boolean=false;
+  showPrvPS:boolean= false;
+  showNextPS:boolean=false;
 	showNotFound=false;
 	image:SafeStyle=[];
 	searchForm:FormGroup;
+  searchPage=1;
+  query;
 	API:string="https://apiseafood.senorcoders.com";
   constructor(private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder) { }
 
@@ -54,7 +59,7 @@ export class ProductsComponent implements OnInit {
 	        else{
 	          this.showNotFound=false;
 	        }
-	        this.nextProductsExist()
+	        this.nextProductsExist(1)
   		},
   		e=>{
   			this.showLoading=true;
@@ -63,20 +68,44 @@ export class ProductsComponent implements OnInit {
   		}
   	)
   }
-  nextProductsExist(){
-    if(this.products.length>=12){
-      this.showNextP=true;
+  nextProductsExist(val){
+    //if it's the pagination is for all product
+    if(val==1){
+      if(this.products.length>=12){
+        this.showNextP=true;
+      }
+      else{
+        this.showNextP=false;
+      }
     }
+    //if pagination is for the search
     else{
-      this.showNextP=false;
+      if(this.products.length>=12){
+        this.showNextPS=true;
+      }
+      else{
+        this.showNextPS=false;
+      }
     }
   }
-  previousProductExist(){
-    if(this.prvPage>0){
-      this.showPrvP=true;
+  previousProductExist(val){
+    //if it's the pagination is for all product
+    if(val==1){
+      if(this.prvPage>0){
+        this.showPrvP=true;
+      }
+      else{
+        this.showPrvP=false
+      }
     }
+    //if pagination is for the search
     else{
-      this.showPrvP=false
+      if(this.prvPageS>1){
+        this.showPrvPS=true;
+      }
+      else{
+        this.showPrvPS=false
+      }
     }
   }
   nextPage(){
@@ -89,8 +118,8 @@ export class ProductsComponent implements OnInit {
     this.productService.listProduct(data).subscribe(
       result=>{
         this.products=result;
-        this.nextProductsExist();
-        this.previousProductExist()
+        this.nextProductsExist(1);
+        this.previousProductExist(1)
         this.showLoading=false
       },
       error=>{
@@ -108,8 +137,38 @@ previousPage(){
     this.productService.listProduct(data).subscribe(
       result=>{
         this.products=result;
-        this.nextProductsExist()
-        this.previousProductExist();
+        this.nextProductsExist(1)
+        this.previousProductExist(1);
+        this.showLoading=false;
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+}
+nextPageSearch(){
+    this.prvPageS=this.prvPageS+1;
+    this.showLoading=true;
+    this.productService.searchProductByName(this.query,this.prvPageS).subscribe(
+      result=>{
+        this.products=result;
+        this.nextProductsExist(2);
+        this.previousProductExist(2)
+        this.showLoading=false
+      },
+      error=>{
+        console.log(error)
+      }
+    )
+  }
+previousPageSearch(){
+    this.prvPageS=this.prvPageS-1;
+    this.showLoading=true;
+    this.productService.searchProductByName(this.query,this.prvPageS).subscribe(
+      result=>{
+        this.products=result;
+        this.nextProductsExist(2)
+        this.previousProductExist(2);
         this.showLoading=false;
       },
       error=>{
@@ -125,10 +184,17 @@ deleteProduct(id, index){
   });
 }
 searchProducts(query){
+  this.showNextP=false;
+  this.showPrvP=false;
 	this.showLoading=true;
-	this.products=[]
-	this.productService.searchProductByName(query).subscribe(
+  this.query=query;
+	this.products=[];
+  if(this.searchPage>1){
+    this.searchPage++;
+  }
+	this.productService.searchProductByName(query,this.searchPage).subscribe(
       result=>{
+        this.searchPage+=1;
         this.products=result;
         this.showLoading=false;
         //working on the images to use like background
@@ -149,8 +215,8 @@ searchProducts(query){
         else{
           this.showNotFound=false;
         }
-        this.nextProductsExist()
-        this.previousProductExist();
+        this.nextProductsExist(2)
+        this.previousProductExist(2);
       },
       error=>{
         console.log(error)

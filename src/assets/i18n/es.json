@@ -150,7 +150,8 @@
 		"update":"Update",
 		"select":"Please select a Fish type",
 		"delete":"Delete Product",
-		"no-found":"Sorry, Product Not found"
+		"no-found":"Sorry, Product Not found",
+		"detail":"Product details"
 	},
 	"FishType":{
 		"add":"Agregar tipo de pescado",
@@ -210,6 +211,7 @@
 		"licence":"License",
 		"message":"Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
 		"EmailNotification":"this email is already used",
+		"submessage":"Click here to go back to home",
 		"Address":"Address",
 		"City":"City",
 		"zipCode":"Zip Code",
@@ -225,11 +227,11 @@
 		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Productos Destacados",
-		"table-title":"Productos agregados",
+		"table-title":"agregar Productos",
 		"name":"Nombre",
 		"delete":"Borrar",
 		"store":"Seleccionar Tienda",
@@ -237,11 +239,11 @@
 		"save":"Save Products"
 	},
 	"Featured-seller":{
-		"small-title-banner":"Obten tu comida maritima hasta tu casa",
-		"big-title-banner":"Fresca comida maritima",
+		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Vendedores Destacados",
-		"table-title":"Vendedores agregados",
+		"table-title":"Agregar Vendedores",
 		"name":"Nombre",
 		"delete":"Borrar",
 		"store":"Select Store",
@@ -249,7 +251,7 @@
 	},
 	"Featured-types":{
 		"title":"Tipos Destacados",
-		"table-title":"Tipos agregados",
+		"table-title":"Agregar Tipos",
 		"name":"Nombre",
 		"delete":"Borrar",
 		"types":"Select Tipos",
@@ -369,7 +371,7 @@
 		"hour":"Hora"
 	},
 	"Orders-items":{
-		"title":"Products",
+		"title":"Ordered Items",
 		"view":"See Product",
 		"review":"Write a Seller review",
 		"support":"Get Product support",
@@ -409,7 +411,7 @@
 		"message":"to go back to the Administrative homepage"
 	},
 	"Recent":{
-		"title":"Recent Purchases",
+		"title":"pending shipment",
 		"title2":"Purchases Shipped",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
@@ -423,7 +425,7 @@
 		"title":"Orders Purchases",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
-		"product":"My products to deliver",
+		"product":"product",
 		"address":"Buyer Address",
 		"status":"Current Status",
 		"shipped":"Mark as shipped",
@@ -450,7 +452,8 @@
 		"required":"is invalid",
 		"list":"Document lists",
 		"link":"Link",
-		"download":"Download"
+		"download":"Download",
+		"no-document":"there are no Documents"
 	},
 	"TrackingOrder":{
 		"title":"Tracking Information",
