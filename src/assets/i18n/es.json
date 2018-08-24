@@ -2,7 +2,7 @@
 	"Menu":{
 		"login":"Entrar",
 		"register":"Registrarse",
-		"logout": "Cerrar Session",
+		"logout": "Cerrar sesión",
 		"search-input-placeholder":"Buscar",
 		"search-input-button":"Buscar",
 		"orders":"Mis compras",
@@ -15,10 +15,10 @@
 		"subscribe-placeholder":"Email",
 		"menu-title":"Menú",
 		"contact-title":"Contacto",
-		"logout":"Cerrar Session"
+		"logout":"Cerrar sesión"
 	},
 	"Home":{
-		"big-title-banner":"Obten tu comida",
+		"big-title-banner":"Obtén tu comida",
 		"big-title-banner-2":"maritima hasta tu casa",
 		"small-title-banner":"Fresca Comida maritima",
 		"banner-button":"Compra ahora",
@@ -75,10 +75,10 @@
 		"hero":"Upload Hero Store"
 	},
 	"Archive-product":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
-		"result-title":"Categoria",
+		"result-title":"Categoría",
 		"view-button":"Ver Detalles",
 		"location":"Ubicación",
 		"owner":"Propietario",
@@ -89,7 +89,7 @@
 		"next":"Siguiente"
 	},
 	"Search":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"result-title":"búsqueda",
@@ -106,7 +106,7 @@
 		"no-empty":"El campo de búsqueda no puede quedar vacio"
 	},
 	"MyProducts":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Mis Productos",
@@ -172,7 +172,7 @@
 		"image":"Add Image"
 	},
 	"Cart":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"back":"Back To Shopping",
@@ -187,7 +187,7 @@
 		"login":"Login Now"
 	},
 	"Login":{
-		"title":"Inicia Session",
+		"title":"Inicia sesión",
 		"email":"Email",
 		"password":"Password",
 		"required":"is required",
@@ -234,7 +234,7 @@
 		"deliveryAddress":"Delivery Address"
 	},
 	"Featured-product":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Productos Destacados",
@@ -246,7 +246,7 @@
 		"save":"Save Products"
 	},
 	"Featured-seller":{
-		"big-title-banner":"Obten tu comida maritima hasta tu casa",
+		"big-title-banner":"Obtén tu comida maritima hasta tu casa",
 		"small-title-banner":"Fresca comida maritima",
 		"banner-button":"Compra ahora",
 		"title":"Vendedores Destacados",

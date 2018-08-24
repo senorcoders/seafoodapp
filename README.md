@@ -9,7 +9,7 @@ npm start
 
 ## Deploying
 ```
- $ ng build --prod
+ $ ng build --prod --build-optimizer
 ```
  Just go to [Seafood Souq](https://seafood.senorcoders.com/).
 
