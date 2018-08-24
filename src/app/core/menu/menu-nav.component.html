@@ -76,14 +76,17 @@
           <!-- start menu admin-->
           <ul class="navbar-nav ml-auto admin-navbar" *ngIf="isLogged && role==0">
             <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()">
-              <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-              <ng-template #submenu>
-                <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                    <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
-                  </div>
-                </li>
+              <a routerLink="{{menuitem.state}}/all/1" class="nav-link" *ngIf="menuitem.state === 'products' else menu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+              <ng-template #menu>
+                <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                <ng-template #submenu>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                      <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
+                    </div>
+                  </li>
+                </ng-template>
               </ng-template>
             </li>
           </ul>
@@ -129,15 +132,15 @@
           <div class="fish-type-menu-mobile" *ngIf="isLogged && role==2">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a routerLink="/" class="nav-link">Salmon</a>
+                <a routerLink="/fish-type/Salmon/1" class="nav-link">Salmon</a>
               </li>
               <li class="nav-item">
-                <a routerLink="/" class="nav-link">Tuna</a>
+                <a routerLink="/fish-type/Tuna/1" class="nav-link">Tuna</a>
               </li>
               <li class="nav-item dropdown">
                 <a href="#" class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oysters, Clams & Mussels</a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">Oysters</a>
+                  <a class="dropdown-item" routerLink="/fish-type/Oysters/1">Oysters</a>
                   <a class="dropdown-item" href="#">Clams</a>
                   <a class="dropdown-item" href="#">Mussels</a>
                 </div>

@@ -14,12 +14,6 @@
     -webkit-transition: background-color 0.5s;
   }
 }
-.previous{
-  float:left;
-}
-.next{
-  float:right
-}
 a.badge-danger{
     color: #fff !important;
     cursor: pointer;
@@ -27,4 +21,18 @@ a.badge-danger{
 .badge-green{
   background: #123345;
     color: white;
+}
+.previous, .next{
+  margin-bottom: 20px;
+}
+.numberPage{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.active {
+  background: #ee434a;
+  color: white !important;
+}
+.pink-btn{
+  padding: 10px 15px;
 }
