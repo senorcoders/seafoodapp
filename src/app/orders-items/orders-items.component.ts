@@ -5,7 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-orders-items',
   templateUrl: './orders-items.component.html',
@@ -17,7 +17,7 @@ export class OrdersItemsComponent implements OnInit {
 	showLoading:boolean=true;
 	showData:boolean=false;
 	images=[];
-	API="http://138.68.19.227:7000";
+	API=environment.apiURLImg;
   reviewForm:FormGroup;
   showForm:boolean=false;
   user:any;

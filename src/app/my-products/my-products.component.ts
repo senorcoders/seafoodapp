@@ -4,7 +4,7 @@ import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormBuilder } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-my-products',
   templateUrl: './my-products.component.html',
@@ -15,7 +15,7 @@ export class MyProductsComponent implements OnInit {
   storeEndpoint:any = 'api/store/user/';
   products:any = [];
   store:any;
-  base:string="https://apiseafood.senorcoders.com";
+  base:string=environment.apiURLImg;
   image:SafeStyle=[];
 
   constructor(private auth: AuthenticationService, private productService: ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }

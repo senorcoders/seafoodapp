@@ -7,7 +7,7 @@ import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
 declare var jQuery:any;
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-single-product',
   templateUrl: './single-product.component.html',
@@ -21,7 +21,7 @@ export class SingleProductComponent implements OnInit {
   price:any;
   images: any = [];
   priceDesc:any;
-  base:any = "https://apiseafood.senorcoders.com";
+  base:any = environment.apiURLImg;
   category:any;
   show:boolean = true;
   cart:any;

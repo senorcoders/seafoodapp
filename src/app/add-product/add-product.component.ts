@@ -12,6 +12,7 @@ import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {ProductService} from'../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-add-product',
@@ -31,7 +32,7 @@ export class AddProductComponent implements OnInit {
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
-  base:string="https://apiseafood.senorcoders.com";
+  base:string=environment.apiURLImg;
   pTypes:any = [];
   country: FormControl;
   fileToUpload: any = [];
@@ -40,6 +41,7 @@ export class AddProductComponent implements OnInit {
   storeEndpoint:any = 'api/store/user/';
   existStore:boolean = true;
   primaryImg:any;
+  countries=environment.countries;
   constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();

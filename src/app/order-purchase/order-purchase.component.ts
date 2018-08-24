@@ -4,7 +4,7 @@ import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-order-purchase',
   templateUrl: './order-purchase.component.html',
@@ -21,7 +21,7 @@ export class OrderPurchaseComponent implements OnInit {
 	fileToUpload:any= [];
 	showButton:boolean=true;
 	showTrackingFile:boolean=false;
-	API="https://apiseafood.senorcoders.com";
+	API=environment.apiURLImg;
   constructor(private fb:FormBuilder,private route: ActivatedRoute, private productS:ProductService, private toast:ToastrService, private auth:AuthenticationService) {
   	this.route.params.subscribe(params => {
 	      this.itemId=(this.route.snapshot.params['item']);

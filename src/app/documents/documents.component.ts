@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IsLoginService } from '../core/login/is-login.service';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-documents',
@@ -12,7 +13,7 @@ export class DocumentsComponent implements OnInit {
 	role:any;
 	documents:any=[]
   files:any;
-  base="https://apiseafood.senorcoders.com";
+  base=environment.apiURLImg;
   noDocument:boolean=false;
   constructor(private product:ProductService, private auth:IsLoginService, private toast:ToastrService) { }
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
+import { environment } from '../../environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
@@ -8,7 +9,7 @@ const httpOptions = {
 // const httpOptionsForm = {
 //   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
 // };
-const  API="https://apiseafood.senorcoders.com/";
+const  API=environment.apiURL;
 @Injectable()
 export class ProductService {
 

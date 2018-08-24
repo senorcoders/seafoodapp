@@ -4,6 +4,7 @@ import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-favorites',
@@ -16,7 +17,7 @@ export class FavoritesComponent implements OnInit {
 	hasFavorite:boolean;
 	showLoading:boolean=true;
   images:any=[];
-  API:string="https://apiseafood.senorcoders.com";
+  API:string=environment.apiURLImg;
   constructor(public productService: ProductService, private toast:ToastrService, private router: Router, private auth:AuthenticationService,private sanitizer: DomSanitizer) { }
 
   ngOnInit() {

@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
 import { Router } from '@angular/router';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class SearchComponent implements OnInit {
   products:any;
   searchQuery:string;
-  API:string="https://apiseafood.senorcoders.com";
+  API:string=environment.apiURLImg;
   showNotFound=false;
   image:SafeStyle=[];
   showNextP:boolean=false;

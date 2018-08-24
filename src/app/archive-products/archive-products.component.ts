@@ -5,6 +5,8 @@ import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
 import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
+
 @Component({
   selector: 'app-archive-products',
   templateUrl: './archive-products.component.html',
@@ -13,8 +15,7 @@ import { Router } from '@angular/router';
 export class ArchiveProductsComponent implements OnInit {
   category:string;
   products:any;
-  API:string="https://apiseafood.senorcoders.com";
-  prvPage =0;
+  API:string=environment.apiURLImg;
   showPrvP:boolean= false;
   showNextP:boolean=false;
   showNotFound=false;
@@ -67,17 +68,6 @@ export class ArchiveProductsComponent implements OnInit {
       }
     )
     });
-    // jQuery(document).ready(function(){
-    //   jQuery([document.documentElement, document.body]).animate({
-    //     scrollTop: jQuery('#search-title').offset().top
-    //   }, 1000);
-    //   jQuery('.fish-type-menu .nav-link').click(function(e){
-    //     jQuery('html, body').animate({
-    //       scrollTop: jQuery("#search-title").offset().top
-    //     }, 2000);
-      
-    //   })
-    // })
   }
  showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
@@ -115,32 +105,6 @@ export class ArchiveProductsComponent implements OnInit {
       this.router.navigate([`/fish-type/${this.category}/${this.page}`]);
     }
   }
-//   nextPage(){
-//     this.prvPage=this.prvPage+1;
-//     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
-//       result=>{
-//         this.products=result;
-//         this.nextProductsExist();
-//         this.previousProductExist()
-//       },
-//       error=>{
-//         console.log(error)
-//       }
-//     )
-//   }
-// previousPage(){
-//     this.prvPage=this.prvPage-1;
-//     this.product.getProdutsByCategory(this.category, this.prvPage).subscribe(
-//       result=>{
-//         this.products=result;
-//         this.nextProductsExist()
-//         this.previousProductExist();
-//       },
-//       error=>{
-//         console.log(error)
-//       }
-//     )
-// }
  smallDesc(str) {
      if(str.length>20){
         let text=str.split(/\s+/).slice(0,20).join(" ")

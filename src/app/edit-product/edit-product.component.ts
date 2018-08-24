@@ -7,7 +7,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -25,7 +25,7 @@ export class EditProductComponent implements OnInit {
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
-  base:string="https://apiseafood.senorcoders.com";
+  base:string=environment.apiURLImg;
   pTypes:any = [];
   country: FormControl;
   fileToUpload: any = [];
@@ -38,6 +38,7 @@ export class EditProductComponent implements OnInit {
   showUpload:boolean=false;
   showLoading:boolean=true;
   showEdit:boolean=true;
+  countries=environment.countries;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
   ngOnInit() {
     //this.createFormControls();

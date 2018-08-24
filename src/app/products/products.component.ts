@@ -3,6 +3,9 @@ import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import{FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router,ActivatedRoute } from '@angular/router';
+import { environment } from '../../environments/environment';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-products',
@@ -12,8 +15,6 @@ import{FormBuilder, FormGroup, Validators} from '@angular/forms';
 export class ProductsComponent implements OnInit {
 	products:any;
 	showLoading:boolean=true;
-	prvPage =0;
-  prvPageS=1;
 	showPrvP:boolean= false;
 	showNextP:boolean=false;
   showPrvPS:boolean= false;
@@ -22,12 +23,35 @@ export class ProductsComponent implements OnInit {
 	image:SafeStyle=[];
 	searchForm:FormGroup;
   searchPage=1;
-  query;
-	API:string="https://apiseafood.senorcoders.com";
-  constructor(private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder) { }
+  search:any;
+  page:any;
+  paginationNumbers:any=[];
+  pageNumbers:any;
+	API:string=environment.apiURLImg;
+  paginationSearch:boolean=false;
+  constructor(private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
-  	this.getProducts(12,0)
+    this.route.params.subscribe(params => {
+      this.page=this.route.snapshot.params['page'];
+      this.search=params['query'];
+      //if pagination is for all products
+      if(this.search=='all'){
+        this.paginationNumbers=[];
+        this.paginationSearch=false;
+        this.getProducts(12,this.page)
+      }
+      //if paginations if for the search value
+      else{
+        this.paginationSearch=true;
+        this.Search(this.search, this.page);
+      }
+      jQuery(document).ready(function(){
+        jQuery([document.documentElement, document.body]).animate({
+          scrollTop: jQuery('#search').offset().top
+        }, 1000);
+      })
+    });
   	this.searchForm=this.fb.group({
   		search:['',Validators.required]
   	})
@@ -39,7 +63,12 @@ export class ProductsComponent implements OnInit {
   	}
   	this.productService.listProduct(data).subscribe(
   		result=>{
-  			this.products=result;
+  			this.products=result['productos'];
+        //add paginations numbers
+        this.pageNumbers=parseInt(result['pagesNumber']);
+        for (let i=1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i)
+        }
   			this.showLoading=false;
   			//working on the images to use like background
          	this.products.forEach((data, index)=>{
@@ -59,7 +88,8 @@ export class ProductsComponent implements OnInit {
 	        else{
 	          this.showNotFound=false;
 	        }
-	        this.nextProductsExist(1)
+	        this.nextProductsExist(1);
+          this.previousProductExist(1)
   		},
   		e=>{
   			this.showLoading=true;
@@ -71,19 +101,17 @@ export class ProductsComponent implements OnInit {
   nextProductsExist(val){
     //if it's the pagination is for all product
     if(val==1){
-      if(this.products.length>=12){
+      if(this.page<this.pageNumbers){
         this.showNextP=true;
-      }
-      else{
+      }else{
         this.showNextP=false;
       }
     }
     //if pagination is for the search
     else{
-      if(this.products.length>=12){
+      if(this.page<this.pageNumbers){
         this.showNextPS=true;
-      }
-      else{
+      }else{
         this.showNextPS=false;
       }
     }
@@ -91,90 +119,61 @@ export class ProductsComponent implements OnInit {
   previousProductExist(val){
     //if it's the pagination is for all product
     if(val==1){
-      if(this.prvPage>0){
+      if(this.page>1){
         this.showPrvP=true;
-      }
-      else{
-        this.showPrvP=false
+      }else{
+        this.showPrvP=false;
       }
     }
     //if pagination is for the search
     else{
-      if(this.prvPageS>1){
+      if(this.page>1){
         this.showPrvPS=true;
-      }
-      else{
-        this.showPrvPS=false
+      }else{
+        this.showPrvPS=false;
       }
     }
   }
-  nextPage(){
-    this.prvPage=this.prvPage+1;
-    this.showLoading=true;
-    let data={
-  		pageNumber:this.prvPage,
-  		numberProduct: 12
-  	}
-    this.productService.listProduct(data).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist(1);
-        this.previousProductExist(1)
-        this.showLoading=false
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+   goTo(page,option){
+    this.paginationNumbers=[];
+    //go to number page if it for all products
+    if(option==1){
+      this.router.navigate([`/products/all/${page}`]);
+    }
+    //go to number page if it for the search
+    else{
+      this.router.navigate([`/products/${this.search}/${page}`]);
+    }
   }
-previousPage(){
-    this.prvPage=this.prvPage-1;
-    this.showLoading=true;
-    let data={
-  		pageNumber:this.prvPage,
-  		numberProduct: 12
-  	}
-    this.productService.listProduct(data).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist(1)
-        this.previousProductExist(1);
-        this.showLoading=false;
-      },
-      error=>{
-        console.log(error)
+  nextPage(){
+    this.paginationNumbers=[];
+    this.page++;
+    this.router.navigate([`/products/all/${this.page}`]);
+  }
+  previousPage(){
+    this.paginationNumbers=[];
+      if(this.page>1){
+        this.page--;
+        this.router.navigate([`/products/all/${this.page}`]);
       }
-    )
-}
+      else{
+        this.router.navigate([`/products/all/${this.page}`]);
+      }
+  }
 nextPageSearch(){
-    this.prvPageS=this.prvPageS+1;
-    this.showLoading=true;
-    this.productService.searchProductByName(this.query,this.prvPageS).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist(2);
-        this.previousProductExist(2)
-        this.showLoading=false
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+  this.paginationNumbers=[];
+  this.page++;
+  this.router.navigate([`/products/${this.search}/${this.page}`]);
   }
 previousPageSearch(){
-    this.prvPageS=this.prvPageS-1;
-    this.showLoading=true;
-    this.productService.searchProductByName(this.query,this.prvPageS).subscribe(
-      result=>{
-        this.products=result;
-        this.nextProductsExist(2)
-        this.previousProductExist(2);
-        this.showLoading=false;
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+  this.paginationNumbers=[];
+  if(this.page>1){
+    this.page--;
+    this.router.navigate([`/products/${this.search}/${this.page}`]);
+  }
+  else{
+    this.router.navigate([`/products/${this.search}/${this.page}`]);
+  }
 }
 deleteProduct(id, index){
   this.productService.deleteData('api/fish/'+id).subscribe(result =>{
@@ -183,19 +182,15 @@ deleteProduct(id, index){
 
   });
 }
-searchProducts(query){
-  this.showNextP=false;
-  this.showPrvP=false;
-	this.showLoading=true;
-  this.query=query;
-	this.products=[];
-  if(this.searchPage>1){
-    this.searchPage++;
-  }
-	this.productService.searchProductByName(query,this.searchPage).subscribe(
-      result=>{
+Search(query, page){
+this.productService.searchProductByName(query,page).subscribe(
+  result=>{
         this.searchPage+=1;
-        this.products=result;
+        this.products=result['fish'];
+        this.pageNumbers=parseInt(result['pagesCount']);
+        for (let i=1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i)
+        }
         this.showLoading=false;
         //working on the images to use like background
          this.products.forEach((data, index)=>{
@@ -222,6 +217,10 @@ searchProducts(query){
         console.log(error)
       }
     )
+}
+searchProducts(query){
+  this.paginationNumbers=[];
+  this.router.navigate([`/products/${query}/1`]);
 }
 deleteNode(i){
   this.products.splice(i, 1);
