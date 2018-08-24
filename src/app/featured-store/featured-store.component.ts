@@ -3,6 +3,7 @@ import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-featured-store',
@@ -11,7 +12,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platf
 })
 export class FeaturedStoreComponent implements OnInit {
   products:any;
-  API:string="https://apiseafood.senorcoders.com";
+  API:string=environment.apiURLImg;
   showNotFound=false;
   showLoading:boolean=true;
   image:SafeStyle=[];

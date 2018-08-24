@@ -3,6 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-account',
@@ -30,7 +31,7 @@ export class AccountComponent implements OnInit {
   buttonText:string;
   new:boolean = false;
   fileToUpload: any = [];
-  base:string="https://apiseafood.senorcoders.com";
+  base:string=environment.apiURLImg;
   hero:any;
   fileHero:any = [];
   heroSlider:SafeStyle;

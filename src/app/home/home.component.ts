@@ -4,6 +4,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CartService } from '../core/cart/cart.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -11,7 +12,7 @@ declare var jQuery:any;
 })
 export class HomeComponent implements OnInit {
   products:any=[];
-  API:string="https://apiseafood.senorcoders.com";
+  API:string=environment.apiURLImg;
   user:any;
   showLoading:boolean=true;
   featuredSellers:any;

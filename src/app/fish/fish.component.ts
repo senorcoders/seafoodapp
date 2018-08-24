@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import{ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery:any;
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-add-category',
   templateUrl: './fish.component.html',
@@ -84,7 +85,7 @@ export class FishComponent implements OnInit {
     })
     this.buttonLabel="Edit Fish";
     if(this.categories[index].images!=null){
-      this.currentImage='https://apiseafood.senorcoders.com'+this.categories[index].images[0].src;
+      this.currentImage=environment.apiURLImg+this.categories[index].images[0].src;
       this.showImage=true;
     }
   }

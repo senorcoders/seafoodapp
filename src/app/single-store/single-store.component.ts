@@ -5,7 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-single-store',
   templateUrl: './single-store.component.html',
@@ -21,7 +21,7 @@ export class SingleStoreComponent implements OnInit {
   };  
   hero:any;
   logo:any;
-  base:string="https://apiseafood.senorcoders.com";
+  base:string=environment.apiURLImg;
   products:any = [];
   empty:boolean = false;
   form:any = {

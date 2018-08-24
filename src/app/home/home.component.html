@@ -49,7 +49,7 @@
                 </a>
               </div>
               <a routerLink="/product/{{product.id}}"><h3 class="product-name">{{product.name}}</h3></a>
-              <a routerLink="/fish-type/{{product.type.name}}"><span class="product-type">{{product.type.name}}</span></a>
+              <a routerLink="/fish-type/{{product.type.name}}/1"><span class="product-type">{{product.type.name}}</span></a>
               <hr class="black-line">
               <div class="desc">{{getShortDesc(product.description)}}</div>
               <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import{ProductService} from '../services/product.service';
 declare var jQuery:any;
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-featured-types',
@@ -10,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class FeaturedTypesComponent implements OnInit {
   types:any;
-  API:string="https://apiseafood.senorcoders.com";
+  API:string=environment.apiURLImg;
   showNotFound=false;
   showLoading:boolean=true;
   owner:any;
