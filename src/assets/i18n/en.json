@@ -470,5 +470,14 @@
 		"file":"Tracking Image",
 		"code":"Tracking Code",
 		"save":"Save"
+	},
+	"Fish-types-menu":{
+		"title":"Menu added",
+		"table-title":"Add Types to menu",
+		"add-child":"Add child",
+		"children":"Children",
+		"types":"Select Types",
+		"save":"Save Types",
+		"no-result":"No result"
 	}
 }

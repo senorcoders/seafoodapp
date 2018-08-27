@@ -19,7 +19,7 @@ export class ProductService {
     return this.http.get(`${API}api/fish/${data.pageNumber}/${data.numberProduct}`)
   }
   getAllCategoriesProducts(){
-    return this.http.get(`${API}FishType`)
+    return this.http.get(`${API}FishType?limit=100`)
   }
   saveData(endpoint, data){
     return this.http.post(`${API}${endpoint}`, data, httpOptions);
