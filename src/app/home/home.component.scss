@@ -248,12 +248,19 @@ $ligth-bg:#ebf1f6;
   padding: 50px 0;
 }
 
+.white-home-register{
+  background: #fff;
+}
+
 .home-register h2.title{
   margin-bottom: 50px;
 }
 
 .home-register .small-title{
   font-size: 1.5rem;
+  margin-top: 10px;
+  font-weight: 600;
+  font-family: Avenir Black;
   margin-top: 10px;
 }
 @media(min-width:998px){
