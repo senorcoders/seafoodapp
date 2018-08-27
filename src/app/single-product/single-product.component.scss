@@ -29,6 +29,11 @@
 }
 .favorite-content{
     float: right;
+    button{
+        border: 0;
+        background: transparent;
+        outline: none;
+    }
     fa{
         font-size: 2rem;
         cursor: pointer;
