@@ -8,8 +8,11 @@
         <h2 class="product-name">
           {{name}}
           <div class="favorite-content" *ngIf="role==2">
-            <fa name="heart-o" (click)="submitFavorite()" *ngIf="!isFavorite;else favorite"></fa>
-            <ng-template #favorite><fa name="heart" (click)="submitFavorite()" class="isfavorite"></fa></ng-template>
+            <button (click)="submitFavorite()" *ngIf="!isFavorite;else favorite" [disabled]="enabledHeart"><fa name="heart-o"></fa></button>
+            <ng-template #favorite>
+              <button (click)="submitFavorite()" [disabled]="enabledHeart"><fa name="heart" class="isfavorite"></fa>
+              </button>
+            </ng-template>
           </div>
         </h2>
         <h5>{{category}} by <a routerLink="/store/{{storeId}}">{{storeName}}</a></h5>

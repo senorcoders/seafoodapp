@@ -42,6 +42,7 @@ export class SingleProductComponent implements OnInit {
   role:number;
   storeId:string;
   storeName:string;
+  enabledHeart:boolean=false;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
 }
@@ -162,6 +163,7 @@ setFlexslider(){
     this.router.navigate([('/cart')]);
   }
   submitFavorite(){
+    this.enabledHeart=true;
     if(this.isFavorite){
       this.removeFavorite()
     }
@@ -176,7 +178,9 @@ setFlexslider(){
     }
     this.productService.saveData('FavoriteFish',data).subscribe(
       result=>{
+        this.favoriteId=result['id']
         this.isFavorite=true;
+        this.enabledHeart=false
       },
       e=>{
         console.log(e)
@@ -187,6 +191,7 @@ setFlexslider(){
     this.productService.deleteData('FavoriteFish/'+this.favoriteId).subscribe(
       result=>{
         this.isFavorite=false;
+        this.enabledHeart=false  
       },
       e=>{
         console.log(e)
