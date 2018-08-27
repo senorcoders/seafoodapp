@@ -1,0 +1,67 @@
+<div style="height: 100px"></div>
+<div class="container">
+	<div class="row">
+		<div class="col-12"><h3 class="black-title">{{'Fish-types-menu.title' | translate}}</h3></div>
+    <div class="col-12 table-design">
+      <div class="row row-bg" *ngFor="let item of menuListSaved.featureds; let i=index">
+        <div class="col-lg-12">
+          <h2 class="name">
+            {{item.name}}
+            <img src="../../assets/trash-icon.png" alt="" (click)="deleteMenuList(i)" class="delete">
+          </h2>
+          <span data-toggle="modal" data-target="#addChild" (click)="selectParent(item.id)" class="pink-btn">{{'Fish-types-menu.add-child' | translate}}</span>
+          <h5 class="child-title" *ngIf="item.childsTypes.length>0">{{'Fish-types-menu.children' | translate}}</h5>
+          <hr class="black-line" *ngIf="item.childsTypes.length>0">
+          <ul class="children">
+          	<li *ngFor="let child of item.childsTypes">{{child.child.name}} <span class="del"><fa name="trash-o" (click)='deleteChild(child.id)'></fa></span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+	</div>
+	<div style="height: 100px"></div>
+	<div class="row">
+    <div class="col-12">
+    	<h2 class="black-title">{{'Fish-types-menu.table-title' | translate}}</h2>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <label>{{'Fish-types-menu.types' | translate}}</label><br>
+        <select class="js-example-basic-single types" name="types" data-placeholder="Select Types" class="types">
+          <option value="">{{'Fish-types-menu.types' | translate}}</option>
+          <option value="{{type.id}}" *ngFor="let type of types">{{type.name}}</option>
+        </select>
+      </div>
+      <div class="table-design">
+        <div class="row row-bg" *ngFor="let fish of menuList; let i=index">
+          <div class="col-lg-12">
+            <h2 class="name">
+              {{fish.name}}
+              <img src="../../assets/trash-icon.png" alt="" (click)="deleteMenuItem(i)" class="delete">
+            </h2>
+          </div>
+        </div>
+      </div>
+      <a class="btn-red-a" style="margin-top: 20px" (click)="saveMenuItems()">{{'Fish-types-menu.save' | translate}}</a>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+	<div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	    	<div class="modal-header">
+		        <h5 class="modal-title">{{'Fish-types-menu.add-child' | translate}}</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		          <span aria-hidden="true">&times;</span>
+		        </button>
+	      	</div>
+	    	<div class="modal-body">
+	    		<div class="form-control">
+	    			<select class="js-example-basic-single types" name="types" data-placeholder="Select Types" class="child">
+			          <option value="">{{'Fish-types-menu.types' | translate}}</option>
+			          <option value="{{type.id}}" *ngFor="let type of types">{{type.name}}</option>
+			        </select>
+	    		</div>
+		        <button class="pink-btn" (click)="addChild()" style="margin-top: 10px;">{{'Fish-types-menu.add-child' | translate}}</button>
+	    	</div>
+	    </div>
+	</div>
+</div>
