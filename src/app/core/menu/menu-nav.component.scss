@@ -162,6 +162,9 @@ form{
 .top-mobile{
 	display: none;
 }
+.dropdown-item.active, .dropdown-item:active{
+    background-color: #eb1c24;
+}
 @media(min-width: 992px){
 	.search-container{
 		z-index: 4;
