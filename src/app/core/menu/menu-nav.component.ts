@@ -133,7 +133,6 @@ export class MenuNavComponent{
     this.productService.getData('featuredtypes-menu').subscribe(
       result=>{
         this.fishTypeMenu=result;
-        console.log(result)
         this.addFishTypeMenu();
       },
       error=>{
