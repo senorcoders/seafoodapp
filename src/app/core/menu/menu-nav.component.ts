@@ -22,10 +22,10 @@ const languages: string[] = [defaultLanguage].concat(additionalLanguages);
 export class MenuNavComponent{
   isLogged:boolean=false;
   role:any;
-  productsCategories:any;
+  fishTypeMenu:any;
   userData:any;
   searchForm: FormGroup;
-  fishTypeMenu:any=[];
+  fishTypeMenuList:any=[];
   showCart:boolean=false;
   cartItem:any;
   showSuggestion:boolean=false;
@@ -111,7 +111,7 @@ export class MenuNavComponent{
     this.orders.hasOrders.subscribe((hasOrder:any)=>{
       this.showOrders=hasOrder
     })
-    this.getAllProductsCategories();
+    this.getFishTypeMenu();
     this.searchForm=this.fb.group({
       search:['', Validators.required]
     })
@@ -129,11 +129,12 @@ export class MenuNavComponent{
       this.show=true
     }
   }
-  getAllProductsCategories(){
-    this.productService.getAllCategoriesProducts().subscribe(
+  getFishTypeMenu(){
+    this.productService.getData('featuredtypes-menu').subscribe(
       result=>{
-        this.productsCategories=result;
-        this.addCategoryToMenu();
+        this.fishTypeMenu=result;
+        console.log(result)
+        this.addFishTypeMenu();
       },
       error=>{
         console.log(error)
@@ -157,21 +158,31 @@ export class MenuNavComponent{
   goCart(){
     this.router.navigate(['/cart']);
   }
-  addCategoryToMenu(){
-    // let obj={
-    //   state:'archive-product',
-    //   name:'Fish Type',
-    //   type:'sub',
-    //   children:[]
-    // };
-    // this.productsCategories.forEach((category)=>{
-    //   obj.children.push({state: `archive-product/${category.name}`, name: category.name},)
-    //  });
-    // this.menuItems.addMenuItem(obj)
-    this.productsCategories.forEach((category)=>{
-      this.fishTypeMenu.push({state: `fish-type/${category.name}`, name: category.name},)
+  addFishTypeMenu(){
+    this.fishTypeMenu.featureds.forEach((category)=>{
+      if(category.childsTypes.length>0){
+        let data={"children":[]};
+        category.childsTypes.forEach((children)=>{
+          data['children'].push({state:`fish-type/${children.child.name}/1`,name:children.child.name, translate:{en:{name:children.child.name},es:{name:children.child.name}}})
+        })
+        this.fishTypeMenuList.push(
+          {
+            state: `fish-type/${category.name}/1`,type:'sub',children:data.children,
+            translate:{
+              en:{
+                name:category.childsTypes[0].parent.name
+              },
+              es:{
+                name:category.childsTypes[0].parent.name
+              }
+            }
+          }
+        )
+      }
+      else{
+        this.fishTypeMenuList.push({state: `fish-type/${category.name}/1`,type: 'link',translate:{en:{name:category.name},es:{name:category.name}}})
+      }
     });
-    
   }
   suggestions(){
     let search=this.searchForm.get('search').value

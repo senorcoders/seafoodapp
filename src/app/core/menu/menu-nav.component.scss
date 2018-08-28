@@ -1,11 +1,3 @@
-.multiple .dropdown-menu{
-  width: 620% !important;
-  left: -400% !important;
-}
-.more-menu .dropdown-menu{
-	width: 350% !important;
-    left: -270% !important;
-}
 .top-nav{
     padding: 15px 0;
     box-shadow: 0px 10px 11px -7px #eeeeee;
@@ -74,6 +66,17 @@ form{
 	}
 }
 .fish-type-menu{
+	.multiple-column{
+		column-count: 3;
+	}
+	#nav-item-5 .dropdown-menu{
+		width: 350% !important;
+    	left: -270% !important;
+	}
+	#nav-item-4 .dropdown-menu{
+		width: 750% !important;
+  		left: -400% !important;
+	}
     .nav-item {
     	display: inline-block;
     	.nav-link {
@@ -177,7 +180,7 @@ form{
 		padding-right: 15px !important;
 		font-size: 1rem !important
 	}
-	.multiple .dropdown-menu{
+	#nav-item-4 .dropdown-menu{
 	  width: 750% !important;
 	  left: -400% !important;
 	}
