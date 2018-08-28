@@ -1,4 +1,4 @@
-<div class="page-header homepage container" id="hero">
+<div class="page-header homepage container" id="hero" *ngIf="role!=2">
   <!-- <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading"> -->
   <div class="content">
     <h1 class="big-title">
@@ -72,7 +72,7 @@
       </div>
     </div>
   </div>
-<div class="about">
+<div class="about" *ngIf="role!=2">
   <div class="container">
     <div class="row">
     <div class="col-md-6 col-lg-6 white-bg">
@@ -123,7 +123,53 @@
     </div>
   </div>
 </div>
-<div class="seller-section container">
+<div class="fish-types">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="title">{{"Home.fist-type" | translate}}</h2>
+        <hr class="hr-small">
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngFor="let type of fishTypeMenu; let i = index">
+          <div class="col-lg-4 products">
+            <div class="border-product">
+              <div class="img-container">
+                <a routerLink="/fish-type/{{type.name}}/1">
+                  <div class="product-img" [style.background-image]="fishTypeMenuImages[i]"></div>
+                </a>
+              </div>
+              <h3 class="product-name">{{type.name}}</h3>
+              <hr class="black-line">
+              <div class="desc">{{getShortDesc(type.description)}}</div>
+            </div>
+          </div>
+<!--           <ng-template #fishChildren>
+            <div class="col-lg-4 products" *ngFor="let child of type.childsTypes; let j=index">
+              <div class="border">
+                <div class="img-container">
+                  <a routerLink="/fish-type/{{child.child.name}}/1">
+                    <div class="product-img">
+                      <img src="{{API+child.child.images[0].src}}" alt="" *ngIf="child.child.images && child.child.images.length>0;else default">
+                      <ng-template #default>
+                        <img src="../../assets/default.jpg" alt="">
+                      </ng-template>
+                    </div>
+                  </a>
+                </div>
+                <a routerLink="/fish-type/{{type.name}}/1"><h3 class="product-name">{{child.child.name}}</h3></a>
+                <a routerLink="/fish-type/{{type.name}}/1"><span class="product-type">{{child.child.name}}</span></a>
+                <hr class="black-line">
+                <div class="desc">{{getShortDesc(child.child.description)}}</div>
+              </div>
+            </div>
+          </ng-template> -->
+        </ng-container>
+      </div>
+  </div>
+</div>
+<div class="seller-section container" *ngIf="role!=2">
   <div class="row featuredSeller">
     <div class="col-12 seller-title">
       <h2 class="title">{{"Home.featuredSeller" | translate}}</h2>
@@ -134,7 +180,7 @@
     </div>
   </div>
 </div>
-<div class="row fish-categories">
+<div class="row fish-categories" *ngIf="role!=2">
   <div class="col-12">
     <h2 class="title">{{"Home.fist-type" | translate}}</h2>
     <hr class="hr-small">

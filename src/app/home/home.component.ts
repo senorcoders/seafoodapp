@@ -5,6 +5,7 @@ import { CartService } from '../core/cart/cart.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
+import {IsLoginService} from '../core/login/is-login.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,7 +14,7 @@ import { environment } from '../../environments/environment';
 export class HomeComponent implements OnInit {
   products:any=[];
   API:string=environment.apiURLImg;
-  user:any;
+  role:any;
   showLoading:boolean=true;
   featuredSellers:any;
   showError:boolean=false;
@@ -24,12 +25,20 @@ export class HomeComponent implements OnInit {
   featuredTypesImages=[];
   loadProduct:boolean=true;
   featuredtypes:any;
-  constructor(private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
+  fishTypeMenu:any;
+  fishTypeMenuImages=[];
+  fishTypeMenuImagesChild=[];
+  constructor(private isLoggedSr: IsLoginService, private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
   }
   ngOnInit() {
    this.getFeaturedSeller();
    this.getFeaturedProducts();
    this.getFeaturedTypes();
+   this.getFishTypeMenu();
+   this.isLoggedSr.role.subscribe((role:number)=>{
+      this.role=role
+      console.log(this.role)
+    })
   }
   getFeaturedProducts(){
     this.product.getData('featuredproducts').subscribe(
@@ -105,6 +114,43 @@ export class HomeComponent implements OnInit {
       )
     })
   }
+  getFishTypeMenu(){
+    this.product.getData('featuredtypes-menu').subscribe(
+      result=>{
+        this.fishTypeMenu=result['featureds'];
+        console.log(this.fishTypeMenu)
+        this.fishTypeMenu.forEach((data,index)=>{
+          // if(data.childsTypes.length>0){
+          //   let j=this.fishTypeMenuImagesChild.length;
+          //   data.childsTypes.forEach((child, i)=>{
+          //     //console.log(child.child.images[0].src)
+          //     if(child.child.images && child.child.images.length>0){
+          //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${child.child.images[0].src})`)
+          //     }
+          //     else{
+          //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+          //     }
+          //     j++;
+          //     //console.log(this.fishTypeMenuImagesChild[i])
+          //   })
+          // }
+          //else{
+            if(data.images && data.images.length>0){
+              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+            }
+            else{
+              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+            }
+          //}
+        })
+        console.log(this.fishTypeMenuImagesChild)
+        console.log(this.fishTypeMenuImages)
+      },
+      e=>{
+       console.log(e)
+      }
+    )
+  }
   getFeaturedTypes(){
     this.product.getData('featuredtypes/').subscribe(
       result=>{
@@ -121,8 +167,6 @@ export class HomeComponent implements OnInit {
           jQuery('#featuredtype2').appendTo('#featured1')
         jQuery('#featured2').remove();
         })
-        console.log(this.featuredtypes)
-        console.log(this.featuredTypesImages)
       },
       error=>{
         console.log(error)
