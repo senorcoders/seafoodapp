@@ -13,6 +13,7 @@ import {ProductService} from'../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
 import { environment } from '../../environments/environment';
+import * as XLSX from 'ts-xlsx';
 
 @Component({
   selector: 'app-add-product',
@@ -46,6 +47,10 @@ export class AddProductComponent implements OnInit {
   existStore:boolean = true;
   primaryImg:any;
   countries=environment.countries;
+  arrayBuffer:any;
+  file:File;
+  products:any = [];
+  productsToUpload:any = [];
   constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();
@@ -174,4 +179,81 @@ uploadFileToActivity(productID) {
   
 }
 
+incomingfile(event) 
+  {
+  this.file= event.target.files[0]; 
+  }
+
+ Upload() {
+      let fileReader = new FileReader();
+        fileReader.onload = (e) => {
+            this.arrayBuffer = fileReader.result;
+            var data = new Uint8Array(this.arrayBuffer);
+            var arr = new Array();
+            for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
+            var bstr = arr.join("");
+            var workbook = XLSX.read(bstr, {type:"binary"});
+            var first_sheet_name = workbook.SheetNames[0];
+            var worksheet = workbook.Sheets[first_sheet_name];
+            console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+            this.products = XLSX.utils.sheet_to_json(worksheet,{raw:true});
+            this.structureData();
+        }
+        fileReader.readAsArrayBuffer(this.file);
 }
+
+structureData(){
+  this.products.forEach((item, index) => {
+    console.log(item);
+    var product = {
+      "type" : this.findTypeKey(item.Type),
+      "store" : this.store[0].id,
+      "quality" : item.Quality,
+      "name" : item.Name,
+      "description" : item.Description,
+      "country" : item.Country,
+      "price" : {
+          "type" : "$",
+          "value" : item.Price,
+          "description" : item.Price + " for pack"
+      },
+      "weight" : {
+          "type" : item.WeightMeasurement,  
+          "value" : item.WeightValue
+      },
+      "minimumOrder" : item.MinimunOrder,
+          "raised": item.Raised,
+      "preparation": item.Preparation,
+      "Treatment": item.Treatment
+    }
+    this.productsToUpload.push(product);
+    console.log(this.productsToUpload);
+    console.log(index);
+    if(index === (this.products.length - 1)){
+      console.log("Ready to Upload");
+      this.bulkUpload();
+    }
+
+  });
+}
+findTypeKey(value) {
+  for (var i = 0; i < this.pTypes.length; i++) {
+      if (this.pTypes[i]['name'] === value) {
+          return this.pTypes[i].id;
+      }
+  }
+  return null;
+}
+
+bulkUpload(){
+
+  var sendData = {"products": this.productsToUpload};
+  this.product.saveData('api/fishs', sendData).subscribe(result =>{
+      console.log(result);
+      this.toast.success("Products added succesfully!",'Well Done',{positionClass:"toast-top-right"})
+
+  });
+}
+}
+
+
