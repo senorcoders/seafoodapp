@@ -20,8 +20,8 @@ const menuAdmin=[
     en:{
       name:'Comment'
     },
-    es:{
-      name:'Comentarios'
+    ar:{
+      name:'Comment'
     }
   }
 },
@@ -29,17 +29,17 @@ const menuAdmin=[
   state:'users',
   type: 'sub',
   children:[
-  {state:'admin', name:"Admins", translate:{en:{name:"Admins"}, es:{name:"Admins"}}},
-  {state:'seller', name:"Sellers", translate:{en:{name:"Sellers"}, es:{name:"Vendedores"}}},
-  {state:'buyer', name:"Buyers", translate:{en:{name:"Buyers"}, es:{name:"Compradores"}}},
-  {state:'verify-users', name:"Verify Users", translate:{en:{name:"Verify Users"}, es:{name:"Verificar Usuarios"}}}
+  {state:'admin', name:"Admins", translate:{en:{name:"Admins"}, ar:{name:"Admins"}}},
+  {state:'seller', name:"Sellers", translate:{en:{name:"Sellers"}, ar:{name:"Sellers"}}},
+  {state:'buyer', name:"Buyers", translate:{en:{name:"Buyers"}, ar:{name:"Buyers"}}},
+  {state:'verify-users', name:"Verify Users", translate:{en:{name:"Verify Users"}, ar:{name:"Verify Users"}}}
   ],
   translate:{
     en:{
       name:'Users'
     },
-    es:{
-      name:'Usuarios'
+    ar:{
+      name:'Users'
     }
   }
 },
@@ -50,8 +50,8 @@ const menuAdmin=[
     en:{
       name:'Products'
     },
-    es:{
-      name:'Productos'
+    ar:{
+      name:'Products'
     }
   }
 },
@@ -62,8 +62,8 @@ const menuAdmin=[
     en:{
       name:'Fish Type'
     },
-    es:{
-      name:'Tipos de Pescados'
+    ar:{
+      name:'Fish Type'
     }
   }
 },
@@ -71,19 +71,19 @@ const menuAdmin=[
   state:'featured',
   type:'sub',
   children:[
-    {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller '},es:{name:'Vendedores Destacados'}}},
-    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},es:{name:'Productos Destacados'}}},
-    {state:'featured-types', name:'Featured  Types',translate:{en:{name:'Featured Types'},es:{name:'Tipos Destacados'}}},
-    {state:'fish-types-menu', name:'Fish Types menu',translate:{en:{name:'Fish Types menu'},es:{name:'Menu Tipos de pescados'}}},
-    {state:'chart', name:'Purchases Charts',translate:{en:{name:'Purchases Charts'},es:{name:'Gráficos de ventas'}}},
-    {state:'documents', name:'Upload Document',translate:{en:{name:'Upload Document'},es:{name:'Subir Documentos'}}}
+    {state:'featured-seller', name:'Featured  Seller', translate:{en:{name:'Featured  Seller'},ar:{name:'Featured  Seller'}}},
+    {state:'featured-products', name:'Featured  Products',translate:{en:{name:'Featured Products'},ar:{name:'Featured Products'}}},
+    {state:'featured-types', name:'Featured  Types',translate:{en:{name:'Featured Types'},ar:{name:'Featured Types'}}},
+    {state:'fish-types-menu', name:'Fish Types menu',translate:{en:{name:'Fish Types menu'},ar:{name:'Fish Types menu'}}},
+    {state:'chart', name:'Purchases Charts',translate:{en:{name:'Purchases Charts'},ar:{name:'Purchases Charts'}}},
+    {state:'documents', name:'Upload Document',translate:{en:{name:'Upload Document'},ar:{name:'Upload Document'}}}
   ],
     translate:{
     en:{
       name:'Featured'
     },
-    es:{
-      name:'Destacados'
+    ar:{
+      name:'Featured'
     }
   }
 }
@@ -96,8 +96,8 @@ const menu=[
     en:{
       name:'Login'
     },
-    es:{
-      name:'Iniciar Session'
+    ar:{
+      name:'Login'
     }
   }
 },
@@ -108,8 +108,8 @@ const menu=[
     en:{
       name:'Register'
     },
-    es:{
-      name:'Registrarse'
+    ar:{
+      name:'Register'
     }
   }
 }
@@ -122,8 +122,8 @@ const menuSeller=[
     en:{
       name:'Recent Purchases'
     },
-    es:{
-      name:'Compras Recientes'
+    ar:{
+      name:'Recent Purchases'
     }
   }
 },
@@ -131,15 +131,15 @@ const menuSeller=[
   state:'products',
   type: 'sub',
   children:[
-    {state:'add-product', name:'add new', translate:{en:{name:'Add New'},es:{name:'Agregar'}}},
-    {state:'my-products', name:'my products',translate:{en:{name:'My Products'},es:{name:'Mis Productos'}}}
+    {state:'add-product', name:'add new', translate:{en:{name:'Add New'},ar:{name:'Add New'}}},
+    {state:'my-products', name:'my products',translate:{en:{name:'My Products'},ar:{name:'My Products'}}}
   ],
   translate:{
     en:{
       name:'My Products'
     },
-    es:{
-      name:'Mis Productos'
+    ar:{
+      name:'My Products'
     }
   }
 },
@@ -150,8 +150,8 @@ const menuSeller=[
     en:{
       name:'Documents'
     },
-    es:{
-      name:'Documentos'
+    ar:{
+      name:'Documents'
     }
   }
 }
@@ -164,8 +164,8 @@ const menuBuyer=[
     en:{
       name:'My Orders'
     },
-    es:{
-      name:'Mis Compras'
+    ar:{
+      name:'My Orders'
     }
   }
 }
@@ -178,8 +178,8 @@ const menuFooter=[
       en:{
         name: 'Profile'
       },
-      es:{
-        name:'Perfil'
+      ar:{
+        name:'Profile'
       }
     }
   },
@@ -190,8 +190,8 @@ const menuFooter=[
       en:{
         name: 'Favorites'
       },
-      es:{
-        name:'Favoritos'
+      ar:{
+        name:'Favorites'
       }
     }
   },
@@ -202,8 +202,8 @@ const menuFooter=[
       en:{
         name: 'My Orders'
       },
-      es:{
-        name:'Mis compras'
+      ar:{
+        name:'My Orders'
       }
     }
   },{
@@ -213,8 +213,8 @@ const menuFooter=[
       en:{
         name: 'Browse'
       },
-      es:{
-        name:'Navegar'
+      ar:{
+        name:'Browse'
       }
     }
   },
@@ -225,7 +225,7 @@ const menuFooter=[
       en:{
         name: 'SFSPay'
       },
-      es:{
+      ar:{
         name:'SFSPay'
       }
     }
@@ -237,8 +237,8 @@ const menuFooter=[
       en:{
         name: 'Help'
       },
-      es:{
-        name:'Ayuda'
+      ar:{
+        name:'Help'
       }
     }
   },
@@ -249,8 +249,8 @@ const menuFooter=[
       en:{
         name: 'Contact us'
       },
-      es:{
-        name:'Contáctanos'
+      ar:{
+        name:'Contact us'
       }
     }
   },
@@ -261,8 +261,8 @@ const menuFooter=[
       en:{
         name: 'Guides'
       },
-      es:{
-        name:'Guías'
+      ar:{
+        name:'Guides'
       }
     }
   },
@@ -273,8 +273,8 @@ const menuFooter=[
       en:{
         name: 'Terms & Conditions'
       },
-      es:{
-        name:'Términos y Condiciones'
+      ar:{
+        name:'Terms & Conditions'
       }
     }
   },
@@ -285,8 +285,8 @@ const menuFooter=[
       en:{
         name: 'About us'
       },
-      es:{
-        name:'Sobre Nosotros'
+      ar:{
+        name:'About us'
       }
     }
   }
@@ -299,8 +299,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Homepage'
       },
-      es:{
-        name:'Inicio'
+      ar:{
+        name:'Homepage'
       }
     }
   },
@@ -311,8 +311,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Seller Register'
       },
-      es:{
-        name:'Registrarse como Vendedor'
+      ar:{
+        name:'Seller Register'
       }
     }
   },
@@ -323,8 +323,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Buyer Register'
       },
-      es:{
-        name:'Registrarse como Comprador'
+      ar:{
+        name:'Buyer Register'
       }
     }
   },
@@ -335,8 +335,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Login'
       },
-      es:{
-        name:'Iniciar sesión'
+      ar:{
+        name:'Login'
       }
     }
   },
@@ -347,8 +347,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Browse'
       },
-      es:{
-        name:'Navegar'
+      ar:{
+        name:'Browse'
       }
     }
   },
@@ -359,7 +359,7 @@ const menuFooterNoLogin=[
       en:{
         name: 'SFSPay'
       },
-      es:{
+      ar:{
         name:'SFSPay'
       }
     }
@@ -371,8 +371,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Help'
       },
-      es:{
-        name:'Ayuda'
+      ar:{
+        name:'Help'
       }
     }
   },
@@ -383,8 +383,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Contact us'
       },
-      es:{
-        name:'Contáctanos'
+      ar:{
+        name:'Contact us'
       }
     }
   },
@@ -395,8 +395,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Guides'
       },
-      es:{
-        name:'Guías'
+      ar:{
+        name:'Guides'
       }
     }
   },
@@ -407,8 +407,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Terms & Conditions'
       },
-      es:{
-        name:'Términos y Condiciones'
+      ar:{
+        name:'Terms & Conditions'
       }
     }
   },
@@ -419,8 +419,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'About us'
       },
-      es:{
-        name:'Sobre Nosotros'
+      ar:{
+        name:'About us'
       }
     }
   },
@@ -431,8 +431,8 @@ const menuFooterNoLogin=[
       en:{
         name: 'Company registration and contact details'
       },
-      es:{
-        name:'Registro de empresa y detalles de contacto'
+      ar:{
+        name:'Company registration and contact details'
       }
     }
   },

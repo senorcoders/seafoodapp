@@ -35,7 +35,6 @@
 	}
 	.access-buyer{
 		text-align: right;
-		margin-right: 10px;
 		align-items: center;
 		.login, .signup{
 			text-align: center;
@@ -54,7 +53,12 @@
 			}
 		}
 		.bar{
-			margin:0 10px;
+			margin: 0 1rem;;
+		}
+	}
+	.menuitem-buyer{
+		.nav-link{
+			padding-right: 1rem !important;
 		}
 	}
 }
@@ -165,8 +169,9 @@ form{
 }
 .cart{
 	position: relative;
-    padding: 10px !important;
+    padding: 10px 15px !important;
 }
+
 .total{
 	position: absolute;
     font-size: 11px;
@@ -202,6 +207,9 @@ form{
 	}
 	.fish-type-menu-mobile{
 		display: none;
+	}
+	.access-buyer .nav-item:last-child .cart{
+		padding: 10px 15px 10px 5px!important;
 	}
 }
 @media(max-width: 1200px){
@@ -242,6 +250,10 @@ form{
 	.nav-language{
 		margin: 0 auto;
     	display: inline-block;
+    	padding: 0.5rem;
+	}
+	.cart{
+		padding: 0.5rem 15px !important;
 	}
 	.access{
 		padding-left: 15px;
@@ -257,7 +269,7 @@ form{
 		}
 	}
 	.login, .signup{
-		margin-bottom: 10px;
+		margin: 0.5rem 0;
 	}
 	#navbarSupportedContent, .nav-language{
 		text-align: center;
