@@ -29,12 +29,16 @@ export class AddProductComponent implements OnInit {
   myform: FormGroup;
   name: FormControl;
   price: FormControl;
+  minimunorder: FormControl;
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
   base:string=environment.apiURLImg;
   pTypes:any = [];
   country: FormControl;
+  raised: FormControl;
+  preparation: FormControl;
+  treatment: FormControl;
   fileToUpload: any = [];
   info:any;
   store:any = [];
@@ -74,10 +78,14 @@ export class AddProductComponent implements OnInit {
   createFormControls() {
     this.name = new FormControl('', Validators.required);
     this.price = new FormControl('', Validators.required);
+    this.minimunorder = new FormControl('', Validators.required);
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     this.types = new FormControl('', Validators.required);
     this.country = new FormControl('', Validators.required);
+    this.raised = new FormControl('', Validators.required);
+    this.preparation = new FormControl('', Validators.required);
+    this.treatment = new FormControl('', Validators.required);
 
   }
 
@@ -85,10 +93,14 @@ export class AddProductComponent implements OnInit {
     this.myform = new FormGroup({
       name: this.name,
       price: this.price,
+      minimunorder: this.minimunorder,
       measurement: this.measurement,
       description: this.description,
       types: this.types,
-      country: this.country
+      country: this.country,
+      raised: this.raised,
+      preparation: this.preparation,
+      treatment: this.treatment
     });
   }
 
@@ -109,7 +121,12 @@ export class AddProductComponent implements OnInit {
           "weight": {
               "type": this.measurement.value,
               "value": 5
-          }
+          },
+          "minimumOrder" : this.minimunorder.value,
+          "raised": this.raised.value,
+          "preparation": this.preparation.value,
+          "treatment": this.treatment.value
+          
       }
       this.product.saveData('fish', data).subscribe(result =>{
         if(this.fileToUpload.length > 0 || this.primaryImg.length > 0){
