@@ -148,6 +148,31 @@
       </form>
     </div>
   </div>
+<div style="height: 50px;"></div>
+  <h1 class="title">Products Bulk Upload</h1>
+  <div class="form-control-feedback">
+    <p>*All fields are required</p>
+    <p>Download our example file from here <a href="/assets/seafood-bulk.xlsx" download="">Download</a></p>
+  </div>
+  <form  class="form-design">
+  <div class="row">
+    <div class="col-12">
+     <div class="form-group">
+       <label>Choose Excel File</label>
+      <input class="form-control" type="file" style="display: inline-block;" (change)="incomingfile($event)" placeholder="Upload file" accept=".xlsx" required>
+
+  </div>
+ 
+    </div>
+
+    <div class="col-12">
+      <div class="form-group">
+          <button type="button" class="btn btn-red" (click)="Upload()" >Upload</button>
+
+      </div>
+    </div>
+  </div>
+</form>
   <div style="height: 100px;"></div>
 </div>
 <ng-template #elseBlock>
