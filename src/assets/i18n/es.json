@@ -131,8 +131,11 @@
 		"required":"is required",
 		"create":"Hey, You need to create a store before creating any products. Click",
 		"here":"here",
-		"store":"and create your own store!"
-	},
+		"store":"and create your own store!",
+		"minimun": "Mininum Order",
+		"raised": "Raised",
+		"preparation": "Preparation",
+		"treatment": "Treatment"	},
 	"SingleProduct":{
 		"add":"Agregar al carrito",
 		"view":"Ver Carrito",
@@ -316,8 +319,7 @@
 		"buyer":"Buyer",
 		"save":"Save",
 		"update-table":"Update table",
-		"required":"is required",
-		"country":"Choose a Country"
+		"required":"is required"
 	},
 	"Favorites":{
 		"title":"Mis Favoritos",
