@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
    this.getFishTypeMenu();
    this.isLoggedSr.role.subscribe((role:number)=>{
       this.role=role
-      console.log(this.role)
     })
   }
   getFeaturedProducts(){
@@ -118,7 +117,6 @@ export class HomeComponent implements OnInit {
     this.product.getData('featuredtypes-menu').subscribe(
       result=>{
         this.fishTypeMenu=result['featureds'];
-        console.log(this.fishTypeMenu)
         this.fishTypeMenu.forEach((data,index)=>{
           // if(data.childsTypes.length>0){
           //   let j=this.fishTypeMenuImagesChild.length;
@@ -143,8 +141,6 @@ export class HomeComponent implements OnInit {
             }
           //}
         })
-        console.log(this.fishTypeMenuImagesChild)
-        console.log(this.fishTypeMenuImages)
       },
       e=>{
        console.log(e)

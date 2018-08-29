@@ -13,7 +13,9 @@
 								<div class="left"><fa name="heart" class="heart" (click)="deletefavorite(favorite.id)"></fa></div>
 								<div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deletefavorite(favorite.id)"></div>
 							</div>
-							<div class="product-img" [style.background-image]="images[i]"></div>
+							<a routerLink="/product/{{favorite.fish.id}}">
+								<div class="product-img" [style.background-image]="images[i]"></div>
+							</a>
 							<div class="content">
 								<a routerLink="/product/{{favorite.fish.id}}">
 									<h2 class="name">{{favorite.fish.name}}</h2>

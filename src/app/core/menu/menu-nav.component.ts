@@ -12,7 +12,7 @@ import { CartService } from '../cart/cart.service';
 import { OrdersService } from '../orders/orders.service';
 declare var jQuery:any;
 const defaultLanguage = "en";
-const additionalLanguages = ["es"];
+const additionalLanguages = ["ar"];
 const languages: string[] = [defaultLanguage].concat(additionalLanguages);
 @Component({
   selector: 'app-menu-nav',
@@ -47,13 +47,16 @@ export class MenuNavComponent{
     //language
     this.translate.setDefaultLang(defaultLanguage);
     this.translate.addLangs(additionalLanguages);
-    let initLang = this.translate.getBrowserLang();
-    this.lang=initLang;
-    if (languages.indexOf(initLang) === -1) {
-      initLang = defaultLanguage;
-    }
-    this.translate.use(initLang);
-    this.languageService.setLanguage(initLang);
+    // let initLang = this.translate.getBrowserLang();
+    // this.lang=initLang;
+    // if (languages.indexOf(initLang) === -1) {
+    //   initLang = defaultLanguage;
+    // }
+    // this.translate.use(initLang);
+    //this.languageService.setLanguage(initLang);
+    this.lang=defaultLanguage;
+    this.translate.use(defaultLanguage);
+    this.languageService.setLanguage(defaultLanguage);
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
     })
@@ -162,7 +165,7 @@ export class MenuNavComponent{
       if(category.childsTypes.length>0){
         let data={"children":[]};
         category.childsTypes.forEach((children)=>{
-          data['children'].push({state:`fish-type/${children.child.name}/1`,name:children.child.name, translate:{en:{name:children.child.name},es:{name:children.child.name}}})
+          data['children'].push({state:`fish-type/${children.child.name}/1`,name:children.child.name, translate:{en:{name:children.child.name},ar:{name:children.child.name}}})
         })
         this.fishTypeMenuList.push(
           {
@@ -171,7 +174,7 @@ export class MenuNavComponent{
               en:{
                 name:category.childsTypes[0].parent.name
               },
-              es:{
+              ar:{
                 name:category.childsTypes[0].parent.name
               }
             }
@@ -179,7 +182,7 @@ export class MenuNavComponent{
         )
       }
       else{
-        this.fishTypeMenuList.push({state: `fish-type/${category.name}/1`,type: 'link',translate:{en:{name:category.name},es:{name:category.name}}})
+        this.fishTypeMenuList.push({state: `fish-type/${category.name}/1`,type: 'link',translate:{en:{name:category.name},ar:{name:category.name}}})
       }
     });
   }

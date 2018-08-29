@@ -29,7 +29,7 @@
             </ul>
           </ng-template> -->
           <!-- star menu buyer -->
-          <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
+          <ul class="navbar-nav ml-auto menuitem-buyer" *ngIf="isLogged && role==2">
             <!-- start search -->
             <li class="nav-item">
               <!-- <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a> -->
@@ -142,9 +142,9 @@
             <li class="nav-item lang-cont">
               <select class="language" (change)="changeLanguage($event)">
                 <option value="{{lang}}">{{lang}}</option>
-                <option *ngIf="lang=='es'; else es" value="en">en</option>
-                <ng-template #es>
-                  <option value="es">es</option>
+                <option *ngIf="lang=='ar'; else ar" value="en">en</option>
+                <ng-template #ar>
+                  <option value="ar">ar</option>
                 </ng-template>
               </select>
             </li>
