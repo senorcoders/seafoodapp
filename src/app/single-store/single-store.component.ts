@@ -111,7 +111,7 @@ export class SingleStoreComponent implements OnInit {
         this.store.name = result['name'];
         this.store.description = result['description'];
         this.store.location = result['location'];
-        this.userID=result['owner'].id
+        this.userID=result['owner']
         this.products=result['fishs'];
         this.products.forEach((data,index)=>{
           if(data.imagePrimary && data.imagePrimary !=''){
@@ -140,11 +140,9 @@ export class SingleStoreComponent implements OnInit {
   }
 
   sendMail(){
-    console.log(this.form);
     if(this.form.name != '' && this.form.email != '' && this.form.message != ''){
       this.productService.saveData(this.formEndpoint + this.userID, this.form).subscribe(result => {
-          console.log(result);
-          this.toast.success("Submit successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.toast.success("Submit successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }, error => {
         this.toast.error("Error sending email!", "Error",{positionClass:"toast-top-right"} );
