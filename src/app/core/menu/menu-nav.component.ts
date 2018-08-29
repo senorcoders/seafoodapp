@@ -31,7 +31,7 @@ export class MenuNavComponent{
   showSuggestion:boolean=false;
   results:any;
   lang:any;
-  show:boolean=false;
+  //show:boolean=false;
   showOrders:boolean=false;
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems,
    private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService,
@@ -121,14 +121,14 @@ export class MenuNavComponent{
     this.auth.logOut();
     this.router.navigate(["/home"]);
   }
-  openSearch(){
-    if(this.show){
-      this.show=false
-    }
-    else{
-      this.show=true
-    }
-  }
+  // openSearch(){
+  //   if(this.show){
+  //     this.show=false
+  //   }
+  //   else{
+  //     this.show=true
+  //   }
+  // }
   getFishTypeMenu(){
     this.productService.getData('featuredtypes-menu').subscribe(
       result=>{
@@ -142,7 +142,7 @@ export class MenuNavComponent{
   }
   search(){
     this.showSuggestion=false;
-    this.show=false;
+    //this.show=false;
     this.results='';
     this.router.navigate([`search/${this.searchForm.get('search').value}/1`]);
     this.searchForm.reset()
@@ -151,7 +151,7 @@ export class MenuNavComponent{
     this.searchForm.reset();
     this.results='';
     this.showSuggestion=false;
-    this.show=false;
+    //this.show=false;
     this.router.navigate([`search/${name}`]);
   }
   goCart(){
@@ -205,7 +205,7 @@ export class MenuNavComponent{
   }
   closeSuggestion(){
     this.showSuggestion=false
-    this.show=false
+    //this.show=false
   }
   changeLanguage(e){
     let value=e.srcElement.value;

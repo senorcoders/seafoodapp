@@ -158,18 +158,6 @@ const menuSeller=[
 ];
 const menuBuyer=[
 {
-  state:'favorites',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Favorites'
-    },
-    es:{
-      name:'Favoritos'
-    }
-  }
-},
-{
   state:'orders',
   type: 'link',
   translate:{

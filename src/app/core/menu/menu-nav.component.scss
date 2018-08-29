@@ -33,6 +33,33 @@
 			margin:0 10px
 		}
 	}
+	.access-buyer{
+		text-align: right;
+		margin-right: 10px;
+		align-items: center;
+		.login, .signup{
+			text-align: center;
+		    border-radius: 50%;
+		    width: 60px;
+		    display: flex;
+		    height: 60px;
+		    align-items: center;
+		    background: #eb1c24;
+		    a{
+				cursor: pointer;
+			    text-decoration: none !important;
+			    color: white;
+			    display: block;
+			    width: 100%;
+			}
+		}
+		.bar{
+			margin:0 10px;
+		}
+	}
+}
+.favorites-link{
+	color:#eb1c24 !important
 }
 form{
 	.form-group{
@@ -138,7 +165,7 @@ form{
 }
 .cart{
 	position: relative;
-    padding-right: 20px !important;
+    padding: 10px !important;
 }
 .total{
 	position: absolute;
@@ -196,9 +223,6 @@ form{
 	}
 }
 @media(max-width: 992px){
-	.lang-cont{
-		text-align: right;
-	}
 	.top-mobile{
 		display: block;
 	}
@@ -211,9 +235,17 @@ form{
 		margin: 0 !important;
     	width: 100%;
 	}
+	.search-container{
+		margin: 0 auto;
+    	display: inline-block;
+	}
+	.nav-language{
+		margin: 0 auto;
+    	display: inline-block;
+	}
 	.access{
 		padding-left: 15px;
-		text-align: left !important;
+		text-align: center !important;
 		a{
 			color: #000000 !important;
 		    font-size: 1.1rem !important;
@@ -223,6 +255,12 @@ form{
     		padding-top: 0.5rem !important;
     		display: block;
 		}
+	}
+	.login, .signup{
+		margin-bottom: 10px;
+	}
+	#navbarSupportedContent, .nav-language{
+		text-align: center;
 	}
 	.dropdown-toggle::after{
 		display: none;
@@ -234,7 +272,10 @@ form{
     	align-items: flex-start;
 	}
 	.lang-cont{
-		padding-left: 15px;
+		display: block;
+	    width: 100%;
+	    text-align: center;
+	    padding: 0;
 	}
 	.fish-type-menu{
 		display: none;
