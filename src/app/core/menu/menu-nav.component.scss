@@ -33,6 +33,33 @@
 			margin:0 10px
 		}
 	}
+	.access-buyer{
+		text-align: right;
+		margin-right: 10px;
+		align-items: center;
+		.login, .signup{
+			text-align: center;
+		    border-radius: 50%;
+		    width: 60px;
+		    display: flex;
+		    height: 60px;
+		    align-items: center;
+		    background: #eb1c24;
+		    a{
+				cursor: pointer;
+			    text-decoration: none !important;
+			    color: white;
+			    display: block;
+			    width: 100%;
+			}
+		}
+		.bar{
+			margin:0 10px;
+		}
+	}
+}
+.favorites-link{
+	color:#eb1c24 !important
 }
 form{
 	.form-group{
@@ -138,7 +165,7 @@ form{
 }
 .cart{
 	position: relative;
-    padding-right: 20px !important;
+    padding: 10px !important;
 }
 .total{
 	position: absolute;

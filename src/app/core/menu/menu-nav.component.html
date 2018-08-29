@@ -32,8 +32,8 @@
           <ul class="navbar-nav ml-auto" *ngIf="isLogged && role==2">
             <!-- start search -->
             <li class="nav-item">
-              <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a>
-              <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()" *ngIf="show">
+              <!-- <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a> -->
+              <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()">
                 <input class="form-control" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()" id="search-input">
                 <div class="suggestion" *ngIf="showSuggestion">
                   <ul>
@@ -103,22 +103,42 @@
             </li>
           </ul>
           <ng-template #noLogin>
-            <ul class="navbar-nav access">
-              <li class="nav-item">
-                <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
+            <!-- buyer -->
+            <ul class="navbar-nav access-buyer" *ngIf="role==2; else otherRole">
+              <li class="nav-item signup">
+                <a routerLink="/account">{{ "Menu.perfil" | translate }}</a>
               </li>
               <li class="nav-item">
                  <span class="bar">|</span>
               </li>
+              <li class="nav-item login">
+                <a (click)="logOut()">{{ "Menu.logout" | translate }}</a>
+              </li>
+              <li class="nav-item" *ngIf="showCart && isLogged">
+                <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
+              </li>
               <li class="nav-item">
-                <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
+                <a class="nav-link cart" href="mailto:info@seafoodsouq.com"><fa name="envelope-o"></fa></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link cart favorites-link" routerLink="/favorites"><fa name="heart"></fa></a>
               </li>
             </ul>
+            <ng-template #otherRole>
+              <ul class="navbar-nav access">
+                <li class="nav-item">
+                  <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
+                </li>
+                <li class="nav-item">
+                   <span class="bar">|</span>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
+                </li>
+              </ul>
+            </ng-template>
           </ng-template>
           <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
-            <li class="nav-item" *ngIf="showCart && isLogged">
-              <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
-            </li>
             <li class="nav-item lang-cont">
               <select class="language" (change)="changeLanguage($event)">
                 <option value="{{lang}}">{{lang}}</option>
