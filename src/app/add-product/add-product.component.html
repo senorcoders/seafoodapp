@@ -87,6 +87,60 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': minimunorder.invalid && (minimunorder.dirty || minimunorder.touched),'has-success': minimunorder.valid && (minimunorder.dirty || minimunorder.touched)}">
+              <label>{{'AddProduct.minimun' | translate}}</label>
+              <input type="number" class="form-control" formControlName="minimunorder" required>
+              <div class="form-control-feedback" *ngIf="minimunorder.errors && (minimunorder.dirty || minimunorder.touched)">
+                <p *ngIf="minimunorder.errors.required">{{'AddProduct.minimun' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
+              <label>{{'AddProduct.raised' | translate}}</label>
+              <select class="form-control" formControlName="raised">
+                <option value="farmed">Farmed</option>
+                <option value="organically">Organically Farmed</option>
+                <option value="wild">Wild</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="raised.errors && (raised.dirty || raised.touched)">
+                <p *ngIf="raised.errors.required">{{'AddProduct.raised' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
+              <label>{{'AddProduct.preparation' | translate}}</label>
+              <select class="form-control" formControlName="preparation">
+                <option value="filleted">Filleted</option>
+                <option value="whole">Whole</option>
+                <option value="gutted">Gutted</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="preparation.errors && (preparation.dirty || preparation.touched)">
+                <p *ngIf="preparation.errors.required">{{'AddProduct.preparation' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': treatment.invalid && (treatment.dirty || treatment.touched),'has-success': treatment.valid && (treatment.dirty || treatment.touched)}">
+              <label>{{'AddProduct.treatment' | translate}}</label>
+              <select class="form-control" formControlName="treatment">
+                <option value="fresh">Fresh</option>
+                <option value="frozen">Frozen</option>
+                <option value="live">Live</option>
+                <option value="smoked">Smoked</option>
+                <option value="canned">Canned</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="treatment.errors && (treatment.dirty || treatment.touched)">
+                <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
           <div class="col-12">
             <button type="submit" class="btn-red">{{'AddProduct.submit' | translate}}</button>
           </div>
