@@ -6,6 +6,8 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {LanguageService} from '../language/language.service';
 import {IsLoginService} from '../login/is-login.service';
+import * as AOS from 'aos';
+declare var jQuery:any;
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -22,6 +24,12 @@ export class FooterComponent{
     this.MenuItems=this.menu;
   }
   ngOnInit(){
+    jQuery(document).ready(function(){
+      AOS.init();
+    })
+    jQuery(window).on('load', function() {
+      AOS.refresh();
+    });
     //language
     this.languageService.language.subscribe((value:any)=>{
       this.language=value;
