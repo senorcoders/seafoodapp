@@ -137,7 +137,7 @@ export class HomeComponent implements OnInit {
               this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
             }
             else{
-              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/Logo-1.png)")
             }
           //}
         })
