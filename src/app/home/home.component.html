@@ -10,7 +10,7 @@
   </div>
   <img src="../../assets/banner.png" class="banner-img" alt="">
 </div>
-<div class="home-register">
+<div class="home-register" *ngIf="role!=2">
   <div class="container">
     <div class="row text-center">
       <div class="col-md-12 ">
@@ -41,7 +41,7 @@
   </div>
 </div>
 
-<div class="home-register white-home-register">
+<div class="home-register white-home-register" *ngIf="role!=2">
     <div class="container">
       <div class="row text-center">
         <div class="col-md-12 ">
@@ -87,7 +87,7 @@
   </div>
   </div>
 </div>
-<div class="products-section">
+<div class="products-section" [ngClass]="{'product-section-buyer':role==2}">
   <div class="white-bg">
     <div class="row">
       <div class="col">
@@ -137,7 +137,7 @@
             <div class="border-product">
               <div class="img-container">
                 <a routerLink="/fish-type/{{type.name}}/1">
-                  <div class="product-img" [style.background-image]="fishTypeMenuImages[i]"></div>
+                  <div class="product-img" [ngClass]="{'product-no-border':fishTypeMenuImages[i].changingThisBreaksApplicationSecurity=='url(../../assets/Logo-1.png)'}" [style.background-image]="fishTypeMenuImages[i]"></div>
                 </a>
               </div>
               <h3 class="product-name">{{type.name}}</h3>
