@@ -15,16 +15,18 @@
   <app-root></app-root>
   <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
   <script src="https://unpkg.com/slick-carousel@1.6.0/slick/slick.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS90wl64q94qXJxQ-nM3Adt1K6P9-d9gE"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
     
   jQuery(document).ready(function(){
+    AOS.init();
     jQuery(document).on( 'click', '.hasChildren', function(){
       jQuery(this).parent().find('.submenu').toggle('slow')
     });
