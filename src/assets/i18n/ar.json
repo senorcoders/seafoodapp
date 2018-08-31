@@ -487,5 +487,26 @@
 		"types":"Select Types",
 		"save":"Save Types",
 		"no-result":"No result"
+	},
+	"About":{
+		"title-banner":"About us"
+	},
+	"Browse":{
+		"title-banner":"Browse"
+	},
+	"SFSPay":{
+		"title-banner":"SFSPay"
+	},
+	"Help":{
+		"title-banner":"Help"
+	},
+	"ContactUs":{
+		"title-banner":"Contact Us"
+	},
+	"Guides":{
+		"title-banner":"Guides"
+	},
+	"TermsConditions":{
+		"title-banner":"Terms & Conditions"
 	}
 }

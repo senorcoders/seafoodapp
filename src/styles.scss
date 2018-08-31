@@ -864,6 +864,17 @@ app-administrator, app-featured-seller, app-featured-products,app-featured-types
       }
   }
 }
+.subpages{
+  height: 300px !important;
+  .big-title{
+    color:white !important
+  }
+}
+.subpage-content{
+  text-align: justify;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
 @media(max-width: 1200px){
   .navbar .nav-link{
     padding-right: 1rem !important;
