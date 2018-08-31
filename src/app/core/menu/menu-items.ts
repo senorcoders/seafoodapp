@@ -120,10 +120,10 @@ const menuSeller=[
   type: 'link',
   translate:{
     en:{
-      name:'Recent Purchases'
+      name:'Orders'
     },
     ar:{
-      name:'Recent Purchases'
+      name:'Orders'
     }
   }
 },
@@ -140,6 +140,18 @@ const menuSeller=[
     },
     ar:{
       name:'My Products'
+    }
+  }
+},
+{
+  state:'products/all/1',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Shop'
+    },
+    ar:{
+      name:'Shop'
     }
   }
 },

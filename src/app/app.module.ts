@@ -86,7 +86,7 @@ const appRoutes: Routes=[
   {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
   {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
   {path: 'tracking', component:TrackingComponent},
-  {path: 'products/:query/:page', component:ProductsComponent, canActivate:[AdminRouterService]},
+  {path: 'products/:query/:page', component:ProductsComponent, canActivate:[RouterProtectionService]},
   {path:'seller', component:SellerComponent, canActivate:[AdminRouterService]},
   {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
   {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},

@@ -24,7 +24,7 @@
       <div class="col-md-6 col-lg-4 result" *ngFor="let product of products; let i=index">
         <div class="product-result">
           <div class="col-lg-12 search-product-img">
-            <div class="actions">
+            <div class="actions" *ngIf="role==0">
               <div class="left">
                 <a routerLink="/edit-product/{{product.id}}">
                   <fa name="pencil" class="pencil"></fa>

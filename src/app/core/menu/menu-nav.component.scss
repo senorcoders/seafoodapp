@@ -33,7 +33,7 @@
 			margin:0 10px
 		}
 	}
-	.access-buyer{
+	.access-buyer, .access-seller{
 		text-align: right;
 		align-items: center;
 		.login, .signup{
@@ -210,6 +210,12 @@ form{
 	}
 	.access-buyer .nav-item:last-child .cart{
 		padding: 10px 15px 10px 5px!important;
+	}
+	.access-seller{
+		padding-right: 1rem;
+		.login{
+			margin-right: 1rem;
+		}
 	}
 }
 @media(max-width: 1200px){

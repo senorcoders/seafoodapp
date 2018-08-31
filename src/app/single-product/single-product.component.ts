@@ -43,6 +43,12 @@ export class SingleProductComponent implements OnInit {
   storeId:string;
   storeName:string;
   enabledHeart:boolean=false;
+  logo:any;
+  reviews:any;
+  averageReview:any=0;
+  raised:any;
+  preparation:any;
+  treatment:any;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
 }
@@ -97,6 +103,7 @@ setFlexslider(){
 }
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
+      console.log(data)
       this.name = data['name'];
       this.description = data['description'];
       data['images'].forEach((value)=>{
@@ -111,6 +118,32 @@ setFlexslider(){
       this.mainImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
       this.storeId=data['store'].id;
       this.storeName=data['store'].name;
+      if(this.raised && this.raised!=''){
+        this.raised=data['raised'];
+      }
+      else{
+        this.raised="Not provided"
+      }
+      if(this.preparation && this.preparation!=''){
+        this.preparation=data['preparation'];
+      }
+      else{
+        this.preparation="Not provided"
+      }
+      if(this.treatment && this.treatment!=''){
+        this.treatment=data['treatment'];
+      }
+      else{
+        this.treatment="Not provided"
+      }
+      this.country=data['country'];
+      if(data['store'].logo && data['store'].logo!=''){
+        this.logo=this.base+data['store'].logo;
+      }
+      else{
+        this.logo="../../assets/seafood-souq-seller-logo-default.png";
+      }
+      this.getReview();
       this.setFlexslider();
   }, error=>{
     console.log("Error", error)
@@ -197,6 +230,23 @@ setFlexslider(){
         console.log(e)
       }
     )
+  }
+  getReview(){
+    this.productService.getData(`reviewsstore?where={"store":"${this.storeId}"}`).subscribe(
+      result=>{
+        this.reviews=result;
+        this.calcStars();
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  calcStars(){
+    this.reviews.forEach((data)=>{
+      this.averageReview+=data.stars
+    })
+    this.averageReview/=this.reviews.length
   }
 
 }
