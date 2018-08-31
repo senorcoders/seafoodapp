@@ -219,7 +219,7 @@ const menuFooter=[
       }
     }
   },{
-    state:"home",
+    state:"browse",
     type:"link",
     translate:{
       en:{
@@ -231,7 +231,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"sfspay",
     type:"link",
     translate:{
       en:{
@@ -243,7 +243,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"help",
     type:"link",
     translate:{
       en:{
@@ -255,7 +255,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"contact-us",
     type:"link",
     translate:{
       en:{
@@ -267,7 +267,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"guides",
     type:"link",
     translate:{
       en:{
@@ -279,7 +279,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"terms-conditions",
     type:"link",
     translate:{
       en:{
@@ -291,7 +291,7 @@ const menuFooter=[
     }
   },
   {
-    state:"home",
+    state:"about-us",
     type:"link",
     translate:{
       en:{
@@ -365,7 +365,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"sfspay",
     type:"link",
     translate:{
       en:{
@@ -377,7 +377,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"help",
     type:"link",
     translate:{
       en:{
@@ -389,7 +389,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"contact-us",
     type:"link",
     translate:{
       en:{
@@ -401,7 +401,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"guides",
     type:"link",
     translate:{
       en:{
@@ -413,7 +413,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"terms-conditions",
     type:"link",
     translate:{
       en:{
@@ -425,7 +425,7 @@ const menuFooterNoLogin=[
     }
   },
   {
-    state:"home",
+    state:"about-us",
     type:"link",
     translate:{
       en:{
