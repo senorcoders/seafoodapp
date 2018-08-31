@@ -63,7 +63,7 @@ body {
   .nav-link{
     padding-bottom: 1rem !important;
     padding-top: 1rem !important;
-    padding-right: 3rem !important;
+    padding-right: 1rem !important;
     padding-left: 1rem !important;
     cursor: pointer;
     &:hover{
@@ -160,6 +160,7 @@ body {
 }
 .flex-control-nav{
     bottom: 0 !important;
+    display: none;
 }
 .flex-control-paging li a{
     border:1px solid white !important;
@@ -640,7 +641,12 @@ footer{
   }
 }
 .flex-direction-nav{
-  display:none !important;
+  a:before{
+  color:rgb(235, 28, 36) !important
+  }
+  a{
+    height: 50px !important;
+  }
 }
 .flex-control-thumbs li{
   max-height: 100px !important;

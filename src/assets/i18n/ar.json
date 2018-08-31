@@ -144,7 +144,13 @@
 		"no-login":"If you want to buy this product. Please Login",
 		"here":"here",
 		"pack":"pack",
-		"no-found":"Sorry, Product Not found"
+		"no-found":"Sorry, Product Not found",
+		"seller-rating":"Seller Rating",
+		"product-rating":"Product Rating",
+		"raised":"Raised type",
+		"preparation":"Preparation type",
+		"country":"Country",
+		"form-type":"Form type"
 	},
 	"EditProduct":{
 		"title":"Edit Product",

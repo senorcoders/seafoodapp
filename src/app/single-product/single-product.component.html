@@ -4,6 +4,19 @@
       <div class="col-12">
         <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
       </div>
+      <div class="col-lg-6 product-img">
+        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="!images;else slider">
+        <ng-template #slider>
+          <div class="flexslider">
+            <div class="slides">
+              <li *ngIf="mainImg && mainImg!=''"><div class="img-bg" [style.background-image]="mainImg"></div></li>
+              <li *ngFor="let image of images; index as i;">
+                <div class="img-bg" [style.background-image]="image"></div>
+              </li>
+            </div>
+          </div>  
+        </ng-template>      
+      </div>
       <div class="col-lg-6 product-content">
         <h2 class="product-name">
           {{name}}
@@ -15,8 +28,17 @@
             </ng-template>
           </div>
         </h2>
-        <h5>{{category}} by <a routerLink="/store/{{storeId}}">{{storeName}}</a></h5>
+        <div class="logo-store"><img src="{{logo}}" alt=""></div>
+        <h5><a routerLink="/store/{{storeId}}">{{storeName}}</a></h5>
         <hr class="black-line">
+        <span class="rating">{{'SingleProduct.seller-rating' | translate}}</span> <br>
+        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+        <ul class="product-details">
+          <li>{{'SingleProduct.raised' | translate}}: <span>{{raised}}</span></li>
+          <li>{{'SingleProduct.preparation' | translate}}: <span>{{preparation}}</span></li>
+          <li>{{'SingleProduct.form-type' | translate}}: <span>{{treatment}}</span></li>
+          <li>{{'SingleProduct.country' | translate}}: <span>{{country}}</span></li>
+        </ul>
         <div class="product-info">
           <p>
            {{description}}
@@ -44,20 +66,6 @@
             <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
           </ng-template>
         </div>
-        </div>
-        <div class="col-lg-6 product-img">
-        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="!images;else slider">
-        <ng-template #slider>
-          <div class="flexslider">
-            <div class="slides">
-              <li *ngIf="mainImg && mainImg!=''"><div class="img-bg" [style.background-image]="mainImg"></div></li>
-              <li *ngFor="let image of images; index as i;">
-                <div class="img-bg" [style.background-image]="image"></div>
-              </li>
-            </div>
-          </div>  
-        </ng-template>      
-        
       </div>
     </div>   
   </div>

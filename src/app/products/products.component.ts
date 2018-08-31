@@ -6,6 +6,7 @@ import{FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router,ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 declare var jQuery:any;
+import {IsLoginService} from '../core/login/is-login.service';
 
 @Component({
   selector: 'app-products',
@@ -29,7 +30,8 @@ export class ProductsComponent implements OnInit {
   pageNumbers:any;
 	API:string=environment.apiURLImg;
   paginationSearch:boolean=false;
-  constructor(private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
+  role:any;
+  constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -46,6 +48,9 @@ export class ProductsComponent implements OnInit {
         this.paginationSearch=true;
         this.Search(this.search, this.page);
       }
+      this.islogin.role.subscribe((role:number)=>{
+        this.role=role
+      })
       jQuery(document).ready(function(){
         jQuery([document.documentElement, document.body]).animate({
           scrollTop: jQuery('#search').offset().top

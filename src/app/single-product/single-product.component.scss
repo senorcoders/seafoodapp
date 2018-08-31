@@ -297,6 +297,27 @@ input::-webkit-inner-spin-button {
     margin-bottom: 20px;
     max-width: 300px;
 }
+.logo-store{
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items:center;
+    img{
+        width: 100%;
+    }
+}
+.rating{
+    font-family: Avenir;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+}
+.product-details{
+    font-family: Avenir Light;
+    letter-spacing: 1px;
+    span{
+        text-transform: uppercase;
+    }
+}
 @media(max-width: 768px){
     .actions-form{
         float: none;
