@@ -62,6 +62,13 @@ import { DocumentsComponent } from './documents/documents.component';
 import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
 import { FeaturedTypesComponent } from './featured-types/featured-types.component';
 import { FishTypeMenuComponent } from './fish-type-menu/fish-type-menu.component';
+import { BrowseComponent } from './browse/browse.component';
+import { SfsPayComponent } from './sfs-pay/sfs-pay.component';
+import { HelpComponent } from './help/help.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
+import { GuidesComponent } from './guides/guides.component';
+import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
+import { AboutComponent } from './about/about.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -99,6 +106,13 @@ const appRoutes: Routes=[
   {path:'chart', component:ChartComponent, canActivate:[AdminRouterService]},
   {path:'documents', component:DocumentsComponent, canActivate:[RouterProtectionService]},
   {path:'tracking-code/:item', component:TrackingCodeComponent, canActivate:[RouterProtectionService]},
+  {path:'browse', component:BrowseComponent},
+  {path:'sfspay', component:SfsPayComponent},
+  {path:'help', component:HelpComponent},
+  {path:'contact-us', component:ContactUsComponent},
+  {path:'guides', component:GuidesComponent},
+  {path:'terms-conditions', component:TermsConditionsComponent},
+  {path:'about-us', component:AboutComponent}
 ]
 
 @NgModule({
@@ -140,7 +154,14 @@ const appRoutes: Routes=[
     DocumentsComponent,
     TrackingCodeComponent,
     FeaturedTypesComponent,
-    FishTypeMenuComponent
+    FishTypeMenuComponent,
+    BrowseComponent,
+    SfsPayComponent,
+    HelpComponent,
+    ContactUsComponent,
+    GuidesComponent,
+    TermsConditionsComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
