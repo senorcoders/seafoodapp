@@ -258,13 +258,13 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Store.name' | translate}}</label>
+                <label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Account.company-email' | translate}}</label>
+                <label>{{'Account.company-email' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
@@ -272,7 +272,7 @@
           <div class="row">
             <div class="col-12">
               <div class="form-group">
-                <label>{{'Store.description' | translate}}</label>
+                <label>{{'Store.description' | translate}} <span style="color:red">*</span></label>
                 <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
               </div>
             </div>
@@ -294,13 +294,13 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Store.location' | translate}}</label>
+                <label>{{'Store.location' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Account.Address' | translate}}</label>
+                <label>{{'Account.Address' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
@@ -308,14 +308,54 @@
           <div class="row">
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Account.City' | translate}}</label>
+                <label>{{'Account.City' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
               </div>
             </div>
             <div class="col-lg-6">
               <div class="form-group">
-                <label>{{'Account.zipCode' | translate}}</label>
+                <label>{{'Account.zipCode' | translate}} <span style="color:red">*</span></label>
                 <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="salesImg && salesImg!=''">
+                <img [src]="base + salesImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-sales' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" id="sfs-sales" (change)="handleFileSfs($event.target.files,0)">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="tradeImg && tradeImg!=''">
+                <img [src]="base + tradeImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-trade' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" type="file" id="sfs-trade" (change)="handleFileSfs($event.target.files,1)">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="importImg && importImg!=''">
+                <img [src]="base + importImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-import' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" id="sfs-import" (change)="handleFileSfs($event.target.files,2)">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="HsImg && HsImg!=''">
+                <img [src]="base + HsImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-hs' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" type="file" id="sfs-hs" (change)="handleFileSfs($event.target.files,3)">
               </div>
             </div>
           </div>
@@ -355,6 +395,12 @@
     <p>You're not allowed to see this page!</p>
   </div>  
 </ng-template>
+<div class="pop-up" *ngIf="showLoading">
+  <div class="content">
+    <h2>{{'Store.upload' | translate}}</h2>
+    <img src="../../assets/loader.gif">
+  </div>
+</div>
 <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

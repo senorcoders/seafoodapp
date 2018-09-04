@@ -100,7 +100,6 @@ uploadFile(endpoint, field, fileToUpload){
   for(var i = 0; i < fileToUpload.length; i++) {
     formData.append(field, fileToUpload[i]);
 }
-
   return this.http
     .post(`${API}${endpoint}`, formData, httpOptionsForm);
 }
@@ -132,7 +131,6 @@ uploadFile(endpoint, field, fileToUpload){
       'password':oldpassword,
       'newPassword':newpassword
     }
-    console.log(data)
     return this.http.put(`${API}api/user/update-password`, data, httpOptions)
   }
   updatePrimaryImage(fileToUpload, link){
@@ -149,5 +147,14 @@ uploadFile(endpoint, field, fileToUpload){
   }
   isFavorite(data){
     return this.http.post(`${API}api/favoritefish`,data,httpOptions)
+  }
+  sfsFiles(endpoint, field, fileToUpload){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for(var i = 0; i < fileToUpload.length; i++) {
+      formData.append(field, fileToUpload[i][0]);
+    }
+    return this.http.post(`${API}${endpoint}`, formData, httpOptionsForm);
   }
 }
