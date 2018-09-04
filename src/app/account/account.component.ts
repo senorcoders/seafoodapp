@@ -39,7 +39,13 @@ export class AccountComponent implements OnInit {
   repassword:string;
   currentPassword:string;
   email:string;
-  countries=environment.countries
+  countries=environment.countries;
+  fileSfs:any=[];
+  showLoading:boolean=false;
+  salesImg:any;
+  tradeImg:any;
+  importImg:any;
+  HsImg:any;
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
@@ -62,6 +68,10 @@ export class AccountComponent implements OnInit {
         this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.store.heroImage})`);
         this.buttonText = "Update";
         this.new = false;
+        this.HsImg=result[0]['SFS_HSCode'];
+        this.importImg=result[0]['SFS_ImportCode'];
+        this.salesImg=result[0]['SFS_SalesOrderForm'];
+        this.tradeImg=result[0]['SFS_TradeLicense']
       }else{
         this.buttonText = "Create";
         this.new = true;
@@ -69,7 +79,6 @@ export class AccountComponent implements OnInit {
     })
   }
   onSubmit(){
-    console.log("To send", this.info);
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
         console.log("Resultado", result);
         this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
@@ -81,13 +90,18 @@ export class AccountComponent implements OnInit {
   storeSubmit(){
     if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
       if(this.new){
-        this.createStore();
+        if(this.fileSfs && this.fileSfs.length>0){
+          this.createStore();
+        }
+        else{
+          this.toast.error("Please fill all the required fields", "Error",{positionClass:"toast-top-right"} )
+        }
       }else{
         this.updateStore();
       }
 
     }else{
-      this.toast.error("Your store needs a name, a description and location", "Error",{positionClass:"toast-top-right"} );
+      this.toast.error("Please fill all the required fields", "Error",{positionClass:"toast-top-right"} );
 
     }  
   }
@@ -105,6 +119,9 @@ export class AccountComponent implements OnInit {
     }
 
     this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
+      if(this.fileSfs && this.fileSfs.length>0){
+        this.uploadSfsImages(result['id'])
+      }
       if(this.fileHero.length > 0 || this.fileToUpload.length>0){
         this.updateFile(this.store.id);
       }else{
@@ -122,6 +139,7 @@ export class AccountComponent implements OnInit {
       location: this.store.location
     }
       this.productService.postStoreForm(myStore, this.fileToUpload).subscribe(result => {
+        this.uploadSfsImages(result['id']);
         if(this.fileHero.length > 0 || this.fileToUpload.length>0){
           this.uploadHero(result[0]['id']);
         }else{
@@ -136,12 +154,12 @@ export class AccountComponent implements OnInit {
   }
   handleFileInput(files: FileList) {
     this.fileToUpload = files;
-    console.log("Files", files);
   }
   handleFileHero(files: FileList){
     this.fileHero = files;
-    console.log("Files", files);
-
+  }
+  handleFileSfs(files: FileList,i){
+    this.fileSfs[i] = files;
   }
   updatePassword(){
     
@@ -192,5 +210,16 @@ export class AccountComponent implements OnInit {
 
       })
     }
+  }
+  uploadSfsImages(id){
+    this.showLoading=true
+    this.productService.sfsFiles('api/store/sfs/'+id, "sfs", this.fileSfs).subscribe(result => {
+      this.toast.success("Sfs files uploaded",'Well Done',{positionClass:"toast-top-right"})
+      this.getStoreData();
+      this.showLoading=false
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+    })
   }
 }

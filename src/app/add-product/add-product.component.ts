@@ -155,7 +155,6 @@ export class AddProductComponent implements OnInit {
     else{
       this.primaryImg=files;
     }
-    console.log("Files", files);
 }
 
 uploadFileToActivity(productID) {

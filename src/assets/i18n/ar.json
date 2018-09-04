@@ -74,7 +74,12 @@
 		"description":"Store Description",
 		"location":"Store Location",
 		"logo":"Upload Store Logo",
-		"hero":"Upload Hero Store"
+		"hero":"Upload Hero Store",
+		"sfs-sales":"SFS Sales Order Form",
+		"sfs-trade":"SFS Trade License / Import License",
+		"sfs-import":"SFS Import Code",
+		"sfs-hs":"SFS HS Code",
+		"upload":"uploading SFS Files"
 	},
 	"Archive-product":{
 		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
