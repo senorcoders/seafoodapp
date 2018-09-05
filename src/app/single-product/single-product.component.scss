@@ -269,7 +269,8 @@ input::-webkit-inner-spin-button {
   float:right;
 }
 .img-bg {
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: center;
     height: 300px;
     width: 100%;

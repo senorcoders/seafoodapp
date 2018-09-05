@@ -246,8 +246,9 @@ app-login{
   letter-spacing: 3px;
 }
 .bg-img-prod{
-  background-size: cover !important;
-  background-position: center;
+  background-size: contain !important;
+  background-position: top center;
+  background-repeat: no-repeat;
   height: 200px;
   width: 100%;
   border-top-right-radius: 40px;

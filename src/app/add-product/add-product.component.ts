@@ -137,10 +137,11 @@ export class AddProductComponent implements OnInit {
       }
       this.product.saveData('fish', data).subscribe(result =>{
         if(this.fileToUpload.length > 0 || this.primaryImg.length > 0){
+          this.showError=false
           this.uploadFileToActivity(result['id']);
         }else{
           this.toast.success("Product added succesfully!",'Well Done',{positionClass:"toast-top-right"})
-
+          this.showError=false;
         }
 
       });
