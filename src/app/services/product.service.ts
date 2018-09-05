@@ -157,4 +157,13 @@ uploadFile(endpoint, field, fileToUpload){
     }
     return this.http.post(`${API}${endpoint}`, formData, httpOptionsForm);
   }
+  updateFile(endpoint, fileToUpload){
+    let httpOptionsForm:any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for(var i = 0; i < fileToUpload.length; i++) {
+      formData.append('sfs', fileToUpload[i]);
+  }
+    return this.http.put(`${API}${endpoint}`, formData, httpOptionsForm);
+  }
 }

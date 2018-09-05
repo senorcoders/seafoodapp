@@ -119,8 +119,20 @@ export class AccountComponent implements OnInit {
     }
 
     this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
+      //update sfs files
       if(this.fileSfs && this.fileSfs.length>0){
-        this.uploadSfsImages(result['id'])
+        if(this.fileSfs[0] && this.fileSfs[0].length>0){
+          this.updateSfs(result['id'],'SFS_SalesOrderForm',0)
+        }
+        if(this.fileSfs[1] && this.fileSfs[1].length>0){
+          this.updateSfs(result['id'],'SFS_TradeLicense',1)
+        }
+        if(this.fileSfs[2] && this.fileSfs[2].length>0){
+          this.updateSfs(result['id'],'SFS_ImportCode',2)
+        }
+         if(this.fileSfs[3] && this.fileSfs[3].length>0){
+          this.updateSfs(result['id'],'SFS_HSCode',3)
+        }
       }
       if(this.fileHero.length > 0 || this.fileToUpload.length>0){
         this.updateFile(this.store.id);
@@ -160,6 +172,7 @@ export class AccountComponent implements OnInit {
   }
   handleFileSfs(files: FileList,i){
     this.fileSfs[i] = files;
+    console.log(this.fileSfs)
   }
   updatePassword(){
     
@@ -210,6 +223,17 @@ export class AccountComponent implements OnInit {
 
       })
     }
+  }
+  updateSfs(id,file,index){
+    this.showLoading=true
+    this.productService.updateFile('image/store/sfs/'+file+'/'+id, this.fileSfs[index]).subscribe(result => {
+      this.toast.success(file+" file uploaded",'Well Done',{positionClass:"toast-top-right"})
+      this.getStoreData();
+      this.showLoading=false
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+    })
   }
   uploadSfsImages(id){
     this.showLoading=true
