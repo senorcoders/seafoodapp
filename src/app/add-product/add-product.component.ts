@@ -51,6 +51,7 @@ export class AddProductComponent implements OnInit {
   file:File;
   products:any = [];
   productsToUpload:any = [];
+  showError:boolean=false
   constructor(private product:ProductService, private toast:ToastrService, private auth: AuthenticationService){}
   ngOnInit() {
     this.createFormControls();
@@ -110,6 +111,7 @@ export class AddProductComponent implements OnInit {
   }
 
   onSubmit() {
+    this.showError=true;
     if (this.myform.valid) {
       let data = {
         "type" : this.types.value,

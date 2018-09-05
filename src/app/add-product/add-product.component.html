@@ -9,7 +9,7 @@
             <div class="form-group" [ngClass]="{'has-danger': name.invalid && (name.dirty || name.touched),'has-success': name.valid && (name.dirty || name.touched)}">
               <label>{{'AddProduct.name' | translate}}</label>
               <input type="text" class="form-control" formControlName="name" required>
-              <div class="form-control-feedback" *ngIf="name.errors && (name.dirty || name.touched)">
+              <div class="form-control-feedback" *ngIf="name.errors && showError">
                 <p *ngIf="name.errors.required">{{'AddProduct.name' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -18,7 +18,7 @@
             <div class="form-group" [ngClass]="{'has-danger': price.invalid && (price.dirty || price.touched),'has-success': price.valid && (price.dirty || price.touched)}">
               <label>{{'AddProduct.price' | translate}}</label>
               <input type="number" class="form-control" formControlName="price" required>
-              <div class="form-control-feedback" *ngIf="price.errors && (price.dirty || price.touched)">
+              <div class="form-control-feedback" *ngIf="price.errors && showError">
                 <p *ngIf="price.errors.required">{{'AddProduct.price' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -32,7 +32,7 @@
                   <option value="lb">Pounds</option>
                   <option value="kg">Kilograms</option>
                 </select>
-                <div class="form-control-feedback" *ngIf="measurement.errors && (measurement.dirty || measurement.touched)">
+                <div class="form-control-feedback" *ngIf="measurement.errors && showError">
                   <p *ngIf="measurement.errors.required">{{'AddProduct.price-measurement' | translate}} {{'AddProduct.required' | translate}}</p>
                 </div>
               </div>
@@ -41,7 +41,7 @@
             <div class="form-group" [ngClass]="{'has-danger': description.invalid && (description.dirty || description.touched),'has-success': description.valid && (description.dirty || description.touched)}">
               <label>{{'AddProduct.description' | translate}}</label>
               <textarea class="form-control" formControlName="description" required></textarea>
-              <div class="form-control-feedback" *ngIf="description.errors && (description.dirty || description.touched)">
+              <div class="form-control-feedback" *ngIf="description.errors && showError">
                 <p *ngIf="description.errors.required">{{'AddProduct.description' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -55,7 +55,7 @@
                 <option value="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of pTypes" [value]="type.id">{{type.name}}</option>
               </select>
-              <div class="form-control-feedback" *ngIf="types.errors && (types.dirty || types.touched)">
+              <div class="form-control-feedback" *ngIf="types.errors && showError">
                 <p *ngIf="types.errors.required">{{'AddProduct.fish-types' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -66,7 +66,7 @@
               <select class="form-control" formControlName="country">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
-              <div class="form-control-feedback" *ngIf="country.errors && (country.dirty || country.touched)">
+              <div class="form-control-feedback" *ngIf="country.errors && showError">
                 <p *ngIf="country.errors.required">{{'AddProduct.country' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -91,7 +91,7 @@
             <div class="form-group" [ngClass]="{'has-danger': minimunorder.invalid && (minimunorder.dirty || minimunorder.touched),'has-success': minimunorder.valid && (minimunorder.dirty || minimunorder.touched)}">
               <label>{{'AddProduct.minimun' | translate}}</label>
               <input type="number" class="form-control" formControlName="minimunorder" required>
-              <div class="form-control-feedback" *ngIf="minimunorder.errors && (minimunorder.dirty || minimunorder.touched)">
+              <div class="form-control-feedback" *ngIf="minimunorder.errors && showError">
                 <p *ngIf="minimunorder.errors.required">{{'AddProduct.minimun' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -104,7 +104,7 @@
                 <option value="organically">Organically Farmed</option>
                 <option value="wild">Wild</option>
               </select>
-              <div class="form-control-feedback" *ngIf="raised.errors && (raised.dirty || raised.touched)">
+              <div class="form-control-feedback" *ngIf="raised.errors && showError">
                 <p *ngIf="raised.errors.required">{{'AddProduct.raised' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -119,7 +119,7 @@
                 <option value="whole">Whole</option>
                 <option value="gutted">Gutted</option>
               </select>
-              <div class="form-control-feedback" *ngIf="preparation.errors && (preparation.dirty || preparation.touched)">
+              <div class="form-control-feedback" *ngIf="preparation.errors && showError">
                 <p *ngIf="preparation.errors.required">{{'AddProduct.preparation' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -134,7 +134,7 @@
                 <option value="smoked">Smoked</option>
                 <option value="canned">Canned</option>
               </select>
-              <div class="form-control-feedback" *ngIf="treatment.errors && (treatment.dirty || treatment.touched)">
+              <div class="form-control-feedback" *ngIf="treatment.errors && showError">
                 <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
@@ -150,7 +150,7 @@
   </div>
 <div style="height: 50px;"></div>
   <h1 class="title">Products Bulk Upload</h1>
-  <div class="form-control-feedback">
+  <div>
     <p>*All fields are required</p>
     <p>Download our example file from here <a href="/assets/seafood-bulk.xlsx" download="">Download</a></p>
   </div>
