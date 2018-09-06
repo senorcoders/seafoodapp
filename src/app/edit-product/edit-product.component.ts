@@ -39,6 +39,10 @@ export class EditProductComponent implements OnInit {
   showLoading:boolean=true;
   showEdit:boolean=true;
   countries=environment.countries;
+  raised:FormControl;
+  minimumOrder:FormControl;
+  preparation:FormControl;
+  treatment:FormControl;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
   ngOnInit() {
     //this.createFormControls();
@@ -60,6 +64,10 @@ export class EditProductComponent implements OnInit {
       this.country = data['country'];
       this.show = true;
       this.types = data['type'].id;
+      this.preparation=data['preparation'];
+      this.raised=data['raised'];
+      this.minimumOrder=data['minimumOrder'];
+      this.treatment=data['treatment'];
       data['images'].forEach((val, index)=>{
         this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
       })
@@ -97,7 +105,11 @@ export class EditProductComponent implements OnInit {
               "type": this.measurement,
               "value": 5
           },
-          "images": this.images
+          "images": this.images,
+          "raised":this.raised,
+          "minimumOrder":this.minimumOrder,
+          "preparation":this.preparation,
+          "treatment":this.treatment
       }
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         if(this.fileToUpload.length > 0){
