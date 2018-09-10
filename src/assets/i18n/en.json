@@ -126,8 +126,8 @@
 	"AddProduct":{
 		"title":"Add Product",
 		"name":"Name",
-		"price":"Price Measurement",
-		"price-measurement":"Price Measurement",
+		"price":"Quantity per order",
+		"price-measurement":"Weight type per quantity",
 		"description":"Description",
 		"fish-types":"Fish Types",
 		"country":"Country",
@@ -164,8 +164,8 @@
 		"edit-img":"Edit Image",
 		"delete-img-btn":"Delete Image",
 		"name":"Name",
-		"price":"Price Measurement",
-		"price-measurement":"Price Measurement",
+		"price":"Quantity per order",
+		"price-measurement":"Weight type per quantity",
 		"description":"Description",
 		"fish-types":"Fish Types",
 		"country":"Country",
@@ -514,5 +514,17 @@
 	},
 	"TermsConditions":{
 		"title-banner":"Terms & Conditions"
+	},
+	"AdvancedSearch":{
+		"result":"Results",
+		"title":"Advanced Search",
+		"name":"Name",
+		"country":"Country",
+		"fish-type":"Fish Type",
+		"raised":"Raised",
+		"preparation":"Preparation",
+		"treatment":"Treatment",
+		"search":"Search",
+		"noProduct":"Product not found"
 	}
 }
