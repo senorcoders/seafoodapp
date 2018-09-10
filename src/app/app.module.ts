@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import {AuthenticationService} from './services/authentication.service';
 import {ProductService} from './services/product.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
@@ -69,6 +69,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { GuidesComponent } from './guides/guides.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { AboutComponent } from './about/about.component';
+import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
+import { Interceptor } from './interceptor/interceptor';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -112,7 +114,8 @@ const appRoutes: Routes=[
   {path:'contact-us', component:ContactUsComponent},
   {path:'guides', component:GuidesComponent},
   {path:'terms-conditions', component:TermsConditionsComponent},
-  {path:'about-us', component:AboutComponent}
+  {path:'about-us', component:AboutComponent},
+  {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]}
 ]
 
 @NgModule({
@@ -161,7 +164,8 @@ const appRoutes: Routes=[
     ContactUsComponent,
     GuidesComponent,
     TermsConditionsComponent,
-    AboutComponent
+    AboutComponent,
+    AdvancedSearchComponent
   ],
   imports: [
     BrowserModule,
@@ -193,6 +197,11 @@ const appRoutes: Routes=[
     AdminRouterService,
     CartService,
     OrdersService
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: Interceptor,
+    //   multi: true,
+    // }
   ],
   bootstrap: [AppComponent]
 })

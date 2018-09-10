@@ -13,7 +13,7 @@ export class AdministratorComponent implements OnInit {
 	users:any;
 	userLists:any=[];
 	showEmailVerification:boolean=false;
-	countries=environment.countries;;
+	countries=environment.countries;
 	adminForm:FormGroup;
 	admins:any;
 	roles:any=[];
