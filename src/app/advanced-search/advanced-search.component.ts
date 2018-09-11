@@ -27,6 +27,7 @@ export class AdvancedSearchComponent implements OnInit {
   API:string=environment.apiURLImg;
   types:any;
   noProduct:boolean=false;
+  showForm:boolean=true;
   constructor(private fb:FormBuilder, private product:ProductService,private route: ActivatedRoute,private router:Router,private sanitizer: DomSanitizer) { 
   }
 
@@ -35,7 +36,8 @@ export class AdvancedSearchComponent implements OnInit {
   	this.route.queryParams
     .subscribe(params => {
     	if(params.params && params.params!=''){
-    		this.query=params.params
+    		this.query=params.params;
+    		this.showForm=false;
     		if(params.page && params.page>1){
     			this.page=params.page
     		}
@@ -196,5 +198,8 @@ export class AdvancedSearchComponent implements OnInit {
     else{
       return str
     }
+  }
+  ShowForm(){
+  	this.showForm=true;
   }
 }
