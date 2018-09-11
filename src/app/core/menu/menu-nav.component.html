@@ -14,7 +14,7 @@
             <!-- start search -->
             <li class="nav-item">
               <!-- <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a> -->
-              <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()">
+              <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
                 <input class="form-control" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()" id="search-input">
                 <div class="suggestion" *ngIf="showSuggestion">
                   <ul>
