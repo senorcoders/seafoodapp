@@ -524,6 +524,7 @@
 		"preparation":"Preparation",
 		"treatment":"Treatment",
 		"search":"Search",
-		"noProduct":"Product not found"
+		"noProduct":"Product not found",
+		"show":"Show form"
 	}
 }

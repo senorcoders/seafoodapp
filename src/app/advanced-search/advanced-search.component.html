@@ -1,6 +1,9 @@
 <div class="container">
 	<div class="row">
-		<div class="col">
+		<div class="col-12" *ngIf="!showForm">
+			<input type="submit" class="btn-red" (click)="ShowForm()" value="{{'AdvancedSearch.show' | translate}}" style="width: auto">
+		</div>
+		<div class="col-12" *ngIf="showForm">
 			<h2 class="black-title">{{'AdvancedSearch.title' | translate}}</h2>
 			<form [formGroup]="searchForm" (submit)="search()" class="form-design">
 				<div class="form-group">
