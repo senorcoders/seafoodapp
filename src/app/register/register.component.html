@@ -52,15 +52,19 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.password' | translate}}</label>
-              <input type="password" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
+              <input type="password"  minlength="8" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
+              <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('password') || buyerForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
+              <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters, 1 uppercase and 1 number.</div>	
+
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.repeat' | translate}}</label>
               <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Password not match</div>
+
             </div>
           </div>
           <div class="col-md-6">
@@ -141,7 +145,7 @@
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <input type="submit" class="btn-red" value="{{'Register.title' | translate}}" [disabled]="buyerForm.invalid">
+              <input type="submit" class="btn-red" value="{{'Register.title' | translate}}">
             </div>
           </div>
         </div>
@@ -186,6 +190,8 @@
               <label>{{'Register.password' | translate}}</label>
               <input type="password" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':sellerForm.get('password').invalid && sellerForm.get('password').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('password').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="sellerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters, 1 uppercase and 1 number.</div>	
+
             </div>
           </div>
           <div class="col-md-6">
@@ -193,6 +199,8 @@
               <label>{{'Register.repeat' | translate}}</label>
               <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':sellerForm.get('rePassword').invalid && sellerForm.get('rePassword').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="sellerForm.controls.rePassword.errors?.MatchPassword"> Password not match</div>
+
             </div>
           </div>
           <div class="col-md-12">
@@ -291,7 +299,7 @@
           </div>
           <div class="col-md-12">
             <div class="form-group">
-              <input type="submit" class="btn-red" value="{{'Register.title' | translate}}" [disabled]="sellerForm.invalid">
+              <input type="submit" class="btn-red" value="{{'Register.title' | translate}}">
             </div>
           </div>
         </div>

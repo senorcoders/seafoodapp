@@ -234,7 +234,7 @@
 		"invalid":"is invalid",
 		"licence":"License",
 		"message":"Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
-		"EmailNotification":"this email is already used",
+		"EmailNotification":"This email is already taken",
 		"submessage":"Click here to go back to home",
 		"Address":"Address",
 		"City":"City",
