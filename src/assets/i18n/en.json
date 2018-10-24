@@ -210,7 +210,7 @@
 		"required":"is required",
 		"invalid":"is invalid",
 		"account":"Create Account",
-		"return":"Return to Store",
+		"return":"Return to Home",
 		"forgot":"Forgot your password?",
 		"login":"Sign in",
 		"send":"Send",
@@ -416,11 +416,11 @@
 		"comment-title":"All Comments"
 	},
 	"Recovery":{
-		"title":"Recovery your password",
-		"code":"Code from your mail",
+		"title":"Reset your password",
+		"code":"Code from email",
 		"required":"is required",
-		"password":"Password",
-		"repeat":"Repeat Password",
+		"password":"New Password",
+		"repeat":"Repeat New Password",
 		"send":"Send"
 	},
 	"VerifyUser":{
@@ -516,7 +516,7 @@
 		"title-banner":"Terms & Conditions"
 	},
 	"AdvancedSearch":{
-		"result":"Results",
+		"result":"Results found",
 		"title":"Advanced Search",
 		"name":"Name",
 		"country":"Country",

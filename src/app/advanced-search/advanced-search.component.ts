@@ -28,6 +28,8 @@ export class AdvancedSearchComponent implements OnInit {
   types:any;
   noProduct:boolean=false;
   showForm:boolean=true;
+  count:any;
+  total:any;
   constructor(private fb:FormBuilder, private product:ProductService,private route: ActivatedRoute,private router:Router,private sanitizer: DomSanitizer) { 
   }
 
@@ -62,6 +64,13 @@ export class AdvancedSearchComponent implements OnInit {
 			if(result['productos'].length>0){
 				this.noProduct=false;
 				this.products=result['productos']
+        this.total=result['count'];
+        if(this.page>1){
+          this.count=result['productos'].length+(12*(this.page-1));
+        }
+        else{
+          this.count=result['productos'].length;
+        }
 				this.showProducts=true;
 				this.showPagination=true;
 				jQuery(document).ready(function(){

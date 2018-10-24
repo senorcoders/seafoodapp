@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core'
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
@@ -14,9 +14,11 @@ import {OrdersService} from '../core/orders/orders.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild("emailInput") nameField: ElementRef;
   loginForm: FormGroup; 
   forgotForm: FormGroup; 
   showForm:boolean=false;
+  wrongData:boolean = false;
  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
       password:['', Validators.required]
     })
     this.setHeight(window.innerHeight);
+    this.nameField.nativeElement.focus();
   }
   redirectHome(){
      if(this.auth.isLogged()){
@@ -79,7 +82,8 @@ export class LoginComponent implements OnInit {
     )
   }
   showError(e){
-    this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+    //this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+    this.wrongData = true;
   }
   showPopup(){
     this.forgotForm=this.fb.group({
@@ -93,7 +97,7 @@ export class LoginComponent implements OnInit {
   forgotPassword(){
     this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
       result=>{
-        this.toast.success('We send you a mail to your email','Well Done',{positionClass:"toast-top-right"})
+        this.toast.success('Please check your email for password reset instructions','',{positionClass:"toast-top-right"})
         this.showForm=false
       },
       e=>{
