@@ -46,7 +46,7 @@ export class AccountComponent implements OnInit {
   tradeImg:any;
   importImg:any;
   HsImg:any;
-  logoCompany:any;
+  logoCompany:any = "";
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
@@ -81,12 +81,23 @@ export class AccountComponent implements OnInit {
   }
   onSubmit(){
     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
-        console.log("Resultado", result);
-        this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        if(this.logoCompany != ""){
+          this.saveLogoImage();
+        }else{
+          this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        }
 
     }, error =>{
       this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
     });
+  }
+
+  saveLogoImage(){
+    this.productService.updateData('api/user-logo-company', {"id": this.info.id, "logoCompany": this.logoCompany})
+      .subscribe(res => {
+        this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      })
   }
   storeSubmit(){
     if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
@@ -258,7 +269,7 @@ export class AccountComponent implements OnInit {
   
     myReader.onloadend = (e) => {
     
-        this.info['logoCompany'] = myReader.result
+        this.logoCompany = myReader.result
       
     }
     myReader.readAsDataURL(file);
