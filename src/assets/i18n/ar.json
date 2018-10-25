@@ -220,7 +220,7 @@
 		"select":"Are you Seller or Buyer?",
 		"buyer":"Buyer",
 		"seller":"Seller",
-		"first-name":"first Name",
+		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
 		"password":"Password",

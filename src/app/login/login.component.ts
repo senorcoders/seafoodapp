@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -32,7 +32,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.loginForm=this.fb.group({
       email:['',[Validators.email, Validators.required]],
-      password:['', Validators.required]
+      password: ['', Validators.required]
+    },{
+      updateOn: 'submit'
     })
     this.setHeight(window.innerHeight);
     this.nameField.nativeElement.focus();
@@ -44,8 +46,28 @@ export class LoginComponent implements OnInit {
   }
   setHeight(h){
     document.getElementById("hero").style.height = h+"px";
-  }
+  } 
   login(){
+    if(this.loginForm.valid){
+      this.sendDataLogin();
+    }else{
+      this.validateAllFormFields(this.loginForm);
+    }
+    
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         
+    Object.keys(formGroup.controls).forEach(field => { 
+      const control = formGroup.get(field);             
+      if (control instanceof FormControl) {             
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        
+        this.validateAllFormFields(control);            
+      }
+    });
+  }
+
+  sendDataLogin(){
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
         this.auth.setLoginData(data);
