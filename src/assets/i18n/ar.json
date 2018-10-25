@@ -247,7 +247,8 @@
 		"company-address":"Company Address",
 		"company-country":"Country of Origin",
 		"company-product":"Product Type",
-		"deliveryAddress":"Delivery Address"
+		"deliveryAddress":"Delivery Address",
+		"logo-company": "Logo Company"
 	},
 	"Featured-product":{
 		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",

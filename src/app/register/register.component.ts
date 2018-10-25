@@ -23,6 +23,7 @@ showEmailVerification:boolean=false;
 file:any=[];
 userID:any;
 storeID:any;
+image:any;
 countries=environment.countries
   constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService) {
     this.redirectHome();
@@ -53,7 +54,8 @@ countries=environment.countries
       companyName:['', Validators.required],
       deliveryAddress:['', Validators.required],
       companyEmail:['', [Validators.required, Validators.email]],
-      companyTel:['', Validators.required]
+      companyTel:['', Validators.required],
+      logoCompany:[null]
     }, {
       validator : PasswordValidation.MatchPassword
     })
@@ -86,7 +88,7 @@ countries=environment.countries
   register(){
     if(this.sellerShow){
        if(this.sellerForm.valid){
-         //this.submitRegistrationSeller();
+         this.submitRegistrationSeller();
        }else{
          this.validateAllFormFields(this.sellerForm);
        }
@@ -94,7 +96,8 @@ countries=environment.countries
     else{
       if(this.buyerForm.valid){
         console.log("Valid");
-        //this.submitRegistrationBuyer();
+        this.submitRegistrationBuyer();
+        console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
         this.validateAllFormFields(this.buyerForm);
@@ -249,5 +252,21 @@ countries=environment.countries
   }
    showSuccess(s){
     this.toast.success(s,'Well Done',{positionClass:"toast-top-right"})
+  }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.buyerForm.patchValue({
+        logoCompany: myReader.result
+      });
+    }
+    myReader.readAsDataURL(file);
   }
 }
