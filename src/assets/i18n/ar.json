@@ -390,7 +390,7 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products",
+		"see-button":"View Order",
 		"name":"Shopping Cart",
 		"hour":"Hour"
 	},

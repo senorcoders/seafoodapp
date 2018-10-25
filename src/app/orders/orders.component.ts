@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
   getCartPaid(){
   	this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
   		result=>{
+        console.log("Data", result);
   			this.showLoading=false;
   			this.shoppingCarts=result
   			this.getDates();
@@ -40,6 +41,8 @@ export class OrdersComponent implements OnInit {
   		}
   	)
   }
+
+ 
   getDates(){
   	this.shoppingCarts.forEach((data, index)=>{
   		//convert date
