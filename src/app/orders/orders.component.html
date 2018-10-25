@@ -19,10 +19,10 @@
 									<img src="../../assets/orders-bg.png" alt="" class="shoppingcart">
 							</div>
 							<div class="col">
-								<h5>{{'Orders.name' | translate}}</h5>
+								<h5 [innerHtml]="(shoppingcart?.items.length > 1) ? shoppingCart?.items[0]?.fish?.name : shoppingCart?.items.length + ' Products'"></h5>
 							</div>
-							<div class="col">
-								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}, {{dates[i]['time']}}</span>
+							<div class="col date-span">
+								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>
 								</div>
 							<div class="col">
 								<span>{{shoppingCart.status | uppercase}}</span>

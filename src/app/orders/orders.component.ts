@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
   getCartPaid(){
   	this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
   		result=>{
+        console.log(result);
   			this.showLoading=false;
   			this.shoppingCarts=result
   			this.getDates();
