@@ -46,6 +46,7 @@ export class AccountComponent implements OnInit {
   tradeImg:any;
   importImg:any;
   HsImg:any;
+  logoCompany:any;
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
@@ -245,5 +246,21 @@ export class AccountComponent implements OnInit {
       this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
     })
+  }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+    
+        this.info['logoCompany'] = myReader.result
+      
+    }
+    myReader.readAsDataURL(file);
   }
 }

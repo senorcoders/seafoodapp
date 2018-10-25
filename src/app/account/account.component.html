@@ -104,13 +104,20 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-6">
               <div class="form-group">
                 <label>{{'Account.baking' | translate}}</label>
                 <textarea class="form-control" [(ngModel)]="info.dataExtra['fullBakingInfo']" [ngModelOptions]="{standalone: true}"></textarea>
               </div>
             </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.logo-company' | translate}} <span class="field-status">(optional)</span></label>
+                  <input type="file" accept="image/*" class="form-control"  (change)="changeListener($event)">
+                </div>
+              </div>
           </div>
+         
           <div class="row">
             <div class="col-lg-6">
               <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
