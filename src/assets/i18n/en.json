@@ -66,7 +66,8 @@
 		"company-country":"Country of Origin",
 		"company-tel":"Company Telephone",
 		"product-type":"Product Type",
-		"deliveryAddress":"Delivery Address"
+		"deliveryAddress":"Delivery Address",
+		"logo-company": "Logo Company"
 	},
 	"Store":{
 		"title":"Store Information",
@@ -248,7 +249,9 @@
 		"company-address":"Company Address",
 		"company-country":"Country of Origin",
 		"company-product":"Product Type",
-		"deliveryAddress":"Delivery Address"
+		"deliveryAddress":"Delivery Address",
+		"logo-company": "Logo Company"
+
 	},
 	"Featured-product":{
 		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
@@ -389,7 +392,7 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products",
+		"see-button":"View Order",
 		"name":"Shopping Cart",
 		"hour":"Hour"
 	},

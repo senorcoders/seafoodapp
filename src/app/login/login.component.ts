@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
   forgotForm: FormGroup; 
   showForm:boolean=false;
   wrongData:boolean = false;
+  email: FormControl;
+  password: FormControl;
  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -30,14 +32,25 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm=this.fb.group({
-      email:['',[Validators.email, Validators.required]],
-      password: ['', Validators.required]
-    },{
-      updateOn: 'submit'
-    })
+    this.createFormControls();
+    this.createForm();
     this.setHeight(window.innerHeight);
     this.nameField.nativeElement.focus();
+  }
+
+
+  createFormControls(){
+    this.email = new FormControl('', [Validators.email, Validators.required]);
+    this.password = new FormControl('', Validators.required);
+  }
+
+  createForm(){
+    this.loginForm = new FormGroup({
+        email: this.email,
+        password: this.password
+    }, {
+      updateOn: 'submit'
+    });
   }
   redirectHome(){
      if(this.auth.isLogged()){

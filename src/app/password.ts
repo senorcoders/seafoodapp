@@ -5,10 +5,10 @@ export class PasswordValidation {
        let password = AC.get('password').value; // to get value in input tag
        let confirmPassword = AC.get('rePassword').value; // to get value in input tag
         if(password != confirmPassword) {
-            console.log('false');
+            // console.log('false');
             AC.get('rePassword').setErrors( {MatchPassword: true} )
         } else {
-            console.log('true');
+            // console.log('true');
             //return null
         }
     }
