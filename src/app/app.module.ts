@@ -71,6 +71,7 @@ import { TermsConditionsComponent } from './terms-conditions/terms-conditions.co
 import { AboutComponent } from './about/about.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { Interceptor } from './interceptor/interceptor';
+import { FilterPipePipe } from './filter-pipe.pipe';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -165,7 +166,8 @@ const appRoutes: Routes=[
     GuidesComponent,
     TermsConditionsComponent,
     AboutComponent,
-    AdvancedSearchComponent
+    AdvancedSearchComponent,
+    FilterPipePipe
   ],
   imports: [
     BrowserModule,

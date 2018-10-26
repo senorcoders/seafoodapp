@@ -23,6 +23,7 @@ export class OrdersItemsComponent implements OnInit {
   user:any;
   Stars=[];
   count:number=0;
+  total:any;
   constructor(private productService:ProductService, private router:ActivatedRoute,private auth:AuthenticationService,
     private fb:FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
@@ -36,8 +37,9 @@ export class OrdersItemsComponent implements OnInit {
   getItems(){
     this.productService.getData(`api/items/${this.user.id}/${this.shoppingCartId}`).subscribe(
     	result => {
-    		this.products=result;
-        console.log(this.products)
+        this.products=result;
+        this.getTotal();
+        console.log("Order", this.products)
     		this.showLoading=false;
     		this.showData=true
     		this.getImages();
@@ -124,4 +126,24 @@ export class OrdersItemsComponent implements OnInit {
       }
     )
   }
-}
+
+
+  getTotalxItem(count, price){
+    return count*price;
+  }
+
+  getTotal(){
+    var subtotal = 0;
+    var itemsProcessed = 0;
+
+    this.products.forEach(element => {
+      itemsProcessed++;
+      subtotal += this.getTotalxItem(element.quantity.value, element.price.value);
+      if(itemsProcessed === this.products.length) {
+        this.total = subtotal;
+      }
+    });
+  }
+    
+  }
+

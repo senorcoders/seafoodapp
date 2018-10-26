@@ -9,36 +9,59 @@
 			<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
 		</div>
 	</div>
-	<div *ngIf="showData">
-		<div class="row">
-			<div class="col-md-6 col-lg-4" *ngFor="let product of products; let i=index">
-				<div class="product-cont">
-					<div class="actions">
-						<fa name="heart-o" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" *ngIf="!product.favorite.msg; else favorite"></fa>
-                  		<ng-template #favorite><fa name="heart" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" class="isfavorite"></fa></ng-template>
+	<div *ngIf="showData"> 
+					<div class="row" style="padding-top: 20px; padding-bottom: 20px;">
+					  <div class="col-md-9"></div>
+					  <div class="col-md-3 text-right">
+						<a routerLink="/orders" class="btn-red-a">{{'Orders-items.back-orders' | translate}}</a>
+					  </div>
 					</div>
-					<a routerLink="/product/{{product.fish.id}}">
-						<div class="product-img" [style.background-image]="images[i]"></div>
-					</a>
-					<div class="content">
-						<a routerLink="/product/{{product.fish.id}}">
-							<h2 class="name">{{product.fish.name}}</h2>
-						</a>
-						<a routerLink="/store/{{product.fish.store.id}}">
-							<h5 class="sold">{{product.fish.store.name}}</h5>
-						</a>
-						<hr class="hr-small">
-						<a (click)="ShowReviewForm(product.fish.store.id)" class="review">
-							<img src="../../assets/review-icon.png" alt="">{{'Orders-items.review' | translate}}</a>
-						<hr class="hr-small">
-						<span class="price">{{product.fish.price.type}} {{product.fish.price.value}} {{product.fish.weight.type}}</span>
-						<div class="buttons">
-							<a routerLink="/product/{{product.fish.id}}" class="pink-btn">{{'Orders-items.view' | translate}}</a>
+					<div class="table-design">
+					  <div class="row row-bg" *ngFor="let product of products; let i=index">
+						<div class="col-md-2">
+						  <div class="box-input">
+							<input type="number" [value]="product.quantity.value" disabled>
+						  </div>
 						</div>
+						<div class="col-md-2">
+						  @ ${{product.price.value}}
+						</div>
+						<div class="col-md-4">
+						  <div class="product-name">
+							<a routerLink="/product/{{product.fish.id}}">{{product.fish.name}}</a>
+							<hr class="black-line">
+						  </div>
+						  <div class="product-description">
+							{{product.fish.description}}
+						  </div>
+						</div>
+						<div class="col-md-2 text-center">
+						  ${{getTotalxItem(product.quantity.value, product.price.value)}}
+						</div>
+						<div class="col-md-2">
+								<div class="actions">
+										<fa name="heart-o" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" *ngIf="!product.favorite.msg; else favorite"></fa>
+										  <ng-template #favorite><fa name="heart" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" class="isfavorite"></fa></ng-template>
+									</div>
+								<a (click)="ShowReviewForm(product.fish.store.id)" class="review">
+										<img src="../../assets/review-icon.png" alt="">{{'Orders-items.review' | translate}}</a>
+						</div>
+					  </div>
 					</div>
-				</div>
-			</div>
-		</div>
+					<div class="row" >
+						<div class="col-md-12" style="padding-bottom: 20px;">
+						  <hr class="cart-divider">
+						</div>
+						<div class="col-md-3">
+						</div>
+						<div class="col-md-7 text-right">
+						  <h3 class="subtotal">{{'Orders-items.total' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
+						  <br>
+						</div>
+						
+					</div>
+				  
+		
 	</div>
 </div>
 <div class="comment-container" *ngIf="showForm" >
