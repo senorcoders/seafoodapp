@@ -166,11 +166,14 @@ uploadFile(endpoint, field, fileToUpload){
     return this.http.put(`${API}${endpoint}`, formData, httpOptionsForm);
   }
   /************Filter Store*************/
-  filterFish( category:string, subcategory:string, country:string ){
+  filterFish( category:string, subcategory:string, country:string, raised:string, preparation:string, treatment:string ){
     let data={
       'category':category,
       'subcategory':subcategory,
-      'country':country
+      'country':country,
+      'raised': raised, 
+      'preparation': preparation, 
+      'treatment': treatment
     }
     return this.http.post(`${API}fish/filter`, data, httpOptions)
   }

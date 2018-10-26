@@ -35,12 +35,23 @@ export class ProductsComponent implements OnInit {
   searchCategories:any;
   searchSubcategories:any;
   countries:any;
+  allCountries=environment.countries;
   constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
     jQuery('.category').select2();
     jQuery('.subcategory').select2();
     jQuery('.country').select2();
+    jQuery('#selectRaised').select2();
+    jQuery('#selectTreatment').select2();
+    jQuery('#selectPreparation').select2();
+    jQuery("#sliderPrice").slider({
+      ticks: [0, 100, 200, 300],
+      ticks_labels: ['$0', '$100', '$200', '$300' ],
+      ticks_snap_bounds: 10
+  });
+  
+
     this.route.params.subscribe(params => {
       this.page=this.route.snapshot.params['page'];
       this.search=params['query'];
@@ -83,6 +94,15 @@ export class ProductsComponent implements OnInit {
       this.filterProducts();
     })
     jQuery('.country').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('#selectRaised').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('#selectPreparation').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('#selectTreatment').on('change', (e)=>{            
       this.filterProducts();
     })
     this.getFishCountries();
@@ -302,7 +322,19 @@ smallDesc(str) {
   getFishCountries(){  	
   	this.productService.getFishCountries().subscribe(
   		result=>{
-        this.countries = result;
+        let filterCountries:any = [];
+        this.allCountries.map( country => {
+          var exists = Object.keys(result).some(function(k) {
+            return result[k] === country.code;
+          });
+          if( exists ){
+            filterCountries.push( country );
+            return country;
+          }
+        } )
+        console.log(filterCountries);
+        this.countries = filterCountries;
+
   		},
   		e=>{
   			this.showLoading=true;
@@ -316,10 +348,13 @@ smallDesc(str) {
     let cat = jQuery('.category').val();
     let subcat = jQuery('.subcategory').val();
     let country = jQuery('.country').val();
-    if( cat == '0' && subcat == '0' && country == '0' ){
+    let raised = jQuery('#selectRaised').val();
+    let preparation = jQuery('#selectPreparation').val();
+    let treatment = jQuery('#selectTreatment').val();
+    if( cat == '0' && subcat == '0' && country == '0' && raised == '0' && preparation == '0' && treatment == '0' ){
       this.getProducts(12,this.page)
     }else{
-      this.productService.filterFish( cat, subcat, country ).subscribe(
+      this.productService.filterFish( cat, subcat, country, raised, preparation, treatment ).subscribe(
         result => {
           this.paginationNumbers=[];
           this.products=result;
