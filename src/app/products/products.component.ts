@@ -305,8 +305,8 @@ smallDesc(str) {
   	)
   }
 
-  filterFish(){
-    
+  filterProducts(filterQuery){
+    console.log(filterQuery);
   }
 
   
