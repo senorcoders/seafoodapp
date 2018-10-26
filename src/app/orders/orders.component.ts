@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../services/product.service';
 import { CartService } from '../core/cart/cart.service';
 import {AuthenticationService} from '../services/authentication.service';
+import { environment } from '../../environments/environment.prod';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
@@ -13,7 +14,8 @@ export class OrdersComponent implements OnInit {
 	shoppingCarts:any=[];
 	showLoading:boolean=true;
 	showData:boolean=false;
-	dates=[];
+  dates=[];
+  API:any = environment.apiURLImg;
   constructor(private productService: ProductService, private Cart: CartService, private auth:AuthenticationService) { }
 
   ngOnInit() {
@@ -71,5 +73,27 @@ export class OrdersComponent implements OnInit {
       }
   		this.dates[index]=dates;
   	})
+  }
+
+  getLength(items){
+    var lng = items.items.length;
+    if(lng > 1){
+      return true;
+    }else{
+      return false;
+    }
+    
+  }
+
+  getImage(item){
+    console.log(item.items[0].fish['imagePrimary']);
+    let img = item.items[0].fish['imagePrimary'];
+
+    if(img != undefined){
+      return this.API + img;  
+
+    }else{
+      return '../../assets/Logo-1.png';
+    }
   }
 }

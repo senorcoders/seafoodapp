@@ -13,13 +13,16 @@
 	<div *ngIf="showData">
 		<div class="row">
 			<div class="col-12">
+				<input type="text" placeholder="Filter Orders" class="filter-field">
+			</div>
+			<div class="col-12">
 					<div class="col-12 table-design">
 						<div class="row row-bg" *ngFor="let shoppingCart of shoppingCarts;let i=index">
 							<div class="col">
-									<img src="../../assets/orders-bg.png" alt="" class="shoppingcart">
+									<img [src]="getImage(shoppingCart)" alt="" class="shoppingcart">
 							</div>
 							<div class="col">
-								<h5 [innerHtml]="(shoppingcart?.items.length > 1) ? shoppingCart?.items[0]?.fish?.name : shoppingCart?.items.length + ' Products'"></h5>
+								<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.fish?.name "></h5>
 							</div>
 							<div class="col date-span">
 								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>
