@@ -17,19 +17,19 @@
       <div class="row" id="filter">
         <div class="col-md-4">                
           <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
-            <option value="">{{'Store.filter-category' | translate}}</option>
+            <option value="0">Select Category</option>
             <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
           </select>
         </div>
         <div class="col-md-4">          
           <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
-            <option value="">{{'Store.filter-subcategory' | translate}}</option>
+            <option value="0">Select Subcategory</option>
             <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
           </select>
         </div>
         <div class="col-md-4">          
           <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
-            <option value="">{{'Store.filter-country' | translate}}</option>            
+            <option value="0">Select Country</option>            
             <option value="{{country}}" *ngFor="let country of countries">{{country}}</option>
           </select>
         </div>

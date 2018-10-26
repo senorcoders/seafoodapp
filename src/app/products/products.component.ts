@@ -77,6 +77,13 @@ export class ProductsComponent implements OnInit {
     jQuery('.category').on('change', (e)=>{
       console.log( jQuery('.category').val() );
       this.getSubCategories(e.target.value);
+      this.filterProducts();
+    })
+    jQuery('.subcategory').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('.country').on('change', (e)=>{            
+      this.filterProducts();
     })
     this.getFishCountries();
     this.getSubCategories('');
@@ -305,8 +312,25 @@ smallDesc(str) {
   	)
   }
 
-  filterProducts(filterQuery){
-    console.log(filterQuery);
+  filterProducts(){
+    let cat = jQuery('.category').val();
+    let subcat = jQuery('.subcategory').val();
+    let country = jQuery('.country').val();
+    if( cat == '0' && subcat == '0' && country == '0' ){
+      this.getProducts(12,this.page)
+    }else{
+      this.productService.filterFish( cat, subcat, country ).subscribe(
+        result => {
+          this.paginationNumbers=[];
+          this.products=result;
+        },
+        error => {
+          console.log( error );
+        }
+      )
+    }
+    
+    
   }
 
   
