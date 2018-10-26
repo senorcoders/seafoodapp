@@ -172,7 +172,7 @@ uploadFile(endpoint, field, fileToUpload){
       'subcategory':subcategory,
       'country':country
     }
-    return this.http.post(`${API}filterProducts`, data, httpOptions)
+    return this.http.post(`${API}fish/filter`, data, httpOptions)
   }
   getCategories(){
     return this.http.get(`${API}fishTypes/parents`);
