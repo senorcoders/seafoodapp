@@ -68,6 +68,13 @@
 .table-design .row-bg h5{
 	margin-bottom: 0;
 }
+
+.filter-field{
+	min-width: 300px;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 2px solid #f2f2f2;
+}
 @media(max-width: 768px){
 	.btn-cont{
 		text-align: center;
