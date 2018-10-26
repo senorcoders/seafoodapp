@@ -96,6 +96,15 @@ export class ProductsComponent implements OnInit {
     jQuery('.country').on('change', (e)=>{            
       this.filterProducts();
     })
+    jQuery('#selectRaised').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('#selectPreparation').on('change', (e)=>{            
+      this.filterProducts();
+    })
+    jQuery('#selectTreatment').on('change', (e)=>{            
+      this.filterProducts();
+    })
     this.getFishCountries();
     this.getSubCategories('');
   }
@@ -339,10 +348,13 @@ smallDesc(str) {
     let cat = jQuery('.category').val();
     let subcat = jQuery('.subcategory').val();
     let country = jQuery('.country').val();
-    if( cat == '0' && subcat == '0' && country == '0' ){
+    let raised = jQuery('#selectRaised').val();
+    let preparation = jQuery('#selectPreparation').val();
+    let treatment = jQuery('#selectTreatment').val();
+    if( cat == '0' && subcat == '0' && country == '0' && raised == '0' && preparation == '0' && treatment == '0' ){
       this.getProducts(12,this.page)
     }else{
-      this.productService.filterFish( cat, subcat, country ).subscribe(
+      this.productService.filterFish( cat, subcat, country, raised, preparation, treatment ).subscribe(
         result => {
           this.paginationNumbers=[];
           this.products=result;
