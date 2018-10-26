@@ -51,7 +51,6 @@ export class ProductService {
 
   getProductDetail(id){
     return this.http.get(`${API}fish/${id}`);
-
   }
   addCategory(data){
     return this.http.post(`${API}fishtype`, data, httpOptions);
@@ -165,5 +164,27 @@ uploadFile(endpoint, field, fileToUpload){
       formData.append('sfs', fileToUpload[i]);
   }
     return this.http.put(`${API}${endpoint}`, formData, httpOptionsForm);
+  }
+  /************Filter Store*************/
+  filterFish( category:string, subcategory:string, country:string ){
+    let data={
+      'category':category,
+      'subcategory':subcategory,
+      'country':country
+    }
+    return this.http.post(`${API}filterProducts`, data, httpOptions)
+  }
+  getCategories(){
+    return this.http.get(`${API}fishtype/?limit=10000`);
+  }
+  getSubCategories(parent_id:string){
+    if( parent_id == '' ){
+      return this.http.get(`${API}parentType?limit=1000`);
+    }else{
+      return this.http.get(`${API}parentType?parent=${parent_id}`);
+    }
+  }
+  getFishCountries(){
+    return this.http.get(`${API}fish/country`);
   }
 }

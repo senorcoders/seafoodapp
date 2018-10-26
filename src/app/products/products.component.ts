@@ -22,7 +22,7 @@ export class ProductsComponent implements OnInit {
   showNextPS:boolean=false;
 	showNotFound=false;
 	image:SafeStyle=[];
-	searchForm:FormGroup;
+  searchForm:FormGroup;  
   searchPage=1;
   search:any;
   page:any;
@@ -31,9 +31,16 @@ export class ProductsComponent implements OnInit {
 	API:string=environment.apiURLImg;
   paginationSearch:boolean=false;
   role:any;
+  filterForm:FormGroup;
+  searchCategories:any;
+  searchSubcategories:any;
+  countries:any;
   constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
+    jQuery('.category').select2();
+    jQuery('.subcategory').select2();
+    jQuery('.country').select2();
     this.route.params.subscribe(params => {
       this.page=this.route.snapshot.params['page'];
       this.search=params['query'];
@@ -56,10 +63,23 @@ export class ProductsComponent implements OnInit {
           scrollTop: jQuery('#search').offset().top
         }, 1000);
       })
+      
     });
   	this.searchForm=this.fb.group({
   		search:['',Validators.required]
-  	})
+    })
+    this.filterForm = this.fb.group({
+      category: '',
+      subcategory: '',
+      country: ''
+    });
+    this.getCategories();
+    jQuery('.category').on('change', (e)=>{
+      console.log( jQuery('.category').val() );
+      this.getSubCategories(e.target.value);
+    })
+    this.getFishCountries();
+    this.getSubCategories('');
   }
   getProducts(cant,page){
   	let data={
@@ -245,4 +265,50 @@ smallDesc(str) {
    showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
   }
+
+  getCategories(){  	
+  	this.productService.getCategories().subscribe(
+  		result=>{        
+        this.searchCategories = result;
+  		},
+  		e=>{
+  			this.showLoading=true;
+  			this.showError('Something wrong happened, Please Reload the Page')
+  			console.log(e)
+  		}
+  	)
+  }
+
+  getSubCategories(category_id:string){  	
+  	this.productService.getSubCategories(category_id).subscribe(
+  		result=>{        
+        this.searchSubcategories = result;        
+  		},
+  		e=>{
+  			this.showLoading=true;
+  			this.showError('Something wrong happened, Please Reload the Page')
+  			console.log(e)
+  		}
+  	)
+  }
+
+  getFishCountries(){  	
+  	this.productService.getFishCountries().subscribe(
+  		result=>{
+        this.countries = result;
+  		},
+  		e=>{
+  			this.showLoading=true;
+  			this.showError('Something wrong happened, Please Reload the Page')
+  			console.log(e)
+  		}
+  	)
+  }
+
+  filterFish(){
+    
+  }
+
+  
+
 }
