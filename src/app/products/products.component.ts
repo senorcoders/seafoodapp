@@ -42,6 +42,16 @@ export class ProductsComponent implements OnInit {
     jQuery('.category').select2();
     jQuery('.subcategory').select2();
     jQuery('.country').select2();
+    jQuery('#selectRaised').select2();
+    jQuery('#selectTreatment').select2();
+    jQuery('#selectPreparation').select2();
+    jQuery("#sliderPrice").slider({
+      ticks: [0, 100, 200, 300],
+      ticks_labels: ['$0', '$100', '$200', '$300' ],
+      ticks_snap_bounds: 10
+  });
+  
+
     this.route.params.subscribe(params => {
       this.page=this.route.snapshot.params['page'];
       this.search=params['query'];

@@ -1,9 +1,8 @@
 <div class="products-section">
   <div class="container">
     <div class="row">
-      <div class="col-12">
-      	<h3 class="black-title">{{'Products.title' | translate}}</h3>
-      </div>
+
+      
     </div>
     <!--<div class="row" id="search">
       <div class="col-12">
@@ -13,84 +12,158 @@
   	     <input type="submit" class="search-btn" value="{{'Products.search-button'| translate}}" [disabled]="searchForm.invalid">
   	    </form>
       </div>-->
-    <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
-      <div class="row" id="filter">
-        <div class="col-md-4">                
-          <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
-            <option value="0">Select Category</option>
-            <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
-          </select>
-        </div>
-        <div class="col-md-4">          
-          <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
-            <option value="0">Select Subcategory</option>
-            <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
-          </select>
-        </div>
-        <div class="col-md-4">          
-          <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
-            <option value="0">Select Country</option>            
-            <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-          </select>
-        </div>
+      <div class="row">
+        <div class="col-3">
+        <!--Sidebar-->
+        <aside>
+          <div class="box price">
+            <label>Price</label>
+            <input id="sliderPrice" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["$0", "$100", "$200", "$300", "$400"]'/>
+          </div>
+          <div class="box minimum-order-size">
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Default radio
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Second default radio
+                  </label>
+                </div>
+          </div>
+          <div class="box maximum-order-size">
+              <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                  <label class="form-check-label" for="exampleRadios1">
+                    Default radio
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                  <label class="form-check-label" for="exampleRadios2">
+                    Second default radio
+                  </label>
+                </div>
+          </div>
+          
+          
+          <div class="box preparation">
+            <select class="js-example-basic-single select-preparation" id="selectPreparation" name="selectPreparation" data-placeholder="Preparation">
+              <option value="0">Prepraration</option>
+              <option value="filleted">Filleted</option>
+              <option value="whole">Whole</option>
+              <option value="gutted">Gutted</option>
+            </select>
+          </div>
+          <div class="box treatment">
+            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment" data-placeholder="Treatment">
+              <option value="0">Treatment</option>
+              <option value="fresh">Fresh</option>
+                <option value="frozen">Frozen</option>
+                <option value="live">Live</option>
+                <option value="smoked">Smoked</option>
+                <option value="canned">Canned</option>
+            </select>
+          </div>
+          <div class="box raised">
+            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised" data-placeholder="Raised">
+              <option value="0">Raised</option>
+              <option value="farmed">Farmed</option>
+              <option value="organically">Organically Farmed</option>
+              <option value="wild">Wild</option>
+            </select>
+          </div>
+        </aside>
       </div>
-    </form>
-    <div class="row">
-    	<div class="col-12">
-      		<img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
-      	</div>
-      	<div class="col-lg-12" *ngIf="showNotFound">
-	        <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
-	      </div>
-      <div class="col-md-6 col-lg-4 result" *ngFor="let product of products; let i=index">
-        <div class="product-result">
-          <div class="col-lg-12 search-product-img">
-            <div class="actions" *ngIf="role==0">
-              <div class="left">
-                <a routerLink="/edit-product/{{product.id}}">
-                  <fa name="pencil" class="pencil"></fa>
-                </a>
+      
+      <div class="col-9">
+          <div class="col-12">
+            <h3 class="black-title">{{'Products.title' | translate}}</h3>
+          </div>
+          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
+              <div class="row" id="filter">
+                <div class="col-md-4">                
+                  <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+                    <option value="0">Select Category</option>
+                    <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4">          
+                  <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
+                    <option value="0">Select Subcategory</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-4">          
+                  <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
+                    <option value="0">Select Country</option>            
+                    <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                  </select>
+                </div>
               </div>
-              <div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deleteProduct(product.id, i)"></div>
+            </form>
+            <div class="row">
+              <div class="col-12">
+                  <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
+                </div>
+                <div class="col-lg-12" *ngIf="showNotFound">
+                  <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
+                </div>
+              <div class="col-md-6 col-lg-4 result" *ngFor="let product of products; let i=index">
+                <div class="product-result">
+                  <div class="col-lg-12 search-product-img">
+                    <div class="actions" *ngIf="role==0">
+                      <div class="left">
+                        <a routerLink="/edit-product/{{product.id}}">
+                          <fa name="pencil" class="pencil"></fa>
+                        </a>
+                      </div>
+                      <div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deleteProduct(product.id, i)"></div>
+                    </div>
+                    <a routerLink="/product/{{product.id}}">
+                      <div [style.background-image]="image[i]" class="bg-img-prod"></div>
+                    </a>
+                  </div>
+                  <div class="col-lg-12 search-product-desc">
+                    <a routerLink="/product/{{product.id}}">
+                      <h3 class="search-product-name">{{product.name}}</h3>
+                    </a>
+                    <a class="fish-type" routerLink="{{product.type.id}}">
+                      {{product.type.name}}
+                    </a>
+                    <hr class="black-line">
+                    <div class="description">
+                      {{smallDesc(product.description)}}
+                    </div>
+                    <span class="price">
+                      {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+                    </span>
+                  </div>
+                  <div class="button-container">
+                    <a routerLink="/product/{{product.id}}" class="pink-btn">{{'MyProducts.view-button' | translate}}</a>
+                  </div>
+                </div>
+              </div>
             </div>
-            <a routerLink="/product/{{product.id}}">
-              <div [style.background-image]="image[i]" class="bg-img-prod"></div>
-            </a>
-          </div>
-          <div class="col-lg-12 search-product-desc">
-            <a routerLink="/product/{{product.id}}">
-              <h3 class="search-product-name">{{product.name}}</h3>
-            </a>
-            <a class="fish-type" routerLink="{{product.type.id}}">
-              {{product.type.name}}
-            </a>
-            <hr class="black-line">
-            <div class="description">
-              {{smallDesc(product.description)}}
+            <div class="row" *ngIf="!paginationSearch">
+              <div class="col" style="text-align: center;">
+                <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+                <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,1)">{{number}}</span>
+                <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+              </div>
             </div>
-            <span class="price">
-              {{product.price.type}} {{product.price.value}} {{product.weight.type}}
-            </span>
-          </div>
-          <div class="button-container">
-            <a routerLink="/product/{{product.id}}" class="pink-btn">{{'MyProducts.view-button' | translate}}</a>
-          </div>
-        </div>
+            <div class="row" *ngIf="paginationSearch">
+              <div class="col" style="text-align: center;">
+                <span class="btn-red-a previous" (click)="previousPageSearch()" *ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
+                <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,2)">{{number}}</span>
+                <span class="btn-red-a next" (click)="nextPageSearch()" *ngIf="showNextPS">{{'Products.next' | translate}}</span>
+              </div>
+            </div>
       </div>
     </div>
-    <div class="row" *ngIf="!paginationSearch">
-      <div class="col" style="text-align: center;">
-        <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
-        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,1)">{{number}}</span>
-        <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
-      </div>
-    </div>
-    <div class="row" *ngIf="paginationSearch">
-      <div class="col" style="text-align: center;">
-        <span class="btn-red-a previous" (click)="previousPageSearch()" *ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
-        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,2)">{{number}}</span>
-        <span class="btn-red-a next" (click)="nextPageSearch()" *ngIf="showNextPS">{{'Products.next' | translate}}</span>
-      </div>
-    </div>
+    
   </div>
 </div>   

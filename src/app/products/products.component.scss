@@ -36,3 +36,24 @@ a.badge-danger{
 .pink-btn{
   padding: 10px 15px;
 }
+aside{
+  margin-top: 2em;
+
+  .box {
+    margin-top: 2em;
+  }
+  .price {    
+    color: #666 !important;
+    font-size: 0.7em !important;    
+
+      label {
+        display: block !important;
+        font-size: 1.5em !important;
+        margin: 0px;
+        padding: 0px;
+      }
+      .slider.slider-horizontal{
+        width: 100% !important;
+      }
+  }
+}
