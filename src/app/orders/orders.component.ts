@@ -16,6 +16,7 @@ export class OrdersComponent implements OnInit {
 	showData:boolean=false;
   dates=[];
   API:any = environment.apiURLImg;
+  searchText:any;
   constructor(private productService: ProductService, private Cart: CartService, private auth:AuthenticationService) { }
 
   ngOnInit() {
@@ -32,7 +33,6 @@ export class OrdersComponent implements OnInit {
   getCartPaid(){
   	this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
   		result=>{
-        console.log(result);
   			this.showLoading=false;
   			this.shoppingCarts=result
   			this.getDates();
@@ -86,7 +86,6 @@ export class OrdersComponent implements OnInit {
   }
 
   getImage(item){
-    console.log(item.items[0].fish['imagePrimary']);
     let img = item.items[0].fish['imagePrimary'];
 
     if(img != undefined){
