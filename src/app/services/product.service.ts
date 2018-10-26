@@ -175,13 +175,13 @@ uploadFile(endpoint, field, fileToUpload){
     return this.http.post(`${API}filterProducts`, data, httpOptions)
   }
   getCategories(){
-    return this.http.get(`${API}fishtype/?limit=10000`);
+    return this.http.get(`${API}fishTypes/parents`);
   }
   getSubCategories(parent_id:string){
     if( parent_id == '' ){
-      return this.http.get(`${API}parentType?limit=1000`);
+      return this.http.get(`${API}fishTypes/childs`);
     }else{
-      return this.http.get(`${API}parentType?parent=${parent_id}`);
+      return this.http.get(`${API}fishTypes/${parent_id}/childs`);
     }
   }
   getFishCountries(){
