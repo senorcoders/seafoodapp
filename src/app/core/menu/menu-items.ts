@@ -142,20 +142,7 @@ const menuSeller=[
       name:'My Products'
     }
   }
-},
-{
-  state:'products/all/1',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Shop'
-    },
-    ar:{
-      name:'Shop'
-    }
-  }
-},
-{
+},{
   state:'documents',
   type: 'link',
   translate:{
@@ -170,6 +157,17 @@ const menuSeller=[
 ];
 const menuBuyer=[
 {
+  state:'products/all/1',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Browse'
+    },
+    ar:{
+      name:'Browse'
+    }
+  }
+},{
   state:'orders',
   type: 'link',
   translate:{

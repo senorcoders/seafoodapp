@@ -66,7 +66,8 @@
 		"company-country":"Country of Origin",
 		"company-tel":"Company Telephone",
 		"product-type":"Product Type",
-		"deliveryAddress":"Delivery Address"
+		"deliveryAddress":"Delivery Address",
+		"logo-company": "Logo Company"
 	},
 	"Store":{
 		"title":"Store Information",
@@ -209,7 +210,7 @@
 		"required":"is required",
 		"invalid":"is invalid",
 		"account":"Create Account",
-		"return":"Return to Store",
+		"return":"Return to Home",
 		"forgot":"Forgot your password?",
 		"login":"Sign in",
 		"send":"Send",
@@ -220,7 +221,7 @@
 		"select":"Are you Seller or Buyer?",
 		"buyer":"Buyer",
 		"seller":"Seller",
-		"first-name":"first Name",
+		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
 		"password":"Password",
@@ -233,7 +234,7 @@
 		"invalid":"is invalid",
 		"licence":"License",
 		"message":"Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
-		"EmailNotification":"this email is already used",
+		"EmailNotification":"This email is already taken",
 		"submessage":"Click here to go back to home",
 		"Address":"Address",
 		"City":"City",
@@ -247,7 +248,8 @@
 		"company-address":"Company Address",
 		"company-country":"Country of Origin",
 		"company-product":"Product Type",
-		"deliveryAddress":"Delivery Address"
+		"deliveryAddress":"Delivery Address",
+		"logo-company": "Logo Company"
 	},
 	"Featured-product":{
 		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",
@@ -388,7 +390,7 @@
 	},
 	"Orders":{
 		"title":"My Orders",
-		"see-button":"See Products",
+		"see-button":"View Order",
 		"name":"Shopping Cart",
 		"hour":"Hour"
 	},
@@ -415,11 +417,11 @@
 		"comment-title":"All Comments"
 	},
 	"Recovery":{
-		"title":"Recovery your password",
-		"code":"Code from your mail",
+		"title":"Reset your password",
+		"code":"Code from email",
 		"required":"is required",
-		"password":"Password",
-		"repeat":"Repeat Password",
+		"password":"New Password",
+		"repeat":"Repeat New Password",
 		"send":"Send"
 	},
 	"VerifyUser":{

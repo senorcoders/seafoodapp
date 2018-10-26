@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { PasswordValidation } from '../password';
 
 @Component({
   selector: 'app-recovery-password',
@@ -16,30 +17,45 @@ export class RecoveryPasswordComponent implements OnInit {
   ngOnInit() {
   	this.recoveryForm=this.fb.group({
   		code:['', Validators.required],
-  		password:['', Validators.required],
-  		repassword:['', Validators.required]
-  	})
+  		password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+  		rePassword:['', Validators.required]
+  	},{
+		validator : PasswordValidation.MatchPassword
+
+	  })
   }
   recovery(){
-  	if(this.recoveryForm.get('password').value != this.recoveryForm.get('repassword').value){
-    	this.toast.error('passwords not matched','Error',{positionClass:"toast-top-right"})
-  	}
-  	else{
-  		let data={
-  			password:this.recoveryForm.get('password').value,
-  			code:this.recoveryForm.get('code').value
-  		}
-  		this.productSer.updateData('api/user/password',data).subscribe(
-  			result=>{
-  				this.toast.success('Your password has been changed','Well Done',{positionClass:"toast-top-right"})
-  				this.router.navigate(['/login']);
-  			},
-  			e=>{
-		    	this.toast.error(e.error,'Error',{positionClass:"toast-top-right"})
-  				console.log(e)
-  			}
-  		)
-  	}
+	if(this.recoveryForm.valid){
+		let data={
+			password:this.recoveryForm.get('password').value,
+			code:this.recoveryForm.get('code').value
+		}
+		this.productSer.updateData('api/user/password',data).subscribe(
+			result=>{
+				this.toast.success('Your password has been changed','Well Done',{positionClass:"toast-top-right"})
+				this.router.navigate(['/login']);
+			},
+			e=>{
+			  this.toast.error(e.error,'Error',{positionClass:"toast-top-right"})
+				console.log(e)
+			}
+		)
+	}else{
+		this.validateAllFormFields(this.recoveryForm);
+	}
+  		
+  	
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         
+	Object.keys(formGroup.controls).forEach(field => { 
+	  const control = formGroup.get(field);             
+	  if (control instanceof FormControl) {             
+		control.markAsTouched({ onlySelf: true });
+	  } else if (control instanceof FormGroup) {        
+		this.validateAllFormFields(control);            
+	  }
+	});
   }
 
 }

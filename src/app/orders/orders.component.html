@@ -11,23 +11,34 @@
 		</div>
 	</div>
 	<div *ngIf="showData">
-		<div class="row carts" *ngFor="let shoppingCart of shoppingCarts;let i=index">
-			<div class="col-md-4" style="text-align: center;">
-				<a routerLink="/orders-items/{{shoppingCart.id}}"><img src="../../assets/orders-bg.png" alt="" class="shoppingcart"></a>
+		<div class="row">
+			<div class="col-12">
+					<div class="col-12 table-design">
+						<div class="row row-bg" *ngFor="let shoppingCart of shoppingCarts;let i=index">
+							<div class="col">
+									<img src="../../assets/orders-bg.png" alt="" class="shoppingcart">
+							</div>
+							<div class="col">
+								<h5 [innerHtml]="(shoppingcart?.items.length > 1) ? shoppingCart?.items[0]?.fish?.name : shoppingCart?.items.length + ' Products'"></h5>
+							</div>
+							<div class="col date-span">
+								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>
+								</div>
+							<div class="col">
+								<span>{{shoppingCart.status | uppercase}}</span>
+							</div>
+							<div class="col">
+									<span class="price">$ {{shoppingCart.total}}</span>
+							</div>
+							<div class="col">
+									<a routerLink="/orders-items/{{shoppingCart.id}}" class="btn-red-a">{{'Orders.see-button' | translate}}</a>
+
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			<div class="col-md-4">
-				<a routerLink="/orders-items/{{shoppingCart.id}}" class="title">
-					{{'Orders.name' | translate}}
-				</a>
-				<span class="date">{{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>
-				<hr class="black-line">
-				<p>{{'Orders.hour' | translate}} {{dates[i]['time']}}</p>
-				<span class="price">$ {{shoppingCart.total}}</span>
-			</div>
-			<div class="col-md-4 align-self-end btn-cont">
-				<a routerLink="/orders-items/{{shoppingCart.id}}" class="btn-red-a">{{'Orders.see-button' | translate}}</a>
-			</div>
-		</div>
+		
 	</div>
 </div>
 </div>

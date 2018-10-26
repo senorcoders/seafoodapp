@@ -1,11 +1,12 @@
 import { Component, OnInit, HostListener } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';
+import { PasswordValidation } from '../password';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -22,6 +23,7 @@ showEmailVerification:boolean=false;
 file:any=[];
 userID:any;
 storeID:any;
+image:any;
 countries=environment.countries
   constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService) {
     this.redirectHome();
@@ -31,7 +33,7 @@ countries=environment.countries
     this.RegisterBuyerForm();
   }
   redirectHome(){
-     if(this.auth.isLogged()){
+     if(this.auth.isLogged()){ 
       this.router.navigate(["/home"])
     }
   }
@@ -41,7 +43,7 @@ countries=environment.countries
       lastName:['',Validators.required],
       location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
-      password:['', Validators.required],
+      password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       rePassword:['', Validators.required],
       tel:['', Validators.required],
       fullBakingInfo:[''],
@@ -52,7 +54,10 @@ countries=environment.countries
       companyName:['', Validators.required],
       deliveryAddress:['', Validators.required],
       companyEmail:['', [Validators.required, Validators.email]],
-      companyTel:['', Validators.required]
+      companyTel:['', Validators.required],
+      logoCompany:[null]
+    }, {
+      validator : PasswordValidation.MatchPassword
     })
   }
   RegistersellerForm(){
@@ -61,7 +66,7 @@ countries=environment.countries
       lastName:['',Validators.required],
       location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
-      password:['', Validators.required],
+      password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       rePassword:['', Validators.required],
       tel:['',Validators.required],
       designation:['',Validators.required],
@@ -76,108 +81,135 @@ countries=environment.countries
       companyType:['', Validators.required],
       companyEmail:['', [Validators.required, Validators.email]],
       productType:['', [Validators.required]]
+    }, {
+      validator : PasswordValidation.MatchPassword
     })
   }
   register(){
     if(this.sellerShow){
-      if(this.sellerForm.get('password').value==this.sellerForm.get('rePassword').value){
-        let dataExtra={
-        "designation": this.sellerForm.get('designation').value,
-        "tel": this.sellerForm.get('tel').value,
-        "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
-        "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
-        "ifLocal": this.sellerForm.get('ifLocal').value
-        }
-        //save new seller
-        this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
-          result=>{
-            this.email=this.sellerForm.get('email').value;
-            this.userID=result['id']
-            //save licence
-            if(this.file.length>0){
-              this.uploadFile(this.userID)
-            }
-            //save store just name and owner
-            let store={
-              "name": this.sellerForm.get('companyName').value,
-              "owner":this.userID,
-              "description":""
-            }
-            this.product.saveData('api/store/',store).subscribe(
-              result=>{
-                this.storeID=result[0].id;
-                //update store with full data, api is working in this way
-                let storeFullData={
-                  "type": this.sellerForm.get('companyType').value,
-                  "email": this.sellerForm.get('companyEmail').value,
-                  "location": this.sellerForm.get('location').value,
-                  "Address":this.sellerForm.get('Address').value,
-                  "City":this.sellerForm.get('City').value,
-                  "zipCode":this.sellerForm.get('zipCode').value,
-                  "productType":this.sellerForm.get('productType').value,
-                }
-                console.log(this.storeID)
-                this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
-                  result=>{
-                    this.showConfirmation=false;
-                  },
-                  error=>{
-                    this.showError(error.error)
-                    //if store has error. delete user and store
-                    this.product.deleteData('user/'+this.userID).subscribe(
-                      result=>{console.log(result)},e=>{console.log(e)})
-                    this.product.deleteData('store/'+this.storeID).subscribe(
-                      result=>{console.log(result)},e=>{console.log(e)})
-                    console.log(error)
-                  }
-                )
-              },
-              error=>{
-                this.showError(error.error)
-                console.log(error)
-              }
-            )
-          },
-          error=>{
-            console.log(error);
-            this.showError(error.error);
-          }
-        )
-      }
-      else{
-        this.showError("Passwords not match");
-      } 
+       if(this.sellerForm.valid){
+         this.submitRegistrationSeller();
+       }else{
+         this.validateAllFormFields(this.sellerForm);
+       }
     }
     else{
-      if(this.buyerForm.get('password').value==this.buyerForm.get('rePassword').value){
-        let dataExtra={
-        "country": this.buyerForm.get('location').value,
-        "tel": this.buyerForm.get('tel').value,
-        "fullBakingInfo": this.buyerForm.get('fullBakingInfo').value,
-        "Address":this.buyerForm.get('Address').value,
-        "City":this.buyerForm.get('City').value,
-        "zipCode":this.buyerForm.get('zipCode').value,
-        "designation": this.buyerForm.get('designation').value,
-        "companyName": this.buyerForm.get('companyName').value,
-        "deliveryAddress": this.buyerForm.get('deliveryAddress').value,
-        "companyEmail": this.buyerForm.get('companyEmail').value,
-        "companyTel": this.buyerForm.get('companyTel').value
-        }
-        this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
-          result=>{
-            this.email=this.buyerForm.get('email').value;
-            this.showConfirmation=false;
-          },
-          error=>{
-            console.log(error);
-            this.showError(error.error);
-          }
-        )
+      if(this.buyerForm.valid){
+        console.log("Valid");
+        this.submitRegistrationBuyer();
+        console.log(this.buyerForm.value);
+      }else{
+        console.log("Invalid");
+        this.validateAllFormFields(this.buyerForm);
       }
-      else{
-        this.toast.error("Passwords not match",'Error',{positionClass:"toast-top-right","disableTimeOut":true})
-      } 
+     
     }
+  }
+
+
+  validateAllFormFields(formGroup: FormGroup) {         
+  Object.keys(formGroup.controls).forEach(field => { 
+    const control = formGroup.get(field);             
+    if (control instanceof FormControl) {             
+      control.markAsTouched({ onlySelf: true });
+    } else if (control instanceof FormGroup) {        
+      this.validateAllFormFields(control);            
+    }
+  });
+}
+
+  submitRegistrationBuyer(){
+      let dataExtra={
+      "country": this.buyerForm.get('location').value,
+      "tel": this.buyerForm.get('tel').value,
+      "fullBakingInfo": this.buyerForm.get('fullBakingInfo').value,
+      "Address":this.buyerForm.get('Address').value,
+      "City":this.buyerForm.get('City').value,
+      "zipCode":this.buyerForm.get('zipCode').value,
+      "designation": this.buyerForm.get('designation').value,
+      "companyName": this.buyerForm.get('companyName').value,
+      "deliveryAddress": this.buyerForm.get('deliveryAddress').value,
+      "companyEmail": this.buyerForm.get('companyEmail').value,
+      "companyTel": this.buyerForm.get('companyTel').value
+      }
+      this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
+        result=>{
+          this.email=this.buyerForm.get('email').value;
+          this.showConfirmation=false;
+        },
+        error=>{
+          console.log(error);
+          this.showError(error.error);
+        }
+      )
+    
+  }
+
+
+  submitRegistrationSeller(){
+      let dataExtra={
+      "designation": this.sellerForm.get('designation').value,
+      "tel": this.sellerForm.get('tel').value,
+      "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
+      "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
+      "ifLocal": this.sellerForm.get('ifLocal').value
+      }
+      //save new seller
+      this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
+        result=>{
+          this.email=this.sellerForm.get('email').value;
+          this.userID=result['id']
+          //save licence
+          if(this.file.length>0){
+            this.uploadFile(this.userID)
+          }
+          //save store just name and owner
+          let store={
+            "name": this.sellerForm.get('companyName').value,
+            "owner":this.userID,
+            "description":""
+          }
+          this.product.saveData('api/store/',store).subscribe(
+            result=>{
+              this.storeID=result[0].id;
+              //update store with full data, api is working in this way
+              let storeFullData={
+                "type": this.sellerForm.get('companyType').value,
+                "email": this.sellerForm.get('companyEmail').value,
+                "location": this.sellerForm.get('location').value,
+                "Address":this.sellerForm.get('Address').value,
+                "City":this.sellerForm.get('City').value,
+                "zipCode":this.sellerForm.get('zipCode').value,
+                "productType":this.sellerForm.get('productType').value,
+              }
+              console.log(this.storeID)
+              this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
+                result=>{
+                  this.showConfirmation=false;
+                },
+                error=>{
+                  this.showError(error.error)
+                  //if store has error. delete user and store
+                  this.product.deleteData('user/'+this.userID).subscribe(
+                    result=>{console.log(result)},e=>{console.log(e)})
+                  this.product.deleteData('store/'+this.storeID).subscribe(
+                    result=>{console.log(result)},e=>{console.log(e)})
+                  console.log(error)
+                }
+              )
+            },
+            error=>{
+              this.showError(error.error)
+              console.log(error)
+            }
+          )
+        },
+        error=>{
+          console.log(error);
+          this.showError(error.error);
+        }
+      )
+   
   }
   showForm(value){
     if(value==1){
@@ -220,5 +252,21 @@ countries=environment.countries
   }
    showSuccess(s){
     this.toast.success(s,'Well Done',{positionClass:"toast-top-right"})
+  }
+
+  changeListener($event) : void {
+    this.readThis($event.target);
+  }
+  
+  readThis(inputValue: any): void {
+    var file:File = inputValue.files[0];
+    var myReader:FileReader = new FileReader();
+  
+    myReader.onloadend = (e) => {
+      this.buyerForm.patchValue({
+        logoCompany: myReader.result
+      });
+    }
+    myReader.readAsDataURL(file);
   }
 }

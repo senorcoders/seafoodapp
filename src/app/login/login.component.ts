@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -14,9 +14,13 @@ import {OrdersService} from '../core/orders/orders.service';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  @ViewChild("emailInput") nameField: ElementRef;
   loginForm: FormGroup; 
   forgotForm: FormGroup; 
   showForm:boolean=false;
+  wrongData:boolean = false;
+  email: FormControl;
+  password: FormControl;
  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -28,11 +32,25 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loginForm=this.fb.group({
-      email:['',[Validators.email, Validators.required]],
-      password:['', Validators.required]
-    })
+    this.createFormControls();
+    this.createForm();
     this.setHeight(window.innerHeight);
+    this.nameField.nativeElement.focus();
+  }
+
+
+  createFormControls(){
+    this.email = new FormControl('', [Validators.email, Validators.required]);
+    this.password = new FormControl('', Validators.required);
+  }
+
+  createForm(){
+    this.loginForm = new FormGroup({
+        email: this.email,
+        password: this.password
+    }, {
+      updateOn: 'submit'
+    });
   }
   redirectHome(){
      if(this.auth.isLogged()){
@@ -41,8 +59,28 @@ export class LoginComponent implements OnInit {
   }
   setHeight(h){
     document.getElementById("hero").style.height = h+"px";
-  }
+  } 
   login(){
+    if(this.loginForm.valid){
+      this.sendDataLogin();
+    }else{
+      this.validateAllFormFields(this.loginForm);
+    }
+    
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {         
+    Object.keys(formGroup.controls).forEach(field => { 
+      const control = formGroup.get(field);             
+      if (control instanceof FormControl) {             
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        
+        this.validateAllFormFields(control);            
+      }
+    });
+  }
+
+  sendDataLogin(){
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
         this.auth.setLoginData(data);
@@ -79,7 +117,8 @@ export class LoginComponent implements OnInit {
     )
   }
   showError(e){
-    this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+    //this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+    this.wrongData = true;
   }
   showPopup(){
     this.forgotForm=this.fb.group({
@@ -93,7 +132,7 @@ export class LoginComponent implements OnInit {
   forgotPassword(){
     this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
       result=>{
-        this.toast.success('We send you a mail to your email','Well Done',{positionClass:"toast-top-right"})
+        this.toast.success('Please check your email for password reset instructions','',{positionClass:"toast-top-right"})
         this.showForm=false
       },
       e=>{
