@@ -35,6 +35,7 @@ export class ProductsComponent implements OnInit {
   searchCategories:any;
   searchSubcategories:any;
   countries:any;
+  allCountries=environment.countries;
   constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
@@ -302,7 +303,19 @@ smallDesc(str) {
   getFishCountries(){  	
   	this.productService.getFishCountries().subscribe(
   		result=>{
-        this.countries = result;
+        let filterCountries:any = [];
+        this.allCountries.map( country => {
+          var exists = Object.keys(result).some(function(k) {
+            return result[k] === country.code;
+          });
+          if( exists ){
+            filterCountries.push( country );
+            return country;
+          }
+        } )
+        console.log(filterCountries);
+        this.countries = filterCountries;
+
   		},
   		e=>{
   			this.showLoading=true;

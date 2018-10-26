@@ -30,7 +30,7 @@
         <div class="col-md-4">          
           <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
             <option value="0">Select Country</option>            
-            <option value="{{country}}" *ngFor="let country of countries">{{country}}</option>
+            <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
           </select>
         </div>
       </div>
