@@ -79,7 +79,10 @@
 		"sfs-trade":"SFS Trade License / Import License",
 		"sfs-import":"SFS Import Code",
 		"sfs-hs":"SFS HS Code",
-		"upload":"uploading SFS Files"
+		"upload":"uploading SFS Files",
+		"filter-category":"Select a Category",
+		"filter-subcategory":"Select a Subcategory",
+		"filter-country":"Select a Country"
 	},
 	"Archive-product":{
 		"big-title-banner":"GET SEAFOOD DELIVERED TO YOUR HOME",

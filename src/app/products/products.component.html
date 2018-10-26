@@ -5,15 +5,36 @@
       	<h3 class="black-title">{{'Products.title' | translate}}</h3>
       </div>
     </div>
-    <div class="row" id="search">
-      <!--<div class="col-12">
+    <!--<div class="row" id="search">
+      <div class="col-12">
       	<form [formGroup]="searchForm" (submit)="searchProducts(searchForm.get('search').value)" class="searchAdmin">
   	     <input type="text" class="form-control" placeholder="{{'Products.search-placeholder'| translate}}" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
   	     <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">{{'Products.no-empty'| translate}}</div>
   	     <input type="submit" class="search-btn" value="{{'Products.search-button'| translate}}" [disabled]="searchForm.invalid">
   	    </form>
       </div>-->
-    </div>
+    <form [formGroup]="filterForm" (submit)="filterProducts(searchForm.get('search').value)" class="searchAdmin">
+      <div class="row" id="filter">
+        <div class="col-md-4">                
+          <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+            <option value="">{{'Store.filter-category' | translate}}</option>
+            <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">          
+          <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
+            <option value="">{{'Store.filter-subcategory' | translate}}</option>
+            <option value="{{subCategory.child.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.child.name}}</option>
+          </select>
+        </div>
+        <div class="col-md-4">          
+          <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
+            <option value="">{{'Store.filter-country' | translate}}</option>            
+            <option value="{{country}}" *ngFor="let country of countries">{{country}}</option>
+          </select>
+        </div>
+      </div>
+    </form>
     <div class="row">
     	<div class="col-12">
       		<img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
