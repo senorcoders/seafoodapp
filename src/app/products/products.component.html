@@ -13,7 +13,7 @@
   	     <input type="submit" class="search-btn" value="{{'Products.search-button'| translate}}" [disabled]="searchForm.invalid">
   	    </form>
       </div>-->
-    <form [formGroup]="filterForm" (submit)="filterProducts(searchForm.get('search').value)" class="searchAdmin">
+    <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
       <div class="row" id="filter">
         <div class="col-md-4">                
           <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
