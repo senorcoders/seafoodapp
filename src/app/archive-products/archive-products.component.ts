@@ -24,11 +24,13 @@ export class ArchiveProductsComponent implements OnInit {
   page:any;
   pageNumbers:any;
   paginationNumbers:any=[];
+  categoryImage:any;
   constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.category= this.route.snapshot.params['category'];
       this.page= this.route.snapshot.params['page'];
+      this.getCatBanner();
       jQuery(document).ready(function(){
         jQuery([document.documentElement, document.body]).animate({
           scrollTop: jQuery('#search-title').offset().top
@@ -113,5 +115,17 @@ export class ArchiveProductsComponent implements OnInit {
     else{
       return str
     }
+  }
+
+
+  getCatBanner(){
+    this.product.getData(`fishtype?where=%7B"name":"${this.category}"%7D`).subscribe(result =>{
+      //console.log("category", result);
+      if(result[0].images != null){
+        this.categoryImage = this.API + result[0].images[0].src;
+      }else{
+        this.categoryImage = "../../assets/search-bg.jpg";
+      }
+    })
   }
 }

@@ -91,8 +91,15 @@ setFlexslider(){
   if(this.mainImg || this.images){
     setTimeout(()=>{
       jQuery('.flexslider').flexslider({
-        animation: "slide"
-        //controlNav: "thumbnails"
+        animation: "slide",
+        controlNav: true,
+        start:function(slider){
+          jQuery(".slide-current-slide").text(slider.currentSlide+1);
+          jQuery(".slide-total-slides").text("/"+slider.count)
+      },
+      before:function(slider){
+          jQuery(".slide-current-slide").text(slider.animatingTo+1)
+      }
         });
       this.showLoading=false
     },100)
@@ -103,7 +110,6 @@ setFlexslider(){
 }
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
-      console.log(data)
       this.name = data['name'];
       this.description = data['description'];
       data['images'].forEach((value)=>{
@@ -118,19 +124,19 @@ setFlexslider(){
       this.mainImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
       this.storeId=data['store'].id;
       this.storeName=data['store'].name;
-      if(this.raised && this.raised!=''){
+      if(data['raised'] && data['raised']!=''){
         this.raised=data['raised'];
       }
       else{
         this.raised="Not provided"
       }
-      if(this.preparation && this.preparation!=''){
+      if(data['preparation'] && data['preparation']!=''){
         this.preparation=data['preparation'];
       }
       else{
         this.preparation="Not provided"
       }
-      if(this.treatment && this.treatment!=''){
+      if(data['treatment'] && data['treatment']!=''){
         this.treatment=data['treatment'];
       }
       else{
