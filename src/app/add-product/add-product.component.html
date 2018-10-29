@@ -96,21 +96,31 @@
               </div>
             </div>
           </div>
+          
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
-              <label>{{'AddProduct.raised' | translate}}</label>
-              <select class="form-control" formControlName="raised">
-                <option value="farmed">Farmed</option>
-                <option value="organically">Organically Farmed</option>
-                <option value="wild">Wild</option>
-              </select>
-              <div class="form-control-feedback" *ngIf="raised.errors && showError">
-                <p *ngIf="raised.errors.required">{{'AddProduct.raised' | translate}} {{'AddProduct.required' | translate}}</p>
+            <div class="form-group" [ngClass]="{'has-danger': maximumorder.invalid && (maximumorder.dirty || maximumorder.touched),'has-success': maximumorder.valid && (maximumorder.dirty || maximumorder.touched)}">
+              <label>{{'AddProduct.maximum' | translate}}</label>
+              <input type="number" class="form-control" formControlName="maximumorder" required>
+              <div class="form-control-feedback" *ngIf="maximumorder.errors && showError">
+                <p *ngIf="maximumorder.errors.required">{{'AddProduct.maximum' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>
+          </div>          
         </div>
         <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
+                <label>{{'AddProduct.raised' | translate}}</label>
+                <select class="form-control" formControlName="raised">
+                  <option value="farmed">Farmed</option>
+                  <option value="organically">Organically Farmed</option>
+                  <option value="wild">Wild</option>
+                </select>
+                <div class="form-control-feedback" *ngIf="raised.errors && showError">
+                  <p *ngIf="raised.errors.required">{{'AddProduct.raised' | translate}} {{'AddProduct.required' | translate}}</p>
+                </div>
+              </div>
+            </div>
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
               <label>{{'AddProduct.preparation' | translate}}</label>
@@ -136,6 +146,18 @@
               </select>
               <div class="form-control-feedback" *ngIf="treatment.errors && showError">
                 <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
+              <label>{{'AddProduct.cooming_soon' | translate}}</label>
+              <select class="form-control" formControlName="cooming_soon">
+                <option value="false">No</option>
+                <option value="true">Yes</option>                
+              </select>
+              <div class="form-control-feedback" *ngIf="cooming_soon.errors && showError">
+                <p *ngIf="cooming_soon.errors.required">{{'AddProduct.cooming_soon' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
           </div>

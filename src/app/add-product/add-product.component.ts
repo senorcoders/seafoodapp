@@ -31,6 +31,8 @@ export class AddProductComponent implements OnInit {
   name: FormControl;
   price: FormControl;
   minimunorder: FormControl;
+  maximumorder: FormControl;
+  cooming_soon: FormControl;
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
@@ -85,6 +87,8 @@ export class AddProductComponent implements OnInit {
     this.name = new FormControl('', Validators.required);
     this.price = new FormControl('', Validators.required);
     this.minimunorder = new FormControl('', Validators.required);
+    this.maximumorder = new FormControl('', Validators.required);
+    this.cooming_soon = new FormControl('', Validators.required);
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     this.types = new FormControl('', Validators.required);
@@ -100,6 +104,8 @@ export class AddProductComponent implements OnInit {
       name: this.name,
       price: this.price,
       minimunorder: this.minimunorder,
+      maximumorder: this.maximumorder,
+      cooming_soon: this.cooming_soon,
       measurement: this.measurement,
       description: this.description,
       types: this.types,
@@ -130,9 +136,11 @@ export class AddProductComponent implements OnInit {
               "value": 5
           },
           "minimumOrder" : this.minimunorder.value,
+          "maximumOrder" : this.maximumorder.value,
+          "cooming_soon": this.cooming_soon.value,
           "raised": this.raised.value,
           "preparation": this.preparation.value,
-          "treatment": this.treatment.value
+          "treatment": this.treatment.value          
           
       }
       this.product.saveData('fish', data).subscribe(result =>{
@@ -224,9 +232,11 @@ structureData(){
           "value" : item.WeightValue
       },
       "minimumOrder" : item.MinimunOrder,
-          "raised": item.Raised,
+      "maximumOrder" : item.MaximumOrder,
+      "raised": item.Raised,
       "preparation": item.Preparation,
-      "Treatment": item.Treatment
+      "Treatment": item.Treatment,
+      "cooming_soon": item.cooming_soon
     }
     this.productsToUpload.push(product);
     console.log(this.productsToUpload);

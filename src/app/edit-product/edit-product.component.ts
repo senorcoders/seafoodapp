@@ -41,8 +41,10 @@ export class EditProductComponent implements OnInit {
   countries=environment.countries;
   raised:FormControl;
   minimumOrder:FormControl;
+  maximumOrder:FormControl;
   preparation:FormControl;
   treatment:FormControl;
+  cooming_soon:FormControl;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
   ngOnInit() {
     //this.createFormControls();
@@ -67,7 +69,9 @@ export class EditProductComponent implements OnInit {
       this.preparation=data['preparation'];
       this.raised=data['raised'];
       this.minimumOrder=data['minimumOrder'];
+      this.maximumOrder=data['maximumOrder'];
       this.treatment=data['treatment'];
+      this.cooming_soon=data['cooming_soon'];
       data['images'].forEach((val, index)=>{
         this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
       })
@@ -108,8 +112,10 @@ export class EditProductComponent implements OnInit {
           "images": this.images,
           "raised":this.raised,
           "minimumOrder":this.minimumOrder,
+          "maximumOrder":this.maximumOrder,
           "preparation":this.preparation,
-          "treatment":this.treatment
+          "treatment":this.treatment,
+          "coomingSoon": this.cooming_soon
       }
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         if(this.fileToUpload.length > 0){

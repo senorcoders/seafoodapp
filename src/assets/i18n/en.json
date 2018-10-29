@@ -144,9 +144,11 @@
 		"here":"here",
 		"store":"and create your own store!",
 		"minimun": "Mininum Order",
+		"maximum": "Maximum Order",
 		"raised": "Raised",
 		"preparation": "Preparation",
-		"treatment": "Treatment"
+		"treatment": "Treatment",
+		"cooming_soon": "Cooming Soon"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
