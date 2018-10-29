@@ -37,15 +37,33 @@
       <h2 class="title">{{'FishType.types' | translate}}</h2>
       <div class="row">
         <div class="col table-design">
-          <div class="row row-bg" *ngFor="let category of categories; let i=index">
-            <div class="col">
+          <div class="row row-bg" *ngFor="let category of orgCats; let i=index">
+            <div class="col text-left">
               <label>{{category.name}}</label>
+              
             </div>
             <div class="col">
               <span (click)="edit(i,category.id)" class="edit"><fa name="pencil"></fa></span>
             </div>
             <div class="col">
               <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(category.id)" class="delete">
+            </div>
+            <div class="col-12">
+                <ul>
+                    <li *ngFor="let sub of category.childsTypes; let i = index">
+                      <div class="row">
+                        <div class="col text-left">
+                          <label [innerHtml]="sub.child.name"></label>
+                        </div>
+                        <div class="col">
+                            <span (click)="editSub(sub.child.id, sub.child)" class="edit"><fa name="pencil"></fa></span>
+                        </div>
+                        <div class="col">
+                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(sub.child.id)" class="delete">
+                        </div>
+                      </div>
+                      </li>
+                  </ul>
             </div>
           </div>
         </div>

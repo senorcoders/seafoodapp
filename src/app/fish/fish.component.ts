@@ -19,6 +19,7 @@ export class FishComponent implements OnInit {
   id:number;
   showImage:boolean=false;
   currentImage:string;
+  orgCats:any = [];
   constructor(private product: ProductService, private fb: FormBuilder, private toast:ToastrService) { }
 
   ngOnInit() {
@@ -37,13 +38,26 @@ export class FishComponent implements OnInit {
   getCategories(){
     this.product.getAllCategoriesProducts().subscribe(
       result=>{
-        this.categories=result
+        //console.log("Categories", result);
+        this.categories=result;
+        this.organizeCat();
       },
       error=>{
         console.log(error)
       }
     )
   }
+
+
+  organizeCat(){
+    this.categories.forEach(element => {
+      if(element['parentsTypes'] == ""){
+        this.orgCats.push(element);
+      }
+    });
+  }
+
+
   addCategory(){
     if(this.buttonLabel=="Edit Fish"){
       this.editCategory(this.id);
@@ -80,12 +94,25 @@ export class FishComponent implements OnInit {
   edit(index,id){
     this.id=id;
     this.categoryForm= this.fb.group({
-      name:[this.categories[index].name,Validators.required],
-      description:[this.categories[index].description, Validators.required]
+      name:[this.orgCats[index].name,Validators.required],
+      description:[this.orgCats[index].description, Validators.required]
     })
     this.buttonLabel="Edit Fish";
-    if(this.categories[index].images!=null){
-      this.currentImage=environment.apiURLImg+this.categories[index].images[0].src;
+    if(this.orgCats[index].images!=null){
+      this.currentImage=environment.apiURLImg+this.orgCats[index].images[0].src;
+      this.showImage=true;
+    }
+  }
+
+  editSub(id, child){
+    this.id=id;
+    this.categoryForm= this.fb.group({
+      name:[child.name,Validators.required],
+      description:[child.description, Validators.required]
+    })
+    this.buttonLabel="Edit Fish";
+    if(child.images!=null){
+      this.currentImage=environment.apiURLImg+child.images[0].src;
       this.showImage=true;
     }
   }
@@ -188,4 +215,6 @@ removePreviusImg(){
   let img=document.querySelector('#previewImg')
   img.setAttribute('src','');
 }
+
+
 }

@@ -14,7 +14,13 @@
                 <div class="img-bg" [style.background-image]="image"></div>
               </li>
             </div>
+            
           </div>  
+          <div class="text-center">
+            <span class="slide-current-slide"></span>
+            <span class="slide-total-slides"></span>
+          </div>
+         
         </ng-template>      
       </div>
       <div class="col-lg-6 product-content">
@@ -40,9 +46,9 @@
           <li>{{'SingleProduct.country' | translate}}: <span>{{country}}</span></li>
         </ul>
         <div class="product-info">
-          <p>
+          <!-- <p>
            {{description}}
-         </p>
+         </p> -->
           <span class="price"><b>$ {{priceValue}} {{measurement}}</b></span>
           <form action="#" *ngIf="isLogged; else login" class="actions-form">
             <div class="row" style="align-items: center;">
