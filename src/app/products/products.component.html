@@ -18,35 +18,28 @@
         <aside>
           <div class="box price">
             <label>Price</label>
-            <input id="sliderPrice" type="text" data-slider-ticks="[0, 100, 200, 300, 400]" data-slider-ticks-snap-bounds="30" data-slider-ticks-labels='["$0", "$100", "$200", "$300", "$400"]'/>
+            <input type="hidden" id="priceValue" name="priceValue">
+            <input id="sliderPrice" type="text" value="0"/>
           </div>
-          <div class="box minimum-order-size">
-              <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label" for="exampleRadios1">
-                    Default radio
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
-                    Second default radio
-                  </label>
-                </div>
+          <div class="box minimum">
+            <label>Minimum Order</label>
+            <input type="hidden" id="minimumValue" name="minimumValue">
+            <input id="sliderMin" type="text" data-slider-step="10" value="0"/>
           </div>
-          <div class="box maximum-order-size">
-              <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
-                  <label class="form-check-label" for="exampleRadios1">
-                    Default radio
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
-                  <label class="form-check-label" for="exampleRadios2">
-                    Second default radio
-                  </label>
-                </div>
+
+          <div class="box maximum">
+            <label>Maximum Order</label>
+            <input type="hidden" id="maximumValue" name="maximumValue">
+            <input id="sliderMax" type="text" data-slider-step="10" value="0"/>
+          </div>                    
+
+          <div class="box cooming-soon">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="comming_soon" id="comming_soon" >
+                <label class="form-check-label" for="comming_soon">
+                  Comming Soon
+                </label>
+              </div>
           </div>
           
           
