@@ -166,14 +166,18 @@ uploadFile(endpoint, field, fileToUpload){
     return this.http.put(`${API}${endpoint}`, formData, httpOptionsForm);
   }
   /************Filter Store*************/
-  filterFish( category:string, subcategory:string, country:string, raised:string, preparation:string, treatment:string ){
+  filterFish( category:string, subcategory:string, country:string, raised:string, preparation:string, treatment:string, price:string, min:string, max:string, cooming_soon:string ){    
     let data={
       'category':category,
       'subcategory':subcategory,
       'country':country,
       'raised': raised, 
       'preparation': preparation, 
-      'treatment': treatment
+      'treatment': treatment,
+      'price': price,
+      'minimumOrder': min,
+      'maximumOrder': max,
+      "cooming_soon": cooming_soon
     }
     return this.http.post(`${API}fish/filter`, data, httpOptions)
   }
