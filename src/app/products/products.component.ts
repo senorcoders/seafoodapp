@@ -36,51 +36,71 @@ export class ProductsComponent implements OnInit {
   searchSubcategories:any;
   countries:any;
   allCountries=environment.countries;
+  minPriceField:number = 0;
+  maxPriceField:number = 35;
   constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
     jQuery('.category').select2();
     jQuery('.subcategory').select2();
     jQuery('.country').select2();
-    jQuery('#selectRaised').select2();
-    jQuery('#selectTreatment').select2();
-    jQuery('#selectPreparation').select2();
+    jQuery('#selectRaised').select2({
+      placeholder: "Raised"
+    });
+    jQuery('#selectTreatment').select2({
+      placeholder: "Treatment"
+    });
+    jQuery('#selectPreparation').select2({
+      placeholder: "Preparation"
+    });
+    
     jQuery("#sliderPrice").slider({
-      ticks: [0, 5 ,10 ,15, 20, 25, 30, 35],
-      value: 0,
-      ticks_labels: ['$0', '$5', '$10', '$15','$20','$25','$30', '$$$' ],
-      ticks_snap_bounds: 0
+      ticks: [this.minPriceField, 5 ,10 ,15, 20, 25, 30, this.maxPriceField],      
+      min: this.minPriceField, max: this.maxPriceField, value: [this.minPriceField, this.maxPriceField],
+      ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15','$20','$25','$30', '$' + this.maxPriceField ],
+      step: 5,
+      ticks_snap_bounds: 0,
+      tooltip_position:'bottom',
+      tooltip: 'always'
     });
 
     jQuery("#sliderPrice").on('change', (slider) => {
       console.log( slider.value.oldValue );
       console.log( slider.value.newValue );
-      jQuery('#priceValue').val( slider.value.newValue );
+      jQuery('.current-price').html( '$' + slider.value.newValue[0] + ' to $' + slider.value.newValue[1] );
+      jQuery('#minPriceValue').val( slider.value.newValue[0] );
+      jQuery('#maxPriceValue').val( slider.value.newValue[1] );
       this.filterProducts();
     })
 
     jQuery("#sliderMin").slider({
-      ticks: [0, 10, 20, 30, 40],
+      //ticks: [0, 10, 20, 30, 40],
       value: 0,
-      ticks_labels: ['0', '10', '20', '30', '40' ],
+      step: 5,
+      max: 100,
+      //ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
     jQuery("#sliderMin").on('change', (slider) => {
       console.log( slider.value.oldValue );
       console.log( slider.value.newValue );
+      jQuery('.current-min').html( slider.value.newValue );
       jQuery('#minimumValue').val( slider.value.newValue );
       this.filterProducts();
     })
 
     jQuery("#sliderMax").slider({
-      ticks: [0, 10, 20, 30, 40],
+      //ticks: [0, 10, 20, 30, 40],
       value: 0,
-      ticks_labels: ['0', '10', '20', '30', '40' ],
+      max: 100,
+      step: 5,
+      //ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
     jQuery("#sliderMax").on('change', (slider) => {
       console.log( slider.value.oldValue );
       console.log( slider.value.newValue );
+      jQuery('.current-max').html( slider.value.newValue );
       jQuery('#maximumValue').val( slider.value.newValue );
       this.filterProducts();
     })
@@ -120,7 +140,13 @@ export class ProductsComponent implements OnInit {
     this.getCategories();
     jQuery('.category').on('change', (e)=>{
       console.log( jQuery('.category').val() );
-      this.getSubCategories(e.target.value);
+      let subcategorySelected = e.target.value;
+      this.getSubCategories( subcategorySelected );
+      if( subcategorySelected == 0 ){
+        jQuery('.subcategory-container').hide();
+      }else{
+        jQuery('.subcategory-container').show();
+      }      
       this.filterProducts();
     })
     jQuery('.subcategory').on('change', (e)=>{            
@@ -390,7 +416,8 @@ smallDesc(str) {
     let raised = jQuery('#selectRaised').val();
     let preparation = jQuery('#selectPreparation').val();
     let treatment = jQuery('#selectTreatment').val();
-    let price = jQuery("#priceValue").val();
+    let minPrice = jQuery("#minPriceValue").val();
+    let maxPrice = jQuery("#maxPriceValue").val();
     let minimumOrder = jQuery("#minimumValue").val();
     let maximumOrder = jQuery("#maximumValue").val();
     let cooming_soon = jQuery('#comming_soon').prop('checked');//jQuery("#comming_soon").val();
@@ -401,17 +428,22 @@ smallDesc(str) {
       cooming_soon = cooming_soon.toString();
     }
 
-    if(price == '')
-      price = '0';
+    if(minPrice == '')
+      minPrice = '0';
+    
+    if(maxPrice == '')
+      maxPrice = '100000';
+
     if(minimumOrder == '')
       minimumOrder = '0';
     if(maximumOrder == '')
       maximumOrder = '0';
 
-    if( cat == '0' && subcat == '0' && country == '0' && raised == '0' && preparation == '0' && treatment == '0' && price == '0' && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
+
+    if( cat == '0' && subcat == '0' && country == '0' && raised == '0' && preparation == '0' && treatment == '0' && minPrice == this.minPriceField && maxPrice == this.maxPriceField && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
       this.getProducts(12,this.page)
     }else{
-      this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, price, minimumOrder, maximumOrder, cooming_soon ).subscribe(
+      this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
           this.paginationNumbers=[];
           this.products=result;
