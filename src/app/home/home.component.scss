@@ -38,7 +38,7 @@ $ligth-bg:#ebf1f6;
     height: 100%;
   }
   .product-name{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     color: black;
@@ -47,14 +47,14 @@ $ligth-bg:#ebf1f6;
     margin-bottom: 0;
   }
   .product-type{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     color: black;
     font-size: 1.3rem;
     text-transform: capitalize;
   }
   .desc{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     color: black;
     font-size: 1.2rem;
@@ -62,7 +62,7 @@ $ligth-bg:#ebf1f6;
   .price{
     font-size: 1.2rem;
     color: #eb1c24;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     display: block;
     text-align: right;
@@ -88,14 +88,14 @@ $ligth-bg:#ebf1f6;
   padding-top: 0 !important
 }
 .desc-title{
-  font-family: Avenir Black;
+  font-family: 'Roboto', sans-serif Black;
   color: white;
   text-transform: uppercase;
   letter-spacing: 2px;
 }
 .description{
   color: white;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-weight: lighter;
   font-size: 1.2rem;
   margin-bottom: 40px;
@@ -104,7 +104,7 @@ $ligth-bg:#ebf1f6;
   color: black
 }
 .title{
-  font-family:Avenir;
+  font-family:'Roboto', sans-serif;
   font-weight: bold;
   color:#000000;
   margin-bottom: 0;
@@ -161,7 +161,7 @@ $ligth-bg:#ebf1f6;
  }
  .description{
   margin-top: 40px;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-weight: lighter;
   margin-bottom: 40px;
   font-size: 1.3rem;
@@ -232,7 +232,7 @@ $ligth-bg:#ebf1f6;
     max-width: 80%;
 }
 .title-cat{
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   font-size: 2.1rem;
   font-weight: bold;
@@ -240,7 +240,7 @@ $ligth-bg:#ebf1f6;
   color: white;
 }
 .white-btn {
-  font-family: Avenir Black;
+  font-family: 'Roboto', sans-serif Black;
   text-transform: uppercase;
   color: white;
   border: 1px solid white;
@@ -266,7 +266,7 @@ $ligth-bg:#ebf1f6;
   font-size: 1.5rem;
   margin-top: 10px;
   font-weight: 600;
-  font-family: Avenir Black;
+  font-family: 'Roboto', sans-serif Black;
   margin-top: 10px;
 }
 .fish-types{
@@ -284,7 +284,7 @@ $ligth-bg:#ebf1f6;
     height: 100%;
   }
   .product-name{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     color: black;
     text-transform: uppercase;
@@ -293,7 +293,7 @@ $ligth-bg:#ebf1f6;
     margin-top: 20px;
   }
   .desc{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     color: black;
     font-size: 1.2rem;
