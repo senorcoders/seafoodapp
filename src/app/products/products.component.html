@@ -16,21 +16,22 @@
         <div class="col-3">
         <!--Sidebar-->
         <aside>
-          <div class="box price">
-            <label>Price</label>
-            <input type="hidden" id="priceValue" name="priceValue">
-            <input id="sliderPrice" type="text" value="0"/>
+          <div class="box bprice">
+            <label>Price</label><span class="current-price"></span><br>
+            <input type="hidden" id="minPriceValue" name="priceValue">
+            <input type="hidden" id="maxPriceValue" name="priceValue">
+            <input id="sliderPrice"  data-slider-id="sliderPrice" type="text" value="0"/>
           </div>
           <div class="box minimum">
-            <label>Minimum Order</label>
+            <label>Minimum Order</label><span class="current-min"></span>
             <input type="hidden" id="minimumValue" name="minimumValue">
-            <input id="sliderMin" type="text" data-slider-step="10" value="0"/>
+            <input id="sliderMin" data-slider-id="sliderMin" type="text" data-slider-step="10" value="0"/>
           </div>
 
           <div class="box maximum">
-            <label>Maximum Order</label>
+            <label>Maximum Order</label><span class="current-max"></span>
             <input type="hidden" id="maximumValue" name="maximumValue">
-            <input id="sliderMax" type="text" data-slider-step="10" value="0"/>
+            <input id="sliderMax" data-slider-id="sliderMax" type="text" data-slider-step="10" value="0"/>
           </div>                    
 
           <div class="box cooming-soon">
@@ -44,7 +45,7 @@
           
           
           <div class="box preparation">
-            <select class="js-example-basic-single select-preparation" id="selectPreparation" name="selectPreparation" data-placeholder="Preparation">
+            <select class="js-example-basic-single select-preparation" placeholder="Preparation" id="selectPreparation" name="selectPreparation[]" data-placeholder="Preparation" multiple="multiple">
               <option value="0">Prepraration</option>
               <option value="filleted">Filleted</option>
               <option value="whole">Whole</option>
@@ -52,7 +53,7 @@
             </select>
           </div>
           <div class="box treatment">
-            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment" data-placeholder="Treatment">
+            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment[]" data-placeholder="Treatment" multiple="multiple">
               <option value="0">Treatment</option>
               <option value="fresh">Fresh</option>
                 <option value="frozen">Frozen</option>
@@ -62,7 +63,7 @@
             </select>
           </div>
           <div class="box raised">
-            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised" data-placeholder="Raised">
+            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised[]" data-placeholder="Raised" multiple="multiple">
               <option value="0">Raised</option>
               <option value="farmed">Farmed</option>
               <option value="organically">Organically Farmed</option>
@@ -84,7 +85,7 @@
                     <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-4">          
+                <div class="col-md-4 subcategory-container">          
                   <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
                     <option value="0">Select Subcategory</option>
                     <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
