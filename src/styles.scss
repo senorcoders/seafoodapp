@@ -3,6 +3,7 @@
 @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT%3A400%2C700&#038;ver=4.9.5');
 @import url('https://fonts.googleapis.com/css?family=Arapey%3A400%2C400i&#038;ver=4.9.5');
 @import url('https://fonts.googleapis.com/css?family=Montserrat%3A200%2C300%2C400%2C500%2C600&#038;ver=4.9.5');
+@import url('https://fonts.google.com/specimen/Roboto?selection.family=Roboto');
 @import "~ngx-smart-modal/ngx-smart-modal";
 @import '~ngx-bar-rating/themes/br-fontawesome-o-theme';
 @font-face{
@@ -52,7 +53,7 @@ body {
     color: #000000 !important;
     font-size: 1.1rem;
     text-transform: capitalize;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
 }
 .nav-language{
   align-items:center
@@ -106,7 +107,7 @@ body {
 .dropdown-item{
   text-transform: uppercase;
   color: black;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-size: 0.9rem;
   font-weight: lighter;
 }
@@ -210,11 +211,11 @@ app-login{
     border: 0;
     padding: 12px 20px;
     text-transform: uppercase;
-    font-family: 'Montserrat', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 0.9rem;
 }
 .pink-btn{
-  font-family: Avenir black;
+  font-family: 'Roboto', sans-serif;
   text-transform: uppercase;
   border: 2px solid #ee434a;
   display: inline-block;
@@ -238,7 +239,7 @@ app-login{
     background-color: #3a3c3c !important;
 }
 .black-title{
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.7rem;
   font-weight: bold;
   color: #1c1d1d;
@@ -264,7 +265,7 @@ app-login{
 }
 .small-title {
   font-size: 2rem;
-  font-family: Avenir Light;
+  font-family: 'Roboto', sans-serif;
   color: #000000;
   margin-bottom: 20px;
 }
@@ -273,13 +274,13 @@ app-login{
   text-transform: uppercase;
   margin-bottom: 15px;
   color: #000000;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
 }
 .buy-btn {
     display: inline-block;
     color: white !important;
-    font-family: Avenir Black;
+    font-family: 'Roboto', sans-serif;
     background: #eb1c24;
     text-transform: uppercase;
     padding: 12px 20px;
@@ -336,7 +337,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
 .product-result-title, .notfound{
   color: black;
   font-size: 2rem;
-  font-family: Avenir Black;
+  font-family: 'Roboto', sans-serif;
   font-style: normal;
   text-transform: uppercase;
   margin-bottom: 40px;
@@ -365,7 +366,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   text-align:left;
   color:black;
   padding:0;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   a{
     text-decoration:none !important
   }
@@ -389,7 +390,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
 .search-product-name{
     color: black;
     font-size: 1.3rem;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: 2px;
@@ -402,7 +403,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
 .price{
     font-size: 1.2rem;
     color: #eb1c24;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     display: block;
     text-transform: uppercase;
@@ -410,12 +411,12 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
 .coming-from a{
   font-size: 1.2rem;
   display: block;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   text-decoration: none !important;
   color: black !important;
 }
 .owner{
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   .black-line{
     height: 0.5px;
@@ -481,7 +482,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
     margin-bottom: 1.4rem !important;
     label{
         padding: 0.2rem 0.75rem 0 !important;
-        font-family: Avenir;
+        font-family: 'Roboto', sans-serif;
         font-size: 1.2rem;
         color: black;
         letter-spacing: 2px;
@@ -491,7 +492,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
         padding: 0px 0.75rem 0.375rem !important;
         border: 0px !important;
         background:transparent !important;
-        font-family: Avenir;
+        font-family: 'Roboto', sans-serif;
         font-size: 1.1rem;
     }
   }
@@ -504,7 +505,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
     border-radius: 4px;
     color: white;
     text-transform: uppercase;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     letter-spacing: 1px;
     cursor: pointer;
@@ -516,13 +517,13 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   display: inline-block;
   padding: 10px 20px;
   text-transform: uppercase;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
   cursor: pointer;
   text-decoration: none !important;
 }
 .modal-title{
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-weight: bold;
 }
 /*footer */
@@ -532,7 +533,7 @@ footer{
     width: 200px;
   }
   .title{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
     font-size: 2rem;
     margin: 0;
@@ -540,7 +541,7 @@ footer{
   }
   .subtitle{
     margin-bottom: 15px;
-    font-family: Avenir Black;
+    font-family: 'Roboto', sans-serif;
     font-size: 2.5rem;
     text-transform: uppercase;
     text-align: left;
@@ -559,7 +560,7 @@ footer{
       padding: 10px;
       max-width: 270px;
       font-weight: lighter;
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       font-size: 1.2rem;
       line-height: 1;
       width: 100%;
@@ -575,14 +576,14 @@ footer{
     border: 0;
     padding: 12px 30px;
     text-transform: uppercase;
-    font-family: Avenir Black !important;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 1rem;
     letter-spacing: 1px;
     height: 46px;
   }
   .footer {
     position: relative;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     color: white;
     line-height: 1.563;
     padding: 60px 0;
@@ -612,7 +613,7 @@ footer{
     }
   }
   .footer-title{
-    font-family: avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 1.7rem;
     padding-bottom: 5px;
@@ -732,7 +733,7 @@ footer{
     .fish-type{
       font-size: 1.2rem;
       display: block;
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       text-decoration: none !important;
       color: black !important;
       text-transform: capitalize;
@@ -757,7 +758,7 @@ footer{
       border: 0;
       padding: 10px;
       max-width: 100%;
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       font-weight: lighter;
       font-size: 1rem;
       line-height: 1;
@@ -773,7 +774,7 @@ footer{
     border: 0;
       background: #eb1c24;
       color: white;
-      font-family: Avenir Black;
+      font-family: 'Roboto', sans-serif;
       padding: 9px 20px;
   }
 }
@@ -784,7 +785,7 @@ footer{
       background: #ebf1f6;
     }
     .name{
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       font-weight: bold;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -793,12 +794,12 @@ footer{
     }
     .date{
       color: #7a7a7a;
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       font-weight: lighter;
     }
     .product{
       color: black !important;
-      font-family: Avenir;
+      font-family: 'Roboto', sans-serif;
       font-weight: lighter;
       text-decoration: none !important;
       text-transform: capitalize;
@@ -816,7 +817,7 @@ footer{
     color: #eb1c24;
     font-size: 1.1rem;
     text-transform: uppercase;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     display: block;
     text-align: right;
@@ -828,12 +829,12 @@ footer{
     border-top:1px solid black;
   }
   div{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
   }
   label{
     text-decoration: underline;
     margin-right: 5px;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
   } 
   .delete{
     width: 20px;
@@ -861,7 +862,7 @@ app-administrator, app-featured-seller, app-featured-products,app-featured-types
   .select2{
       width: 100% !important;
       span{
-        font-family: Avenir
+        font-family: 'Roboto', sans-serif;
       }
   }
 }

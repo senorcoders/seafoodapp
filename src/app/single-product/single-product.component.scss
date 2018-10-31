@@ -1,7 +1,7 @@
 .single-product .product-name{
     color: black;
     font-size: 2rem;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
 }
@@ -12,12 +12,12 @@
     }
     h5{
         font-size: 1.8rem;
-        font-family: Avenir Light;
+        font-family: 'Roboto', sans-serif Light;
     }
 }
 .product-info{
    font-size: 1.2rem;
-    font-family: Avenir Light;
+    font-family: 'Roboto', sans-serif Light;
 }
 .single-product .price{
   font-size:1.2rem;
@@ -70,7 +70,7 @@ input::-webkit-inner-spin-button {
     font-size: 1.2rem;
     line-height: 1;
     color: black;
-    font-family: Avenir Ligth;
+    font-family: 'Roboto', sans-serif Ligth;
     padding: 0 10px;
     display: block;
 }
@@ -87,7 +87,7 @@ input::-webkit-inner-spin-button {
     font-size: 1rem;
     font-weight: bold;
     float: left;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
     background: #ebf1f6;
     letter-spacing: 2px
@@ -106,7 +106,7 @@ input::-webkit-inner-spin-button {
     background: transparent;
     margin-left: 5px;
     font-size: 1rem;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     letter-spacing: 2px;
 }
@@ -308,12 +308,12 @@ input::-webkit-inner-spin-button {
     }
 }
 .rating{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     letter-spacing: 2px;
     font-size: 1.2rem;
 }
 .product-details{
-    font-family: Avenir Light;
+    font-family: 'Roboto', sans-serif Light;
     letter-spacing: 1px;
     span{
         text-transform: uppercase;

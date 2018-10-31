@@ -30,6 +30,11 @@ export class ProductService {
     return this.http.put(`${API}${endpoint}`, data, httpOptions);
 
   }
+
+  patchData(endpoint, data){
+    return this.http.patch(`${API}${endpoint}`, data, httpOptions);
+
+  }
   setShippedProduct(endpoint){
     return this.http.put(`${API}${endpoint}`, httpOptions);
   }
