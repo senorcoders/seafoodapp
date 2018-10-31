@@ -42,18 +42,43 @@ aside{
   .box {
     margin-top: 2em;
   }
-  .price {    
+  .bprice, .minimum, .maximum {    
     color: #666 !important;
     font-size: 0.7em !important;    
 
       label {
-        display: block !important;
+        display: inline-block !important;
         font-size: 1.5em !important;
         margin: 0px;
         padding: 0px;
       }
+      .current-price, .current-min, .current-max{
+        display: inline-block;
+        text-transform: lowercase;
+        font-size: 1.1em;
+        padding-left: 10px;
+      }
       .slider.slider-horizontal{
         width: 100% !important;
       }
+      #sliderPrice, .sliderMin, .sliderMax {
+        .slider-handle {
+          background: #8283FF;
+        }
+      }
+      .tooltip.tooltip-main.bottom {
+        opacity: 1 !important;
+      }
   }
+}
+.tooltip {
+  opacity: 1 !important;
+}
+#sliderPrice, #sliderMin, #sliderMax {
+  .slider-handle {
+    background: #8283FF;
+  }
+}
+.subcategory-container {
+  display: none;
 }
