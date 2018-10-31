@@ -29,8 +29,7 @@
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
                 <label>{{'AddProduct.price-measurement' | translate}}</label>
                 <select class="form-control" formControlName="measurement" required>
-                  <option value="lb">Pounds</option>
-                  <option value="kg">Kilograms</option>
+                  <option value="kg" selected>KG</option>
                 </select>
                 <div class="form-control-feedback" *ngIf="measurement.errors && showError">
                   <p *ngIf="measurement.errors.required">{{'AddProduct.price-measurement' | translate}} {{'AddProduct.required' | translate}}</p>
