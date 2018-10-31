@@ -37,7 +37,7 @@ padding: 50px 15px;
 }
 .modal-body{
   form{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
   }
   label{
     color: black;
@@ -69,7 +69,7 @@ padding: 50px 15px;
 .result-cont{
   padding: 20px 100px;
   h3{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 2.5rem;
     text-transform: uppercase;
@@ -103,7 +103,7 @@ padding: 50px 15px;
 }
 .search-product-desc{
   color: black;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   padding-top: 20px;
 }
 .search-product-name{
@@ -115,11 +115,11 @@ padding: 50px 15px;
   text-transform: uppercase;
   font-weight: bold;
   letter-spacing: 2px;
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   display: block;
 }
 .description{
-  font-family: Avenir;
+  font-family: 'Roboto', sans-serif;
   font-size: 1.2rem;
   font-weight: lighter;
 }
@@ -130,7 +130,7 @@ padding: 50px 15px;
 .content{
   max-width: 600px;
   h3{
-    font-family: Avenir Black;
+    font-family: 'Roboto', sans-serif Black;
     color: white;
     text-transform: uppercase;
     font-size: 1.4rem;
@@ -141,7 +141,7 @@ padding: 50px 15px;
   p{
     font-size: 1.2rem;
     color: white;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
   }
 }
@@ -196,7 +196,7 @@ ngx-smart-modal{
   letter-spacing: 2px;
 }
 .modal-subtitle{
-  font-family: Avenir Medium;
+  font-family: 'Roboto', sans-serif Medium;
   color: #8c8c8c;
   text-align: right;
   letter-spacing: 2px;
@@ -214,7 +214,7 @@ ngx-smart-modal{
     color: #eb1c24;
     font-size: 1.1rem;
     text-transform: uppercase;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     display: block;
     text-align: right;
@@ -236,7 +236,7 @@ ngx-smart-modal{
   padding: 20px 0
 }
 .user-name{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -249,7 +249,7 @@ bar-rating{
 }
 .comment, .date{
     color: #7a7a7a;
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: lighter;
 }
 .row-date{
@@ -258,7 +258,7 @@ bar-rating{
 }
 .rating{
   h4{
-    font-family: Avenir;
+    font-family: 'Roboto', sans-serif;
     font-weight: bold;
     font-size: 2.5rem;
     text-transform: uppercase;

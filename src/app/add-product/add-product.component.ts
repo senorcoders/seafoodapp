@@ -114,6 +114,7 @@ export class AddProductComponent implements OnInit {
       preparation: this.preparation,
       treatment: this.treatment
     });
+    this.myform.controls['measurement'].setValue('kg');
   }
 
   onSubmit() {

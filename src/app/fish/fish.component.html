@@ -27,6 +27,13 @@
           </div>
         </div>
         <div class="form-group">
+          <label>Parent Category</label>
+          <select class="form-control" formControlName="parent">
+            <option value="none">None</option>
+            <option *ngFor="let cat of categories" [value]=cat.id [innerHtml]="cat.name"></option>
+          </select>
+        </div>
+        <div class="form-group">
          <button type="submit" class="btn-red" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
         </div>
       </form>
@@ -50,19 +57,21 @@
             </div>
             <div class="col-12">
                 <ul>
-                    <li *ngFor="let sub of category.childsTypes; let i = index">
-                      <div class="row">
+                  <div *ngFor="let sub of category.childsTypes; let i = index">
+                    <li *ngIf="sub.child">
+                      <div class="row" >
                         <div class="col text-left">
-                          <label [innerHtml]="sub.child.name"></label>
+                          <label [innerHtml]="sub?.child?.name"></label>
                         </div>
                         <div class="col">
-                            <span (click)="editSub(sub.child.id, sub.child)" class="edit"><fa name="pencil"></fa></span>
+                            <span (click)="editSub(sub.child.id, sub.child, category.id, sub)" class="edit"><fa name="pencil"></fa></span>
                         </div>
                         <div class="col">
-                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(sub.child.id)" class="delete">
+                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub.child.id, sub.id)" class="delete">
                         </div>
                       </div>
                       </li>
+                    </div>
                   </ul>
             </div>
           </div>
