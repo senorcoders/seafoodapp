@@ -49,6 +49,7 @@ export class SingleProductComponent implements OnInit {
   raised:any;
   preparation:any;
   treatment:any;
+  min:any;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
 }
@@ -110,11 +111,21 @@ setFlexslider(){
 }
   getProductDetail(){
     this.productService.getProductDetail(this.productID).subscribe(data => {
+      console.log(data);
+      if(data['minimumOrder'] < 1){
+        this.min = 1;
+      }else{
+        this.min = data['minimumOrder'];
+
+      }
+      this.count = this.min;
       this.name = data['name'];
       this.description = data['description'];
-      data['images'].forEach((value)=>{
-        this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value.src})`));
-      })
+      if(data['images']){
+        data['images'].forEach((value)=>{
+          this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value.src})`));
+        })
+      }
       this.price = data['price'].description;
       this.category = data['type'].name;
       this.show = true;
@@ -169,7 +180,7 @@ setFlexslider(){
 
   dicreaseCount(){
     console.log(this.count);
-    if(this.count > 1){
+    if(this.count > this.min){
       this.count--;
 
     }
