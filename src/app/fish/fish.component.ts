@@ -20,14 +20,17 @@ export class FishComponent implements OnInit {
   showImage:boolean=false;
   currentImage:string;
   orgCats:any = [];
+  tmpParentID:any;
   constructor(private product: ProductService, private fb: FormBuilder, private toast:ToastrService) { }
 
   ngOnInit() {
     this.getCategories();
     this.categoryForm=this.fb.group({
       name:['',Validators.required],
-      description:['', Validators.required]
+      description:['', Validators.required],
+      parent: ['']
     })
+    this.categoryForm.controls['parent'].setValue('none');
   }
   showError(e){
     this.toast.error(e,'Error',{positionClass:"toast-top-right"})
@@ -38,7 +41,6 @@ export class FishComponent implements OnInit {
   getCategories(){
     this.product.getAllCategoriesProducts().subscribe(
       result=>{
-        //console.log("Categories", result);
         this.categories=result;
         this.organizeCat();
       },
@@ -53,6 +55,7 @@ export class FishComponent implements OnInit {
     this.categories.forEach(element => {
       if(element['parentsTypes'] == ""){
         this.orgCats.push(element);
+
       }
     });
   }
@@ -63,39 +66,82 @@ export class FishComponent implements OnInit {
       this.editCategory(this.id);
     }
     else{
-      this.product.addCategory(this.categoryForm.value).subscribe(
-        result=>{
-          this.showSuccess('Category Added');
-          if(this.fileToUpload!=null){
-            this.product.AddCategoryImage(this.fileToUpload, result['id']).subscribe(
-            result=>{
-              this.showSuccess('Photo Fish Added');
-              this.getCategories();
-              this.removePreviusImg();
-              this.fileToUpload=null;
-              jQuery('#previewImg').css('display','none')
-            },
-            error=>{
-              this.showError(error.error)
-            }
-          )
-        }
-        /*refresh the category array*/
-        this.getCategories();
-        this.categoryForm.reset();
-        },
-        error=>{
-          this.showError(error.error)
-          console.log(error)
-        }
-      )
+      this.saveNewCategory();
     }
+  }
+
+  clearArrays(){
+    this.categories = [];
+    this.orgCats = [];
+  }
+
+  saveNewCategory(){
+    console.log(this.categoryForm.get('parent').value);
+    this.product.addCategory(this.categoryForm.value).subscribe(
+      result=>{
+        if(this.categoryForm.get('parent').value != 'none'){
+          this.addParentCategory(result);
+        }else{
+          this.uploadFileTocat(result);
+        }
+            
+      this.categoryForm.reset();
+      },
+      error=>{
+        this.showError(error.error)
+        console.log(error)
+      }
+    )
+  }
+
+  addParentCategory(result){
+    console.log(result);
+    this.product.saveData('parenttype', {"parent": result['parent'], "child": result['id']}).subscribe(res => {
+        console.log(res);
+        this.uploadFileTocat(result);
+    })
+  }
+
+  editParentCategory(result, id, addImage){
+    console.log(result);
+    this.product.patchData('parenttype/'+this.tmpParentID, {"parent": result['parent'], "child": result['id']}).subscribe(res => {
+        console.log(res);
+        this.updateImage(id, addImage);
+    })
+  }
+  uploadFileTocat(result){
+    if(this.fileToUpload!=null){
+      this.addImageToCategory(result);
+  }else{
+    this.showSuccess('Category Added');
+    this.clearArrays();
+    this.getCategories();
+
+  }
+  }
+
+
+  addImageToCategory(result){
+    this.product.AddCategoryImage(this.fileToUpload, result['id']).subscribe(
+      result=>{
+        this.showSuccess('Category Added');
+        this.clearArrays();
+        this.getCategories();
+        this.removePreviusImg();
+        this.fileToUpload=null;
+        jQuery('#previewImg').css('display','none')
+      },
+      error=>{
+        this.showError(error.error)
+      }
+    )
   }
   edit(index,id){
     this.id=id;
     this.categoryForm= this.fb.group({
       name:[this.orgCats[index].name,Validators.required],
-      description:[this.orgCats[index].description, Validators.required]
+      description:[this.orgCats[index].description, Validators.required],
+      parent: ["none"]
     })
     this.buttonLabel="Edit Fish";
     if(this.orgCats[index].images!=null){
@@ -104,11 +150,14 @@ export class FishComponent implements OnInit {
     }
   }
 
-  editSub(id, child){
+  editSub(id, child, parent, sub){
+    console.log(sub);
+    this.tmpParentID = sub['id'];
     this.id=id;
     this.categoryForm= this.fb.group({
       name:[child.name,Validators.required],
-      description:[child.description, Validators.required]
+      description:[child.description, Validators.required],
+      parent: [parent]
     })
     this.buttonLabel="Edit Fish";
     if(child.images!=null){
@@ -119,32 +168,50 @@ export class FishComponent implements OnInit {
   codeToEdit(id, addImage){
     this.product.editCategory(id,this.categoryForm.value).subscribe(
       result=>{
-        this.categoryForm.reset();
-        this.buttonLabel="Add Fish";
-        if (addImage) {
-          this.product.AddCategoryImage(this.fileToUpload, id).subscribe(
-            result=>{
-              this.showSuccess('Photo Fish Updated');
-              this.getCategories();
-              this.removePreviusImg();
-              this.fileToUpload=null;
-              jQuery('#previewImg').css('display','none')
-            },
-            error=>{
-              this.showError(error.error)
-            }
-          )
+        console.log(result);
+        if(this.categoryForm.get('parent').value != 'none'){
+          this.editParentCategory(result, id, addImage);
+        }else{
+          this.updateImage(id, addImage);
         }
-        this.showSuccess('Fish Updated');
-        this.getCategories();
-        this.showImage=false;
-        this.currentImage='';
+       
       },
       error=>{
         this.showError('Something wrong happened')
         console.log(error)
       }
     )
+  }
+
+
+  updateImage(id, addImage){
+    if (addImage) {
+      this.product.AddCategoryImage(this.fileToUpload, id).subscribe(
+        result=>{
+          this.showSuccess('Fish Updated');
+          this.clearArrays();
+          this.getCategories();
+          this.removePreviusImg();
+          this.fileToUpload=null;
+          jQuery('#previewImg').css('display','none');
+          this.categoryForm.reset();
+          this.buttonLabel="Add Fish";
+          this.showImage=false;
+          this.currentImage='';
+        },
+        error=>{
+          this.showError(error.error)
+        }
+      )
+    }else{
+      this.showSuccess('Fish Updated');
+      this.clearArrays();
+      this.getCategories();
+      this.categoryForm.reset();
+      this.buttonLabel="Add Fish";
+      this.showImage=false;
+      this.currentImage='';
+    }
   }
   editCategory(id){
     //if user add new image delete the old one and add new one
@@ -168,9 +235,17 @@ export class FishComponent implements OnInit {
       this.codeToEdit(id, false);
     }
   }
+
+  deleteSubCategory(id, parent){
+    this.product.deleteData('parenttype/'+parent).subscribe(result => {
+      console.log(result);
+      this.deleteCategory(id);
+    })
+  }
   deleteCategory(id){
     this.product.deleteCategory(id).subscribe(
       result=>{
+        this.clearArrays();
         this.getCategories();
         this.showSuccess('Fish was deleted')
         this.removePreviusImg();
