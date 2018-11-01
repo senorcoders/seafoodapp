@@ -41,6 +41,9 @@
         <div class="product-description">
           {{product.fish.description}}
         </div>
+        <div class="store-details">
+          <p> <img *ngIf="product.fish.store.logo != ''" width="20px" src="{{product?.fish?.store?.logo}}" alt="">{{product?.fish?.store?.name}}</p>
+        </div>
       </div>
       <div class="col text-center" *ngIf="product.fish.country != ''">
         Shipping from {{product?.fish?.country}}
