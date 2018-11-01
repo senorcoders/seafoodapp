@@ -45,16 +45,14 @@
           
           
           <div class="box preparation">
-            <select class="js-example-basic-single select-preparation" placeholder="Preparation" id="selectPreparation" name="selectPreparation[]" data-placeholder="Preparation" multiple="multiple">
-              <option value="0">Prepraration</option>
+            <select class="js-example-basic-single select-preparation" placeholder="Preparation" id="selectPreparation" name="selectPreparation[]" data-placeholder="Preparation" multiple="multiple">              
               <option value="filleted">Filleted</option>
               <option value="whole">Whole</option>
               <option value="gutted">Gutted</option>
             </select>
           </div>
           <div class="box treatment">
-            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment[]" data-placeholder="Treatment" multiple="multiple">
-              <option value="0">Treatment</option>
+            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment[]" data-placeholder="Treatment" multiple="multiple">              
               <option value="fresh">Fresh</option>
                 <option value="frozen">Frozen</option>
                 <option value="live">Live</option>
@@ -63,8 +61,7 @@
             </select>
           </div>
           <div class="box raised">
-            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised[]" data-placeholder="Raised" multiple="multiple">
-              <option value="0">Raised</option>
+            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised[]" data-placeholder="Raised" multiple="multiple">              
               <option value="farmed">Farmed</option>
               <option value="organically">Organically Farmed</option>
               <option value="wild">Wild</option>
@@ -79,23 +76,26 @@
           </div>
           <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
               <div class="row" id="filter">
-                <div class="col-md-4">                
+                <div class="col-md-3">                
                   <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
                     <option value="0">Select Category</option>
                     <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-4 subcategory-container">          
+                <div class="col-md-3 subcategory-container">          
                   <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
                     <option value="0">Select Subcategory</option>
                     <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-4">          
+                <div class="col-md-3">          
                   <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
                     <option value="0">Select Country</option>            
                     <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
                   </select>
+                </div>
+                <div class="col-md-3">
+                  <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
                 </div>
               </div>
             </form>
