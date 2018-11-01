@@ -93,6 +93,7 @@ export class ProductsComponent implements OnInit {
 
     jQuery('#clear').on( 'click', () =>{
       this.isClearButton = true;
+      this.showLoading = true;
       jQuery('.category').val(0).trigger('change');
       jQuery('.subcategory').val(0).trigger('change');
       jQuery('.country').val(0).trigger('change');
@@ -456,11 +457,11 @@ smallDesc(str) {
       cooming_soon = cooming_soon.toString();
     }
 
-    if(minPrice == '')
+    if(minPrice == '' || minPrice == this.minPriceField )
       minPrice = '0';
     
-    if(maxPrice == '')
-      maxPrice = '100000';
+    if(maxPrice == '' || maxPrice == this.maxPriceField )
+      maxPrice = '0';
 
     if(minimumOrder == '')
       minimumOrder = '0';
@@ -472,6 +473,7 @@ smallDesc(str) {
       this.getProducts(12,this.page)
     }else{
       this.showLoading=true;
+      this.products = [];
       this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
           this.showLoading=false;
