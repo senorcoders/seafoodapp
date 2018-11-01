@@ -22,15 +22,18 @@
   </div>
   <div class="table-design">
     <div class="row row-bg" *ngFor="let product of products; index as i;">
-      <div class="col-md-2">
+      <div class="col">
         <div class="box-input">
           <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value">
         </div>
       </div>
-      <div class="col-md-2">
-        @ ${{product.price.value}}
+      <div class="col text-center" *ngIf="product.fish.type">
+          {{product?.fish?.type?.name}}
       </div>
-      <div class="col-md-4">
+      <div class="col">
+        @ ${{product.price.value}} / kg
+      </div>
+      <div class="col">
         <div class="product-name">
           <a routerLink="/product/{{product.fish.id}}">{{product.fish.name}}</a>
           <hr class="black-line">
@@ -39,10 +42,13 @@
           {{product.fish.description}}
         </div>
       </div>
-      <div class="col-md-2 text-center">
+      <div class="col text-center" *ngIf="product.fish.country != ''">
+        Shipping from {{product?.fish?.country}}
+      </div>
+      <div class="col text-center">
         ${{getTotalxItem(product.quantity.value, product.price.value)}}
       </div>
-      <div class="col-md-2">
+      <div class="col">
         <button class="pink-btn btn-rm" (click)="deleteItem(i,product.id)"> {{'Cart.delete' | translate}}</button>
       </div>
     </div>
