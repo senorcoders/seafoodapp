@@ -49,14 +49,14 @@
           <!-- <p>
            {{description}}
          </p> -->
-          <span class="price"><b>$ {{priceValue}} {{measurement}}</b></span>
+          <span class="price"><b>$ {{priceValue}} / {{measurement}}</b></span>
           <form action="#" *ngIf="isLogged; else login" class="actions-form">
             <div class="row" style="align-items: center;">
               <div class="col">
                 <div class="quantity">
                   <div class="qty-wrapper">
-                    <input type="number" step="1" [min]="min" max="" name="quantity" [value]="count" title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
-                    <span> {{'SingleProduct.pack' | translate}}</span>
+                    <input type="number" step="1" [min]="min" max="" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric">
+                    <span>kg</span>
                   </div>
                   <div class="qty-btn">
                     <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
@@ -65,6 +65,7 @@
                 </div>
               </div>
             </div>
+            <p class="total-calc" [innerHtml]="getTotal()"></p>
             <button (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-red">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </form>

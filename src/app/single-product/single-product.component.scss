@@ -22,6 +22,7 @@
 .single-product .price{
   font-size:1.2rem;
   display: inline-block;
+  text-transform: lowercase;
 }
 .black-line{
     margin: 20px 0;
@@ -332,4 +333,14 @@ input::-webkit-inner-spin-button {
         float: none;
         margin: 20px 0 60px;
     }
+}
+
+
+.total-calc{
+    font-size: 1.2rem;
+    color: #eb1c24;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    display: block;
+    text-transform: uppercase;
 }
