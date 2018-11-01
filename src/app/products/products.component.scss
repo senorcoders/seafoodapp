@@ -83,6 +83,13 @@ aside{
   display: none;
 }
 
+button#clear {
+  background: #eb1c24;
+  border: none;
+  padding: 3px 10px;
+  color: #fff !important;
+}
+
 .coming-true{
   background: #ebf1f6;
   border: 1px solid #fff;
@@ -90,3 +97,4 @@ aside{
     filter:grayscale(100%);
   }
 }
+

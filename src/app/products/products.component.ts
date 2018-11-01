@@ -20,7 +20,7 @@ export class ProductsComponent implements OnInit {
 	showNextP:boolean=false;
   showPrvPS:boolean= false;
   showNextPS:boolean=false;
-	showNotFound=false;
+	showNotFound:boolean=false;
 	image:SafeStyle=[];
   searchForm:FormGroup;  
   searchPage=1;
@@ -38,6 +38,7 @@ export class ProductsComponent implements OnInit {
   allCountries=environment.countries;
   minPriceField:number = 0;
   maxPriceField:number = 35;
+  isClearButton:boolean = false;
   constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
 
   ngOnInit() {
@@ -63,6 +64,7 @@ export class ProductsComponent implements OnInit {
       tooltip_position:'bottom',
       tooltip: 'always'
     });
+    
 
     jQuery("#sliderPrice").on('change', (slider) => {
       console.log( slider.value.oldValue );
@@ -88,6 +90,29 @@ export class ProductsComponent implements OnInit {
       jQuery('#minimumValue').val( slider.value.newValue );
       this.filterProducts();
     })
+
+    jQuery('#clear').on( 'click', () =>{
+      this.isClearButton = true;
+      this.showLoading = true;
+      jQuery('.category').val(0).trigger('change');
+      jQuery('.subcategory').val(0).trigger('change');
+      jQuery('.country').val(0).trigger('change');
+      jQuery('#selectTreatment').val(0).trigger('change');
+      jQuery('#selectRaised').val(0).trigger('change');
+      jQuery('#selectPreparation').val(0).trigger('change');
+      jQuery('#comming_soon').prop('checked', false);
+      
+      jQuery("#sliderMin").slider({ value:0 });
+      jQuery("#sliderMax").slider({ value:0 });
+      jQuery('#minPriceValue').val( "0" );
+      jQuery('#maxPriceValue').val( "0" );
+      jQuery("#sliderPrice").slider({ value: [this.minPriceField, this.maxPriceField]});
+      jQuery('#minPriceValue').val( this.minPriceField );
+      jQuery('#maxPriceValue').val( this.maxPriceField );
+      this.getProducts(12,this.page);
+
+
+    } )
 
     jQuery("#sliderMax").slider({
       //ticks: [0, 10, 20, 30, 40],
@@ -179,7 +204,8 @@ export class ProductsComponent implements OnInit {
   	}
   	this.productService.listProduct(data).subscribe(
   		result=>{
-        this.products=result['productos'];
+        this.isClearButton = false;
+  			this.products=result['productos'];
         console.log("Productos", this.products);
         //add paginations numbers
         this.pageNumbers=parseInt(result['pagesNumber']);
@@ -411,6 +437,9 @@ smallDesc(str) {
 
 
   filterProducts(){
+    if( this.isClearButton ){
+      return;
+    }
     let cat = jQuery('.category').val();
     let subcat = jQuery('.subcategory').val();
     let country = jQuery('.country').val();
@@ -422,32 +451,39 @@ smallDesc(str) {
     let minimumOrder = jQuery("#minimumValue").val();
     let maximumOrder = jQuery("#maximumValue").val();
     let cooming_soon = jQuery('#comming_soon').prop('checked');//jQuery("#comming_soon").val();
-
+    console.log(preparation);
     if(!cooming_soon){
       cooming_soon ="0";
     }else{
       cooming_soon = cooming_soon.toString();
     }
 
-    if(minPrice == '')
+    if(minPrice == '' || minPrice == this.minPriceField )
       minPrice = '0';
     
-    if(maxPrice == '')
-      maxPrice = '100000';
+    if(maxPrice == '' || maxPrice == this.maxPriceField )
+      maxPrice = '0';
 
     if(minimumOrder == '')
       minimumOrder = '0';
     if(maximumOrder == '')
       maximumOrder = '0';
 
-
-    if( cat == '0' && subcat == '0' && country == '0' && raised == '0' && preparation == '0' && treatment == '0' && minPrice == this.minPriceField && maxPrice == this.maxPriceField && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
+    
+    if( cat == '0' && subcat == '0' && country == '0' && Object.keys(raised).length == 0 && Object.keys(preparation).length  == 0 && Object.keys(treatment).length == 0 && minPrice == this.minPriceField && maxPrice == this.maxPriceField && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
       this.getProducts(12,this.page)
     }else{
+      this.showLoading=true;
+      this.products = [];
       this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
+          this.showLoading=false;
           this.paginationNumbers=[];
           this.products=result;
+          if( result == undefined ||  Object.keys(result).length == 0  )
+            this.showNotFound = true;
+          else
+            this.showNotFound = false;
         },
         error => {
           console.log( error );
