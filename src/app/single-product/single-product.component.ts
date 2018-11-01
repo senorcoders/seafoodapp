@@ -265,5 +265,8 @@ setFlexslider(){
     })
     this.averageReview/=this.reviews.length
   }
-
+  getTotal(){
+    let subtotal = this.count * this.priceValue;
+    return 'Total  $' + subtotal;
+  }
 }

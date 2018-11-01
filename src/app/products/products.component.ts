@@ -206,6 +206,7 @@ export class ProductsComponent implements OnInit {
   		result=>{
         this.isClearButton = false;
   			this.products=result['productos'];
+        console.log("Productos", this.products);
         //add paginations numbers
         this.pageNumbers=parseInt(result['pagesNumber']);
         for (let i=1; i <= this.pageNumbers; i++) {
