@@ -179,7 +179,8 @@ export class ProductsComponent implements OnInit {
   	}
   	this.productService.listProduct(data).subscribe(
   		result=>{
-  			this.products=result['productos'];
+        this.products=result['productos'];
+        console.log("Productos", this.products);
         //add paginations numbers
         this.pageNumbers=parseInt(result['pagesNumber']);
         for (let i=1; i <= this.pageNumbers; i++) {
