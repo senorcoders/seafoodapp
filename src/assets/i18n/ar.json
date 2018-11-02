@@ -533,5 +533,10 @@
 		"search":"Search",
 		"noProduct":"Product not found",
 		"show":"Show form"
+	},
+	"ShippingRates":{
+		"title": "Shipping Rates",
+		"type": "Type",
+		"cost": "Cost"
 	}
 }
