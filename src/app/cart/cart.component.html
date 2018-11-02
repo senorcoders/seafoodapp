@@ -41,9 +41,12 @@
         <div class="product-description">
           {{product.fish.description}}
         </div>
+        <div class="store-details">
+          <p> <a style="color: #585656;" routerLink="/store/{{product.fish.store.id}}" target="_blank"> <img *ngIf="product.fish.store.logo != ''" width="100px" src="{{API}}{{product?.fish?.store?.logo}}" alt="">{{product?.fish?.store?.name}}</a></p>
+        </div>
       </div>
-      <div class="col text-center" *ngIf="product.fish.country != ''">
-        Shipping from {{product?.fish?.country}}
+      <div class="col" *ngIf="product.fish.country != ''">
+        Shipping from {{findCountryName(product?.fish?.country)}}
       </div>
       <div class="col text-center">
         ${{getTotalxItem(product.quantity.value, product.price.value)}}
