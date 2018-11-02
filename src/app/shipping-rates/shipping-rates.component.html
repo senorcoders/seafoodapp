@@ -1,0 +1,85 @@
+<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
+  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
+  <div class="content">
+    <h1 class="big-title">{{'ShippingRates.title'| translate}}</h1>    
+  </div>
+</div> 
+<div class="container" style="margin-top:30px;">
+	<div class="row">
+    <div class="col-12"><h3 class="black-title">{{'ShippingRates.title' | translate}}</h3></div>
+    <div class="col-md-12">
+      <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" class="form-design">
+        <div class="row">
+
+          <div class="col-lg-2">
+            <div class="form-group" >
+              <label>Country</label>
+              <select class="form-control" formControlName="sellerCountry">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+             
+            </div>
+          </div>
+          
+          <div class="col-lg-2">
+            <div class="form-group" >
+              <label> Operation </label>
+              <select class="form-control" formControlName="operation">
+                <option value="Under">Under</option>
+                <option value="Over">Over</option>                
+              </select>
+              
+            </div>
+          </div>
+          
+
+          
+
+          <div class="col-lg-2">
+            <div class="form-group" >
+              <label>Weight</label>
+              <input type="number" class="form-control" formControlName="weight" required>
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="form-group" >
+              <label> Type </label>
+              <select class="form-control" formControlName="type">
+                <option value="Pounds">Pounds</option>
+                <option value="Kilo">Kilo</option>                
+              </select>
+              
+            </div>
+          </div>
+
+          <div class="col-lg-2">
+            <div class="form-group" >
+              <label>Cost $</label>
+              <input type="number" class="form-control" formControlName="cost" required>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <button type="submit" class="btn-red">Save</button>
+          </div>
+        </div>
+        
+        
+      </form>
+    </div>
+    <div class="col-12 table-design">
+      <div class="row row-bg" *ngFor="let shippingItem of shippingRateLists; let i=index">
+        <div class="col-lg-12">
+          <h4 class="sellerCountry">
+            {{shippingItem.sellerCountry}}
+            {{shippingItem.operation}}
+            {{shippingItem.weight}}
+            {{shippingItem.type}}
+            ${{shippingItem.cost}}
+            <img src="../../assets/trash-icon.png" alt="" (click)="deleteShippingItem(shippingItem.id)" class="delete">
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

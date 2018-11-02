@@ -56,6 +56,18 @@ const menuAdmin=[
   }
 },
 {
+  state:'shipping-rates',
+  type: 'link',
+  translate:{
+    en:{
+      name:'Shipping'
+    },
+    ar:{
+      name:'Shipping'
+    }
+  }
+},
+{
   state:'fish-type',
   type: 'link',
   translate:{

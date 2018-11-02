@@ -537,5 +537,12 @@
 		"search":"Search",
 		"noProduct":"Product not found",
 		"show":"Show form"
+	},
+	"ShippingRates":{
+		"title": "Shipping Rates",
+		"formTitle": "Add New Rate",
+		"type": "Type",
+		"operation": "Operation",
+		"cost": "Cost"
 	}
 }
