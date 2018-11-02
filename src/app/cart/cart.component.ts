@@ -6,6 +6,7 @@ import { element } from 'protractor';
 import { CartService } from '../core/cart/cart.service';
 import {Router} from '@angular/router';
 import { OrdersService } from '../core/orders/orders.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-cart',
@@ -20,6 +21,7 @@ export class CartComponent implements OnInit {
   total:any;
   shoppingEnpoint:any = 'shoppingcart/items';
   shoppingCartId:string;
+  API:any = environment.apiURLImg;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
 

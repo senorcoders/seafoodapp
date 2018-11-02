@@ -42,7 +42,7 @@
           {{product.fish.description}}
         </div>
         <div class="store-details">
-          <p> <img *ngIf="product.fish.store.logo != ''" width="20px" src="{{product?.fish?.store?.logo}}" alt="">{{product?.fish?.store?.name}}</p>
+          <p> <a routerLink="/store/{{product.fish.store.id}}" target="_blank"> <img *ngIf="product.fish.store.logo != ''" width="100px" src="{{API}}{{product?.fish?.store?.logo}}" alt="">{{product?.fish?.store?.name}}</a></p>
         </div>
       </div>
       <div class="col text-center" *ngIf="product.fish.country != ''">
