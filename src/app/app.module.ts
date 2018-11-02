@@ -72,6 +72,8 @@ import { AboutComponent } from './about/about.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { Interceptor } from './interceptor/interceptor';
 import { FilterPipePipe } from './filter-pipe.pipe';
+import { ShippingRatesComponent } from './shipping-rates/shipping-rates.component';
+import { ShippingRatesService } from './services/shipping-rates.service';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -116,7 +118,8 @@ const appRoutes: Routes=[
   {path:'guides', component:GuidesComponent},
   {path:'terms-conditions', component:TermsConditionsComponent},
   {path:'about-us', component:AboutComponent},
-  {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]}
+  {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]},
+  {path:'shipping-rates', component:ShippingRatesComponent, canActivate:[AdminRouterService]}
 ]
 
 @NgModule({
@@ -167,7 +170,8 @@ const appRoutes: Routes=[
     TermsConditionsComponent,
     AboutComponent,
     AdvancedSearchComponent,
-    FilterPipePipe
+    FilterPipePipe,
+    ShippingRatesComponent
   ],
   imports: [
     BrowserModule,
@@ -198,7 +202,8 @@ const appRoutes: Routes=[
     LanguageService,
     AdminRouterService,
     CartService,
-    OrdersService
+    OrdersService,
+    ShippingRatesService
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
