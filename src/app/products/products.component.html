@@ -132,6 +132,12 @@
                     <div class="description">
                       {{smallDesc(product.description)}}
                     </div>
+                    <div class="store-details">
+                      <p><a style="color: #585656;" routerLink="/store/{{product?.store.id}}" target="_blank"> 
+                        <div><img *ngIf="product.store.logo != ''" width="100px" src="{{API}}{{product?.store?.logo}}" alt=""></div> 
+                        {{product?.store?.name}}</a>
+                      </p>
+                    </div>
                     <span class="price">
                       {{product.price.type}} {{product.price.value}} {{product.weight.type}}
                     </span>
