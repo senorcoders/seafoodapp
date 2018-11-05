@@ -14,6 +14,8 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+declare var jQuery:any;
+
 @Component({
   selector: 'app-shipping-rates',
   templateUrl: './shipping-rates.component.html',
@@ -50,25 +52,77 @@ export class ShippingRatesComponent implements OnInit {
       weight:         this.weight
     });
 
-    this.getFeaturedList();
+    jQuery('#filterCountry').select2({
+      placeholder: {
+        id: '0', // the value of the option
+        text: 'Select a Country'
+      },      
+      allowClear: true
+    });
+    this.getShippingRates();
+    jQuery('#filterCountry').on('change', (e)=>{
+      this.getShippingRates();      
+    })
   }
-  getFeaturedList(){
-    this.shippingService.getShippingRates().subscribe(
+  getShippingRates(){
+    let selectedCountry = jQuery('#filterCountry').val();
+    console.log( selectedCountry );
+    if( selectedCountry == "0" || selectedCountry == undefined ){
+      selectedCountry = "0";
+      this.shippingService.getShippingRates().subscribe(
         result=>{
-
-          this.shippingRateLists=result
+          if (result instanceof Array) {
+            this.shippingRateLists=result.map( ( row ) => {
+              console.log(row.sellerCountry);
+              this.countries.forEach(element => {
+                if( element.code == row.sellerCountry ){
+                  row.sellerCountry = element.name ;
+  
+                }
+                
+              });
+              return row;
+            } )
+          }          
         },
         error=>{
-          console.log(error)
+          console.log( error )
         }
-    )
+      )
+    }else
+      this.getShippingRatesByCountry();
+    
   
+  }
+  getShippingRatesByCountry(){
+    let selectedCountry = jQuery('#filterCountry').val();
+    this.shippingService.getShippingRatesByCountry( selectedCountry ).subscribe(
+      result => {
+        if (result instanceof Array) {
+          this.shippingRateLists=result.map( ( row ) => {
+            console.log(row.sellerCountry);
+            this.countries.forEach(element => {
+              if( element.code == row.sellerCountry ){
+                row.sellerCountry = element.name ;
+  
+              }
+              
+            });
+            return row;
+          } )
+        }
+        
+      },
+      error => {
+        console.log( error )
+      }
+    )
   }
   onSubmit(){
     this.shippingService.saveShippingRates( this.myform.value )
     .subscribe(
       result=>{
-        this.getFeaturedList();
+        this.getShippingRates();
         this.toast.success("Shipping rate added succesfully!",'Well Done',{positionClass:"toast-top-right"})
       },
       error => {
@@ -80,9 +134,9 @@ export class ShippingRatesComponent implements OnInit {
     this.shippingService.deleteShippingRates( id )
     .subscribe(
       result => {
-        this.getFeaturedList();
+        this.getShippingRates();
         this.toast.success("Shipping rate deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
-      },
+      } ,
       error => {
         console.log(error);
       }

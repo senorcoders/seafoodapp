@@ -15,6 +15,11 @@ export class ShippingRatesService {
   getShippingRates(){
     return this.http.get(`${API}shippingRates`)
   }
+
+  getShippingRatesByCountry( country:string ){
+    return this.http.get(`${API}shippingRates?sellerCountry=${country}`)
+  }
+
   saveShippingRates(data){
     return this.http.post(`${API}shippingRates`, data, httpOptions);
 

@@ -67,7 +67,7 @@
             </div>
             <p class="total-calc" [innerHtml]="getTotal()"></p>
             <button (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
-            <button *ngIf="showCart" (click)="goToCart()" class="btn-red">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
+            <button *ngIf="showCart" (click)="goToCart()" class="btn-red btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </form>
           <ng-template #login>
             <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
