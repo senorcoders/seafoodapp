@@ -40,23 +40,15 @@
               <label>{{'ShippingRates.weight' | translate}}</label>
               <input type="number" class="form-control" formControlName="weight" required>
             </div>
-          </div>
-
-          <div class="col-lg-2">
-            <div class="form-group" >
-              <label>{{'ShippingRates.type' | translate}}</label>
-              <select class="form-control" formControlName="type">
-                <option value="Pounds">Pounds</option>
-                <option value="Kilo">Kilo</option>                
-              </select>
+          </div>              
               
-            </div>
-          </div>
-
+              
+            
           <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.cost' | translate}}</label>
               <input type="number" class="form-control" formControlName="cost" required>
+              <input type="hidden" class="form-control" formControlName="type" value="Kilo"> 
             </div>
           </div>
           <div class="col-lg-2">
@@ -88,7 +80,7 @@
             {{shippingItem.operation}}
             {{shippingItem.weight}}
             {{shippingItem.type}}
-            ${{shippingItem.cost}}
+            AED {{shippingItem.cost}}
             <img src="../../assets/trash-icon.png" alt="" (click)="deleteShippingItem(shippingItem.id)" class="delete">
           </h5>
         </div>
