@@ -24,17 +24,10 @@
           <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.operation' | translate}}  </label>
-              <select class="form-control" formControlName="operation">
-                <option value="Under">Under</option>
-                <option value="Over">Over</option>                
-              </select>
               
             </div>
           </div>
           
-
-          
-
           <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.weight' | translate}}</label>
@@ -42,13 +35,12 @@
             </div>
           </div>              
               
-              
-            
           <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.cost' | translate}}</label>
               <input type="number" class="form-control" formControlName="cost" required>
-              <input type="hidden" class="form-control" formControlName="type" value="Kilo"> 
+              <input type="hidden" formControlName="type" value="Kilo"> 
+              <input type="hidden" formControlName="operation" value="Under">                
             </div>
           </div>
           <div class="col-lg-2">
