@@ -75,7 +75,7 @@
       <div class="form-group" >
         <label>{{'ShippingRates.filterByCountry' | translate}}</label>
         <select class="form-control" id="filterCountry">          
-          <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+          <option value="{{country.code}}" *ngFor="let country of shippingCountries">{{country.name}}</option>
         </select>
         
       </div>

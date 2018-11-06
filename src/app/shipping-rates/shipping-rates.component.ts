@@ -23,6 +23,7 @@ declare var jQuery:any;
 })
 export class ShippingRatesComponent implements OnInit {
   shippingRateLists:any =[];
+  shippingCountries:any=[];
   countries=environment.countries;
   myform: FormGroup;
   sellerCountry: FormControl;
@@ -38,6 +39,25 @@ export class ShippingRatesComponent implements OnInit {
     private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+
+    this.createForm();
+    jQuery('#filterCountry').select2({
+      placeholder: {
+        id: '0', // the value of the option
+        text: 'Select a Country'
+      },      
+      allowClear: true
+    });
+    this.getShippingRates();
+    jQuery('#filterCountry').on('change', (e)=>{
+      this.getShippingRates();      
+    })
+
+    this.getShippingCountries();
+   
+  }
+
+  createForm(){
     this.shippingRateLists  = new FormControl('', Validators.required);
     this.sellerCountry      = new FormControl('', Validators.required);
     this.type               = new FormControl('', Validators.required);
@@ -51,19 +71,8 @@ export class ShippingRatesComponent implements OnInit {
       cost:           this.cost,
       weight:         this.weight
     });
-
-    jQuery('#filterCountry').select2({
-      placeholder: {
-        id: '0', // the value of the option
-        text: 'Select a Country'
-      },      
-      allowClear: true
-    });
-    this.getShippingRates();
-    jQuery('#filterCountry').on('change', (e)=>{
-      this.getShippingRates();      
-    })
   }
+
   getShippingRates(){
     let selectedCountry = jQuery('#filterCountry').val();
     console.log( selectedCountry );
@@ -93,6 +102,30 @@ export class ShippingRatesComponent implements OnInit {
       this.getShippingRatesByCountry();
     
   
+  }
+  getShippingCountries(){
+    this.shippingService.getShippingCountries().subscribe( 
+      result =>{
+        console.log( 'llloooggg 1' );
+        if (result instanceof Array) {
+          console.log( 'llloooggg 2' );
+          result.map( row => {
+            console.log( 'llloooggg 3' );
+          this.countries.forEach( element => {
+            if( element.code == row ){
+              console.log( 'llloooggg' );
+              console.log( element );
+              this.shippingCountries.push( element );
+            }
+          } )
+        } )
+        }
+        //this.shippingCountries = result;
+      },
+      error => {
+        console.log( error );
+      }
+    )
   }
   getShippingRatesByCountry(){
     let selectedCountry = jQuery('#filterCountry').val();
