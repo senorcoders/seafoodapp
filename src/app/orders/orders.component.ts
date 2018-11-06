@@ -36,7 +36,8 @@ export class OrdersComponent implements OnInit {
   			this.showLoading=false;
   			this.shoppingCarts=result
   			this.getDates();
-  			this.showData=true
+        this.showData=true;
+        console.log(result);
   		},
   		e=>{
   			console.log(e)
