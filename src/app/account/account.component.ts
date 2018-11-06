@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ProductService } from '../services/product.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-account',
@@ -47,16 +48,96 @@ export class AccountComponent implements OnInit {
   importImg:any;
   HsImg:any;
   logoCompany:any = "";
+  updateForm: FormGroup; 
+  buyerFirstName: FormControl;
+  buyerLastName: FormControl;
+  buyerEmail : FormControl;
+  buyerCountry: FormControl;
+  buyerAddress: FormControl;
+  buyerCity: FormControl;
+  buyerZipcode: FormControl;
+  buyerTelephone: FormControl;
+  buyerDesignation: FormControl;
+  buyerCompanyName: FormControl;
+  buyerDeliveryAddress: FormControl;
+  buyerCompanyEmail: FormControl;
+  buyerCompanyTelephone: FormControl;
+  buyerBankingInfo: FormControl;
+  buyerLogoCompany: FormControl;
+
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
   ngOnInit() {
     if(this.auth.isLogged()){
       this.loggedIn = true;
       this.getPersonalData();
+      this.createFormControls();
+      this.createForm();
+      this.setValues();
     }
+  }
+
+  createFormControls(){
+    this.buyerFirstName = new FormControl('', [Validators.required]);
+    this.buyerLastName = new FormControl('',[Validators.required]);
+    this.buyerEmail = new FormControl('', [Validators.email, Validators.required]);
+    this.buyerCountry = new FormControl('',[Validators.required]);
+    this.buyerAddress = new FormControl('',[Validators.required]);
+    this.buyerCity = new FormControl('',[Validators.required]);
+    this.buyerZipcode = new FormControl('',[Validators.required]);
+    this.buyerTelephone = new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]);
+    this.buyerDesignation = new FormControl('',[Validators.required]);
+    this.buyerCompanyName = new FormControl('',[Validators.required]);
+    this.buyerDeliveryAddress = new FormControl('',[Validators.required]);
+    this.buyerCompanyEmail = new FormControl('', [Validators.email, Validators.required]);
+    this.buyerCompanyTelephone = new FormControl('',[Validators.required, Validators.pattern('[0-9]+')]);
+    this.buyerBankingInfo = new FormControl(['']);
+    this.buyerLogoCompany = new FormControl([null]);
+  }
+
+  createForm(){
+    this.updateForm = new FormGroup({
+        firstName: this.buyerFirstName,
+        lastName: this.buyerLastName,
+        email: this.buyerEmail,
+        country: this.buyerCountry,
+        address: this.buyerAddress,
+        city: this.buyerCity,
+        zipcode: this.buyerZipcode,
+        telephone: this.buyerTelephone,
+        designation: this.buyerDesignation,
+        companyName: this.buyerCompanyName,
+        deliveryAddress: this.buyerDeliveryAddress,
+        companyEmail: this.buyerCompanyEmail,
+        companyTelephone: this.buyerCompanyTelephone,
+        bankingInfo: this.buyerBankingInfo,
+        logoCompany: this.buyerLogoCompany
+
+
+    }, {
+      updateOn: 'submit'
+    });
+  }
+
+  setValues(){
+    this.updateForm.controls['firstName'].setValue(this.info.firstName);
+    this.updateForm.controls['lastName'].setValue(this.info.lastName);
+    this.updateForm.controls['email'].setValue(this.info.email);
+    this.updateForm.controls['country'].setValue(this.info.dataExtra['country']);
+    this.updateForm.controls['address'].setValue(this.info.dataExtra['Address']);
+    this.updateForm.controls['city'].setValue(this.info.dataExtra['City']);
+    this.updateForm.controls['zipcode'].setValue(this.info.dataExtra['zipCode']);
+    this.updateForm.controls['telephone'].setValue(this.info.dataExtra['tel']);
+    this.updateForm.controls['designation'].setValue(this.info.dataExtra['designation']);
+    this.updateForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
+    this.updateForm.controls['deliveryAddress'].setValue(this.info.dataExtra['deliveryAddress']);
+    this.updateForm.controls['companyEmail'].setValue(this.info.dataExtra['companyEmail']);
+    this.updateForm.controls['companyTelephone'].setValue(this.info.dataExtra['companyTel']);
+    this.updateForm.controls['bankingInfo'].setValue(this.info.dataExtra['fullBakingInfo']);
   }
   getPersonalData(){
     this.info = this.auth.getLoginData();
+    console.log("Info", this.info);
     this.getStoreData();
   }
   getStoreData(){
@@ -79,8 +160,49 @@ export class AccountComponent implements OnInit {
       }
     })
   }
+
+  validateAllFormFields(formGroup: FormGroup) {         
+    Object.keys(formGroup.controls).forEach(field => { 
+      const control = formGroup.get(field);             
+      if (control instanceof FormControl) {             
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {        
+        this.validateAllFormFields(control);            
+      }
+    });
+  }
+
   onSubmit(){
-    this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
+    if(this.updateForm.valid){
+      console.log("Valido");
+
+      this.info.firstName = this.updateForm.get('firstName').value;
+      this.info.lastName = this.updateForm.get('lastName').value;
+      this.info.email = this.updateForm.get('email').value;
+      this.info.dataExtra['country'] = this.updateForm.get('country').value;
+      this.info.dataExtra['Address'] = this.updateForm.get('address').value;
+      this.info.dataExtra['City'] = this.updateForm.get('city').value;
+      this.info.dataExtra['zipCode'] = this.updateForm.get('zipcode').value;
+      this.info.dataExtra['tel'] = this.updateForm.get('telephone').value;
+      this.info.dataExtra['designation'] = this.updateForm.get('designation').value;
+      this.info.dataExtra['companyName'] = this.updateForm.get('companyName').value;
+      this.info.dataExtra['deliveryAddress'] = this.updateForm.get('deliveryAddress').value;
+      this.info.dataExtra['companyEmail'] = this.updateForm.get('companyEmail').value;
+      this.info.dataExtra['companyTel'] = this.updateForm.get('companyTelephone').value;
+      this.info.dataExtra['fullBakingInfo'] = this.updateForm.get('bankingInfo').value;
+      this.updateAccount();
+    }else{
+      this.validateAllFormFields(this.updateForm);
+    }
+   
+  }
+
+
+  updateAccount(){
+    
+    console.log(this.info);
+     this.productService.updateData('user/'+this.info.id, this.info).subscribe(result => {
+       this.auth.setLoginData(this.info);
         if(this.logoCompany != ""){
           this.saveLogoImage();
         }else{
