@@ -96,5 +96,13 @@ button#clear {
   .bg-img-prod{
     filter:grayscale(100%);
   }
+  .button-container{
+    display: none;
+  }
+  a{
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+  }
 }
 
