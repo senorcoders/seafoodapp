@@ -458,11 +458,11 @@ smallDesc(str) {
       cooming_soon = cooming_soon.toString();
     }
 
-    if(minPrice == '' || minPrice == this.minPriceField )
+    if( (minPrice == '' || minPrice == this.minPriceField ) && ( maxPrice == '' || maxPrice == this.maxPriceField ) ){
       minPrice = '0';
-    
-    if(maxPrice == '' || maxPrice == this.maxPriceField )
       maxPrice = '0';
+    }
+      
 
     if(minimumOrder == '')
       minimumOrder = '0';
