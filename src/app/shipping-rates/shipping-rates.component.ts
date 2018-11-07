@@ -60,8 +60,8 @@ export class ShippingRatesComponent implements OnInit {
   createForm(){
     this.shippingRateLists  = new FormControl('', Validators.required);
     this.sellerCountry      = new FormControl('', Validators.required);
-    this.type               = new FormControl('', Validators.required);
-    this.operation          = new FormControl('', Validators.required);
+    this.type               = new FormControl('Kilo', Validators.required);
+    this.operation          = new FormControl('Under', Validators.required);
     this.cost               = new FormControl('', Validators.required);
     this.weight             = new FormControl('', Validators.required);
     this.myform = new FormGroup({      
