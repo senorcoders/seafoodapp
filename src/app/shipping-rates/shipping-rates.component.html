@@ -11,7 +11,7 @@
       <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" class="form-design">
         <div class="row">
 
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <div class="form-group" >
               <label>{{'ShippingRates.country' | translate}}</label>
               <select class="form-control" id="sellerCountry" formControlName="sellerCountry">                
@@ -21,45 +21,23 @@
             </div>
           </div>
           
-          <div class="col-lg-2">
-            <div class="form-group" >
-              <label>{{'ShippingRates.operation' | translate}}  </label>
-              <select class="form-control" formControlName="operation">
-                <option value="Under">Under</option>
-                <option value="Over">Over</option>                
-              </select>
-              
-            </div>
-          </div>
           
-
-          
-
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <div class="form-group" >
               <label>{{'ShippingRates.weight' | translate}}</label>
               <input type="number" class="form-control" formControlName="weight" required>
             </div>
-          </div>
-
-          <div class="col-lg-2">
-            <div class="form-group" >
-              <label>{{'ShippingRates.type' | translate}}</label>
-              <select class="form-control" formControlName="type">
-                <option value="Pounds">Pounds</option>
-                <option value="Kilo">Kilo</option>                
-              </select>
+          </div>              
               
-            </div>
-          </div>
-
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <div class="form-group" >
               <label>{{'ShippingRates.cost' | translate}}</label>
               <input type="number" class="form-control" formControlName="cost" required>
+              <input type="hidden" formControlName="type" value="Kilo"> 
+              <input type="hidden" formControlName="operation" value="Under">                
             </div>
           </div>
-          <div class="col-lg-2">
+          <div class="col-lg-3">
             <button type="submit" class="btn-red">Save</button>
           </div>
         </div>
@@ -75,7 +53,7 @@
       <div class="form-group" >
         <label>{{'ShippingRates.filterByCountry' | translate}}</label>
         <select class="form-control" id="filterCountry">          
-          <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+          <option value="{{country.code}}" *ngFor="let country of shippingCountries">{{country.name}}</option>
         </select>
         
       </div>
@@ -88,7 +66,7 @@
             {{shippingItem.operation}}
             {{shippingItem.weight}}
             {{shippingItem.type}}
-            ${{shippingItem.cost}}
+            AED {{shippingItem.cost}}
             <img src="../../assets/trash-icon.png" alt="" (click)="deleteShippingItem(shippingItem.id)" class="delete">
           </h5>
         </div>

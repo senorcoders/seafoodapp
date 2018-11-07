@@ -543,7 +543,7 @@
 		"formTitle": "Add New Rate",
 		"type": "Type",
 		"operation": "Operation",
-		"cost": "Cost $",
+		"cost": "Cost (AED)",
 		"weight": "Weight",
 		"filterByCountry": "Filter Shipping Rates by Country",
 		"countryPlaceholder": "Select a Country",
