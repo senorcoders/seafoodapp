@@ -458,11 +458,11 @@ smallDesc(str) {
       cooming_soon = cooming_soon.toString();
     }
 
-    if(minPrice == '' || minPrice == this.minPriceField )
+    if( (minPrice == '' || minPrice == this.minPriceField ) && ( maxPrice == '' || maxPrice == this.maxPriceField ) ){
       minPrice = '0';
-    
-    if(maxPrice == '' || maxPrice == this.maxPriceField )
       maxPrice = '0';
+    }
+      
 
     if(minimumOrder == '')
       minimumOrder = '0';
@@ -470,7 +470,7 @@ smallDesc(str) {
       maximumOrder = '0';
 
     
-    if( cat == '0' && subcat == '0' && country == '0' && Object.keys(raised).length == 0 && Object.keys(preparation).length  == 0 && Object.keys(treatment).length == 0 && minPrice == this.minPriceField && maxPrice == this.maxPriceField && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
+    if( cat == '0' && subcat == '0' && country == '0' && Object.keys(raised).length == 0 && Object.keys(preparation).length  == 0 && Object.keys(treatment).length == 0 && minPrice == '0' && maxPrice == '0' && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
       this.getProducts(12,this.page)
     }else{
       this.showLoading=true;
