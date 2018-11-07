@@ -22,7 +22,7 @@
 									<img [src]="getImage(shoppingCart)" alt="" class="shoppingcart">
 							</div>
 							<div class="col">
-								<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.name "></h5>
+								<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.fish.name "></h5>
 							</div>
 							<div class="col date-span">
 								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>

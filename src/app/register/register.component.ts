@@ -45,7 +45,7 @@ countries=environment.countries
       email:['',[Validators.email, Validators.required]],
       password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       rePassword:['', Validators.required],
-      tel:['', Validators.required],
+      tel:['', Validators.required, Validators.pattern('[0-9]+')],
       fullBakingInfo:[''],
       Address:['', Validators.required],
       City:['', Validators.required],
@@ -54,7 +54,7 @@ countries=environment.countries
       companyName:['', Validators.required],
       deliveryAddress:['', Validators.required],
       companyEmail:['', [Validators.required, Validators.email]],
-      companyTel:['', Validators.required],
+      companyTel:['', Validators.required, Validators.pattern('[0-9]+')],
       logoCompany:[null]
     }, {
       validator : PasswordValidation.MatchPassword
@@ -68,7 +68,7 @@ countries=environment.countries
       email:['',[Validators.email, Validators.required]],
       password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
       rePassword:['', Validators.required],
-      tel:['',Validators.required],
+      tel:['',Validators.required, Validators.pattern('[0-9]+')],
       designation:['',Validators.required],
       uploadTradeLicense:[''],
       fullBakingInfo:[''],

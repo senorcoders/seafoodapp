@@ -49,6 +49,8 @@
               <label>{{'Register.tel' | translate}}<span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
               <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="buyerForm.controls.tel.errors">Only numbers allowed</div>
+
             </div>
           </div>
           <div class="col-md-6">
@@ -112,6 +114,8 @@
               <label>{{'Register.tel' | translate}}<span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="companyTel" [ngClass]="{'is-invalid':buyerForm.get('companyTel').invalid && buyerForm.get('companyTel').touched}">
               <div class="invalid-feedback" *ngIf="buyerForm.get('companyTel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="buyerForm.controls.companyTel.errors">Only numbers allowed</div>
+
             </div>
           </div>
           <div class="col-md-6">
@@ -191,6 +195,8 @@
               <label>{{'Register.tel' | translate}} <span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="sellerForm.controls.tel.errors">Only numbers allowed</div>
+
             </div>
           </div>
           <div class="col-md-6">

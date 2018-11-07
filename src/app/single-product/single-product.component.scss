@@ -298,6 +298,11 @@ input::-webkit-inner-spin-button {
     cursor: pointer;
     margin-bottom: 20px;
     max-width: 300px;
+    width: auto;
+}
+
+.btn-view{
+    background: #a7060d;
 }
 .logo-store{
     width: 100px;
