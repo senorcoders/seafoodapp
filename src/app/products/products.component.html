@@ -13,7 +13,7 @@
   	    </form>
       </div>-->
       <div class="row">
-        <div class="col-3">
+        <div class="col-lg-3">
         <!--Sidebar-->
         <aside>
           <div class="box bprice">
@@ -70,7 +70,7 @@
         </aside>
       </div>
       
-      <div class="col-9">
+      <div class="col-lg-9">
           <div class="col-12">
             <h3 class="black-title">{{'Products.title' | translate}}</h3>
           </div>
@@ -106,47 +106,31 @@
                 <div class="col-lg-12" *ngIf="showNotFound">
                   <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
                 </div>
-              <div class="col-md-6 col-lg-4 result" *ngFor="let product of products; let i=index">
-                <div class="product-result coming-{{product.cooming_soon}}">
-                  <div class="col-lg-12 search-product-img">
-                    <div class="actions" *ngIf="role==0">
-                      <div class="left">
-                        <a routerLink="/edit-product/{{product.id}}">
-                          <fa name="pencil" class="pencil"></fa>
-                        </a>
-                      </div>
-                      <div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deleteProduct(product.id, i)"></div>
-                    </div>
-                    <a routerLink="/product/{{product.id}}">
-                      <div [style.background-image]="image[i]" class="bg-img-prod"></div>
-                    </a>
-                  </div>
-                  <div class="col-lg-12 search-product-desc">
-                    <a routerLink="/product/{{product.id}}">
-                      <h3 class="search-product-name">{{product.name}}</h3>
-                    </a>
-                    <a class="fish-type" routerLink="{{product.type.id}}">
-                      {{product.type.name}}
-                    </a>
-                    <hr class="black-line">
-                    <div class="description">
-                      {{smallDesc(product.description)}}
-                    </div>
-                    <div class="store-details">
-                      <p><a style="color: #585656;" routerLink="/store/{{product?.store.id}}" target="_blank"> 
-                        <div><img *ngIf="product.store.logo != ''" width="100px" src="{{API}}{{product?.store?.logo}}" alt=""></div> 
-                        {{product?.store?.name}}</a>
-                      </p>
-                    </div>
-                    <span class="price">
-                      {{product.price.type}} {{product.price.value}} {{product.weight.type}}
-                    </span>
-                  </div>
-                  <div class="button-container">
-                    <a routerLink="/product/{{product.id}}" class="pink-btn">{{'MyProducts.view-button' | translate}}</a>
-                  </div>
-                </div>
+
+              <div class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}}" id="product-{{product.id}}" *ngFor="let product of products; let i=index">
+                <a routerLink="/product/{{product.id}}">
+                  <div class="single-product-bg " [style.background-image]="image[i]">
+                    <div class="single-kg-box">{{product.minimumOrder}} kg</div>
+                 </div>
+                </a>
+                <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
+                <p class="single-kg-price">
+                  <span>{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
+                  <span class="single-price">
+                    {{product.minimumOrder}}
+                  </span>
+                  <span class="single-calc">
+                    <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country)">+</button>
+                    <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country)">-</button>
+                  </span>
+                </p>
+                <p class="hidden-prices blue">
+                    <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
+                    <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
+                </p>
+                <button class="single-add-btn" (click)="addToCart(product)"> Add to Cart</button>
               </div>
+             
             </div>
             <div class="row" *ngIf="!paginationSearch">
               <div class="col" style="text-align: center;">
