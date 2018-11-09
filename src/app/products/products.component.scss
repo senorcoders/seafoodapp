@@ -109,9 +109,10 @@ button#clear {
 }
 .single-product{
   width: 244px;
-  margin: 0 auto;
   margin-bottom: 50px;
-
+  max-width: 244px;
+  margin-right: 16px;
+  padding: 0;
 
 }
 .single-product-bg{
@@ -171,6 +172,7 @@ button#clear {
 
 .single-kg-price{
   display: inline-flex;
+  margin-bottom: 0;
   span{
     width: 157px;
     height: 28px;
@@ -256,9 +258,9 @@ button#clear {
   background: blue;
   float: right;
   border: none;
-  margin-right: 10px;
   cursor: pointer;
   visibility: hidden;
+  margin-top: 5px;
 }
 
 
@@ -287,5 +289,12 @@ button#clear {
     display: block;
   }
 } 
+.searchAdmin{
+margin-bottom: 55px;
+}
 
-
+@media screen and (max-width: 768px){
+  .single-product{
+    margin: 0 auto;
+  }
+}

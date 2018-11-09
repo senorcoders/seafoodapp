@@ -99,7 +99,7 @@
                 </div>
               </div>
             </form>
-            <div class="row">
+            <div class="row" style="margin-left: 0;">
               <div class="col-12">
                   <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
                 </div>
@@ -115,7 +115,7 @@
                 </a>
                 <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
                 <p class="single-kg-price">
-                  <span>{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
+                  <span>AED {{product.price.value}} / {{product.weight.type}}</span> 
                   <span class="single-price">
                     {{product.minimumOrder}}
                   </span>
