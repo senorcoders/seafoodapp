@@ -107,7 +107,7 @@
                   <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
                 </div>
 
-              <div class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}}" id="product-{{product.id}}" *ngFor="let product of products; let i=index">
+              <div class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}}" id="product-{{product.id}}" *ngFor="let product of products; let i=index" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
                 <a routerLink="/product/{{product.id}}">
                   <div class="single-product-bg " [style.background-image]="image[i]">
                     <div class="single-kg-box">{{product.minimumOrder}} kg</div>
@@ -116,19 +116,18 @@
                 <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
                 <p class="single-kg-price">
                   <span>AED {{product.price.value}} / {{product.weight.type}}</span> 
-                  <span class="single-price">
-                    {{product.minimumOrder}}
-                  </span>
+                  <span class="sellers-price">Sellers Price</span>
+                   <input type="number" class="single-price" [(ngModel)]="product.minimumOrder" (ngModelChange)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country)">
                   <span class="single-calc">
                     <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country)">+</button>
                     <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country)">-</button>
                   </span>
                 </p>
-                <p class="hidden-prices blue">
+                <p class="hidden-prices blue" id="delivered-cont-{{product.id}}" style="display:none;">
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
                     <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
                 </p>
-                <button class="single-add-btn" (click)="addToCart(product)"> Add to Cart</button>
+                <button class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
               </div>
              
             </div>

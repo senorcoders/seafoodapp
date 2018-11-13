@@ -109,7 +109,7 @@ button#clear {
 }
 .single-product{
   width: 244px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   max-width: 244px;
   margin-right: 16px;
   padding: 0;
@@ -184,6 +184,7 @@ button#clear {
     line-height: normal;
     letter-spacing: normal;
     color: #000000;
+    margin-top: 15px;
   }
   .single-price{
     background: #fff;
@@ -192,6 +193,9 @@ button#clear {
     font-weight: 300;
     display: block;
     width: 87px;
+    border: none;
+    margin-top: 15px;
+    display: none;
 
   }
 }
@@ -212,7 +216,7 @@ button#clear {
     color: #000000;
   }
   .small-span{
-    width: 88px;
+    width: 130px;
     text-align: right;
   }
  
@@ -282,9 +286,12 @@ button#clear {
     justify-content: center;
     display: flex;
   }
-  .single-add-btn{
-    visibility: visible;
+  .sellers-price{
+    display: none;
   }
+  // .single-add-btn{
+  //   visibility: visible;
+  // }
   .single-calc{
     display: block;
   }
