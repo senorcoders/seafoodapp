@@ -48,6 +48,26 @@
         </div>
         <div class="row">
           <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
+              <label>{{'AddProduct.seller_sku' | translate}}</label>
+              <input type="text" class="form-control" formControlName="seller_sku" required>
+              <div class="form-control-feedback" *ngIf="seller_sku.errors && showError">
+                <p *ngIf="seller_sku.errors.required">{{'AddProduct.seller_sku' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': seafood_sku.invalid && (seafood_sku.dirty || seafood_sku.touched),'has-success': seafood_sku.valid && (seafood_sku.dirty || seafood_sku.touched)}">
+              <label>{{'AddProduct.seafood_sku' | translate}}</label>
+              <input type="text" class="form-control" formControlName="seafood_sku" required>
+              <div class="form-control-feedback" *ngIf="seafood_sku.errors && showError">
+                <p *ngIf="seafood_sku.errors.required">{{'AddProduct.seafood_sku' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': types.invalid && (types.dirty || types.touched),'has-success': types.valid && (types.dirty || types.touched)}">
               <label>{{'AddProduct.fish-types' | translate}}</label>
               <select class="form-control" formControlName="types">
