@@ -7,6 +7,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
 declare var jQuery:any;
 import {IsLoginService} from '../core/login/is-login.service';
+import { CartService } from '../core/cart/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -39,7 +40,14 @@ export class ProductsComponent implements OnInit {
   minPriceField:number = 0;
   maxPriceField:number = 35;
   isClearButton:boolean = false;
-  constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router) { }
+  hideKg:boolean = true;
+  initialKg:number = 5;
+  deliveredPrice:number = 0;
+  cartEndpoint:any = 'api/shopping/add/';
+  cart:any;
+
+  constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, 
+    private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router, private cartService:CartService) { }
 
   ngOnInit() {
     jQuery('.category').select2();
@@ -237,6 +245,14 @@ export class ProductsComponent implements OnInit {
     
     this.getFishCountries();
     this.getSubCategories('');
+    this.getCart();
+  }
+
+
+  getCart(){
+    this.cartService.cart.subscribe((cart:any)=>{
+      this.cart=cart
+    })
   }
   getProducts(cant,page){
   	let data={
@@ -535,6 +551,71 @@ smallDesc(str) {
     
   }
 
+    increaseWeight(weight, max, i, id, country){
+      if(weight < max){
+        weight += 5;
+        this.products[i].minimumOrder = weight;
+       this.getShippingRates(weight, country, id);
+      }
+    }
+
+    dicreaseWeight(weight, i, id, country){
+      if(weight > 5){
+        weight -= 5;
+        this.products[i].minimumOrder = weight;
+        this.getShippingRates(weight, country, id);
+
+      }
+    }
+
+
+    getShippingRates(weight, country, id){
+      this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
+          console.log(result);
+          var card = document.getElementById('product-' + id);
+          var box = card.getElementsByClassName('single-kg-box')[0];
+          var prices = card.getElementsByClassName('hidden-prices');
+          var deliveredPice = document.getElementById('product-' + id + '-delivered');
+          var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
+          (box as HTMLElement).style.display = 'block';
+          for (var index = 0; index < prices.length; index++) {
+            (prices[index] as HTMLElement).style.display = 'flex';
+            }
+        if(result.hasOwnProperty('message')){
+          deliveredPice.innerHTML = result['message'];
+          deliveredPiceTotal.innerHTML = "";
+        }else{
+          deliveredPice.innerHTML = result['type'] + ' '+ result['price'] + " / kg";
+          deliveredPiceTotal.innerHTML = this.getDeliverTotal(result['price'], weight);
+        }
+       
+      })
+    }
   
+    getDeliverTotal(price, weight){
+      return price * weight;
+    }
+
+
+    addToCart(product){
+      let item = {
+        "fish":product.id,
+        "price": {
+                "type": product.price.type,
+                "value": product.price.value
+            },
+        "quantity": {
+            "type": product.price.type,
+            "value": product.minimumOrder
+        },
+        "shippingStatus":"pending"
+    }
+      this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
+          //set the new value to cart
+          this.cartService.setCart(result)
+          this.toast.success("Product added to the cart!",'Product added',{positionClass:"toast-top-right"});
+  
+      })
+    }
 
 }

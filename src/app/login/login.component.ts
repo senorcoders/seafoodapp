@@ -113,7 +113,7 @@ export class LoginComponent implements OnInit {
       error=>{
         console.log(error);
         this.showError(error.error);
-      }
+      } 
     )
   }
   showError(e){

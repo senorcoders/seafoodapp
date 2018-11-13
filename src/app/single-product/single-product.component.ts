@@ -50,8 +50,10 @@ export class SingleProductComponent implements OnInit {
   preparation:any;
   treatment:any;
   min:any;
+  max:any;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
+    
 }
 
   ngOnInit() {
@@ -67,6 +69,13 @@ export class SingleProductComponent implements OnInit {
     let data=this.auth.getLoginData();
     this.idUser=data['id'];
     this.getFavorite();
+    
+  }
+
+  verifyQty(){
+    if(this.count > this.max){
+      this.count = this.max;
+    }
   }
 getFavorite(){
   let data={
@@ -118,6 +127,7 @@ setFlexslider(){
         this.min = data['minimumOrder'];
 
       }
+      this.max = data['maximumOrder'];
       this.count = this.min;
       this.name = data['name'];
       this.description = data['description'];
@@ -175,7 +185,9 @@ setFlexslider(){
   }
 
   increaseCount(){
-    this.count++;
+    if(this.count < this.max){
+      this.count++;
+    }
   }
 
   dicreaseCount(){
