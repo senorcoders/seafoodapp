@@ -566,6 +566,15 @@ smallDesc(str) {
         this.getShippingRates(weight, country, id);
 
       }
+
+    }
+
+    getWeight(weight, max, i, id, country){
+      if(weight < max){
+        this.products[i].minimumOrder = weight;
+       this.getShippingRates(weight, country, id);
+      }
+
     }
 
 
@@ -586,7 +595,7 @@ smallDesc(str) {
           deliveredPiceTotal.innerHTML = "";
         }else{
           deliveredPice.innerHTML = result['type'] + ' '+ result['price'] + " / kg";
-          deliveredPiceTotal.innerHTML = this.getDeliverTotal(result['price'], weight);
+          deliveredPiceTotal.innerHTML = 'Delivered Price';
         }
        
       })
@@ -616,6 +625,43 @@ smallDesc(str) {
           this.toast.success("Product added to the cart!",'Product added',{positionClass:"toast-top-right"});
   
       })
+    }
+
+    myEnterFunction(id){
+      console.log("Mouse entered");
+      var card = document.getElementById('product-' + id);
+      var prices = document.getElementById('delivered-cont-' + id);
+      var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
+      var btn = document.getElementById('btn-add-' + id);
+      var sellerPrice = card.querySelectorAll('.sellers-price');
+      var singlePrice = card.querySelectorAll('.single-price');
+      var singleCalc = card.querySelectorAll('.single-calc');
+      if((prices as HTMLElement).style.display == "flex"){
+        deliveredPiceTotal.innerHTML = '';
+        (card as HTMLElement).style.marginBottom = '50px';
+        (btn as HTMLElement).style.visibility = 'visible';
+        (btn as HTMLElement).style.marginTop = '-30px';
+        (sellerPrice[0] as HTMLElement).style.display= 'flex';
+        (singlePrice[0] as HTMLElement).style.display= 'none';
+        (singleCalc[0] as HTMLElement).style.display= 'none';
+
+      }
+
+
+    }
+
+    leaveFunction(id){
+      console.log("leave function");
+      var prices = document.getElementById('delivered-cont-' + id);
+      var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
+      var btn = document.getElementById('btn-add-' + id);
+
+      if((prices as HTMLElement).style.display == "flex"){
+        (btn as HTMLElement).style.visibility = 'hidden';
+        deliveredPiceTotal.innerHTML = 'Delivered Price';
+
+      }
+
     }
 
 }
