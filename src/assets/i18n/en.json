@@ -148,7 +148,9 @@
 		"raised": "Raised",
 		"preparation": "Preparation",
 		"treatment": "Treatment",
-		"cooming_soon": "Coming Soon"
+		"cooming_soon": "Coming Soon",
+		"seller_sku": "Seller SKU",
+		"seafood_sku": "Seafood Souq SKU"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
