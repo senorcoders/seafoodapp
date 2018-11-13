@@ -42,6 +42,8 @@ export class AddProductComponent implements OnInit {
   raised: FormControl;
   preparation: FormControl;
   treatment: FormControl;
+  seller_sku: FormControl;
+  seafood_sku: FormControl;
   fileToUpload: any = [];
   info:any;
   store:any = [];
@@ -96,7 +98,8 @@ export class AddProductComponent implements OnInit {
     this.raised = new FormControl('', Validators.required);
     this.preparation = new FormControl('', Validators.required);
     this.treatment = new FormControl('', Validators.required);
-
+    this.seller_sku = new FormControl('', Validators.required);
+    this.seafood_sku = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -112,7 +115,9 @@ export class AddProductComponent implements OnInit {
       country: this.country,
       raised: this.raised,
       preparation: this.preparation,
-      treatment: this.treatment
+      treatment: this.treatment,
+      seller_sku: this.seller_sku,
+      seafood_sku: this.seafood_sku
     });
     this.myform.controls['measurement'].setValue('kg');
   }
@@ -141,7 +146,9 @@ export class AddProductComponent implements OnInit {
           "cooming_soon": this.cooming_soon.value,
           "raised": this.raised.value,
           "preparation": this.preparation.value,
-          "treatment": this.treatment.value          
+          "treatment": this.treatment.value,
+          "seller_sku": this.seller_sku.value,
+          "seafood_sku": this.seafood_sku.value
           
       }
       this.product.saveData('fish', data).subscribe(result =>{
@@ -237,7 +244,9 @@ structureData(){
       "raised": item.Raised,
       "preparation": item.Preparation,
       "Treatment": item.Treatment,
-      "cooming_soon": item.cooming_soon
+      "cooming_soon": item.cooming_soon,
+      "seller_sku": item.seller_sku,
+      "seafood_sku": item.seafood_sku
     }
     this.productsToUpload.push(product);
     console.log(this.productsToUpload);
