@@ -66,28 +66,29 @@ export class ProductsComponent implements OnInit {
     });
     
 
-    jQuery("#sliderPrice").on('change', (slider) => {
-      console.log( slider.value.oldValue );
-      console.log( slider.value.newValue );
-      jQuery('.current-price').html( '$' + slider.value.newValue[0] + ' to $' + slider.value.newValue[1] );
-      jQuery('#minPriceValue').val( slider.value.newValue[0] );
-      jQuery('#maxPriceValue').val( slider.value.newValue[1] );
+    jQuery("#sliderPrice").on('slideStop', (slider) => {
+      
+      //console.log( slider.value.oldValue );
+      //console.log( slider.value.newValue );
+      jQuery('.current-price').html( '$' + slider.value[0] + ' to $' + slider.value[1] );
+      jQuery('#minPriceValue').val( slider.value[0] );
+      jQuery('#maxPriceValue').val( slider.value[1] );
       this.filterProducts();
     })
 
     jQuery("#sliderMin").slider({
       //ticks: [0, 10, 20, 30, 40],
       value: 0,
-      step: 5,
+      step: 10,
       max: 100,
       //ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
-    jQuery("#sliderMin").on('change', (slider) => {
-      console.log( slider.value.oldValue );
-      console.log( slider.value.newValue );
-      jQuery('.current-min').html( slider.value.newValue );
-      jQuery('#minimumValue').val( slider.value.newValue );
+    jQuery("#sliderMin").on('slideStop', (slider) => {
+      
+      console.log( slider.value );
+      jQuery('.current-min').html( slider.value );
+      jQuery('#minimumValue').val( slider.value );
       this.filterProducts();
     })
 
@@ -102,15 +103,56 @@ export class ProductsComponent implements OnInit {
       jQuery('#selectPreparation').val(0).trigger('change');
       jQuery('#comming_soon').prop('checked', false);
       
-      jQuery("#sliderMin").slider({ value:0 });
-      jQuery("#sliderMax").slider({ value:0 });
+      jQuery("#sliderMin").slider('destroy');
+      jQuery("#sliderMax").slider('destroy');
+      jQuery("#sliderMin").slider({ value:0, step: 10,
+        max: 100, });
+      jQuery("#sliderMax").slider({ value:0,step: 10,
+        max: 100, });
       jQuery('#minPriceValue').val( "0" );
       jQuery('#maxPriceValue').val( "0" );
-      jQuery("#sliderPrice").slider({ value: [this.minPriceField, this.maxPriceField]});
-      jQuery('#minPriceValue').val( this.minPriceField );
-      jQuery('#maxPriceValue').val( this.maxPriceField );
+      
+      jQuery("#sliderPrice").slider('destroy');
+      jQuery("#sliderPrice").slider({
+        ticks: [this.minPriceField, 5 ,10 ,15, 20, 25, 30, this.maxPriceField],      
+        min: this.minPriceField, max: this.maxPriceField, value: [this.minPriceField, this.maxPriceField],
+        ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15','$20','$25','$30', '$' + this.maxPriceField ],
+        step: 5,
+        ticks_snap_bounds: 0,
+        tooltip_position:'bottom',
+        tooltip: 'always'
+      });
+
+      jQuery('#minPriceValue').val( 0 );
+      jQuery('#maxPriceValue').val( 0 );
+      
+      jQuery('.current-max').val( '' );
+      jQuery('.current-min').val( '' );
+      jQuery('.current-price').val( '' );
+      
       this.getProducts(12,this.page);
 
+      jQuery("#sliderMin").on('slideStop', (slider) => {        
+        console.log( slider.value );
+        jQuery('.current-min').html( slider.value );
+        jQuery('#minimumValue').val( slider.value );
+        this.filterProducts();
+      })
+      jQuery("#sliderMax").on('slideStop', (slider) => {
+        jQuery('.current-max').html( slider.value );
+        jQuery('#maximumValue').val( slider.value );
+        this.filterProducts();
+      })
+      jQuery("#sliderPrice").on('slideStop', (slider) => {
+        
+        jQuery('.current-price').html( '$' + slider.value[0] + ' to $' + slider.value[1] );
+        jQuery('#minPriceValue').val( slider.value[0] );
+        jQuery('#maxPriceValue').val( slider.value[1] );
+        this.filterProducts();
+      })
+      jQuery('.current-price').html( '' );
+      jQuery('.current-max').html( '' );
+      jQuery('.current-min').html( '' );
 
     } )
 
@@ -118,15 +160,14 @@ export class ProductsComponent implements OnInit {
       //ticks: [0, 10, 20, 30, 40],
       value: 0,
       max: 100,
-      step: 5,
+      step: 10,
       //ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
-    jQuery("#sliderMax").on('change', (slider) => {
-      console.log( slider.value.oldValue );
-      console.log( slider.value.newValue );
-      jQuery('.current-max').html( slider.value.newValue );
-      jQuery('#maximumValue').val( slider.value.newValue );
+    jQuery("#sliderMax").on('slideStop', (slider) => {      
+      console.log( slider.value );
+      jQuery('.current-max').html( slider.value );
+      jQuery('#maximumValue').val( slider.value );
       this.filterProducts();
     })
 

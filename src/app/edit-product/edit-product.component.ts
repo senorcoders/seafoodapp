@@ -45,6 +45,8 @@ export class EditProductComponent implements OnInit {
   preparation:FormControl;
   treatment:FormControl;
   cooming_soon:FormControl;
+  seller_sku: FormControl;
+  seafood_sku: FormControl;
   constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
   ngOnInit() {
     //this.createFormControls();
@@ -72,6 +74,8 @@ export class EditProductComponent implements OnInit {
       this.maximumOrder=data['maximumOrder'];
       this.treatment=data['treatment'];
       this.cooming_soon=data['cooming_soon'];
+      this.seller_sku=data['seller_sku'];
+      this.seafood_sku=data['seafood_sku'];
       data['images'].forEach((val, index)=>{
         this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
       })
@@ -115,7 +119,9 @@ export class EditProductComponent implements OnInit {
           "maximumOrder":this.maximumOrder,
           "preparation":this.preparation,
           "treatment":this.treatment,
-          "coomingSoon": this.cooming_soon
+          "coomingSoon": this.cooming_soon,
+          "seller_sku":this.seller_sku,
+          "seafood_sku":this.seafood_sku
       }
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         if(this.fileToUpload.length > 0){
