@@ -99,34 +99,36 @@ export class CartComponent implements OnInit {
     })
   }
   checkout(){
-    let date= new Date();
-    let data={
-      status:'paid',
-      paidDateTime: date.toISOString()
-    }
-    this.productService.updateData(`api/shoppingcart/${this.shoppingCartId}`,data).subscribe(
-      result=>{
-         let cart={
-          "buyer": this.buyerId
-        }
-        this.orders.setOrders(true)
-        this.productService.saveData("shoppingcart", cart).subscribe(
-          result => {
-          //set the new cart value
-          this.Cart.setCart(result)
-          this.router.navigate(['/orders'])
-          },
-          e=>{
-            console.log(e)
-          }
-        )
-      },
-      e=>{
-        this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
-        this.orders.setOrders(false)
-        console.log(e)
-      }
-    )
+    // let date= new Date();
+    // let data={
+    //   status:'paid',
+    //   paidDateTime: date.toISOString()
+    // }
+    // this.productService.updateData(`api/shoppingcart/${this.shoppingCartId}`,data).subscribe(
+    //   result=>{
+    //      let cart={
+    //       "buyer": this.buyerId
+    //     }
+    //     this.orders.setOrders(true)
+    //     this.productService.saveData("shoppingcart", cart).subscribe(
+    //       result => {
+    //       //set the new cart value
+    //       this.Cart.setCart(result)
+    //       this.router.navigate(['/orders'])
+    //       },
+    //       e=>{
+    //         console.log(e)
+    //       }
+    //     )
+    //   },
+    //   e=>{
+    //     this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
+    //     this.orders.setOrders(false)
+    //     console.log(e)
+    //   }
+    // )
+    this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
+  
   }
 
    findCountryName(value) {
