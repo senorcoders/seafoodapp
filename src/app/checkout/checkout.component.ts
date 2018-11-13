@@ -122,9 +122,9 @@ export class CheckoutComponent implements OnInit {
     
 
     return this.http.post(this.payForAPI, 
-      formBody,  {
+      this.checkoutForm.value,  {
       headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
+        .set('Content-Type', 'application/json')
     })
   }
 
