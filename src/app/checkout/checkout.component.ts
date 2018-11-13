@@ -3,7 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Http, RequestOptions } from '@angular/http';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -28,7 +28,7 @@ export class CheckoutComponent implements OnInit {
   payForAPI:any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
 
 
-  constructor(private router:Router,  private route: ActivatedRoute, private http: Http) { }
+  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
