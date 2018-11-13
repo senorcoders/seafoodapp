@@ -183,7 +183,9 @@
 		"select":"Please select a Fish type",
 		"delete":"Delete Product",
 		"no-found":"Sorry, Product Not found",
-		"detail":"Product details"
+		"detail":"Product details",
+		"seller_sku": "Seller SKU",
+		"seafood_sku": "Seafood Souq SKU"
 	},
 	"FishType":{
 		"add":"Add Fish Type",
