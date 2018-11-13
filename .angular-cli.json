@@ -67,7 +67,7 @@
     },
     "serve": {
       "port": 1337,
-      "host": "https://seafood.senorcoders.com"
+      "host": "seafood.senorcoders.com"
 
     }
   }
