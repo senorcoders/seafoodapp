@@ -99,7 +99,7 @@
                 </div>
               </div>
             </form>
-            <div class="row" style="margin-left: 0;">
+            <div class="row" style="margin-left: 0;" id="products-container">
               <div class="col-12">
                   <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
                 </div>
@@ -107,7 +107,7 @@
                   <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
                 </div>
 
-              <div class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}}" id="product-{{product.id}}" *ngFor="let product of products; let i=index" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
+              <div  id="product-{{product.id}}" *ngFor="let product of products; let i=index" class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}} category-{{product.type.name}} {{product.country}} {{i}} {{product.id}}" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
                 <a routerLink="/product/{{product.id}}">
                   <div class="single-product-bg " [style.background-image]="image[i]">
                     <div class="single-kg-box">{{product.minimumOrder}} kg</div>
@@ -117,10 +117,10 @@
                 <p class="single-kg-price">
                   <span>AED {{product.price.value}} / {{product.weight.type}}</span> 
                   <span class="sellers-price">Sellers Price</span>
-                   <input type="number" class="single-price" [(ngModel)]="product.minimumOrder" (ngModelChange)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country)">
+                   <input type="number" class="single-price" [(ngModel)]="product.minimumOrder" (blur)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name)">
                   <span class="single-calc">
-                    <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country)">+</button>
-                    <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country)">-</button>
+                    <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name)">+</button>
+                    <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country, product.type.name)">-</button>
                   </span>
                 </p>
                 <p class="hidden-prices blue" id="delivered-cont-{{product.id}}" style="display:none;">
