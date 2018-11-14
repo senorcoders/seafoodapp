@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Http, RequestOptions } from '@angular/http';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-checkout',
@@ -26,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   signature: FormControl;
   checkoutForm: FormGroup;
   payForAPI:any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+ 
 
 
   constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient) { }
@@ -35,9 +35,6 @@ export class CheckoutComponent implements OnInit {
       console.log(params);
       this.shoppingCartId = params['shoppingCartId'];
       this.generateSignature();
-      this.createFormControls();
-      this.createForm();
-      this.setValues();
     })
   }
 
@@ -122,10 +119,12 @@ export class CheckoutComponent implements OnInit {
     
 
     return this.http.post(this.payForAPI, 
-      this.checkoutForm.value,  {
+      formBody,  {
       headers: new HttpHeaders()
-        .set('Content-Type', 'application/json')
+        .set('Content-Type', 'application/x-www-form-urlencoded')
     })
   }
+
+ 
 
 }

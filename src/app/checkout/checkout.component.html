@@ -7,30 +7,32 @@
       <h1 class="subtitle">Billing Details</h1>
     </div>
     <div class="col-lg-9">
-      <form (submit)="onSubmit()" [formGroup]="checkoutForm">
+      <form #form  action="https://sbcheckout.PayFort.com/FortAPI/paymentPage" method="POST" ngNativeValidate (ngSubmit)="form.submit()">
         <div class="row">
           <div class="col-lg-12">
               <div class="form-group">
                   <label>Card Number</label>
-                  <input type="number" class="form-control" formControlName="card_number" [ngClass]="{'is-invalid':checkoutForm.get('card_number').invalid && checkoutForm.get('card_number').touched}">
-                  <div class="invalid-feedback" *ngIf="checkoutForm.get('card_number').hasError('required')">Card Number is required.</div>              
+                  <input type="number" class="form-control" name="card_number" required>
 
                 </div>
           </div>
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Card Security Code</label>
-                  <input type="number" class="form-control" formControlName="card_security_code" [ngClass]="{'is-invalid':checkoutForm.get('card_security_code').invalid && checkoutForm.get('card_security_code').touched}">
-                  <div class="invalid-feedback" *ngIf="checkoutForm.get('card_security_code').hasError('required')">Card Security Code is required.</div>              
+                  <input type="number" class="form-control" name="card_security_code" required>
 
                 </div>
           </div>
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Expiration</label>
-                  <input type="number" class="form-control" formControlName="expiry_date" [ngClass]="{'is-invalid':checkoutForm.get('expiry_date').invalid && checkoutForm.get('expiry_date').touched}">
-                  <div class="invalid-feedback" *ngIf="checkoutForm.get('expiry_date').hasError('required')">Expiration is required.</div>              
-
+                  <input type="number" class="form-control" name="expiry_date" required>
+                  <input type="hidden" name="access_code" [(ngModel)]="accessToken">
+                  <input type="hidden" name="language" value="en">
+                  <input type="hidden" name="merchant_identifier" [(ngModel)]="merchantID">
+                  <input type="hidden" name="merchant_reference" [(ngModel)]="shoppingCartId">
+                  <input type="hidden" name="service_command" value="TOKENIZATION">
+                  <input type="hidden" name="signature" [(ngModel)]="signatureCode">
                 </div>
           </div>
           
