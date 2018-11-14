@@ -551,28 +551,84 @@ smallDesc(str) {
     
   }
 
-    increaseWeight(weight, max, i, id, country){
+    increaseWeight(weight, max, i, id, country, category){
       if(weight < max){
         weight += 5;
-        this.products[i].minimumOrder = weight;
-       this.getShippingRates(weight, country, id);
+        if(category != ''){
+          var row = document.getElementById('products-container');
+          var cards = row.querySelectorAll('.category-'+ category);
+          for (var index = 0; index < cards.length; index++) {
+              var classes = cards[index].className.split(" ");
+              this.products[classes[6]].minimumOrder = weight;
+              this.getShippingRates(weight, classes[5], classes[7]);
+
+            }
+
+        }else{
+          this.products[i].minimumOrder = weight;
+          this.getShippingRates(weight, country, id);
+        }
+        
       }
     }
 
-    dicreaseWeight(weight, i, id, country){
+    dicreaseWeight(weight, i, id, country, category){
       if(weight > 5){
         weight -= 5;
-        this.products[i].minimumOrder = weight;
-        this.getShippingRates(weight, country, id);
+        if(category != ''){
+          var row = document.getElementById('products-container');
+          var cards = row.querySelectorAll('.category-'+ category);
+          for (var index = 0; index < cards.length; index++) {
+              var classes = cards[index].className.split(" ");
+              this.products[classes[6]].minimumOrder = weight;
+              this.getShippingRates(weight, classes[5], classes[7]);
+
+            }
+
+        }else{
+          this.products[i].minimumOrder = weight;
+          this.getShippingRates(weight, country, id);
+        }
+     
 
       }
 
     }
 
-    getWeight(weight, max, i, id, country){
+    getWeight(weight, max, i, id, country, category){
       if(weight < max){
-        this.products[i].minimumOrder = weight;
-       this.getShippingRates(weight, country, id);
+        if(category != ''){
+          var row = document.getElementById('products-container');
+          var cards = row.querySelectorAll('.category-'+ category);
+          for (var index = 0; index < cards.length; index++) {
+              var classes = cards[index].className.split(" ");
+              this.products[classes[6]].minimumOrder = weight;
+              this.getShippingRates(weight, classes[5], classes[7]);
+
+            }
+
+        }else{
+          this.products[i].minimumOrder = weight;
+          this.getShippingRates(weight, country, id);
+        }
+        
+      }else{
+       
+        if(category != ''){
+          var row = document.getElementById('products-container');
+          var cards = row.querySelectorAll('.category-'+ category);
+          for (var index = 0; index < cards.length; index++) {
+              var classes = cards[index].className.split(" ");
+              this.products[classes[6]].minimumOrder = max;
+              this.getShippingRates(max, classes[5], classes[7]);
+
+            }
+
+        }else{
+          this.products[i].minimumOrder = max;
+          this.getShippingRates(max, country, id);
+        }
+
       }
 
     }
@@ -580,7 +636,7 @@ smallDesc(str) {
 
     getShippingRates(weight, country, id){
       this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
-          console.log(result);
+          //console.log(result);
           var card = document.getElementById('product-' + id);
           var box = card.getElementsByClassName('single-kg-box')[0];
           var prices = card.getElementsByClassName('hidden-prices');
@@ -628,7 +684,6 @@ smallDesc(str) {
     }
 
     myEnterFunction(id){
-      console.log("Mouse entered");
       var card = document.getElementById('product-' + id);
       var prices = document.getElementById('delivered-cont-' + id);
       var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
@@ -651,7 +706,6 @@ smallDesc(str) {
     }
 
     leaveFunction(id){
-      console.log("leave function");
       var prices = document.getElementById('delivered-cont-' + id);
       var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
       var btn = document.getElementById('btn-add-' + id);
