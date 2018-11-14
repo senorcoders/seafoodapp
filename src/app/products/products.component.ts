@@ -696,9 +696,9 @@ smallDesc(str) {
         (card as HTMLElement).style.marginBottom = '50px';
         (btn as HTMLElement).style.visibility = 'visible';
         (btn as HTMLElement).style.marginTop = '-30px';
-        (sellerPrice[0] as HTMLElement).style.display= 'flex';
-        (singlePrice[0] as HTMLElement).style.display= 'none';
-        (singleCalc[0] as HTMLElement).style.display= 'none';
+        (sellerPrice[0] as HTMLElement).style.display= 'none';
+        (singlePrice[0] as HTMLElement).style.display= 'flex';
+        (singleCalc[0] as HTMLElement).style.display= 'block';
 
       }
 
@@ -706,13 +706,20 @@ smallDesc(str) {
     }
 
     leaveFunction(id){
+      var card = document.getElementById('product-' + id);
       var prices = document.getElementById('delivered-cont-' + id);
       var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
       var btn = document.getElementById('btn-add-' + id);
+      var sellerPrice = card.querySelectorAll('.sellers-price');
+      var singlePrice = card.querySelectorAll('.single-price');
+      var singleCalc = card.querySelectorAll('.single-calc');
 
       if((prices as HTMLElement).style.display == "flex"){
         (btn as HTMLElement).style.visibility = 'hidden';
         deliveredPiceTotal.innerHTML = 'Delivered Price';
+        (sellerPrice[0] as HTMLElement).style.display= 'flex';
+        (singlePrice[0] as HTMLElement).style.display= 'none';
+        (singleCalc[0] as HTMLElement).style.display= 'none';
 
       }
 
