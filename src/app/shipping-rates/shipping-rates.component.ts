@@ -25,6 +25,8 @@ declare var jQuery:any;
 export class ShippingRatesComponent implements OnInit {
   shippingRateLists:any =[];
   shippingCountries:any=[];  
+  shippingCities:any=[];
+  allCities:any=[];
   myform: FormGroup;
   sellerCountry: FormControl;
   sellerCity: FormControl;
@@ -51,9 +53,23 @@ export class ShippingRatesComponent implements OnInit {
       },      
       allowClear: true
     });
+    jQuery('#filterCity').select2({
+      placeholder: {
+        id: '0', // the value of the option
+        text: 'Select a City'
+      },      
+      allowClear: true
+    });
+    
     this.getShippingRates();
     jQuery('#filterCountry').on('change', (e)=>{
-      this.getShippingRates();      
+      this.getShippingRates();  
+      this.getShippingCities();    
+    })
+
+    jQuery('#filterCity').on('change', (e)=>{
+      console.log("by city");
+      this.getShippingRatesByCity();
     })
 
     this.getShippingCountries();
@@ -130,6 +146,64 @@ export class ShippingRatesComponent implements OnInit {
     
   
   }
+  getShippingRatesByCity(){
+    let selectedCountry = jQuery('#filterCountry').val();
+    let selectedCity = jQuery('#filterCity').val();
+    console.log( selectedCountry );
+    if( selectedCountry == "0" || selectedCountry == undefined ){
+      selectedCountry = "0";
+      this.shippingService.getShippingRates().subscribe(
+        result=>{
+          if (result instanceof Array) {
+            this.shippingRateLists=result.map( ( row ) => {
+              console.log(row.sellerCountry);
+              this.countries.forEach(element => {
+                if( element.code == row.sellerCountry ){
+                  row.sellerCountry = element.name ;
+  
+                }
+                
+              });
+              return row;
+            } )
+          }          
+        },
+        error=>{
+          console.log( error )
+        }
+      )
+    }else{
+      console.log('by city');
+      this.getShippingByCities( selectedCountry, selectedCity );
+
+    }
+    
+  
+  }
+  getShippingByCities( selectedCountry, selectedCity ){
+    
+    this.shippingService.getShippingRatesByCity( selectedCountry, selectedCity ).subscribe(
+      result => {
+        if (result instanceof Array) {
+          this.shippingRateLists=result.map( ( row ) => {
+            console.log(row.sellerCountry);
+            this.countries.forEach(element => {
+              if( element.code == row.sellerCountry ){
+                row.sellerCountry = element.name ;
+  
+              }
+              
+            });
+            return row;
+          } )
+        }
+        
+      },
+      error => {
+        console.log( error )
+      }
+    )
+  }
   getShippingCountries(){
     this.shippingService.getShippingCountries().subscribe( 
       result =>{        
@@ -139,16 +213,57 @@ export class ShippingRatesComponent implements OnInit {
             if( element.code == row ){              
               console.log( element );
               this.shippingCountries.push( element );
+              
             }
           } )
         } )
         }
+        this.getShippingCities();    
+
         //this.shippingCountries = result;
       },
       error => {
         console.log( error );
       }
     )
+  }
+  getShippingCities(){
+    this.shippingCities = [];
+    let selectedCountry = jQuery('#filterCountry').val();    
+    this.countryService.getCities( selectedCountry ).subscribe(
+      resultAllCities => {
+        console.log("all cities");
+        console.log(resultAllCities);
+        this.shippingService.getShippingCities( selectedCountry ).subscribe(
+          result => {
+            console.log("ShippingCities");
+            console.log(result);
+    
+            if (result instanceof Array) {        
+              result.map( row => {        
+                if (resultAllCities[0].cities instanceof Array) {       
+                  resultAllCities[0].cities.forEach( element => {
+                    if( element.code == row ){              
+                      console.log( element );
+                      this.shippingCities.push( element );
+                    }
+                  } )
+                }
+              
+            } )
+            }
+            //this.shippingCities = result;
+          },
+          error => {
+            console.log( error );
+          }
+        )    
+      },
+      error => {
+
+      }
+    )
+    
   }
   getShippingRatesByCountry(){
     let selectedCountry = jQuery('#filterCountry').val();

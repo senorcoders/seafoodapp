@@ -59,11 +59,20 @@
   </div>
   <div class="row">
     <div class="col-12"><h3 class="black-title">{{'ShippingRates.title' | translate}}</h3></div>
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="form-group" >
         <label>{{'ShippingRates.filterByCountry' | translate}}</label>
-        <select class="form-control" id="filterCountry">          
+        <select (change)="getShippingCities()" class="form-control" id="filterCountry">          
           <option value="{{country.code}}" *ngFor="let country of shippingCountries">{{country.name}}</option>
+        </select>
+        
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group" >
+        <label>{{'ShippingRates.filterByCity' | translate}}</label>
+        <select class="form-control" id="filterCity">          
+          <option value="{{city.code}}" *ngFor="let city of shippingCities">{{city.name}}</option>
         </select>
         
       </div>
@@ -72,6 +81,7 @@
       <div class="row row-bg" *ngFor="let shippingItem of shippingRateLists; let i=index">
         <div class="col-lg-12">
           <h5 class="sellerCountry">
+            {{shippingItem.sellerCity}},
             {{shippingItem.sellerCountry}}
             {{shippingItem.operation}}
             {{shippingItem.weight}}

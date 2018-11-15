@@ -550,6 +550,7 @@
 		"cost": "Cost (AED)",
 		"weight": "Weight",
 		"filterByCountry": "Filter Shipping Rates by Country",
+		"filterByCity": "Filter Shipping Rate By City",
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
 		"city": "Cities"
