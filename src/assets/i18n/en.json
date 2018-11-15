@@ -149,7 +149,7 @@
 		"preparation": "Preparation",
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU"
 	},
 	"SingleProduct":{
@@ -184,7 +184,7 @@
 		"delete":"Delete Product",
 		"no-found":"Sorry, Product Not found",
 		"detail":"Product details",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU"
 	},
 	"FishType":{
