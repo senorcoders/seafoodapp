@@ -551,6 +551,7 @@
 		"weight": "Weight",
 		"filterByCountry": "Filter Shipping Rates by Country",
 		"countryPlaceholder": "Select a Country",
-		"country": "Country"
+		"country": "Country",
+		"city": "Cities"
 	}
 }

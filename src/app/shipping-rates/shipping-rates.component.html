@@ -14,22 +14,32 @@
           <div class="col-lg-3">
             <div class="form-group" >
               <label>{{'ShippingRates.country' | translate}}</label>
-              <select class="form-control" id="sellerCountry" formControlName="sellerCountry">                
+              <select (change)="getCities()" class="form-control" id="sellerCountry" formControlName="sellerCountry">                
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+             
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'ShippingRates.city' | translate}}</label>
+              <select class="form-control" id="sellerCity" formControlName="sellerCity">                
+                <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>
              
             </div>
           </div>
           
           
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.weight' | translate}}</label>
               <input type="number" class="form-control" formControlName="weight" required>
             </div>
           </div>              
               
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <div class="form-group" >
               <label>{{'ShippingRates.cost' | translate}}</label>
               <input type="number" class="form-control" formControlName="cost" required>
@@ -37,7 +47,7 @@
               <input type="hidden" formControlName="operation" value="Under">                
             </div>
           </div>
-          <div class="col-lg-3">
+          <div class="col-lg-2">
             <button type="submit" class="btn-red">Save</button>
           </div>
         </div>

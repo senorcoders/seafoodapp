@@ -10,6 +10,7 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { ShippingRatesService } from '../services/shipping-rates.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { CountriesService } from '../services/countries.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
@@ -23,23 +24,25 @@ declare var jQuery:any;
 })
 export class ShippingRatesComponent implements OnInit {
   shippingRateLists:any =[];
-  shippingCountries:any=[];
-  countries=environment.countries;
+  shippingCountries:any=[];  
   myform: FormGroup;
   sellerCountry: FormControl;
+  sellerCity: FormControl;
   type: FormControl;
   operation: FormControl;
   cost: FormControl;
   weight: FormControl;
-
+  cities:any=[];
+  countries:any=[];
   constructor(private route: ActivatedRoute,
     public shippingService: ShippingRatesService,
+    public countryService: CountriesService,
     private auth: AuthenticationService,
     public ngxSmartModalService: NgxSmartModalService,
     private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
-
+    this.getCountries();
     this.createForm();
     jQuery('#filterCountry').select2({
       placeholder: {
@@ -57,15 +60,39 @@ export class ShippingRatesComponent implements OnInit {
    
   }
 
+  getCountries(){
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    )
+  }
+
+  getCities(){
+    this.countryService.getCities( this.sellerCountry.value ).subscribe(
+      result => {
+        this.cities = result[0].cities;
+      },
+      error => {
+
+      }
+    )
+  }
+
   createForm(){
     this.shippingRateLists  = new FormControl('', Validators.required);
     this.sellerCountry      = new FormControl('', Validators.required);
+    this.sellerCity         = new FormControl('', Validators.required);
     this.type               = new FormControl('Kilo', Validators.required);
     this.operation          = new FormControl('Under', Validators.required);
     this.cost               = new FormControl('', Validators.required);
     this.weight             = new FormControl('', Validators.required);
     this.myform = new FormGroup({      
       sellerCountry:  this.sellerCountry,
+      sellerCity:     this.sellerCity,
       type:           this.type,
       operation:      this.operation,
       cost:           this.cost,
@@ -105,15 +132,11 @@ export class ShippingRatesComponent implements OnInit {
   }
   getShippingCountries(){
     this.shippingService.getShippingCountries().subscribe( 
-      result =>{
-        console.log( 'llloooggg 1' );
-        if (result instanceof Array) {
-          console.log( 'llloooggg 2' );
-          result.map( row => {
-            console.log( 'llloooggg 3' );
+      result =>{        
+        if (result instanceof Array) {        
+          result.map( row => {        
           this.countries.forEach( element => {
-            if( element.code == row ){
-              console.log( 'llloooggg' );
+            if( element.code == row ){              
               console.log( element );
               this.shippingCountries.push( element );
             }
