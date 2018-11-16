@@ -20,8 +20,17 @@ export class ShippingRatesService {
     return this.http.get(`${API}shippingRates?sellerCountry=${country}`)
   }
 
+  getShippingRatesByCity( country:string, city:string ){
+    return this.http.get(`${API}shippingRates?sellerCountry=${country}&sellerCity=${city}`)
+    //return this.http.get(`${API}shippingRates/country/${country}/city/${city}`)
+  }
+
   getShippingCountries(){
     return this.http.get(`${API}shippingRates/countries`)
+  }
+
+  getShippingCities( country:string ){  
+    return this.http.get(`${API}shippingRates/country/${country}/cities`)
   }
 
   saveShippingRates(data){
