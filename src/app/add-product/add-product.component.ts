@@ -66,6 +66,7 @@ export class AddProductComponent implements OnInit {
   
   getTypes(){
     this.product.getAllCategoriesProducts().subscribe(result =>{
+      console.log(result);
       this.pTypes = result;
     })
    
@@ -121,7 +122,25 @@ export class AddProductComponent implements OnInit {
     });
     this.myform.controls['measurement'].setValue('kg');
   }
+  generateSKU() {
+    let parentType = '';
+    this.pTypes.forEach( row => {
+      if( row.id  == this.types.value ){
+        parentType = row.parentsTypes[0].parent.id;
 
+      }
+    } )
+
+    this.product.generateSKU( this.store[0].id,  parentType, this.types.value, this.country.value ).subscribe(
+      result=>{
+        console.log( result );
+        this.seafood_sku.setValue(result);
+      },
+      error => {
+        console.log( error );
+      }
+    )
+  }
   onSubmit() {
     this.showError=true;
     if (this.myform.valid) {

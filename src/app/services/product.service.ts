@@ -25,6 +25,15 @@ export class ProductService {
     return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
+  generateSKU( store:string, category:string, subcategory:string, country_code:string ){
+    let data = {
+      store_code: store,
+      category_code: category,
+      subcategory_code: subcategory,
+      country: country_code
+    }
+    return this.http.post(`${API}api/fish/fish/sku`, data, httpOptions)
+  }
 
   updateData(endpoint, data){
     return this.http.put(`${API}${endpoint}`, data, httpOptions);

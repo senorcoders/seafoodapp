@@ -149,7 +149,7 @@
 		"preparation": "Preparation",
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU"
 	},
 	"SingleProduct":{
@@ -184,7 +184,7 @@
 		"delete":"Delete Product",
 		"no-found":"Sorry, Product Not found",
 		"detail":"Product details",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU"
 	},
 	"FishType":{
@@ -550,7 +550,9 @@
 		"cost": "Cost (AED)",
 		"weight": "Weight",
 		"filterByCountry": "Filter Shipping Rates by Country",
+		"filterByCity": "Filter Shipping Rate By City",
 		"countryPlaceholder": "Select a Country",
-		"country": "Country"
+		"country": "Country",
+		"city": "Cities"
 	}
 }

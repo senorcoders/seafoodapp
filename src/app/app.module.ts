@@ -76,6 +76,7 @@ import { ShippingRatesComponent } from './shipping-rates/shipping-rates.componen
 import { ShippingRatesService } from './services/shipping-rates.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { CountriesService } from './services/countries.service';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -210,7 +211,8 @@ const appRoutes: Routes=[
     AdminRouterService,
     CartService,
     OrdersService,
-    ShippingRatesService
+    ShippingRatesService,
+    CountriesService
     // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
