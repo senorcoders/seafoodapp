@@ -39,7 +39,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   generateSignature(){
-    var string = this.apiPass + 'access_code='+this.accessToken+'language?enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'service_command=TOKENIZATION';
+    var string = this.apiPass + 'access_code='+this.accessToken+'language?enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'service_command=TOKENIZATION' + this.apiPass;
+    console.log(string);
     this.signatureCode = shajs('sha256').update(string).digest('hex');
     console.log(this.signatureCode);
   }
