@@ -3,6 +3,7 @@ import * as shajs from 'sha.js';
 import { ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-confirmation',
@@ -28,7 +29,10 @@ export class ConfirmationComponent implements OnInit {
   };
   token:any;
   info:any;
-  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService) { }
+  payFortApi:any = 'https://sbpaymentservices.payfort.com/FortAPI/paymentApi';
+  description:any;
+  
+  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService, private http: HttpClient) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -62,4 +66,30 @@ export class ConfirmationComponent implements OnInit {
     this.product.saveData('payments/payfort', this.params).subscribe(result => console.log(result))
   }
 
+    submit(){
+     
+      var body = {
+        "comand": "AUTHORIZATION",
+        "access_code": this.accessToken,
+        "merchant_identifier": this.merchantID,
+        "merchant_reference": this.shoppingCartId,
+        "currency": "AED",
+        "language": "en",
+        "token_name": this.token,
+        "signature": this.signature,
+        "settlement_reference": "Seafood buy on date",
+        "return_url": "https://seafood.senorcoders.com/thanks",
+        "customer_email": this.email,
+        "amount": this.total,
+        "order_description": this.description
+      }
+      console.log(body);
+      this.http.post(this.payFortApi, body,  {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/json')
+      }).subscribe(res => console.log(res))
+    }
+
 }
+
+

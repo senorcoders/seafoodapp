@@ -7,17 +7,8 @@
     <h1 class="subtitle">Billing Details</h1>
   </div>
   <div class="col-lg-9">
-<form method="POST" #form action="https://sbpaymentservices.payfort.com/FortAPI/paymentApi" ngNativeValidate (ngSubmit)="form.submit()">
-  <input type="hidden" name="command" value="AUTHORIZATION" >
-  <input type="hidden" name="access_code" value="Ddx5kJoJWr11sF6Hr6E4" >
-  <input type="hidden" name="merchant_identifier" value="aZCWXhqJ" >
-  <input type="hidden" name="merchant_reference" [value]="shoppingCartId" >
-  <input type="hidden" name="currency" value="AED" >
-  <input type="hidden" name="language" value="en" >
-  <input type="hidden" name="token_name" [value]="token" >
-  <input type="hidden" name="signature" [value]="signature" >            
-  <input type="hidden" name="settlement_reference" value="Seafood buy on date" >
-  <input type="hidden" name="return_url " value="https://seafood.senorcoders.com/thanks">`
+<form method="POST"  ngNativeValidate (ngSubmit)="submit()">
+ 
   <div class="row">
     <div class="col-6">
       <div class="form-group">
@@ -39,7 +30,7 @@
       <div class="form-group">
           <label>Order Description</label>
 
-          <textarea name="order_description" class="form-control" required   rows="3"></textarea>
+          <textarea name="order_description" [(ngModel)]="description" class="form-control" required   rows="3"></textarea>
 
       </div>
 
@@ -47,7 +38,7 @@
   </div>
   <div class="row">
       <div class="col-lg-6">
-          <button (click)="saveinApi()" type="submit" class="btn btn-red">Confirm payment</button>
+          <button type="submit" class="btn btn-red">Confirm payment</button>
 
       </div>
     </div>
