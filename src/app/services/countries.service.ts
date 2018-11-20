@@ -18,4 +18,7 @@ export class CountriesService {
   getCities( country_code:string ){
     return this.http.get(`${API}countries?code=${country_code}`)
   }
+  getAllCities(){
+    return this.http.get(`${API}countries/cities`)
+  }
 }

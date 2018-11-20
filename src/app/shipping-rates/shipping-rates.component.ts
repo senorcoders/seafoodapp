@@ -45,6 +45,7 @@ export class ShippingRatesComponent implements OnInit {
 
   ngOnInit() {
     this.getCountries();
+    this.getAllCities();
     this.createForm();
     jQuery('#filterCountry').select2({
       placeholder: {
@@ -73,7 +74,6 @@ export class ShippingRatesComponent implements OnInit {
     })
 
     this.getShippingCountries();
-   
   }
 
   getCountries(){
@@ -94,6 +94,17 @@ export class ShippingRatesComponent implements OnInit {
       },
       error => {
 
+      }
+    )
+  }
+  
+  getAllCities(){
+    this.countryService.getAllCities().subscribe(
+      result => {
+        this.allCities = result;
+      },
+      error => {
+        console.log( error );
       }
     )
   }
@@ -128,11 +139,15 @@ export class ShippingRatesComponent implements OnInit {
               console.log(row.sellerCountry);
               this.countries.forEach(element => {
                 if( element.code == row.sellerCountry ){
-                  row.sellerCountry = element.name ;
-  
+                  row.sellerCountry = element.name ;  
                 }
                 
-              });
+              });              
+              this.allCities.forEach(element => {
+                if(element.code == row.sellerCity){
+                  row.sellerCity = element.name;
+                }
+              })
               return row;
             } )
           }          
@@ -164,6 +179,11 @@ export class ShippingRatesComponent implements OnInit {
                 }
                 
               });
+              this.allCities.forEach(element => {
+                if(element.code == row.sellerCity){
+                  row.sellerCity = element.name;
+                }
+              })
               return row;
             } )
           }          
@@ -194,6 +214,11 @@ export class ShippingRatesComponent implements OnInit {
               }
               
             });
+            this.allCities.forEach(element => {
+              if(element.code == row.sellerCity){
+                row.sellerCity = element.name;
+              }
+            })
             return row;
           } )
         }
@@ -279,6 +304,11 @@ export class ShippingRatesComponent implements OnInit {
               }
               
             });
+            this.allCities.forEach(element => {
+              if(element.code == row.sellerCity){
+                row.sellerCity = element.name;
+              }
+            })
             return row;
           } )
         }
@@ -293,7 +323,7 @@ export class ShippingRatesComponent implements OnInit {
     this.shippingService.saveShippingRates( this.myform.value )
     .subscribe(
       result=>{
-        this.getShippingRates();
+        this.getShippingRatesByCity();
         this.toast.success("Shipping rate added succesfully!",'Well Done',{positionClass:"toast-top-right"})
       },
       error => {
@@ -305,7 +335,7 @@ export class ShippingRatesComponent implements OnInit {
     this.shippingService.deleteShippingRates( id )
     .subscribe(
       result => {
-        this.getShippingRates();
+        this.getShippingRatesByCity();
         this.toast.success("Shipping rate deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
       } ,
       error => {

@@ -532,11 +532,25 @@ smallDesc(str) {
     }else{
       this.showLoading=true;
       this.products = [];
+      this.image = [];
       this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
           this.showLoading=false;
           this.paginationNumbers=[];
           this.products=result;
+
+          //working on the images to use like background
+          this.products.forEach((data, index)=>{
+            if (data.imagePrimary && data.imagePrimary !='') {
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
+            }
+            else if(data.images && data.images.length>0){
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+            }
+            else{
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+            }
+        });
           if( result == undefined ||  Object.keys(result).length == 0  )
             this.showNotFound = true;
           else
