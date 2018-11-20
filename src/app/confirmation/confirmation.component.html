@@ -14,7 +14,7 @@
   <input type="hidden" name="merchant_reference" [value]="shoppingCartId" >
   <input type="hidden" name="currency" value="AED" >
   <input type="hidden" name="language" value="en" >
-  <input type="hidden" name="token_name" value="Op9Vmp" >
+  <input type="hidden" name="token_name" [value]="token" >
   <input type="hidden" name="signature" [value]="signature" >            
   <input type="hidden" name="settlement_reference" value="Seafood buy on date" >
   <input type="hidden" name="return_url " value="https://seafood.senorcoders.com/thanks">`
@@ -23,7 +23,7 @@
       <div class="form-group">
           <label>Customer Email</label>
 
-          <input type="text"  name="customer_email" [value]="info.email" class="form-control">
+          <input type="text"  name="customer_email" [value]="email" class="form-control">
 
       </div>
     </div>

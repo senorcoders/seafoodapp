@@ -23,26 +23,30 @@ export class ConfirmationComponent implements OnInit {
 
     },
     "type": "AUTHORIZATION",
-    "shoppingCart": this.shoppingCartId
+    "shoppingCart": ""
 
   };
+  token:any;
   info:any;
-  constructor(private route: ActivatedRoute, private storage: Storage, private auth: AuthenticationService, private product:ProductService) { }
+  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.params.response = params;
+      this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
-      this.generateSignature();
-      this.amount= this.storage.getItem('shoppingTotal');
+      this.params.shoppingCart = params.merchant_reference;
+      this.amount=  localStorage.getItem('shoppingTotal');
       this.total = this.amount * 1000;
       this.getPersonalData();
+      this.generateSignature();
+
     })
   }
 
   generateSignature(){
-    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info.email + this.apiPass;
+    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
     this.signature = shajs('sha256').update(string).digest('hex');
     console.log(this.signature);
   }
@@ -50,10 +54,12 @@ export class ConfirmationComponent implements OnInit {
   getPersonalData(){
     this.info = this.auth.getLoginData();
     console.log("Info", this.info);
+    this.email = this.info['email'];
   }
 
   saveinApi(){
-    this.product.saveData('api/shoppingcart/' + this.shoppingCartId, this.params).subscribe(result => console.log(result))
+    console.log(this.params);
+    this.product.saveData('payments/payfort', this.params).subscribe(result => console.log(result))
   }
 
 }

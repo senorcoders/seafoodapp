@@ -216,8 +216,7 @@ const appRoutes: Routes=[
     CartService,
     OrdersService,
     ShippingRatesService,
-    CountriesService
-    // {
+    CountriesService    // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
     //   multi: true,
