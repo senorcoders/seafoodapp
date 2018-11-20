@@ -1,3 +1,58 @@
-<p>
-  confirmation works!
-</p>
+<div class="container">
+  <div style="height: 100px;"></div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <h1 class="title">Checkout</h1>
+    <h1 class="subtitle">Billing Details</h1>
+  </div>
+  <div class="col-lg-9">
+<form method="POST" #form action="https://sbpaymentservices.payfort.com/FortAPI/paymentApi" ngNativeValidate (ngSubmit)="form.submit()">
+  <input type="hidden" name="command" value="AUTHORIZATION" >
+  <input type="hidden" name="access_code" value="Ddx5kJoJWr11sF6Hr6E4" >
+  <input type="hidden" name="merchant_identifier" value="aZCWXhqJ" >
+  <input type="hidden" name="merchant_reference" [value]="shoppingCartId" >
+  <input type="hidden" name="currency" value="AED" >
+  <input type="hidden" name="language" value="en" >
+  <input type="hidden" name="token_name" value="Op9Vmp" >
+  <input type="hidden" name="signature" [value]="signature" >            
+  <input type="hidden" name="settlement_reference" value="Seafood buy on date" >
+  <input type="hidden" name="return_url " value="https://seafood.senorcoders.com/thanks">`
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+          <label>Customer Email</label>
+
+          <input type="text"  name="customer_email" [value]="info.email" class="form-control">
+
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Amount (AED)</label>
+
+          <input type="number" class="form-control" disabled name="amount" [value]="total" >
+
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+          <label>Order Description</label>
+
+          <textarea name="order_description" class="form-control" required   rows="3"></textarea>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-6">
+          <button (click)="saveinApi()" type="submit" class="btn btn-red">Confirm payment</button>
+
+      </div>
+    </div>
+</form>
+
+</div>
+</div>
+</div>

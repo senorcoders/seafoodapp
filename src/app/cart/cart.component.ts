@@ -24,7 +24,8 @@ export class CartComponent implements OnInit {
   API:any = environment.apiURLImg;
   countries:any = environment.countries;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
+    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService,
+    private storage: Storage) { }
 
   ngOnInit() {
     this.getCart();
@@ -127,6 +128,7 @@ export class CartComponent implements OnInit {
     //     console.log(e)
     //   }
     // )
+    this.storage.setItem('shoppingTotal', this.total);
     this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
   
   }
