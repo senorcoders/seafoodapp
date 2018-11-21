@@ -35,8 +35,8 @@ export class CheckoutComponent implements OnInit {
     this.route.queryParams.subscribe(params => {
       console.log(params);
       this.shoppingCartId = params['shoppingCartId'];
-      this.generateSignature();
       this.randomID = this.guid();
+      this.generateSignature();
     })
   }
 
