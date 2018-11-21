@@ -78,10 +78,16 @@
   
     <div class="form-group">
       <label>{{'EditProduct.country' | translate}}</label>
-      <select class="form-control" [(ngModel)]="country" [ngModelOptions]="{standalone: true}">
+      <select (change)="getCities();" class="form-control" [(ngModel)]="country" [ngModelOptions]="{standalone: true}">
         <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
       </select>
-     
+    </div>
+
+    <div class="form-group">
+      <label>{{'EditProduct.city' | translate}}</label>
+      <select class="form-control" [(ngModel)]="city" [ngModelOptions]="{standalone: true}">
+        <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+      </select>
     </div>
 
     <div class="form-group" >

@@ -6,6 +6,7 @@ import {ProductService} from'../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { CountriesService } from '../services/countries.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 @Component({
@@ -38,7 +39,6 @@ export class EditProductComponent implements OnInit {
   showUpload:boolean=false;
   showLoading:boolean=true;
   showEdit:boolean=true;
-  countries=environment.countries;
   raised:FormControl;
   minimumOrder:FormControl;
   maximumOrder:FormControl;
@@ -47,10 +47,16 @@ export class EditProductComponent implements OnInit {
   cooming_soon:FormControl;
   seller_sku: FormControl;
   seafood_sku: FormControl;
-  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer){}
+  city: FormControl;
+  allCities:any=[];
+  cities:any=[];
+  countries:any=[];
+  constructor(private product:ProductService, private route: ActivatedRoute, private router: Router, private toast:ToastrService, private auth: AuthenticationService,private sanitizer: DomSanitizer, private countryService: CountriesService ){}
   ngOnInit() {
     //this.createFormControls();
     //this.createForm();
+    this.getAllCities();
+    this.getCountries();
     this.user = this.auth.getLoginData();
     this.getTypes();
     this.productID= this.route.snapshot.params['id'];
@@ -61,11 +67,13 @@ export class EditProductComponent implements OnInit {
   }
   getDetails(){
     this.product.getProductDetail(this.productID).subscribe(data => {
+      console.log( data );
       this.name = data['name'];
       this.description = data['description'];
       this.price = data['price'].value;
       this.measurement = data['weight'].type;
       this.country = data['country'];
+      this.city = data['city'];
       this.show = true;
       this.types = data['type'].id;
       this.preparation=data['preparation'];
@@ -104,6 +112,7 @@ export class EditProductComponent implements OnInit {
           "name": this.name,
           "description": this.description,
           "country": this.country,
+          "city": this.city,
           "price": {
               "type": "$",
               "value": this.price,
@@ -190,6 +199,41 @@ deleteNode(i){
     this.toast.success("Image deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
     this.images.splice(i, 1);
   });
+}
+
+getCountries(){
+  this.countryService.getCountries().subscribe(
+    result => {
+      this.countries = result;
+    },
+    error => {
+      console.log(error);
+    }
+  )
+}
+
+getCities(){
+  console.log( this.country );
+  this.countryService.getCities( this.country ).subscribe(
+    result => {
+      this.cities = result[0].cities;
+    },
+    error => {
+
+    }
+  )
+}
+
+getAllCities(){
+  this.countryService.getAllCities().subscribe(
+    result => {
+      this.allCities = result;
+      this.cities = result;
+    },
+    error => {
+      console.log( error );
+    }
+  )
 }
 
 }
