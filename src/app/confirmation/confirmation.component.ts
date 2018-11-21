@@ -69,7 +69,7 @@ export class ConfirmationComponent implements OnInit {
     submit(){
      
       var body = {
-        "comand": "AUTHORIZATION",
+        "command": "AUTHORIZATION",
         "access_code": this.accessToken,
         "merchant_identifier": this.merchantID,
         "merchant_reference": this.shoppingCartId,
@@ -85,8 +85,10 @@ export class ConfirmationComponent implements OnInit {
       }
       console.log(body);
       this.http.post(this.payFortApi, body,  {
-        headers: new HttpHeaders()
-          .set('Content-Type', 'application/json')
+        headers: new HttpHeaders({
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        })
       }).subscribe(res => console.log(res))
     }
 
