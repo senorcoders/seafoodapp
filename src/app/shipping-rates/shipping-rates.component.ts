@@ -102,6 +102,7 @@ export class ShippingRatesComponent implements OnInit {
     this.countryService.getAllCities().subscribe(
       result => {
         this.allCities = result;
+        this.cities =result;
       },
       error => {
         console.log( error );

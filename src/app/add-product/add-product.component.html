@@ -60,19 +60,6 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': country.invalid && (country.dirty || country.touched),'has-success': country.valid && (country.dirty || country.touched)}">
-              <label>{{'AddProduct.country' | translate}}</label>
-              <select  (change)="generateSKU()" class="form-control" formControlName="country">
-                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-              </select>
-              <div class="form-control-feedback" *ngIf="country.errors && showError">
-                <p *ngIf="country.errors.required">{{'AddProduct.country' | translate}} {{'AddProduct.required' | translate}}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
               <label>{{'AddProduct.seller_sku' | translate}}</label>
               <input type="text" class="form-control" formControlName="seller_sku" required>
@@ -84,18 +71,31 @@
               <input type="hidden" class="form-control" formControlName="seafood_sku" disabled required>              
             </div>
           </div>  
+        </div>
+        <div class="row">
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
-              <label>{{'AddProduct.cooming_soon' | translate}}</label>
-              <select class="form-control" formControlName="cooming_soon">
-                <option value="false">No</option>
-                <option value="true">Yes</option>                
+            <div class="form-group" [ngClass]="{'has-danger': country.invalid && (country.dirty || country.touched),'has-success': country.valid && (country.dirty || country.touched)}">
+              <label>{{'AddProduct.country' | translate}}</label>
+              <select  (change)="generateSKU(); getCities();" class="form-control" formControlName="country">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
-              <div class="form-control-feedback" *ngIf="cooming_soon.errors && showError">
-                <p *ngIf="cooming_soon.errors.required">{{'AddProduct.cooming_soon' | translate}} {{'AddProduct.required' | translate}}</p>
+              <div class="form-control-feedback" *ngIf="country.errors && showError">
+                <p *ngIf="country.errors.required">{{'AddProduct.country' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>        
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.city' | translate}}</label>
+              <select  class="form-control" formControlName="city">
+                <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+              </select>
+              
+            </div>
+          </div>
+          
+                
         </div>
         <div class="row">
           <div class="col-lg-6">
@@ -174,7 +174,18 @@
               </div>
             </div>
           </div>
-          
+          <div class="col-lg-6">
+              <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
+                <label>{{'AddProduct.cooming_soon' | translate}}</label>
+                <select class="form-control" formControlName="cooming_soon">
+                  <option value="false">No</option>
+                  <option value="true">Yes</option>                
+                </select>
+                <div class="form-control-feedback" *ngIf="cooming_soon.errors && showError">
+                  <p *ngIf="cooming_soon.errors.required">{{'AddProduct.cooming_soon' | translate}} {{'AddProduct.required' | translate}}</p>
+                </div>
+              </div>
+            </div>  
         </div>
         <div class="row">
           <div class="col-12">

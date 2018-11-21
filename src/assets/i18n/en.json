@@ -150,7 +150,8 @@
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
 		"seller_sku": "SKU",
-		"seafood_sku": "Seafood Souq SKU"
+		"seafood_sku": "Seafood Souq SKU",
+		"city": "City"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
@@ -185,7 +186,8 @@
 		"no-found":"Sorry, Product Not found",
 		"detail":"Product details",
 		"seller_sku": "SKU",
-		"seafood_sku": "Seafood Souq SKU"
+		"seafood_sku": "Seafood Souq SKU",
+		"city": "City"
 	},
 	"FishType":{
 		"add":"Add Fish Type",
