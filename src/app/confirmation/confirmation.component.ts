@@ -78,7 +78,7 @@ export class ConfirmationComponent implements OnInit {
         "token_name": this.token,
         "signature": this.signature,
         "settlement_reference": "Seafood buy on date",
-        "return_url": "https://seafood.senorcoders.com/thanks",
+        "return_url": "https://platform.seafoodsouq.com/thanks",
         "customer_email": this.email,
         "amount": this.total,
         "order_description": this.description
@@ -86,6 +86,7 @@ export class ConfirmationComponent implements OnInit {
       console.log(body);
       this.http.post(this.payFortApi, body,  {
         headers: new HttpHeaders({
+          "charset": "utf-8",
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         })
