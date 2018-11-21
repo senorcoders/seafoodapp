@@ -128,6 +128,8 @@ export class CartComponent implements OnInit {
     //   }
     // )
     localStorage.setItem('shoppingTotal', this.total);
+    localStorage.setItem('shoppingCartId', this.shoppingCartId);
+
     this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
   
   }

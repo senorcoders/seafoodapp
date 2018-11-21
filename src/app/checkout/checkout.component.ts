@@ -25,6 +25,7 @@ export class CheckoutComponent implements OnInit {
   signature: FormControl;
   checkoutForm: FormGroup;
   payForAPI:any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+  randomID:any;
  
 
 
@@ -35,11 +36,12 @@ export class CheckoutComponent implements OnInit {
       console.log(params);
       this.shoppingCartId = params['shoppingCartId'];
       this.generateSignature();
+      this.randomID = this.guid();
     })
   }
 
   generateSignature(){
-    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'service_command=TOKENIZATION' + this.apiPass;
+    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.randomID+'service_command=TOKENIZATION' + this.apiPass;
     console.log(string);
     this.signatureCode = shajs('sha256').update(string).digest('hex');
     console.log(this.signatureCode);
@@ -125,7 +127,14 @@ export class CheckoutComponent implements OnInit {
         .set('Content-Type', 'application/x-www-form-urlencoded')
     })
   }
-
+  guid() {
+    function s4() {
+      return Math.floor((1 + Math.random()) * 0x10000)
+        .toString(16)
+        .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  }
  
 
 }
