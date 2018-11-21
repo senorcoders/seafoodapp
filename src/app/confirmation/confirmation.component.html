@@ -1,3 +1,49 @@
-<p>
-  confirmation works!
-</p>
+<div class="container">
+  <div style="height: 100px;"></div>
+
+<div class="row">
+  <div class="col-lg-3">
+    <h1 class="title">Checkout</h1>
+    <h1 class="subtitle">Billing Details</h1>
+  </div>
+  <div class="col-lg-9">
+<form method="POST"  ngNativeValidate (ngSubmit)="submit()">
+ 
+  <div class="row">
+    <div class="col-6">
+      <div class="form-group">
+          <label>Customer Email</label>
+
+          <input type="text"  name="customer_email" [value]="email" class="form-control">
+
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="form-group">
+          <label>Amount (AED)</label>
+
+          <input type="number" class="form-control" disabled name="amount" [value]="total" >
+
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+          <label>Order Description</label>
+
+          <textarea name="order_description" [(ngModel)]="description" class="form-control" required   rows="3"></textarea>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-6">
+          <button type="submit" class="btn btn-red">Confirm payment</button>
+
+      </div>
+    </div>
+</form>
+
+</div>
+</div>
+</div>

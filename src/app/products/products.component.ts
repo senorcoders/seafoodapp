@@ -586,6 +586,7 @@ smallDesc(str) {
       }
     }
 
+  
     dicreaseWeight(weight, i, id, country, category){
       if(weight > 5){
         weight -= 5;
