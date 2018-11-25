@@ -52,7 +52,7 @@ export class ConfirmationComponent implements OnInit {
   generateSignature(){
     var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
     this.signature = shajs('sha256').update(string).digest('hex');
-    console.log(this.signature);
+    console.log("Signature: ", this.signature);
   }
 
   getPersonalData(){
@@ -68,6 +68,7 @@ export class ConfirmationComponent implements OnInit {
 
     submit(){
      
+			this.generateSignature()
       var body = {
         "command": "AUTHORIZATION",
         "access_code": this.accessToken,
