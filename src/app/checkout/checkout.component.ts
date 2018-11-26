@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { CartService } from '../core/cart/cart.service';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -26,10 +27,16 @@ export class CheckoutComponent implements OnInit {
   checkoutForm: FormGroup;
   payForAPI:any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
   randomID:any;
+  products:any = [];
+  total:any;
+  shipping:any;
+  totalWithShipping:any;
+  showShippingFields:boolean = false;
+  check:boolean = false;
  
 
 
-  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient) { }
+  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -37,9 +44,22 @@ export class CheckoutComponent implements OnInit {
       this.shoppingCartId = params['shoppingCartId'];
       this.randomID = this.guid();
       this.generateSignature();
+      this.getCart();
+      this.shipping = localStorage.getItem('shippingCost');
+      this.totalWithShipping = localStorage.getItem('shoppingTotal');
     })
   }
 
+  getCart(){
+    this.Cart.cart.subscribe((cart:any)=>{
+      console.log(cart)
+      if(cart && cart['items'] !=''){
+        this.products=cart['items'];
+        this.total=cart['total'];      
+      }
+      
+    })
+  }
   generateSignature(){
     var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.randomID+'service_command=TOKENIZATION' + this.apiPass;
     console.log(string);
@@ -136,5 +156,18 @@ export class CheckoutComponent implements OnInit {
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
  
+  getTotalxItem(count, price){
+    return count*price;
+  }
 
+  onInputChange(value){
+    console.log(value.currentTarget.checked);
+
+    console.log(this.check);
+    if(this.check == true){
+      this.showShippingFields = true;
+    }else{
+      this.showShippingFields = false;
+    }
+  }
 }

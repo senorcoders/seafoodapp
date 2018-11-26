@@ -38,6 +38,91 @@
           
         </div>
         <div class="row">
+          <div class="col-lg-12">
+            <input type="checkbox" [(ngModel)]="check" [ngModelOptions]="{standalone: true}"  (change)="onInputChange($event)"> <b>Ship to a different address?</b>
+            <div style="height: 30px;"></div>
+          </div>
+        </div>
+        <div class="row" [hidden]="!showShippingFields">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Company Name</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Country</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Street address</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>Town / City</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>State</label>
+                    <input type="text" class="form-control">
+                  </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="form-group">
+                    <label>ZIP</label>
+                    <input type="number" class="form-control">
+                  </div>
+            </div>
+        </div>
+        <div class="row table-checkout">
+          <div class="col-lg-12">
+            <h3>Your order</h3>
+            <table>
+              <tr>
+                  <th>Product</th>
+                  <th>Total</th>
+              </tr>
+              <tr *ngFor="let product of products; index as i;">
+                <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
+                <td>${{getTotalxItem(product.quantity.value, product.price.value)}}</td>
+              </tr>
+              <tr>
+                <td><b>Subtotal</b></td>
+                <td><b>${{total}}</b></td>
+              </tr>
+              <tr>
+                <td><b>Shipping</b></td>
+                <td><b>${{shipping}}</b></td>
+              </tr>
+              <tr>
+                <td><b>Total</b></td>
+                <td><b>${{totalWithShipping}}</b></td>
+              </tr>
+              
+            </table>
+          </div>
+        </div>
+      
+        <div class="row">
           <div class="col-lg-6">
               <button type="submit" class="btn btn-red">Proceed to Pay</button>
 

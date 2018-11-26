@@ -64,10 +64,28 @@
         <button class="pink-btn" (click)="getAllProductsCount()">{{'Cart.update' | translate}}</button>
       </div>
       <div class="col-md-7 text-right">
-        <h3 class="subtotal">{{'Cart.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
       </div>
-      <div class="col-md-12 text-right" style="padding-bottom: 20px; padding-top: 20px;">
-        <button class="btn-red" (click)="checkout()">{{'Cart.next' | translate}}</button>
+      <div class="col-md-6"></div>
+      <div class="col-md-6" style="padding-bottom: 20px; padding-top: 20px;">
+        <div class="cart-totals">
+          <h3>Cart Totals</h3>
+          <table>
+            <tr>
+              <td><b>Subtotal</b></td>
+              <td>${{total}}</td>
+            </tr>
+            <tr>
+              <td><b>Shipping</b></td>
+              <td>${{shipping}}</td>
+            </tr>
+            <tr>
+              <td><b>Total</b></td>
+              <td><b>${{totalWithShipping}}</b></td>
+            </tr>
+          </table>
+          
+        </div>
+        <button class="btn-red" (click)="checkout()">Proceed to checkout</button>
       </div>
   </div>
 
