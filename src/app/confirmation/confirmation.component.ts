@@ -30,6 +30,7 @@ export class ConfirmationComponent implements OnInit {
   token:any;
   info:any;
   payFortApi:any = 'https://sbpaymentservices.payfort.com/FortAPI/paymentApi';
+  //payFortApi = 'https://apiseafood.senorcoders.com/payfort/'
   description:any;
   
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService, private http: HttpClient) { }
@@ -50,7 +51,12 @@ export class ConfirmationComponent implements OnInit {
   }
 
   generateSignature(){
-    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
+    var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.amount}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafood buy on datetoken_name=this.token${this.apiPass}`;
+	
+    console.log(string);
+    //var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.amount}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}${this.apiPass}`;
+    //this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
+    //this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
     this.signature = shajs('sha256').update(string).digest('hex');
     console.log(this.signature);
   }
@@ -68,7 +74,8 @@ export class ConfirmationComponent implements OnInit {
 
     submit(){
      
-      var body = {
+		this.generateSignature();
+/*      var body = {
         "command": "AUTHORIZATION",
         "access_code": this.accessToken,
         "merchant_identifier": this.merchantID,
@@ -78,18 +85,22 @@ export class ConfirmationComponent implements OnInit {
         "token_name": this.token,
         "signature": this.signature,
         "settlement_reference": "Seafood buy on date",
-        "return_url": "https://seafood.senorcoders.com/thanks",
+        "return_url": "https://platform.seafoodsouq.com:1337/thanks",
         "customer_email": this.email,
         "amount": this.total,
         "order_description": this.description
       }
-      console.log(body);
+      console.log( JSON.stringify( body ) ) ;
       this.http.post(this.payFortApi, body,  {
         headers: new HttpHeaders({
           'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json; charset=utf-8'
         })
-      }).subscribe(res => console.log(res))
+      }).subscribe(res => console.log(res))*/
+      
+      this.http.get(`https://apiseafood.senorcoders.com/payfort/authorization?command=AUTHORIZATION&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafood buy on date&customer_email=${this.email}&amount=80000&order_description=${this.description}`)
+      .subscribe(res => console.log(res))
+
     }
 
 }
