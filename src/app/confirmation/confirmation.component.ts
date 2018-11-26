@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import * as shajs from 'sha.js';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { OrdersService } from '../core/orders/orders.service';
+import { CartService } from '../core/cart/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-confirmation',
@@ -32,8 +35,12 @@ export class ConfirmationComponent implements OnInit {
   payFortApi:any = 'https://sbpaymentservices.payfort.com/FortAPI/paymentApi';
   //payFortApi = 'https://apiseafood.senorcoders.com/payfort/'
   description:any;
+  buyerId:any;
+  apiShopID:any;
+
   
-  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService, private http: HttpClient) { }
+  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product:ProductService, private http: HttpClient,
+    private orders:OrdersService, private Cart: CartService, private router:Router, private toast:ToastrService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -45,11 +52,24 @@ export class ConfirmationComponent implements OnInit {
       this.amount=  localStorage.getItem('shoppingTotal');
       this.total = this.amount * 1000;
       this.getPersonalData();
+      this.getCart();
       //this.generateSignature();
 
     })
   }
 
+  getCart(){
+    this.Cart.cart.subscribe((cart:any)=>{
+      console.log(cart)
+      if(cart && cart['items'] !=''){
+        this.buyerId=cart['buyer'];
+        this.apiShopID=cart['id']
+
+       
+      }
+      
+    })
+  }
   generateSignature(){
     var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
 	
@@ -72,6 +92,36 @@ export class ConfirmationComponent implements OnInit {
     this.product.saveData('payments/payfort', this.params).subscribe(result => console.log(result))
   }
 
+  clearCart(){
+     let date= new Date();
+    let data={
+      status:'paid',
+      paidDateTime: date.toISOString()
+    }
+    this.product.updateData(`api/shoppingcart/${this.apiShopID}`,data).subscribe(
+      result=>{
+         let cart={
+          "buyer": this.buyerId
+        }
+        this.orders.setOrders(true)
+        this.product.saveData("shoppingcart", cart).subscribe(
+          result => {
+          //set the new cart value
+          this.Cart.setCart(result)
+          this.router.navigate(['/thanks'])
+          },
+          e=>{
+            console.log(e)
+          }
+        )
+      },
+      e=>{
+        this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
+        this.orders.setOrders(false)
+        console.log(e)
+      }
+    )
+  }
     submit(){
      
       this.generateSignature()
@@ -99,7 +149,13 @@ export class ConfirmationComponent implements OnInit {
       }).subscribe(res => console.log(res))*/
       
       this.http.get(`https://apiseafood.senorcoders.com/payfort/authorization?command=AUTHORIZATION&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`)
-      .subscribe(res => console.log(res))
+      .subscribe(res => {
+        console.log(res);
+        if(res['status'] == "20"){
+          this.saveinApi();
+          this.clearCart();
+        }
+      })
 
     }
 
