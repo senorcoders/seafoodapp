@@ -58,7 +58,7 @@ export class ConfirmationComponent implements OnInit {
     //this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
     //this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
     this.signature = shajs('sha256').update(string).digest('hex');
-    console.log(this.signature);
+    console.log("Signature: ", this.signature);
   }
 
   getPersonalData(){
@@ -74,8 +74,8 @@ export class ConfirmationComponent implements OnInit {
 
     submit(){
      
-		this.generateSignature();
-/*      var body = {
+      this.generateSignature()
+      var body = {
         "command": "AUTHORIZATION",
         "access_code": this.accessToken,
         "merchant_identifier": this.merchantID,
@@ -85,14 +85,15 @@ export class ConfirmationComponent implements OnInit {
         "token_name": this.token,
         "signature": this.signature,
         "settlement_reference": "Seafood buy on date",
-        "return_url": "https://platform.seafoodsouq.com:1337/thanks",
+        "return_url": "https://platform.seafoodsouq.com/thanks",
         "customer_email": this.email,
         "amount": this.total,
         "order_description": this.description
       }
       console.log( JSON.stringify( body ) ) ;
-      this.http.post(this.payFortApi, body,  {
+      /*this.http.post(this.payFortApi, body,  {
         headers: new HttpHeaders({
+          "charset": "utf-8",
           'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json; charset=utf-8'
         })
