@@ -58,7 +58,9 @@ export class ConfirmationComponent implements OnInit {
       this.getPersonalData();
       this.getCart();
       this.shipping = localStorage.getItem('shippingCost');
+      this.shipping = this.shipping * 1000;
       this.totalWithShipping = localStorage.getItem('shoppingTotal');
+      this.totalWithShipping = this.totalWithShipping * 1000;
       //this.generateSignature();
 
     })
@@ -71,7 +73,7 @@ export class ConfirmationComponent implements OnInit {
         this.buyerId=cart['buyer'];
         this.apiShopID=cart['id']
         this.products=cart['items'];
-        this.totalAPI=cart['total'];    
+        this.totalAPI=cart['total'] * 1000;    
        
       }
       
@@ -169,7 +171,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     getTotalxItem(count, price){
-      return count*price;
+      return (count*price) * 1000;
     }
 
 }

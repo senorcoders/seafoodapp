@@ -28,9 +28,9 @@
     </div>
     <div class="col-12">
       <div class="form-group">
-          <label>Order Description</label>
+          <label>Additional Notes</label>
 
-          <textarea name="order_description" [(ngModel)]="description" class="form-control" required   rows="3"></textarea>
+          <textarea name="order_description" [(ngModel)]="description" class="form-control"    rows="3"></textarea>
 
       </div>
 
@@ -46,19 +46,19 @@
           </tr>
           <tr *ngFor="let product of products; index as i;">
             <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
-            <td>${{getTotalxItem(product.quantity.value, product.price.value)}}</td>
+            <td>AED {{getTotalxItem(product.quantity.value, product.price.value)}}</td>
           </tr>
           <tr>
             <td><b>Subtotal</b></td>
-            <td><b>${{totalAPI}}</b></td>
+            <td><b>AED {{totalAPI}}</b></td>
           </tr>
           <tr>
             <td><b>Shipping</b></td>
-            <td><b>${{shipping}}</b></td>
+            <td><b>AED {{shipping}}</b></td>
           </tr>
           <tr>
             <td><b>Total</b></td>
-            <td><b>${{totalWithShipping}}</b></td>
+            <td><b> AED {{totalWithShipping}}</b></td>
           </tr>
           
         </table>
