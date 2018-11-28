@@ -4,6 +4,7 @@ import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { CartService } from '../core/cart/cart.service';
+import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -33,26 +34,28 @@ export class CheckoutComponent implements OnInit {
   totalWithShipping:any;
   showShippingFields:boolean = false;
   check:boolean = false;
+  info:any;
  
 
 
-  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService) { }
+  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
       this.shoppingCartId = params['shoppingCartId'];
       this.randomID = this.guid();
       this.generateSignature();
       this.getCart();
+      this.getPersonalData();
       this.shipping = localStorage.getItem('shippingCost');
       this.totalWithShipping = localStorage.getItem('shoppingTotal');
     })
   }
-
+  getPersonalData(){
+    this.info = this.auth.getLoginData();
+  }
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
-      console.log(cart)
       if(cart && cart['items'] !=''){
         this.products=cart['items'];
         this.total=cart['total'];      
