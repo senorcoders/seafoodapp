@@ -68,6 +68,18 @@ const menuAdmin=[
   }
 },
 {
+  state: 'pricing-charges',
+  type: 'link',
+  translate: {
+    en:{
+      name: "Pricing Charges"
+    },
+    ar: {
+      name: "Pricing Charges"
+    }
+  }
+},
+{
   state:'fish-type',
   type: 'link',
   translate:{

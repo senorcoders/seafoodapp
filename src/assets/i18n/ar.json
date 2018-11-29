@@ -538,5 +538,15 @@
 		"title": "Shipping Rates",
 		"type": "Type",
 		"cost": "Cost"
+	},
+	"PricingCharges": {
+		"title": "System Pricing Charges",
+		"formTitle" : "Update System Pricing Charges",
+		"uaeTaxes": "UAE Taxes (%)",
+		"handlingFess": "Handling Fess (%)",
+		"customs": "Customs (%)",
+		"lastMileCost":  "Last Mile Cost (%)",
+		"updateButton": "Update (%)",
+		"date": "Updated At"
 	}
 }

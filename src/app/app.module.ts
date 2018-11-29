@@ -77,7 +77,9 @@ import { ShippingRatesService } from './services/shipping-rates.service';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { CountriesService } from './services/countries.service';
+import { PricingChargesService } from './services/pricing-charges.service';
 import { ThanksComponent } from './thanks/thanks.component';
+import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -124,6 +126,7 @@ const appRoutes: Routes=[
   {path:'about-us', component:AboutComponent},
   {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]},
   {path:'shipping-rates', component:ShippingRatesComponent, canActivate:[AdminRouterService]},
+  {path:'pricing-charges', component:PricingChargesComponent, canActivate:[AdminRouterService]},
   {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
   {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
   {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]}
@@ -183,7 +186,8 @@ const appRoutes: Routes=[
     ShippingRatesComponent,
     CheckoutComponent,
     ConfirmationComponent,
-    ThanksComponent
+    ThanksComponent,
+    PricingChargesComponent
   ],
   imports: [
     BrowserModule,
@@ -216,7 +220,8 @@ const appRoutes: Routes=[
     CartService,
     OrdersService,
     ShippingRatesService,
-    CountriesService    // {
+    CountriesService,
+    PricingChargesService   // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
     //   multi: true,
