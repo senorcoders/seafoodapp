@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-
+declare var jQuery:any;
 @Component({
   selector: 'app-verify-user',
   templateUrl: './verify-user.component.html',
@@ -10,7 +10,9 @@ import { ToastrService } from 'ngx-toastr';
 export class VerifyUserComponent implements OnInit {
 	users:any;
 	showLoading:boolean=true;
-	isInfo:boolean=false
+	isInfo:boolean=false;
+  showPopup:boolean=false;
+  singleUser:any;
   constructor(private auth:AuthenticationService, private toast:ToastrService) { }
 
   ngOnInit() {
@@ -59,5 +61,21 @@ export class VerifyUserComponent implements OnInit {
 	  			console.log(e)
 	  		}
   	)
+  }
+  popUp(i){
+    this.singleUser=this.users[i];
+    jQuery("#popUp").modal('show');
+    this.showPopup=true;
+  }
+  getRole(role){
+    if(role==0){
+      return "Administrator"
+    }
+    else if(role==1){
+      return "Seller"
+    }
+    else{
+      return "Buyer"
+    }
   }
 }
