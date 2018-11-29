@@ -24,6 +24,7 @@ file:any=[];
 userID:any;
 storeID:any;
 image:any;
+regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
 countries=environment.countries
   constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService) {
     this.redirectHome();
@@ -43,7 +44,8 @@ countries=environment.countries
       lastName:['',Validators.required],
       location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
-      password:['', [Validators.required, Validators.minLength(8)]],
+      password:['', [Validators.required, Validators.pattern(this.regex)]],
+      //password:['', [Validators.required, Validators.minLength(8)]],
       rePassword:['', Validators.required],
       tel:['', [Validators.required, Validators.pattern('[0-9]+')]],
       fullBakingInfo:[''],
@@ -66,8 +68,8 @@ countries=environment.countries
       lastName:['',Validators.required],
       location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
-      password:['', [Validators.required, Validators.minLength(8)]],
-      //password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+      //password:['', [Validators.required, Validators.minLength(8)]],
+      password:['', [Validators.required, Validators.pattern(this.regex)]],
       rePassword:['', Validators.required],
       tel:['',[Validators.required, Validators.pattern('[0-9]+')]],
       designation:['',Validators.required],
