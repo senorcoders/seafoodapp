@@ -18,6 +18,7 @@ export class ConfirmationComponent implements OnInit {
   accessToken:any = 'Ddx5kJoJWr11sF6Hr6E4';
   merchantID:any = 'aZCWXhqJ';
   apiPass:any = 'bafgiwugfiwgfyyf';
+  command:string ="AUTHORIZATION";
   signature:any;
   email:any;
   amount:any;
@@ -80,7 +81,7 @@ export class ConfirmationComponent implements OnInit {
     })
   }
   generateSignature(){
-    var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
+    var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
 	
     console.log(string);
     //var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.amount}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}${this.apiPass}`;
@@ -135,7 +136,7 @@ export class ConfirmationComponent implements OnInit {
      
       this.generateSignature()
       var body = {
-        "command": "AUTHORIZATION",
+        "command": this.command,
         "access_code": this.accessToken,
         "merchant_identifier": this.merchantID,
         "merchant_reference": this.shoppingCartId,
@@ -156,8 +157,8 @@ export class ConfirmationComponent implements OnInit {
           'Content-Type': 'application/json; charset=utf-8'
         })
       }).subscribe(res => console.log(res))*/
-      
-      this.http.get(`https://apiseafood.senorcoders.com/payfort/authorization?command=AUTHORIZATION&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`)
+            
+      this.http.get(`https://apiseafood.senorcoders.com/payfort/authorization?command=${this.command}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`)
       .subscribe(res => {
         console.log(res);
         if(res['status'] == "20"){

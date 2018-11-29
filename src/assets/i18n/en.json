@@ -384,7 +384,8 @@
 		"sfs":"SFS Agreement Form",
 		"required":"is required",
 		"invalid":"is invalid",
-		"licence":"License"
+		"licence":"License",
+		"firstMileCost": "First Mile Cost ( AED / KG )"
 	},
 	"Buyer":{
 		"title":"Buyer List",
@@ -556,5 +557,17 @@
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
 		"city": "Cities"
+	},
+	"PricingCharges": {
+		"title": "System Pricing Charges",
+		"formTitle" : "Update System Pricing Charges",
+		"uaeTaxes": "UAE Taxes (%)",
+		"handlingFess": "Handling Fess ( AED / KG )",
+		"customs": "Customs (%)",
+		"lastMileCost":  "Last Mile Cost ( AED / KG )",
+		"updateButton": "Update (%)",
+		"date": "Updated At",
+		"type": "Type",
+		"price": "Price"
 	}
 }

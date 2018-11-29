@@ -1,0 +1,172 @@
+<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
+  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
+  <div class="content">
+    <h1 class="big-title">{{'PricingCharges.title'| translate}}</h1>    
+  </div>
+</div> 
+<div class="container" style="margin-top:30px;">
+	<div class="row">
+    <div class="col-12"><h3 class="title">{{'PricingCharges.formTitle' | translate}}</h3></div>
+    <div class="col-md-12">
+      <form novalidate [formGroup]="myform" (ngSubmit)="showConfirmModal()" class="form-design">
+        <div class="row">
+          
+          <div class="col-md-4">
+            <div class="form-group" >
+              <label>{{'PricingCharges.type' | translate}}</label>
+              <select id="type" class="form-control" formControlName="type" >
+                <option value="customs">Customs</option>
+                <option value="uaeTaxes">UAE Taxes</option>
+                <option value="lastMileCost">Last Mile Cost</option>
+                <option value="handlingFees">Handling Fees</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="form-group" >
+              <label>{{'PricingCharges.price' | translate}}</label>
+              <input id="price" type="number" class="form-control" formControlName="price" required>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <button type="submit" class="btn-red">Save</button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div><!--end row-->
+
+  <div class="row curresntPricing">
+    <div class="col-md-12">      
+      <h3>Current Pricing Charges</h3>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th scope="col">{{'PricingCharges.customs' | translate}}</th>
+              <th scope="col">{{'PricingCharges.uaeTaxes' | translate}}</th>
+              <th scope="col">{{'PricingCharges.lastMileCost' | translate}}</th>
+              <th scope="col">{{'PricingCharges.handlingFess' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td> {{currentPricing.customs[0].price}} </td>
+              <td> {{currentPricing.uaeTaxes[0].price}} </td>
+              <td> {{currentPricing.lastMileCost[0].price}} </td>
+              <td> {{currentPricing.handlingFees[0].price}} </td>
+              
+            </tr>              
+          </tbody>
+        </table>
+    </div>
+  </div><!--end row-->
+
+  <div class="row historyPricing">
+    <div class="col-md-12">
+      <h3>History Pricing Charges</h3>
+      
+
+    </div>
+  </div><!--end row-->
+
+  <div class="row">
+    <div class="col-md-3">
+      <h5>{{'PricingCharges.customs' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.customs" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 customs-->
+
+    <div class="col-md-3">
+      <h5>{{'PricingCharges.uaeTaxes' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.uaeTaxes" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 uaeTaxes-->
+
+    <div class="col-md-3">
+      <h5>{{'PricingCharges.lastMileCost' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.lastMileCost" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 lastMileCost-->
+
+    <div class="col-md-3">
+      <h5>{{'PricingCharges.handlingFess' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.handlingFees" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 handlingFees-->
+
+
+  </div><!--end row-->
+</div>
+
+<div class="modal confirmUpdate" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">SeafoodSouq</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to update <span id="mtype"></span> to <span id="mprice"></span></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+        <button type="button" (click)="savePricing()" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

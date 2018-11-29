@@ -34,6 +34,10 @@
           </select>
         </div>
         <div class="form-group">
+          <label>SFS Margin (%)</label>
+          <input type="number" class="form-control" formControlName="sfsMargin" />            
+        </div>
+        <div class="form-group">
          <button type="submit" class="btn-red" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
         </div>
       </form>
@@ -61,10 +65,10 @@
                     <li *ngIf="sub.child">
                       <div class="row" >
                         <div class="col text-left">
-                          <label [innerHtml]="sub?.child?.name"></label>
+                          <label [innerHtml]="sub?.child?.name "></label><small  *ngIf="sub.child.sfsMargin">({{sub.child.sfsMargin}} %)</small>
                         </div>
                         <div class="col">
-                            <span (click)="editSub(sub.child.id, sub.child, category.id, sub)" class="edit"><fa name="pencil"></fa></span>
+                            <span (click)="editSub(sub.child.id, sub.child, category.id, sub, sub.child.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
                         </div>
                         <div class="col">
                             <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub.child.id, sub.id)" class="delete">
