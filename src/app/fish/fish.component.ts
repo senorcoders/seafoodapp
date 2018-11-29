@@ -19,6 +19,7 @@ export class FishComponent implements OnInit {
   id:number;
   showImage:boolean=false;
   currentImage:string;
+  
   orgCats:any = [];
   tmpParentID:any;
   constructor(private product: ProductService, private fb: FormBuilder, private toast:ToastrService) { }
@@ -28,7 +29,8 @@ export class FishComponent implements OnInit {
     this.categoryForm=this.fb.group({
       name:['',Validators.required],
       description:['', Validators.required],
-      parent: ['']
+      parent: [''],
+      sfsMargin: ['']
     })
     this.categoryForm.controls['parent'].setValue('none');
   }
@@ -141,7 +143,8 @@ export class FishComponent implements OnInit {
     this.categoryForm= this.fb.group({
       name:[this.orgCats[index].name,Validators.required],
       description:[this.orgCats[index].description, Validators.required],
-      parent: ["none"]
+      parent: ["none"],
+      sfsMargin: [this.orgCats[index].sfsMargin]
     })
     this.buttonLabel="Edit Fish";
     if(this.orgCats[index].images!=null){
@@ -150,14 +153,15 @@ export class FishComponent implements OnInit {
     }
   }
 
-  editSub(id, child, parent, sub){
+  editSub(id, child, parent, sub, sfsMargin){
     console.log(sub);
     this.tmpParentID = sub['id'];
     this.id=id;
     this.categoryForm= this.fb.group({
       name:[child.name,Validators.required],
       description:[child.description, Validators.required],
-      parent: [parent]
+      parent: [parent],
+      sfsMargin: [sfsMargin]
     })
     this.buttonLabel="Edit Fish";
     if(child.images!=null){

@@ -25,12 +25,13 @@ export class SellerComponent implements OnInit {
   		firstName:['',Validators.required],
 		lastName: ['', Validators.required],
 		country: ['', Validators.required],
+		firstMileCost: [''],
 		email: ['', [Validators.email, Validators.required]],
 		tel: [''],
 		uploadTradeLicense: [''],
 		fullBakingInfo: [''],
 		sfsAgreementForm: [''],
-		ifLocal: ['']
+		ifLocal: [''],
   	})
   }
   userForm(){
@@ -38,12 +39,13 @@ export class SellerComponent implements OnInit {
   		firstName:[this.user.firstName,Validators.required],
 		lastName: [this.user.lastName, Validators.required],
 		country: [this.user.country, Validators.required],
+		firstMileCost: [this.user.firstMileCost ],
 		email: [this.user.email, [Validators.email, Validators.required]],
 		tel: [this.user.dataExtra.tel],
 		uploadTradeLicense: [this.user.dataExtra.uploadTradeLicense],
 		fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
 		sfsAgreementForm: [''],
-		ifLocal: [this.user.dataExtra.ifLocal]
+		ifLocal: [this.user.dataExtra.ifLocal],
   	})
   }
   getUsers(){
@@ -83,7 +85,10 @@ export class SellerComponent implements OnInit {
   	)
   }
   editUser(){
-  	let data=this.sellerForm.value;
+	  let data=this.sellerForm.value;
+	  //this.sellerForm.controls['firstMileCost'].setValue(5);
+	  console.log(data);
+	  console.log( this.sellerForm.controls['firstMileCost'].value );
   	this.product.updateData('user/'+this.user.id,data).subscribe(
   		result=>{
 			this.toast.success('User has been edited', 'Well Done', { positionClass: "toast-top-right" })

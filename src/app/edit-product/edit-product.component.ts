@@ -28,7 +28,7 @@ export class EditProductComponent implements OnInit {
   types: FormControl;
   base:string=environment.apiURLImg;
   pTypes:any = [];
-  country: FormControl;
+  country: any;
   fileToUpload: any = [];
   productID:any;
   show:boolean = true;
