@@ -90,6 +90,28 @@
         max-width: 100%;
     }
 }
+
+.table-checkout{
+    table{
+        border: 1px solid rgba(0,0,0,.1);
+        margin: 0 -1px 24px 0;
+        text-align: left;
+        width: 100%;
+        border-collapse: separate;
+        border-radius: 5px;
+        td, th{
+            padding: 10px;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+        tr:last-child td{
+            border: none;
+        }
+    }
+}
+
+.shipping-details {
+    margin-top: 50px;
+}
 @media(max-width: 998px){
     .btn-red{
         margin-bottom: 20px;

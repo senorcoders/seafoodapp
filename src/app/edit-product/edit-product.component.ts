@@ -85,13 +85,22 @@ export class EditProductComponent implements OnInit {
       this.seller_sku=data['seller_sku'];
       this.seafood_sku=data['seafood_sku'];
       data['images'].forEach((val, index)=>{
-        this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
+        if(val.hasOwnProperty('src')){
+          console.log("Val", val);
+          this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`));
+          //this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
+          console.log(this.images);
+
+        }
       })
-      this.primaryImgLink=data['imagePrimary'];
-      this.primaryImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.primaryImgLink})`)
-      if(this.primaryImg){
-        this.showLoading=false;
+      console.log(data['imagePrimary']);
+      if(data['imagePrimary'] != null){
+        this.primaryImgLink=data['imagePrimary'];
+        this.primaryImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.primaryImgLink})`)
       }
+      
+        this.showLoading=false;
+      
   }, error=>{
     console.log("Error", error)
     this.show = false;
@@ -135,8 +144,10 @@ export class EditProductComponent implements OnInit {
       this.product.updateData('fish/'+this.productID, data).subscribe(result =>{
         if(this.fileToUpload.length > 0){
           this.uploadFileToActivity(this.productID);
+          console.log(" Images");
 
         }else{
+          console.log("No images");
           this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
 
         }
@@ -172,6 +183,7 @@ uploadFileToActivity(productID) {
   this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
     // do something, if upload success
     //this.myform.reset();
+    console.log("Data", data);
     this.getDetails();
     this.toast.success("Product updated succesfully!",'Well Done',{positionClass:"toast-top-right"})
     }, error => {
@@ -179,7 +191,10 @@ uploadFileToActivity(productID) {
     });
 }
 updatePrimaryImg(img:FileList){
+
   if(img.length > 0){
+    console.log("IMage", this.primaryImgLink);
+
     let link = this.primaryImgLink.substring(1);
     this.product.updatePrimaryImage(img, link).subscribe(
       result=>{

@@ -565,8 +565,10 @@ smallDesc(str) {
     
   }
 
-    increaseWeight(weight, max, i, id, country, category){
+    increaseWeight(weight, max, i, id, country, category, price){
       if(weight < max){
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = '#000';
         weight += 5;
         if(category != ''){
           var row = document.getElementById('products-container');
@@ -574,21 +576,28 @@ smallDesc(str) {
           for (var index = 0; index < cards.length; index++) {
               var classes = cards[index].className.split(" ");
               this.products[classes[6]].minimumOrder = weight;
-              this.getShippingRates(weight, classes[5], classes[7]);
+              this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
         }else{
           this.products[i].minimumOrder = weight;
-          this.getShippingRates(weight, country, id);
+          this.getShippingRates(weight, country, id, price);
         }
         
+      }else{
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = 'red';
+
+
       }
     }
 
   
-    dicreaseWeight(weight, i, id, country, category){
+    dicreaseWeight(weight, i, id, country, category, price){
       if(weight > 5){
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = '#000';
         weight -= 5;
         if(category != ''){
           var row = document.getElementById('products-container');
@@ -596,60 +605,57 @@ smallDesc(str) {
           for (var index = 0; index < cards.length; index++) {
               var classes = cards[index].className.split(" ");
               this.products[classes[6]].minimumOrder = weight;
-              this.getShippingRates(weight, classes[5], classes[7]);
+              this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
         }else{
           this.products[i].minimumOrder = weight;
-          this.getShippingRates(weight, country, id);
+          this.getShippingRates(weight, country, id, price);
         }
      
 
+      }else{
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = 'red';
       }
 
     }
 
-    getWeight(weight, max, i, id, country, category){
+    getWeight(weight, max, i, id, country, category, price){
       if(weight < max){
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = '#000';
         if(category != ''){
           var row = document.getElementById('products-container');
           var cards = row.querySelectorAll('.category-'+ category);
           for (var index = 0; index < cards.length; index++) {
               var classes = cards[index].className.split(" ");
               this.products[classes[6]].minimumOrder = weight;
-              this.getShippingRates(weight, classes[5], classes[7]);
+              //console.log(classes);
+              this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
         }else{
           this.products[i].minimumOrder = weight;
-          this.getShippingRates(weight, country, id);
+          this.getShippingRates(weight, country, id, price);
         }
         
       }else{
        
-        if(category != ''){
-          var row = document.getElementById('products-container');
-          var cards = row.querySelectorAll('.category-'+ category);
-          for (var index = 0; index < cards.length; index++) {
-              var classes = cards[index].className.split(" ");
-              this.products[classes[6]].minimumOrder = max;
-              this.getShippingRates(max, classes[5], classes[7]);
-
-            }
-
-        }else{
+        var input = document.getElementById('single-price-' + id);
+        (input as HTMLElement).style.color = 'red';
           this.products[i].minimumOrder = max;
-          this.getShippingRates(max, country, id);
-        }
+          this.getShippingRates(max, country, id, price);
+        
 
       }
 
     }
 
 
-    getShippingRates(weight, country, id){
+    getShippingRates(weight, country, id, price){
       this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
           //console.log(result);
           var card = document.getElementById('product-' + id);
@@ -657,6 +663,8 @@ smallDesc(str) {
           var prices = card.getElementsByClassName('hidden-prices');
           var deliveredPice = document.getElementById('product-' + id + '-delivered');
           var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
+          var priceT = (weight * price) + result['price'];
+          //console.log(priceT);
           (box as HTMLElement).style.display = 'block';
           for (var index = 0; index < prices.length; index++) {
             (prices[index] as HTMLElement).style.display = 'flex';
@@ -665,7 +673,7 @@ smallDesc(str) {
           deliveredPice.innerHTML = result['message'];
           deliveredPiceTotal.innerHTML = "";
         }else{
-          deliveredPice.innerHTML = result['type'] + ' '+ result['price'] + " / kg";
+          deliveredPice.innerHTML = result['type'] + ' '+ priceT + " / kg";
           deliveredPiceTotal.innerHTML = 'Delivered Price';
         }
        

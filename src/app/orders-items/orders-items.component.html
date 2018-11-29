@@ -43,8 +43,7 @@
 										<fa name="heart-o" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" *ngIf="!product.favorite.msg; else favorite"></fa>
 										  <ng-template #favorite><fa name="heart" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" class="isfavorite"></fa></ng-template>
 									</div>
-								<a (click)="ShowReviewForm(product.fish.store.id)" class="review">
-										<img src="../../assets/review-icon.png" alt="">{{'Orders-items.review' | translate}}</a>
+							
 						</div>
 					  </div>
 					</div>

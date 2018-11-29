@@ -14,9 +14,7 @@
 .pink-btn{
     background: transparent;
 }
-.btn-red{
-    max-width: 200px;
-}
+
 a.link-cart{
     color: #000;
     border: 1px solid #000;
@@ -56,6 +54,24 @@ a.link-cart{
 .product-description{
     font-family: 'Roboto', sans-serif Light;
     color: #969693;
+}
+
+.cart-totals{
+    table{
+        border: 1px solid rgba(0,0,0,.1);
+        margin: 0 -1px 24px 0;
+        text-align: left;
+        width: 100%;
+        border-collapse: separate;
+        border-radius: 5px;
+        td{
+            padding: 10px;
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+        tr:last-child td{
+            border: none;
+        }
+    }
 }
 
 @media(max-width: 998px){

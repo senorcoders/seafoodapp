@@ -23,6 +23,8 @@ export class CartComponent implements OnInit {
   shoppingCartId:string;
   API:any = environment.apiURLImg;
   countries:any = environment.countries;
+  shipping:any =  0;
+  totalWithShipping:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
 
@@ -40,12 +42,25 @@ export class CartComponent implements OnInit {
         this.buyerId=cart['buyer']
         this.empty=false;
         this.showLoading=false;
+        this.getShippingTotal();
+        this.getTotal();
       }
       else{
         this.showLoading=false;
         this.empty = true;
       }
     })
+  }
+
+  getShippingTotal(){
+    this.products.forEach(p => {
+      console.log(p['shippingCost']);
+      this.shipping += (p['shippingCost'] * p['quantity']['value']);
+    });
+  }
+
+  getTotal(){
+    this.totalWithShipping = (this.shipping + this.total);
   }
 
   getItems(){
@@ -127,7 +142,8 @@ export class CartComponent implements OnInit {
     //     console.log(e)
     //   }
     // )
-    localStorage.setItem('shoppingTotal', this.total);
+    localStorage.setItem('shippingCost', this.shipping);
+    localStorage.setItem('shoppingTotal', this.totalWithShipping);
     localStorage.setItem('shoppingCartId', this.shoppingCartId);
 
     this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
