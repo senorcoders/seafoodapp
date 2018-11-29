@@ -27,6 +27,7 @@ export class SingleProductComponent implements OnInit {
   cart:any;
   count:number = 1;
   cartEndpoint:any = 'api/shopping/add/';
+  chargesEndpoint:any = 'pricingCharges/fish/';
   priceValue:any;
   priceType:any;
   measurement:any;
@@ -51,6 +52,7 @@ export class SingleProductComponent implements OnInit {
   treatment:any;
   min:any;
   max:any;
+  charges:any;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
     
@@ -62,6 +64,7 @@ export class SingleProductComponent implements OnInit {
     })
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
+    this.getPricingCharges();
     this.getCart();
      this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
@@ -279,6 +282,19 @@ setFlexslider(){
   }
   getTotal(){
     let subtotal = this.count * this.priceValue;
-    return 'Total  $' + subtotal;
+    return 'Subtotal  $' + subtotal;
+  }
+
+  getPricingCharges(){
+    this.productService.getData(this.chargesEndpoint + this.productID).subscribe(res => {
+      console.log("Charges", res);
+      this.charges = res;
+    })
+
+  }
+
+  finallyPrice(){
+    let subtotal = this.count * this.priceValue;
+    return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFees'] ;
   }
 }
