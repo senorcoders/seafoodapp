@@ -448,7 +448,9 @@
 		"refuse":"refuse",
 		"click":"Click here ",
 		"noInfo":"Currently, there are no users awaiting approval. ",
-		"message":"to go back to the Administrative homepage"
+		"message":"to go back to the Administrative homepage",
+		"reason": "Reason",
+		"reasonType": "Type"
 	},
 	"Recent":{
 		"title":"pending shipment",
@@ -564,7 +566,7 @@
 		"uaeTaxes": "UAE Taxes (%)",
 		"handlingFess": "Handling Fess ( AED / KG )",
 		"customs": "Customs (%)",
-		"lastMileCost":  "Last Mile Cost ( AED / KG )",
+		"lastMileCost":  "Last Mile Cost ( AED )",
 		"updateButton": "Update (%)",
 		"date": "Updated At",
 		"type": "Type",

@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import {
+  ReactiveFormsModule,
+  FormsModule,
+  FormGroup,
+  FormControl,
+  Validators,
+  FormBuilder
+} from '@angular/forms';
 declare var jQuery:any;
 @Component({
   selector: 'app-verify-user',
@@ -9,15 +17,31 @@ declare var jQuery:any;
 })
 export class VerifyUserComponent implements OnInit {
 	users:any;
+	selectedUser:string;
 	showLoading:boolean=true;
 	isInfo:boolean=false;
   showPopup:boolean=false;
-  singleUser:any;
+	singleUser:any;
+	deniedUser: FormGroup;
+	denialType: FormControl;
+	denialMessage: FormControl;
   constructor(private auth:AuthenticationService, private toast:ToastrService) { }
 
   ngOnInit() {
-  	this.getPendingUsers()
-  }
+		this.getPendingUsers();
+		this.createForm();
+	}
+	
+	createForm(){
+    this.denialMessage = new FormControl('', Validators.required);
+    this.denialType = new FormControl('', Validators.required);
+    
+    this.deniedUser = new FormGroup({      
+      denialType: this.denialType,
+      denialMessage: this.denialMessage
+    });
+	}
+	
   getPendingUsers(){
   	this.auth.getData('user?where={"status":""}').subscribe(
   		result=>{
@@ -50,18 +74,25 @@ export class VerifyUserComponent implements OnInit {
   		}
   	)
   }
-  refuse(id){
-	this.auth.acceptUser(`user/status/${id}/denied`).subscribe(
+  refuse(){
+
+		this.auth.deniedUser(`user/status/${this.selectedUser}/denied`, this.deniedUser.value ).subscribe(
 	  		result=>{
 				this.toast.success('User has been refuse', 'Well Done', { positionClass: "toast-top-right" })
 	  			this.getPendingUsers();
+					jQuery("#deniedUser").modal('hide');
 	  		},
 	  		e=>{
 				this.toast.error('Something wrong happened, Please try again', 'Error', { positionClass: "toast-top-right" })
 	  			console.log(e)
 	  		}
   	)
+	}
+	showConfirmModal(user_id:string){
+		this.selectedUser= user_id;    
+    jQuery('#deniedUser').modal('show');
   }
+
   popUp(i){
     this.singleUser=this.users[i];
     jQuery("#popUp").modal('show');

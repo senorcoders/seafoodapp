@@ -70,6 +70,9 @@ export class AuthenticationService {
   acceptUser(endpoint){
     return this.http.put(API+endpoint, httpOptions)
   }
+  deniedUser(endpoint, data){
+    return this.http.put(API+endpoint, data, httpOptions)
+  }
   editUser(endpoint,role){
     let data={
       role:role
