@@ -13,8 +13,10 @@
 		    			<h2 class="name">
 			    			{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}
 			    		</h2>
-		    			<div class="date">{{dates[i]}}</div>
-		    			<a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>
+						<div class="date">  {{item.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}} </div>
+						<!--<div class="date">  {{ dates[i]} </div>-->
+						<a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>
+						<div class="status" *ngIf="item.status">  {{item.status.status}} </div>
 		    		</div>
 		    		<div class="col-lg-2 col-md-4 col-sm-5 btn-cont">
 		    			<a routerLink="/order-purchase/{{item.id}}" class="pink-btn">{{'Recent.view' | translate}}</a>

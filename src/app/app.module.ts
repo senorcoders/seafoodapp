@@ -78,6 +78,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
+import { OrderService } from './services/orders.service';
 import { ThanksComponent } from './thanks/thanks.component';
 import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
 
@@ -221,7 +222,8 @@ const appRoutes: Routes=[
     OrdersService,
     ShippingRatesService,
     CountriesService,
-    PricingChargesService   // {
+    PricingChargesService,
+    OrderService   // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
     //   multi: true,
