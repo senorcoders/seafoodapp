@@ -51,18 +51,10 @@ export class PricingChargesComponent implements OnInit {
   }
 
   createForm(){
-    /*this.uaeTaxes  = new FormControl('', Validators.required);
-    this.handlingFees      = new FormControl('', Validators.required);
-    this.customs         = new FormControl('', Validators.required);
-    this.lastMileCost               = new FormControl('Kilo', Validators.required);*/
     this.price = new FormControl('', Validators.required);
     this.type = new FormControl('', Validators.required);
     
     this.myform = new FormGroup({      
-      /*uaeTaxes:       this.uaeTaxes,
-      handlingFees:   this.handlingFees,
-      customs:        this.customs,
-      lastMileCost:   this.lastMileCost*/
       type: this.type,
       price: this.price
     });
