@@ -60,7 +60,23 @@ export class OrderPurchaseComponent implements OnInit {
   			console.log(e)
   		}
   	)
-  }
+	}
+	
+	cancelOrder(){
+		let status = {
+			"id": this.itemId,
+			"status": "Seller Cancelled Order"
+		}
+		this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( res => {
+			console.log(res);
+			this.toast.success('Order Canceled','Well Done',{positionClass:"toast-top-right"})
+			this.showButton=false;
+
+		},
+		e=>{
+			this.toast.error('Something wrong happened, please try again','Error',{positionClass:"toast-top-right"})
+		})
+	}
   setShipped(){
   	this.productS.setShippedProduct('api/itemshopping/status/'+this.itemId).subscribe(
   		result=>{

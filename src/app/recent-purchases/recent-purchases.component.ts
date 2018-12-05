@@ -46,6 +46,7 @@ export class RecentPurchasesComponent implements OnInit {
   getPurchases(){
   	this.productS.getData('api/store/fish/paid/'+this.storeID).subscribe(
   		result=>{
+        console.log(result);
   			if(result && result!=''){
 				this.items = result;
 				this.showLoading = false;

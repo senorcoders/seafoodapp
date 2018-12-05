@@ -293,8 +293,8 @@ setFlexslider(){
 
   }
 
-  // finallyPrice(){
-  //   let subtotal = this.count * this.priceValue;
-  //   return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFees'] ;
-  // }
+  finallyPrice(){
+    let subtotal = this.count * this.priceValue;
+    return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFees'] ;
+  }
 }
