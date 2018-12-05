@@ -571,5 +571,9 @@
 		"date": "Updated At",
 		"type": "Type",
 		"price": "Price"
+	},
+	"FulsfillsOrders": {
+		"title": "Seller Fulfills Orders",
+		"formTitle": ""
 	}
 }

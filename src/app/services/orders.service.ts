@@ -12,6 +12,10 @@ export class OrderService {
 
   constructor( private http: HttpClient ) { }
 
+  getSellerFulfillsOrders(){
+    return this.http.get(`${API}itemshopping/status/5c017af047fb07027943a405`)
+  }
+
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');

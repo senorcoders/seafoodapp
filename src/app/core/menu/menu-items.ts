@@ -44,6 +44,22 @@ const menuAdmin=[
   }
 },
 {
+  state: 'orders',
+  type: 'sub',
+  children:[
+    {state:'seller-fulfills-orders', name:'Seller Fulfills Orders', translate:{en:{name:'Seller Fulfills Orders'},ar:{name:'Seller Fulfills Orders'}}},
+    {state:'orders-shipped', name:'Orders Shipped',translate:{en:{name:'Orders Shipped'},ar:{name:'Orders Shipped'}}}    
+  ],
+  translate:{
+    en:{
+      name:'Orders'
+    },
+    ar:{
+      name:'Orders'
+    }
+  }
+},
+{
   state:'products',
   type: 'link',
   translate:{

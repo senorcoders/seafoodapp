@@ -81,6 +81,8 @@ import { PricingChargesService } from './services/pricing-charges.service';
 import { OrderService } from './services/orders.service';
 import { ThanksComponent } from './thanks/thanks.component';
 import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
+import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
+import { AdminOrdersShippedComponent } from './admin-orders-shipped/admin-orders-shipped.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -128,6 +130,8 @@ const appRoutes: Routes=[
   {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]},
   {path:'shipping-rates', component:ShippingRatesComponent, canActivate:[AdminRouterService]},
   {path:'pricing-charges', component:PricingChargesComponent, canActivate:[AdminRouterService]},
+  {path:'orders-shipped', component:AdminOrdersShippedComponent, canActivate:[AdminRouterService]},
+  {path:'seller-fulfills-orders', component:AdminOrdersComponent, canActivate:[AdminRouterService]},
   {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
   {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
   {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]}
@@ -188,7 +192,9 @@ const appRoutes: Routes=[
     CheckoutComponent,
     ConfirmationComponent,
     ThanksComponent,
-    PricingChargesComponent
+    PricingChargesComponent,
+    AdminOrdersComponent,
+    AdminOrdersShippedComponent
   ],
   imports: [
     BrowserModule,
