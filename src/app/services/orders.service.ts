@@ -12,6 +12,12 @@ export class OrderService {
 
   constructor( private http: HttpClient ) { }
 
+  updateCart( id:string, data:any ){
+    return this.http.put(`${API}shoppingcart/${id}`, data, httpOptions)
+    
+  }
+
+
   getSellerFulfillsOrders(){
     return this.http.get(`${API}itemshopping/status/5c017af047fb07027943a405`)
   }

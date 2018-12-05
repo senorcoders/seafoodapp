@@ -7,6 +7,7 @@ import { CartService } from '../core/cart/cart.service';
 import {Router} from '@angular/router';
 import { OrdersService } from '../core/orders/orders.service';
 import { environment } from '../../environments/environment';
+import { OrderService } from '../services/orders.service';
 
 @Component({
   selector: 'app-cart',
@@ -24,9 +25,27 @@ export class CartComponent implements OnInit {
   API:any = environment.apiURLImg;
   countries:any = environment.countries;
   shipping:any =  0;
+  cart:any;
+  /******** Other fees ***********/
+  lastMilteCost = 0;
+  sfsMargin = 0;
+  uaeTaxes = 0;
+  customs=  0;
+  firstMileCost = 0;
+  handlingFees=0;
+
+  totalCustoms;
+  totalSFSMargin= 0;
+  totalUAETaxes=0;
+  totalFirstMileCost=0;
+  totalLastMileCost=0;
+  totalOtherFees= 0;
+  totalHandlingFees=0;
+  /******** END Other fees ***********/
+  otherFees:number = 0;
   totalWithShipping:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService) { }
+    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService, private cartService:OrderService) { }
 
   ngOnInit() {
     this.getCart();
@@ -36,10 +55,17 @@ export class CartComponent implements OnInit {
     this.Cart.cart.subscribe((cart:any)=>{
       console.log(cart)
       if(cart && cart['items'] !=''){
+        this.cart = cart;
         this.shoppingCartId=cart['id']
         this.products=cart['items'];
         this.total=cart['total'];
         this.buyerId=cart['buyer']
+        this.lastMilteCost = cart['lastMileCost'];
+        this.firstMileCost = cart['firstMileCosts'];
+        this.sfsMargin = cart['sfsMargin'];
+        this.uaeTaxes = cart['uaeTaxes'];
+        this.customs = cart['customs'];
+
         this.empty=false;
         this.showLoading=false;
         this.getShippingTotal();
@@ -53,14 +79,55 @@ export class CartComponent implements OnInit {
   }
 
   getShippingTotal(){
+    this.shipping = 0;
+
+    
+    this.totalHandlingFees = 0;
     this.products.forEach(p => {
-      console.log(p['shippingCost']);
+      console.log( 'hand ' + this.cart.handlingFees );
       this.shipping += (p['shippingCost'] * p['quantity']['value']);
+      this.totalHandlingFees += ( this.cart.handlingFees * p['quantity']['value']);
+      this.totalSFSMargin += ( ( p['fish']['type']['sfsMargin'] / 100 ) *  p['quantity']['value']) ;
+      this.totalFirstMileCost += p['owner']['firstMileCost'] ;
+      
+
     });
+    
   }
 
+  
+
   getTotal(){
-    this.totalWithShipping = (this.shipping + this.total);
+    this.totalOtherFees = 0;
+
+    this.totalCustoms = (this.total * ( this.customs / 100 + 1 ) ) ;
+    this.totalUAETaxes = (this.total * ( this.uaeTaxes / 100 + 1 ) );
+    //this.totalFirstMileCost = this.cart;
+    //this.totalLastMileCost = 0;
+    
+    this.totalOtherFees = this.totalCustoms + this.totalUAETaxes + this.totalHandlingFees + this.totalLastMileCost + this.totalSFSMargin + this.totalFirstMileCost ;// + this.totalFirstMileCost + + +  ;
+    this.totalWithShipping = ( this.totalOtherFees + this.shipping + this.total );
+
+    this.cartService.updateCart( this.shoppingCartId, 
+      { 
+        "shipping": this.shipping,
+        "totalOtherFees": this.totalOtherFees,
+        "total": this.total
+      } 
+      ).subscribe(
+      result => {
+        console.log( "Shipping Updated" )
+        console.log( 'total Customs '+this.totalCustoms); 
+        console.log( 'total uaeTaxes '+this.uaeTaxes); 
+        console.log( 'total Last Mile '+this.totalLastMileCost); 
+        console.log( 'total first Mile '+this.firstMileCost); 
+        console.log( 'total handling fees '+this.totalHandlingFees); 
+        console.log( 'total SFSMArgin fees '+this.totalSFSMargin); 
+      },
+      error => {
+        console.error( error );
+      }
+    )
   }
 
   getItems(){
