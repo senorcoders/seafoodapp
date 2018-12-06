@@ -83,6 +83,8 @@ import { ThanksComponent } from './thanks/thanks.component';
 import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { AdminOrdersShippedComponent } from './admin-orders-shipped/admin-orders-shipped.component';
+import { ProductManagmentComponent } from './product-managment/product-managment.component';
+import { PendingProductsComponent } from './pending-products/pending-products.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -134,7 +136,8 @@ const appRoutes: Routes=[
   {path:'seller-fulfills-orders', component:AdminOrdersComponent, canActivate:[AdminRouterService]},
   {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
   {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
-  {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]}
+  {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]},
+  {path:'pending-products', component:PendingProductsComponent, canActivate:[AdminRouterService]}
 
 
 ]
@@ -194,7 +197,9 @@ const appRoutes: Routes=[
     ThanksComponent,
     PricingChargesComponent,
     AdminOrdersComponent,
-    AdminOrdersShippedComponent
+    AdminOrdersShippedComponent,
+    ProductManagmentComponent,
+    PendingProductsComponent
   ],
   imports: [
     BrowserModule,

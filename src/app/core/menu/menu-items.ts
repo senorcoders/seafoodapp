@@ -14,18 +14,6 @@ export interface Menu {
 }
 const menuAdmin=[
 {
-  state:'comments',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Comment'
-    },
-    ar:{
-      name:'Comment'
-    }
-  }
-},
-{
   state:'users',
   type: 'sub',
   children:[
@@ -60,40 +48,92 @@ const menuAdmin=[
   }
 },
 {
-  state:'products',
-  type: 'link',
+  state: 'admin-changes',
+  type: 'sub',
   translate:{
     en:{
-      name:'Products'
+      name:'Admin Changes'
     },
     ar:{
-      name:'Products'
+      name:'Admin Changes'
     }
-  }
-},
-{
-  state:'shipping-rates',
-  type: 'link',
-  translate:{
-    en:{
-      name:'Shipping'
+  },
+  children: [
+    {
+      state:'comments',
+      type: 'link',
+      translate:{
+        en:{
+          name:'Comment'
+        },
+        ar:{
+          name:'Comment'
+        }
+      }
     },
-    ar:{
-      name:'Shipping'
-    }
-  }
+    {
+      state:'shipping-rates',
+      type: 'link',
+      translate:{
+        en:{
+          name:'Shipping'
+        },
+        ar:{
+          name:'Shipping'
+        }
+      }
+    },
+    {
+      state: 'pricing-charges',
+      type: 'link',
+      translate: {
+        en:{
+          name: "Pricing Charges"
+        },
+        ar: {
+          name: "Pricing Charges"
+        }
+      }
+    },
+  ]
 },
 {
-  state: 'pricing-charges',
-  type: 'link',
+  state: 'product-managment',
+  type: 'sub',
   translate: {
-    en:{
-      name: "Pricing Charges"
+    en: {
+      name: 'Product Managment'
     },
-    ar: {
-      name: "Pricing Charges"
+    es: {
+      name: 'Product Managment'
     }
-  }
+  },
+  children: [ 
+    {
+      state:'products',
+      type: 'link',
+      translate:{
+        en:{
+          name:'Browse Products'
+        },
+        ar:{
+          name:'Browse Products'
+        }
+      }
+    },
+    {
+      state:'pending-products',
+      type: 'link',
+      translate:{
+        en:{
+          name:'Pending Approval'
+        },
+        ar:{
+          name:'Pending Approval'
+        }
+      }
+    },
+  ]
 },
 {
   state:'fish-type',
