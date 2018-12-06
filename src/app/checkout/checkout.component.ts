@@ -30,6 +30,7 @@ export class CheckoutComponent implements OnInit {
   randomID:any;
   products:any = [];
   total:any;
+  totalOtherFees:number;
   shipping:any;
   totalWithShipping:any;
   showShippingFields:boolean = false;
@@ -47,8 +48,8 @@ export class CheckoutComponent implements OnInit {
       this.generateSignature();
       this.getCart();
       this.getPersonalData();
-      this.shipping = localStorage.getItem('shippingCost');
-      this.totalWithShipping = localStorage.getItem('shoppingTotal');
+      //this.shipping = localStorage.getItem('shippingCost');
+      
     })
   }
   getPersonalData(){
@@ -58,7 +59,10 @@ export class CheckoutComponent implements OnInit {
     this.Cart.cart.subscribe((cart:any)=>{
       if(cart && cart['items'] !=''){
         this.products=cart['items'];
-        this.total=cart['total'];      
+        this.total=cart['total'];
+        this.shipping=cart['shipping']
+        this.totalOtherFees=cart['totalOtherFees']
+        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
       }
       
     })

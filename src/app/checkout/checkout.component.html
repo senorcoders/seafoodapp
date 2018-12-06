@@ -125,19 +125,23 @@
               </tr>
               <tr *ngFor="let product of products; index as i;">
                 <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
-                <td>${{getTotalxItem(product.quantity.value, product.price.value)}}</td>
+                <td>{{getTotalxItem(product.quantity.value, product.price.value)}} AED</td>
               </tr>
               <tr>
                 <td><b>Subtotal</b></td>
-                <td><b>${{total}}</b></td>
+                <td><b>{{total}} AED</b></td>
               </tr>
               <tr>
                 <td><b>Shipping</b></td>
-                <td><b>${{shipping}}</b></td>
+                <td><b>{{shipping}} AED</b></td>
+              </tr>
+              <tr>
+                <td><b>Taxes, Customs and Other Fees</b></td>
+                <td><b>{{totalOtherFees}} AED</b></td>
               </tr>
               <tr>
                 <td><b>Total</b></td>
-                <td><b>${{totalWithShipping}}</b></td>
+                <td><b>{{totalWithShipping}} AED</b></td>
               </tr>
               
             </table>
