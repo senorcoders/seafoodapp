@@ -25,6 +25,9 @@ export class ProductService {
     return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
+  getPendingProducts(){
+    return this.http.get( `${API}api/fish/pending` );
+  }
   generateSKU( store:string, category:string, subcategory:string, country_code:string ){
     let data = {
       store_code: store,
@@ -41,9 +44,13 @@ export class ProductService {
   }
 
   patchData(endpoint, data){
-    return this.http.patch(`${API}${endpoint}`, data, httpOptions);
-
+    return this.http.patch(`${API}${endpoint}`, data, httpOptions);    
   }
+
+  patchStatus(id, status){
+    return this.http.put( `${API}api/fish/${id}/status/${status}/`, {}, httpOptions )
+  }
+
   setShippedProduct(endpoint){
     return this.http.put(`${API}${endpoint}`, httpOptions);
   }

@@ -575,5 +575,8 @@
 	"FulsfillsOrders": {
 		"title": "Seller Fulfills Orders",
 		"formTitle": ""
+	},
+	"PendingOrders":{
+		"title": "Pending Products"
 	}
 }

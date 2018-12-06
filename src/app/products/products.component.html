@@ -115,7 +115,7 @@
                 </a>
                 <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
                 <p class="single-kg-price">
-                  <span>AED {{product.price.value}} / {{product.weight.type}}</span> 
+                  <span>AED {{product.price.value}} / {{product.weight.type}} </span> 
                   <span class="sellers-price">Sellers Price</span>
                    <input type="number" class="single-price"  [(ngModel)]="product.minimumOrder" (blur)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
                   <span class="single-calc">

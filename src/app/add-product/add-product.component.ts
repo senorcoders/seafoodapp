@@ -178,7 +178,8 @@ export class AddProductComponent implements OnInit {
         "preparation": this.preparation.value,
         "treatment": this.treatment.value,
         "seller_sku": this.seller_sku.value,
-        "seafood_sku": this.seafood_sku.value
+        "seafood_sku": this.seafood_sku.value,
+        "status": '5c0866e4a0eda00b94acbdc0'
 
       }
       this.product.saveData('fish', data).subscribe(result => {
