@@ -62,6 +62,7 @@ const menuAdmin=[
     {
       state:'comments',
       type: 'link',
+      name: 'Comments',
       translate:{
         en:{
           name:'Comment'
@@ -74,6 +75,7 @@ const menuAdmin=[
     {
       state:'shipping-rates',
       type: 'link',
+      name: 'Shipping',
       translate:{
         en:{
           name:'Shipping'
@@ -86,6 +88,7 @@ const menuAdmin=[
     {
       state: 'pricing-charges',
       type: 'link',
+      name: 'Pricing charges',
       translate: {
         en:{
           name: "Pricing Charges"
@@ -100,6 +103,7 @@ const menuAdmin=[
 {
   state: 'product-managment',
   type: 'sub',
+  name: 'Product Managment',
   translate: {
     en: {
       name: 'Product Managment'
@@ -112,6 +116,7 @@ const menuAdmin=[
     {
       state:'products',
       type: 'link',
+      name: 'Browse Products',
       translate:{
         en:{
           name:'Browse Products'
@@ -124,6 +129,7 @@ const menuAdmin=[
     {
       state:'pending-products',
       type: 'link',
+      name: 'Pending Approval',
       translate:{
         en:{
           name:'Pending Approval'

@@ -47,8 +47,8 @@ export class ProductService {
     return this.http.patch(`${API}${endpoint}`, data, httpOptions);    
   }
 
-  patchStatus(id, status){
-    return this.http.put( `${API}api/fish/${id}/status/${status}/`, {}, httpOptions )
+  patchStatus(id, status, message ){
+    return this.http.put( `${API}api/fish/${id}/status/${status}/`, message, httpOptions )
   }
 
   setShippedProduct(endpoint){

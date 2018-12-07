@@ -16,12 +16,41 @@
         <span class="storeName"><b>Store: </b>{{pendingProduct.store.name}}</span>
         <span class="storeLocation"><b>Location: </b>{{pendingProduct.store.location}}</span>          
         <span class="price"><b>Price: </b>{{pendingProduct.price.value}} AED</span>
-        <button class="button red-btn denied" (click)="approveProduct(pendingProduct.id)">Denied</button>
+        <button class="button red-btn denied" (click)="showDeniedModal(pendingProduct.id)">Denied</button>
         <button class="button red-btn approved" (click)="approveProduct(pendingProduct.id)">Approve</button>
       </div>
-      
-      
     </div>
   </div>
-	
+</div>
+
+<div class="modal fade" id="deniedProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Denie Products</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<!--<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>-->
+						<hr class="black-line">	
+						<form novalidate [formGroup]="deniedProductGroup" class="form-design">											
+
+							<div class="form-group" >
+								<label>{{'VerifyUser.reason' | translate}}</label>
+								<textarea class="form-control" formControlName="denialMessage"></textarea>							
+							</div>
+
+
+
+							<button type="button" (click)="deniedProduct()" class="button red-btn approved">Save</button>
+						</form>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

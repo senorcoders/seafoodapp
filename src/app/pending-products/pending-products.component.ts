@@ -13,6 +13,7 @@ import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-pending-products',
@@ -21,11 +22,24 @@ import { environment } from '../../environments/environment';
 })
 export class PendingProductsComponent implements OnInit {
   pendingProducts:any =[];
+  selectedProductID:any;
+  deniedProductGroup: FormGroup;
+	denialMessage: FormControl;
+  
   constructor(private toast: ToastrService, private productService: ProductService) { }
 
   ngOnInit() {
     this.getPendingProducts();
+    this.createForm();
   }
+
+  createForm(){
+    this.denialMessage = new FormControl('', Validators.required);    
+    
+    this.deniedProductGroup = new FormGroup({            
+      denialMessage: this.denialMessage
+    });
+	}
 
   getPendingProducts(){
     this.productService.getPendingProducts().subscribe(
@@ -38,7 +52,7 @@ export class PendingProductsComponent implements OnInit {
     )
   }
   approveProduct( productID:string ){
-    this.productService.patchStatus( productID, '5c0866f9a0eda00b94acbdc2')
+    this.productService.patchStatus( productID, '5c0866f9a0eda00b94acbdc2', { message: '' } )
     .subscribe(
       result => {
         this.getPendingProducts();
@@ -50,17 +64,24 @@ export class PendingProductsComponent implements OnInit {
       }
     )
   }
-  deniedProduct( productID:string ){
-    this.productService.patchStatus( productID, '5c0866f2a0eda00b94acbdc1' )
+  deniedProduct(){
+    let productID = this.selectedProductID;
+    let message =   this.deniedProductGroup.value.denialMessage;
+    
+    this.productService.patchStatus( productID, '5c0866f2a0eda00b94acbdc1', { message: message } )
     .subscribe(
       result => {
         this.getPendingProducts();
         this.toast.success("Product Denied Successfully!",'Well Done',{positionClass:"toast-top-right"})
+        jQuery('#deniedProducts').modal('hide');
       },
-      error => {
-        this.getPendingProducts();
+      error => {        
         this.toast.error("Something wrong happened, please try again", "Error",{positionClass:"toast-top-right"} );
       }
     )
+  }
+  showDeniedModal(productID:string){
+		this.selectedProductID= productID;    
+    jQuery('#deniedProducts').modal('show');
   }
 }
