@@ -27,7 +27,7 @@ export class SingleProductComponent implements OnInit {
   cart:any;
   count:number = 1;
   cartEndpoint:any = 'api/shopping/add/';
-  chargesEndpoint:any = 'pricingCharges/fish/';
+  chargesEndpoint:any = 'api/fish/';
   priceValue:any;
   priceType:any;
   measurement:any;
@@ -53,6 +53,7 @@ export class SingleProductComponent implements OnInit {
   min:any;
   max:any;
   charges:any;
+  showTaxes:boolean=false;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
     
@@ -64,7 +65,6 @@ export class SingleProductComponent implements OnInit {
     })
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
-    this.getPricingCharges();
     this.getCart();
      this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
@@ -132,6 +132,7 @@ setFlexslider(){
       }
       this.max = data['maximumOrder'];
       this.count = this.min;
+      this.getPricingCharges();
       this.name = data['name'];
       this.description = data['description'];
       if(data['images']){
@@ -190,14 +191,14 @@ setFlexslider(){
   increaseCount(){
     if(this.count < this.max){
       this.count++;
+      this.getPricingCharges()
     }
   }
 
   dicreaseCount(){
-    console.log(this.count);
     if(this.count > this.min){
       this.count--;
-
+      this.getPricingCharges()
     }
 
   }
@@ -286,15 +287,16 @@ setFlexslider(){
   }
 
   getPricingCharges(){
-    this.productService.getData(this.chargesEndpoint + this.productID).subscribe(res => {
+    this.productService.getData(this.chargesEndpoint + this.productID+'/charges/'+this.count).subscribe(res => {
       console.log("Charges", res);
       this.charges = res;
+      this.showTaxes=true
     })
 
   }
 
   finallyPrice(){
     let subtotal = this.count * this.priceValue;
-    return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFees'] ;
+    return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFee'] +this.charges['shippingFee'];
   }
 }
