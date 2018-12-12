@@ -4,6 +4,7 @@ import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { CartService } from '../core/cart/cart.service';
+import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 @Component({
   selector: 'app-checkout',
@@ -36,10 +37,10 @@ export class CheckoutComponent implements OnInit {
   showShippingFields:boolean = false;
   check:boolean = false;
   info:any;
- 
+  buyerId:string;
 
 
-  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService) { }
+  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService, private orders:OrderService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -56,14 +57,30 @@ export class CheckoutComponent implements OnInit {
     this.info = this.auth.getLoginData();
   }
   getCart(){
-    this.Cart.cart.subscribe((cart:any)=>{
-      if(cart && cart['items'] !=''){
-        this.products=cart['items'];
-        this.total=cart['total'];
-        this.shipping=cart['shipping']
-        this.totalOtherFees=cart['totalOtherFees']
-        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
-      }
+    
+      
+      this.Cart.cart.subscribe((cart:any)=>{
+        if(cart && cart['items'] !=''){
+          this.products=cart['items'];
+          /*this.total=cart['total'];
+          this.shipping=cart['shipping']
+          this.totalOtherFees=cart['totalOtherFees']*/
+          this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
+          this.buyerId=cart['buyer']
+
+          this.orders.getCart( this.buyerId )
+          .subscribe(
+            res=> {
+              this.total= res['subTotal'];
+              this.shipping = res['shipping'];
+              this.totalOtherFees = res['totalOtherFees'];
+              this.totalWithShipping = res['total'];
+            },
+            error=> {
+              console.log( error );
+            }
+            )
+        }
       
     })
   }

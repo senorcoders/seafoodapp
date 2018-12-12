@@ -12,6 +12,10 @@ export class OrderService {
 
   constructor( private http: HttpClient ) { }
 
+  getCart( buyer:string ){
+    return this.http.post(`${API}shoppingcart`, { buyer: buyer })
+  }
+
   updateCart( id:string, data:any ){
     return this.http.put(`${API}shoppingcart/${id}`, data, httpOptions)
     

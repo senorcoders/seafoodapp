@@ -34,7 +34,8 @@
 		    		<div class="col-lg-2 col-md-4 col-sm-5 btn-cont">
 						<a class="pink-btn" *ngIf="showButton" (click)="cancelOrder()">Cancel order</a>
 						<br><br>
-		    			<a routerLink="/tracking-code/{{itemId}}" class="pink-btn" *ngIf="item.status.id == '5c017ae247fb07027943a404'">{{'OrderPurchase.shipped' | translate}}</a>
+						<a class="pink-btn" *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="confirmOrder()">{{'OrderPurchase.confirmOrder' | translate}}</a>
+		    			<a routerLink="/tracking-code/{{itemId}}" class="pink-btn" *ngIf="item.status.id == '5c017af047fb07027943a405'">{{'OrderPurchase.shipped' | translate}}</a>
 		    		</div>
 		    	</div>
 			</div>

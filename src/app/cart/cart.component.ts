@@ -80,27 +80,51 @@ export class CartComponent implements OnInit {
 
   getShippingTotal(){
     this.shipping = 0;
-
     
-    this.totalHandlingFees = 0;
+    this.cartService.getCart( this.buyerId )
+    .subscribe(
+      res=> {
+        this.total= res['subTotal'];
+        this.shipping = res['shipping'];
+        this.totalOtherFees = res['totalOtherFees'];
+        this.totalWithShipping = res['total'];
+      },
+      error=> {
+        console.log( error );
+      }
+    )
+
+    console.log( 'calculate shipping', this.products );
+    /*this.totalHandlingFees = 0;
     this.products.forEach(p => {
       console.log( 'hand ' + this.cart.handlingFees );
-      this.shipping += (p['shippingCost'] * p['quantity']['value']);
-      this.totalHandlingFees += ( this.cart.handlingFees * p['quantity']['value']);
-      this.totalSFSMargin += ( ( p['fish']['type']['sfsMargin'] / 100 ) *  p['quantity']['value']) ;
-      this.totalFirstMileCost += p['owner']['firstMileCost'] ;
-      
+      this.shipping += p['fishCharges']['shippingCost']['cost']; //(p['shippingCost'] * p['quantity']['value']);
+      this.totalHandlingFees += p['fishCharges']['handlingFee']; //( this.cart.handlingFees * p['quantity']['value']);
+      this.totalSFSMargin += p['fishCharges']['sfsMarginCost'];//( ( p['fish']['type']['sfsMargin'] / 100 ) *  p['quantity']['value']) ;      
+      this.totalCustoms += p['fishCharges']['customsFee'];
 
-    });
+    });*/
     
   }
 
   
 
   getTotal(){
-    this.totalOtherFees = 0;
+    this.cartService.getCart( this.buyerId )
+    .subscribe(
+      res=> {
+        this.total= res['subTotal'];
+        this.shipping = res['shipping'];
+        this.totalOtherFees = res['totalOtherFees'];
+        this.totalWithShipping = res['total'];
+      },
+      error=> {
+        console.log( error );
+      }
+    )
+    /*this.totalOtherFees = 0;
 
-    this.totalCustoms = (this.total * ( this.customs / 100 + 1 ) ) ;
+    //this.totalCustoms = (this.total * ( this.customs / 100 + 1 ) ) ;
     this.totalUAETaxes = (this.total * ( this.uaeTaxes / 100 + 1 ) );
     //this.totalFirstMileCost = this.cart;
     //this.totalLastMileCost = 0;
@@ -127,7 +151,7 @@ export class CartComponent implements OnInit {
       error => {
         console.error( error );
       }
-    )
+    )*/
   }
 
   getItems(){
@@ -136,6 +160,7 @@ export class CartComponent implements OnInit {
     }
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
       this.Cart.setCart(result)
+      console.log(' calcular totales', result );
       this.toast.success("Cart updated!",'Well Done',{positionClass:"toast-top-right"})
     },e=>{console.log(e)})
   }

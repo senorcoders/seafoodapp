@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
+import { PricingChargesService } from '../services/pricing-charges.service';
 declare var jQuery:any;
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
@@ -54,7 +55,7 @@ export class SingleProductComponent implements OnInit {
   max:any;
   charges:any;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
-  private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer) { 
+  private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer, private pricingServices: PricingChargesService) { 
     
 }
 
@@ -64,7 +65,7 @@ export class SingleProductComponent implements OnInit {
     })
     this.productID= this.route.snapshot.params['id'];
     this.getProductDetail(); 
-    this.getPricingCharges();
+    
     this.getCart();
      this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
@@ -128,7 +129,7 @@ setFlexslider(){
         this.min = 1;
       }else{
         this.min = data['minimumOrder'];
-
+        this.count = this.min;
       }
       this.max = data['maximumOrder'];
       this.count = this.min;
@@ -173,6 +174,7 @@ setFlexslider(){
       else{
         this.logo="../../assets/seafood-souq-seller-logo-default.png";
       }
+      this.getPricingCharges();
       this.getReview();
       this.setFlexslider();
   }, error=>{
@@ -190,6 +192,7 @@ setFlexslider(){
   increaseCount(){
     if(this.count < this.max){
       this.count++;
+      this.getPricingCharges();
     }
   }
 
@@ -197,7 +200,7 @@ setFlexslider(){
     console.log(this.count);
     if(this.count > this.min){
       this.count--;
-
+      this.getPricingCharges();
     }
 
   }
@@ -286,15 +289,33 @@ setFlexslider(){
   }
 
   getPricingCharges(){
-    this.productService.getData(this.chargesEndpoint + this.productID).subscribe(res => {
+    this.pricingServices.getPricingChargesByWeight( this.productID, this.count )
+    .subscribe( 
+      res => {
+        console.log("Charges", res);  
+        this.charges = res;
+      },
+      error => {
+        console.log( error );
+      }
+    )
+
+    /*this.productService.getData(this.chargesEndpoint + this.productID).subscribe(res => {
       console.log("Charges", res);
       this.charges = res;
-    })
+    })*/
 
   }
 
   finallyPrice(){
     let subtotal = this.count * this.priceValue;
-    return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFees'] ;
+    return subtotal + 
+    this.charges['firstMileCost'] +
+    this.charges['shippingFee'] +
+    this.charges['lastMileCost'] +
+    this.charges['sfsMargin'] +
+    this.charges['uaeTaxes'] +
+    this.charges['customs'] +
+    this.charges['handlingFee'] ;
   }
 }
