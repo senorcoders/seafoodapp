@@ -292,8 +292,8 @@ setFlexslider(){
     this.pricingServices.getPricingChargesByWeight( this.productID, this.count )
     .subscribe( 
       res => {
-        console.log("Charges", res);  
         this.charges = res;
+        this.showTaxes=true;
       },
       error => {
         console.log( error );
