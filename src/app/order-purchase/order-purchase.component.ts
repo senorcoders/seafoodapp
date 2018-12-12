@@ -78,10 +78,8 @@ export class OrderPurchaseComponent implements OnInit {
 		})
 	}
 	confirmOrder(){
-		let status = {
-			"status": '5c017af047fb07027943a405'
-		}
-		this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( 
+		
+		this.productS.updateData('api/itemshopping/' + this.itemId + '/5c017af047fb07027943a405', {}).subscribe( 
 			res => {
 				console.log(res);
 				this.toast.success('Order Confirmed','Well Done',{positionClass:"toast-top-right"})
