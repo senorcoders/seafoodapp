@@ -66,14 +66,16 @@
               </div>
             </div>
             <p class="charges-p" [innerHTML]="getTotal()"></p>
-            <p class="charges-p">First Mile Shipping ${{charges.firstMileCost}}</p>
-            <p class="charges-p">Air Cargo Fee ${{charges.shippingFee}}</p>
-            <p class="charges-p">Last Mile Shipping ${{charges.lastMileCost}}</p>
-            <p class="charges-p">SFS Margin ${{charges.sfsMargin}}</p>
-            <p class="charges-p">Taxes ${{charges.uaeTaxes}}</p>
-            <p class="charges-p">Customs ${{charges.customs}}</p>
-            <p class="charges-p">Handling Fess ${{charges.handlingFee}}</p>
-            <p class="total-calc">Total ${{finallyPrice()}}</p>
+            <div *ngIf="showTaxes">
+              <p class="charges-p">First Mile Shipping ${{charges.firstMileCost}}</p>
+              <p class="charges-p">Air Cargo Fee ${{charges.shippingFee}}</p>
+              <p class="charges-p">Last Mile Shipping ${{charges.lastMileCost}}</p>
+              <p class="charges-p">SFS Margin ${{charges.sfsMargin}}</p>
+              <p class="charges-p">Taxes ${{charges.uaeTaxes}}</p>
+              <p class="charges-p">Customs ${{charges.customs}}</p>
+              <p class="charges-p">Handling Fess ${{charges.handlingFee}}</p>
+              <p class="total-calc">Total ${{finallyPrice()}}</p>
+            </div>
             <button (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-red btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </form>
