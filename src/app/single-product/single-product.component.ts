@@ -309,14 +309,15 @@ setFlexslider(){
 
   finallyPrice(){
     let subtotal = this.count * this.priceValue;
-    return subtotal + 
+    let total = subtotal + 
     this.charges['firstMileCost'] +
     this.charges['shippingFee'] +
     this.charges['lastMileCost'] +
-    this.charges['sfsMargin'] +
-    this.charges['uaeTaxes'] +
-    this.charges['customs'] +
+    this.charges['sfsMarginCost'] +
+    this.charges['uaeTaxesFee'] +
+    this.charges['customsFee'] +
     this.charges['handlingFee'] ;
+    return Number(parseFloat(total).toFixed(2)); 
     //return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFee'] +this.charges['shippingFee'];
   }
 }

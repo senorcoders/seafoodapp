@@ -49,6 +49,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.getCart();
+    this.getItems()
   }
 
   getCart(){
@@ -68,7 +69,7 @@ export class CartComponent implements OnInit {
 
         this.empty=false;
         this.showLoading=false;
-        this.getShippingTotal();
+        
         this.getTotal();
       }
       else{
@@ -78,36 +79,6 @@ export class CartComponent implements OnInit {
     })
   }
 
-  getShippingTotal(){
-    this.shipping = 0;
-    
-    this.cartService.getCart( this.buyerId )
-    .subscribe(
-      res=> {
-        this.total= res['subTotal'];
-        this.shipping = res['shipping'];
-        this.totalOtherFees = res['totalOtherFees'];
-        this.totalWithShipping = res['total'];
-      },
-      error=> {
-        console.log( error );
-      }
-    )
-
-    console.log( 'calculate shipping', this.products );
-    /*this.totalHandlingFees = 0;
-    this.products.forEach(p => {
-      console.log( 'hand ' + this.cart.handlingFees );
-      this.shipping += p['fishCharges']['shippingCost']['cost']; //(p['shippingCost'] * p['quantity']['value']);
-      this.totalHandlingFees += p['fishCharges']['handlingFee']; //( this.cart.handlingFees * p['quantity']['value']);
-      this.totalSFSMargin += p['fishCharges']['sfsMarginCost'];//( ( p['fish']['type']['sfsMargin'] / 100 ) *  p['quantity']['value']) ;      
-      this.totalCustoms += p['fishCharges']['customsFee'];
-
-    });*/
-    
-  }
-
-  
 
   getTotal(){
     this.cartService.getCart( this.buyerId )
@@ -115,43 +86,14 @@ export class CartComponent implements OnInit {
       res=> {
         this.total= res['subTotal'];
         this.shipping = res['shipping'];
-        this.totalOtherFees = res['totalOtherFees'];
+        this.totalOtherFees = res['totalOtherFees']+res['uaeTaxes'];
         this.totalWithShipping = res['total'];
       },
       error=> {
         console.log( error );
       }
     )
-    /*this.totalOtherFees = 0;
-
-    //this.totalCustoms = (this.total * ( this.customs / 100 + 1 ) ) ;
-    this.totalUAETaxes = (this.total * ( this.uaeTaxes / 100 + 1 ) );
-    //this.totalFirstMileCost = this.cart;
-    //this.totalLastMileCost = 0;
     
-    this.totalOtherFees = this.totalCustoms + this.totalUAETaxes + this.totalHandlingFees + this.totalLastMileCost + this.totalSFSMargin + this.totalFirstMileCost ;// + this.totalFirstMileCost + + +  ;
-    this.totalWithShipping = ( this.totalOtherFees + this.shipping + this.total );
-
-    this.cartService.updateCart( this.shoppingCartId, 
-      { 
-        "shipping": this.shipping,
-        "totalOtherFees": this.totalOtherFees,
-        "total": this.total
-      } 
-      ).subscribe(
-      result => {
-        console.log( "Shipping Updated" )
-        console.log( 'total Customs '+this.totalCustoms); 
-        console.log( 'total uaeTaxes '+this.uaeTaxes); 
-        console.log( 'total Last Mile '+this.totalLastMileCost); 
-        console.log( 'total first Mile '+this.firstMileCost); 
-        console.log( 'total handling fees '+this.totalHandlingFees); 
-        console.log( 'total SFSMArgin fees '+this.totalSFSMargin); 
-      },
-      error => {
-        console.error( error );
-      }
-    )*/
   }
 
   getItems(){
@@ -161,7 +103,6 @@ export class CartComponent implements OnInit {
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
       this.Cart.setCart(result)
       console.log(' calcular totales', result );
-      this.toast.success("Cart updated!",'Well Done',{positionClass:"toast-top-right"})
     },e=>{console.log(e)})
   }
 
@@ -206,34 +147,6 @@ export class CartComponent implements OnInit {
     })
   }
   checkout(){
-    // let date= new Date();
-    // let data={
-    //   status:'paid',
-    //   paidDateTime: date.toISOString()
-    // }
-    // this.productService.updateData(`api/shoppingcart/${this.shoppingCartId}`,data).subscribe(
-    //   result=>{
-    //      let cart={
-    //       "buyer": this.buyerId
-    //     }
-    //     this.orders.setOrders(true)
-    //     this.productService.saveData("shoppingcart", cart).subscribe(
-    //       result => {
-    //       //set the new cart value
-    //       this.Cart.setCart(result)
-    //       this.router.navigate(['/orders'])
-    //       },
-    //       e=>{
-    //         console.log(e)
-    //       }
-    //     )
-    //   },
-    //   e=>{
-    //     this.toast.error("Error, Try again!", "Error",{positionClass:"toast-top-right"} );
-    //     this.orders.setOrders(false)
-    //     console.log(e)
-    //   }
-    // )
     localStorage.setItem('shippingCost', this.shipping);
     localStorage.setItem('shoppingTotal', this.totalWithShipping);
     localStorage.setItem('shoppingCartId', this.shoppingCartId);

@@ -73,7 +73,7 @@ export class CheckoutComponent implements OnInit {
             res=> {
               this.total= res['subTotal'];
               this.shipping = res['shipping'];
-              this.totalOtherFees = res['totalOtherFees'];
+              this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
             },
             error=> {
