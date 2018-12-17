@@ -575,7 +575,8 @@
 	},
 	"FulsfillsOrders": {
 		"title": "Seller Fulfills Orders",
-		"formTitle": ""
+		"formTitle": "",
+		"shipped": "Marks as Shipped"
 	},
 	"PendingOrders":{
 		"title": "Pending Products"

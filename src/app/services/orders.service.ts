@@ -23,7 +23,11 @@ export class OrderService {
 
 
   getSellerFulfillsOrders(){
-    return this.http.get(`${API}itemshopping/status/5c017af047fb07027943a405`)
+    return this.http.get(`${API}itemshopping/status/5c13f453d827ce28632af048`)
+  }
+
+  markItemAsShipped( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} )
   }
 
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ){

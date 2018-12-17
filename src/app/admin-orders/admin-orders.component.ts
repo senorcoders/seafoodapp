@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { OrderService  } from '../services/orders.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 
@@ -10,10 +11,28 @@ import { environment } from '../../environments/environment';
 })
 export class AdminOrdersComponent implements OnInit {
   items:any
-  constructor( private toast:ToastrService, private orderService:OrderService ) { }
+  itemId:any;
+	fullfillForm:FormGroup;
+  constructor( private fb:FormBuilder, private toast:ToastrService, private orderService:OrderService ) { }
 
   ngOnInit() {
     this.getItems();
+    this.fullfillForm=this.fb.group({})
+  }
+
+  fullfillSubmit(itemid){
+    
+    this.orderService.markItemAsShipped(itemid)
+    .subscribe(
+      result => {
+        console.log( result );
+        this.showSuccess( "Item marked as shipped" );
+        this.getItems();
+      },
+      error => {
+        console.log( error );
+      }
+    )  
   }
 
   getItems(){
