@@ -573,8 +573,10 @@ smallDesc(str) {
         if(category != ''){
           var row = document.getElementById('products-container');
           var cards = row.querySelectorAll('.category-'+ category);
+          console.log( 'cards', cards );
           for (var index = 0; index < cards.length; index++) {
               var classes = cards[index].className.split(" ");
+              console.log( 'classes', classes );
               this.products[classes[6]].minimumOrder = weight;
               this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
@@ -656,14 +658,16 @@ smallDesc(str) {
 
 
     getShippingRates(weight, country, id, price){
-      this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
+      //this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
+      this.productService.getData( `api/fish/${id}/charges/${weight}` ).subscribe(result=> {
           //console.log(result);
           var card = document.getElementById('product-' + id);
           var box = card.getElementsByClassName('single-kg-box')[0];
           var prices = card.getElementsByClassName('hidden-prices');
           var deliveredPice = document.getElementById('product-' + id + '-delivered');
           var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-          var priceT = (weight * price) + result['price'];
+          var priceT:any =  result['finalPrice'] / weight; //(weight * price) + result['price'];
+          priceT = Number(parseFloat( priceT ).toFixed(2)).toString();
           //console.log(priceT);
           (box as HTMLElement).style.display = 'block';
           for (var index = 0; index < prices.length; index++) {
@@ -673,7 +677,7 @@ smallDesc(str) {
           deliveredPice.innerHTML = result['message'];
           deliveredPiceTotal.innerHTML = "";
         }else{
-          deliveredPice.innerHTML = result['type'] + ' '+ priceT + " / kg";
+          deliveredPice.innerHTML = 'AED '+ priceT + " / kg";
           deliveredPiceTotal.innerHTML = 'Delivered Price';
         }
        
