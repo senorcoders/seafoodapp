@@ -54,6 +54,7 @@ export class SingleProductComponent implements OnInit {
   min:any;
   max:any;
   charges:any;
+  cooming_soon:string;
   showTaxes:boolean=false;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer, private pricingServices: PricingChargesService) { 
@@ -79,6 +80,8 @@ export class SingleProductComponent implements OnInit {
   verifyQty(){
     if(this.count > this.max){
       this.count = this.max;
+    }else{
+      this.getPricingCharges();
     }
   }
 getFavorite(){
@@ -131,6 +134,7 @@ setFlexslider(){
         this.min = data['minimumOrder'];
         this.count = this.min;
       }
+      this.cooming_soon = data['cooming_soon'];
       this.max = data['maximumOrder'];
       this.count = this.min;
       this.getPricingCharges();

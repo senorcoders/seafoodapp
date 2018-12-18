@@ -101,15 +101,18 @@ input::-webkit-inner-spin-button {
     margin-left: 5px;
 }
 .qty{
-    width: 1.5em;
+    width: 70px;
     border: none;
-    text-align: center;
+    text-align: right;
     background: transparent;
     margin-left: 5px;
     font-size: 1rem;
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
     letter-spacing: 2px;
+}
+.max-per-order span {
+    color: #868686;
 }
 .check-icon, .x-icon{
   list-style:none;

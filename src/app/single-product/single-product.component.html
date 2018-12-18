@@ -55,12 +55,15 @@
               <div class="col">
                 <div class="quantity">
                   <div class="qty-wrapper">
-                    <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (change)="verifyQty()">
+                    <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()">
                     <span>kg</span>
                   </div>
                   <div class="qty-btn">
                     <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
                     <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
+                  </div>
+                  <div class="max-per-order">
+                    <span>Maximum Order Weight {{max}} kg</span>                  
                   </div>
                 </div>
               </div>
@@ -76,7 +79,7 @@
               <p class="charges-p">Handling Fess ${{charges.handlingFee}}</p>
               <p class="total-calc">Total ${{charges.finalPrice}}</p>
             </div>
-            <button (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+            <button *ngIf="cooming_soon == 'false'" (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-red btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </form>
           <ng-template #login>

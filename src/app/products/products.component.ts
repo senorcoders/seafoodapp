@@ -39,6 +39,7 @@ export class ProductsComponent implements OnInit {
   allCountries=environment.countries;
   minPriceField:number = 0;
   maxPriceField:number = 35;
+  cooming_soon:string='';
   isClearButton:boolean = false;
   hideKg:boolean = true;
   initialKg:number = 5;
@@ -666,7 +667,7 @@ smallDesc(str) {
           var prices = card.getElementsByClassName('hidden-prices');
           var deliveredPice = document.getElementById('product-' + id + '-delivered');
           var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-          var priceT:any =  result['finalPrice'] / weight; //(weight * price) + result['price'];
+          var priceT:any =  result['finalPrice']; /// weight; //(weight * price) + result['price'];
           priceT = Number(parseFloat( priceT ).toFixed(2)).toString();
           //console.log(priceT);
           (box as HTMLElement).style.display = 'block';

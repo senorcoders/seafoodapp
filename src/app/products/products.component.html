@@ -114,20 +114,20 @@
                  </div>
                 </a>
                 <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
-                <p class="single-kg-price">
+                <p *ngIf="product.price.value" class="single-kg-price">
                   <span>AED {{product.price.value}} / {{product.weight.type}} </span> 
                   <span class="sellers-price">Sellers Price</span>
-                   <input type="number" class="single-price"  [(ngModel)]="product.minimumOrder" (blur)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
+                   <input type="number" (keyup.enter)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)"  class="single-price"  [(ngModel)]="product.minimumOrder" (blur)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
                   <span class="single-calc">
                     <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">+</button>
                     <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country, product.type.name, product.price.value)">-</button>
                   </span>
-                </p>
+                </p>                
                 <p class="hidden-prices blue" id="delivered-cont-{{product.id}}" style="display:none;">
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
                     <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
                 </p>
-                <button class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+                <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
               </div>
              
             </div>
