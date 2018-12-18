@@ -45,20 +45,57 @@
               </div>
             </div>
           </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': stock.invalid && (stock.dirty || stock.touched),'has-success': stock.valid && (stock.dirty || stock.touched)}">
+              <label>{{'AddProduct.stock' | translate}}</label>
+              <input class="form-control" formControlName="stock" type="number" required>
+              <div class="form-control-feedback" *ngIf="stock.errors && showError">
+                <p *ngIf="stock.errors.required">{{'AddProduct.stock' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': waterLostRate.invalid && (waterLostRate.dirty || waterLostRate.touched),'has-success': waterLostRate.valid && (waterLostRate.dirty || waterLostRate.touched)}">
+              <label>{{'AddProduct.waterLostRate' | translate}}</label>
+              <input class="form-control" formControlName="waterLostRate" type="number" required>
+              <div class="form-control-feedback" *ngIf="waterLostRate.errors && showError">
+                <p *ngIf="waterLostRate.errors.required">{{'AddProduct.waterLostRate' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+
         </div>        
         <div class="row">
+
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': types.invalid && (types.dirty || types.touched),'has-success': types.valid && (types.dirty || types.touched)}">
-              <label>{{'AddProduct.fish-types' | translate}}</label>
-              <select  (change)="generateSKU()" class="form-control" formControlName="types">
-                <option value="">{{'AddProduct.select' | translate}}</option>
-                <option *ngFor="let type of pTypes" [value]="type.id">{{type.name}}</option>
+            <div class="form-group">
+              <label>{{'AddProduct.parent-types' | translate}} </label>
+              <select formControlName="parentSelectedType" (change)="getSubcategories()" class="form-control">
+                <option v alue="">{{'AddProduct.select' | translate}}</option>
+                <option *ngFor="let type of parentTypes"  [value]="type.id" >{{type.name}}</option>
               </select>
               <div class="form-control-feedback" *ngIf="types.errors && showError">
                 <p *ngIf="types.errors.required">{{'AddProduct.fish-types' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
           </div>
+
+          <div class="col-lg-6">
+              <div class="form-group" [ngClass]="{'has-danger': types.invalid && (types.dirty || types.touched),'has-success': types.valid && (types.dirty || types.touched)}">
+                <label>{{'AddProduct.fish-types' | translate}}</label>
+                <select  (change)="generateSKU()" class="form-control" formControlName="types">
+                  <option value="">{{'AddProduct.select' | translate}}</option>
+                  <option *ngFor="let type of pTypes" [value]="type.id">{{type.name}}</option>
+                </select>
+                <div class="form-control-feedback" *ngIf="types.errors && showError">
+                  <p *ngIf="types.errors.required">{{'AddProduct.fish-types' | translate}} {{'AddProduct.required' | translate}}</p>
+                </div>
+              </div>
+            </div>
+
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
               <label>{{'AddProduct.seller_sku' | translate}}</label>
@@ -71,6 +108,17 @@
               <input type="hidden" class="form-control" formControlName="seafood_sku" disabled required>              
             </div>
           </div>  
+
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': mortalityRate.invalid && (mortalityRate.dirty || mortalityRate.touched),'has-success': mortalityRate.valid && (mortalityRate.dirty || mortalityRate.touched)}">
+              <label>{{'AddProduct.mortalityRate' | translate}}</label>
+              <input class="form-control" formControlName="mortalityRate" type="number" required>
+              <div class="form-control-feedback" *ngIf="mortalityRate.errors && showError">
+                <p *ngIf="mortalityRate.errors.required">{{'AddProduct.mortalityRate' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
         </div>
         <div class="row">
           <div class="col-lg-6">
@@ -101,13 +149,13 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label for="primary">{{'AddProduct.primary-image' | translate}}</label>
-              <input class="form-control" type="file" id="primary" multiple (change)="handleFileInput($event.target.files, 'primary' )" required>
+              <input class="form-control" type="file" id="primary" multiple (change)="handleFileInput($event.target.files, 'primary' )" >
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label for="file">{{'AddProduct.images' | translate}}</label>
-              <input class="form-control" type="file" id="file" multiple (change)="handleFileInput($event.target.files, 'secundary')" required>
+              <input class="form-control" type="file" id="file" multiple (change)="handleFileInput($event.target.files, 'secundary')" >
             </div>
           </div>
         </div>
@@ -173,7 +221,8 @@
                 <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>
+          </div>          
+
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
                 <label>{{'AddProduct.cooming_soon' | translate}}</label>

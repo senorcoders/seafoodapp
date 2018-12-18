@@ -133,7 +133,8 @@
 		"price":"Quantity per order",
 		"price-measurement":"Weight type per quantity",
 		"description":"Description",
-		"fish-types":"Fish Types",
+		"parent-types": "Parent Category",
+		"fish-types":"Subcategory",
 		"country":"Country",
 		"primary-image":"Choose Primary Image",
 		"images":"Addtional Gallery Images",
@@ -151,7 +152,10 @@
 		"cooming_soon": "Coming Soon",
 		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU",
-		"city": "City"
+		"city": "City",
+		"stock": "Available Stock",
+		"waterLostRate": "Water Lost Rate",
+		"mortalityRate": "Mortality Rate"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",

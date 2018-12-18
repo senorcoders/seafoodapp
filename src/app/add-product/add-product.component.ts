@@ -37,8 +37,10 @@ export class AddProductComponent implements OnInit {
   measurement: FormControl;
   description: FormControl;
   types: FormControl;
+  parentSelectedType: FormControl;
   base: string = environment.apiURLImg;
   pTypes: any = [];
+  parentTypes: any = [];
   country: FormControl;
   city: FormControl;
   raised: FormControl;
@@ -46,6 +48,9 @@ export class AddProductComponent implements OnInit {
   treatment: FormControl;
   seller_sku: FormControl;
   seafood_sku: FormControl;
+  stock: FormControl;
+  waterLostRate: FormControl;
+  mortalityRate: FormControl;
   fileToUpload: any = [];
   info: any;
   store: any = [];
@@ -67,17 +72,26 @@ export class AddProductComponent implements OnInit {
     this.createFormControls();
     this.createForm();
     this.getTypes();
+    this.getSubcategories();
     this.getMyData();
     this.getAllCities();
     this.getCountries();
   }
 
   getTypes() {
-    this.product.getAllCategoriesProducts().subscribe(result => {
+    //this.product.getAllCategoriesProducts().subscribe(result => {
+    this.product.getCategories().subscribe(result => {
+      console.log(result);
+      this.parentTypes = result;
+    })
+  }
+
+  getSubcategories() {    
+    console.log( 'parent Cat', this.parentSelectedType );
+    this.product.getSubCategories( this.parentSelectedType.value ).subscribe(result => {
       console.log(result);
       this.pTypes = result;
     })
-
   }
 
   getMyData() {
@@ -109,6 +123,10 @@ export class AddProductComponent implements OnInit {
     this.treatment = new FormControl('', Validators.required);
     this.seller_sku = new FormControl('', Validators.required);
     this.seafood_sku = new FormControl('', Validators.required);
+    this.stock = new FormControl('', Validators.required);
+    this.mortalityRate = new FormControl('', Validators.required );
+    this.waterLostRate = new FormControl('', Validators.required);
+    this.parentSelectedType = new FormControl('', Validators.required);
     this.city = new FormControl();
   }
 
@@ -128,18 +146,22 @@ export class AddProductComponent implements OnInit {
       preparation: this.preparation,
       treatment: this.treatment,
       seller_sku: this.seller_sku,
-      seafood_sku: this.seafood_sku
+      seafood_sku: this.seafood_sku,
+      stock: this.stock,
+      mortalityRate: this.mortalityRate,
+      waterLostRate: this.waterLostRate,
+      parentSelectedType: this.parentSelectedType
     });
     this.myform.controls['measurement'].setValue('kg');
   }
   generateSKU() {
-    let parentType = '';
-    this.pTypes.forEach(row => {
+    let parentType = this.parentSelectedType.value;
+    /*this.pTypes.forEach(row => {
       if (row.id == this.types.value) {
         parentType = row.parentsTypes[0].parent.id;
 
       }
-    })
+    })*/
 
     this.product.generateSKU(this.store[0].id, parentType, this.types.value, this.country.value).subscribe(
       result => {
@@ -179,17 +201,21 @@ export class AddProductComponent implements OnInit {
         "treatment": this.treatment.value,
         "seller_sku": this.seller_sku.value,
         "seafood_sku": this.seafood_sku.value,
+        "stock": this.stock.value,
+        "mortalityRate": this.mortalityRate.value,
+        "waterLostRate": this.waterLostRate.value,
         "status": '5c0866e4a0eda00b94acbdc0'
 
       }
       this.product.saveData('fish', data).subscribe(result => {
-        if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
+        //if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
           this.showError = false
-          this.uploadFileToActivity(result['id']);
-        } else {
+          console.log( result );
+          this.uploadFileToActivity(result['product']['id']);
+        //} else {
           this.toast.success("Product added succesfully!", 'Well Done', { positionClass: "toast-top-right" })
-          this.showError = false;
-        }
+          //this.showError = false;
+        //}
 
       });
     } else {
@@ -216,15 +242,18 @@ export class AddProductComponent implements OnInit {
           console.log(error);
         });
     }
-    this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
-      // do something, if upload success
-      console.log("Data", data);
-      this.myform.reset();
-      this.toast.success("Product added succesfully!", 'Well Done', { positionClass: "toast-top-right" })
-
-    }, error => {
-      console.log(error);
-    });
+    if ( this.fileToUpload && this.fileToUpload.length > 0 ){
+      this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
+        // do something, if upload success
+        console.log("Data", data);
+        this.myform.reset();
+        this.toast.success("Product added succesfully!", 'Well Done', { positionClass: "toast-top-right" })
+  
+      }, error => {
+        console.log(error);
+      });
+    }
+    
 
   }
 
@@ -277,7 +306,10 @@ export class AddProductComponent implements OnInit {
         "Treatment": item.Treatment,
         "cooming_soon": item.cooming_soon,
         "seller_sku": item.seller_sku,
-        "seafood_sku": item.seafood_sku
+        "seafood_sku": item.seafood_sku,
+        "stock": item.stock,
+        "mortalityRate": item.mortalityRate,
+        "waterLostRate": item.waterLostRate,
       }
       this.productsToUpload.push(product);
       console.log(this.productsToUpload);

@@ -114,7 +114,7 @@ const menuAdmin=[
   },
   children: [ 
     {
-      state:'products',
+      state:'products/all/1',
       type: 'link',
       name: 'Browse Products',
       translate:{
