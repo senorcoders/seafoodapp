@@ -65,7 +65,7 @@ export class OrderPurchaseComponent implements OnInit {
 	cancelOrder(){
 		let status = {
 			"id": this.itemId,
-			"status": "Seller Cancelled Order"
+			"status": "5c06f4bf7650a503f4b731fd"
 		}
 		this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( res => {
 			console.log(res);

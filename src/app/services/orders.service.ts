@@ -30,6 +30,18 @@ export class OrderService {
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} )
   }
 
+  markItemAsDelivered( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b3c47fb07027943a409`, {} )
+  }
+
+  markItemAsOutForDelivery( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b2147fb07027943a408`, {} )
+  }
+
+  markItemAsArrived( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} )
+  }
+
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ){
     let httpOptionsForm:any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');

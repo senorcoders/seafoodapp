@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="black-title">{{'AdminOrdersShipped.title' | translate}}</h2>
+        <h2 class="black-title">{{'AdminOrderOutForDelivery.title' | translate}}</h2>
       </div>
     </div>
       <div class="row">
@@ -18,7 +18,7 @@
                   <p class="date" ><strong>Shipped on {{item.updatedAt | date: 'EEEE, MMMM d, y'}} </strong></p>
                 </div>
                 <div class="col col-button">
-                    <button (click)="markAsArrived(item.id)" class="btn-red-a">{{'AdminOrdersShipped.button' | translate}}</button>
+                    <button (click)="markAsDelivered(item.id)" class="btn-red-a">{{'AdminOrderOutForDelivery.button' | translate}}</button>
   
                 </div>
               </div>

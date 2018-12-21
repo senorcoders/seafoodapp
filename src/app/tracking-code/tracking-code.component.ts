@@ -53,6 +53,7 @@ export class TrackingCodeComponent implements OnInit {
     .subscribe(
       result => {
         console.log( result );
+        this.toast.success("Order marked as document fulfillment!",'Order Updated',{positionClass:"toast-top-right"});
       },
       error => {
         console.log( error );

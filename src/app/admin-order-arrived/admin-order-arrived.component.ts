@@ -5,22 +5,22 @@ import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-admin-orders-shipped',
-  templateUrl: './admin-orders-shipped.component.html',
-  styleUrls: ['./admin-orders-shipped.component.scss']
+  selector: 'app-admin-order-arrived',
+  templateUrl: './admin-order-arrived.component.html',
+  styleUrls: ['./admin-order-arrived.component.scss']
 })
-export class AdminOrdersShippedComponent implements OnInit {
+export class AdminOrderArrivedComponent implements OnInit {
 
   orders:any = [];
 
   constructor( private orderService:OrderService, private productService:ProductService, private toast:ToastrService, private auth:AuthenticationService ) { }
 
   ngOnInit() {
-    this.getOrdersShipped();
+    this.getOrdersArrived();
   }
 
-  getOrdersShipped(){
-  	this.productService.getData( 'itemshopping/status/5c017b0e47fb07027943a406' ).subscribe(
+  getOrdersArrived(){
+  	this.productService.getData( 'itemshopping/status/5c017b1447fb07027943a407' ).subscribe(
   		result=>{
         this.orders = result;
         
@@ -30,11 +30,11 @@ export class AdminOrdersShippedComponent implements OnInit {
   		}
   	)
   }
-  markAsArrived( itemID:string ){
-    this.orderService.markItemAsArrived( itemID ).subscribe(
+  markAsOutForDelivered( itemID:string ){
+    this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
       result => {        
-        this.toast.success("Item marked as Arrived!",'Status Change',{positionClass:"toast-top-right"});
-        this.getOrdersShipped();
+        this.toast.success("Item marked as out for delivery!",'Status Change',{positionClass:"toast-top-right"});
+        this.getOrdersArrived();
       },
       error => {
         console.log( error );

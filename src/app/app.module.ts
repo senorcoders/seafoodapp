@@ -85,6 +85,9 @@ import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { AdminOrdersShippedComponent } from './admin-orders-shipped/admin-orders-shipped.component';
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { PendingProductsComponent } from './pending-products/pending-products.component';
+import { AdminOrderOutDeliveryComponent } from './admin-order-out-delivery/admin-order-out-delivery.component';
+import { AdminOrderDeliveredComponent } from './admin-order-delivered/admin-order-delivered.component';
+import { AdminOrderArrivedComponent } from './admin-order-arrived/admin-order-arrived.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -133,7 +136,10 @@ const appRoutes: Routes=[
   {path:'shipping-rates', component:ShippingRatesComponent, canActivate:[AdminRouterService]},
   {path:'pricing-charges', component:PricingChargesComponent, canActivate:[AdminRouterService]},
   {path:'orders-shipped', component:AdminOrdersShippedComponent, canActivate:[AdminRouterService]},
+  {path:'orders-arrived', component:AdminOrderArrivedComponent, canActivate:[AdminRouterService]},
   {path:'seller-fulfills-orders', component:AdminOrdersComponent, canActivate:[AdminRouterService]},
+  {path:'orders-out-for-delivery', component:AdminOrderOutDeliveryComponent, canActivate:[AdminRouterService]},
+  {path:'orders-delivered', component:AdminOrderDeliveredComponent, canActivate:[AdminRouterService]},
   {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
   {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
   {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]},
@@ -199,7 +205,10 @@ const appRoutes: Routes=[
     AdminOrdersComponent,
     AdminOrdersShippedComponent,
     ProductManagmentComponent,
-    PendingProductsComponent
+    PendingProductsComponent,
+    AdminOrderOutDeliveryComponent,
+    AdminOrderDeliveredComponent,
+    AdminOrderArrivedComponent
   ],
   imports: [
     BrowserModule,

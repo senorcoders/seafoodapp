@@ -667,8 +667,9 @@ smallDesc(str) {
           var prices = card.getElementsByClassName('hidden-prices');
           var deliveredPice = document.getElementById('product-' + id + '-delivered');
           var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-          var priceT:any =  result['finalPrice']; /// weight; //(weight * price) + result['price'];
-          priceT = Number(parseFloat( priceT ).toFixed(2)).toString();
+          var priceTByWeight =  result['finalPrice'] / Number(parseFloat( weight ) );
+          var priceT:any = Number( priceTByWeight.toFixed(4)).toString(); // result['finalPrice']; /// weight; //(weight * price) + result['price'];
+          
           //console.log(priceT);
           (box as HTMLElement).style.display = 'block';
           for (var index = 0; index < prices.length; index++) {
