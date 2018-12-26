@@ -26,6 +26,10 @@ export class OrderService {
     return this.http.get(`${API}itemshopping/status/5c13f453d827ce28632af048`)
   }
 
+  getPayedItems(){
+    return this.http.get(`${API}itemshopping/payed`)
+  }
+
   markItemAsShipped( itemID:string ){
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} )
   }
@@ -39,6 +43,14 @@ export class OrderService {
   }
 
   markItemAsArrived( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} )
+  }
+
+  markItemAsRepayed( itemID:string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} )
+  }
+  
+  markItemAsRefounded( itemID:string ){
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} )
   }
 

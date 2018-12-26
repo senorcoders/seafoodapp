@@ -39,7 +39,8 @@ const menuAdmin=[
     {state:'orders-shipped', name:'Orders Shipped',translate:{en:{name:'Orders Shipped'},ar:{name:'Orders Shipped'}}},
     {state:'orders-arrived', name:'Orders Arrived',translate:{en:{name:'Orders Arrived'},ar:{name:'Orders Arrived'}}},
     {state:'orders-out-for-delivery', name:'Orders Out for Delivery', translate:{ en:{name:'Orders Out for Delivery'}, ar:{name:'Order Out for Delivery'} } },
-    {state:'orders-delivered', name:'Orders delivered', translate:{ en:{name:'Orders delivered'}, ar:{name:'Orders delivered'} }}
+    {state:'orders-delivered', name:'Orders delivered', translate:{ en:{name:'Orders delivered'}, ar:{name:'Orders delivered'} }},
+    {state:'payments', name:'Payments', translate:{ en:{name:'Payments'}, ar:{name:'Payments'} }}    
   ],
   translate:{
     en:{

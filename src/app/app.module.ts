@@ -88,6 +88,7 @@ import { PendingProductsComponent } from './pending-products/pending-products.co
 import { AdminOrderOutDeliveryComponent } from './admin-order-out-delivery/admin-order-out-delivery.component';
 import { AdminOrderDeliveredComponent } from './admin-order-delivered/admin-order-delivered.component';
 import { AdminOrderArrivedComponent } from './admin-order-arrived/admin-order-arrived.component';
+import { PaymentsComponent } from './payments/payments.component';
 
 const appRoutes: Routes=[
   {path:'', component:HomeComponent},
@@ -140,6 +141,7 @@ const appRoutes: Routes=[
   {path:'seller-fulfills-orders', component:AdminOrdersComponent, canActivate:[AdminRouterService]},
   {path:'orders-out-for-delivery', component:AdminOrderOutDeliveryComponent, canActivate:[AdminRouterService]},
   {path:'orders-delivered', component:AdminOrderDeliveredComponent, canActivate:[AdminRouterService]},
+  {path:'payments', component:PaymentsComponent, canActivate:[AdminRouterService]},
   {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
   {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
   {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]},
@@ -208,7 +210,8 @@ const appRoutes: Routes=[
     PendingProductsComponent,
     AdminOrderOutDeliveryComponent,
     AdminOrderDeliveredComponent,
-    AdminOrderArrivedComponent
+    AdminOrderArrivedComponent,
+    PaymentsComponent
   ],
   imports: [
     BrowserModule,

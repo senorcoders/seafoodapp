@@ -31,7 +31,7 @@ export class AdminOrderOutDeliveryComponent implements OnInit {
   	)
   }
   markAsDelivered( itemID:string ){
-    this.orderService.markItemAsArrived( itemID ).subscribe(
+    this.orderService.markItemAsDelivered( itemID ).subscribe(
       result => {        
         this.toast.success("Item marked as Delivered!",'Status Change',{positionClass:"toast-top-right"});
         this.getOrdersOutForDelivery();

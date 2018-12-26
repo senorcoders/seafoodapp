@@ -129,28 +129,28 @@
 	},
 	"AddProduct":{
 		"title":"Add Product",
-		"name":"Name",
-		"price":"Quantity per order",
+		"name":"Product Title",
+		"price":"Price/KG in DHS",
 		"price-measurement":"Weight type per quantity",
 		"description":"Description",
-		"parent-types": "Parent Category",
-		"fish-types":"Subcategory",
-		"country":"Country",
-		"primary-image":"Choose Primary Image",
-		"images":"Addtional Gallery Images",
+		"parent-types": "Select Main Category",
+		"fish-types":"Select Sub Category",
+		"country":"Country of Origin",
+		"primary-image":"Product Primary image*",
+		"images":"Secondary images",
 		"submit":"Submit",
 		"select":"Please select a Fish type",
 		"required":"is required",
 		"create":"Hey, You need to create a store before creating any products. Click",
 		"here":"here",
 		"store":"and create your own store!",
-		"minimun": "Mininum Order",
+		"minimun": "Minimum Order",
 		"maximum": "Maximum Order",
 		"raised": "Raised",
 		"preparation": "Preparation",
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
-		"seller_sku": "SKU",
+		"seller_sku": "Seller SKU",
 		"seafood_sku": "Seafood Souq SKU",
 		"city": "City",
 		"stock": "Available Stock",
@@ -459,6 +459,7 @@
 	"Recent":{
 		"title":"pending shipment",
 		"title2":"Purchases Shipped",
+		"title3":"Pending Admin to check Fulfills Images",
 		"buyer":"Buyer Name",
 		"date":"Date Purchased",
 		"product":"My products to deliver",
@@ -584,5 +585,22 @@
 	},
 	"PendingOrders":{
 		"title": "Pending Products"
+	},
+	"AdminOrdersShipped":{
+		"title": "Orders Shippeds",
+		"button": "Mark as Arrived"
+	},
+	"AdminOrdersArrived": {
+		"title": "Orders Arrived",
+		"button": "Mark as Out for Delivery"
+	},
+	"AdminOrderOutForDelivery":{
+		"title": "Orders Delivered",
+		"button": "Mark as Delivered"
+	},
+	"Payments": {
+		"title": "Payments",
+		"PaymentButton": "Mark as Repaid",
+		"RefoundButton": "Mark as Refounded"
 	}
 }
