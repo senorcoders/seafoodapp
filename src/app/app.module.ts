@@ -1,19 +1,19 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {Routes,RouterModule} from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import {AuthenticationService} from './services/authentication.service';
-import {ProductService} from './services/product.service';
+import { AuthenticationService } from './services/authentication.service';
+import { ProductService } from './services/product.service';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './register/register.component';
 import { MenuItems } from './core/menu/menu-items';
-import {MenuNavComponent} from './core/menu/menu-nav.component';
-import {FooterComponent} from './core/footer/footer.component';
+import { MenuNavComponent } from './core/menu/menu-nav.component';
+import { FooterComponent } from './core/footer/footer.component';
 import { HomeComponent } from './home/home.component';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { IsLoginService } from './core/login/is-login.service';
@@ -28,15 +28,15 @@ import { FishComponent } from './fish/fish.component';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AccountComponent } from './account/account.component';
-import {SellerRouterService} from './services/seller-router.service';
-import {BuyerRouterService} from './services/buyer-router.service';
-import {RouterProtectionService} from './services/router-protection.service';
-import {AdminRouterService} from './services/admin-router.service';
+import { SellerRouterService } from './services/seller-router.service';
+import { BuyerRouterService } from './services/buyer-router.service';
+import { RouterProtectionService } from './services/router-protection.service';
+import { AdminRouterService } from './services/admin-router.service';
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
 import { Http, HttpModule } from '@angular/http';
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
-import { TranslateModule,TranslateLoader, TranslateStaticLoader  } from 'ng2-translate';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
 import { SingleStoreComponent } from './single-store/single-store.component';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
@@ -53,7 +53,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrdersItemsComponent } from './orders-items/orders-items.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
-import { BarRatingModule } from "ngx-bar-rating";
+import { BarRatingModule } from 'ngx-bar-rating';
 import { VerifyUserComponent } from './verify-user/verify-user.component';
 import { RecentPurchasesComponent } from './recent-purchases/recent-purchases.component';
 import { OrderPurchaseComponent } from './order-purchase/order-purchase.component';
@@ -89,66 +89,72 @@ import { AdminOrderOutDeliveryComponent } from './admin-order-out-delivery/admin
 import { AdminOrderDeliveredComponent } from './admin-order-delivered/admin-order-delivered.component';
 import { AdminOrderArrivedComponent } from './admin-order-arrived/admin-order-arrived.component';
 import { PaymentsComponent } from './payments/payments.component';
+import { RepaymentsComponent } from './repayments/repayments.component';
+import { RefundsComponent } from './refunds/refunds.component';
+import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 
-const appRoutes: Routes=[
-  {path:'', component:HomeComponent},
-  {path:'home', redirectTo: '/'},
-  {path:'register', component:RegisterComponent},
-  {path:'login', component:LoginComponent},
-  {path:'add-product', component:AddProductComponent, canActivate:[SellerRouterService]},
-  {path:'fish-type/:category/:page', component:ArchiveProductsComponent, canActivate:[BuyerRouterService]},
-  {path:'search/:search/:page', component:SearchComponent, canActivate:[BuyerRouterService]},
-  {path:'product/:id', component:SingleProductComponent},
-  {path:'fish-type', component:FishComponent, canActivate:[AdminRouterService]},
-  {path:'edit-product/:id', component:EditProductComponent, canActivate:[SellerRouterService]},
-  {path:'account', component:AccountComponent, canActivate:[RouterProtectionService]},
-  {path:'my-products', component:MyProductsComponent, canActivate:[SellerRouterService]},
-  {path:'cart', component:CartComponent, canActivate:[RouterProtectionService]},
-  {path:'verification/:userid/:id', component:ConfirmationEmailComponent},
-  {path:'store/:id', component:SingleStoreComponent},
-  {path:'featured-products', component:FeaturedProductsComponent, canActivate:[AdminRouterService]},
-  {path:'featured-seller', component:FeaturedSellerComponent, canActivate:[AdminRouterService]},
-  {path:'featured-types', component:FeaturedTypesComponent, canActivate:[AdminRouterService]},
-  {path:'fish-types-menu', component:FishTypeMenuComponent, canActivate:[AdminRouterService]},
-  {path:'admin', component:AdministratorComponent, canActivate:[AdminRouterService]},
-  {path:'favorites', component:FavoritesComponent, canActivate:[BuyerRouterService]},
-  {path: 'tracking', component:TrackingComponent},
-  {path: 'products/:query/:page', component:ProductsComponent, canActivate:[RouterProtectionService]},
-  {path:'seller', component:SellerComponent, canActivate:[AdminRouterService]},
-  {path:'buyer', component:BuyerComponent, canActivate:[AdminRouterService]},
-  {path:'orders', component:OrdersComponent, canActivate:[RouterProtectionService]},
-  {path:'orders-items/:id', component:OrdersItemsComponent, canActivate:[RouterProtectionService]},
-  {path:'comments', component:CommentsComponent, canActivate:[AdminRouterService]},
-  {path:'recovery-password/:code', component:RecoveryPasswordComponent},
-  {path:'verify-users', component:VerifyUserComponent, canActivate:[AdminRouterService]},
-  {path:'recent-purchases', component:RecentPurchasesComponent, canActivate:[SellerRouterService]},
-  {path:'order-purchase/:item', component:OrderPurchaseComponent, canActivate:[SellerRouterService]},
-  {path:'chart', component:ChartComponent, canActivate:[AdminRouterService]},
-  {path:'documents', component:DocumentsComponent, canActivate:[RouterProtectionService]},
-  {path:'tracking-code/:item', component:TrackingCodeComponent, canActivate:[RouterProtectionService]},
-  {path:'browse', component:BrowseComponent},
-  {path:'sfspay', component:SfsPayComponent},
-  {path:'help', component:HelpComponent},
-  {path:'contact-us', component:ContactUsComponent},
-  {path:'guides', component:GuidesComponent},
-  {path:'terms-conditions', component:TermsConditionsComponent},
-  {path:'about-us', component:AboutComponent},
-  {path:'advanced-search', component:AdvancedSearchComponent, canActivate:[BuyerRouterService]},
-  {path:'shipping-rates', component:ShippingRatesComponent, canActivate:[AdminRouterService]},
-  {path:'pricing-charges', component:PricingChargesComponent, canActivate:[AdminRouterService]},
-  {path:'orders-shipped', component:AdminOrdersShippedComponent, canActivate:[AdminRouterService]},
-  {path:'orders-arrived', component:AdminOrderArrivedComponent, canActivate:[AdminRouterService]},
-  {path:'seller-fulfills-orders', component:AdminOrdersComponent, canActivate:[AdminRouterService]},
-  {path:'orders-out-for-delivery', component:AdminOrderOutDeliveryComponent, canActivate:[AdminRouterService]},
-  {path:'orders-delivered', component:AdminOrderDeliveredComponent, canActivate:[AdminRouterService]},
-  {path:'payments', component:PaymentsComponent, canActivate:[AdminRouterService]},
-  {path:'checkout', component:CheckoutComponent, canActivate:[BuyerRouterService]},
-  {path:'confirmation', component:ConfirmationComponent, canActivate:[BuyerRouterService]},
-  {path:'thanks', component:ThanksComponent, canActivate:[BuyerRouterService]},
-  {path:'pending-products', component:PendingProductsComponent, canActivate:[AdminRouterService]}
+const appRoutes: Routes = [
+  { path: '', component: HomeComponent },
+  { path: 'home', redirectTo: '/' },
+  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
+  { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
+  { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
+  { path: 'product/:id', component: SingleProductComponent },
+  { path: 'fish-type', component: FishComponent, canActivate: [AdminRouterService] },
+  { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
+  { path: 'account', component: AccountComponent, canActivate: [RouterProtectionService] },
+  { path: 'my-products', component: MyProductsComponent, canActivate: [SellerRouterService] },
+  { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
+  { path: 'verification/:userid/:id', component: ConfirmationEmailComponent },
+  { path: 'store/:id', component: SingleStoreComponent },
+  { path: 'featured-products', component: FeaturedProductsComponent, canActivate: [AdminRouterService] },
+  { path: 'featured-seller', component: FeaturedSellerComponent, canActivate: [AdminRouterService] },
+  { path: 'featured-types', component: FeaturedTypesComponent, canActivate: [AdminRouterService] },
+  { path: 'fish-types-menu', component: FishTypeMenuComponent, canActivate: [AdminRouterService] },
+  { path: 'admin', component: AdministratorComponent, canActivate: [AdminRouterService] },
+  { path: 'favorites', component: FavoritesComponent, canActivate: [BuyerRouterService] },
+  { path: 'tracking', component: TrackingComponent },
+  { path: 'products/:query/:page', component: ProductsComponent, canActivate: [RouterProtectionService] },
+  { path: 'seller', component: SellerComponent, canActivate: [AdminRouterService] },
+  { path: 'buyer', component: BuyerComponent, canActivate: [AdminRouterService] },
+  { path: 'orders', component: OrdersComponent, canActivate: [RouterProtectionService] },
+  { path: 'orders-items/:id', component: OrdersItemsComponent, canActivate: [RouterProtectionService] },
+  { path: 'comments', component: CommentsComponent, canActivate: [AdminRouterService] },
+  { path: 'recovery-password/:code', component: RecoveryPasswordComponent },
+  { path: 'verify-users', component: VerifyUserComponent, canActivate: [AdminRouterService] },
+  { path: 'recent-purchases', component: RecentPurchasesComponent, canActivate: [SellerRouterService] },
+  { path: 'order-purchase/:item', component: OrderPurchaseComponent, canActivate: [SellerRouterService] },
+  { path: 'chart', component: ChartComponent, canActivate: [AdminRouterService] },
+  { path: 'documents', component: DocumentsComponent, canActivate: [RouterProtectionService] },
+  { path: 'tracking-code/:item', component: TrackingCodeComponent, canActivate: [RouterProtectionService] },
+  { path: 'browse', component: BrowseComponent },
+  { path: 'sfspay', component: SfsPayComponent },
+  { path: 'help', component: HelpComponent },
+  { path: 'contact-us', component: ContactUsComponent },
+  { path: 'guides', component: GuidesComponent },
+  { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: 'about-us', component: AboutComponent },
+  { path: 'advanced-search', component: AdvancedSearchComponent, canActivate: [BuyerRouterService] },
+  { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
+  { path: 'pricing-charges', component: PricingChargesComponent, canActivate: [AdminRouterService] },
+  { path: 'orders-shipped', component: AdminOrdersShippedComponent, canActivate: [AdminRouterService] },
+  { path: 'orders-arrived', component: AdminOrderArrivedComponent, canActivate: [AdminRouterService] },
+  { path: 'seller-fulfills-orders', component: AdminOrdersComponent, canActivate: [AdminRouterService] },
+  { path: 'orders-out-for-delivery', component: AdminOrderOutDeliveryComponent, canActivate: [AdminRouterService] },
+  { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
+  { path: 'payments', component: PaymentsComponent, canActivate: [AdminRouterService] },
+  { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
+  { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
+  { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
+  { path: 'checkout', component: CheckoutComponent, canActivate: [BuyerRouterService] },
+  { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
+  { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
+  { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] }
 
 
-]
+];
 
 @NgModule({
   declarations: [
@@ -211,28 +217,31 @@ const appRoutes: Routes=[
     AdminOrderOutDeliveryComponent,
     AdminOrderDeliveredComponent,
     AdminOrderArrivedComponent,
-    PaymentsComponent
+    PaymentsComponent,
+    RepaymentsComponent,
+    RefundsComponent,
+    RefundCasesComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
-    HttpClientModule, 
+    HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     FileUploadModule,
     TranslateModule.forRoot({
       provide: TranslateLoader,
-      useFactory: function(http: Http){ return new TranslateStaticLoader(http, '/assets/i18n', '.json') },
+      useFactory: function (http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json'); },
       deps: [Http]
-    }),  
+    }),
     NgxSmartModalModule.forRoot(),
     BarRatingModule
   ],
   providers: [
-    AuthenticationService, 
+    AuthenticationService,
     MenuItems,
     IsLoginService,
     ProductService,

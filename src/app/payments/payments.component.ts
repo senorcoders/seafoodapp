@@ -11,53 +11,58 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class PaymentsComponent implements OnInit {
 
-  orders:any = [];
+  orders: any = [];
 
-  constructor( private orderService:OrderService, private productService:ProductService, private toast:ToastrService, private auth:AuthenticationService ) { }
+  constructor(
+    private orderService: OrderService,
+    private productService: ProductService,
+    private toast: ToastrService,
+    private auth: AuthenticationService ) { }
 
   ngOnInit() {
     this.getPayments();
   }
 
-  getPayments(){
+  getPayments() {
   	this.orderService.getPayedItems().subscribe(
-  		result=>{
+  		result => {
         this.orders = result;
-        
+
   		},
-  		e=>{
-  			console.log(e)
+  		e => {
+  			console.log(e);
   		}
-  	)
+  	);
   }
-  markAsRepayed( itemID:string ){
+  markAsRepayed( itemID: string ) {
     this.orderService.markItemAsRepayed( itemID ).subscribe(
-      result => {        
-        this.toast.success("Item marked as out for delivery!",'Status Change',{positionClass:"toast-top-right"});
+      result => {
+        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
         this.getPayments();
       },
       error => {
         console.log( error );
       }
-    )
+    );
   }
-  markAsRefunded( itemID:string ){
+  markAsRefunded( itemID: string ) {
     this.orderService.markItemAsRefounded( itemID ).subscribe(
-      result => {        
-        this.toast.success("Item marked as out for delivery!",'Status Change',{positionClass:"toast-top-right"});
+      result => {
+        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
         this.getPayments();
       },
       error => {
         console.log( error );
       }
-    )
+    );
   }
 
-  isCancelled( status:string ){
-    if (status == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c')
+  isCancelled( status: string ) {
+    if (status === '5c06f4bf7650a503f4b731fd' || status === '5c017b5a47fb07027943a40c') {
       return true;
-    else
+    } else {
       return false;
+    }
   }
 
 }

@@ -1,0 +1,26 @@
+<div class="bg">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="black-title">{{'Refunds.title' | translate}}</h2>
+      </div>
+    </div>
+      <div class="row">
+       
+        <div class="col-12">
+            <div class="col-12 table-design">
+              <div class="row row-bg" *ngFor="let item of orders  ;let i=index ">
+                <div class="col-9">
+                  <p class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
+                  <h5 [innerHtml]="item.fish.name"></h5>                
+                  <span class="store">{{item.store.name}}</span>               
+                  <p class="qty">Quantity {{item.quantity.value}} kg</p>                
+                  <p class="date" ><strong>Refunded on {{item.updatedAt | date: 'EEEE, MMMM d, y'}} </strong></p>
+                </div>            
+              </div>
+            </div>
+          </div>
+        </div>
+      
+  </div>
+  </div>

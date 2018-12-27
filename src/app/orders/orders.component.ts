@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../services/product.service';
+import { ProductService } from '../services/product.service';
 import { CartService } from '../core/cart/cart.service';
-import {AuthenticationService} from '../services/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { environment } from '../../environments/environment.prod';
 @Component({
   selector: 'app-orders',
@@ -9,90 +9,89 @@ import { environment } from '../../environments/environment.prod';
   styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
-	//buyer:string;
-	userData:any;
-	shoppingCarts:any=[];
-	showLoading:boolean=true;
-	showData:boolean=false;
-  dates=[];
-  API:any = environment.apiURLImg;
-  searchText:any;
-  constructor(private productService: ProductService, private Cart: CartService, private auth:AuthenticationService) { }
+  // buyer:string;
+  userData: any;
+  shoppingCarts: any = [];
+  showLoading: boolean = true;
+  showData: boolean = false;
+  dates = [];
+  API: any = environment.apiURLImg;
+  searchText: any;
+  constructor(private productService: ProductService, private Cart: CartService, private auth: AuthenticationService) { }
 
   ngOnInit() {
-  	// this.Cart.cart.subscribe((cart:any)=>{
-  	// 	console.log(cart)
-  	// 	if(cart){
-  	// 		this.buyer=cart['id'];
-  	// 		this.getCartPaid();
-  	// 	}
-  	// })
-  	this.userData=this.auth.getLoginData()
-  	this.getCartPaid();
+    // this.Cart.cart.subscribe((cart:any)=>{
+    // 	console.log(cart)
+    // 	if(cart){
+    // 		this.buyer=cart['id'];
+    // 		this.getCartPaid();
+    // 	}
+    // })
+    this.userData = this.auth.getLoginData();
+    this.getCartPaid();
   }
-  getCartPaid(){
-  	this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
-  		result=>{
-  			this.showLoading=false;
-  			this.shoppingCarts=result
-  			this.getDates();
-        this.showData=true;
+  getCartPaid() {
+    this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
+      result => {
+        this.showLoading = false;
+        this.shoppingCarts = result;
+        this.getDates();
+        this.showData = true;
         console.log(result);
-  		},
-  		e=>{
-  			console.log(e)
-  		}
-  	)
+      },
+      e => {
+        console.log(e);
+      }
+    );
   }
 
- 
-  getDates(){
-  	this.shoppingCarts.forEach((data, index)=>{
-  		//convert date
-  		let date=new Date(data.paidDateTime)
-      let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  getDates() {
+    this.shoppingCarts.forEach((data, index) => {
+      // convert date
+      const date = new Date(data.paidDateTime);
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
       // get time am or pm
-      let hours=date.getHours()
-      let min = date.getMinutes();
+      let hours = date.getHours();
+      const min = date.getMinutes();
       let minutes;
       if (min < 10) {
-        minutes = "0" + min;
+        minutes = '0' + min;
+      } else {
+        minutes = min;
       }
-      else{
-        minutes=min
+      let ampm = 'AM';
+      if (hours > 12) {
+        hours -= 12;
+        ampm = 'PM';
       }
-      let ampm = "AM";
-      if( hours > 12 ) {
-          hours -= 12;
-          ampm = "PM";
-      }
-      let dates={
+      const dates = {
         month: months[date.getMonth()],
         day: date.getDate(),
-        year:date.getFullYear(),
-        time: hours+':'+ minutes +' ' +ampm
-      }
-  		this.dates[index]=dates;
-  	})
+        year: date.getFullYear(),
+        time: hours + ':' + minutes + ' ' + ampm
+      };
+      this.dates[index] = dates;
+    });
   }
 
-  getLength(items){
-    var lng = items.items.length;
-    if(lng > 1){
+  getLength(items) {
+    const lng = items.items.length;
+    if (lng > 1) {
       return true;
-    }else{
+    } else {
       return false;
     }
-    
+
   }
 
-  getImage(item){
-    let img = item.items[0].fish['imagePrimary'];
+  getImage(item) {
+    const img = item.items[0].fish['imagePrimary'];
 
-    if(img != undefined){
-      return this.API + img;  
+    if (img !== undefined) {
+      return this.API + img;
 
-    }else{
+    } else {
       return '../../assets/Logo-1.png';
     }
   }

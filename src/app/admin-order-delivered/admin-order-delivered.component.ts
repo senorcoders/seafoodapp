@@ -11,35 +11,35 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class AdminOrderDeliveredComponent implements OnInit {
 
-  orders:any = [];
+  orders: any = [];
 
-  constructor( private orderService:OrderService, private productService:ProductService, private toast:ToastrService, private auth:AuthenticationService ) { }
+  constructor( private orderService: OrderService, private productService: ProductService, private toast: ToastrService, private auth: AuthenticationService ) { }
 
   ngOnInit() {
     this.getOrdersDelivered();
   }
 
-  getOrdersDelivered(){
+  getOrdersDelivered() {
   	this.productService.getData( 'itemshopping/status/5c017b3c47fb07027943a409' ).subscribe(
-  		result=>{
+  		result => {
         this.orders = result;
-        
+
   		},
-  		e=>{
-  			console.log(e)
+  		e => {
+  			console.log(e);
   		}
-  	)
+  	);
   }
-  markAsOutForDelivered( itemID:string ){
+  markAsOutForDelivered( itemID: string ) {
     this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
-      result => {        
-        this.toast.success("Item marked as out for delivery!",'Status Change',{positionClass:"toast-top-right"});
+      result => {
+        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
         this.getOrdersDelivered();
       },
       error => {
         console.log( error );
       }
-    )
+    );
   }
 
 }

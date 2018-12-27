@@ -3,14 +3,13 @@ import {ProductService} from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
-  selector: 'app-admin-order-arrived',
-  templateUrl: './admin-order-arrived.component.html',
-  styleUrls: ['./admin-order-arrived.component.scss']
+  selector: 'app-refund-cases',
+  templateUrl: './refund-cases.component.html',
+  styleUrls: ['./refund-cases.component.scss']
 })
-export class AdminOrderArrivedComponent implements OnInit {
-
+export class RefundCasesComponent implements OnInit {
+  
   orders: any = [];
 
   constructor(
@@ -21,11 +20,11 @@ export class AdminOrderArrivedComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getOrdersArrived();
+    this.getCancelItems();
   }
 
-  getOrdersArrived() {
-  	this.productService.getData( 'itemshopping/status/5c017b1447fb07027943a407' ).subscribe(
+  getCancelItems() {
+  	this.orderService.getCanceledItems().subscribe(
   		result => {
         this.orders = result;
 
@@ -35,11 +34,11 @@ export class AdminOrderArrivedComponent implements OnInit {
   		}
   	);
   }
-  markAsOutForDelivered( itemID: string ) {
-    this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
+  markAsRefounded( itemID: string ) {
+    this.orderService.markItemAsRefounded( itemID ).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
-        this.getOrdersArrived();
+        this.toast.success('Item marked as Refounded!', 'Status Change', {positionClass: 'toast-top-right'});
+        this.getCancelItems();
       },
       error => {
         console.log( error );

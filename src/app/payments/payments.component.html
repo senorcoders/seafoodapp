@@ -25,8 +25,8 @@
                   <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                 </div>
                 <div class="col col-button">
-                    <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsOutForDelivered(item.id)" class="btn-red-a">{{'Payments.PaymentButton' | translate}}</button>
-                    <button *ngIf="status == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsOutForDelivered(item.id)" class="btn-red-a">{{'Payments.RefoundButton' | translate}}</button>
+                    <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsRepayed(item.id)" class="btn-red-a">{{'Payments.PaymentButton' | translate}}</button>
+                    <button *ngIf="status == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsRefunded(item.id)" class="btn-red-a">{{'Payments.RefoundButton' | translate}}</button>
               </div>
               </div>
             </div>
