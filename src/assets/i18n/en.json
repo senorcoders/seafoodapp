@@ -602,5 +602,15 @@
 		"title": "Payments",
 		"PaymentButton": "Mark as Repaid",
 		"RefoundButton": "Mark as Refounded"
+	},
+	"Repayments":{
+		"title": "Repayments"
+	},
+	"Refunds":{
+		"title": "Refunds"
+	},
+	"RefundCases":{
+		"title": "Refund Cases",
+		"button": "Mark as Refunded"
 	}
 }
