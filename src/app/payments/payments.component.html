@@ -6,8 +6,13 @@
       </div>
     </div>
       <div class="row">
-       
-        <div class="col-12">
+          <div class="col-6">
+            <input type="text" class="form-control" (change)="searchByOrderNumber($event.target.value)" placeholder="search by Order Number">
+          </div>
+          <div class="col-6">
+            <button class="pink-btn" (click)="clear()">Clear filter</button>
+          </div>
+        <div class="col-12" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
             <div class="col-12 table-design">
               <div class="row row-bg" *ngFor="let item of orders  ;let i=index ">
                 <div class="col-5">
@@ -30,6 +35,9 @@
               </div>
               </div>
             </div>
+          </div>
+          <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
+            <h2 class="black-title">No records found</h2>
           </div>
         </div>
       

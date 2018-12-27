@@ -45,7 +45,7 @@ export class OrderPurchaseComponent implements OnInit {
 					this.item = result;
 					this.showLoading = false;
 					this.showProduct = true;
-					this.getDates( result['shoppingCart'].paidDateTime );
+					this.getDates(result['shoppingCart'].paidDateTime);
 					// hide or show button
 					if ( result['shippingStatus'] === 'shipped' ) {
 						this.showButton = false;
@@ -63,7 +63,7 @@ export class OrderPurchaseComponent implements OnInit {
 			},
 			e => {
 				this.showProduct = false;
-				console.log( e );
+				console.log(e);
 			}
 		);
 	}
@@ -74,41 +74,56 @@ export class OrderPurchaseComponent implements OnInit {
 			'status': '5c06f4bf7650a503f4b731fd'
 		};
 
+		// this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( res => {
 		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`, {}).subscribe(res => {
 
 			console.log(res);
-			this.toast.success( 'Order Canceled', 'Well Done', { positionClass: 'toast-top-right' } );
+			this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
 			this.showButton = false;
+			this.getItem();
 
 		},
 			e => {
-				this.toast.error( 'Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' } );
-			} );
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+			});
+	}
+	FulfillsOrder() {
+		this.productS.updateData(`api/itemshopping/${this.itemId}/5c13f453d827ce28632af048`, {} ).subscribe(
+			res => {
+				this.toast.success('Order status changed', 'Well Done', { positionClass: 'toast-top-right' });
+				this.showButton = false;
+				this.getItem();
+			},
+			e => {
+				console.log(e);
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+			}
+		);
 	}
 	confirmOrder() {
 
-		this.productS.updateData( 'api/itemshopping/' + this.itemId + '/5c017af047fb07027943a405', {} ).subscribe(
+		this.productS.updateData('api/itemshopping/' + this.itemId + '/5c017af047fb07027943a405', {}).subscribe(
 			res => {
 				console.log(res);
-				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' } );
+				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
 				this.getItem();
 
 			},
 			e => {
-				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' } );
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 			}
 		);
 	}
 	setShipped() {
 		this.productS.setShippedProduct('api/itemshopping/status/' + this.itemId).subscribe(
 			result => {
-				this.toast.success('Product Shipped', 'Well Done', { positionClass: 'toast-top-right' } );
+				this.toast.success('Product Shipped', 'Well Done', { positionClass: 'toast-top-right' });
 				this.getItem();
 				this.closeForm();
 				this.showButton = false;
 			},
 			e => {
-				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' } );
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 			}
 		);
 	}
@@ -127,9 +142,9 @@ export class OrderPurchaseComponent implements OnInit {
 	// 	)
 	// }
 	showPopupForm() {
-		this.trackingForm = this.fb.group( {
+		this.trackingForm = this.fb.group({
 			code: ['']
-		} );
+		});
 		this.showPopup = true;
 	}
 	handleFileInput(files: FileList) {
@@ -149,24 +164,24 @@ export class OrderPurchaseComponent implements OnInit {
 						this.setShipped();
 					},
 					e => {
-						console.log( e );
-						this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' } );
+						console.log(e);
+						this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 
 					}
 				);
 			}
 			this.closeForm();
 		} else {
-			this.toast.error('You have to add a code or a code picture', 'Error', { positionClass: 'toast-top-right' } );
+			this.toast.error('You have to add a code or a code picture', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
 	uploadFile() {
 		if (this.fileToUpload.length > 0) {
 			this.productS.uploadFile('api/itemshopping/trackingfile/' + this.itemId, 'file', this.fileToUpload).subscribe(result => {
-				this.toast.success('Your tracking\'s Image has been upload successfully!', 'Well Done', { positionClass: 'toast-top-right' } );
+				this.toast.success('Your tracking\'s Image has been upload successfully!', 'Well Done', { positionClass: 'toast-top-right' });
 			}, error => {
-				this.toast.error( 'Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' } );
-			} );
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+			});
 		}
 	}
 	closeForm() {
@@ -174,7 +189,7 @@ export class OrderPurchaseComponent implements OnInit {
 	}
 	getDates(value) {
 		const date = new Date(value);
-		const months = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 		let hours = date.getHours();
 		const min = date.getMinutes();
 		let minutes;
@@ -191,3 +206,4 @@ export class OrderPurchaseComponent implements OnInit {
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
 	}
 }
+
