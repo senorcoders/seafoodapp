@@ -81,6 +81,7 @@ export class OrderPurchaseComponent implements OnInit {
 			console.log(res);
 			this.toast.success('Order Canceled', 'Well Done', { positionClass: "toast-top-right" })
 			this.showButton = false;
+			this.getItem();
 
 		},
 			e => {
