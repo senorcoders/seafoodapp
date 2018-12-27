@@ -87,6 +87,19 @@ export class OrderPurchaseComponent implements OnInit {
 				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: "toast-top-right" })
 			})
 	}
+	FulfillsOrder(){
+		this.productS.updateData(`api/itemshopping/${this.itemId}/5c13f453d827ce28632af048`,{}).subscribe(
+			res=>{
+				this.toast.success('Order status changed', 'Well Done', { positionClass: "toast-top-right" })
+				this.showButton=false;
+				this.getItem();
+			},
+			e=>{
+				console.log(e)
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: "toast-top-right" })
+			}
+		)
+	}
 	confirmOrder() {
 
 		this.productS.updateData('api/itemshopping/' + this.itemId + '/5c017af047fb07027943a405', {}).subscribe(
