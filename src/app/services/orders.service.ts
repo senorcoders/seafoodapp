@@ -29,7 +29,9 @@ export class OrderService {
   getPayedItems(){
     return this.http.get(`${API}itemshopping/payed`)
   }
-
+  getItemsPayedByOrderNumber(order){
+    return this.http.get(`${API}itemshopping/payed/${order}`);
+  }
   markItemAsShipped( itemID:string ){
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} )
   }

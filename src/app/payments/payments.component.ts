@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 export class PaymentsComponent implements OnInit {
 
   orders:any = [];
-
+  showNoData:boolean=false;
   constructor( private orderService:OrderService, private productService:ProductService, private toast:ToastrService, private auth:AuthenticationService ) { }
 
   ngOnInit() {
@@ -22,8 +22,13 @@ export class PaymentsComponent implements OnInit {
   getPayments(){
   	this.orderService.getPayedItems().subscribe(
   		result=>{
-        this.orders = result;
-        
+        if(result['length']>0){
+          this.orders = result;
+          this.showNoData=false
+        }
+        else{
+          this.showNoData=true
+        }
   		},
   		e=>{
   			console.log(e)
@@ -59,5 +64,25 @@ export class PaymentsComponent implements OnInit {
     else
       return false;
   }
-
+  clear(){
+    this.getPayments();
+  }
+  searchByOrderNumber(order){
+    if(order!=''){
+      this.orderService.getItemsPayedByOrderNumber(order).subscribe(
+        res=>{
+          if(res['length']>0){
+            this.orders=res;
+            this.showNoData=false;
+          }
+          else{
+            this.showNoData=true
+          }
+        },
+        e=>{
+          console.log(e)
+        }
+      )
+    }
+  }
 }
