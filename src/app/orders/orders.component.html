@@ -25,13 +25,13 @@
 								<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.fish.name "></h5>
 							</div>
 							<div class="col date-span">
-								<span >Purchased on: {{dates[i]['month']}}, {{dates[i]['day']}}, {{dates[i]['year']}}</span>
+								<span >Purchased on:<br> {{shoppingCart.updatedAt | date: ' MMMM d, y'}}</span>
 								</div>
 							<div class="col">
 								<span>{{shoppingCart.status | uppercase}}</span>
 							</div>
 							<div class="col">
-									<span class="price">$ {{shoppingCart.total}}</span>
+									<span class="price">$ {{shoppingCart.total + shoppingCart.shipping + shoppingCart.uaeTaxes + shoppingCart.totalOtherFees }}</span>
 							</div>
 							<div class="col">
 									<a routerLink="/orders-items/{{shoppingCart.id}}" class="btn-red-a">{{'Orders.see-button' | translate}}</a>

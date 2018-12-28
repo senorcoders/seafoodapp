@@ -33,11 +33,11 @@
 						  </div>
 						  <div class="product-description">
 							{{product.fish.description}}
-							{{product.status.status}}
+							<p *ngIf="product.status" >{{product.status.status}}</p>
 						  </div>
 						</div>
-						<div class="col-md-2 text-center">
-						  ${{getTotalxItem(product.quantity.value, product.price.value)}}
+						<div class="col-md-2 text-center">							
+							${{ (product.quantity.value * product.price.value ) + product.shipping + product.uaeTaxes + product.customs + product.sfsMargin }}
 						</div>
 						<div class="col-md-2">
 								<div class="actions">

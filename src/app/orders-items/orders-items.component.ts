@@ -130,14 +130,15 @@ export class OrdersItemsComponent implements OnInit {
   }
 
   getTotal() {
-    let subtotal = 0;
-    let itemsProcessed = 0;
+    let subtotal: number = 0;
+    let itemsProcessed: number = 0;
 
     this.products.forEach(element => {
       itemsProcessed++;
       subtotal += this.getTotalxItem(element.quantity.value, element.price.value);
+      subtotal += element.shipping + element.uaeTaxes + element.customs + element.sfsMargin ;
       if (itemsProcessed === this.products.length) {
-        this.total = subtotal;
+        this.total =  subtotal.toFixed(4);
       }
     });
   }
