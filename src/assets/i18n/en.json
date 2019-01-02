@@ -422,7 +422,8 @@
 		"is-invalid":"You have to write a comment",
 		"send":"Send",
 		"back-orders": "Back to my orders",
-		"total": "Total"
+		"total": "Total",
+		"cancel-item": "Cancel Item"
 	},
 	"Comments":{
 		"pending-title":"Pending Comments",

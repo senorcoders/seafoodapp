@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { OrderService } from '../services/orders.service';
 @Component({
   selector: 'app-orders-items',
   templateUrl: './orders-items.component.html',
@@ -25,7 +26,7 @@ export class OrdersItemsComponent implements OnInit {
   count: number = 0;
   total: any;
   constructor(private productService: ProductService, private router: ActivatedRoute, private auth: AuthenticationService,
-    private fb: FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer) { }
+    private fb: FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer, private orderService: OrderService) { }
 
   ngOnInit() {
     this.user = this.auth.getLoginData();
@@ -141,6 +142,19 @@ export class OrdersItemsComponent implements OnInit {
         this.total =  subtotal.toFixed(4);
       }
     });
+  }
+
+  cancelOrder( itemID: string ) {
+    this.orderService.markItemAsCancelByBuyer( itemID ).subscribe(
+      res => {
+        this.toast.success('The item was cancelled', 'Well Done', { positionClass: 'toast-top-right' });
+        this.getItems();
+      },
+      error => {
+        this.toast.error( 'Something wrong happened, Please try again', 'Error', { positionClass: 'toast-top-right' } );
+        console.log( error );
+      }
+    );
   }
 
 }

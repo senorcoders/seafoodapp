@@ -26,7 +26,7 @@
 						<div class="col-md-2">
 						  @ ${{product.price.value}}
 						</div>
-						<div class="col-md-4">
+						<div class="col-md-3">
 						  <div class="product-name">
 							<a routerLink="/product/{{product.fish.id}}">{{product.fish.name}}</a>
 							<hr class="black-line">
@@ -39,12 +39,15 @@
 						<div class="col-md-2 text-center">							
 							${{ (product.quantity.value * product.price.value ) + product.shipping + product.uaeTaxes + product.customs + product.sfsMargin }}
 						</div>
-						<div class="col-md-2">
+						<div class="col-md-1">
 								<div class="actions">
 										<fa name="heart-o" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" *ngIf="!product.favorite.msg; else favorite"></fa>
 										  <ng-template #favorite><fa name="heart" (click)="submitFavorite(product.favorite.msg, product.fish.id, product.favorite.id)" class="isfavorite"></fa></ng-template>
 									</div>
 							
+						</div>
+						<div class="col-md-2">
+							<button *ngIf="product.status.id== '5c017ae247fb07027943a404' || product.status.id == '5c017af047fb07027943a405'" (click)="cancelOrder(product.id)" class="btn-red-a">{{'Orders-items.cancel-item' | translate}}</button>
 						</div>
 					  </div>
 					</div>

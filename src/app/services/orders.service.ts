@@ -56,6 +56,10 @@ export class OrderService {
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b4f47fb07027943a40b`, {} );
   }
 
+  markItemAsCancelByBuyer( itemID: string ){
+    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b5a47fb07027943a40c`, {} );
+  }
+
   markItemAsRefounded( itemID: string ) {
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b7047fb07027943a40e`, {} );
   }
