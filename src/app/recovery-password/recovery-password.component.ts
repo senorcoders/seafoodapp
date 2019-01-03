@@ -12,12 +12,13 @@ import { PasswordValidation } from '../password';
 })
 export class RecoveryPasswordComponent implements OnInit {
 	recoveryForm:FormGroup;
+	regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   constructor(private fb:FormBuilder, private productSer:ProductService, private toast:ToastrService, private router:Router) { }
 
   ngOnInit() {
   	this.recoveryForm=this.fb.group({
   		code:['', Validators.required],
-  		password:['', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&].{8,}')]],
+  		password:['', [Validators.required, Validators.pattern(this.regex)]],
   		rePassword:['', Validators.required]
   	},{
 		validator : PasswordValidation.MatchPassword
