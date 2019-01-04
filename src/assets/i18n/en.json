@@ -476,7 +476,7 @@
 		"product":"product",
 		"address":"Buyer Address",
 		"status":"Current Status",
-		"shipped":"Add Shipped Documents",
+		"shipped":"Add Shipping Documents",
 		"confirmOrder": "Confirm Order",
 		"pending":"Mark as pending",
 		"action":"Action",
@@ -484,7 +484,8 @@
 		"tracking-code":"Tracking Code",
 		"tracking-file":"Tracking Image",
 		"tracking-submit":"Save",
-		"no-image":"you dont have tracking Image"
+		"no-image":"you dont have tracking Image",
+		"back":"Back to Orders"
 	},
 	"Chart":{
 		"title":"Charts",

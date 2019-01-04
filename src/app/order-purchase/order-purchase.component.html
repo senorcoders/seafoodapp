@@ -1,67 +1,84 @@
 <div class="container">
-	<div class="row" *ngIf="showLoading; else product">
-		<div class="col-12">
-			<img src="../../assets/loader.gif" alt="">
-		</div>
-	</div>
-	<ng-template #product>
-		<div class="row" *ngIf="showProduct; else noProduct">
-			<div class="col"><h3 class="black-title">{{'OrderPurchase.title' | translate}}</h3></div>
-			<div class="col-12 table-design">
-				<div class="row row-bg">
-		    		<div class="col-lg-10 col-md-8 col-sm-7">
-		    			<h2 class="name">
-			    			{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}
-			    		</h2>
-		    			<div class="date">{{item.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
-		    			<label>{{'OrderPurchase.product' | translate}}: </label>
-		    			<a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>
-		    			<div class="address" *ngIf="item.shoppingCart.buyer.dataExtra.deliveryAddress && item.shoppingCart.buyer.dataExtra.deliveryAddress !='';else address">
-							<label>{{'OrderPurchase.address' | translate}}: </label>
-		    				{{item.shoppingCart.buyer.dataExtra.deliveryAddress}}
-		    			</div>
-	                	<ng-template #address>
-	                		<div class="address">
-	                			<label>{{'OrderPurchase.address' | translate}}: </label>
-	                			{{item.shoppingCart.buyer.dataExtra.Address}}, {{item.shoppingCart.buyer.dataExtra.City}}, {{item.shoppingCart.buyer.dataExtra.zipCode}}, {{item.shoppingCart.buyer.dataExtra.country}}
-	                		</div>
-	                	</ng-template>
-	                	<div class="status" *ngIf="item.status">
-	                		<label>{{'OrderPurchase.status' | translate}}: </label>
-	                		{{item.status.status}}
-	                	</div>
-		    		</div>
-		    		<div class="col-lg-2 col-md-4 col-sm-5 btn-cont">
-						<a class="pink-btn" *ngIf="item.status.id == '5c017ae247fb07027943a404' || item.status.id=='5c017af047fb07027943a405' || item.status.id!=='5c06f4bf7650a503f4b731fd'" (click)="cancelOrder()">Cancel order</a>
-						<a class="pink-btn" *ngIf="item.status.id == '5c017af047fb07027943a405'" (click)="FulfillsOrder()">Fulfills Order</a>
-						<a class="pink-btn" *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="confirmOrder()">{{'OrderPurchase.confirmOrder' | translate}}</a>
-		    			<a routerLink="/tracking-code/{{itemId}}" class="pink-btn" *ngIf="item.status.id == '5c017af047fb07027943a405' || item.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped' | translate}}</a>
-		    		</div>
-		    	</div>
-			</div>
-		    <div class="col-12 tracking" *ngIf="item.shippingStatus=='shipped'">
-		    	<h3 class="black-title">{{'OrderPurchase.tracking-title' | translate}}</h3>
-		    	<div class="row">
-		    		<div class="col-12 table-design">
-		    			<div class="row row-bg">
-		    				<div class="col-12">
-		    					<label>{{'OrderPurchase.tracking-file' | translate}}: </label>
-		    					<img src="{{API}}{{item.trackingFile}}" alt="" *ngIf="showTrackingFile;else noImage">
-				            	<ng-template #noImage>
-				            		{{'OrderPurchase.no-image' | translate}}
-				            	</ng-template>
-		    				</div>
-		    			</div>
-		    		</div>
-		    	</div>
-		    </div>
-		</div>
-		<ng-template #noProduct>
-			<div class="row">
-				<div class="col-12">
-					<h4 class="black-title">{{'OrderPurchase.no-product' | translate}}</h4>
-				</div>
-			</div>
-		</ng-template>
-	</ng-template>
+  <div class="row" *ngIf="showLoading; else product">
+    <div class="col-12">
+      <img src="../../assets/loader.gif" alt="">
+    </div>
+  </div>
+  <ng-template #product>
+    <!--*ngIf="showProduct; else noProduct"-->
+    <div class="row" style="padding-top: 20px; padding-bottom: 50px;">
+      <div class="col-md-9">
+        <h3 class="black-title">{{'OrderPurchase.title' | translate}}</h3>
+      </div>
+      <div class="col-md-3 text-right">
+        <a routerLink="/recent-purchases" class="btn-red-a">{{'OrderPurchase.back' | translate}}</a>
+      </div>
+    </div>
+    <div class="row" style="margin-top: 20px;" *ngFor="let citem of items | filter : searchText ;let i=index ">
+      <div class="col"></div>
+      <div class="col-12 table-design">
+        <div class="row row-bg">
+          <div class="col-lg-10 col-md-8 col-sm-7">
+            <h2 class="name">
+				{{citem.shoppingCart.buyer.firstName}} {{citem.shoppingCart.buyer.lastName}}
+            </h2>
+            <div class="date">{{citem.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
+            <label>{{'OrderPurchase.product' | translate}}: </label>
+			<a class="product" routerLink="/product/{{citem.fish.id}}">{{citem.fish.name}}</a>
+			<div class="sku"><label>sku: </label>{{citem.fish.seller_sku}}</div>
+			<div class="qty"><label>qty: </label>{{citem.quantity.value}} kg</div>			
+			
+            <div class="address" *ngIf="citem.shoppingCart.buyer.dataExtra.deliveryAddress && citem.shoppingCart.buyer.dataExtra.deliveryAddress !='';else address">
+              <label>{{'OrderPurchase.address' | translate}}: </label>
+              {{citem.shoppingCart.buyer.dataExtra.deliveryAddress}}
+            </div>
+            <ng-template #address>
+              <div class="address">
+                <label>{{'OrderPurchase.address' | translate}}: </label>
+                {{citem.shoppingCart.buyer.dataExtra.Address}}, {{citem.shoppingCart.buyer.dataExtra.City}},
+                {{citem.shoppingCart.buyer.dataExtra.zipCode}}, {{citem.shoppingCart.buyer.dataExtra.country}}
+              </div>
+            </ng-template>
+            <div class="status" *ngIf="citem.status">
+              <label>{{'OrderPurchase.status' | translate}}: </label>
+              {{citem.status.status}}
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-sm-5 btn-cont" *ngIf="citem.status">
+            <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404' || citem.status.id=='5c017af047fb07027943a405' || citem.status.id!=='5c06f4bf7650a503f4b731fd'"
+              (click)="cancelOrder( citem.id )">Cancel order</a>
+            <a class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405'" (click)="FulfillsOrder( citem.id )">Fulfills
+              Order</a>
+            <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404'" (click)="confirmOrder( citem.id )">{{'OrderPurchase.confirmOrder'
+              | translate}}</a>
+            <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405' || citem.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped'
+              | translate}}</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 tracking" *ngIf="citem.shippingStatus=='shipped'">
+        <h3 class="black-title">{{'OrderPurchase.tracking-title' | translate}}</h3>
+        <div class="row">
+          <div class="col-12 table-design">
+            <div class="row row-bg">
+              <div class="col-12">
+                <label>{{'OrderPurchase.tracking-file' | translate}}: </label>
+                <img src="{{API}}{{citem.trackingFile}}" alt="" *ngIf="showTrackingFile;else noImage">
+                <ng-template #noImage>
+                  {{'OrderPurchase.no-image' | translate}}
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #noProduct>
+      <div class="row">
+        <div class="col-12">
+          <h4 class="black-title">{{'OrderPurchase.no-product' | translate}}</h4>
+        </div>
+      </div>
+    </ng-template>
+  </ng-template>
 </div>

@@ -11,9 +11,12 @@ import { environment } from '../../environments/environment';
 	styleUrls: ['./order-purchase.component.scss']
 })
 export class OrderPurchaseComponent implements OnInit {
+	user: any;
 	item: any;
+	items: any;
 	date: any;
 	itemId: any;
+	orderId: string;
 	showLoading: boolean = true;
 	showProduct: boolean = false;
 	showPopup: boolean = false;
@@ -23,31 +26,34 @@ export class OrderPurchaseComponent implements OnInit {
 	showTrackingFile: boolean = false;
 	API = environment.apiURLImg;
 	constructor(
-		private fb: 			FormBuilder,
-		private route: 		ActivatedRoute,
+		private fb: FormBuilder,
+		private route: ActivatedRoute,
 		private productS: ProductService,
-		private toast: 		ToastrService,
-		private auth: 		AuthenticationService
+		private toast: ToastrService,
+		private auth: AuthenticationService
 	) {
 
-		this.route.params.subscribe( params => {
-			this.itemId = (this.route.snapshot.params['item']);
-		} );
+		this.route.params.subscribe(params => {
+			this.orderId = (this.route.snapshot.params['item']);
+		});
 	}
 
 	ngOnInit() {
+		this.user = this.auth.getLoginData();
 		this.getItem();
 	}
 	getItem() {
-		this.productS.getData('itemshopping/' + this.itemId).subscribe(
+		// this.productS.getData('itemshopping/' + this.itemId).subscribe(
+		this.productS.getData(`api/store/${this.user.id}/order/${this.orderId}`).subscribe(
 			result => {
+				console.log( result );
 				if (result && result !== '') {
-					this.item = result;
+					this.items = result;
 					this.showLoading = false;
 					this.showProduct = true;
 					this.getDates(result['shoppingCart'].paidDateTime);
 					// hide or show button
-					if ( result['shippingStatus'] === 'shipped' ) {
+					if (result['shippingStatus'] === 'shipped') {
 						this.showButton = false;
 					}
 					// show or hide tracking image
@@ -68,9 +74,9 @@ export class OrderPurchaseComponent implements OnInit {
 		);
 	}
 
-	cancelOrder() {
+	cancelOrder(itemId: string) {
 		const status = {
-			'id': this.itemId,
+			'id': itemId,
 			'status': '5c06f4bf7650a503f4b731fd'
 		};
 
@@ -87,8 +93,8 @@ export class OrderPurchaseComponent implements OnInit {
 				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 			});
 	}
-	FulfillsOrder() {
-		this.productS.updateData(`api/itemshopping/${this.itemId}/5c13f453d827ce28632af048`, {} ).subscribe(
+	FulfillsOrder(itemId: string) {
+		this.productS.updateData(`api/itemshopping/${itemId}/5c13f453d827ce28632af048`, {}).subscribe(
 			res => {
 				this.toast.success('Order status changed', 'Well Done', { positionClass: 'toast-top-right' });
 				this.showButton = false;
@@ -100,9 +106,9 @@ export class OrderPurchaseComponent implements OnInit {
 			}
 		);
 	}
-	confirmOrder() {
+	confirmOrder(itemId: string) {
 
-		this.productS.updateData('api/itemshopping/' + this.itemId + '/5c017af047fb07027943a405', {}).subscribe(
+		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', {}).subscribe(
 			res => {
 				console.log(res);
 				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
@@ -114,8 +120,8 @@ export class OrderPurchaseComponent implements OnInit {
 			}
 		);
 	}
-	setShipped() {
-		this.productS.setShippedProduct('api/itemshopping/status/' + this.itemId).subscribe(
+	setShipped(itemId: string) {
+		this.productS.setShippedProduct('api/itemshopping/status/' + itemId).subscribe(
 			result => {
 				this.toast.success('Product Shipped', 'Well Done', { positionClass: 'toast-top-right' });
 				this.getItem();
@@ -150,7 +156,7 @@ export class OrderPurchaseComponent implements OnInit {
 	handleFileInput(files: FileList) {
 		this.fileToUpload = files;
 	}
-	sendTracking() {
+	sendTracking( itemId: string ) {
 		if (this.trackingForm.get('code').value !== '' || this.fileToUpload !== '') {
 			if (this.fileToUpload !== '') {
 				this.uploadFile();
@@ -159,9 +165,9 @@ export class OrderPurchaseComponent implements OnInit {
 				const data = {
 					trackingID: this.trackingForm.get('code').value,
 				};
-				this.productS.updateData('itemshopping/' + this.itemId, data).subscribe(
+				this.productS.updateData('itemshopping/' + itemId, data).subscribe(
 					result => {
-						this.setShipped();
+						this.setShipped( itemId );
 					},
 					e => {
 						console.log(e);
@@ -175,9 +181,9 @@ export class OrderPurchaseComponent implements OnInit {
 			this.toast.error('You have to add a code or a code picture', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
-	uploadFile() {
+	uploadFile( itemId: string ) {
 		if (this.fileToUpload.length > 0) {
-			this.productS.uploadFile('api/itemshopping/trackingfile/' + this.itemId, 'file', this.fileToUpload).subscribe(result => {
+			this.productS.uploadFile('api/itemshopping/trackingfile/' + itemId, 'file', this.fileToUpload).subscribe(result => {
 				this.toast.success('Your tracking\'s Image has been upload successfully!', 'Well Done', { positionClass: 'toast-top-right' });
 			}, error => {
 				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });

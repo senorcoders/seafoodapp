@@ -8,13 +8,14 @@ import {Router} from '@angular/router';
 import { OrdersService } from '../core/orders/orders.service';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
-
+declare var jQuery:any;
 @Component({
   selector: 'app-cart',
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
+  itemToDelete:any;
   buyerId:any;
   products:any = [];
   empty:boolean;
@@ -164,4 +165,8 @@ export class CartComponent implements OnInit {
     return null;
   }
 
+  showConfirmModal(itemID:string){
+		this.itemToDelete = itemID;
+    jQuery('#confirmDelete').modal('show');
+  }
 }

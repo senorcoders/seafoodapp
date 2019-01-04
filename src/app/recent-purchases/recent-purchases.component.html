@@ -10,13 +10,15 @@
 		    	<h3 class="black-title">{{'Recent.title' | translate}}</h3>
 		    	<div class="row row-bg" *ngFor="let item of firstNoShipped; let i=index">
 		    		<div class="col-lg-10 col-md-8 col-sm-7">
+						<p class="order-number">Order #{{item.orderNumber}}</p>
 		    			<h2 class="name">
-			    			{{item.shoppingCart.buyer.firstName}} {{item.shoppingCart.buyer.lastName}}
+			    			{{item.buyer.firstName}} {{item.buyer.lastName}}
 			    		</h2>
-						<div class="date">  {{item.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}} </div>
+						<div class="date">  {{item.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}} </div>
 						<!--<div class="date">  {{ dates[i]} </div>-->
-						<a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>
+						<!-- <a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>-->
 						<div class="status" *ngIf="item.status">  {{item.status.status}} </div>
+						
 		    		</div>
 		    		<div class="col-lg-2 col-md-4 col-sm-5 btn-cont">
 					
@@ -47,11 +49,13 @@
 		    <div class="col-12 table-design">
 		    	<div class="row row-bg" *ngFor="let shipped of firstShipped; let i=index">
 		    		<div class="col-lg-10 col-md-8 col-sm-7">
+						<p class="order-number">Order #{{shipped.orderNumber}}</p>
 		    			<h2 class="name">
-			    			{{shipped.shoppingCart.buyer.firstName}} {{shipped.shoppingCart.buyer.lastName}}
+			    			{{shipped.buyer.firstName}} {{shipped.buyer.lastName}}
 			    		</h2>
-		    			<div class="date">{{datesShipping[i]}}</div>
-		    			<a class="product" routerLink="/product/{{shipped.fish.id}}">{{shipped.fish.name}}</a>
+						<div class="date"> {{shipped.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
+						
+		    			<!--<a class="product" routerLink="/product/{{shipped.fish.id}}">{{shipped.fish.name}}</a>-->
 		    		</div>
 		    		<div class="col-lg-2 col-md-4 col-sm-5 btn-cont">
 		    			<a routerLink="/order-purchase/{{shipped.id}}" class="pink-btn">{{'Recent.view' | translate}}</a>

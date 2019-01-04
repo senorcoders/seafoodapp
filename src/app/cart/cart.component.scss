@@ -55,7 +55,17 @@ a.link-cart{
     font-family: 'Roboto', sans-serif Light;
     color: #969693;
 }
-
+.modal h4 {
+    display: inline-block;
+    vertical-align: -webkit-baseline-middle;
+    margin-top: 10px;
+}
+.btn-yes{
+    width: auto;
+    text-align: right;
+    float: right;
+    border: 0px;
+}
 .cart-totals{
     table{
         border: 1px solid rgba(0,0,0,.1);
