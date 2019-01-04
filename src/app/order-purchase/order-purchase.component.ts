@@ -159,7 +159,7 @@ export class OrderPurchaseComponent implements OnInit {
 	sendTracking( itemId: string ) {
 		if (this.trackingForm.get('code').value !== '' || this.fileToUpload !== '') {
 			if (this.fileToUpload !== '') {
-				this.uploadFile();
+				this.uploadFile( itemId );
 			}
 			if (this.trackingForm.get('code').value !== '') {
 				const data = {
