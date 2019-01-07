@@ -12,6 +12,23 @@ export class OrderService {
 
   constructor( private http: HttpClient ) { }
 
+  getOrderStatus() {
+    return this.http.get(`${API}orderStatus`);
+  }
+
+  getAllOrders() {
+    return this.http.get(`${API}api/itemshopping/all`);
+  }
+  getOrdersByStatus( status: string ) {
+    return this.http.get(`${API}api/itemshopping/status/${status}`);
+  }
+  getOrdersByNumber( orderNumber: string ) {
+    return this.http.get(`${API}api/itemshopping/order-number/${orderNumber}`);
+  }
+  getOrdersByStatusAndNumber( status: string, orderNumber: string ) {
+    return this.http.get(`${API}api/itemshopping/status/${status}/order-number/${orderNumber}`);
+  }
+
   getCart( buyer: string ) {
     return this.http.post(`${API}shoppingcart`, { buyer: buyer });
   }

@@ -73,7 +73,7 @@ export class PaymentsComponent implements OnInit {
     this.getPayments();
   }
   searchByOrderNumber(order) {
-    if (order != '') {
+    if (order !== '') {
       this.orderService.getItemsPayedByOrderNumber(order).subscribe(
         res => {
           if (res['length'] > 0) {

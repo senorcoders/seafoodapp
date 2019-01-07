@@ -92,6 +92,7 @@ import { PaymentsComponent } from './payments/payments.component';
 import { RepaymentsComponent } from './repayments/repayments.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundCasesComponent } from './refund-cases/refund-cases.component';
+import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -145,6 +146,7 @@ const appRoutes: Routes = [
   { path: 'orders-out-for-delivery', component: AdminOrderOutDeliveryComponent, canActivate: [AdminRouterService] },
   { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
   { path: 'payments', component: PaymentsComponent, canActivate: [AdminRouterService] },
+  { path: 'manage-orders', component: ManageOrdersComponent, canActivate: [AdminRouterService] },
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
   { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
@@ -220,7 +222,8 @@ const appRoutes: Routes = [
     PaymentsComponent,
     RepaymentsComponent,
     RefundsComponent,
-    RefundCasesComponent
+    RefundCasesComponent,
+    ManageOrdersComponent
   ],
   imports: [
     BrowserModule,

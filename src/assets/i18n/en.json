@@ -614,5 +614,12 @@
 	"RefundCases":{
 		"title": "Refund Cases",
 		"button": "Mark as Refunded"
+	},
+	"ManageOrders": {
+		"title": "Manage Orders",
+		"status": "Status",
+		"orderNumber": "Order Number",
+		"PaymentButton": "Mark Payment",
+		"RefoundButton": "Mark RefoundB"
 	}
 }
