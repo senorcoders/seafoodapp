@@ -145,7 +145,7 @@ export class OrdersItemsComponent implements OnInit {
   }
 
   cancelOrder( itemID: string ) {
-    this.orderService.markItemAsCancelByBuyer( itemID ).subscribe(
+    this.orderService.updateStatus ( '5c017b5a47fb07027943a40c', itemID, this.user ).subscribe(
       res => {
         this.toast.success('The item was cancelled', 'Well Done', { positionClass: 'toast-top-right' });
         this.getItems();

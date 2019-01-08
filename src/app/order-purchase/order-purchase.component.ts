@@ -81,7 +81,8 @@ export class OrderPurchaseComponent implements OnInit {
 		};
 
 		// this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( res => {
-		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`, {}).subscribe(res => {
+		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`, 
+		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(res => {
 
 			console.log(res);
 			this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
@@ -94,7 +95,8 @@ export class OrderPurchaseComponent implements OnInit {
 			});
 	}
 	FulfillsOrder(itemId: string) {
-		this.productS.updateData(`api/itemshopping/${itemId}/5c13f453d827ce28632af048`, {}).subscribe(
+		this.productS.updateData(`api/itemshopping/${itemId}/5c13f453d827ce28632af048`, 
+		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(
 			res => {
 				this.toast.success('Order status changed', 'Well Done', { positionClass: 'toast-top-right' });
 				this.showButton = false;
@@ -108,7 +110,8 @@ export class OrderPurchaseComponent implements OnInit {
 	}
 	confirmOrder(itemId: string) {
 
-		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', {}).subscribe(
+		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
+		{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(
 			res => {
 				console.log(res);
 				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });

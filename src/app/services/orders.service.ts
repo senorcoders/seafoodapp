@@ -81,6 +81,10 @@ export class OrderService {
     return this.http.put( `${API}api/itemshopping/${itemID}/5c017b7047fb07027943a40e`, {} );
   }
 
+  updateStatus( statusID: string, itemID: string, user: any ) {
+    return this.http.put( `${API}api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
+  }
+
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ) {
     const httpOptionsForm: any = {headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');

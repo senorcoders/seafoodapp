@@ -18,7 +18,7 @@
       <div class="col"></div>
       <div class="col-12 table-design">
         <div class="row row-bg">
-          <div class="col-lg-10 col-md-8 col-sm-7">
+          <div class="col-md-5 col-sm-12">
             <h2 class="name">
 				{{citem.shoppingCart.buyer.firstName}} {{citem.shoppingCart.buyer.lastName}}
             </h2>
@@ -44,13 +44,20 @@
               {{citem.status.status}}
             </div>
           </div>
-          <div class="col-lg-2 col-md-4 col-sm-5 btn-cont" *ngIf="citem.status">
+          <div class="col-md-4 col-sm-12">
+            <div *ngIf="citem.updateInfo">
+              <p class="date" *ngFor="let update of citem.updateInfo;" >
+                <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}} </strong>
+              </p>
+            </div>
+          </div>
+          <div class="col-md-3 col-sm-12 btn-cont" *ngIf="citem.status">
             <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404' || citem.status.id=='5c017af047fb07027943a405' || citem.status.id!=='5c06f4bf7650a503f4b731fd'"
-              (click)="cancelOrder( citem.id )">Cancel order</a>
+              (click)="cancelOrder( citem.id )">Cancel order</a><br>
             <a class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405'" (click)="FulfillsOrder( citem.id )">Fulfills
-              Order</a>
+              Order</a><br>
             <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404'" (click)="confirmOrder( citem.id )">{{'OrderPurchase.confirmOrder'
-              | translate}}</a>
+              | translate}}</a><br>
             <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405' || citem.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped'
               | translate}}</a>
           </div>

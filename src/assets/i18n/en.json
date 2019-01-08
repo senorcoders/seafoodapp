@@ -624,6 +624,7 @@
 		"ShippedButton": "Mark as Shipped",
 		"ArrivedButton": "Mark as Arrived",
 		"OutForDelivered": "Mark as Out for Delivered",
-		"DeliveredButton": "Mark as Delivered"
+		"DeliveredButton": "Mark as Delivered",
+		"UpdateStatusButton": "Update Status"
 	}
 }

@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-manage-orders',
@@ -14,7 +15,11 @@ export class ManageOrdersComponent implements OnInit {
   orders: any = [];
   orderStatus: any = [];
   status: any;
+  newStatus: any;
   orderNumber: any;
+  user: any;
+  selectedStatus: string;
+  selectedItemID: string;
   showNoData: boolean = false;
 
   constructor(
@@ -25,6 +30,7 @@ export class ManageOrdersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.user = this.auth.getLoginData();
     this.status = '0';
     this.getStatus();
     this.getOrders();
@@ -45,7 +51,7 @@ export class ManageOrdersComponent implements OnInit {
     this.showNoData = false;
     console.log('status', this.status);
     console.log('orderNumber', this.orderNumber);
-    this.orders = [];
+    //this.orders = [];
     if (
         ( this.status === undefined && this.orderNumber === undefined) ||
         ( this.status === '0' && ( this.orderNumber === undefined || this.orderNumber === '' ) )
@@ -167,7 +173,7 @@ export class ManageOrdersComponent implements OnInit {
     );
   }
 
-  fullfillSubmit(itemid){    
+  fullfillSubmit(itemid){
     this.orderService.markItemAsShipped(itemid)
     .subscribe(
       result => {
@@ -205,7 +211,7 @@ export class ManageOrdersComponent implements OnInit {
     );
   }
 
-  markAsDelivered( itemID:string ){
+  markAsDelivered( itemID: string ){
     this.orderService.markItemAsDelivered( itemID ).subscribe(
       result => {
         this.toast.success('Item marked as delivered!', 'Status Change', { positionClass: 'toast-top-right' });
@@ -214,6 +220,36 @@ export class ManageOrdersComponent implements OnInit {
       error => {
         console.log( error );
       }
-    )
+    );
+  }
+
+  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+    this.selectedStatus = selectedStatus;
+    this.selectedItemID = selectedItemID;
+      jQuery('#confirmUpdateStatus').modal('show');
+  }
+
+  updateStatus() {
+    let selectedStatus: string;
+    let statusName: string = this.selectedStatus;
+    let itemID: string = this.selectedItemID;
+
+    this.orderStatus.map( status => {
+      if ( status.status === statusName ) {
+        selectedStatus = status.id;
+      }
+    } );
+    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+      result => {
+        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        this.getOrders();
+        jQuery('#confirmUpdateStatus').modal('hide');
+      },
+      error => {
+        console.log( error );
+      }
+    );
+    console.log( 'status', selectedStatus );
+    console.log( 'item', itemID );
   }
 }

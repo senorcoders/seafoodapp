@@ -29,27 +29,41 @@
             <div class="col-12 table-design">
               <div class="row row-bg" *ngFor="let item of orders  ;let i=index ">
                 <div class="col-5">
-                  <p *ngIf="item.shoppingCart.orderNumber" class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
+                  <p *ngIf="item.shoppingCart" class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
                   <h5 [innerHtml]="item.fish.name"></h5>                
                   <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                   <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
                   <p class="qty">Quantity {{item.quantity.value}} kg</p>  
                 </div>
-                <div class="col-4">
+                <!--<div class="col-4">
                   <p class="date" *ngIf="item.shippedAt" ><strong>Shipped on {{item.shippedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                   <p class="date" *ngIf="item.arrivedAt"><strong>Arrived on {{item.arrivedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                   <p class="date" *ngIf="item.outForDeliveryAt"><strong>Out for Delivery on {{item.outForDeliveryAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                   <p class="date" *ngIf="item.deliveryAt"><strong>Delivered on {{item.deliveryAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
+                  <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>                  
+                </div>-->
+                <div  class="col-4">
+                  <div *ngIf="item.updateInfo">
+                    <p class="date" *ngFor="let update of item.updateInfo;" >
+                      <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}} </strong>
+                    </p>
+
+                  </div>
                 </div>
-                <div class="col col-button" *ngIf="item.status">
+                <div class="col"  *ngIf="item.status">                  
+                  <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
+                      <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
+                  </select>
+                  
+                </div>
+                <!--<div class="col col-button" *ngIf="item.status">
                     <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsRepayed(item.id)" class="btn-red-a">{{'ManageOrders.PaymentButton' | translate}}</button>
                     <button *ngIf="item.status.id == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsRefounded(item.id)" class="btn-red-a">{{'ManageOrders.RefoundButton' | translate}}</button>
                     <button *ngIf="item.status.id == '5c13f453d827ce28632af048'" (click)="fullfillSubmit(item.id)" class="btn-red-a">{{'ManageOrders.ShippedButton' | translate}}</button>
                     <button *ngIf="item.status.id == '5c017b0e47fb07027943a406'" (click)="arrived(item.id)" class="btn-red-a">{{'ManageOrders.ArrivedButton' | translate}}</button>                    
                     <button *ngIf="item.status.id == '5c017b1447fb07027943a407'" (click)="markAsOutForDelivered(item.id)" class="btn-red-a">{{'ManageOrders.OutForDelivered' | translate}}</button>
                     <button *ngIf="item.status.id == '5c017b2147fb07027943a408'" (click)="markAsDelivered(item.id)" class="btn-red-a">{{'ManageOrders.DeliveredButton' | translate}}</button>                    
-              </div>
+              </div>-->
               </div>
             </div>
           </div>
@@ -60,3 +74,25 @@
       
   </div>
   </div>
+
+  <div class="modal fade" id="confirmUpdateStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Update Item Status</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col">
+                <!--<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>-->
+                  <h5>you want to update the status to {{selectedStatus}}?</h5>
+                  <button type="button" (click)="updateStatus()" class="button pink-btn">Update</button>
+              </div>					
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
