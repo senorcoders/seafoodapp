@@ -680,7 +680,7 @@ smallDesc(str) {
           deliveredPiceTotal.innerHTML = "";
         }else{
           deliveredPice.innerHTML = 'AED '+ priceT + " / kg";
-          deliveredPiceTotal.innerHTML = 'Delivered Price';
+          deliveredPiceTotal.innerHTML = '';
         }
        
       })
