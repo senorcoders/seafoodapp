@@ -32,7 +32,7 @@
                   <p *ngIf="item.shoppingCart.orderNumber" class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
                   <h5 [innerHtml]="item.fish.name"></h5>                
                   <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
-                  <p *ngIf="item.status" class="status"><b>Status:</b>{{item.status.status}}</p>
+                  <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
                   <p class="qty">Quantity {{item.quantity.value}} kg</p>  
                 </div>
                 <div class="col-4">
@@ -43,9 +43,12 @@
                   <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                 </div>
                 <div class="col col-button" *ngIf="item.status">
-                    <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsRepayed(item.id)" class="btn-red-a">{{'Payments.PaymentButton' | translate}}</button>
-                    <button *ngIf="status == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsRefounded(item.id)" class="btn-red-a">{{'Payments.RefoundButton' | translate}}</button>
-                    
+                    <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsRepayed(item.id)" class="btn-red-a">{{'ManageOrders.PaymentButton' | translate}}</button>
+                    <button *ngIf="item.status.id == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsRefounded(item.id)" class="btn-red-a">{{'ManageOrders.RefoundButton' | translate}}</button>
+                    <button *ngIf="item.status.id == '5c13f453d827ce28632af048'" (click)="fullfillSubmit(item.id)" class="btn-red-a">{{'ManageOrders.ShippedButton' | translate}}</button>
+                    <button *ngIf="item.status.id == '5c017b0e47fb07027943a406'" (click)="arrived(item.id)" class="btn-red-a">{{'ManageOrders.ArrivedButton' | translate}}</button>                    
+                    <button *ngIf="item.status.id == '5c017b1447fb07027943a407'" (click)="markAsOutForDelivered(item.id)" class="btn-red-a">{{'ManageOrders.OutForDelivered' | translate}}</button>
+                    <button *ngIf="item.status.id == '5c017b2147fb07027943a408'" (click)="markAsDelivered(item.id)" class="btn-red-a">{{'ManageOrders.DeliveredButton' | translate}}</button>                    
               </div>
               </div>
             </div>

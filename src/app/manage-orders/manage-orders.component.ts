@@ -158,7 +158,7 @@ export class ManageOrdersComponent implements OnInit {
   markAsRepayed(itemID: string) {
     this.orderService.markItemAsRepayed(itemID).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success('Item marked as Repayed!', 'Status Change', { positionClass: 'toast-top-right' });
         this.getOrders();
       },
       error => {
@@ -167,4 +167,53 @@ export class ManageOrdersComponent implements OnInit {
     );
   }
 
+  fullfillSubmit(itemid){    
+    this.orderService.markItemAsShipped(itemid)
+    .subscribe(
+      result => {
+        console.log( result );
+        this.toast.success('Item marked as shipped!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.getOrders();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+  }
+
+  markAsArrived( itemID: string ) {
+    this.orderService.markItemAsArrived( itemID ).subscribe(
+      result => {
+        this.toast.success('Item marked as arrived!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.getOrders();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+  }
+
+  markAsOutForDelivered( itemID: string ) {
+    this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
+      result => {
+        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
+        this.getOrders();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+  }
+
+  markAsDelivered( itemID:string ){
+    this.orderService.markItemAsDelivered( itemID ).subscribe(
+      result => {
+        this.toast.success('Item marked as delivered!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.getOrders();
+      },
+      error => {
+        console.log( error );
+      }
+    )
+  }
 }

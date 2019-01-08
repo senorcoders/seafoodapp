@@ -12,11 +12,11 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./checkout.component.scss']
 })
 export class CheckoutComponent implements OnInit {
-  shoppingCartId:any;
-  accessToken:any = 'Ddx5kJoJWr11sF6Hr6E4';
-  merchantID:any = 'aZCWXhqJ';
-  apiPass:any = 'bafgiwugfiwgfyyf';
-  signatureCode:any;
+  shoppingCartId: any;
+  accessToken: any = 'Ddx5kJoJWr11sF6Hr6E4';
+  merchantID: any = 'aZCWXhqJ';
+  apiPass: any = 'bafgiwugfiwgfyyf';
+  signatureCode: any;
   access_code: FormControl;
   card_number: FormControl;
   card_security_code: FormControl;
@@ -27,20 +27,20 @@ export class CheckoutComponent implements OnInit {
   service_command: FormControl;
   signature: FormControl;
   checkoutForm: FormGroup;
-  payForAPI:any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
-  randomID:any;
-  products:any = [];
-  total:any;
-  totalOtherFees:number;
-  shipping:any;
-  totalWithShipping:any;
-  showShippingFields:boolean = false;
-  check:boolean = false;
-  info:any;
-  buyerId:string;
+  payForAPI: any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+  randomID: any;
+  products: any = [];
+  total: any;
+  totalOtherFees: number;
+  shipping: any;
+  totalWithShipping: any;
+  showShippingFields: boolean = false;
+  check: boolean = false;
+  info: any;
+  buyerId: string;
 
 
-  constructor(private router:Router,  private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService, private orders:OrderService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService, private orders: OrderService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -49,61 +49,61 @@ export class CheckoutComponent implements OnInit {
       this.generateSignature();
       this.getCart();
       this.getPersonalData();
-      //this.shipping = localStorage.getItem('shippingCost');
-      
-    })
+      // this.shipping = localStorage.getItem('shippingCost');
+
+    });
   }
-  getPersonalData(){
+  getPersonalData() {
     this.info = this.auth.getLoginData();
   }
-  getCart(){
-    
-      
-      this.Cart.cart.subscribe((cart:any)=>{
-        if(cart && cart['items'] !=''){
-          this.products=cart['items'];
-          /*this.total=cart['total'];
-          this.shipping=cart['shipping']
-          this.totalOtherFees=cart['totalOtherFees']*/
-          this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
-          this.buyerId=cart['buyer']
+  getCart() {
 
-          this.orders.getCart( this.buyerId )
+
+    this.Cart.cart.subscribe((cart: any) => {
+      if (cart && cart['items'] !== '') {
+        this.products = cart['items'];
+        /*this.total=cart['total'];
+        this.shipping=cart['shipping']
+        this.totalOtherFees=cart['totalOtherFees']*/
+        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
+        this.buyerId = cart['buyer'];
+
+        this.orders.getCart(this.buyerId)
           .subscribe(
-            res=> {
-              this.total= res['subTotal'];
+            res => {
+              this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
             },
-            error=> {
-              console.log( error );
+            error => {
+              console.log(error);
             }
-            )
-        }
-      
-    })
+          );
+      }
+
+    });
   }
-  generateSignature(){
-    var string = this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.randomID+'service_command=TOKENIZATION' + this.apiPass;
+  generateSignature() {
+    const string = this.apiPass + 'access_code=' + this.accessToken + 'language=enmerchant_identifier=' + this.merchantID + 'merchant_reference=' + this.randomID + 'service_command=TOKENIZATION' + this.apiPass;
     console.log(string);
     this.signatureCode = shajs('sha256').update(string).digest('hex');
     console.log(this.signatureCode);
   }
 
-  createFormControls(){
-    this.access_code= new FormControl('', [Validators.required]);
-    this.card_number= new FormControl('', [Validators.required]);
-    this.card_security_code= new FormControl('', [Validators.required]);
-    this.expiry_date= new FormControl('', [Validators.required]);
-    this.language= new FormControl('', [Validators.required]);
-    this.merchant_identifier= new FormControl('', [Validators.required]);
-    this.merchant_reference= new FormControl('', [Validators.required]);
-    this.service_command= new FormControl('', [Validators.required]);
-    this.signature= new FormControl('', [Validators.required]); 
+  createFormControls() {
+    this.access_code = new FormControl('', [Validators.required]);
+    this.card_number = new FormControl('', [Validators.required]);
+    this.card_security_code = new FormControl('', [Validators.required]);
+    this.expiry_date = new FormControl('', [Validators.required]);
+    this.language = new FormControl('', [Validators.required]);
+    this.merchant_identifier = new FormControl('', [Validators.required]);
+    this.merchant_reference = new FormControl('', [Validators.required]);
+    this.service_command = new FormControl('', [Validators.required]);
+    this.signature = new FormControl('', [Validators.required]);
   }
 
-  createForm(){
+  createForm() {
     this.checkoutForm = new FormGroup({
       access_code: this.access_code,
       card_number: this.card_number,
@@ -116,11 +116,11 @@ export class CheckoutComponent implements OnInit {
       signature: this.signature
 
     }, {
-      updateOn: 'submit'
-    });
+        updateOn: 'submit'
+      });
   }
 
-  setValues(){
+  setValues() {
     this.checkoutForm.controls['access_code'].setValue(this.accessToken);
     this.checkoutForm.controls['language'].setValue('en');
     this.checkoutForm.controls['merchant_identifier'].setValue(this.merchantID);
@@ -128,48 +128,48 @@ export class CheckoutComponent implements OnInit {
     this.checkoutForm.controls['service_command'].setValue('TOKENIZATION');
     this.checkoutForm.controls['signature'].setValue(this.signatureCode);
   }
-  validateAllFormFields(formGroup: FormGroup) {         
-    Object.keys(formGroup.controls).forEach(field => { 
-      const control = formGroup.get(field);             
-      if (control instanceof FormControl) {             
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {        
-        this.validateAllFormFields(control);            
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
       }
     });
   }
 
-  onSubmit(){
-    if(this.checkoutForm.valid){
-      console.log("Valido");
-      this.sendDataToPayfort().subscribe(res =>{
+  onSubmit() {
+    if (this.checkoutForm.valid) {
+      console.log('Valido');
+      this.sendDataToPayfort().subscribe(res => {
         console.log(res);
       });
-    }else{
+    } else {
       this.validateAllFormFields(this.checkoutForm);
     }
-   
+
   }
-  
 
-  sendDataToPayfort(){
-    var formBody = new FormData();
-    formBody.set("access_code", this.checkoutForm.get('access_code').value);
-    formBody.set("card_number", this.checkoutForm.get('card_number').value);
-    formBody.set("card_security_code", this.checkoutForm.get('card_security_code').value);
-    formBody.set("expiry_date", this.checkoutForm.get('expiry_date').value);
-    formBody.set("language", this.checkoutForm.get('language').value);
-    formBody.set("merchant_identifier", this.checkoutForm.get('merchant_identifier').value);
-    formBody.set("merchant_reference", this.checkoutForm.get('merchant_reference').value);
-    formBody.set("service_command", this.checkoutForm.get('service_command').value);
-    formBody.set("signature", this.checkoutForm.get('signature').value);
-    
 
-    return this.http.post(this.payForAPI, 
-      formBody,  {
-      headers: new HttpHeaders()
-        .set('Content-Type', 'application/x-www-form-urlencoded')
-    })
+  sendDataToPayfort() {
+    const formBody = new FormData();
+    formBody.set('access_code', this.checkoutForm.get('access_code').value);
+    formBody.set('card_number', this.checkoutForm.get('card_number').value);
+    formBody.set('card_security_code', this.checkoutForm.get('card_security_code').value);
+    formBody.set('expiry_date', this.checkoutForm.get('expiry_date').value);
+    formBody.set('language', this.checkoutForm.get('language').value);
+    formBody.set('merchant_identifier', this.checkoutForm.get('merchant_identifier').value);
+    formBody.set('merchant_reference', this.checkoutForm.get('merchant_reference').value);
+    formBody.set('service_command', this.checkoutForm.get('service_command').value);
+    formBody.set('signature', this.checkoutForm.get('signature').value);
+
+
+    return this.http.post(this.payForAPI,
+      formBody, {
+        headers: new HttpHeaders()
+          .set('Content-Type', 'application/x-www-form-urlencoded')
+      });
   }
   guid() {
     function s4() {
@@ -179,18 +179,18 @@ export class CheckoutComponent implements OnInit {
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
   }
- 
-  getTotalxItem(count, price){
-    return count*price;
+
+  getTotalxItem(count, price) {
+    return count * price;
   }
 
-  onInputChange(value){
+  onInputChange(value) {
     console.log(value.currentTarget.checked);
 
     console.log(this.check);
-    if(this.check == true){
+    if (this.check === true) {
       this.showShippingFields = true;
-    }else{
+    } else {
       this.showShippingFields = false;
     }
   }

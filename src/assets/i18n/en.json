@@ -620,6 +620,10 @@
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"PaymentButton": "Mark Payment",
-		"RefoundButton": "Mark RefoundB"
+		"RefoundButton": "Mark Refounded",
+		"ShippedButton": "Mark as Shipped",
+		"ArrivedButton": "Mark as Arrived",
+		"OutForDelivered": "Mark as Out for Delivered",
+		"DeliveredButton": "Mark as Delivered"
 	}
 }
