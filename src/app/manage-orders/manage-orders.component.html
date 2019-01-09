@@ -34,6 +34,7 @@
                   <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                   <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
                   <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+                  <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
                 </div>
                 <!--<div class="col-4">
                   <p class="date" *ngIf="item.shippedAt" ><strong>Shipped on {{item.shippedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>

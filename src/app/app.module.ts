@@ -93,6 +93,7 @@ import { RepaymentsComponent } from './repayments/repayments.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
+import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -153,6 +154,7 @@ const appRoutes: Routes = [
   { path: 'checkout', component: CheckoutComponent, canActivate: [BuyerRouterService] },
   { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
+  { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] }
 
 
@@ -223,7 +225,8 @@ const appRoutes: Routes = [
     RepaymentsComponent,
     RefundsComponent,
     RefundCasesComponent,
-    ManageOrdersComponent
+    ManageOrdersComponent,
+    ItemsByStatusComponent
   ],
   imports: [
     BrowserModule,

@@ -626,5 +626,11 @@
 		"OutForDelivered": "Mark as Out for Delivered",
 		"DeliveredButton": "Mark as Delivered",
 		"UpdateStatusButton": "Update Status"
+	},
+	"ItemStatus":{
+		"title": "Items Buyed",
+		"status": "Status",
+		"orderNumber": "Order Number",
+		"cancelItem": "Cancel Item"
 	}
 }
