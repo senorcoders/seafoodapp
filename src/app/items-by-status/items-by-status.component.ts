@@ -4,13 +4,12 @@ import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
-
 @Component({
-  selector: 'app-manage-orders',
-  templateUrl: './manage-orders.component.html',
-  styleUrls: ['./manage-orders.component.scss']
+  selector: 'app-items-by-status',
+  templateUrl: './items-by-status.component.html',
+  styleUrls: ['./items-by-status.component.scss']
 })
-export class ManageOrdersComponent implements OnInit {
+export class ItemsByStatusComponent implements OnInit {
 
   orders: any = [];
   orderStatus: any = [];
@@ -56,7 +55,7 @@ export class ManageOrdersComponent implements OnInit {
         ( this.status === undefined && this.orderNumber === undefined) ||
         ( this.status === '0' && ( this.orderNumber === undefined || this.orderNumber === '' ) )
       ) {
-      this.orderService.getAllOrders().subscribe(
+      this.orderService.getAllBuyerOrders( this.user['id'] ).subscribe(
         res => {
           if (res['length'] > 0) {
             this.orders = res;
@@ -71,7 +70,7 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if ( this.status !== '0' && ( this.orderNumber === undefined || this.orderNumber === '' ) ) {// by status
-      this.orderService.getOrdersByStatus( this.status ).subscribe(
+      this.orderService.getOrdersBuyerByStatus( this.user['id'], this.status ).subscribe(
         res => {
           if (res['length'] > 0) {
             this.orders = res;
@@ -87,7 +86,7 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if ( ( this.orderNumber !== undefined || this.orderNumber > 0 ) &&  this.status === '0' ) {// by order number
-      this.orderService.getOrdersByNumber( this.orderNumber ).subscribe(
+      this.orderService.getOrdersBuyerByNumber( this.user['id'], this.orderNumber ).subscribe(
         res => {
           if (res['length'] > 0) {
             this.orders = res;
@@ -103,7 +102,7 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if ( this.status !== '0' && this.orderNumber !== undefined || this.orderNumber !== '' ) {
-      this.orderService.getOrdersByStatusAndNumber( this.status, this.orderNumber ).subscribe(
+      this.orderService.getOrdersBuyerByStatusAndNumber( this.user['id'], this.status, this.orderNumber ).subscribe(
         res => {
           if (res['length'] > 0) {
             this.orders = res;
@@ -149,80 +148,6 @@ export class ManageOrdersComponent implements OnInit {
     );
   }
 
-  markAsRefounded( itemID: string ) {
-    this.orderService.markItemAsRefounded( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as Refounded!', 'Status Change', {positionClass: 'toast-top-right'});
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsRepayed(itemID: string) {
-    this.orderService.markItemAsRepayed(itemID).subscribe(
-      result => {
-        this.toast.success('Item marked as Repayed!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  fullfillSubmit(itemid){
-    this.orderService.markItemAsShipped(itemid)
-    .subscribe(
-      result => {
-        console.log( result );
-        this.toast.success('Item marked as shipped!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsArrived( itemID: string ) {
-    this.orderService.markItemAsArrived( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as arrived!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsOutForDelivered( itemID: string ) {
-    this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsDelivered( itemID: string ){
-    this.orderService.markItemAsDelivered( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as delivered!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
   confirmUpdatestatus( selectedStatus, selectedItemID ) {
     this.selectedStatus = selectedStatus;
     this.selectedItemID = selectedItemID;
@@ -252,4 +177,17 @@ export class ManageOrdersComponent implements OnInit {
     console.log( 'status', selectedStatus );
     console.log( 'item', itemID );
   }
+
+  cancelItem( itemID: string ) {
+    const cancelStatus = '5c017b5a47fb07027943a40c';
+    this.orderService.updateStatus( cancelStatus, itemID, this.user ).subscribe(
+      result => {
+        this.toast.success(`Item marked as Cancelled!` , 'Status Change', { positionClass: 'toast-top-right' });
+      },
+      error => {
+        console.log( 'error' );
+      }
+    )
+  }
+
 }

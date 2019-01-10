@@ -28,6 +28,21 @@ export class OrderService {
   getOrdersByStatusAndNumber( status: string, orderNumber: string ) {
     return this.http.get(`${API}api/itemshopping/status/${status}/order-number/${orderNumber}`);
   }
+  
+  // Get Buyer Orders
+  getAllBuyerOrders( userID:string ) {
+    return this.http.get(`${API}api/itemshopping/${userID}/all`);
+  }
+  getOrdersBuyerByStatus( userID:string, status: string ) {
+    return this.http.get(`${API}api/itemshopping/${userID}/status/${status}`);
+  }
+  getOrdersBuyerByNumber( userID:string, orderNumber: string ) {
+    return this.http.get(`${API}api/itemshopping/${userID}/order-number/${orderNumber}`);
+  }
+  getOrdersBuyerByStatusAndNumber( userID:string, status: string, orderNumber: string ) {
+    return this.http.get(`${API}api/itemshopping/${userID}/status/${status}/order-number/${orderNumber}`);
+  }
+  // End get buyer orders
 
   getCart( buyer: string ) {
     return this.http.post(`${API}shoppingcart`, { buyer: buyer });

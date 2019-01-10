@@ -36,7 +36,7 @@ const menuAdmin = [
     type: 'sub',
     children: [
       { state: 'manage-orders', name: 'Manage Orders', translate: { en: { name: 'Manage Orders' }, ar: { name: 'Manage Orders' } } },
-      { state: 'seller-fulfills-orders', name: 'Seller Fulfills Orders', translate: { en: { name: 'Seller Fulfills Orders' }, ar: { name: 'Seller Fulfills Orders' } } },
+      /*{ state: 'seller-fulfills-orders', name: 'Seller Fulfills Orders', translate: { en: { name: 'Seller Fulfills Orders' }, ar: { name: 'Seller Fulfills Orders' } } },
       { state: 'orders-shipped', name: 'Orders Shipped', translate: { en: { name: 'Orders Shipped' }, ar: { name: 'Orders Shipped' } } },
       { state: 'orders-arrived', name: 'Orders Arrived', translate: { en: { name: 'Orders Arrived' }, ar: { name: 'Orders Arrived' } } },
       { state: 'orders-out-for-delivery', name: 'Orders Out for Delivery', translate: { en: { name: 'Orders Out for Delivery' }, ar: { name: 'Order Out for Delivery' } } },
@@ -44,7 +44,7 @@ const menuAdmin = [
       { state: 'payments', name: 'Payments', translate: { en: { name: 'Payments' }, ar: { name: 'Payments' } } },
       { state: 'repayments', name: 'Repayments', translate: { en: { name: 'Repayments' }, ar: { name: 'Repayments' } } },
       { state: 'refund-cases', name: 'Refund Cases', translate: { en: { name: 'Refund Cases' }, ar: { name: 'Refund Cases' } } },
-      { state: 'refunds', name: 'Refunds', translate: { en: { name: 'Refunds' }, ar: { name: 'Refunds' } } }
+      { state: 'refunds', name: 'Refunds', translate: { en: { name: 'Refunds' }, ar: { name: 'Refunds' } } }*/
     ],
     translate: {
       en: {
@@ -251,14 +251,26 @@ const menuBuyer = [
       }
     }
   }, {
-    state: 'orders',
-    type: 'link',
+    state: 'my-orders',
+    type: 'sub',
+    children: [
+      {
+        state: 'orders',
+        name: 'My Orders',
+        translate: { en: { name: 'My Orders' }, ar: { name: 'My Orders' } }
+      },
+      {
+        state: 'items-status',
+        name: 'Items Status',
+        translate: { en: { name: 'Items Status' }, ar: { name: 'Items Status' } }
+      }
+    ],
     translate: {
       en: {
-        name: 'My Orders'
+        name: 'Orders'
       },
       ar: {
-        name: 'My Orders'
+        name: 'Orders'
       }
     }
   }
