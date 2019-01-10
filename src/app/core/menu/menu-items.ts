@@ -236,17 +236,6 @@ const menuSeller = [
         name: 'My Products'
       }
     }
-  }, {
-    state: 'documents',
-    type: 'link',
-    translate: {
-      en: {
-        name: 'Documents'
-      },
-      ar: {
-        name: 'Documents'
-      }
-    }
   }
 ];
 const menuBuyer = [
@@ -255,10 +244,10 @@ const menuBuyer = [
     type: 'link',
     translate: {
       en: {
-        name: 'Browse'
+        name: 'Shop'
       },
       ar: {
-        name: 'Browse'
+        name: 'Shop'
       }
     }
   }, {

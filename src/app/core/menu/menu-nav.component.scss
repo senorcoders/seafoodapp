@@ -1,12 +1,17 @@
 .top-nav{
-    padding: 15px 0;
     box-shadow: 0px 10px 11px -7px #eeeeee;
 	font-family: 'Roboto', sans-serif;
-	color: #969696;
+	color: #f1f1f1;
+	background: #313131;
+    height: 63px;
+    display: flex;
 	.bar{
 		display: inline-block;
 	}
 	.address{
+		.img-logo{
+			padding-left: 60px;
+		}
     	.bar{
     		margin: 0 10px 0 20px;
     	}
@@ -15,17 +20,19 @@
     		margin-right: 5px;
     	}
 	}
+	a:hover{
+			color:#2d75f0 !important;
+    	}
 	.access{
 		text-align: right;
 		margin-right: 10px;
 		.login{
 			cursor: pointer;
-			color: #969696;
+			color: #f1f1f1;
 			text-decoration: none !important;
 		}
 		.signup{
-			color: #eb1c24;
-			text-transform: uppercase;
+			color: #f1f1f1;
 			font-family: 'Roboto', sans-serif Medium;
 			text-decoration: none !important;
 		}
@@ -50,15 +57,14 @@
 			    color: white;
 			    display: block;
 			    width: 100%;
+			    color:#f1f1f1 ;
+			    &:hover{
+			    	color: #2d75f0 !important
+			    }
 			}
 		}
 		.bar{
 			margin: 0 1rem;;
-		}
-	}
-	.menuitem-buyer{
-		.nav-link{
-			padding-right: 1rem !important;
 		}
 	}
 }
@@ -91,10 +97,9 @@ form{
 	    padding: 9px 20px;
 	}
 }
-.admin-navbar{
-	.nav-link{
-		padding-right: 1rem !important
-	}
+.navbar-collapse{
+    z-index: 9;
+    background: rgb(49, 49, 49);
 }
 .fish-type-menu{
 	.multiple-column{
@@ -197,6 +202,23 @@ form{
 .dropdown-item.active, .dropdown-item:active{
     background-color: #eb1c24;
 }
+.nav-link{
+    padding-left: 3rem !important;
+    padding-right: 3rem !important;
+}
+.admin-navbar .nav-link{
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+}
+.bar{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
+@media (min-width: 1200px){
+	.container {
+	    max-width: 1440px;
+	}
+}
 @media(min-width: 992px){
 	.search-container{
 		z-index: 4;
@@ -235,10 +257,10 @@ form{
 		    padding-left: 0.5rem !important;
 		}
 	}
-}
-@media(max-width: 992px){
-	.top-mobile{
-		display: block;
+	.nav-item {
+	    display: block !important;
+	    width: 100%;
+	    text-align: center;
 	}
 	.navbar-toggler{
 		position: absolute;
@@ -249,14 +271,17 @@ form{
 		margin: 0 !important;
     	width: 100%;
 	}
+	.bar{
+		display: none !important;
+	}
+}
+@media(max-width: 992px){
+	.top-mobile{
+		display: block;
+	}
 	.search-container{
 		margin: 0 auto;
     	display: inline-block;
-	}
-	.nav-language{
-		margin: 0 auto;
-    	display: inline-block;
-    	padding: 0.5rem;
 	}
 	.cart{
 		padding: 0.5rem 15px !important;
@@ -282,9 +307,6 @@ form{
 	}
 	.dropdown-toggle::after{
 		display: none;
-	}
-	.bar{
-		display: none !important;
 	}
 	.nav-language {
     	align-items: flex-start;

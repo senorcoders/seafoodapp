@@ -1,19 +1,18 @@
 <div class="top-nav">
   <div class="container">
-    <div class="row" style="align-items: center;">
+    <div class="row" style="align-items: center;height: 100%">
       <div class="address">
-       <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Seafood_Souq_blue.png" alt=""></a>
+       <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Logo-2.png" alt=""></a>
       </div>
-      <nav class="navbar navbar-expand-lg navbar-light ml-auto">
+      <nav class="navbar navbar-expand-xl navbar-dark" [ngClass]="{'mx-auto':isLogged,'ml-auto': !isLogged }">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <!-- star menu buyer -->
-          <ul class="navbar-nav ml-auto menuitem-buyer" *ngIf="isLogged && role==2">
+          <ul class="navbar-nav ml-auto menuitem-buyer access-buyer" *ngIf="isLogged && role==2">
             <!-- start search -->
-            <li class="nav-item">
-              <!-- <a class="nav-link"><img src="../../assets/search-icon.png" alt="" (click)="openSearch()" id="search-icon"></a> -->
+            <!-- <li class="nav-item">
               <form class="form-inline search-container" [formGroup]="searchForm" (submit)="search()" autocomplete="off">
                 <input class="form-control" type="text" placeholder="{{'Menu.search-input-placeholder' | translate}}" aria-label="Search" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}" (keyup)="suggestions()" id="search-input">
                 <div class="suggestion" *ngIf="showSuggestion">
@@ -24,7 +23,7 @@
                 <button type="submit" [disabled]="searchForm.invalid" class="search-btn">{{'Menu.search-input-button' | translate}}</button>
               </form>
               <div class="closeContainer" *ngIf="showSuggestion" (click)="closeSuggestion()"></div>
-            </li>
+            </li> -->
             <!-- end search -->
             <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
               <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
@@ -37,6 +36,18 @@
                 </li>
               </ng-template>
             </li>
+            <li class="nav-item" *ngIf="showCart">
+              <a class="nav-link" routerLink="/cart" routerLinkActive="active-link">Cart <!-- <span class="total">${{cartItem.total}}</span> --></a>
+            </li>
+            <li class="nav-item">
+              <span class="bar">|</span>
+            </li>
+            <li class="nav-item">
+                <a routerLink="/account" class="nav-link">{{ "Menu.perfil" | translate }}</a>
+              </li>
+              <li class="nav-item">
+                <a (click)="logOut()" class="nav-link">{{ "Menu.logout" | translate }}</a>
+              </li>
           </ul>
           <!-- end menu bayer -->
           <!-- start menu admin-->
@@ -55,92 +66,52 @@
                 </ng-template>
               </ng-template>
             </li>
+             <!-- login options -->
+            <li class="nav-item">
+              <a routerLink="/account" class="nav-link">{{ "Menu.perfil" | translate }}</a>
+            </li>
+            <li class="nav-item">
+               <span class="bar nav-link">|</span>
+            </li>
+            <li class="nav-item">
+              <a (click)="logOut()" class="nav-link">{{ "Menu.logout" | translate }}</a>
+            </li>
           </ul>
           <!-- end menu admin -->
-          <ul class="navbar-nav access" *ngIf="!isLogged; else noLogin">
-            <li class="nav-item">
-              <a routerLink="/login" class="login">{{ "Menu.login" | translate }}</a>
+          <!-- start menu seller-->
+          <ul class="navbar-nav ml-auto access-seller" *ngIf="isLogged && role==1">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
+              <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+              <ng-template #submenu>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                    <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
+                  </div>
+                </li>
+              </ng-template>
             </li>
             <li class="nav-item">
-              <span class="bar">|</span>
+               <span class="bar nav-link">|</span>
+            </li>
+            <!-- login options -->
+            <li class="nav-item">
+              <a routerLink="/account" class="nav-link">{{ "Menu.perfil" | translate }}</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/register" class="signup">{{ "Menu.register" | translate }}</a>
+              <a (click)="logOut()" class="nav-link">{{ "Menu.logout" | translate }}</a>
             </li>
           </ul>
-          <ng-template #noLogin>
-            <!-- buyer -->
-            <ul class="navbar-nav access-buyer" *ngIf="role==2; else otherRole">
-              <li class="nav-item signup">
-                <a routerLink="/account">{{ "Menu.perfil" | translate }}</a>
-              </li>
-              <li class="nav-item">
-                 <span class="bar">|</span>
-              </li>
-              <li class="nav-item login">
-                <a (click)="logOut()">{{ "Menu.logout" | translate }}</a>
-              </li>
-              <li class="nav-item" *ngIf="showCart && isLogged">
-                <a class="nav-link cart" (click)="goCart()"><fa name="shopping-cart"></fa> <span class="total">${{cartItem.total}}</span></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link cart" href="mailto:info@seafoodsouq.com"><fa name="envelope-o"></fa></a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link cart favorites-link" routerLink="/favorites"><fa name="heart"></fa></a>
-              </li>
-            </ul>
-            <ng-template #otherRole>
-            <!-- start menu seller-->
-              <ul class="navbar-nav ml-auto access-seller" *ngIf="isLogged && role==1">
-                <!-- login options -->
-                <li class="nav-item signup">
-                  <a routerLink="/account">{{ "Menu.perfil" | translate }}</a>
-                </li>
-                <li class="nav-item">
-                   <span class="bar">|</span>
-                </li>
-                <li class="nav-item login">
-                  <a (click)="logOut()">{{ "Menu.logout" | translate }}</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link cart" href="mailto:info@seafoodsouq.com"><fa name="envelope-o"></fa></a>
-                </li>
-                <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
-                  <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                  <ng-template #submenu>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
-                      <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
-                        <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
-                      </div>
-                    </li>
-                  </ng-template>
-                </li>
-              </ul>
-              <!-- end menu seller -->
-              <ul class="navbar-nav access" *ngIf="role<=0">
-                <li class="nav-item">
-                  <a (click)="logOut()" class="login">{{ "Menu.logout" | translate }}</a>
-                </li>
-                <li class="nav-item">
-                   <span class="bar">|</span>
-                </li>
-                <li class="nav-item">
-                  <a routerLink="/account" class="signup">{{ "Menu.perfil" | translate }}</a>
-                </li>
-              </ul>
-            </ng-template>
-          </ng-template>
-          <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
-            <li class="nav-item lang-cont">
-              <select class="language" (change)="changeLanguage($event)">
-                <option value="{{lang}}">{{lang}}</option>
-                <option *ngIf="lang=='ar'; else ar" value="en">en</option>
-                <ng-template #ar>
-                  <option value="ar">ar</option>
-                </ng-template>
-              </select>
+          <!-- end menu seller -->
+          <ul class="navbar-nav access" *ngIf="!isLogged">
+            <li class="nav-item">
+              <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
+            </li>
+            <li class="nav-item">
+              <span class="bar nav-link">|</span>
+            </li>
+            <li class="nav-item">
+              <a routerLink="/register" class="nav-link">{{ "Menu.register" | translate }}</a>
             </li>
           </ul>
           <div class="fish-type-menu-mobile" *ngIf="isLogged && role==2">

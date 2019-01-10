@@ -9,6 +9,10 @@ footer .footer-logo{
 .footer-menu ul li a{
     text-transform: initial;
 }
+.nav-language{
+	margin: 0 auto;
+	display: inline-block;
+}
 @media screen and (max-width: 992px){
     .double-custom-list{
         column-count: 1;

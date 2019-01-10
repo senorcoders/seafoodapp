@@ -50,7 +50,7 @@ body {
     overflow-x: hidden;
 }
 .nav-link{
-    color: #000000 !important;
+    color: #f1f1f1 !important;
     font-size: 1.1rem;
     text-transform: capitalize;
     font-family: 'Roboto', sans-serif;
@@ -68,11 +68,11 @@ body {
     padding-left: 1rem !important;
     cursor: pointer;
     &:hover{
-      color: #eb1c24 !important;
+      color: #2d75f0 !important;
     }
   }
   .active-link{
-    color: #eb1c24 !important;
+    color: #2d75f0 !important;
   }
 }
 .dropdown-toggle{
@@ -113,14 +113,15 @@ body {
 }
 .language{
   background: transparent;
-  color: #000000;
-  border: 1px solid #000000;
+  color: #f1f1f1;
+  border: 1px solid #f1f1f1;
   border-radius: 20px;
   outline: none;
   -webkit-appearance: none;
   -moz-appearance: none;
   min-width: 50px;
   padding: 0 10px;
+  font-family: Avenir;
   option{
     color: #123345;
   }
@@ -133,10 +134,10 @@ body {
     font-family: FontAwesome;
     font-weight: normal;
     font-style: normal;
-    color: #000000;
+    color: #f1f1f1;
     top: 52%;
     transform: translate(50%,-48%);
-    right: 15px;
+    right: 10px;
     z-index: 1
   }
 }
@@ -346,7 +347,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
 .img-logo{
   img{
     max-width: 100%;
-    width: 100px;
+    width: 70px;
     height: auto;
   }
   //padding-left: 40px;
@@ -876,6 +877,9 @@ app-administrator, app-featured-seller, app-featured-products,app-featured-types
   text-align: justify;
   padding-top: 60px;
   padding-bottom: 60px;
+}
+app-register, app-login{
+  z-index: 9 !important;
 }
 @media(max-width: 1200px){
   .navbar .nav-link{
