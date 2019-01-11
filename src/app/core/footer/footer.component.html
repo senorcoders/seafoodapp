@@ -46,6 +46,20 @@
           Dubai Emirates <br>
           <a href="mailto:info@seafoodsouq.com" class="email-address">info@seafoodsouq.com</a> 
         </p>
+        <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
+          <li class="nav-item"  *ngIf="isLogged && role==2">
+                <a class="nav-link cart favorites-link" routerLink="/favorites"><fa name="heart"></fa></a>
+              </li>
+            <li class="nav-item lang-cont">
+              <select class="language" (change)="changeLanguage($event)">
+                <option value="{{lang}}">{{lang}}</option>
+                <option *ngIf="lang=='ar'; else ar" value="en">en</option>
+                <ng-template #ar>
+                  <option value="ar">ar</option>
+                </ng-template>
+              </select>
+            </li>
+          </ul>
       </div>
       <div class="social-network">
         <ul class="list-inline">

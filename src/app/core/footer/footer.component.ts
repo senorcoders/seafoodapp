@@ -6,8 +6,12 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import {LanguageService} from '../language/language.service';
 import {IsLoginService} from '../login/is-login.service';
+import {TranslateService} from 'ng2-translate';
 import * as AOS from 'aos';
 declare var jQuery:any;
+const defaultLanguage = "en";
+const additionalLanguages = ["ar"];
+const languages: string[] = [defaultLanguage].concat(additionalLanguages);
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
@@ -18,9 +22,11 @@ export class FooterComponent{
   language:any;
   MenuItems:any;
   isLogged:boolean=false;
+  lang:any;
+  role:any;
   constructor(private fb: FormBuilder,private menuItems: MenuItems, private router:Router, 
     private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService, private menu:MenuItems,
-    private isLoggedSr: IsLoginService){
+    private isLoggedSr: IsLoginService, private translate: TranslateService){
     this.MenuItems=this.menu;
   }
   ngOnInit(){
@@ -31,6 +37,19 @@ export class FooterComponent{
       AOS.refresh();
     });
     //language
+    this.translate.setDefaultLang(defaultLanguage);
+    this.translate.addLangs(additionalLanguages);
+    // let initLang = this.translate.getBrowserLang();
+    // this.lang=initLang;
+    // if (languages.indexOf(initLang) === -1) {
+    //   initLang = defaultLanguage;
+    // }
+    // this.translate.use(initLang);
+    //this.languageService.setLanguage(initLang);
+    this.lang=defaultLanguage;
+    this.translate.use(defaultLanguage);
+    this.languageService.setLanguage(defaultLanguage);
+    //language
     this.languageService.language.subscribe((value:any)=>{
       this.language=value;
     })
@@ -39,6 +58,9 @@ export class FooterComponent{
     })
     this.isLoggedSr.isLogged.subscribe((val:boolean)=>{
       this.isLogged=val;
+    })
+    this.isLoggedSr.role.subscribe((role:number)=>{
+      this.role=role
     })
   }
   logOut(){
@@ -61,5 +83,13 @@ export class FooterComponent{
         }
       }
     )
+  }
+  changeLanguage(e){
+    let value=e.srcElement.value;
+    if(value!=this.lang){
+      this.translate.use(value);
+      this.lang=value
+      this.languageService.setLanguage(value);
+    }
   }
 }
