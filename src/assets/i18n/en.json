@@ -155,7 +155,8 @@
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
-		"mortalityRate": "Mortality Rate"
+		"mortalityRate": "Mortality Rate",
+		"processingCountry": "Processing Country"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
@@ -182,6 +183,7 @@
 		"description":"Description",
 		"fish-types":"Fish Types",
 		"country":"Country",
+		"processingCountry": "Processing Country",
 		"primary-image-ch":"Choose Primary Image",
 		"images":"Choose File",
 		"update":"Update",

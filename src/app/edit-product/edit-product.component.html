@@ -139,6 +139,12 @@
       </select>
     </div>
     <div class="form-group">
+      <label>{{'EditProduct.processingCountry' | translate}}</label>
+      <select class="form-control" [(ngModel)]="processingCountry" [ngModelOptions]="{standalone: true}">
+        <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+      </select>
+    </div>
+    <div class="form-group">
       <label>{{'AddProduct.cooming_soon' | translate}}</label>
       <select class="form-control" [(ngModel)]="cooming_soon" [ngModelOptions]="{standalone: true}" disabled>
         <option value="false">No</option>

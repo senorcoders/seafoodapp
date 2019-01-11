@@ -221,7 +221,16 @@
                 <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>          
+          </div> 
+          
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label>{{'AddProduct.processingCountry' | translate}}</label>
+              <select class="form-control" formControlName="processingCountry">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+            </div>
+          </div>
 
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
