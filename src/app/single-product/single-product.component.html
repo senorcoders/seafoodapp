@@ -26,6 +26,11 @@
       <div class="col-lg-6 product-content">
         <h2 class="product-name">
           {{name}}
+          <div *ngIf="role == 0" class="edit-admin">
+              <a routerLink="/edit-product/{{productID}}" class="">
+                <fa name="pencil" class="pencil"></fa>Edit
+              </a>
+            </div>
           <div class="favorite-content" *ngIf="role==2">
             <button (click)="submitFavorite()" *ngIf="!isFavorite;else favorite" [disabled]="enabledHeart"><fa name="heart-o"></fa></button>
             <ng-template #favorite>
@@ -81,7 +86,7 @@
             </div>
             <button *ngIf="cooming_soon == 'false'" (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-red btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
-          </form>
+          </form>          
           <ng-template #login>
             <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
           </ng-template>

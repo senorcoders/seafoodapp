@@ -17,16 +17,22 @@ export class MyProductsComponent implements OnInit {
   store:any;
   base:string=environment.apiURLImg;
   image:SafeStyle=[];
+  user: any;
 
   constructor(private auth: AuthenticationService, private productService: ProductService, private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
+    this.user = this.auth.getLoginData();
     this.getMyData();
   }
 
   getMyData(){
     this.info = this.auth.getLoginData();
-    this.getStore();
+    if( this.user.role == 0 ){
+      this.getProducts();
+    }else{
+      this.getStore();
+    }
   }
 
   getStore(){
@@ -38,21 +44,40 @@ export class MyProductsComponent implements OnInit {
 
 
   getProducts(){
-    this.productService.getData('store/' + this.store.id).subscribe(result => {
-      this.products = result['fishs'];
-      //working on the images to use like background
-      this.products.forEach((data, index)=>{
-        if (data.imagePrimary && data.imagePrimary !='') {
-          this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)
-        }
-        else if(data.images && data.images.length>0){
-          this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`)
-        }
-            else{
-          this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
-        }
-      });
-    })
+    if( this.user.role == 0 ){
+      this.productService.getData('store/allProducts' ).subscribe(result => {
+        this.products = result;
+        //working on the images to use like background
+        this.products.forEach((data, index)=>{
+          if (data.imagePrimary && data.imagePrimary !='') {
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)
+          }
+          else if(data.images && data.images.length>0){
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`)
+          }
+              else{
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+          }
+        });
+      })
+    } else {
+      this.productService.getData('store/' + this.store.id).subscribe(result => {
+        this.products = result['fishs'];
+        //working on the images to use like background
+        this.products.forEach((data, index)=>{
+          if (data.imagePrimary && data.imagePrimary !='') {
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`)
+          }
+          else if(data.images && data.images.length>0){
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`)
+          }
+              else{
+            this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+          }
+        });
+      })
+    }
+    
   }
 
  smallDesc(str) {

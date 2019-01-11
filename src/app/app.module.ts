@@ -108,6 +108,7 @@ const appRoutes: Routes = [
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
   { path: 'account', component: AccountComponent, canActivate: [RouterProtectionService] },
   { path: 'my-products', component: MyProductsComponent, canActivate: [SellerRouterService] },
+  { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
   { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
   { path: 'verification/:userid/:id', component: ConfirmationEmailComponent },
   { path: 'store/:id', component: SingleStoreComponent },

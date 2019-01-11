@@ -1,8 +1,11 @@
 <div class="products-section">
   <div class="container">
     <div class="row">
-      <h2 class="product-result-title">
+      <h2 *ngIf="user.role != 0" class="product-result-title">
         {{'MyProducts.title' | translate}}
+      </h2>
+      <h2 *ngIf="user.role == 0" class="product-result-title">
+        Seafood Souq Products
       </h2>
     </div>
     <div class="row">
