@@ -60,18 +60,59 @@
               <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(category.id)" class="delete">
             </div>
             <div class="col-12">
+              <!--Childs level 1-->
                 <ul>
-                  <div *ngFor="let sub of category.childsTypes; let i = index">
-                    <li *ngIf="sub.child">
+                  <div *ngFor="let sub0 of category.childs; let i = index">
+                    <li>
                       <div class="row" >
                         <div class="col text-left">
-                          <label [innerHtml]="sub?.child?.name "></label><small  *ngIf="sub.child.sfsMargin">({{sub.child.sfsMargin}} %)</small>
+                          <label [innerHtml]="sub0?.name "></label><small  *ngIf="sub0.sfsMargin">({{sub0.sfsMargin}} %)</small>
                         </div>
                         <div class="col">
-                            <span (click)="editSub(sub.child.id, sub.child, category.id, sub, sub.child.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
+                            <span (click)="editSub(sub0.id, sub0, sub0.parent, sub0, sub0.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
                         </div>
                         <div class="col">
-                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub.child.id, sub.id)" class="delete">
+                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub0.id, sub0.id)" class="delete">
+                        </div>
+                      </div>
+                      <!-- childs level 2 -->
+                      <div class="row">
+                        <div class="col-md-12">
+                            <ul>
+                              <div *ngFor="let sub1 of sub0.childs; let i = index">
+                                <li>
+                                  <div class="row" >
+                                    <div class="col text-left">
+                                      <label [innerHtml]="sub1?.name "></label><small  *ngIf="sub1.sfsMargin">({{sub1.sfsMargin}} %)</small>
+                                    </div>
+                                    <div class="col">
+                                        <span (click)="editSub(sub1.id, sub1, sub1.parent, sub1, sub1.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
+                                    </div>
+                                    <div class="col">
+                                        <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub1.id, sub1.id)" class="delete">
+                                    </div>
+                                  </div>
+                                  <!-- childs level 3 -->
+                                  <ul>
+                                      <div *ngFor="let sub2 of sub1.childs; let i = index">
+                                        <li>
+                                          <div class="row" >
+                                            <div class="col text-left">
+                                              <label [innerHtml]="sub2?.name "></label><small  *ngIf="sub2.sfsMargin">({{sub2.sfsMargin}} %)</small>
+                                            </div>
+                                            <div class="col">
+                                                <span (click)="editSub(sub2.id, sub2, sub2.parent, sub2, sub2.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
+                                            </div>
+                                            <div class="col">
+                                                <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub2.id, sub2.id)" class="delete">
+                                            </div>
+                                          </div>
+                                          </li>
+                                        </div>
+                                      </ul>
+                                </li>
+                              </div>
+                            </ul>
                         </div>
                       </div>
                       </li>
