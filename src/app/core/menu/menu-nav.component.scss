@@ -5,23 +5,8 @@
 	background: #313131;
     height: 63px;
     display: flex;
-	.bar{
-		display: inline-block;
-	}
-	.address{
-		.img-logo{
-			padding-left: 60px;
-		}
-    	.bar{
-    		margin: 0 10px 0 20px;
-    	}
-    	i{
-    		margin-left: 20px;
-    		margin-right: 5px;
-    	}
-	}
 	a:hover{
-			color:#2d75f0 !important;
+			color:#3181f0 !important;
     	}
 	.access{
 		text-align: right;
@@ -37,7 +22,7 @@
 			text-decoration: none !important;
 		}
 		.bar{
-			margin:0 10px
+			margin-top: 16px !important
 		}
 	}
 	.access-buyer, .access-seller{
@@ -59,12 +44,9 @@
 			    width: 100%;
 			    color:#f1f1f1 ;
 			    &:hover{
-			    	color: #2d75f0 !important
+			    	color: #3181f0 !important
 			    }
 			}
-		}
-		.bar{
-			margin: 0 1rem;;
 		}
 	}
 }
@@ -206,13 +188,73 @@ form{
     padding-left: 1rem !important;
     padding-right: 1rem !important;
 }
-.bar{
-	padding-left: 0 !important;
-	padding-right: 0 !important;
+.img-logo{
+	img{
+	    max-width: 100%;
+	    width: 63px;
+	    height: auto;
+	  }
 }
-@media (min-width: 1200px){
+.dropdown-toggle::after{
+	display: none !important;
+}
+.container{
+	position: relative;
+}
+@media (min-width: 1300px){
+	.img-logo{
+    padding-left: 212px;
+    display: block;
+    margin-right: 19px;
+	}
 	.container {
 	    max-width: 1440px;
+	}
+	.top-nav{
+		.container{
+			padding:0 !important;
+		}
+		nav{
+			padding:0 !important;
+		}
+		.nav-item {
+		    height: 63px !important;
+		    width: 158px !important;
+		    margin-right: 16px !important;
+		    display: flex !important;
+		    align-items: center !important;
+		}
+		.nav-link{
+			font-family: Roboto;
+		    font-size: 18px;
+		    font-weight: 500;
+		    font-style: normal;
+		    font-stretch: normal;
+		    line-height: normal;
+		    letter-spacing: normal;
+		    text-align: center;
+		    text-transform: capitalize;
+		    color: #ffffff !important;
+		    width: 100%;
+		    padding: 20px 0 !important;
+		}
+		.bar{
+			height: 26px !important;
+		    width: 1px !important;
+		    border: 1px solid white;
+		    margin-left: 50px !important;
+		    margin-right: 51px !important;
+		}
+		.admin-navbar{
+			.nav-item{
+				width: auto !important
+			}
+			.bar{
+			    margin-top: 16px !important;
+			    margin-left: 0 !important;
+			    margin-right: 19px !important;
+			}
+		}
 	}
 }
 @media(min-width: 992px){
@@ -236,7 +278,7 @@ form{
 		}
 	}
 }
-@media(max-width: 1200px){
+@media(max-width: 1199px){
 	.fish-type-menu .nav-item .nav-link{
 		padding-left: 15px !important;
 		padding-right: 15px !important;
@@ -264,15 +306,22 @@ form{
 	}
 	.navbar-toggler{
 		position: absolute;
-	    top: -50px;
-	    right: 15px;
-	}
-	.navbar{
-		margin: 0 !important;
-    	width: 100%;
+	    top: 11px;
+	    right: 40px;
 	}
 	.bar{
 		display: none !important;
+	}
+	nav{
+	    z-index: 99;
+	    position: initial;
+	}
+	#navbarSupportedContent{
+		width: 100%;
+	    position: absolute;
+	    top: 63px;
+	    left: 0px;
+	    background: #313131;
 	}
 }
 @media(max-width: 992px){
@@ -326,4 +375,3 @@ form{
 	    text-align: center !important;
 	  }
 }
-
