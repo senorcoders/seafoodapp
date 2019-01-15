@@ -56,6 +56,8 @@ export class SingleProductComponent implements OnInit {
   charges:any;
   cooming_soon:string;
   showTaxes:boolean=false;
+  FXRateFees=0;
+  delivered=0;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer, private pricingServices: PricingChargesService) { 
     
@@ -73,8 +75,7 @@ export class SingleProductComponent implements OnInit {
     })
     let data=this.auth.getLoginData();
     this.idUser=data['id'];
-    this.getFavorite();
-    
+    this.getFavorite();    
   }
 
   verifyQty(){
@@ -109,14 +110,14 @@ setFlexslider(){
     setTimeout(()=>{
       jQuery('.flexslider').flexslider({
         animation: "slide",
-        controlNav: true,
-        start:function(slider){
-          jQuery(".slide-current-slide").text(slider.currentSlide+1);
-          jQuery(".slide-total-slides").text("/"+slider.count)
-      },
-      before:function(slider){
-          jQuery(".slide-current-slide").text(slider.animatingTo+1)
-      }
+        controlNav: true
+      //   start:function(slider){
+      //     jQuery(".slide-current-slide").text(slider.currentSlide+1);
+      //     jQuery(".slide-total-slides").text("/"+slider.count)
+      // },
+      // before:function(slider){
+      //     jQuery(".slide-current-slide").text(slider.animatingTo+1)
+      // }
         });
       this.showLoading=false
     },100)
@@ -187,7 +188,11 @@ setFlexslider(){
     this.show=false
   });
   }
-
+  showHide(id){
+    jQuery('#'+id).css('display','none');
+    jQuery('#input-text').css('display','block');
+    jQuery('#input-text').focus()
+  }
   getCart(){
     this.cartService.cart.subscribe((cart:any)=>{
       this.cart=cart
@@ -289,7 +294,7 @@ setFlexslider(){
   }
   getTotal(){
     let subtotal = this.count * this.priceValue;
-    return 'Subtotal  $' + subtotal;
+    return subtotal;
   }
 
   getPricingCharges(){
@@ -297,6 +302,7 @@ setFlexslider(){
     .subscribe( 
       res => {
         this.charges = res;
+        console.log(this.charges)
         this.showTaxes=true;
       },
       error => {

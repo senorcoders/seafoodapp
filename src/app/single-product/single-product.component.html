@@ -1,8 +1,8 @@
 <div class="content single-product" *ngIf="show; else elseBlock">
   <div class="container">
     <div class="row">  
-      <div class="col-12">
-        <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
+      <div class="col-12" *ngIf="showLoading">
+        <img src="../../assets/loader.gif" alt="loading..." class="loading">
       </div>
       <div class="col-lg-6 product-img">
         <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="!images;else slider">
@@ -16,12 +16,13 @@
             </div>
             
           </div>  
-          <div class="text-center">
+          <!-- <div class="text-center">
             <span class="slide-current-slide"></span>
             <span class="slide-total-slides"></span>
-          </div>
-         
-        </ng-template>      
+          </div> -->
+        </ng-template>    
+        <div class="product-by">Produced by</div>  
+        <div class="Product-Producer-Name"><a routerLink="/store/{{storeId}}">{{storeName}} </a></div>
       </div>
       <div class="col-lg-6 product-content">
         <h2 class="product-name">
@@ -30,32 +31,96 @@
               <a routerLink="/edit-product/{{productID}}" class="">
                 <fa name="pencil" class="pencil"></fa>Edit
               </a>
-            </div>
-          <div class="favorite-content" *ngIf="role==2">
+          </div>
+          <!-- <div class="favorite-content" *ngIf="role==2">
             <button (click)="submitFavorite()" *ngIf="!isFavorite;else favorite" [disabled]="enabledHeart"><fa name="heart-o"></fa></button>
             <ng-template #favorite>
               <button (click)="submitFavorite()" [disabled]="enabledHeart"><fa name="heart" class="isfavorite"></fa>
               </button>
             </ng-template>
-          </div>
+          </div> -->
         </h2>
-        <div class="logo-store"><img src="{{logo}}" alt=""></div>
-        <h5><a routerLink="/store/{{storeId}}">{{storeName}}</a></h5>
-        <hr class="black-line">
-        <span class="rating">{{'SingleProduct.seller-rating' | translate}}</span> <br>
-        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
-        <ul class="product-details">
+        <h3 class="product-type">{{category}}</h3>
+        <div class="row first-row">
+          <div class="col-5 product-label">Sellers Price/kg:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{priceValue}} </div>
+          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+        </div>
+        <div class="row">
+          <div class="col-5 product-label">Product Price:</div>
+          <div class="col-sm-4 col-md-5 product-value" [innerHTML]="getTotal()"></div>
+          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+        </div>
+        <div class="row">
+          <div class="col-5 product-label">Shipping Fees:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{charges.shippingFee}} </div>
+          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+        </div>
+        <div class="row">
+          <div class="col-5 product-label">SFS Fee:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{charges.sfsMarginCost}} </div>
+          <div class="col-sm-3 col-md-2 currency">AED</div>
+        </div>
+        <div class="row">
+          <div class="col-5 product-label">Taxes:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{charges.uaeTaxesFee}} </div>
+          <div class="col-sm-3 col-md-2 currency">AED</div>
+        </div>
+        <div class="row last-row">
+          <div class="col-5 product-label">FX Rate Fees:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{FXRateFees}} </div>
+          <div class="col-sm-3 col-md-2 currency">AED</div>
+        </div>
+        <div class="row">
+          <div class="col-5 total-price">Total Price:</div>
+          <div class="col-sm-4 col-md-5 total-price-value">{{charges.finalPrice}}</div>
+          <div class="col-sm-3 col-md-2 currency">AED</div>
+        </div>
+        <div class="row">
+          <div class="col-5 product-label">Delivered Price/kg:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{delivered}}</div>
+          <div class="col-sm-3 col-md-2 currency">AED</div>
+        </div>
+        <div class="row actions-form" *ngIf="isLogged; else login">
+          <div class="col-5 product-label">
+            <div class="quantity">
+              <div class="qty-wrapper">
+                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" id="input-text">
+                <input type="text" id="qty-text" class="qty" (click)="showHide('qty-text')" value="{{count}} Kg">
+                <!-- <span>kg</span> -->
+              </div>
+            </div>    
+          </div>
+          <div class="col-5 product-value">
+            <button *ngIf="cooming_soon == 'false'" (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+            <button *ngIf="showCart" (click)="goToCart()" class="btn-blue btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
+          </div>
+          <div class="col-2 currency"></div>
+        </div>
+        <ng-template #login>
+          <div class="row">
+            <div class="col">
+              <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
+            </div>
+          </div>
+        </ng-template>
+        <!-- <div class="logo-store"><img src="{{logo}}" alt=""></div> -->
+        <!-- <h5><a routerLink="/store/{{storeId}}">{{storeName}}</a></h5> -->
+        <!-- <hr class="black-line"> -->
+        <!-- <span class="rating">{{'SingleProduct.seller-rating' | translate}}</span> <br>
+        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating> -->
+        <!-- <ul class="product-details">
           <li>{{'SingleProduct.raised' | translate}}: <span>{{raised}}</span></li>
           <li>{{'SingleProduct.preparation' | translate}}: <span>{{preparation}}</span></li>
           <li>{{'SingleProduct.form-type' | translate}}: <span>{{treatment}}</span></li>
           <li>{{'SingleProduct.country' | translate}}: <span>{{country}}</span></li>
-        </ul>
-        <div class="product-info">
+        </ul> -->
+        <!-- <div class="product-info"> -->
           <!-- <p>
            {{description}}
          </p> -->
-          <span class="price"><b>$ {{priceValue}} / {{measurement}}</b></span>
-          <form action="#" *ngIf="isLogged; else login" class="actions-form">
+          <!-- <span class="price"><b>$ {{priceValue}} / {{measurement}}</b></span> -->
+         <!--  <form action="#" *ngIf="isLogged; else login" class="actions-form">
             <div class="row" style="align-items: center;">
               <div class="col">
                 <div class="quantity">
@@ -73,7 +138,7 @@
                 </div>
               </div>
             </div>
-            <p class="charges-p" [innerHTML]="getTotal()"></p>
+            <p class="charges-p" [innerHTML]="getTotal()"></p> 
             <div *ngIf="showTaxes"> 
               <p class="charges-p">First Mile Shipping ${{charges.firstMileFee}}</p>
               <p class="charges-p">Air Cargo Fee ${{charges.shippingFee}}</p>
@@ -89,8 +154,8 @@
           </form>          
           <ng-template #login>
             <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
-          </ng-template>
-        </div>
+          </ng-template> -->
+        <!-- </div> -->
       </div>
     </div>   
   </div>
