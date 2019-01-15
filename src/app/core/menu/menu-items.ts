@@ -250,6 +250,18 @@ const menuBuyer = [
         name: 'Shop'
       }
     }
+  },
+  {
+    state: 'cart',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Cart'
+      },
+      ar: {
+        name: 'Cart'
+      }
+    }
   }, {
     state: 'my-orders',
     type: 'sub',

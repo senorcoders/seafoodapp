@@ -1,10 +1,10 @@
 <div class="top-nav">
   <div class="container">
-    <div class="row" style="align-items: center;height: 100%">
+    <div class="row" style="align-items: center;height: 100%; margin: 0;">
       <div class="address">
        <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}"><img src="../../assets/Logo-2.png" alt=""></a>
       </div>
-      <nav class="navbar navbar-expand-xl navbar-dark" [ngClass]="{'mx-auto':isLogged,'ml-auto': !isLogged }">
+      <nav class="navbar navbar-expand-xl navbar-dark" [ngClass]="{'mr-auto':isLogged,'ml-auto': !isLogged }">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -36,11 +36,10 @@
                 </li>
               </ng-template>
             </li>
-            <li class="nav-item" *ngIf="showCart">
-              <a class="nav-link" routerLink="/cart" routerLinkActive="active-link">Cart <!-- <span class="total">${{cartItem.total}}</span> --></a>
-            </li>
-            <li class="nav-item">
-              <span class="bar">|</span>
+            <!-- <li class="nav-item" *ngIf="showCart">
+              <a class="nav-link" routerLink="/cart" routerLinkActive="active-link">Cart <span class="total">${{cartItem.total}}</span> </a>
+            </li> -->
+            <li class="nav-item bar">
             </li>
             <li class="nav-item">
                 <a routerLink="/account" class="nav-link">{{ "Menu.perfil" | translate }}</a>
@@ -66,12 +65,12 @@
                 </ng-template>
               </ng-template>
             </li>
+            <li class="nav-item bar">
+               <!-- <span class="bar nav-link"></span> -->
+            </li>
              <!-- login options -->
             <li class="nav-item">
               <a routerLink="/account" class="nav-link">{{ "Menu.perfil" | translate }}</a>
-            </li>
-            <li class="nav-item">
-               <span class="bar nav-link">|</span>
             </li>
             <li class="nav-item">
               <a (click)="logOut()" class="nav-link">{{ "Menu.logout" | translate }}</a>
@@ -91,8 +90,8 @@
                 </li>
               </ng-template>
             </li>
-            <li class="nav-item">
-               <span class="bar nav-link">|</span>
+            <li class="nav-item bar">
+               <!-- <span class="bar nav-link">|</span> -->
             </li>
             <!-- login options -->
             <li class="nav-item">
@@ -107,8 +106,8 @@
             <li class="nav-item">
               <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
             </li>
-            <li class="nav-item">
-              <span class="bar nav-link">|</span>
+            <li class="nav-item bar">
+              <!-- <span class="bar nav-link">|</span> -->
             </li>
             <li class="nav-item">
               <a routerLink="/register" class="nav-link">{{ "Menu.register" | translate }}</a>

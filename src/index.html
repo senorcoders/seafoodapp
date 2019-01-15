@@ -32,6 +32,10 @@
       jQuery("html, body").animate({ scrollTop: 0 }, "slow");
       return false;
     });
+    jQuery(document).on( 'focusout', '#input-text', function(){
+      jQuery('#input-text').css('display','none');
+      jQuery('#qty-text').css('display','block')
+    });
   });    
   </script>
 </body>

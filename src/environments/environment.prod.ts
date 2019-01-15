@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiURL:"https://apiseafood.senorcoders.com/",
-  apiURLImg:"https://apiseafood.senorcoders.com",
+  apiURL:"http://13.232.68.135/",
+  apiURLImg:"http://13.232.68.135",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},

@@ -1,11 +1,6 @@
-<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
-  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
-  <div class="content">
-    <h1 class="big-title">{{'PricingCharges.title'| translate}}</h1>    
-  </div>
-</div> 
-<div class="container" style="margin-top:30px;">
+<div class="container" style="padding-top:50px;">
 	<div class="row">
+    <div class="col-12"><h3 class="title">{{'PricingCharges.title'| translate}}</h3></div>
     <div class="col-12"><h3 class="title">{{'PricingCharges.formTitle' | translate}}</h3></div>
     <div class="col-md-12">
       <form novalidate [formGroup]="myform" (ngSubmit)="showConfirmModal()" class="form-design">
