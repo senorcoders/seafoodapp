@@ -28,6 +28,10 @@ export class AddProductComponent implements OnInit {
     'French',
     'German',
   ];
+  typeLevel0: any;
+  typeLevel1: any;
+  typeLevel2: any;
+  typeLevel3: any;
   myform: FormGroup;
   name: FormControl;
   price: FormControl;
@@ -38,6 +42,9 @@ export class AddProductComponent implements OnInit {
   description: FormControl;
   types: FormControl;
   parentSelectedType: FormControl;
+  speciesSelected: FormControl;
+  subSpeciesSelected: FormControl;
+  descriptorSelected: FormControl;
   base: string = environment.apiURLImg;
   pTypes: any = [];
   parentTypes: any = [];
@@ -75,6 +82,7 @@ export class AddProductComponent implements OnInit {
     private countryService: CountriesService
   ) { }
   ngOnInit() {
+    this.getAllTypesByLevel();
     this.createFormControls();
     this.createForm();
     this.getTypes();
@@ -122,7 +130,7 @@ export class AddProductComponent implements OnInit {
     this.cooming_soon = new FormControl('', Validators.required);
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
-    this.types = new FormControl('', Validators.required);
+    //this.types = new FormControl('', Validators.required);
     this.country = new FormControl('', Validators.required);
     this.processingCountry = new FormControl('');
     this.raised = new FormControl('', Validators.required);
@@ -134,6 +142,9 @@ export class AddProductComponent implements OnInit {
     this.mortalityRate = new FormControl('', Validators.required );
     this.waterLostRate = new FormControl('', Validators.required);
     this.parentSelectedType = new FormControl('', Validators.required);
+    this.speciesSelected = new FormControl('', Validators.required);
+    this.subSpeciesSelected = new FormControl( '', Validators.required );
+    this.descriptorSelected = new FormControl('');
     this.city = new FormControl();
   }
 
@@ -146,7 +157,7 @@ export class AddProductComponent implements OnInit {
       cooming_soon: this.cooming_soon,
       measurement: this.measurement,
       description: this.description,
-      types: this.types,
+      //types: this.types,
       country: this.country,
       processingCountry: this.processingCountry,
       city: this.city,
@@ -158,7 +169,10 @@ export class AddProductComponent implements OnInit {
       stock: this.stock,
       mortalityRate: this.mortalityRate,
       waterLostRate: this.waterLostRate,
-      parentSelectedType: this.parentSelectedType
+      parentSelectedType: this.parentSelectedType,
+      speciesSelected: this.speciesSelected,
+      subSpeciesSelected: this.subSpeciesSelected,
+      descriptorSelected: this.descriptorSelected
     });
     this.myform.controls['measurement'].setValue('kg');
   }
@@ -171,7 +185,7 @@ export class AddProductComponent implements OnInit {
       }
     })*/
 
-    this.product.generateSKU(this.store[0].id, parentType, this.types.value, this.country.value).subscribe(
+    this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.country.value).subscribe(
       result => {
         console.log(result);
         this.seafood_sku.setValue(result);
@@ -182,10 +196,11 @@ export class AddProductComponent implements OnInit {
     );
   }
   onSubmit() {
-    this.showError = true;
+    this.showError = true;    
     if (this.myform.valid) {
       const data = {
-        'type': this.types.value,
+        'type': this.parentSelectedType.value,
+        'descriptor': this.descriptorSelected.value,
         'store': this.store[0].id,
         'quality': 'good',
         'name': this.name.value,
@@ -381,6 +396,76 @@ export class AddProductComponent implements OnInit {
 
       }
     );
+  }
+
+  getAllTypesByLevel() {
+    this.product.getData(`getTypeLevel`).subscribe(
+      result => {
+        this.typeLevel0 = result['level0'];
+        this.typeLevel1 = result['level1'];
+        this.typeLevel2 = result['level2'];
+        this.typeLevel3 = result['level3'];
+      },
+      error => {
+
+      }
+    );
+  }
+
+  getOnChangeLevel( level: number ) {
+    let selectedType = '';
+    switch ( level ) {
+      case 0:
+        selectedType = this.parentSelectedType.value;
+        break;
+    
+      case 1:
+        selectedType = this.speciesSelected.value;
+        break;
+
+      case 3:
+        selectedType = this.subSpeciesSelected.value;
+        break;
+
+      default:
+        selectedType = this.subSpeciesSelected.value;
+        break;
+    }
+    console.log( 'selected type id', selectedType );
+    this.product.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+      result => {
+        result['childs'].map( item => {
+          switch (item.level) {
+            case 0:
+              this.typeLevel0 = item.fishTypes;
+              break;
+
+            case 1:
+              this.typeLevel1 = item.fishTypes;
+              break;
+
+            case 2:
+              this.typeLevel2 = item.fishTypes;
+              break;
+
+            case 3:
+              this.typeLevel3 = item.fishTypes;
+              break;
+
+            default:
+              break;
+          }
+        } );
+        /*for (let index = level; index < result['childs'].length; index++) {          
+          if ( index == 0 ) {
+            
+          }
+        }*/
+      },
+      error => {
+        console.log( error );
+      }
+    )
   }
 
 
