@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  apiURL:"https://apiseafood.senorcoders.com/",
-  apiURLImg:"https://apiseafood.senorcoders.com",
+  apiURL:"http://13.232.68.135/",
+  apiURLImg:"http://13.232.68.135",
   //apiURL:"http://localhost:7000/",
   //apiURLImg:"http://localhost:7000",
   countries:[
