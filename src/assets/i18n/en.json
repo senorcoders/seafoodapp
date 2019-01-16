@@ -156,7 +156,11 @@
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Mortality Rate",
-		"processingCountry": "Processing Country"
+		"processingCountry": "Processing Country",
+		"mainCategory": "Main Category",
+		"species": "Species",
+		"subSpecies": "Sub-Species",
+		"description": "Descriptor"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",

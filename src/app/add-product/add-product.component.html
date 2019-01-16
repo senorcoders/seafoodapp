@@ -72,29 +72,52 @@
 
           <div class="col-lg-6">
             <div class="form-group">
-              <label>{{'AddProduct.parent-types' | translate}} </label>
-              <select formControlName="parentSelectedType" (change)="getSubcategories()" class="form-control">
+              <label>{{'AddProduct.mainCategory' | translate}} </label>
+              <select formControlName="parentSelectedType" (change)="getOnChangeLevel(0)" class="form-control">
                 <option v alue="">{{'AddProduct.select' | translate}}</option>
-                <option *ngFor="let type of parentTypes"  [value]="type.id" >{{type.name}}</option>
+                <option *ngFor="let type of typeLevel0"  [value]="type.id" >{{type.name}}</option>
               </select>
-              <div class="form-control-feedback" *ngIf="types.errors && showError">
-                <p *ngIf="types.errors.required">{{'AddProduct.fish-types' | translate}} {{'AddProduct.required' | translate}}</p>
+              <div class="form-control-feedback" *ngIf="parentSelectedType.errors && showError">
+                <p *ngIf="parentSelectedType.errors.required">{{'AddProduct.mainCategory' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
           </div>
 
           <div class="col-lg-6">
-              <div class="form-group" [ngClass]="{'has-danger': types.invalid && (types.dirty || types.touched),'has-success': types.valid && (types.dirty || types.touched)}">
-                <label>{{'AddProduct.fish-types' | translate}}</label>
-                <select  (change)="generateSKU()" class="form-control" formControlName="types">
-                  <option value="">{{'AddProduct.select' | translate}}</option>
-                  <option *ngFor="let type of pTypes" [value]="type.id">{{type.name}}</option>
-                </select>
-                <div class="form-control-feedback" *ngIf="types.errors && showError">
-                  <p *ngIf="types.errors.required">{{'AddProduct.fish-types' | translate}} {{'AddProduct.required' | translate}}</p>
-                </div>
+            <div class="form-group" >
+              <label>{{'AddProduct.species' | translate}}</label>
+              <select  (change)="getOnChangeLevel(1)" class="form-control" formControlName="speciesSelected">
+                <option value="">{{'AddProduct.select' | translate}}</option>
+                <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="speciesSelected.errors && showError">
+                <p *ngIf="speciesSelected.errors.required">{{'AddProduct.species' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.subSpecies' | translate}} </label>
+              <select formControlName="subSpeciesSelected" (change)="getOnChangeLevel(2)" class="form-control">
+                <option v alue="">{{'AddProduct.select' | translate}}</option>
+                <option *ngFor="let type of typeLevel2"  [value]="type.id" >{{type.name}}</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="subSpeciesSelected.errors && showError">
+                <p *ngIf="subSpeciesSelected.errors.required">{{'AddProduct.subSpecies' | translate}} {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" >
+              <label>{{'AddProduct.descriptor' | translate}}</label>
+              <select  class="form-control" formControlName="descriptorSelected">
+                <option value="">{{'AddProduct.select' | translate}}</option>
+                <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
+              </select>              
+            </div>
+          </div>
 
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
