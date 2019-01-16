@@ -28,7 +28,7 @@
         </div>
         <div class="form-group">
           <label>Parent Category</label>
-          <select class="form-control" formControlName="parent">
+          <select (change)="getSFSParentMargin();" class="form-control" formControlName="parent">
             <option value="none">None</option>
             <option *ngFor="let cat of categories" [value]=cat.id [innerHtml]="cat.name"></option>
           </select>

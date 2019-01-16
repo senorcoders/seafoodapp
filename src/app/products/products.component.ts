@@ -230,8 +230,7 @@ export class ProductsComponent implements OnInit {
       //this.getSubCategories( subcategorySelected );
       if ( subcategorySelected === 0 ) {
         this.getAllTypesByLevel();
-        jQuery('.subcategory-container').hide();
-        this.get
+        jQuery('.subcategory-container').hide();        
       } else {
         this.getOnChangeLevel( 0, subcategorySelected );
         jQuery('.subcategory-container').show();

@@ -161,6 +161,7 @@ export class FishComponent implements OnInit {
       this.addImageToCategory(result);
   } else {
     this.showSuccess('Category Added');
+    this.getFishTypeTree();
     this.clearArrays();
     this.getCategories();
 
@@ -172,6 +173,7 @@ export class FishComponent implements OnInit {
     this.product.AddCategoryImage(this.fileToUpload, result['id']).subscribe(
       result => {
         this.showSuccess('Category Added');
+        this.getFishTypeTree();
         this.clearArrays();
         this.getCategories();
         this.removePreviusImg();
@@ -254,6 +256,7 @@ export class FishComponent implements OnInit {
           this.clearArrays();
           this.getCategories();
           this.removePreviusImg();
+          this.getFishTypeTree();
           this.fileToUpload = null;
           jQuery('#previewImg').css('display', 'none');
           this.categoryForm.reset();
@@ -269,6 +272,7 @@ export class FishComponent implements OnInit {
       this.showSuccess('Fish Updated');
       this.clearArrays();
       this.getCategories();
+      this.getFishTypeTree();
       this.categoryForm.reset();
       this.buttonLabel = 'Add Fish';
       this.showImage = false;
@@ -349,6 +353,20 @@ _handleReaderLoaded(readerEvt) {
 removePreviusImg() {
   const img = document.querySelector('#previewImg');
   img.setAttribute('src', '');
+}
+getSFSParentMargin() {
+  let parentType = this.categoryForm.controls['parent'].value;
+  if ( parentType !== 'none' ) {
+    this.product.getData(`fishType/${parentType}`).subscribe(
+      result => {
+        this.categoryForm.controls['sfsMargin'].setValue( result['sfsMargin'] );
+      },
+      error => {
+
+      }
+    )
+
+  }
 }
 
 
