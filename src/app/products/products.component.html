@@ -31,7 +31,7 @@
           <div class="box maximum">
             <label>Maximum Order</label><span class="current-max"></span>
             <input type="hidden" id="maximumValue" name="maximumValue">
-            <input id="sliderMax" data-slider-id="sliderMax" type="text" data-slider-step="10" value="0"/>
+            <input id="sliderMax" data-slider-id="sliderMax" type="text" data-slider-step="10" value="100"/>
           </div>                    
 
           <div class="box cooming-soon">
@@ -76,25 +76,37 @@
           </div>
           <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
               <div class="row" id="filter">
-                <div class="col-md-3">                
-                  <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+                <div class="col-md-2">                
+                  <select class="js-example-basic-single category" style="width: 100%" name="category" data-placeholder="Select Store">
                     <option value="0">Select Category</option>
                     <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-3 subcategory-container">          
-                  <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
-                    <option value="0">Select Subcategory</option>
+                <div class="col-md-2 subcategory-container">          
+                  <select class="js-example-basic-single subcategory" style="width: 100%" name="subcategory" data-placeholder="Select Store">
+                    <option value="0">Select Species</option>
                     <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-3">          
+                <div class="col-md-2 subspecies-container">          
+                  <select class="js-example-basic-single subspecies" style="width: 100%" name="subspecies" data-placeholder="Select Store">
+                    <option value="0">Select Sub-Species</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubSpecie">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-2 descriptor-container">          
+                  <select class="js-example-basic-single descriptor" style="width: 100%" name="descriptor" data-placeholder="Select Store">
+                    <option value="0">Select Descriptor</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchDescriptor">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="col-md-2">          
                   <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
                     <option value="0">Select Country</option>            
                     <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
                   </select>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-2">
                   <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
                 </div>
               </div>

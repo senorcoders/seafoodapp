@@ -196,8 +196,11 @@ uploadFile(endpoint, field, fileToUpload) {
   /************Filter Store*************/
   filterFish(
     category: string,
-    subcategory: string, country:
-    string, raised: string,
+    subcategory: string,
+    subspecies: string,
+    descriptor: string,
+    country: string,
+    raised: string,
     preparation: string,
     treatment: string,
     minPrice: string,
@@ -208,6 +211,8 @@ uploadFile(endpoint, field, fileToUpload) {
     const data = {
       'category': category,
       'subcategory': subcategory,
+      'subspecies': subspecies,
+      'descriptor': descriptor,
       'country': country,
       'raised': raised,
       'preparation': preparation,

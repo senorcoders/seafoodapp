@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../services/product.service';
+import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
-import{FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Router,ActivatedRoute } from '@angular/router';
+import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
-declare var jQuery:any;
+declare var jQuery: any;
 import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 
@@ -15,743 +15,865 @@ import { CartService } from '../core/cart/cart.service';
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
-	products:any;
-	showLoading:boolean=true;
-	showPrvP:boolean= false;
-	showNextP:boolean=false;
-  showPrvPS:boolean= false;
-  showNextPS:boolean=false;
-	showNotFound:boolean=false;
-	image:SafeStyle=[];
-  searchForm:FormGroup;  
-  searchPage=1;
-  search:any;
-  page:any;
-  paginationNumbers:any=[];
-  pageNumbers:any;
-	API:string=environment.apiURLImg;
-  paginationSearch:boolean=false;
-  role:any;
-  filterForm:FormGroup;
-  searchCategories:any;
-  searchSubcategories:any;
-  countries:any;
-  allCountries=environment.countries;
-  minPriceField:number = 0;
-  maxPriceField:number = 35;
-  cooming_soon:string='';
-  isClearButton:boolean = false;
-  hideKg:boolean = true;
-  initialKg:number = 5;
-  deliveredPrice:number = 0;
-  cartEndpoint:any = 'api/shopping/add/';
-  cart:any;
+	products: any;
+	showLoading: boolean = true;
+	showPrvP: boolean = false;
+	showNextP: boolean = false;
+  showPrvPS: boolean = false;
+  showNextPS: boolean = false;
+	showNotFound: boolean = false;
+	image: SafeStyle = [];
+  searchForm: FormGroup;
+  searchPage = 1;
+  search: any;
+  page: any;
+  paginationNumbers: any = [];
+  pageNumbers: any;
+	API: string = environment.apiURLImg;
+  paginationSearch: boolean = false;
+  role: any;
+  filterForm: FormGroup;
+  searchCategories: any;
+  searchSubcategories: any;
+  searchSubSpecie: any;
+  searchDescriptor: any;
+  countries: any;
+  allCountries = environment.countries;
+  minPriceField: number = 0;
+  maxPriceField: number = 35;
+  cooming_soon: string = '';
+  isClearButton: boolean = false;
+  hideKg: boolean = true;
+  initialKg: number = 5;
+  deliveredPrice: number = 0;
+  cartEndpoint: any = 'api/shopping/add/';
+  cart: any;
 
-  constructor(private islogin:IsLoginService,private route: ActivatedRoute,private productService:ProductService, private toast:ToastrService, 
-    private sanitizer: DomSanitizer, private fb:FormBuilder, private router:Router, private cartService:CartService) { }
+
+  constructor(
+    private islogin: IsLoginService,
+    private route: ActivatedRoute,
+    private productService: ProductService, private toast: ToastrService,
+    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService) { }
 
   ngOnInit() {
-    jQuery('.category').select2();
+    jQuery('.category').select2( {  width: 'resolve'  } );
     jQuery('.subcategory').select2();
+    jQuery('.subspecies').select2();
+    jQuery('.descriptor').select2();
     jQuery('.country').select2();
     jQuery('#selectRaised').select2({
-      placeholder: "Raised"
+      placeholder: 'Raised'
     });
     jQuery('#selectTreatment').select2({
-      placeholder: "Treatment"
+      placeholder: 'Treatment'
     });
     jQuery('#selectPreparation').select2({
-      placeholder: "Preparation"
+      placeholder: 'Preparation'
     });
-    
-    jQuery("#sliderPrice").slider({
-      ticks: [this.minPriceField, 5 ,10 ,15, 20, 25, 30, this.maxPriceField],      
+
+    jQuery('#sliderPrice').slider({
+      ticks: [this.minPriceField, 5 , 10 , 15, 20, 25, 30, this.maxPriceField],
       min: this.minPriceField, max: this.maxPriceField, value: [this.minPriceField, this.maxPriceField],
-      ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15','$20','$25','$30', '$' + this.maxPriceField ],
+      ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15', '$20', '$25', '$30', '$' + this.maxPriceField ],
       step: 5,
       ticks_snap_bounds: 0,
-      tooltip_position:'bottom',
+      tooltip_position: 'bottom',
       tooltip: 'always'
     });
-    
 
-    jQuery("#sliderPrice").on('slideStop', (slider) => {
-      
-      //console.log( slider.value.oldValue );
-      //console.log( slider.value.newValue );
+
+    jQuery('#sliderPrice').on('slideStop', (slider) => {
+
+      // console.log( slider.value.oldValue );
+      // console.log( slider.value.newValue );
       jQuery('.current-price').html( '$' + slider.value[0] + ' to $' + slider.value[1] );
       jQuery('#minPriceValue').val( slider.value[0] );
       jQuery('#maxPriceValue').val( slider.value[1] );
       this.filterProducts();
-    })
+    });
 
-    jQuery("#sliderMin").slider({
-      //ticks: [0, 10, 20, 30, 40],
+    jQuery('#sliderMin').slider({
+      // ticks: [0, 10, 20, 30, 40],
       value: 0,
       step: 10,
       max: 100,
-      //ticks_labels: ['0', '10', '20', '30', '40' ],
+      // ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
-    jQuery("#sliderMin").on('slideStop', (slider) => {
-      
+    jQuery('#sliderMin').on('slideStop', (slider) => {
+
       console.log( slider.value );
       jQuery('.current-min').html( slider.value );
       jQuery('#minimumValue').val( slider.value );
       this.filterProducts();
-    })
+    });
 
-    jQuery('#clear').on( 'click', () =>{
+    jQuery('#clear').on( 'click', () => {
       this.isClearButton = true;
       this.showLoading = true;
       jQuery('.category').val(0).trigger('change');
       jQuery('.subcategory').val(0).trigger('change');
+      jQuery('.subspecies').val(0).trigger('change');
+      jQuery('.descriptor').val(0).trigger('change');
+      
       jQuery('.country').val(0).trigger('change');
       jQuery('#selectTreatment').val(0).trigger('change');
       jQuery('#selectRaised').val(0).trigger('change');
       jQuery('#selectPreparation').val(0).trigger('change');
       jQuery('#comming_soon').prop('checked', false);
-      
-      jQuery("#sliderMin").slider('destroy');
-      jQuery("#sliderMax").slider('destroy');
-      jQuery("#sliderMin").slider({ value:0, step: 10,
+
+      jQuery('#sliderMin').slider('destroy');
+      jQuery('#sliderMax').slider('destroy');
+      jQuery('#sliderMin').slider({ value: 0, step: 10,
         max: 100, });
-      jQuery("#sliderMax").slider({ value:0,step: 10,
+      jQuery('#sliderMax').slider({ value: 100, step: 10,
         max: 100, });
-      jQuery('#minPriceValue').val( "0" );
-      jQuery('#maxPriceValue').val( "0" );
-      
-      jQuery("#sliderPrice").slider('destroy');
-      jQuery("#sliderPrice").slider({
-        ticks: [this.minPriceField, 5 ,10 ,15, 20, 25, 30, this.maxPriceField],      
+      jQuery('#minPriceValue').val( '0' );
+      jQuery('#maxPriceValue').val( '100' );
+
+      jQuery('#sliderPrice').slider('destroy');
+      jQuery('#sliderPrice').slider({
+        ticks: [this.minPriceField, 5 , 10 , 15, 20, 25, 30, this.maxPriceField],
         min: this.minPriceField, max: this.maxPriceField, value: [this.minPriceField, this.maxPriceField],
-        ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15','$20','$25','$30', '$' + this.maxPriceField ],
+        ticks_labels: ['$' + this.minPriceField , '$5', '$10', '$15', '$20', '$25', '$30', '$' + this.maxPriceField ],
         step: 5,
         ticks_snap_bounds: 0,
-        tooltip_position:'bottom',
+        tooltip_position: 'bottom',
         tooltip: 'always'
       });
 
       jQuery('#minPriceValue').val( 0 );
       jQuery('#maxPriceValue').val( 0 );
-      
+
       jQuery('.current-max').val( '' );
       jQuery('.current-min').val( '' );
       jQuery('.current-price').val( '' );
-      
-      this.getProducts(12,this.page);
 
-      jQuery("#sliderMin").on('slideStop', (slider) => {        
+      this.getProducts(12, this.page);
+
+      jQuery('#sliderMin').on('slideStop', (slider) => {
         console.log( slider.value );
         jQuery('.current-min').html( slider.value );
         jQuery('#minimumValue').val( slider.value );
         this.filterProducts();
-      })
-      jQuery("#sliderMax").on('slideStop', (slider) => {
+      });
+      jQuery('#sliderMax').on('slideStop', (slider) => {
         jQuery('.current-max').html( slider.value );
         jQuery('#maximumValue').val( slider.value );
         this.filterProducts();
-      })
-      jQuery("#sliderPrice").on('slideStop', (slider) => {
-        
+      });
+      jQuery('#sliderPrice').on('slideStop', (slider) => {
+
         jQuery('.current-price').html( '$' + slider.value[0] + ' to $' + slider.value[1] );
         jQuery('#minPriceValue').val( slider.value[0] );
         jQuery('#maxPriceValue').val( slider.value[1] );
         this.filterProducts();
-      })
+      });
       jQuery('.current-price').html( '' );
       jQuery('.current-max').html( '' );
       jQuery('.current-min').html( '' );
 
-    } )
+    } );
 
-    jQuery("#sliderMax").slider({
-      //ticks: [0, 10, 20, 30, 40],
-      value: 0,
+    jQuery('#sliderMax').slider({
+      // ticks: [0, 10, 20, 30, 40],
+      value: 100,
       max: 100,
       step: 10,
-      //ticks_labels: ['0', '10', '20', '30', '40' ],
+      // ticks_labels: ['0', '10', '20', '30', '40' ],
       ticks_snap_bounds: 0
     });
-    jQuery("#sliderMax").on('slideStop', (slider) => {      
+    jQuery('#sliderMax').on('slideStop', (slider) => {
       console.log( slider.value );
       jQuery('.current-max').html( slider.value );
       jQuery('#maximumValue').val( slider.value );
       this.filterProducts();
-    })
+    });
 
     this.route.params.subscribe(params => {
-      this.page=this.route.snapshot.params['page'];
-      this.search=params['query'];
-      //if pagination is for all products
-      if(this.search=='all'){
-        this.paginationNumbers=[];
-        this.paginationSearch=false;
-        this.getProducts(12,this.page)
-      }
-      //if paginations if for the search value
-      else{
-        this.paginationSearch=true;
+      this.page = this.route.snapshot.params['page'];
+      this.search = params['query'];
+      // if pagination is for all products
+      if (this.search === 'all') {
+        this.paginationNumbers = [];
+        this.paginationSearch = false;
+        this.getProducts(12, this.page);
+      } else {
+        this.paginationSearch = true;
         this.Search(this.search, this.page);
       }
-      this.islogin.role.subscribe((role:number)=>{
-        this.role=role
-      })
-      jQuery(document).ready(function(){
+      this.islogin.role.subscribe((role: number) => {
+        this.role = role;
+      });
+      jQuery(document).ready(function() {
         jQuery([document.documentElement, document.body]).animate({
           scrollTop: jQuery('#search').offset().top
         }, 1000);
-      })
-      
+      });
+
     });
-  	this.searchForm=this.fb.group({
-  		search:['',Validators.required]
-    })
+  	this.searchForm = this.fb.group({
+  		search: ['', Validators.required]
+    });
     this.filterForm = this.fb.group({
       category: '',
       subcategory: '',
       country: ''
     });
     this.getCategories();
-    jQuery('.category').on('change', (e)=>{
+
+    jQuery('.category').on('change', (e) => {
       console.log( jQuery('.category').val() );
-      let subcategorySelected = e.target.value;
-      this.getSubCategories( subcategorySelected );
-      if( subcategorySelected == 0 ){
+      const subcategorySelected = e.target.value;
+      
+      //this.getSubCategories( subcategorySelected );
+      if ( subcategorySelected === 0 ) {
+        this.getAllTypesByLevel();
         jQuery('.subcategory-container').hide();
-      }else{
+        this.get
+      } else {
+        this.getOnChangeLevel( 0, subcategorySelected );
         jQuery('.subcategory-container').show();
-      }      
+      }
+      
+      jQuery('.subcategory').val(0).trigger('change');
+      jQuery('.subspecies').val(0).trigger('change');
+      jQuery('.descriptor').val(0).trigger('change');
       this.filterProducts();
-    })
-    jQuery('.subcategory').on('change', (e)=>{            
+    });
+    jQuery('.subcategory').on('change', (e) => {
+      const subcategorySelected = e.target.value;
+      this.getOnChangeLevel( 1, subcategorySelected );
+      if ( subcategorySelected === 0 ) {
+        jQuery('.subcategory-container').hide();
+      } else {
+        jQuery('.subcategory-container').show();
+      }
       this.filterProducts();
-    })
-    jQuery('.country').on('change', (e)=>{            
+    });
+    jQuery('.subspecies').on('change', (e) => {
+      const subcategorySelected = e.target.value;
+      this.getOnChangeLevel( 2, subcategorySelected );
+      if ( subcategorySelected === 0 ) {
+        jQuery('.subspecies-container').hide();
+      } else {
+        jQuery('.subspecies-container').show();
+      }
       this.filterProducts();
-    })
-    jQuery('#selectRaised').on('change', (e)=>{            
+    });
+
+    jQuery('.descriptor').on('change', (e) => {
+      const subcategorySelected = e.target.value;      
+      if ( subcategorySelected === 0 ) {
+        jQuery('.descriptor-container').hide();
+      } else {
+        jQuery('.descriptor-container').show();
+      }
       this.filterProducts();
-    })
-    jQuery('#selectPreparation').on('change', (e)=>{            
+    });
+    
+    
+
+
+    jQuery('.country').on('change', (e) => {
       this.filterProducts();
-    })
-    jQuery('#selectTreatment').on('change', (e)=>{            
+    });
+    jQuery('#selectRaised').on('change', (e) => {
       this.filterProducts();
-    })
+    });
+    jQuery('#selectPreparation').on('change', (e) => {
+      this.filterProducts();
+    });
+    jQuery('#selectTreatment').on('change', (e) => {
+      this.filterProducts();
+    });
 
     jQuery('#comming_soon').on('change', () => {
       this.filterProducts();
-    })
-    
+    });
+
     this.getFishCountries();
     this.getSubCategories('');
     this.getCart();
   }
 
 
-  getCart(){
-    this.cartService.cart.subscribe((cart:any)=>{
-      this.cart=cart
-    })
+  getCart() {
+    this.cartService.cart.subscribe((cart: any) => {
+      this.cart = cart;
+    });
   }
-  getProducts(cant,page){
-  	let data={
-  		pageNumber:page,
+  getProducts(cant, page) {
+  	const data = {
+  		pageNumber: page,
   		numberProduct: cant
-  	}
+  	};
   	this.productService.listProduct(data).subscribe(
-  		result=>{
+  		result => {
         this.isClearButton = false;
-  			this.products=result['productos'];
-        console.log("Productos", this.products);
-        //add paginations numbers
-        this.pageNumbers=parseInt(result['pagesNumber']);
-        for (let i=1; i <= this.pageNumbers; i++) {
-          this.paginationNumbers.push(i)
+  			this.products = result['productos'];
+        console.log('Productos', this.products);
+        // add paginations numbers
+        // tslint:disable-next-line:radix
+        this.pageNumbers = parseInt(result['pagesNumber']);
+        for (let i = 1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i);
         }
-  			this.showLoading=false;
-  			//working on the images to use like background
-         	this.products.forEach((data, index)=>{
-	            if (data.imagePrimary && data.imagePrimary !='') {
-	              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
-	            }
-	            else if(data.images && data.images.length>0){
-	              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
-	            }
-	            else{
-	              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+  			this.showLoading = false;
+  			// working on the images to use like background
+         	this.products.forEach( ( data, index ) => {
+	            if (data.imagePrimary && data.imagePrimary !== '') {
+	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+	            } else if (data.images && data.images.length > 0) {
+	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
+	            } else {
+	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
 	            }
 	        });
-	        if(this.products.length==0){
-	          this.showNotFound=true;
-	        }
-	        else{
-	          this.showNotFound=false;
+	        if (this.products.length === 0) {
+	          this.showNotFound = true;
+	        } else {
+	          this.showNotFound = false;
 	        }
 	        this.nextProductsExist(1);
-          this.previousProductExist(1)
+          this.previousProductExist(1);
   		},
-  		e=>{
-  			this.showLoading=true;
-  			this.showError('Something wrong happened, Please Reload the Page')
-  			console.log(e)
+  		e => {
+  			this.showLoading = true;
+  			this.showError('Something wrong happened, Please Reload the Page');
+  			console.log(e);
   		}
-  	)
+  	);
   }
-  nextProductsExist(val){
-    //if it's the pagination is for all product
-    if(val==1){
-      if(this.page<this.pageNumbers){
-        this.showNextP=true;
-      }else{
-        this.showNextP=false;
+  nextProductsExist(val) {
+    // if it's the pagination is for all product
+    if (val === 1) {
+      if (this.page < this.pageNumbers) {
+        this.showNextP = true;
+      } else {
+        this.showNextP = false;
       }
-    }
-    //if pagination is for the search
-    else{
-      if(this.page<this.pageNumbers){
-        this.showNextPS=true;
-      }else{
-        this.showNextPS=false;
+    } else {
+      if (this.page < this.pageNumbers) {
+        this.showNextPS = true;
+      } else {
+        this.showNextPS = false;
       }
     }
   }
-  previousProductExist(val){
-    //if it's the pagination is for all product
-    if(val==1){
-      if(this.page>1){
-        this.showPrvP=true;
-      }else{
-        this.showPrvP=false;
+  previousProductExist(val) {
+    // if it's the pagination is for all product
+    if (val === 1) {
+      if (this.page > 1) {
+        this.showPrvP = true;
+      } else {
+        this.showPrvP = false;
       }
-    }
-    //if pagination is for the search
-    else{
-      if(this.page>1){
-        this.showPrvPS=true;
-      }else{
-        this.showPrvPS=false;
+    } else {
+      if (this.page > 1) {
+        this.showPrvPS = true;
+      } else {
+        this.showPrvPS = false;
       }
     }
   }
-   goTo(page,option){
-    this.paginationNumbers=[];
-    //go to number page if it for all products
-    if(option==1){
+   goTo(page, option) {
+    this.paginationNumbers = [];
+    // go to number page if it for all products
+    if (option === 1) {
       this.router.navigate([`/products/all/${page}`]);
-    }
-    //go to number page if it for the search
-    else{
+    } else {
       this.router.navigate([`/products/${this.search}/${page}`]);
     }
   }
-  nextPage(){
-    this.paginationNumbers=[];
+  nextPage() {
+    this.paginationNumbers = [];
     this.page++;
     this.router.navigate([`/products/all/${this.page}`]);
   }
-  previousPage(){
-    this.paginationNumbers=[];
-      if(this.page>1){
+  previousPage() {
+    this.paginationNumbers = [];
+      if (this.page > 1) {
         this.page--;
         this.router.navigate([`/products/all/${this.page}`]);
-      }
-      else{
+      } else {
         this.router.navigate([`/products/all/${this.page}`]);
       }
   }
-nextPageSearch(){
-  this.paginationNumbers=[];
+nextPageSearch() {
+  this.paginationNumbers = [];
   this.page++;
   this.router.navigate([`/products/${this.search}/${this.page}`]);
   }
-previousPageSearch(){
-  this.paginationNumbers=[];
-  if(this.page>1){
+previousPageSearch() {
+  this.paginationNumbers = [];
+  if (this.page > 1) {
     this.page--;
     this.router.navigate([`/products/${this.search}/${this.page}`]);
-  }
-  else{
+  } else {
     this.router.navigate([`/products/${this.search}/${this.page}`]);
   }
 }
-deleteProduct(id, index){
-  this.productService.deleteData('api/fish/'+id).subscribe(result =>{
+deleteProduct(id, index) {
+  this.productService.deleteData('api/fish/' + id).subscribe(result => {
     this.deleteNode(index);
-    this.toast.success("Product deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
+    this.toast.success('Product deleted succesfully!', 'Well Done', {positionClass: 'toast-top-right'});
 
   });
 }
-Search(query, page){
-this.productService.searchProductByName(query,page).subscribe(
-  result=>{
-        this.searchPage+=1;
-        this.products=result['fish'];
-        this.pageNumbers=parseInt(result['pagesCount']);
-        for (let i=1; i <= this.pageNumbers; i++) {
-          this.paginationNumbers.push(i)
+Search(query, page) {
+this.productService.searchProductByName(query, page).subscribe(
+  result => {
+        this.searchPage += 1;
+        this.products = result['fish'];
+        this.pageNumbers = parseInt( result[ 'pagesCount' ] );
+        for (let i = 1; i <= this.pageNumbers; i++) {
+          this.paginationNumbers.push(i);
         }
-        this.showLoading=false;
-        //working on the images to use like background
-         this.products.forEach((data, index)=>{
-            if (data.imagePrimary && data.imagePrimary !='') {
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
-            }
-            else if(data.images && data.images.length>0){
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
-            }
-            else{
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+        this.showLoading = false;
+        // working on the images to use like background
+         this.products.forEach((data, index) => {
+            if (data.imagePrimary && data.imagePrimary !== '') {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+            } else if (data.images && data.images.length > 0) {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
+            } else {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
             }
          });
-        if(this.products.length==0){
-          this.showNotFound=true;
+        if (this.products.length === 0) {
+          this.showNotFound = true;
+        } else {
+          this.showNotFound = false;
         }
-        else{
-          this.showNotFound=false;
-        }
-        this.nextProductsExist(2)
+        this.nextProductsExist(2);
         this.previousProductExist(2);
       },
-      error=>{
-        console.log(error)
+      error => {
+        console.log(error);
       }
-    )
+    );
 }
-searchProducts(query){
-  this.paginationNumbers=[];
+searchProducts(query) {
+  this.paginationNumbers = [];
   this.router.navigate([`/products/${query}/1`]);
 }
-deleteNode(i){
+deleteNode(i) {
   this.products.splice(i, 1);
 }
 smallDesc(str) {
-     if(str.length>20){
-        let text=str.split(/\s+/).slice(0,20).join(" ")
-        return text+'...' 
-    }
-    else{
-      return str
+     if (str.length > 20) {
+        const text = str.split(/\s+/).slice(0, 20).join(' ');
+        return text + '...';
+    } else {
+      return str;
     }
   }
-   showSuccess(e){
-    this.toast.success(e,'Well Done',{positionClass:"toast-top-right"})
+   showSuccess(e) {
+    this.toast.success(e, 'Well Done', {positionClass: 'toast-top-right'});
   }
-   showError(e){
-    this.toast.error(e,'Error',{positionClass:"toast-top-right"})
+   showError(e) {
+    this.toast.error(e, 'Error', {positionClass: 'toast-top-right'});
   }
 
-  getCategories(){  	
+  getCategories() {
   	this.productService.getCategories().subscribe(
-  		result=>{        
+  		result => {
         this.searchCategories = result;
   		},
-  		e=>{
-  			this.showLoading=true;
-  			this.showError('Something wrong happened, Please Reload the Page')
-  			console.log(e)
+  		e => {
+  			this.showLoading = true;
+  			this.showError('Something wrong happened, Please Reload the Page');
+  			console.log(e);
   		}
-  	)
+  	);
   }
 
-  getSubCategories(category_id:string){  	
+  getSubCategories(category_id: string) {
   	this.productService.getSubCategories(category_id).subscribe(
-  		result=>{        
-        this.searchSubcategories = result;        
+  		result => {
+        this.searchSubcategories = result;
   		},
-  		e=>{
-  			this.showLoading=true;
-  			this.showError('Something wrong happened, Please Reload the Page')
-  			console.log(e)
+  		e => {
+  			this.showLoading = true;
+  			this.showError('Something wrong happened, Please Reload the Page');
+  			console.log(e);
   		}
-  	)
+  	);
   }
 
-  getFishCountries(){  	
+  getFishCountries() {
   	this.productService.getFishCountries().subscribe(
-  		result=>{
-        let filterCountries:any = [];
+  		result => {
+        const filterCountries: any = [];
         this.allCountries.map( country => {
-          var exists = Object.keys(result).some(function(k) {
+          const exists = Object.keys(result).some(function(k) {
             return result[k] === country.code;
           });
-          if( exists ){
+          if ( exists ) {
             filterCountries.push( country );
             return country;
           }
-        } )
+        } );
         console.log(filterCountries);
         this.countries = filterCountries;
 
   		},
-  		e=>{
-  			this.showLoading=true;
-  			this.showError('Something wrong happened, Please Reload the Page')
-  			console.log(e)
+  		e => {
+  			this.showLoading = true;
+  			this.showError('Something wrong happened, Please Reload the Page');
+  			console.log(e);
   		}
-  	)
+  	);
   }
 
 
-  filterProducts(){
-    if( this.isClearButton ){
+  filterProducts() {
+    if ( this.isClearButton ) {
       return;
     }
-    let cat = jQuery('.category').val();
-    let subcat = jQuery('.subcategory').val();
-    let country = jQuery('.country').val();
-    let raised = jQuery('#selectRaised').val();
-    let preparation = jQuery('#selectPreparation').val();
-    let treatment = jQuery('#selectTreatment').val();
-    let minPrice = jQuery("#minPriceValue").val();
-    let maxPrice = jQuery("#maxPriceValue").val();
-    let minimumOrder = jQuery("#minimumValue").val();
-    let maximumOrder = jQuery("#maximumValue").val();
-    let cooming_soon = jQuery('#comming_soon').prop('checked');//jQuery("#comming_soon").val();
+    const cat = jQuery('.category').val();
+    const subcat = jQuery('.subcategory').val();
+    const subspecies = jQuery('.subspecies').val();
+    const descriptor = jQuery('.descriptor').val();
+    const country = jQuery('.country').val();
+    const raised = jQuery('#selectRaised').val();
+    const preparation = jQuery('#selectPreparation').val();
+    const treatment = jQuery('#selectTreatment').val();
+    let minPrice = jQuery('#minPriceValue').val();
+    let maxPrice = jQuery('#maxPriceValue').val();
+    let minimumOrder = jQuery('#minimumValue').val();
+    let maximumOrder = jQuery('#maximumValue').val();
+    let cooming_soon = jQuery('#comming_soon').prop('checked'); // jQuery("#comming_soon").val();
     console.log(preparation);
-    if(!cooming_soon){
-      cooming_soon ="0";
-    }else{
+    if (!cooming_soon) {
+      cooming_soon = '0';
+    } else {
       cooming_soon = cooming_soon.toString();
     }
 
-    if( (minPrice == '' || minPrice == this.minPriceField ) && ( maxPrice == '' || maxPrice == this.maxPriceField ) ){
+    if ( (minPrice === '' || minPrice === this.minPriceField ) && ( maxPrice === '' || maxPrice === this.maxPriceField ) ) {
       minPrice = '0';
       maxPrice = '0';
     }
-      
 
-    if(minimumOrder == '')
+
+    if (minimumOrder === '') {
       minimumOrder = '0';
-    if(maximumOrder == '')
+    }
+    if (maximumOrder === '') {
       maximumOrder = '0';
+    }
 
-    
-    if( cat == '0' && subcat == '0' && country == '0' && Object.keys(raised).length == 0 && Object.keys(preparation).length  == 0 && Object.keys(treatment).length == 0 && minPrice == '0' && maxPrice == '0' && minimumOrder == '0' && maximumOrder == '0' && cooming_soon == '0' ){
-      this.getProducts(12,this.page)
-    }else{
-      this.showLoading=true;
+
+    if (
+      cat === '0' &&
+      subcat === '0' &&
+      subspecies === '0' &&
+      descriptor === '0' &&
+      country === '0' &&
+      Object.keys(raised).length === 0 &&
+      Object.keys(preparation).length  === 0 &&
+      Object.keys(treatment).length === 0 &&
+      minPrice === '0' &&
+      maxPrice === '0' &&
+      minimumOrder === '0' &&
+      maximumOrder === '0' &&
+      cooming_soon === '0'
+    ) {
+      this.getProducts(12, this.page);
+    } else {
+      this.showLoading = true;
       this.products = [];
       this.image = [];
-      this.productService.filterFish( cat, subcat, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
+      this.productService.filterFish( cat, subcat, subspecies, descriptor, country, raised, preparation, treatment,
+        minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
-          this.showLoading=false;
-          this.paginationNumbers=[];
-          this.products=result;
+          this.showLoading = false;
+          this.paginationNumbers = [];
+          this.products = result;
 
-          //working on the images to use like background
-          this.products.forEach((data, index)=>{
-            if (data.imagePrimary && data.imagePrimary !='') {
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
-            }
-            else if(data.images && data.images.length>0){
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
-            }
-            else{
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+          // working on the images to use like background
+          this.products.forEach((data, index) => {
+            if (data.imagePrimary && data.imagePrimary !== '') {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+            } else if (data.images && data.images.length > 0) {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
+            } else {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
             }
         });
-          if( result == undefined ||  Object.keys(result).length == 0  )
+          if ( result === undefined ||  Object.keys(result).length === 0  ) {
             this.showNotFound = true;
-          else
+          } else {
             this.showNotFound = false;
+          }
         },
         error => {
           console.log( error );
         }
-      )
+      );
     }
-    
-    
+
+
   }
 
-    increaseWeight(weight, max, i, id, country, category, price){
-      if(weight < max){
-        var input = document.getElementById('single-price-' + id);
+    increaseWeight(weight, max, i, id, country, category, price) {
+      if (weight < max) {
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
         weight += 5;
-        if(category != ''){
-          var row = document.getElementById('products-container');
-          var cards = row.querySelectorAll('.category-'+ category);
+        if (category !== '') {
+          const row = document.getElementById('products-container');
+          const cards = row.querySelectorAll('.category-' + category);
           console.log( 'cards', cards );
-          for (var index = 0; index < cards.length; index++) {
-              var classes = cards[index].className.split(" ");
+          for (let index = 0; index < cards.length; index++) {
+              const classes = cards[index].className.split(' ');
               console.log( 'classes', classes );
               this.products[classes[6]].minimumOrder = weight;
               this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
-        }else{
+        } else {
           this.products[i].minimumOrder = weight;
           this.getShippingRates(weight, country, id, price);
         }
-        
-      }else{
-        var input = document.getElementById('single-price-' + id);
+
+      } else {
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = 'red';
 
 
       }
     }
 
-  
-    dicreaseWeight(weight, i, id, country, category, price){
-      if(weight > 5){
-        var input = document.getElementById('single-price-' + id);
+
+    dicreaseWeight(weight, i, id, country, category, price) {
+      if (weight > 5) {
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
         weight -= 5;
-        if(category != ''){
-          var row = document.getElementById('products-container');
-          var cards = row.querySelectorAll('.category-'+ category);
-          for (var index = 0; index < cards.length; index++) {
-              var classes = cards[index].className.split(" ");
+        if (category !== '') {
+          const row = document.getElementById('products-container');
+          const cards = row.querySelectorAll('.category-' + category);
+          for (let index = 0; index < cards.length; index++) {
+              const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
               this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
-        }else{
+        } else {
           this.products[i].minimumOrder = weight;
           this.getShippingRates(weight, country, id, price);
         }
-     
 
-      }else{
-        var input = document.getElementById('single-price-' + id);
+
+      } else {
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = 'red';
       }
 
     }
 
-    getWeight(weight, max, i, id, country, category, price){
-      if(weight < max){
-        var input = document.getElementById('single-price-' + id);
+    getWeight(weight, max, i, id, country, category, price) {
+      if (weight < max) {
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
-        if(category != ''){
-          var row = document.getElementById('products-container');
-          var cards = row.querySelectorAll('.category-'+ category);
-          for (var index = 0; index < cards.length; index++) {
-              var classes = cards[index].className.split(" ");
+        if (category !== '') {
+          const row = document.getElementById('products-container');
+          const cards = row.querySelectorAll('.category-' + category);
+          for (let index = 0; index < cards.length; index++) {
+              const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
-              //console.log(classes);
+              // console.log(classes);
               this.getShippingRates(weight, classes[5], classes[7], classes[8]);
 
             }
 
-        }else{
+        } else {
           this.products[i].minimumOrder = weight;
           this.getShippingRates(weight, country, id, price);
         }
-        
-      }else{
-       
-        var input = document.getElementById('single-price-' + id);
+
+      } else {
+
+        const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = 'red';
           this.products[i].minimumOrder = max;
           this.getShippingRates(max, country, id, price);
-        
+
 
       }
 
     }
 
 
-    getShippingRates(weight, country, id, price){
-      //this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
-      this.productService.getData( `api/fish/${id}/charges/${weight}` ).subscribe(result=> {
-          //console.log(result);
-          var card = document.getElementById('product-' + id);
-          var box = card.getElementsByClassName('single-kg-box')[0];
-          var prices = card.getElementsByClassName('hidden-prices');
-          var deliveredPice = document.getElementById('product-' + id + '-delivered');
-          var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-          var priceTByWeight =  result['finalPrice'] / Number(parseFloat( weight ) );
-          var priceT:any = Number( priceTByWeight.toFixed(4)).toString(); // result['finalPrice']; /// weight; //(weight * price) + result['price'];
-          
-          //console.log(priceT);
+    getShippingRates(weight, country, id, price) {
+      // this.productService.getData('shippingRates/country/'+ country + '/' + weight).subscribe(result=> {
+      this.productService.getData( `api/fish/${id}/charges/${weight}` ).subscribe(result => {
+          // console.log(result);
+          const card = document.getElementById('product-' + id);
+          const box = card.getElementsByClassName('single-kg-box')[0];
+          const prices = card.getElementsByClassName('hidden-prices');
+          const deliveredPice = document.getElementById('product-' + id + '-delivered');
+          const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
+          const priceTByWeight =  result['finalPrice'] / Number(parseFloat( weight ) );
+          const priceT: any = Number( priceTByWeight.toFixed(4) ).toString();
+
+          // console.log(priceT);
           (box as HTMLElement).style.display = 'block';
-          for (var index = 0; index < prices.length; index++) {
+          for (let index = 0; index < prices.length; index++) {
             (prices[index] as HTMLElement).style.display = 'flex';
             }
-        if(result.hasOwnProperty('message')){
+        if (result.hasOwnProperty('message')) {
           deliveredPice.innerHTML = result['message'];
-          deliveredPiceTotal.innerHTML = "";
-        }else{
-          deliveredPice.innerHTML = 'AED '+ priceT + " / kg";
+          deliveredPiceTotal.innerHTML = '';
+        } else {
+          deliveredPice.innerHTML = 'AED ' + priceT + ' / kg';
           deliveredPiceTotal.innerHTML = '';
         }
-       
-      })
+
+      });
     }
-  
-    getDeliverTotal(price, weight){
+
+    getDeliverTotal(price, weight) {
       return price * weight;
     }
 
 
-    addToCart(product){
-      let item = {
-        "fish":product.id,
-        "price": {
-                "type": product.price.type,
-                "value": product.price.value
+    addToCart(product) {
+      const item = {
+        'fish': product.id,
+        'price': {
+                'type': product.price.type,
+                'value': product.price.value
             },
-        "quantity": {
-            "type": product.price.type,
-            "value": product.minimumOrder
+        'quantity': {
+            'type': product.price.type,
+            'value': product.minimumOrder
         },
-        "shippingStatus":"pending"
-    }
+        'shippingStatus': 'pending'
+    };
       this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
-          //set the new value to cart
-          this.cartService.setCart(result)
-          this.toast.success("Product added to the cart!",'Product added',{positionClass:"toast-top-right"});
-  
-      })
+          // set the new value to cart
+          this.cartService.setCart(result);
+          this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
+
+      });
     }
 
-    myEnterFunction(id){
-      var card = document.getElementById('product-' + id);
-      var prices = document.getElementById('delivered-cont-' + id);
-      var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-      var btn = document.getElementById('btn-add-' + id);
-      var sellerPrice = card.querySelectorAll('.sellers-price');
-      var singlePrice = card.querySelectorAll('.single-price');
-      var singleCalc = card.querySelectorAll('.single-calc');
-      if((prices as HTMLElement).style.display == "flex"){
+    myEnterFunction(id) {
+      const card = document.getElementById('product-' + id);
+      const prices = document.getElementById('delivered-cont-' + id);
+      const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
+      const btn = document.getElementById('btn-add-' + id);
+      const sellerPrice = card.querySelectorAll('.sellers-price');
+      const singlePrice = card.querySelectorAll('.single-price');
+      const singleCalc = card.querySelectorAll('.single-calc');
+      if ((prices as HTMLElement).style.display === 'flex') {
         deliveredPiceTotal.innerHTML = '';
         (card as HTMLElement).style.marginBottom = '50px';
         (btn as HTMLElement).style.visibility = 'visible';
         (btn as HTMLElement).style.marginTop = '-30px';
-        (sellerPrice[0] as HTMLElement).style.display= 'none';
-        (singlePrice[0] as HTMLElement).style.display= 'flex';
-        (singleCalc[0] as HTMLElement).style.display= 'block';
+        (sellerPrice[0] as HTMLElement).style.display = 'none';
+        (singlePrice[0] as HTMLElement).style.display = 'flex';
+        (singleCalc[0] as HTMLElement).style.display = 'block';
 
       }
 
 
     }
 
-    leaveFunction(id){
-      var card = document.getElementById('product-' + id);
-      var prices = document.getElementById('delivered-cont-' + id);
-      var deliveredPiceTotal:any = document.getElementById('product-' + id + '-delivered-total');
-      var btn = document.getElementById('btn-add-' + id);
-      var sellerPrice = card.querySelectorAll('.sellers-price');
-      var singlePrice = card.querySelectorAll('.single-price');
-      var singleCalc = card.querySelectorAll('.single-calc');
+    leaveFunction(id) {
+      const card = document.getElementById('product-' + id);
+      const prices = document.getElementById('delivered-cont-' + id);
+      const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
+      const btn = document.getElementById('btn-add-' + id);
+      const sellerPrice = card.querySelectorAll('.sellers-price');
+      const singlePrice = card.querySelectorAll('.single-price');
+      const singleCalc = card.querySelectorAll('.single-calc');
 
-      if((prices as HTMLElement).style.display == "flex"){
+      if ((prices as HTMLElement).style.display === 'flex') {
         (btn as HTMLElement).style.visibility = 'hidden';
         deliveredPiceTotal.innerHTML = 'Delivered Price';
-        (sellerPrice[0] as HTMLElement).style.display= 'flex';
-        (singlePrice[0] as HTMLElement).style.display= 'none';
-        (singleCalc[0] as HTMLElement).style.display= 'none';
+        (sellerPrice[0] as HTMLElement).style.display = 'flex';
+        (singlePrice[0] as HTMLElement).style.display = 'none';
+        (singleCalc[0] as HTMLElement).style.display = 'none';
 
       }
 
+    }
+
+    getAllTypesByLevel() {
+      this.productService.getData(`getTypeLevel`).subscribe(
+        result => {
+          this.searchCategories = result['level0'];
+          this.searchSubcategories = result['level1'];
+          this.searchSubSpecie = result['level2'];
+          this.searchDescriptor = result['level3'];
+        },
+        error => {
+          console.log( error );
+        }
+      );
+    }
+
+    getOnChangeLevel( level: number, selectedType: any ) {      
+      /*switch ( level ) {
+        case 0:
+          selectedType = this.parentSelectedType.value;
+          break;
+
+        case 1:
+          selectedType = this.speciesSelected.value;
+          break;
+
+        case 3:
+          selectedType = this.subSpeciesSelected.value;
+          break;
+
+        default:
+          selectedType = this.subSpeciesSelected.value;
+          break;
+      }*/
+      console.log( 'selected type id', selectedType );
+      this.productService.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+        result => {
+          result['childs'].map( item => {
+            switch (item.level) {
+              case 0:
+                this.searchCategories = item.fishTypes;
+                break;
+
+              case 1:
+                this.searchSubcategories = item.fishTypes;
+                break;
+
+              case 2:
+                this.searchSubSpecie = item.fishTypes;
+                break;
+
+              case 3:
+                this.searchDescriptor = item.fishTypes;
+                break;
+
+              default:
+                break;
+            }
+          } );
+          /*for (let index = level; index < result['childs'].length; index++) {
+            if ( index == 0 ) {
+
+            }
+          }*/
+        },
+        error => {
+          console.log( error );
+        }
+      );
     }
 
 }

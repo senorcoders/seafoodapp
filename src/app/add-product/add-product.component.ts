@@ -199,7 +199,7 @@ export class AddProductComponent implements OnInit {
     this.showError = true;    
     if (this.myform.valid) {
       const data = {
-        'type': this.parentSelectedType.value,
+        'type': this.subSpeciesSelected.value,
         'descriptor': this.descriptorSelected.value,
         'store': this.store[0].id,
         'quality': 'good',
