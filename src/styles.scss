@@ -380,7 +380,7 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   text-align: center;
 }
 .products-section{
-  padding-top: 50px;
+  padding-top: 40px;
   background: #ebf1f6;
   .products-section a {
       text-decoration: none !important;
@@ -748,7 +748,7 @@ footer{
 }
 .searchAdmin{
   margin-bottom: 40px;
-  margin-top: 20px;
+  margin-top: 0px;
   .form-group{
     margin-bottom: 0;
   }
@@ -954,4 +954,13 @@ app-register, app-login{
 
 .slick-prev:before, .slick-next:before{
     color: #123345 !important;
+}
+.box{
+  .select2-container--default .select2-selection--single{
+    height: 38px !important;
+    padding-top: 3px !important;
+  }
+  .select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 37px !important;
+  }
 }

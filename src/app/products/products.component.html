@@ -16,6 +16,29 @@
         <div class="col-lg-3">
         <!--Sidebar-->
         <aside>
+          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
+            <div class="box" style="margin-top: 0">                
+              <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+                <option value="0">Select Category</option>
+                <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
+              </select>
+            </div>
+            <div class="box subcategory-container">          
+              <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
+                <option value="0">Select Subcategory</option>
+                <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
+              </select>
+            </div>
+            <div class="box">          
+              <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
+                <option value="0">Select Country</option>            
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+            </div>
+            <div class="box">
+              <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
+            </div>
+          </form>
           <div class="box bprice">
             <label>Price</label><span class="current-price"></span><br>
             <input type="hidden" id="minPriceValue" name="priceValue">
@@ -70,35 +93,10 @@
         </aside>
       </div>
       
-      <div class="col-lg-9">
-          <div class="col-12">
+      <div class="col-lg-9 products-row">
+          <!-- <div class="col-12">
             <h3 class="black-title">{{'Products.title' | translate}}</h3>
-          </div>
-          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
-              <div class="row" id="filter">
-                <div class="col-md-3">                
-                  <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
-                    <option value="0">Select Category</option>
-                    <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-3 subcategory-container">          
-                  <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
-                    <option value="0">Select Subcategory</option>
-                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-3">          
-                  <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
-                    <option value="0">Select Country</option>            
-                    <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-3">
-                  <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
-                </div>
-              </div>
-            </form>
+          </div> -->
             <div class="row" style="margin-left: 0;" id="products-container">
               <div class="col-12">
                   <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
@@ -127,7 +125,7 @@
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
                     <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
                 </p>
-                <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+                <!-- <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button> -->
               </div>
              
             </div>
