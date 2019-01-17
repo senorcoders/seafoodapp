@@ -29,7 +29,7 @@
 								<span >Purchased on:<br> {{shoppingCart.updatedAt | date: ' MMMM d, y'}}</span>
 								</div>
 							<div class="col">
-								<span>{{shoppingCart.status | uppercase}}</span>
+								<span *ngIf="shoppingCart.orderStatus" >{{shoppingCart.orderStatus.status | uppercase}}</span>
 							</div>
 							<div class="col">
 									<span class="price">$ {{shoppingCart.total + shoppingCart.shipping + shoppingCart.uaeTaxes + shoppingCart.totalOtherFees }}</span>
