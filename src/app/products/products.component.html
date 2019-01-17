@@ -16,6 +16,43 @@
         <div class="col-lg-3">
         <!--Sidebar-->
         <aside>
+          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
+              <div id="filter">
+                <div class="box" style="margin-top: 0">                
+                  <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+                    <option value="0">Select Category</option>
+                    <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
+                  </select>
+                </div>
+                <div class="box subcategory-container">          
+                  <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
+                    <option value="0">Select Species</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box subspecies-container">          
+                  <select class="js-example-basic-single subspecies" name="subspecies" data-placeholder="Select Store">
+                    <option value="0">Select Sub-Species</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubSpecie">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box descriptor-container">          
+                  <select class="js-example-basic-single descriptor" name="descriptor" data-placeholder="Select Store">
+                    <option value="0">Select Descriptor</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchDescriptor">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box">          
+                  <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
+                    <option value="0">Select Country</option>            
+                    <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                  </select>
+                </div>
+                <div class="box">
+                  <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
+                </div>
+              </div>
+          </form>
           <div class="box bprice">
             <label>Price</label><span class="current-price"></span><br>
             <input type="hidden" id="minPriceValue" name="priceValue">
@@ -70,48 +107,12 @@
         </aside>
       </div>
       
-      <div class="col-lg-9">
-          <div class="col-12">
+      <div class="col-lg-9 products-row">
+          <!-- <div class="col-12">
             <h3 class="black-title">{{'Products.title' | translate}}</h3>
-          </div>
-          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
-              <div class="row" id="filter">
-                <div class="col-md-2">                
-                  <select class="js-example-basic-single category" style="width: 100%" name="category" data-placeholder="Select Store">
-                    <option value="0">Select Category</option>
-                    <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-2 subcategory-container">          
-                  <select class="js-example-basic-single subcategory" style="width: 100%" name="subcategory" data-placeholder="Select Store">
-                    <option value="0">Select Species</option>
-                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-2 subspecies-container">          
-                  <select class="js-example-basic-single subspecies" style="width: 100%" name="subspecies" data-placeholder="Select Store">
-                    <option value="0">Select Sub-Species</option>
-                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubSpecie">{{subCategory.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-2 descriptor-container">          
-                  <select class="js-example-basic-single descriptor" style="width: 100%" name="descriptor" data-placeholder="Select Store">
-                    <option value="0">Select Descriptor</option>
-                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchDescriptor">{{subCategory.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-2">          
-                  <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
-                    <option value="0">Select Country</option>            
-                    <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-                  </select>
-                </div>
-                <div class="col-md-2">
-                  <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
-                </div>
-              </div>
-            </form>
-            <div class="row" style="margin-left: 0;" id="products-container">
+          </div> -->
+          
+          <div class="row" style="margin-left: 0;" id="products-container">
               <div class="col-12">
                   <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
                 </div>
@@ -139,7 +140,7 @@
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
                     <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
                 </p>
-                <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+                <!-- <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button> -->
               </div>
              
             </div>

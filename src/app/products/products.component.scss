@@ -38,15 +38,17 @@ a.badge-danger{
   margin-right: 10px;
   margin-bottom: 10px;
 }
-.active {
-  background: #ee434a;
-  color: white !important;
-}
 .pink-btn{
   padding: 10px 15px;
+  color: #0055bd !important;
+  border: 2px solid #0055bd !important;
+}
+.active {
+  background: #0055bd;
+  color: white !important;
 }
 aside{
-  margin-top: 2em;
+  margin-top: 0;
 
   .box {
     margin-top: 2em;
@@ -93,10 +95,11 @@ aside{
 }
 
 button#clear {
-  background: #eb1c24;
+  background: #0055bd;
   border: none;
   padding: 3px 10px;
   color: #fff !important;
+  text-transform: capitalize;
 }
 
 .coming-true{
@@ -118,7 +121,7 @@ button#clear {
 }
 .single-product{
   width: 244px;
-  margin-bottom: 20px;
+  margin-bottom: 38px;
   max-width: 244px;
   margin-right: 16px;
   padding: 0;
@@ -168,7 +171,7 @@ button#clear {
     letter-spacing: normal;
     color: #000000;
     text-transform: capitalize;
-    margin-top: 7px;
+    margin-top: 9px;
     margin-bottom: 0;
 
   }
@@ -194,7 +197,7 @@ button#clear {
     line-height: normal;
     letter-spacing: normal;
     color: #000000;
-    margin-top: 15px;
+    margin-top: 12px;
   }
   .single-price{
     background: #fff;
@@ -307,9 +310,22 @@ button#clear {
   }
 } 
 .searchAdmin{
-margin-bottom: 55px;
+margin-bottom: 0px;
 }
 
+@media(min-width: 1300px){
+  .products-row{
+    padding-left: 32px;
+    .products-container{
+      margin-left: 0;
+    }
+  }
+}
+@media(max-width: 998px){
+  .products-row{
+    margin-top: 40px;
+  }
+}
 @media screen and (max-width: 768px){
   .single-product{
     margin: 0 auto;

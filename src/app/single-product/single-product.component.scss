@@ -363,9 +363,11 @@ input::-webkit-inner-spin-button {
   color: #000000;
   padding-bottom: 7px;
   padding-top: 7px;
+  padding-left: 3px;
+  margin-top: 2px;
 }
 .Product-Producer-Name{
-    max-width: 505px;
+  max-width: 505px;
   height: 28px;
   font-family: Roboto;
   font-size: 24px;
@@ -375,6 +377,8 @@ input::-webkit-inner-spin-button {
   line-height: normal;
   letter-spacing: normal;
   color: #0055bd;
+  padding-left: 3px;
+  margin-top: 5px;
 }
 .single-product .product-name{
   max-width: 418px;
@@ -402,6 +406,7 @@ input::-webkit-inner-spin-button {
   letter-spacing: normal;
   color: #000000;
   text-transform: uppercase;
+  margin-bottom: 5px;
 }
 .currency{
   max-width: 71px;
@@ -486,6 +491,27 @@ input::-webkit-inner-spin-button {
     .img-bg{
         width: 100%;
         max-width: 505px;
+    }
+    .product-content{
+      margin-top: -9px;
+    }
+    .product-label{
+      padding-left: 18px;
+    }
+    .last-row{
+      padding-bottom: 37px;
+    }
+    .total-price{
+      padding-left: 17px;
+    }
+    .actions-form{
+      .product-label{
+        margin-right: 12px;
+        padding-left: 5px;
+      }
+      .product-value{
+        padding-left: 0
+      }
     }
 }
 @media(min-width: 1300px){
