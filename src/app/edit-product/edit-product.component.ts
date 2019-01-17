@@ -52,6 +52,8 @@ export class EditProductComponent implements OnInit {
   allCities: any = [];
   cities: any = [];
   countries: any = [];
+  status: any;
+  selectedStatus: any;
   constructor(private product: ProductService, private route: ActivatedRoute, private router: Router, private toast: ToastrService, private auth: AuthenticationService, private sanitizer: DomSanitizer, private countryService: CountriesService ) {}
   ngOnInit() {
     // this.createFormControls();
@@ -88,6 +90,8 @@ export class EditProductComponent implements OnInit {
       this.cooming_soon = data['cooming_soon'];
       this.seller_sku = data['seller_sku'];
       this.seafood_sku = data['seafood_sku'];
+      this.status = data['status'];
+      this.selectedStatus = this.status.id;
       data['images'].forEach((val, index) => {
         if (val.hasOwnProperty('src')) {
           console.log('Val', val);
@@ -144,7 +148,8 @@ export class EditProductComponent implements OnInit {
           'treatment': this.treatment,
           'coomingSoon': this.cooming_soon,
           'seller_sku': this.seller_sku,
-          'seafood_sku': this.seafood_sku
+          'seafood_sku': this.seafood_sku,
+          'status': this.selectedStatus
       };
       this.product.updateData('fish/' + this.productID, data).subscribe(result => {
         if (this.fileToUpload.length > 0) {

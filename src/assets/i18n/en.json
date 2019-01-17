@@ -197,7 +197,8 @@
 		"detail":"Product details",
 		"seller_sku": "SKU",
 		"seafood_sku": "Seafood Souq SKU",
-		"city": "City"
+		"city": "City",
+		"status": "Status"
 	},
 	"FishType":{
 		"add":"Add Fish Type",
