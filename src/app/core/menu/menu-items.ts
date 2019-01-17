@@ -275,6 +275,11 @@ const menuBuyer = [
         state: 'items-status',
         name: 'Items Status',
         translate: { en: { name: 'Items Status' }, ar: { name: 'Items Status' } }
+      },
+      {
+        state: 'canceled-delivered-items',
+        name: 'Canceled & Delivered Items',
+        translate: { en: { name: 'Canceled Delivered Status' }, ar: { name: 'Canceled Delivered Items' } }
       }
     ],
     translate: {

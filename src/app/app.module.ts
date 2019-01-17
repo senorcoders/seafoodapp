@@ -94,6 +94,7 @@ import { RefundsComponent } from './refunds/refunds.component';
 import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
+import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -156,9 +157,8 @@ const appRoutes: Routes = [
   { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
   { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
-  { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] }
-
-
+  { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
+  { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] }
 ];
 
 @NgModule({
@@ -227,7 +227,8 @@ const appRoutes: Routes = [
     RefundsComponent,
     RefundCasesComponent,
     ManageOrdersComponent,
-    ItemsByStatusComponent
+    ItemsByStatusComponent,
+    CanceledDeliveredItemsComponent
   ],
   imports: [
     BrowserModule,

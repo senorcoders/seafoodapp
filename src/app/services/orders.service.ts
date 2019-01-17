@@ -33,6 +33,9 @@ export class OrderService {
   getAllBuyerOrders( userID:string ) {
     return this.http.get(`${API}api/itemshopping/${userID}/all`);
   }
+  getCanceledDeliveredOrders( userID:string ){
+    return this.http.get( `${API}api/itemshopping/${userID}/canceled-delivered` );
+  }
   getOrdersBuyerByStatus( userID:string, status: string ) {
     return this.http.get(`${API}api/itemshopping/${userID}/status/${status}`);
   }

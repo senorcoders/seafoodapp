@@ -31,7 +31,7 @@ export class OrdersComponent implements OnInit {
     this.getCartPaid();
   }
   getCartPaid() {
-    this.productService.getData(`api/cart/paid/${this.userData.id}`).subscribe(
+    this.productService.getData(`api/orders/open/${this.userData.id}`).subscribe(
       result => {
         this.showLoading = false;
         this.shoppingCarts = result;

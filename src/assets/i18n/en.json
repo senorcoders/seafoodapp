@@ -639,5 +639,10 @@
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"cancelItem": "Cancel Item"
+	},
+	"CanceledDeliveredItems":{
+		"title": "Canceled and Delivered Items",
+		"status": "Status",
+		"orderNumber": "Order Number"
 	}
 }
