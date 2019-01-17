@@ -1,24 +1,15 @@
 <div class="products-section">
   <div class="container">
-    <div class="row">
-
-      
-    </div>
-    <!--<div class="row" id="search">
-      <div class="col-12">
-      	<form [formGroup]="searchForm" (submit)="searchProducts(searchForm.get('search').value)" class="searchAdmin">
-  	     <input type="text" class="form-control" placeholder="{{'Products.search-placeholder'| translate}}" formControlName="search" [ngClass]="{'is-invalid':searchForm.get('search').invalid && searchForm.get('search').touched}">
-  	     <div class="invalid-feedback" *ngIf="searchForm.get('search').hasError('required')">{{'Products.no-empty'| translate}}</div>
-  	     <input type="submit" class="search-btn" value="{{'Products.search-button'| translate}}" [disabled]="searchForm.invalid">
-  	    </form>
-      </div>-->
       <div class="row">
         <div class="col-lg-3">
         <!--Sidebar-->
         <aside>
+          <div class="box" style="margin-top: 0">
+            <h3 class="black-title">{{'Products.title' | translate}}</h3>
+          </div>
           <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
               <div id="filter">
-                <div class="box" style="margin-top: 0">                
+                <div class="box" style="margin-top: 10px">                
                   <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
                     <option value="0">Select Category</option>
                     <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
@@ -107,11 +98,7 @@
         </aside>
       </div>
       
-      <div class="col-lg-9 products-row">
-          <!-- <div class="col-12">
-            <h3 class="black-title">{{'Products.title' | translate}}</h3>
-          </div> -->
-          
+      <div class="col-lg-9 products-row">          
           <div class="row" style="margin-left: 0;" id="products-container">
               <div class="col-12">
                   <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">

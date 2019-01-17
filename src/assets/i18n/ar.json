@@ -346,7 +346,7 @@
 		"go":"View Product"
 	},
 	"Products":{
-		"title":"Products List",
+		"title":"Products Search",
 		"no-result":"No products Found",
 		"view-button":"View Details",
 		"location":"Location",
