@@ -51,14 +51,8 @@
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Location: </b>{{singleUser.dataExtra.country}},{{singleUser.dataExtra.City}}, {{singleUser.dataExtra.Address}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
-						<b>ZipCode: </b>{{singleUser.dataExtra.zipCode}} <br>
-						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem; margin-top: 10px;">Company</h5>
-						<hr class="black-line">
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
-						<b>Company Email: </b>{{singleUser.dataExtra.companyEmail}} <br>
-						<b>Company Tel: </b>{{singleUser.dataExtra.companyTel}} <br>
-						<b>Delivery Address: </b>{{singleUser.dataExtra.deliveryAddress}} <br>
-						<b>Designation: </b>{{singleUser.dataExtra.designation}} <br>
+						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
 						<b>Name: </b>{{singleUser.firstName}} <br>

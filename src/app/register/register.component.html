@@ -74,22 +74,6 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>{{'Register.designation' | translate}}<span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.designation' | translate}}" formControlName="designation" [ngClass]="{'is-invalid':buyerForm.get('designation').invalid && buyerForm.get('designation').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('designation').hasError('required')">{{'Register.designation' | translate}} {{'Register.required' | translate}}.</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>{{'Register.banking' | translate}} <span class="field-status">(optional)</span></label>
-              <textarea type="text" class="form-control" placeholder="{{'Register.banking' | translate}}" formControlName="fullBakingInfo"></textarea>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <h3 class="black-title">{{'Register.company-info' | translate}}</h3>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
               <label>{{'Register.company' | translate}}<span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" [ngClass]="{'is-invalid':buyerForm.get('companyName').invalid && buyerForm.get('companyName').touched}">
               <div class="invalid-feedback" *ngIf="buyerForm.get('companyName').hasError('required')"> {{'Register.company' | translate}} {{'Register.required' | translate}}.</div>
@@ -97,26 +81,9 @@
           </div>
           <div class="col-md-6">
             <div class="form-group">
-              <label>{{'Register.deliveryAddress' | translate}}<span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.deliveryAddress' | translate}}" formControlName="deliveryAddress" [ngClass]="{'is-invalid':buyerForm.get('deliveryAddress').invalid && buyerForm.get('deliveryAddress').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('deliveryAddress').hasError('required')"> {{'Register.deliveryAddress' | translate}} {{'Register.required' | translate}}.</div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>{{'Register.company-email' | translate}}<span class="field-status red">*</span></label>
-              <input type="email" class="form-control" placeholder="{{'Register.company-email' | translate}}" formControlName="companyEmail" [ngClass]="{'is-invalid':buyerForm.get('companyEmail').invalid && buyerForm.get('companyEmail').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('companyEmail').hasError('required')">{{'Register.email' | translate}} {{'Register.required' | translate}}.</div>
-              <div class="invalid-feedback" *ngIf="buyerForm.get('companyEmail').hasError('email') && !buyerForm.get('companyEmail').hasError('required')">{{'Register.company-email' | translate}} {{'Register.invalid' | translate}}</div>  
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>{{'Register.tel' | translate}}<span class="field-status red">*</span></label>
-              <input type="number" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="companyTel" [ngClass]="{'is-invalid':buyerForm.get('companyTel').invalid && buyerForm.get('companyTel').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('companyTel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
-              <div class="invalid-feedback" *ngIf="buyerForm?.controls?.companyTel?.errors">Only numbers allowed</div>
-
+              <label>Type of Business<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Type of Business" formControlName="TypeBusiness" [ngClass]="{'is-invalid':buyerForm.get('TypeBusiness').invalid && buyerForm.get('TypeBusiness').touched}">
+              <div class="invalid-feedback" *ngIf="buyerForm.get('TypeBusiness').hasError('required')"> Type of Business is required.</div>
             </div>
           </div>
           <div class="col-md-6">
@@ -136,26 +103,20 @@
               <div class="invalid-feedback" *ngIf="buyerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-12">
             <div class="form-group">
               <label>{{'Register.City' | translate}}<span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':buyerForm.get('City').invalid && buyerForm.get('City').touched}">
               <div class="invalid-feedback" *ngIf="buyerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
             </div>
           </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>{{'Register.zipCode' | translate}}<span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.zipCode' | translate}}" formControlName="zipCode"  [ngClass]="{'is-invalid':buyerForm.get('zipCode').invalid && buyerForm.get('zipCode').touched}">
-              <div class="invalid-feedback" *ngIf="buyerForm.get('zipCode').hasError('required')"> {{'Register.zipCode' | translate}} {{'Register.required' | translate}}.</div>
+          <div class="col-md-12">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">
+              <label class="form-check-label" for="tcs">T&Cs</label>
+              <div class="invalid-feedback" *ngIf="buyerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
             </div>
           </div>
-          <div class="col-md-6">
-              <div class="form-group">
-                <label>{{'Register.logo-company' | translate}} <span class="field-status">(optional)</span></label>
-                <input type="file" accept="image/*" class="form-control"  (change)="changeListener($event)">
-              </div>
-            </div>
           <div class="col-md-12">
             <div class="form-group">
               <input type="submit" class="btn-red" value="{{'Register.title' | translate}}">

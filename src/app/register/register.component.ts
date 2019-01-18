@@ -45,19 +45,13 @@ countries=environment.countries
       location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
       password:['', [Validators.required, Validators.pattern(this.regex)]],
-      //password:['', [Validators.required, Validators.minLength(8)]],
       rePassword:['', Validators.required],
       tel:['', [Validators.required, Validators.pattern('[0-9]+')]],
-      fullBakingInfo:[''],
       Address:['', Validators.required],
       City:['', Validators.required],
-      zipCode:['', Validators.required],
-      designation:['',Validators.required],
+      TypeBusiness:['',Validators.required],
       companyName:['', Validators.required],
-      deliveryAddress:['', Validators.required],
-      companyEmail:['', [Validators.required, Validators.email]],
-      companyTel:['null', [Validators.required, Validators.pattern('[0-9]+')]],
-      logoCompany:[null]
+      tcs:['',Validators.requiredTrue]
     }, {
       validator : PasswordValidation.MatchPassword
     })
@@ -125,15 +119,10 @@ countries=environment.countries
       let dataExtra={
       "country": this.buyerForm.get('location').value,
       "tel": this.buyerForm.get('tel').value,
-      "fullBakingInfo": this.buyerForm.get('fullBakingInfo').value,
       "Address":this.buyerForm.get('Address').value,
       "City":this.buyerForm.get('City').value,
-      "zipCode":this.buyerForm.get('zipCode').value,
-      "designation": this.buyerForm.get('designation').value,
       "companyName": this.buyerForm.get('companyName').value,
-      "deliveryAddress": this.buyerForm.get('deliveryAddress').value,
-      "companyEmail": this.buyerForm.get('companyEmail').value,
-      "companyTel": this.buyerForm.get('companyTel').value
+      "TypeBusiness":this.buyerForm.get('TypeBusiness').value
       }
       this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
         result=>{
