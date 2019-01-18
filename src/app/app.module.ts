@@ -95,6 +95,7 @@ import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
 import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
+import { ProductListComponent } from './product-list/product-list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -228,7 +229,8 @@ const appRoutes: Routes = [
     RefundCasesComponent,
     ManageOrdersComponent,
     ItemsByStatusComponent,
-    CanceledDeliveredItemsComponent
+    CanceledDeliveredItemsComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
