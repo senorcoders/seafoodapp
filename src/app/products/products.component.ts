@@ -230,7 +230,7 @@ export class ProductsComponent implements OnInit {
       //this.getSubCategories( subcategorySelected );
       if ( subcategorySelected === 0 ) {
         this.getAllTypesByLevel();
-        jQuery('.subcategory-container').hide();        
+        //jQuery('.subcategory-container').hide();        
       } else {
         this.getOnChangeLevel( 0, subcategorySelected );
         jQuery('.subcategory-container').show();
@@ -245,7 +245,7 @@ export class ProductsComponent implements OnInit {
       const subcategorySelected = e.target.value;
       this.getOnChangeLevel( 1, subcategorySelected );
       if ( subcategorySelected === 0 ) {
-        jQuery('.subcategory-container').hide();
+        //jQuery('.subcategory-container').hide();
       } else {
         jQuery('.subcategory-container').show();
       }
@@ -255,7 +255,7 @@ export class ProductsComponent implements OnInit {
       const subcategorySelected = e.target.value;
       this.getOnChangeLevel( 2, subcategorySelected );
       if ( subcategorySelected === 0 ) {
-        jQuery('.subspecies-container').hide();
+        //jQuery('.subspecies-container').hide();
       } else {
         jQuery('.subspecies-container').show();
       }
@@ -265,7 +265,7 @@ export class ProductsComponent implements OnInit {
     jQuery('.descriptor').on('change', (e) => {
       const subcategorySelected = e.target.value;      
       if ( subcategorySelected === 0 ) {
-        jQuery('.descriptor-container').hide();
+        //jQuery('.descriptor-container').hide();
       } else {
         jQuery('.descriptor-container').show();
       }
