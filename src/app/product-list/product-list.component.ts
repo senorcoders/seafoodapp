@@ -125,4 +125,5 @@ export class ProductListComponent implements OnInit {
   clear(){
   	this.getProducts(1,12);
   }
+
 }
