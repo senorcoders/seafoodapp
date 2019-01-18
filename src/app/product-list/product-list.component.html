@@ -23,7 +23,7 @@
 						</div>
 						<div class="col">
 							<p class="order-number"><b>{{product.name}}</b></p>
-							<span >Status:<br> <b>{{product.status }}</b></span>
+							<span >Status:<br> <b>{{product.status.status }}</b></span>
 						</div>
 						<div class="col date-span">
 							Seafood SKU: <span *ngIf="product.seafood_sku"><b>{{product.seafood_sku}}</b></span> <br>
@@ -36,7 +36,7 @@
 							<span class="price">AED {{product.price.value}} / kg</span>
 						</div>
 						<div class="col">
-							<a routerLink="/product/{{product.id}}" class="blue-btn">See Product</a>
+							<a routerLink="/edit-product/{{product.id}}" class="blue-btn">See Product</a>
 						</div>
 					</div>
 				</div>
