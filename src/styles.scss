@@ -964,3 +964,32 @@ app-register, app-login{
     height: 37px !important;
   }
 }
+.blue-btn{
+  background: #0055bd;
+  border: none;
+  padding: 3px 10px;
+  color: #fff!important;
+  text-transform: capitalize;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none !important;
+  cursor: pointer;
+  font-family: roboto;
+}
+.blue-btn-light{
+  border: 1px solid #0055bd;
+  color:#0055bd;
+  font-size: 1rem;
+  display: inline-block;
+  text-decoration: none !important;
+  cursor: pointer;
+  text-transform: capitalize;
+  background: transparent;
+  padding: 10px 15px;
+  margin-right: 5px;
+  font-family: roboto;
+}
+.blue-btn-light.active{
+  background: #0055bd;
+  color:white;
+}

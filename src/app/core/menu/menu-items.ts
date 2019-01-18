@@ -135,6 +135,19 @@ const menuAdmin = [
         }
       },
       {
+        state: 'products-list/page/1',
+        type: 'link',
+        name: 'Product List',
+        translate: {
+          en: {
+            name: 'Product List'
+          },
+          ar: {
+            name: 'Product List'
+          }
+        }
+      },
+      {
         state: 'pending-products',
         type: 'link',
         name: 'Pending Approval',
