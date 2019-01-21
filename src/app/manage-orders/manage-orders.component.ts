@@ -252,4 +252,7 @@ export class ManageOrdersComponent implements OnInit {
     console.log( 'status', selectedStatus );
     console.log( 'item', itemID );
   }
+  noUpdate(){
+    jQuery('#confirmUpdateStatus').modal('hide');
+  }
 }

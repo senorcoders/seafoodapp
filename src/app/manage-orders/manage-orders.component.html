@@ -80,7 +80,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Update Item Status</h5>
+            <h5 class="modal-title">Are you sure? </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -88,9 +88,8 @@
           <div class="modal-body">
             <div class="row">
               <div class="col">
-                <!--<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>-->
-                  <h5>you want to update the status to {{selectedStatus}}?</h5>
-                  <button type="button" (click)="updateStatus()" class="button pink-btn">Update</button>
+                  <button type="button" (click)="updateStatus()" class="blue-btn">Yes</button>
+                  <button type="button" (click)="noUpdate()" class="blue-btn-light">No</button>
               </div>					
             </div>
           </div>

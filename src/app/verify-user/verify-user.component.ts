@@ -26,6 +26,7 @@ export class VerifyUserComponent implements OnInit {
 	denialType: FormControl;
 	denialMessage: FormControl;
   store:any;
+  id:any;
   constructor(private auth:AuthenticationService, private toast:ToastrService) { }
 
   ngOnInit() {
@@ -63,17 +64,24 @@ export class VerifyUserComponent implements OnInit {
   		}
   	)
   }
-  accept(id){
-  	this.auth.acceptUser(`user/status/${id}/accepted`).subscribe(
-  		result=>{
-			this.toast.success('User has been accepted', 'Well Done', { positionClass: "toast-top-right" })
-  			this.getPendingUsers();
-  		},
-  		e=>{
-			this.toast.error('Something wrong happened, Please try again', 'Error', { positionClass: "toast-top-right" })
-  			console.log(e)
-  		}
-  	)
+  confirm(val){
+    if(val){
+      this.auth.acceptUser(`user/status/${this.id}/accepted`).subscribe(
+        result=>{
+          this.id='';
+          jQuery('#confirm').modal('hide')
+          this.toast.success('User has been accepted', 'Well Done', { positionClass: "toast-top-right" })
+          this.getPendingUsers();
+        },
+        e=>{
+        this.toast.error('Something wrong happened, Please try again', 'Error', { positionClass: "toast-top-right" })
+          console.log(e)
+        }
+      )
+    }
+    else{
+      jQuery('#confirm').modal('hide')
+    }
   }
   refuse(){
 
@@ -125,5 +133,9 @@ export class VerifyUserComponent implements OnInit {
     else{
       return "Buyer"
     }
+  }
+  confirmModal(id){
+    this.id=id;
+    jQuery('#confirm').modal('show')
   }
 }

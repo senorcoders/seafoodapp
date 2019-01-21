@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment';
+declare var jQuery:any;
 @Component({
 	selector: 'app-order-purchase',
 	templateUrl: './order-purchase.component.html',
@@ -25,6 +26,8 @@ export class OrderPurchaseComponent implements OnInit {
 	showButton: boolean = true;
 	showTrackingFile: boolean = false;
 	API = environment.apiURLImg;
+	citemId:any;
+	action:string;
 	constructor(
 		private fb: FormBuilder,
 		private route: ActivatedRoute,
@@ -85,6 +88,7 @@ export class OrderPurchaseComponent implements OnInit {
 		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(res => {
 
 			console.log(res);
+			jQuery('#confirm').modal('hide');
 			this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
 			this.showButton = false;
 			this.getItem();
@@ -113,6 +117,7 @@ export class OrderPurchaseComponent implements OnInit {
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
 		{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(
 			res => {
+				jQuery('#confirm').modal('hide');
 				console.log(res);
 				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
 				this.getItem();
@@ -213,6 +218,26 @@ export class OrderPurchaseComponent implements OnInit {
 			ampm = 'PM';
 		}
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+	}
+	showModal(id,action){
+		this.citemId=id;
+		this.action=action;
+		
+		jQuery('#confirm').modal('show');
+	}
+	confirm(val,action){
+		if(val){
+			console.log(action);
+			if(action=="confirm"){
+				this.confirmOrder(this.citemId);
+			}
+			else if(action=='cancel'){
+				this.cancelOrder(this.citemId )
+			}
+		}
+		else{
+			jQuery('#confirm').modal('hide');
+		}
 	}
 }
 

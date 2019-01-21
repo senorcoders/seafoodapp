@@ -9,6 +9,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+declare var jQuery: any;
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -54,6 +55,7 @@ export class EditProductComponent implements OnInit {
   countries: any = [];
   status: any;
   selectedStatus: any;
+  action:string;
   constructor(private product: ProductService, private route: ActivatedRoute, private router: Router, private toast: ToastrService, private auth: AuthenticationService, private sanitizer: DomSanitizer, private countryService: CountriesService ) {}
   ngOnInit() {
     // this.createFormControls();
@@ -260,5 +262,20 @@ getAllCities() {
     }
   );
 }
-
+showModal(action){
+  this.action=action;
+  jQuery('#confirm').modal('show');
+}
+confirm(val,action){
+  if(val){
+    if(action=='update'){
+      this.onSubmit();
+      jQuery('#confirm').modal('hide');
+    }
+    else if(action=='delete'){
+      this.deleteProduct()
+      jQuery('#confirm').modal('hide');
+    }
+  }
+}
 }

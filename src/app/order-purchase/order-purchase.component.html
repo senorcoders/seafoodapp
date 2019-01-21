@@ -53,10 +53,10 @@
           </div>
           <div class="col-md-3 col-sm-12 btn-cont" *ngIf="citem.status">
             <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404' || citem.status.id=='5c017af047fb07027943a405' || citem.status.id!=='5c06f4bf7650a503f4b731fd'"
-              (click)="cancelOrder( citem.id )">Cancel order</a><br>
+              (click)="showModal(citem.id,'cancel')">Cancel order</a><br>
             <a class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405'" (click)="FulfillsOrder( citem.id )">Fulfills
               Order</a><br>
-            <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404'" (click)="confirmOrder( citem.id )">{{'OrderPurchase.confirmOrder'
+            <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404'" (click)="showModal(citem.id,'confirm')">{{'OrderPurchase.confirmOrder'
               | translate}}</a><br>
             <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405' || citem.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped'
               | translate}}</a>
@@ -88,4 +88,24 @@
       </div>
     </ng-template>
   </ng-template>
+</div>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <button (click)="confirm(true,action)" class="blue-btn">Yes</button>
+            <button (click)="confirm(false,action)" class="blue-btn-light">No</button>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

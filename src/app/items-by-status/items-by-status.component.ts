@@ -20,7 +20,7 @@ export class ItemsByStatusComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-
+  itemID:any;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -181,13 +181,26 @@ export class ItemsByStatusComponent implements OnInit {
   cancelItem( itemID: string ) {
     const cancelStatus = '5c017b5a47fb07027943a40c';
     this.orderService.updateStatus( cancelStatus, itemID, this.user ).subscribe(
-      result => {
+      result => { 
+        jQuery('#confirm').modal('hide');
         this.toast.success(`Item marked as Cancelled!` , 'Status Change', { positionClass: 'toast-top-right' });
       },
       error => {
         console.log( 'error' );
       }
     )
+  }
+  showModal(id){
+    this.itemID=id;
+    jQuery('#confirm').modal('show');
+  }
+  confirm(val){
+    if(val){
+      this.cancelItem(this.itemID)
+    }
+    else{
+       jQuery('#confirm').modal('hide');
+    }
   }
 
 }

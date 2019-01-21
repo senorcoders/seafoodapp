@@ -27,7 +27,7 @@
           </div>
       <div class="col-md-12" style="margin-top: -70px;">
         <h1 class="title" style="margin-bottom: 20px">{{'EditProduct.detail' | translate}}</h1>
-        <form (ngSubmit)="onSubmit()" class="form-design">
+        <form class="form-design">
   
       <div class="form-group" >
         <label>{{'EditProduct.name' | translate}}</label>
@@ -166,10 +166,10 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <button type="submit"class="btn-red">{{'EditProduct.update' | translate}}</button>
+            <button class="btn-red" (click)="showModal('update')">{{'EditProduct.update' | translate}}</button>
         </div>
         <div class="col-md-6">
-            <button (click)="deleteProduct()" type="button" class="pink-btn bt">{{'EditProduct.delete' | translate}}</button>
+            <button (click)="showModal('delete')" type="button" class="pink-btn bt">{{'EditProduct.delete' | translate}}</button>
         </div>
     </div>
   
@@ -178,6 +178,7 @@
     </div>
     <div style="height: 100px;"></div>
     
+
   
   </div>
 
@@ -190,3 +191,23 @@
         </div>
       </div>  
     </ng-template>
+    <div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <button (click)="confirm(true,action)" class="blue-btn">Yes</button>
+            <button (click)="confirm(false,action)" class="blue-btn-light">No</button>
+          </div>          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
