@@ -25,6 +25,7 @@ export class VerifyUserComponent implements OnInit {
 	deniedUser: FormGroup;
 	denialType: FormControl;
 	denialMessage: FormControl;
+  store:any;
   constructor(private auth:AuthenticationService, private toast:ToastrService) { }
 
   ngOnInit() {
@@ -95,8 +96,24 @@ export class VerifyUserComponent implements OnInit {
 
   popUp(i){
     this.singleUser=this.users[i];
-    jQuery("#popUp").modal('show');
-    this.showPopup=true;
+    if(this.singleUser.role==1){
+      this.store=""
+      this.auth.getData(`store?where={"owner":"${this.singleUser.id}"}`).subscribe(
+        result=>{
+          this.store=result[0]
+          jQuery("#popUp").modal('show');
+          this.showPopup=true;
+        },
+        e=>{
+          this.store=""
+          console.log(e)
+        }
+      )
+    }
+    else{
+      jQuery("#popUp").modal('show');
+      this.showPopup=true;
+    }
   }
   getRole(role){
     if(role==0){

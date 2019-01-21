@@ -55,12 +55,27 @@
 						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
+						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
+						<hr class="black-line">
 						<b>Name: </b>{{singleUser.firstName}} <br>
 						<b>LastName: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
-						<b>Designation: </b>{{singleUser.dataExtra.designation}} <br>
+						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem;margin-top: 10px;">Store</h5>
+						<hr class="black-line">
+						<b>Company name: </b>{{store.companyName}} <br>	
+						<b>Trade/Brand Name: </b>{{store.TradeBrandName}} <br>	
+						<b>Country: </b>{{store.location}} <br>	
+						<b>Address: </b>{{store.Address}} <br>	
+						<b>City: </b>{{store.City}} <br>	
+						<b>Trade License Number (Registration): </b>{{store.TradeLicenseNumber}} <br>	
+						<b>Food Safety Certificate Number (ISO): </b>{{store.FoodSafetyCertificateNumber}} <br>	
+						<b>Corporate Bank Account Number IBAN: </b>{{store.CorporateBankAccountNumber}} <br>	
+						<b>Currency of Trade: </b>{{store.CurrencyofTrade}} <br>
+						<b>Contact Number: </b>{{store.ContactNumber}} <br>	
+						<b>Products Interested in Selling: </b>{{store.ProductsInterestedSelling}}
+
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">
 						<b>Name: </b>{{singleUser.firstName}} <br>

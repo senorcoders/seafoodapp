@@ -60,24 +60,23 @@ countries=environment.countries
      this.sellerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
-      location:['', Validators.required],
       email:['',[Validators.email, Validators.required]],
-      //password:['', [Validators.required, Validators.minLength(8)]],
       password:['', [Validators.required, Validators.pattern(this.regex)]],
       rePassword:['', Validators.required],
       tel:['',[Validators.required, Validators.pattern('[0-9]+')]],
-      designation:['',Validators.required],
-      uploadTradeLicense:[''],
-      fullBakingInfo:[''],
-      sfsAgreementForm:[''],
-      ifLocal:[''],
+      location:['', Validators.required],
       Address:['', Validators.required],
       City:['', Validators.required],
-      zipCode:['', Validators.required],
       companyName:['', Validators.required],
       companyType:['', Validators.required],
-      companyEmail:['', [Validators.required, Validators.email]],
-      productType:['', [Validators.required]]
+      tcs:['',Validators.requiredTrue],
+      TradeBrandName:['',Validators.required],
+      TradeLicenseNumber:['', Validators.required],
+      FoodSafetyCertificateNumber:['', Validators.required],
+      CorporateBankAccountNumber:['', Validators.required],
+      CurrencyofTrade:['', Validators.required],
+      ContactNumber:['', Validators.required],
+      ProductsInterestedSelling:['', Validators.required],
     }, {
       validator : PasswordValidation.MatchPassword
     })
@@ -85,7 +84,7 @@ countries=environment.countries
   register(){
     if(this.sellerShow){
        if(this.sellerForm.valid){
-         this.submitRegistrationSeller();
+        this.submitRegistrationSeller();
        }else{
          this.validateAllFormFields(this.sellerForm);
        }
@@ -140,11 +139,7 @@ countries=environment.countries
 
   submitRegistrationSeller(){
       let dataExtra={
-      "designation": this.sellerForm.get('designation').value,
       "tel": this.sellerForm.get('tel').value,
-      "fullBakingInfo": this.sellerForm.get('fullBakingInfo').value,
-      "sfsAgreementForm": this.sellerForm.get('sfsAgreementForm').value,
-      "ifLocal": this.sellerForm.get('ifLocal').value
       }
       //save new seller
       this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
@@ -166,13 +161,18 @@ countries=environment.countries
               this.storeID=result[0].id;
               //update store with full data, api is working in this way
               let storeFullData={
-                "type": this.sellerForm.get('companyType').value,
-                "email": this.sellerForm.get('companyEmail').value,
+                "companyName":this.sellerForm.get('companyName').value,
+                "companyType": this.sellerForm.get('companyType').value,
                 "location": this.sellerForm.get('location').value,
                 "Address":this.sellerForm.get('Address').value,
                 "City":this.sellerForm.get('City').value,
-                "zipCode":this.sellerForm.get('zipCode').value,
-                "productType":this.sellerForm.get('productType').value,
+                "ContactNumber": this.sellerForm.get('ContactNumber').value,
+                "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
+                "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
+                "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+                "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
+                "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
+                "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
               }
               console.log(this.storeID)
               this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
