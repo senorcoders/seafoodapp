@@ -62,27 +62,7 @@ export class ManageOrdersComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
-            //get order with products.
-            this.orders.forEach((val)=>{
-              if(val.fish && val.fish!=''){
-                this.orderWithData.push(val)
-              }
-            })
-            //group by orderNumber
-            this.orderWithData.forEach((val,index)=>{
-              if(val.shoppingCart && val.shoppingCart.orderNumber){
-                if(index>0){
-                  if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
-                    this.groupOrder.push(val.shoppingCart.orderNumber)
-                  }
-                }
-                else{
-                  this.groupOrder.push(val.shoppingCart.orderNumber);
-                }
-              }
-            })
-            console.log(this.orderWithData)
-            console.log(this.groupOrder)
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -98,6 +78,7 @@ export class ManageOrdersComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -113,7 +94,7 @@ export class ManageOrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
-            this.showNoData = false;
+            this.groupByOrders(res);
           } else {
             this.showNoData = true;
           }
@@ -130,6 +111,7 @@ export class ManageOrdersComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res);
           } else {
             this.showNoData = true;
           }
@@ -276,5 +258,34 @@ export class ManageOrdersComponent implements OnInit {
   }
   noUpdate(){
     jQuery('#confirmUpdateStatus').modal('hide');
+  }
+  groupByOrders(orders){
+    this.groupOrder=[];
+    this.orderWithData=[];
+    //get order with products.
+    this.orders.forEach((val)=>{
+      if(val.fish && val.fish!=''){
+        this.orderWithData.push(val)
+      }
+    })
+    //group by orderNumber
+    this.orderWithData.forEach((val,index)=>{
+      if(val.shoppingCart && val.shoppingCart.orderNumber){
+        if(index>0){
+          if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
+            this.groupOrder.push(val.shoppingCart.orderNumber)
+          }
+        }
+        else{
+          this.groupOrder.push(val.shoppingCart.orderNumber);
+        }
+      }
+    })
+    if(this.groupOrder.length==0){
+      this.showNoData=true
+    }
+    else{
+      this.showNoData = false;
+    }
   }
 }
