@@ -57,7 +57,7 @@ export class SingleProductComponent implements OnInit {
   cooming_soon:string;
   showTaxes:boolean=false;
   FXRateFees=0;
-  delivered=0;
+  delivered:number=0;
   constructor(private route: ActivatedRoute, public productService: ProductService, private auth: AuthenticationService, private toast:ToastrService,
   private router: Router, private isLoggedSr: IsLoginService, private cartService:CartService,private sanitizer: DomSanitizer, private pricingServices: PricingChargesService) { 
     
@@ -183,6 +183,8 @@ setFlexslider(){
       this.getPricingCharges();
       this.getReview();
       this.setFlexslider();
+      this.getPriceKg(this.count);
+      
   }, error=>{
     console.log("Error", error)
     this.show=false
@@ -302,7 +304,7 @@ setFlexslider(){
     .subscribe( 
       res => {
         this.charges = res;
-        console.log(this.charges)
+        this.getPriceKg(this.count)
         this.showTaxes=true;
       },
       error => {
@@ -329,5 +331,14 @@ setFlexslider(){
     this.charges['handlingFee'] ;
     return Number(parseFloat(total).toFixed(2)); 
     //return subtotal + this.charges['firstMileCost'] + this.charges['lastMileCost'] + this.charges['sfsMargin'] + this.charges['uaeTaxes'] + this.charges['customs'] + this.charges['handlingFee'] +this.charges['shippingFee'];
+  }
+  getPriceKg(weight){
+    this.productService.getData( `api/fish/${this.productID}/charges/${weight}` ).subscribe(result => {
+        this.delivered=result['finalPrice']/weight;
+      },
+      e=>{
+        console.log(e)
+      }
+    )
   }
 }

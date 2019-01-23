@@ -230,7 +230,7 @@ export class ManageOrdersComponent implements OnInit {
   confirmUpdatestatus( selectedStatus, selectedItemID ) {
     this.selectedStatus = selectedStatus;
     this.selectedItemID = selectedItemID;
-      jQuery('#confirmUpdateStatus').modal('show');
+    jQuery('#confirmUpdateStatus').modal('show');
   }
 
   updateStatus() {
