@@ -102,6 +102,12 @@ export class OrderService {
   updateStatus( statusID: string, itemID: string, user: any ) {
     return this.http.put( `${API}api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
   }
+  updateETA( id, eta ) {
+    return this.http.put( `${API}itemshopping/${id}`, {buyerExpectedDeliveryDate: eta} )
+  }
+  updateItemsETA( data: any ) {
+    return this.http.put( `${API}api/itemshopping/updateETA`, data );
+  }
 
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ) {
     const httpOptionsForm: any = {headers: new HttpHeaders() };

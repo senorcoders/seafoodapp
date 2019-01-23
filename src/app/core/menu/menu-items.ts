@@ -106,6 +106,19 @@ const menuAdmin = [
           }
         }
       },
+      {
+        state: 'manage-countries',
+        type: 'link',
+        name: 'Manage Countries ETA',
+        translate: {
+          en: {
+            name: 'Manage Countries ETA'
+          },
+          ar: {
+            name: 'Manage Countries ETA'
+          }
+        }
+      },
     ]
   },
   {

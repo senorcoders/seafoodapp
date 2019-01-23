@@ -644,5 +644,13 @@
 		"title": "Canceled and Delivered Items",
 		"status": "Status",
 		"orderNumber": "Order Number"
+	},
+	"ManageCountries": {
+		"title": "Manage Countries ETA",
+		"ETA": "Expected Delivery Time (in days)",
+		"Country": "Country",
+		"Countries": "Countries",
+		"Save": "Update",
+		"formTitle": "Update Country Estimated Delivery Date"
 	}
 }

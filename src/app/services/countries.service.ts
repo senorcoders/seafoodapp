@@ -21,4 +21,10 @@ export class CountriesService {
   getAllCities(){
     return this.http.get(`${API}countries/cities`)
   }
+  saveDeliveryDate( data ) {
+    return this.http.post(`${API}countries/`, data );
+  }
+  updateDeliveryDate( id, data ) {
+    return this.http.put(`${API}countries/${id}`, data)
+  }
 }

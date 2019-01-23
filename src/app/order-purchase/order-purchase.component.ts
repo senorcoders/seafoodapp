@@ -121,7 +121,7 @@ export class OrderPurchaseComponent implements OnInit {
 		);
 	}
 	confirmOrder(itemId: string) {
-		let sellerETA = jQuery( `#epa${itemId}` ).val()
+		let sellerETA = jQuery( `#epa${itemId}` ).val();
 
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
 		{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA } ).subscribe(

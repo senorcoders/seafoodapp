@@ -29,7 +29,8 @@
       </div>
     </div>
     <div class="col-lg-9">
-      <form #form  action="https://sbcheckout.PayFort.com/FortAPI/paymentPage" method="POST" ngNativeValidate (ngSubmit)="form.submit()">
+       <!-- <form #form  action="https://sbcheckout.PayFort.com/FortAPI/paymentPage" method="POST" ngNativeValidate (ngSubmit)="form.submit()">-->
+        <form #form ngNativeValidate (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="col-lg-12">
               <div class="form-group">
@@ -124,7 +125,13 @@
                   <th>Total</th>
               </tr>
               <tr *ngFor="let product of products; index as i;">
-                <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
+                <td>
+                  {{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b>
+                  <br>
+                  <label>Max Expected Delivery Date: </label>
+                  <input [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" class="medd" id="medd{{product.id}}" >
+                  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                </td>
                 <td>{{getTotalxItem(product.quantity.value, product.price.value)}} AED</td>
               </tr>
               <tr>
