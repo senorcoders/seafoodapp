@@ -28,6 +28,10 @@ export class OrderPurchaseComponent implements OnInit {
 	API = environment.apiURLImg;
 	citemId:any;
 	action:string;
+	today = new Date();
+	min = new Date();
+	max = new Date();
+
 	constructor(
 		private fb: FormBuilder,
 		private route: ActivatedRoute,
@@ -35,6 +39,8 @@ export class OrderPurchaseComponent implements OnInit {
 		private toast: ToastrService,
 		private auth: AuthenticationService
 	) {
+		this.min.setDate( this.today.getDate() + 3 );
+    	this.max.setDate( this.today.getDate() + 90 );
 
 		this.route.params.subscribe(params => {
 			this.orderId = (this.route.snapshot.params['item']);
@@ -54,7 +60,9 @@ export class OrderPurchaseComponent implements OnInit {
 					this.items = result;
 					this.showLoading = false;
 					this.showProduct = true;
-					this.getDates(result['shoppingCart'].paidDateTime);
+					if ( result['shoppingCart'].paidDateTime !== undefined ) {
+						this.getDates(result['shoppingCart'].paidDateTime);
+					}
 					// hide or show button
 					if (result['shippingStatus'] === 'shipped') {
 						this.showButton = false;
@@ -113,9 +121,10 @@ export class OrderPurchaseComponent implements OnInit {
 		);
 	}
 	confirmOrder(itemId: string) {
+		let sellerETA = jQuery( `#epa${itemId}` ).val()
 
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
-		{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(
+		{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA } ).subscribe(
 			res => {
 				jQuery('#confirm').modal('hide');
 				console.log(res);
@@ -220,10 +229,16 @@ export class OrderPurchaseComponent implements OnInit {
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
 	}
 	showModal(id,action){
-		this.citemId=id;
-		this.action=action;
+		let sellerETA = jQuery( `#epa${id}` ).val()
 		
-		jQuery('#confirm').modal('show');
+		if( sellerETA !== '' && sellerETA !== undefined ) {
+			this.citemId = id;
+			this.action = action;
+			
+			jQuery('#confirm').modal('show');
+		} else {
+			this.toast.error('Please select a Expected Delivery Time before Confirm the order', 'Error', { positionClass: 'toast-top-right' });
+		}
 	}
 	confirm(val,action){
 		if(val){
@@ -232,7 +247,7 @@ export class OrderPurchaseComponent implements OnInit {
 				this.confirmOrder(this.citemId);
 			}
 			else if(action=='cancel'){
-				this.cancelOrder(this.citemId )
+				this.cancelOrder(this.citemId );
 			}
 		}
 		else{

@@ -97,6 +97,9 @@ import { ItemsByStatusComponent } from './items-by-status/items-by-status.compon
 import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
 import { ProductListComponent } from './product-list/product-list.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/' },
@@ -249,7 +252,9 @@ const appRoutes: Routes = [
       deps: [Http]
     }),
     NgxSmartModalModule.forRoot(),
-    BarRatingModule
+    BarRatingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
     AuthenticationService,
@@ -266,6 +271,7 @@ const appRoutes: Routes = [
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
     OrderService   // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,
