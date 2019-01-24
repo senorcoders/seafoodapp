@@ -15,6 +15,12 @@
             </div>
           </div>
           <div class="col-lg-6">
+            <div class="form-group">
+              <label>Brand Name</label>
+              <input type="text" class="form-control" formControlName="brandName">
+            </div>
+          </div>
+          <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': price.invalid && (price.dirty || price.touched),'has-success': price.valid && (price.dirty || price.touched)}">
               <label>{{'AddProduct.price' | translate}}</label>
               <input type="number" class="form-control" formControlName="price" required>
@@ -23,8 +29,6 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
                 <label>{{'AddProduct.price-measurement' | translate}}</label>
@@ -66,8 +70,6 @@
               </div>
             </div>
           </div>
-        </div>        
-        <div class="row">
           <div class="col-lg-6">
             <div class="form-group" >
               <label>{{'AddProduct.species' | translate}}</label>
@@ -165,8 +167,6 @@
               <input class="form-control" type="file" id="file" multiple (change)="handleFileInput($event.target.files, 'secundary')" >
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': minimunorder.invalid && (minimunorder.dirty || minimunorder.touched),'has-success': minimunorder.valid && (minimunorder.dirty || minimunorder.touched)}">
               <label>{{'AddProduct.minimun' | translate}}</label>

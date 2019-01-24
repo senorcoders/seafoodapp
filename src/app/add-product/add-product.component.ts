@@ -60,6 +60,7 @@ export class AddProductComponent implements OnInit {
   waterLostRate: FormControl;
   mortalityRate: FormControl;
   wholeFishWeight: FormControl;
+  brandName:FormControl;
   fileToUpload: any = [];
   info: any;
   store: any = [];
@@ -163,6 +164,7 @@ export class AddProductComponent implements OnInit {
     this.descriptorSelected = new FormControl('');
     this.city = new FormControl();
     this.wholeFishWeight = new FormControl('');
+    this.brandName=new FormControl('');
   }
 
   createForm() {
@@ -190,7 +192,8 @@ export class AddProductComponent implements OnInit {
       speciesSelected: this.speciesSelected,
       subSpeciesSelected: this.subSpeciesSelected,
       descriptorSelected: this.descriptorSelected,
-      wholeFishWeight:this.wholeFishWeight
+      wholeFishWeight:this.wholeFishWeight,
+      brandName:this.brandName
     });
     this.myform.controls['measurement'].setValue('kg');
   }
@@ -247,7 +250,8 @@ export class AddProductComponent implements OnInit {
         'mortalityRate': this.mortalityRate.value,
         'waterLostRate': this.waterLostRate.value,
         'status': '5c0866e4a0eda00b94acbdc0',
-        'wholeFishWeight':this.wholeFishWeight.value
+        'wholeFishWeight':this.wholeFishWeight.value,
+        'brandName':this.brandName.value
       };
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
