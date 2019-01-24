@@ -59,6 +59,7 @@ export class AddProductComponent implements OnInit {
   stock: FormControl;
   waterLostRate: FormControl;
   mortalityRate: FormControl;
+  wholeFishWeight: FormControl;
   fileToUpload: any = [];
   info: any;
   store: any = [];
@@ -73,8 +74,23 @@ export class AddProductComponent implements OnInit {
   showError: boolean = false;
   allCities: any = [];
   cities: any = [];
-
-
+  preparationOptions=[
+    'Filleted',
+    'Whole',
+    'Gutted'
+  ]
+  wholeOptions=[
+    '0-1 KG',
+    '1-2 KG',
+    '2-3 KG',
+    '3-4 KG',
+    '4-5 KG',
+    '5-6 KG',
+    '6-7 KG',
+    '7-8 KG',
+    '8+ KG'
+  ];
+  showWholeOptions:boolean=false;
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -146,6 +162,7 @@ export class AddProductComponent implements OnInit {
     this.subSpeciesSelected = new FormControl( '', Validators.required );
     this.descriptorSelected = new FormControl('');
     this.city = new FormControl();
+    this.wholeFishWeight = new FormControl('');
   }
 
   createForm() {
@@ -172,7 +189,8 @@ export class AddProductComponent implements OnInit {
       parentSelectedType: this.parentSelectedType,
       speciesSelected: this.speciesSelected,
       subSpeciesSelected: this.subSpeciesSelected,
-      descriptorSelected: this.descriptorSelected
+      descriptorSelected: this.descriptorSelected,
+      wholeFishWeight:this.wholeFishWeight
     });
     this.myform.controls['measurement'].setValue('kg');
   }
@@ -228,8 +246,8 @@ export class AddProductComponent implements OnInit {
         'stock': this.stock.value,
         'mortalityRate': this.mortalityRate.value,
         'waterLostRate': this.waterLostRate.value,
-        'status': '5c0866e4a0eda00b94acbdc0'
-
+        'status': '5c0866e4a0eda00b94acbdc0',
+        'wholeFishWeight':this.wholeFishWeight.value
       };
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
@@ -412,7 +430,7 @@ export class AddProductComponent implements OnInit {
     );
   }
 
-  getOnChangeLevel( level: number ) {
+  getOnChangeLevel( level: number, value ) {
     let selectedType = '';
     switch ( level ) {
       case 0:
@@ -421,6 +439,25 @@ export class AddProductComponent implements OnInit {
     
       case 1:
         selectedType = this.speciesSelected.value;
+        if(value=='5bda361c78b3140ef5d31fa4'){
+          this.preparationOptions=[
+            'Whole',
+            'Gutted',
+            'Filleted - Trim A',
+            'Filleted - Trim B',
+            'Filleted - Trim C',
+            'Filleted - Trim D',
+            'Filleted - Trim D',
+          ]
+          this.showWholeOptions=true
+        }
+        else{
+          this.preparationOptions=[
+            'Filleted',
+            'Whole',
+            'Gutted'
+          ]
+        }
         break;
 
       case 3:
@@ -467,7 +504,16 @@ export class AddProductComponent implements OnInit {
       }
     )
   }
-
+  showWhole(value){
+    console.log(value)
+    if(value=='Whole'){
+      this.showWholeOptions=true;
+    }
+    else{
+       this.showWholeOptions=false;
+    }
+     console.log(this.showWholeOptions)
+  }
 
 }
 
