@@ -45,7 +45,8 @@ export class CheckoutComponent implements OnInit {
   today = new Date();
   min = new Date();
   max = new Date();
-  expectedDates:any = [];
+  expectedDates: any = [];
+  all_medd_ok: Boolean = false;
 
   constructor(
     private router: Router,
@@ -161,26 +162,29 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    let all_medd_ok = true;
+  emitValue() {
+    let localOk = true;
     this.expectedDates = [];
     this.products.map( ( product, index ) => {
       console.log('product', product);
-      let expectedDate = jQuery( `#medd${product.id}` ).val();
+      const expectedDate = jQuery( `#medd${product.id}` ).val();
       console.log( 'expected', expectedDate );
       if ( expectedDate === '' || expectedDate === undefined ) {
-        all_medd_ok = false;
+        localOk = false;
+        this.all_medd_ok = false;
       } else {
         this.orders.updateETA( product.id, expectedDate ).subscribe(
-          result=> {
+          result => {
             console.log( 'leng', this.products.length );
             console.log( 'index', index + 1 );
-            if( this.products.length === index + 1 ) {
-              if ( all_medd_ok ) {
-                this.router.navigate(['/thanks']);
+            if ( this.products.length === index + 1 ) {
+              if ( localOk ) {
+                this.all_medd_ok = true;
+              } else {
+                this.all_medd_ok = false;
               }
             }
-          }, error =>{
+          }, error => {
             console.log(error);
           }
         )
@@ -188,8 +192,12 @@ export class CheckoutComponent implements OnInit {
       }
 
     } );
+  }
 
-    if ( all_medd_ok ) {
+  onSubmit() {
+    
+
+    //if ( all_medd_ok ) {
       
       /*this.orders.updateItemsETA( { etas: this.expectedDates } ).subscribe(
         res=>{
@@ -208,9 +216,9 @@ export class CheckoutComponent implements OnInit {
       } else {
         this.validateAllFormFields(this.checkoutForm);
       }*/
-    } else {
-      this.toast.error('Please fill all Max Expected Delivery Dates', 'Error', { positionClass: 'toast-top-right' });
-    }
+    //} else {
+    //  this.toast.error('Please fill all Max Expected Delivery Dates', 'Error', { positionClass: 'toast-top-right' });
+    //}
 
 
   }
