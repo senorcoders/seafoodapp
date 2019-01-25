@@ -59,7 +59,6 @@
             
             <div class="" *ngIf="citem.status.id == '5c017ae247fb07027943a404'">
               <label>Expected Delivery Arrive</label>
-              {{citem.buyerExpectedDeliveryDate}}
               <input [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" id="epa{{citem.id}}" >
                     <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </div>

@@ -573,7 +573,8 @@
 		"filterByCity": "Filter Shipping Rate By City",
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
-		"city": "Cities"
+		"city": "Cities",
+		"cityETA": "Min Numbers of days for shipping"
 	},
 	"PricingCharges": {
 		"title": "System Pricing Charges",
@@ -652,5 +653,13 @@
 		"Countries": "Countries",
 		"Save": "Update",
 		"formTitle": "Update Country Estimated Delivery Date"
+	},
+	"citiETA": {
+		"country": "Country",
+		"city": "Cities",
+		"cityETA": "Minimum ETA",
+		"title": "Min Numbers of days expected to arrived from this cities",
+		"formTitle": "Update City ETA",
+		"button": "Save"
 	}
 }

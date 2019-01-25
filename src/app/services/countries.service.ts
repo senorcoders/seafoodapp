@@ -24,7 +24,14 @@ export class CountriesService {
   saveDeliveryDate( data ) {
     return this.http.post(`${API}countries/`, data );
   }
+  getCitiesByCoutry( country_id ){
+    return this.http.get(`${API}countries/${country_id}`)
+  }
   updateDeliveryDate( id, data ) {
     return this.http.put(`${API}countries/${id}`, data)
+  }
+
+  updateMinETA( data ) {
+    return this.http.put(`${API}api/countries/cityeta`, data );
   }
 }

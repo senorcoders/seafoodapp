@@ -119,6 +119,19 @@ const menuAdmin = [
           }
         }
       },
+      {
+        state: 'manage-shipping-cities',
+        type: 'link',
+        name: 'Manage City ETA',
+        translate: {
+          en: {
+            name: 'Manage City ETA'
+          },
+          ar: {
+            name: 'Manage City ETA'
+          }
+        }
+      }
     ]
   },
   {
