@@ -23,6 +23,7 @@ export class EditProductComponent implements OnInit {
   ];
   myform: FormGroup;
   name: FormControl;
+  brandname:FormControl;
   price: FormControl;
   measurement: FormControl;
   description: FormControl;
@@ -56,6 +57,32 @@ export class EditProductComponent implements OnInit {
   status: any;
   selectedStatus: any;
   action:string;
+  typeLevel0:any;
+  typeLevel1;
+  typeLevel2;
+  typeLevel3;
+  mainCategory:FormControl;
+  descriptor:FormControl;
+  specie:FormControl;
+  waterLostRate:FormControl;
+  wholeFishWeight:FormControl;
+  wholeOptions=[
+    '0-1 KG',
+    '1-2 KG',
+    '2-3 KG',
+    '3-4 KG',
+    '4-5 KG',
+    '5-6 KG',
+    '6-7 KG',
+    '7-8 KG',
+    '8+ KG'
+  ];
+  preparationOptions=[
+    'Filleted',
+    'Whole',
+    'Gutted'
+  ]
+  showWholeOptions:boolean=false;
   constructor(private product: ProductService, private route: ActivatedRoute, private router: Router, private toast: ToastrService, private auth: AuthenticationService, private sanitizer: DomSanitizer, private countryService: CountriesService ) {}
   ngOnInit() {
     // this.createFormControls();
@@ -75,12 +102,15 @@ export class EditProductComponent implements OnInit {
       console.log( data );
       this.name = data['name'];
       this.description = data['description'];
+      this.brandname=data['brandname'];
       this.price = data['price'].value;
       this.measurement = data['weight'].type;
       this.country = data['country'];
+      this.descriptor=data['descriptor'].id;
       if ( data.hasOwnProperty('processingCountry') ) {
         this.processingCountry = data['processingCountry'];
       }
+      this.waterLostRate=data['waterLostRate'];
       this.city = data['city'];
       this.show = true;
       this.types = data['type'].id;
@@ -93,8 +123,13 @@ export class EditProductComponent implements OnInit {
       this.seller_sku = data['seller_sku'];
       this.seafood_sku = data['seafood_sku'];
       this.status = data['status'];
+      this.wholeFishWeight=data['wholeFishWeight'];
       this.selectedStatus = this.status.id;
-      data['images'].forEach((val, index) => {
+      if(data['preparation']=='Whole'){
+        this.showWholeOptions=true;
+      }
+      if(data['images']){
+        data['images'].forEach((val, index) => {
         if (val.hasOwnProperty('src')) {
           console.log('Val', val);
           this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`));
@@ -103,6 +138,7 @@ export class EditProductComponent implements OnInit {
 
         }
       });
+      }
       console.log(data['imagePrimary']);
       if (data['imagePrimary'] != null) {
         this.primaryImgLink = data['imagePrimary'];
@@ -115,6 +151,7 @@ export class EditProductComponent implements OnInit {
     console.log('Error', error);
     this.show = false;
   });
+    this.getAllTypesByLevel();
   }
 
   getTypes() {
@@ -125,10 +162,18 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit() {
+    let whole;
+    if(this.showWholeOptions){
+      whole=this.wholeFishWeight
+    }
+    else{
+      whole=''
+    }
       const data = {
         'type' : this.types,
          'quality': 'good',
           'name': this.name,
+          'brandname':this.brandname,
           'description': this.description,
           'country': this.country,
           'processingCountry': this.processingCountry,
@@ -151,7 +196,10 @@ export class EditProductComponent implements OnInit {
           'coomingSoon': this.cooming_soon,
           'seller_sku': this.seller_sku,
           'seafood_sku': this.seafood_sku,
-          'status': this.selectedStatus
+          'status': this.selectedStatus,
+          'descriptor':this.descriptor,
+          'waterLostRate':this.waterLostRate,
+          'wholeFishWeight':whole
       };
       this.product.updateData('fish/' + this.productID, data).subscribe(result => {
         if (this.fileToUpload.length > 0) {
@@ -278,4 +326,93 @@ confirm(val,action){
     }
   }
 }
+getAllTypesByLevel() {
+    this.product.getData(`getTypeLevel`).subscribe(
+      result => {
+        this.typeLevel0 = result['level0'];
+        this.typeLevel1 = result['level1'];
+        this.typeLevel2 = result['level2'];
+        this.typeLevel3 = result['level3'];
+      },
+      error => {
+
+      }
+    );
+  }
+    getOnChangeLevel( level: number, value ) {
+    let selectedType;
+    switch ( level ) {
+      case 0:
+        selectedType = this.mainCategory;
+        break;
+    
+      case 1:
+        selectedType = this.specie;
+        if(value=='5bda361c78b3140ef5d31fa4'){
+          this.preparationOptions=[
+            'Whole',
+            'Gutted',
+            'Filleted - Trim A',
+            'Filleted - Trim B',
+            'Filleted - Trim C',
+            'Filleted - Trim D',
+            'Filleted - Trim D',
+          ]
+          this.showWholeOptions=true
+        }
+        else{
+          this.preparationOptions=[
+            'Filleted',
+            'Whole',
+            'Gutted'
+          ]
+        }
+        break;
+
+      case 3:
+        selectedType = this.types;
+        break;
+
+      default:
+        selectedType = this.types;
+        break;
+    }
+    this.product.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+      result => {
+        result['childs'].map( item => {
+          switch (item.level) {
+            case 0:
+              this.typeLevel0 = item.fishTypes;
+              break;
+
+            case 1:
+              this.typeLevel1 = item.fishTypes;
+              break;
+
+            case 2:
+              this.typeLevel2 = item.fishTypes;
+              break;
+
+            case 3:
+              this.typeLevel3 = item.fishTypes;
+              break;
+
+            default:
+              break;
+          }
+        } );
+      },
+      error => {
+        console.log( error );
+      }
+    )
+  }
+   showWhole(value){
+    if(value=='Whole'){
+      this.showWholeOptions=true;
+    }
+    else{
+       this.showWholeOptions=false;
+    }
+  }
 }

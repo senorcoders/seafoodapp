@@ -251,7 +251,7 @@ export class AddProductComponent implements OnInit {
         'waterLostRate': this.waterLostRate.value,
         'status': '5c0866e4a0eda00b94acbdc0',
         'wholeFishWeight':this.wholeFishWeight.value,
-        'brandName':this.brandName.value
+        'brandname':this.brandName.value
       };
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
