@@ -100,6 +100,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
 import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
+import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
 
 
 const appRoutes: Routes = [
@@ -167,7 +168,8 @@ const appRoutes: Routes = [
   { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
   { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] }
+  { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
+  { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] }
 ];
 
 @NgModule({
@@ -240,7 +242,8 @@ const appRoutes: Routes = [
     CanceledDeliveredItemsComponent,
     ProductListComponent,
     AdminCountriesComponent,
-    ShippingByCityComponent
+    ShippingByCityComponent,
+    ManageStoreTrimmingComponent
   ],
   imports: [
     BrowserModule,

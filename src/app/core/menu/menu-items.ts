@@ -275,6 +275,18 @@ const menuSeller = [
         name: 'My Products'
       }
     }
+  },
+  {
+    state: 'manage-store-trimming',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Manage Store Trimming'
+      },
+      ar: {
+        name: 'Manage Store Trimming'
+      }
+    }
   }
 ];
 const menuBuyer = [
