@@ -1,4 +1,38 @@
-<div class="thanks-section">
+<div class="thanks-section container">
 
-  <h1>Thank you for your payment! </h1>
+  <h2>Thank you for your Order! </h2>
+  <p>Your order has been placed and a confirmation email with the receipt has been sent to you email address.</p>
+  <p class="left"> To track your Order please <a href="http://platform.seafoodsouq.com/items-status">click here</a>. </p>
+
+
+  <div class="content-products">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3>Coming Soon on Seafood Souq: </h3>
+          <br>
+        </div>
+      </div>
+      <div *ngIf="loadProduct; else showContent"><img src="../../assets/loader.gif" alt=""></div>
+      <ng-template #showContent>
+      <div class="row">
+        <ng-container *ngFor="let product of products; let i = index">
+          <div class="col-lg-4 products">
+            <div class="bg">
+              <div class="img-container">
+                  <div class="product-img" [style.background-image]="'url(' + API + product.imagePrimary + ')'"></div>
+                  <!-- <img src="{{images[i]}}" class="product-img"></a> -->
+              </div>
+            <h3 class="product-name">{{product.name}}</h3>
+              <span class="product-type">{{product.type.name}}</span>
+              <hr class="black-line">
+              <div class="desc">{{getShortDesc(product.description)}}</div>
+              <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+      </ng-template>
+    </div>
+  </div>
 </div>
