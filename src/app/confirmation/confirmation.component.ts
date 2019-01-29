@@ -44,6 +44,7 @@ export class ConfirmationComponent implements OnInit {
   products: any = [];
   shipping: any;
   totalWithShipping: any;
+  totalOtherFees: any;
 
 
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product: ProductService, private http: HttpClient,
@@ -64,6 +65,7 @@ export class ConfirmationComponent implements OnInit {
       this.shipping = this.shipping * 1000;
       this.totalWithShipping = localStorage.getItem('shoppingTotal');
       this.totalWithShipping = this.totalWithShipping * 1000;
+      this.totalOtherFees = localStorage.getItem('totalOtherFees');
       // this.generateSignature();
 
     });

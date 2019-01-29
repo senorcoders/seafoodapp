@@ -40,7 +40,7 @@ export class CartComponent implements OnInit {
   totalUAETaxes=0;
   totalFirstMileCost=0;
   totalLastMileCost=0;
-  totalOtherFees= 0;
+  totalOtherFees:any = 0;
   totalHandlingFees=0;
   /******** END Other fees ***********/
   otherFees:number = 0;
@@ -151,6 +151,7 @@ export class CartComponent implements OnInit {
     localStorage.setItem('shippingCost', this.shipping);
     localStorage.setItem('shoppingTotal', this.totalWithShipping);
     localStorage.setItem('shoppingCartId', this.shoppingCartId);
+    localStorage.setItem('totalOtherFees', this.totalOtherFees);
 
     this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
   
