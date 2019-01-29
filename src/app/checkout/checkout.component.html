@@ -32,13 +32,27 @@
         <form #form  action="https://sbcheckout.PayFort.com/FortAPI/paymentPage" method="POST" ngNativeValidate (ngSubmit)="form.submit()">
         <!--<form #form ngNativeValidate (ngSubmit)="onSubmit()">-->
         <div class="row">
-          <div class="col-lg-12">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>Cardholder Name </label>
+                    <input type="text" class="form-control" name="card_holder_name" required>
+  
+                  </div>
+            </div>
+          <div class="col-lg-6">
               <div class="form-group">
                   <label>Card Number</label>
                   <input type="number" class="form-control" name="card_number" required>
 
                 </div>
           </div>
+          <!-- <div class="col-lg-12">
+              <div class="form-group">
+                  <label>Billing Address</label>
+                  <input type="text" class="form-control" name="billing_address" required>
+
+                </div>
+          </div> -->
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Card Security Code</label>
