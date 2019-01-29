@@ -48,7 +48,7 @@
                 <div  class="col-4">
                   <div *ngIf="item.updateInfo">
                     <p class="date" *ngFor="let update of item.updateInfo;" >
-                      <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}} </strong>
+                      <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
                     </p>
 
                   </div>

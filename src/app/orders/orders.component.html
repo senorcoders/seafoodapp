@@ -26,7 +26,7 @@
 								<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.fish.name "></h5>
 							</div>
 							<div class="col date-span">
-								<span >Purchased on:<br> {{shoppingCart.updatedAt | date: ' MMMM d, y'}}</span>
+								<span >Purchased on:<br> {{shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, HH:mm'}}</span>
 								</div>
 							<div class="col">
 								<span *ngIf="shoppingCart.orderStatus" >{{shoppingCart.orderStatus.status | uppercase}}</span>
