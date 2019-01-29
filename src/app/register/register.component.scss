@@ -108,6 +108,15 @@ form{
 .top{
     align-items:center
 }
+
+.terms-box{
+    text-align: left;
+    a{
+        color: black;
+        font-size: 12px;
+        text-decoration: underline;
+    }
+}
 @media(max-width: 998px){
     .black-title{
         margin-top: 10px;
