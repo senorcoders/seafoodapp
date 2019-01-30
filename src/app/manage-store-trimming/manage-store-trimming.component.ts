@@ -17,6 +17,9 @@ export class ManageStoreTrimmingComponent implements OnInit {
 	myform: FormGroup;
 	store:any;
   trimmings:any;
+  groupOrder=[];
+  showNoData:boolean=false;
+  default=[2,3,4,3,5];
   constructor(private service:ProductService, private auth:AuthenticationService, private fb:FormBuilder,private toast:ToastrService) { }
 
   ngOnInit() {
@@ -49,28 +52,8 @@ export class ManageStoreTrimmingComponent implements OnInit {
     this.service.getData('storeTrimming/store/'+this.storeID).subscribe(
           result=>{
             console.log(result)
-            let data:any=result
-            let order=[];
             this.trimmings=result;
-            // data.forEach((res, index)=>{
-            //   if(index>0){
-            //     console.log(order.includes(res.trimmingType.id))
-            //     if(order.includes(res.trimmingType.id)==false){
-            //       order.push(res)
-            //     }
-            //   }
-            //   else{
-            //     order.push(res)
-            //   }
-            // })
-            // console.log(order)
-            // this.store=result[0];
-            // if(result['length']>0){
-            //   this.myform=this.fb.group({
-            //     trimmingType:[this.store.processingParts.id, Validators.required],
-              // processingParts:[this.store.trimmingType.id, Validators.required]
-            //   })
-            // }
+            // this.orderData()
           },
           e=>{
             console.log(e)
@@ -99,11 +82,11 @@ export class ManageStoreTrimmingComponent implements OnInit {
   		}
   	)
   }
-  saveData(){
+  saveData(types,parts){
   	let data={
-  		"processingParts": this.myform.get('processingParts').value,
+  		"processingParts": parts,
 	    "store": this.storeID,
-	    "trimmingType": this.myform.get('trimmingType').value
+	    "trimmingType": types
 	}
   	this.service.saveData('storeTrimming',data).subscribe(
   		res=>{
@@ -118,6 +101,74 @@ export class ManageStoreTrimmingComponent implements OnInit {
 	)
   }
   delete(id){
+    this.service.deleteData('storeTrimming/'+id).subscribe(
+      res=>{
+        this.toast.success("Trimming deleted successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.getTrimmingByStore();
+      },
+      e=>{
+        this.toast.error("Something wrong happened. Please try again",'Error',{positionClass:"toast-top-right"})
+        console.log(e)
+      }
+    )
+  }
+  orderData(){
+    this.groupOrder=[];
+    //group by orderNumber
+    this.trimmings.forEach((val,index)=>{
+      console.log(val.type[0])
+      if(index>0){
+      //   console.log(this.groupOrder)
+      //   console.log(this.groupOrder[index-1])
+        if(val.type[0].id!=this.groupOrder[index-1].id){
+          console.log('si')
+          this.groupOrder.push(val.type[0])
+        }
+        else{
+          console.log('no')
+        }
+      }
+      else{
+         this.groupOrder.push(val.type[0]);
+      }
+    })
+    console.log(this.groupOrder)
+    // if(this.groupOrder.length==0){
+    //   this.showNoData=true
+    // }
+    // else{
+    //   this.showNoData = false;
+    // }
+  }
+  checked($event,type,part){
+    console.log($event)
+    console.log(type)
+    console.log(part)
+    let id;
+    this.trimmings.forEach(res=>{
+      if(type==res.trimmingType){
+        if(part==res.processingParts.id){
+          id=res.id
+        }
+      }
+    })
     console.log(id)
+    if($event.target.checked){
+      this.saveData(type,part);
+    }
+    else{
+      this.delete(id)
+    }
+  }
+  checkData(type,part){
+    let val;
+    this.trimmings.forEach(res=>{
+      if(type==res.trimmingType){
+        if(part==res.processingParts.id){
+          val=true;
+        }
+      }
+    })
+    return val;
   }
 }
