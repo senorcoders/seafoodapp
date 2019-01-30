@@ -113,7 +113,7 @@
           <div class="col-md-12">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">
-              <label class="form-check-label" for="tcs">T&Cs</label>
+              <label class="form-check-label" for="tcs" style="font-size: 13px;">I agree to the <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
               <div class="invalid-feedback" *ngIf="buyerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
             </div>
           </div>
@@ -281,7 +281,7 @@
           <div class="col-md-12">
             <div class="form-check">
               <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':sellerForm.get('tcs').invalid && sellerForm.get('tcs').touched}">
-              <label class="form-check-label" for="tcs">T&Cs</label>
+              <label class="form-check-label" for="tcs" style="font-size: 13px;">I agree to the <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
               <div class="invalid-feedback" *ngIf="sellerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
             </div>
           </div>
@@ -293,10 +293,7 @@
         </div>
       </form>
      </div>
-     <div class="terms-box">
-      <a href="http://seafoodsouq.com/terms.html" target="_blank">Read our terms and conditions</a>
-
-     </div>
+   
 
   </div>
 </div>

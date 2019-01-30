@@ -47,6 +47,8 @@ export class CheckoutComponent implements OnInit {
   max = new Date();
   expectedDates: any = [];
   all_medd_ok: Boolean = false;
+  expiryF:any;
+  expiryDate:any;
 
   constructor(
     private router: Router,
@@ -268,5 +270,15 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.showShippingFields = false;
     }
+  }
+
+
+  onDateChange(){
+    console.log("Date", this.expiryF);
+    let val = this.expiryF;
+    val = val.replace("-", "");
+    console.log(val);
+    this.expiryDate = val;
+
   }
 }
