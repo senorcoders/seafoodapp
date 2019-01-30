@@ -46,13 +46,13 @@
 
                 </div>
           </div>
-          <!-- <div class="col-lg-12">
+          <div class="col-lg-12">
               <div class="form-group">
                   <label>Billing Address</label>
-                  <input type="text" class="form-control" name="billing_address" required>
+                  <input type="text" class="form-control"  required>
 
                 </div>
-          </div> -->
+          </div>
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Card Security Code</label>
@@ -63,7 +63,8 @@
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Expiration</label>
-                  <input type="number" class="form-control" name="expiry_date" required>
+                  <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                  <input type="hidden" class="form-control" name="expiry_date" required [(ngModel)]="expiryDate">
                   <input type="hidden" name="access_code" [(ngModel)]="accessToken">
                   <input type="hidden" name="language" value="en">
                   <input type="hidden" name="merchant_identifier" [(ngModel)]="merchantID">
