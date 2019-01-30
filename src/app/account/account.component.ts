@@ -64,6 +64,9 @@ export class AccountComponent implements OnInit {
   buyerCompanyTelephone: FormControl;
   buyerBankingInfo: FormControl;
   buyerLogoCompany: FormControl;
+  sellerBankName: any;
+  sellerBankBranch: any;
+  sellerBankAddress: any;
 
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
@@ -190,6 +193,9 @@ export class AccountComponent implements OnInit {
       this.info.dataExtra['companyEmail'] = this.updateForm.get('companyEmail').value;
       this.info.dataExtra['companyTel'] = this.updateForm.get('companyTelephone').value;
       this.info.dataExtra['fullBakingInfo'] = this.updateForm.get('bankingInfo').value;
+      this.info.bankName = this.sellerBankName;
+      this.info.bankBranch = this.sellerBankBranch;
+      this.info.bankAddress = this.sellerBankAddress;
       this.updateAccount();
     }else{
       this.validateAllFormFields(this.updateForm);

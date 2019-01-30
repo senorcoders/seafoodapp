@@ -221,6 +221,29 @@
               </div>
             </div>
             </div>
+
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Name</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankName" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Branch</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankBranch" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Address</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankAddress" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </div>
             <div class="row">
               <div class="col-lg-6">
                 <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
