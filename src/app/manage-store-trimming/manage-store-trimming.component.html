@@ -6,7 +6,7 @@
     </div>
     <form (ngSubmit)="saveData()" class="form-design" [formGroup]="myform">
      <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="form-group" >
                 <label>Trimming Type</label>
                 <select class="form-control" name="status" formControlName="trimmingType" [ngClass]="{'is-invalid':myform.get('trimmingType').invalid && myform.get('trimmingType').touched}">
@@ -15,7 +15,7 @@
                 <div class="invalid-feedback" *ngIf="myform.get('trimmingType').hasError('required')">this data is required.</div>
           </div>
       	</div>
-      	<div class="col-md-6">
+      	<div class="col-md-4">
             <div class="form-group" >
                 <label>Processing Parts</label>
                 <select class="form-control" name="status" formControlName="processingParts" [ngClass]="{'is-invalid':myform.get('processingParts').invalid && myform.get('processingParts').touched}">
@@ -24,8 +24,44 @@
                 <div class="invalid-feedback" *ngIf="myform.get('processingParts').hasError('required')">this data is required.</div>
           </div>
       	</div>
-      	<div class="col-md-12">
+      	<div class="col-md-4">
             <button type="submit" class="btn btn-red" [disabled]="!myform.valid">Save</button>
+        </div>
+        <div class="col-12 table-design">
+          <div class="row row-bg" *ngFor="let trimming of trimmings; let i=index">
+            <div class="col-lg-4">
+              <h5 class="country">
+                {{trimming.type[0].name}}
+              </h5>
+            </div>
+            <div class="col-lg-4">
+              {{trimming.processingParts.name}}
+              <!-- <table>
+                <thead>
+                  <tr>
+                    <td>City</td>
+                    <td>Minimun ETA</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
+                    <td>
+                      {{ccity.name}}
+                    </td>
+                    <td *ngIf="ccity.mineta">
+                      {{ccity.mineta}}
+                    </td>
+                    <td *ngIf="!ccity.mineta">
+                        
+                    </td>
+                  </tr>
+                </tbody>
+              </table> -->
+            </div>
+            <div class="col-lg-4">
+              <button class="btn btn-red" (click)="delete(trimming.id)">Delete</button>
+            </div>
+          </div>
         </div>
     </div>
     </form>
