@@ -35,10 +35,12 @@ export class ManageStoreTrimmingComponent implements OnInit {
   	this.service.getData('api/store/user/'+this.info.id).subscribe(
   		res=>{
   			this.storeID=res[0].id;
+        console.log(res)
   			this.service.getData('storeTrimming?store='+this.storeID).subscribe(
 		  		result=>{
+            console.log(result)
 		  			this.store=result[0];
-		  			if(result){
+		  			if(result['length']>0){
 		  				this.myform=this.fb.group({
 		  					trimmingType:[this.store.processingParts.id, Validators.required],
 							processingParts:[this.store.trimmingType.id, Validators.required]
@@ -81,7 +83,7 @@ export class ManageStoreTrimmingComponent implements OnInit {
   saveData(){
   	let data={
   		"processingParts": this.myform.get('processingParts').value,
-	    "store": this.store.id,
+	    "store": this.storeID,
 	    "trimmingType": this.myform.get('trimmingType').value
 	}
   	this.service.saveData('storeTrimming',data).subscribe(
