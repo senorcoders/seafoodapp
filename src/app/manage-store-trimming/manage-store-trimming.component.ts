@@ -16,6 +16,7 @@ export class ManageStoreTrimmingComponent implements OnInit {
 	storeID:any;
 	myform: FormGroup;
 	store:any;
+  trimmings:any;
   constructor(private service:ProductService, private auth:AuthenticationService, private fb:FormBuilder,private toast:ToastrService) { }
 
   ngOnInit() {
@@ -35,26 +36,46 @@ export class ManageStoreTrimmingComponent implements OnInit {
   	this.service.getData('api/store/user/'+this.info.id).subscribe(
   		res=>{
   			this.storeID=res[0].id;
-  			this.service.getData('storeTrimming?store='+this.storeID).subscribe(
-		  		result=>{
-		  			this.store=result[0];
-		  			if(result){
-		  				this.myform=this.fb.group({
-		  					trimmingType:[this.store.processingParts.id, Validators.required],
-							processingParts:[this.store.trimmingType.id, Validators.required]
-		  				})
-		  			}
-		  		},
-		  		e=>{
-		  			console.log(e)
-		  		}
-		  	)
+        console.log(res)
+        this.getTrimmingByStore()
   		},
   		e=>{
   			console.log(e)
   		}
   	)
   	//this.trimmingType=this.info.
+  }
+  getTrimmingByStore(){
+    this.service.getData('storeTrimming/store/'+this.storeID).subscribe(
+          result=>{
+            console.log(result)
+            let data:any=result
+            let order=[];
+            this.trimmings=result;
+            // data.forEach((res, index)=>{
+            //   if(index>0){
+            //     console.log(order.includes(res.trimmingType.id))
+            //     if(order.includes(res.trimmingType.id)==false){
+            //       order.push(res)
+            //     }
+            //   }
+            //   else{
+            //     order.push(res)
+            //   }
+            // })
+            // console.log(order)
+            // this.store=result[0];
+            // if(result['length']>0){
+            //   this.myform=this.fb.group({
+            //     trimmingType:[this.store.processingParts.id, Validators.required],
+              // processingParts:[this.store.trimmingType.id, Validators.required]
+            //   })
+            // }
+          },
+          e=>{
+            console.log(e)
+          }
+        )
   }
   getTrimming(){
   	this.service.getData('trimmingtype').subscribe(
@@ -81,13 +102,14 @@ export class ManageStoreTrimmingComponent implements OnInit {
   saveData(){
   	let data={
   		"processingParts": this.myform.get('processingParts').value,
-	    "store": this.store.id,
+	    "store": this.storeID,
 	    "trimmingType": this.myform.get('trimmingType').value
 	}
   	this.service.saveData('storeTrimming',data).subscribe(
   		res=>{
   			this.toast.success("Your Store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
   			console.log(res)
+        this.getTrimmingByStore();
   		},
   		e=>{
   			this.toast.error("Something wrong happened. Please try again",'Error',{positionClass:"toast-top-right"})
@@ -95,5 +117,7 @@ export class ManageStoreTrimmingComponent implements OnInit {
   		}
 	)
   }
-
+  delete(id){
+    console.log(id)
+  }
 }
