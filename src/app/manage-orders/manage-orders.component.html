@@ -55,7 +55,7 @@
                     </ng-container>
                   </div>
                   <div class="col-4">
-                    <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order">
+                    <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order.orderNumber">
                       <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
                         <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
                       </select>
