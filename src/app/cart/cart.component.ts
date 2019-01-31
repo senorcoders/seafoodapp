@@ -153,7 +153,8 @@ export class CartComponent implements OnInit {
     localStorage.setItem('shoppingCartId', this.shoppingCartId);
     localStorage.setItem('totalOtherFees', this.totalOtherFees);
 
-    this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
+    //this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
+    this.router.navigate(['/reviewcart'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
   
   }
 

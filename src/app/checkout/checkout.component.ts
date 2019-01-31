@@ -100,6 +100,8 @@ export class CheckoutComponent implements OnInit {
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
+              localStorage.setItem('shoppingTotal', this.totalWithShipping);
+
             },
             error => {
               console.log(error);
