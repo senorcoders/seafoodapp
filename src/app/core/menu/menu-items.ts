@@ -452,6 +452,18 @@ const menuFooter = [
     }
   },
   {
+    state: '#',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Privacy Policy'
+      },
+      ar: {
+        name: 'Privacy Policy'
+      }
+    }
+  },
+  {
     state: 'about-us',
     type: 'link',
     translate: {
@@ -582,6 +594,18 @@ const menuFooterNoLogin = [
       },
       ar: {
         name: 'Terms & Conditions'
+      }
+    }
+  },
+  {
+    state: '#',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Privacy Policy'
+      },
+      ar: {
+        name: 'Privacy Policy'
       }
     }
   },
