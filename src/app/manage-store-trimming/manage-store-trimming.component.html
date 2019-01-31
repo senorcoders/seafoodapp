@@ -1,68 +1,44 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="black-title">{{'ManageOrders.title' | translate}}</h2>
+        <h2 class="black-title">Manage Store Trimming</h2>
       </div>
     </div>
-    <form (ngSubmit)="saveData()" class="form-design" [formGroup]="myform">
-     <div class="row">
-        <div class="col-md-4">
-            <div class="form-group" >
-                <label>Trimming Type</label>
-                <select class="form-control" name="status" formControlName="trimmingType" [ngClass]="{'is-invalid':myform.get('trimmingType').invalid && myform.get('trimmingType').touched}">
-                    <option *ngFor="let type of types;"  value="{{type.id}}"> {{type.name}}</option>     
-                </select>
-                <div class="invalid-feedback" *ngIf="myform.get('trimmingType').hasError('required')">this data is required.</div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <div class="row">
+          <div class="col" *ngFor="let part of parts">
+            <span class="parts">{{part.name}}</span>
           </div>
-      	</div>
-      	<div class="col-md-4">
-            <div class="form-group" >
-                <label>Processing Parts</label>
-                <select class="form-control" name="status" formControlName="processingParts" [ngClass]="{'is-invalid':myform.get('processingParts').invalid && myform.get('processingParts').touched}">
-                    <option *ngFor="let part of parts;"  value="{{part.id}}"> {{part.name}}</option>
-                </select>
-                <div class="invalid-feedback" *ngIf="myform.get('processingParts').hasError('required')">this data is required.</div>
-          </div>
-      	</div>
-      	<div class="col-md-4">
-            <button type="submit" class="btn btn-red" [disabled]="!myform.valid">Save</button>
         </div>
-        <div class="col-12 table-design">
-          <div class="row row-bg" *ngFor="let trimming of trimmings; let i=index">
-            <div class="col-lg-4">
-              <h5 class="country">
-                {{trimming.type[0].name}}
-              </h5>
-            </div>
-            <div class="col-lg-4">
-              {{trimming.processingParts.name}}
-              <!-- <table>
-                <thead>
-                  <tr>
-                    <td>City</td>
-                    <td>Minimun ETA</td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
-                    <td>
-                      {{ccity.name}}
-                    </td>
-                    <td *ngIf="ccity.mineta">
-                      {{ccity.mineta}}
-                    </td>
-                    <td *ngIf="!ccity.mineta">
-                        
-                    </td>
-                  </tr>
-                </tbody>
-              </table> -->
-            </div>
-            <div class="col-lg-4">
-              <button class="btn btn-red" (click)="delete(trimming.id)">Delete</button>
+      </div>
+      <div class="col-12">
+        <div class="row" *ngFor="let type of types; let i=index" style="align-items: center;">
+          <div class="col-2">
+            <span class="types">{{type.name}}</span>
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col checkboxes" *ngFor="let part of parts; let j=index">
+                <ng-container *ngIf="j < default[i]; else noDef">
+                  <input type="checkbox" class="form-check-input" value="" checked disabled >
+                </ng-container>
+                <ng-template #noDef>
+                  <input type="checkbox" class="form-check-input" value="" (click)="checked($event, type.id, part.id)" >
+                </ng-template>
+                <ng-container *ngIf="checkData(type.id, part.id)">
+                  <div *ngIf="j < default[i]; else enabled">
+                    <input type="checkbox" class="form-check-input" value="" checked disabled>
+                  </div>
+                  <ng-template #enabled>
+                    <input type="checkbox" class="form-check-input" value="" (click)="checked($event, type.id, part.id)" checked>
+                  </ng-template>
+                </ng-container>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </div>
-    </form>
 </div>
