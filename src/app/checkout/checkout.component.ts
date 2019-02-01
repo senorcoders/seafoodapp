@@ -278,9 +278,9 @@ export class CheckoutComponent implements OnInit {
   onDateChange(){
     console.log("Date", this.expiryF);
     let val = this.expiryF;
-    val = val.replace("-", "");
-    console.log(val);
-    this.expiryDate = val;
+    val = val.split("-");
+    console.log(val[1] + val[0]);
+    this.expiryDate = val[1] + val[0];
 
   }
 }
