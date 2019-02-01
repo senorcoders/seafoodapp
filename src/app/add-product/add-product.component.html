@@ -98,7 +98,7 @@
 
           <div class="col-lg-6">
             <div class="form-group" >
-              <label>{{'AddProduct.descriptor' | translate}}</label>
+              <label>Product Descriptor</label>
               <select  class="form-control" formControlName="descriptorSelected">
                 <option value="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
@@ -220,6 +220,14 @@
               <div class="form-control-feedback" *ngIf="preparation.errors && showError">
                 <p *ngIf="preparation.errors.required">{{'AddProduct.preparation' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
+            </div>
+          </div>
+          <div class="col-lg-6" *ngIf="showProcessingParts">
+            <div class="form-group">
+              <label>Processing Parts</label>
+              <select class="form-control" formControlName="processingParts">
+                <option value="{{part.id}}" *ngFor="let part of parts">{{part.name}}</option>
+              </select>
             </div>
           </div>
           <div class="col-lg-6" *ngIf="showWholeOptions">

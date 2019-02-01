@@ -61,6 +61,7 @@ export class AddProductComponent implements OnInit {
   mortalityRate: FormControl;
   wholeFishWeight: FormControl;
   brandName:FormControl;
+  processingParts:FormControl;
   fileToUpload: any = [];
   info: any;
   store: any = [];
@@ -91,7 +92,11 @@ export class AddProductComponent implements OnInit {
     '7-8 KG',
     '8+ KG'
   ];
+  trimmings=[];
+  parts=[];
+  ProcessingParts:any;
   showWholeOptions:boolean=false;
+  showProcessingParts:boolean=false;
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -107,20 +112,18 @@ export class AddProductComponent implements OnInit {
     this.getMyData();
     this.getAllCities();
     this.getCountries();
+    this.getTrimming();
   }
 
   getTypes() {
     // this.product.getAllCategoriesProducts().subscribe(result => {
     this.product.getCategories().subscribe(result => {
-      console.log(result);
       this.parentTypes = result;
     });
   }
 
   getSubcategories() {
-    console.log( 'parent Cat', this.parentSelectedType );
     this.product.getSubCategories( this.parentSelectedType.value ).subscribe(result => {
-      console.log(result);
       this.pTypes = result;
     });
   }
@@ -133,6 +136,7 @@ export class AddProductComponent implements OnInit {
   getStore() {
     this.product.getData(this.storeEndpoint + this.info.id).subscribe(results => {
       this.store = results;
+      this.getProcessingParts();
       if (this.store.length < 1) {
         this.existStore = false;
       }
@@ -144,7 +148,7 @@ export class AddProductComponent implements OnInit {
     this.price = new FormControl('', Validators.required);
     this.minimunorder = new FormControl('', Validators.required);
     this.maximumorder = new FormControl('', Validators.required);
-    this.cooming_soon = new FormControl('', Validators.required);
+    this.cooming_soon = new FormControl(false, Validators.required);
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     //this.types = new FormControl('', Validators.required);
@@ -444,15 +448,7 @@ export class AddProductComponent implements OnInit {
       case 1:
         selectedType = this.speciesSelected.value;
         if(value=='5bda361c78b3140ef5d31fa4'){
-          this.preparationOptions=[
-            'Whole',
-            'Gutted',
-            'Filleted - Trim A',
-            'Filleted - Trim B',
-            'Filleted - Trim C',
-            'Filleted - Trim D',
-            'Filleted - Trim D',
-          ]
+          this.preparationOptions=this.trimmings
           this.showWholeOptions=true
         }
         else{
@@ -509,16 +505,50 @@ export class AddProductComponent implements OnInit {
     )
   }
   showWhole(value){
-    console.log(value)
     if(value=='Whole'){
       this.showWholeOptions=true;
     }
     else{
        this.showWholeOptions=false;
     }
-     console.log(this.showWholeOptions)
+    this.parts=[];
+    this.ProcessingParts.forEach(res=>{
+      if(value==res.type[0].name){
+        this.parts.push(res.processingParts)
+      }
+    })
+    if(value =='Whole' || value=='Gutted' || value=='Filleted'){
+      this.showProcessingParts=false
+    }
+    else{
+      this.showProcessingParts=true
+    }
   }
-
+  getTrimming(){
+    this.trimmings.push('Whole')
+    this.trimmings.push('Gutted');
+    this.product.getData('trimmingtype').subscribe(
+      res=>{
+        let data:any=res
+        data.forEach(result=>{
+          this.trimmings.push(result.name)
+        })
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
+  getProcessingParts(){
+    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
+      res=>{
+        this.ProcessingParts=res;
+      },
+      e=>{
+        console.log(e)
+      }
+    )
+  }
 }
 
 
