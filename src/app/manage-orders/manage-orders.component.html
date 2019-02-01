@@ -6,7 +6,7 @@
       </div>
     </div>
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="form-group" >
                 <label>{{'ManageOrders.status' | translate}}</label>
                 <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders()" [value]='0' >
@@ -16,24 +16,28 @@
               </div>
           
         </div>
-          <div class="col-4">
+          <div class="col-3">
             <div class="form-group" >
               <label>{{'ManageOrders.orderNumber' | translate}}</label>
               <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders()"  placeholder="search by Order Number">
             </div>
           </div>
-          <div class="col-4">
+          <div class="col-3">
             <button class="pink-btn" (click)="clear()">Clear filter</button>
+          </div>
+          <div class="col-3">
+            <a class="pink-btn" href="http://13.232.68.135/xero/connect">Push All Orders to Xero</a>
           </div>
           <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
             <div class="row row-bg" *ngFor="let order of groupOrder">
               <div class="col-4">
-                <p class="order-number">Order #{{order}}</p>
+                <p class="order-number">Order #{{order.orderNumber}}</p>
+                <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
               </div>
               <div class="col-8">
                  <div class="row" *ngFor="let item of orderWithData">
                   <div class="col-4">
-                    <ng-container *ngIf="item.shoppingCart.orderNumber==order">
+                    <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
                       <h5 [innerHtml]="item.fish.name"></h5>                
                       <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                       <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
@@ -42,7 +46,7 @@
                     </ng-container>
                   </div>
                   <div class="col-4">
-                    <ng-container *ngIf="item.shoppingCart.orderNumber==order">
+                    <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
                       <div *ngIf="item.updateInfo">
                         <p class="date" *ngFor="let update of item.updateInfo;" >
                           <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
@@ -51,7 +55,7 @@
                     </ng-container>
                   </div>
                   <div class="col-4">
-                    <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order">
+                    <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order.orderNumber">
                       <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
                         <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
                       </select>

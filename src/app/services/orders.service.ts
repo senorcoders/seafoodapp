@@ -128,4 +128,8 @@ export class OrderService {
     // }
     return this.http.post(`${API}shipping/${id}/upload`, formData, httpOptionsForm);
   }
+
+  syncOrdersWithXeroInvoiceService() {
+    return this.http.get(`${API}xero/connect`);
+  }
 }

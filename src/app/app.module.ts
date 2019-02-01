@@ -101,6 +101,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
 import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
 import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
 import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
+import { ReviewcartComponent } from './reviewcart/reviewcart.component';
 
 
 const appRoutes: Routes = [
@@ -160,6 +161,7 @@ const appRoutes: Routes = [
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
   { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
+  { path: 'reviewcart', component: ReviewcartComponent, canActivate: [BuyerRouterService] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [BuyerRouterService] },
   { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
@@ -243,7 +245,8 @@ const appRoutes: Routes = [
     ProductListComponent,
     AdminCountriesComponent,
     ShippingByCityComponent,
-    ManageStoreTrimmingComponent
+    ManageStoreTrimmingComponent,
+    ReviewcartComponent
   ],
   imports: [
     BrowserModule,

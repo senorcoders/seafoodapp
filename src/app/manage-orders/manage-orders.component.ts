@@ -273,19 +273,31 @@ export class ManageOrdersComponent implements OnInit {
       if(val.shoppingCart && val.shoppingCart.orderNumber){
         if(index>0){
           if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
-            this.groupOrder.push(val.shoppingCart.orderNumber)
+            this.groupOrder.push( { orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef } );
           }
         }
         else{
-          this.groupOrder.push(val.shoppingCart.orderNumber);
+          this.groupOrder.push( { orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef } );
         }
       }
     })
+    console.log( this.groupOrder );
     if(this.groupOrder.length==0){
       this.showNoData=true
     }
     else{
       this.showNoData = false;
     }
+  }
+
+  syncXero() {
+    this.orderService.syncOrdersWithXeroInvoiceService().subscribe(
+      result => {
+        this.toast.success(`${result['ordersUpdated']} order has been sync with Xero Invoice Service `, 
+        'Xero Sync', {positionClass: 'toast-top-right'});
+      }, error => {
+        this.toast.error('something wrong happend, please refresh the page', 'Status Change', {positionClass: 'toast-top-right'});
+      }
+    );
   }
 }
