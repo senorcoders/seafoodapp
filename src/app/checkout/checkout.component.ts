@@ -47,7 +47,8 @@ export class CheckoutComponent implements OnInit {
   max = new Date();
   expectedDates: any = [];
   all_medd_ok: Boolean = false;
-  expiryF:any;
+  selectYear:any = "2019";
+  selectMonth:any = "01";
   expiryDate:any;
 
   constructor(
@@ -276,11 +277,9 @@ export class CheckoutComponent implements OnInit {
 
 
   onDateChange(){
-    console.log("Date", this.expiryF);
-    let val = this.expiryF;
-    val = val.split("-");
-    console.log(val[1] + val[0]);
-    this.expiryDate = val[1] + val[0];
+    let val = this.selectYear + this.selectMonth;
+    console.log(val);
+    this.expiryDate = val;
 
   }
 }

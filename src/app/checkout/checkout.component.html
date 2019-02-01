@@ -41,7 +41,7 @@
             </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <label>Card Number</label>
+                  <label>Card Number <img height="30px" src="../../assets/Credit-Card-Logos.jpg" alt=""></label>
                   <input type="number" class="form-control" name="card_number" required>
 
                 </div>
@@ -49,7 +49,7 @@
           <div class="col-lg-12">
               <div class="form-group">
                   <label>Billing Address</label>
-                  <input type="text" class="form-control"  required>
+                  <textarea class="form-control" required placeholder="Fill with your Address, City & State" rows="3"></textarea>
 
                 </div>
           </div>
@@ -63,7 +63,42 @@
           <div class="col-lg-6">
               <div class="form-group">
                   <label>Expiration</label>
-                  <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                  <div class="row">
+                    <div class="col-md-6">
+                        <select required placeholder="Month" class="form-control" [(ngModel)]="selectMonth"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                            <option value="01">01</option>
+                            <option value="02">02</option>
+                            <option value="03">03</option>
+                            <option value="04">04</option>
+                            <option value="05">05</option>
+                            <option value="06">06</option>
+                            <option value="07">07</option>
+                            <option value="08">08</option>
+                            <option value="09">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                          </select>
+                    </div>
+                    <div class="col-md-6">
+                        <select required class="form-control" [(ngModel)]="selectYear"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                            <option value="" selected>Year</option>
+                            <option value="19">2019</option>
+                            <option value="20">2020</option>
+                            <option value="21">2021</option>
+                            <option value="22">2022</option>
+                            <option value="23">2023</option>
+                            <option value="24">2024</option>
+                            <option value="25">2025</option>
+                            <option value="26">2027</option>
+                            <option value="27">2027</option>
+                            <option value="28">2028</option>
+                    
+                          </select>
+                    </div>
+                  </div>
+                 
+                  <!-- <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()"> -->
                   <input type="hidden" class="form-control" name="expiry_date" required [(ngModel)]="expiryDate">
                   <input type="hidden" name="access_code" [(ngModel)]="accessToken">
                   <input type="hidden" name="language" value="en">
