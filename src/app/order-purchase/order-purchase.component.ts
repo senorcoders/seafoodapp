@@ -39,7 +39,7 @@ export class OrderPurchaseComponent implements OnInit {
 		private toast: ToastrService,
 		private auth: AuthenticationService
 	) {
-		this.min.setDate( this.today.getDate() + 3 );
+		this.min.setDate( this.today.getDate() );
     	this.max.setDate( this.today.getDate() + 90 );
 
 		this.route.params.subscribe(params => {
