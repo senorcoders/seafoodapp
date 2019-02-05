@@ -155,7 +155,7 @@
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
-		"mortalityRate": "Mortality Rate",
+		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country",
 		"mainCategory": "Main Category",
 		"species": "Species",
