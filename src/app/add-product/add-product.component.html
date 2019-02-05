@@ -28,6 +28,33 @@
                 <p *ngIf="price.errors.required">{{'AddProduct.price' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
+            <!-- <table>
+                <tr>
+                  <th>Weight</th>
+                  <th>Delivered Price AED</th>
+                  <th>Delivered Price USD</th>
+                </tr>
+                <tr>
+                  <td>25 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>100 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>500 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1000 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </table> -->
           </div>
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">

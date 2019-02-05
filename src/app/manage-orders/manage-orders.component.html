@@ -29,23 +29,94 @@
             <a class="pink-btn" href="http://13.232.68.135/xero/connect">Push All Orders to Xero</a>
           </div>
           <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
+            <div class="row">
+              <div class="col-6">
+                  <p class="order-number size-40">Order</p>
+                </div>
+              <div class="col-6">
+                  <p class="order-number size-40">Items</p>
+                </div>
+            </div>
             <div class="row row-bg" *ngFor="let order of groupOrder">
-              <div class="col-4">
-                <p class="order-number">Order #{{order.orderNumber}}</p>
-                <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
-              </div>
-              <div class="col-8">
-                 <div class="row" *ngFor="let item of orderWithData">
+              <div class="col-6">
+                <div class="row">
                   <div class="col-4">
-                    <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
-                      <h5 [innerHtml]="item.fish.name"></h5>                
+                      <p class="order-number">Order Number</p>
+                      <p *ngIf="order.xeroRef" class="order-number">Xero Ref</p>
+
+                  </div>
+                  <div class="col-8">
+                      <p class="order-number">{{order.orderNumber}}</p>
+                      <p *ngIf="order.xeroRef" class="order-number">{{order.xeroRef}}</p>
+                  </div>
+                </div>
+                
+              </div> 
+              <div class="col-6">
+                 
+                 <div class="row" *ngFor="let item of orderWithData">
+                  <div class="col-12 order-col" *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
+                    <div class="select-status">
+                        <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order.orderNumber">
+                            <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
+                              <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
+                            </select>
+                          </ng-container>
+                    </div>
+                     
+                    <ng-container >
+                      <table class="full-table">
+                        <tr>
+                          <td><strong>{{item.status.status}}</strong> </td>
+                          <td></td>
+                        </tr>
+                        <tr *ngIf="item.store">
+                          <td>Seller Name:</td>
+                          <td>{{item.store.name}}</td>
+                        </tr>
+                        <tr>
+                          <td>Product Title:</td>
+                          <td [innerHtml]="item.fish.name"></td>
+                        </tr>
+                      </table>
+                      <table class="mediana-tabla">
+                        <tr *ngIf="item.fish.preparation">
+                          <td>Preparation:</td>
+                          <td>{{item.fish.preparation}}</td>
+                        </tr>
+                        <tr>
+                          <td>Seller SKU:</td>
+                          <td>{{item.store.owner}}</td>
+                        </tr>
+                      </table>
+                      <table class="medium-table">
+                        <tr>
+                            <td>Quantity:</td>
+                            <td>{{item.quantity.value}} Kg</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Price:</td>
+                          <td>{{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</td>
+                        </tr>
+                      </table>
+
+                      <table class="medium-table">
+                          <tr>
+                              <td>ATA:</td>
+                              <td>{{item.buyerExpectedDeliveryDate}}</td>
+                          </tr>
+                          
+                          
+                        </table>
+                      <!-- <h5 [innerHtml]="item.fish.name"></h5>                
                       <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
-                      <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
-                      <p class="qty">Quantity {{item.quantity.value}} kg</p>  
-                      <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
+                      <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p> -->
+                      <!-- <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+                      <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p> -->
                     </ng-container>
                   </div>
-                  <div class="col-4">
+                  <div class="col-12">
                     <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
                       <div *ngIf="item.updateInfo">
                         <p class="date" *ngFor="let update of item.updateInfo;" >
@@ -54,13 +125,9 @@
                       </div>
                     </ng-container>
                   </div>
-                  <div class="col-4">
-                    <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order.orderNumber">
-                      <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
-                        <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
-                      </select>
-                    </ng-container>
-                  </div>
+                  <!-- <div class="col-4">
+                   
+                  </div> -->
                 </div>
               </div>
             </div>

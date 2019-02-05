@@ -270,6 +270,7 @@ export class ManageOrdersComponent implements OnInit {
     })
     //group by orderNumber
     this.orderWithData.forEach((val,index)=>{
+      console.log(val);
       if(val.shoppingCart && val.shoppingCart.orderNumber){
         if(index>0){
           if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
