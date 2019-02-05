@@ -584,7 +584,7 @@
 		"customs": "Customs (%)",
 		"lastMileCost":  "Last Mile Cost ( AED )",
 		"updateButton": "Update (%)",
-		"exchangeRates": "Exchange Rates (AED / USD)",
+		"exchangeRates": "Exchange Rate (AED / USD)",
 		"date": "Updated At",
 		"type": "Type",
 		"price": "Price"
@@ -626,6 +626,18 @@
 	},
 	"ManageOrders": {
 		"title": "Manage Orders",
+		"status": "Status",
+		"orderNumber": "Order Number",
+		"PaymentButton": "Mark Payment",
+		"RefoundButton": "Mark Refounded",
+		"ShippedButton": "Mark as Shipped",
+		"ArrivedButton": "Mark as Arrived",
+		"OutForDelivered": "Mark as Out for Delivered",
+		"DeliveredButton": "Mark as Delivered",
+		"UpdateStatusButton": "Update Status"
+	},
+	"LogisticManagment": {
+		"title": "Logistic Managment",
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"PaymentButton": "Mark Payment",
