@@ -211,9 +211,11 @@
                 </div>
               </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
-              <label>{{'AddProduct.preparation' | translate}}</label>
+              <label>{{'AddProduct.preparation' | translate}} <a routerLink="/manage-store-trimming">Manage Trimming</a></label>
               <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
                 <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
               </select>
@@ -225,9 +227,9 @@
           <div class="col-lg-6" *ngIf="showProcessingParts">
             <div class="form-group">
               <label>Processing Parts</label>
-              <select class="form-control" formControlName="processingParts">
-                <option value="{{part.id}}" *ngFor="let part of parts">{{part.name}}</option>
-              </select>
+              <ul class="parts">
+                <li *ngFor="let part of parts">{{part.name}}</li>
+              </ul>
             </div>
           </div>
           <div class="col-lg-6" *ngIf="showWholeOptions">
@@ -238,6 +240,8 @@
               </select>
             </div>
           </div>
+        </div>
+        <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': treatment.invalid && (treatment.dirty || treatment.touched),'has-success': treatment.valid && (treatment.dirty || treatment.touched)}">
               <label>{{'AddProduct.treatment' | translate}}</label>
