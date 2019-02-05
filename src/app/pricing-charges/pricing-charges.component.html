@@ -9,7 +9,7 @@
           <div class="col-md-4">
             <div class="form-group" >
               <label>{{'PricingCharges.type' | translate}}</label>
-              <select id="type" class="form-control" formControlName="type" >
+              <select (change)="changeSelectedType($event.target.value)" id="type" class="form-control" formControlName="type" >
                 <option value="customs">Customs</option>
                 <option value="uaeTaxes">UAE Taxes</option>
                 <option value="lastMileCost">Last Mile Cost</option>
@@ -23,6 +23,7 @@
             <div class="form-group" >
               <label>{{'PricingCharges.price' | translate}}</label>
               <input id="price" type="number" class="form-control" formControlName="price" required>
+              <p *ngIf="selectedType == 'Exchange Rates'">Type the AED amount per $1.00 USD</p>
             </div>
           </div>
 
