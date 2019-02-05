@@ -14,6 +14,7 @@
                 <option value="uaeTaxes">UAE Taxes</option>
                 <option value="lastMileCost">Last Mile Cost</option>
                 <option value="handlingFees">Handling Fees</option>
+                <option value="exchangeRates">Exchange Rates</option>
               </select>
             </div>
           </div>
@@ -46,6 +47,7 @@
               <th scope="col">{{'PricingCharges.uaeTaxes' | translate}}</th>
               <th scope="col">{{'PricingCharges.lastMileCost' | translate}}</th>
               <th scope="col">{{'PricingCharges.handlingFess' | translate}}</th>
+              <th scope="col">{{'PricingCharges.exchangeRates' | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -54,7 +56,7 @@
               <td> {{currentPricing.uaeTaxes[0].price}} </td>
               <td> {{currentPricing.lastMileCost[0].price}} </td>
               <td> {{currentPricing.handlingFees[0].price}} </td>
-              
+              <td> {{currentPricing.exchangeRates[0].price}} </td>
             </tr>              
           </tbody>
         </table>
@@ -70,7 +72,7 @@
   </div><!--end row-->
 
   <div class="row">
-    <div class="col-md-3">
+    <div class="col">
       <h5>{{'PricingCharges.customs' | translate}}</h5>
       <table class="table table-hover">
         <thead>
@@ -88,7 +90,7 @@
       </table>
     </div><!--col-md-3 customs-->
 
-    <div class="col-md-3">
+    <div class="col">
       <h5>{{'PricingCharges.uaeTaxes' | translate}}</h5>
       <table class="table table-hover">
         <thead>
@@ -106,7 +108,7 @@
       </table>
     </div><!--col-md-3 uaeTaxes-->
 
-    <div class="col-md-3">
+    <div class="col">
       <h5>{{'PricingCharges.lastMileCost' | translate}}</h5>
       <table class="table table-hover">
         <thead>
@@ -124,7 +126,7 @@
       </table>
     </div><!--col-md-3 lastMileCost-->
 
-    <div class="col-md-3">
+    <div class="col">
       <h5>{{'PricingCharges.handlingFess' | translate}}</h5>
       <table class="table table-hover">
         <thead>
@@ -141,6 +143,24 @@
         </tbody>
       </table>
     </div><!--col-md-3 handlingFees-->
+
+    <div class="col">
+      <h5>{{'PricingCharges.exchangeRates' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.exchangeRates" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 exchangeRates-->
 
 
   </div><!--end row-->
