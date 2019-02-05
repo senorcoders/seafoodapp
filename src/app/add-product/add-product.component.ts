@@ -97,6 +97,76 @@ export class AddProductComponent implements OnInit {
   ProcessingParts:any;
   showWholeOptions:boolean=false;
   showProcessingParts:boolean=false;
+  defaultTrimming=[
+    {
+      trim:"Trim A",
+      name:'Backbone off'
+    },
+    {
+      trim:"Trim A",
+      name:'Bellybone off'
+    },
+    {
+      trim:"Trim B",
+      name:'Backbone off'
+    },
+    {
+      trim:"Trim B",
+      name:'Bellybone off'
+    },
+    {
+      trim:"Trim B",
+      name:'Collar bone off'
+    },
+    {
+      trim:"Trim C",
+      name:'Backbone off'
+    },
+    {
+      trim:"Trim C",
+      name:'Bellybone off'
+    },
+    {
+      trim:"Trim C",
+      name:'Collar bone off'
+    },
+    {
+      trim:"Trim C",
+      name:'Back fin off'
+    },
+    {
+      trim:"Trim D",
+      name:'Backbone off'
+    },
+    {
+      trim:"Trim D",
+      name:'Bellybone off'
+    },
+    {
+      trim:"Trim D",
+      name:'Collar bone off'
+    },
+    {
+      trim:"Trim E",
+      name:'Backbone off'
+    },
+    {
+      trim:"Trim E",
+      name:'Bellybone off'
+    },
+    {
+      trim:"Trim E",
+      name:'Collar bone off'
+    },
+    {
+      trim:"Trim E",
+      name:'Back fin off'
+    },
+    {
+      trim:"Trim E",
+      name:'Belly fat off'
+    }
+  ]
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -512,15 +582,21 @@ export class AddProductComponent implements OnInit {
        this.showWholeOptions=false;
     }
     this.parts=[];
-    this.ProcessingParts.forEach(res=>{
-      if(value==res.type[0].name){
-        this.parts.push(res.processingParts)
-      }
-    })
     if(value =='Whole' || value=='Gutted' || value=='Filleted'){
       this.showProcessingParts=false
     }
     else{
+      this.defaultTrimming.forEach(res=>{
+        if(value==res.trim){
+          this.parts.push(res)
+        }
+      })
+      console.log(this.parts)
+      this.ProcessingParts.forEach(res=>{
+        if(value==res.type[0].name){
+          this.parts.push(res.processingParts)
+        }
+      })
       this.showProcessingParts=true
     }
   }
