@@ -636,6 +636,18 @@
 		"DeliveredButton": "Mark as Delivered",
 		"UpdateStatusButton": "Update Status"
 	},
+	"LogisticManagment": {
+		"title": "Logistic Managment",
+		"status": "Status",
+		"orderNumber": "Order Number",
+		"PaymentButton": "Mark Payment",
+		"RefoundButton": "Mark Refounded",
+		"ShippedButton": "Mark as Shipped",
+		"ArrivedButton": "Mark as Arrived",
+		"OutForDelivered": "Mark as Out for Delivered",
+		"DeliveredButton": "Mark as Delivered",
+		"UpdateStatusButton": "Update Status"
+	},
 	"ItemStatus":{
 		"title": "Items Buyed",
 		"status": "Status",
