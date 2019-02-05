@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="black-title">Manage Store Trimming</h2>
+        <h2 class="black-title">Manage Salmon Trimming</h2>
       </div>
     </div>
     <div class="row">
@@ -21,20 +21,15 @@
           <div class="col-10">
             <div class="row">
               <div class="col checkboxes" *ngFor="let part of parts; let j=index">
-                <ng-container *ngIf="j < default[i]; else noDef">
-                  <input type="checkbox" class="form-check-input" value="" checked disabled >
+                <ng-container *ngIf="j < default[i];else noDef">
+                  <input type="checkbox" class="form-check-input df" value="" checked disabled >
                 </ng-container>
-                <ng-template #noDef>
-                  <input type="checkbox" class="form-check-input" value="" (click)="checked($event, type.id, part.id)" >
-                </ng-template>
-                <ng-container *ngIf="checkData(type.id, part.id)">
-                  <div *ngIf="j < default[i]; else enabled">
-                    <input type="checkbox" class="form-check-input" value="" checked disabled>
-                  </div>
-                  <ng-template #enabled>
-                    <input type="checkbox" class="form-check-input" value="" (click)="checked($event, type.id, part.id)" checked>
+                <ng-template #noDef>                 
+                  <input type="checkbox" class="form-check-input en" value="" (click)="checked($event, type.id, part.id)" checked *ngIf="checkData(type.id, part.id); else show">
+                  <ng-template #show>
+                    <input type="checkbox" class="form-check-input nodf" value="" (click)="checked($event, type.id, part.id)" >
                   </ng-template>
-                </ng-container>
+                </ng-template>
               </div>
             </div>
           </div>
