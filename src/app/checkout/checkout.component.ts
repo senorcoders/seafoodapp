@@ -47,7 +47,7 @@ export class CheckoutComponent implements OnInit {
   max = new Date();
   expectedDates: any = [];
   all_medd_ok: Boolean = false;
-  selectYear:any = "2019";
+  selectYear:any = "19";
   selectMonth:any = "01";
   expiryDate:any;
 
@@ -91,12 +91,13 @@ export class CheckoutComponent implements OnInit {
         /*this.total=cart['total'];
         this.shipping=cart['shipping']
         this.totalOtherFees=cart['totalOtherFees']*/
-        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
+        // this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
         this.buyerId = cart['buyer'];
 
         this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
+              console.log(res);
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];

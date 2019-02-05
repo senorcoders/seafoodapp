@@ -130,7 +130,7 @@
 	"AddProduct":{
 		"title":"Add Product",
 		"name":"Product Title",
-		"price":"Price/KG in DHS",
+		"price":"Price/KG in USD",
 		"price-measurement":"Weight type per quantity",
 		"description":"Description",
 		"parent-types": "Select Main Category",

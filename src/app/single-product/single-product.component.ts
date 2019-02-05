@@ -150,6 +150,7 @@ setFlexslider(){
       this.category = data['type'].name;
       this.show = true;
       this.priceValue = data['price'].value;
+      this.priceValue = ((data['price'].value) * 3.6730).toFixed(2);
       this.priceType = data['price'].type;
       this.measurement = data['weight'].type;
       this.mainImg=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
