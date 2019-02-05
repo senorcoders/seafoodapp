@@ -25,6 +25,8 @@ export class PricingChargesComponent implements OnInit {
   myform: FormGroup;
   type: FormControl;
   price: FormControl;
+  selectedType;
+  newPrice;
   /*uaeTaxes: FormControl;
   handlingFees: FormControl;
   customs: FormControl;
@@ -46,7 +48,9 @@ export class PricingChargesComponent implements OnInit {
 
   showConfirmModal(){
     jQuery('#mtype').html( jQuery("#type option:selected").text() );
-    jQuery('#mprice').html( jQuery("#price").val() );
+    this.selectedType = jQuery("#type option:selected").text();
+    this.newPrice = jQuery("#price").val();
+    //jQuery('.mprice').html( jQuery("#price").val() );
     jQuery('.confirmUpdate').modal('show');
   }
 
