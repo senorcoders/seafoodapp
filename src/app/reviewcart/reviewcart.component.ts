@@ -11,7 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ReviewcartComponent implements OnInit {
   products: any = [];
   total: any;
-  totalOtherFees: number;
+  totalOtherFees: any;
   shipping: any;
   totalWithShipping: any;
   buyerId: string;
@@ -51,10 +51,16 @@ export class ReviewcartComponent implements OnInit {
         this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
+              console.log(res);
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
+              localStorage.setItem('shippingCost', this.shipping);
+              localStorage.setItem('shoppingTotal', this.totalWithShipping);
+              localStorage.setItem('shoppingCartId', this.shoppingCartId);
+              localStorage.setItem('totalOtherFees', this.totalOtherFees);
+          
             },
             error => {
               console.log(error);

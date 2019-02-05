@@ -127,7 +127,7 @@
 	"AddProduct":{
 		"title":"Add Product",
 		"name":"Name",
-		"price":"Quantity per order",
+		"price":"Quantity per order in USD",
 		"price-measurement":"Weight type per quantity",
 		"description":"Description",
 		"fish-types":"Fish Types",

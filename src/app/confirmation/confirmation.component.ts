@@ -61,11 +61,12 @@ export class ConfirmationComponent implements OnInit {
       this.total = this.amount * 1000;
       this.getPersonalData();
       this.getCart();
-      this.shipping = localStorage.getItem('shippingCost');
-      this.shipping = this.shipping * 1000;
-      this.totalWithShipping = localStorage.getItem('shoppingTotal');
-      this.totalWithShipping = this.totalWithShipping * 1000;
-      this.totalOtherFees = localStorage.getItem('totalOtherFees');
+     
+      // this.shipping = localStorage.getItem('shippingCost');
+      // this.shipping = this.shipping * 1000;
+      // this.totalWithShipping = localStorage.getItem('shoppingTotal');
+      // this.totalWithShipping = this.totalWithShipping * 1000;
+      // this.totalOtherFees = localStorage.getItem('totalOtherFees');
       // this.generateSignature();
 
     });
@@ -78,7 +79,10 @@ export class ConfirmationComponent implements OnInit {
         this.buyerId = cart['buyer'];
         this.apiShopID = cart['id'];
         this.products = cart['items'];
-        this.totalAPI = cart['total'] * 1000;
+        this.totalAPI = cart['subTotal'];
+        this.shipping = cart['shipping'];
+        this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
+        this.totalWithShipping = cart['total'];
 
       }
 
@@ -176,7 +180,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     getTotalxItem(count, price) {
-      return (count * price) * 1000;
+      return (count * price);
     }
 
 }

@@ -96,7 +96,7 @@
             </div>
           </div>
 
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <div class="form-group" >
               <label>Product Descriptor</label>
               <select  class="form-control" formControlName="descriptorSelected">
@@ -104,7 +104,7 @@
                 <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
               </select>              
             </div>
-          </div>
+          </div> -->
 
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
@@ -189,7 +189,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12"><h2 class="black-title">Products Features</h2></div>
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': waterLostRate.invalid && (waterLostRate.dirty || waterLostRate.touched),'has-success': waterLostRate.valid && (waterLostRate.dirty || waterLostRate.touched)}">
               <label>{{'AddProduct.waterLostRate' | translate}}</label>
               <input class="form-control" formControlName="waterLostRate" type="number" required>
@@ -197,8 +197,8 @@
                 <p *ngIf="waterLostRate.errors.required">{{'AddProduct.waterLostRate' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>
-          <div class="col-lg-6">
+          </div> -->
+          <div class="col-lg-12">
               <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
                 <label>{{'AddProduct.raised' | translate}}</label>
                 <select class="form-control" formControlName="raised">
@@ -213,7 +213,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
               <label>{{'AddProduct.preparation' | translate}} <a routerLink="/manage-store-trimming">Manage Trimming</a></label>
               <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
