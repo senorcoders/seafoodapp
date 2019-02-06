@@ -21,15 +21,7 @@
           <div class="col-10">
             <div class="row">
               <div class="col checkboxes" *ngFor="let part of parts; let j=index">
-                <ng-container *ngIf="j < default[i];else noDef">
-                  <input type="checkbox" class="form-check-input df" value="" checked disabled >
-                </ng-container>
-                <ng-template #noDef>                 
-                  <input type="checkbox" class="form-check-input en" value="" (click)="checked($event, type.id, part.id)" checked *ngIf="checkData(type.id, part.id); else show">
-                  <ng-template #show>
-                    <input type="checkbox" class="form-check-input nodf" value="" (click)="checked($event, type.id, part.id)" >
-                  </ng-template>
-                </ng-template>
+                <input type="checkbox" class="form-check-input df" [disabled]="isDefault(part.name,type.name)" [checked]="isChecked(part.name,type.name)" (click)="checked($event, type.id, part.id)">
               </div>
             </div>
           </div>

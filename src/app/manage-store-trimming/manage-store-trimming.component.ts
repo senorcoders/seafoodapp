@@ -20,6 +20,8 @@ export class ManageStoreTrimmingComponent implements OnInit {
   groupOrder=[];
   showNoData:boolean=false;
   default=[2,3,4,3,5];
+  defaultTrimming=[]
+  pd=[]
   constructor(private service:ProductService, private auth:AuthenticationService, private fb:FormBuilder,private toast:ToastrService) { }
 
   ngOnInit() {
@@ -28,8 +30,6 @@ export class ManageStoreTrimmingComponent implements OnInit {
 		processingParts:['', Validators.required]
   	})
   	this.getPersonalData()
-  	this.getParts();
-  	this.getTrimming();
   }
   getPersonalData(){
     this.info = this.auth.getLoginData();
@@ -40,6 +40,8 @@ export class ManageStoreTrimmingComponent implements OnInit {
   		res=>{
   			this.storeID=res[0].id;
         this.getTrimmingByStore()
+        this.getParts();
+        this.getTrimming();
   		},
   		e=>{
   			console.log(e)
@@ -60,6 +62,17 @@ export class ManageStoreTrimmingComponent implements OnInit {
   	this.service.getData('trimmingtype').subscribe(
   		result=>{
   			this.types=result;
+        let data:any=result;
+        data.forEach(result=>{
+          if(result.defaultProccessingParts.length>1){
+            result.defaultProccessingParts.forEach(res2=>{
+              this.defaultTrimming.push({trim:result.name,name:res2})
+            })
+          }
+          else{
+            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
+          }
+        })
   		},
   		e=>{
   			console.log(e)
@@ -105,7 +118,7 @@ export class ManageStoreTrimmingComponent implements OnInit {
       }
     )
   }
-  checked($event,type,part){
+  checked(event,type,part){
     let id;
     this.trimmings.forEach(res=>{
       if(type==res.trimmingType){
@@ -114,22 +127,36 @@ export class ManageStoreTrimmingComponent implements OnInit {
         }
       }
     })
-    if($event.target.checked){
+    if(event.target.checked){
       this.saveData(type,part);
     }
     else{
       this.delete(id)
     }
   }
-  checkData(type,part){
-    let val;
+  isDefault(part,trim){
+    let data;
     this.trimmings.forEach(res=>{
-      if(type==res.trimmingType){
-        if(part==res.processingParts.id){
-          val=true;
+      if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part)){
+          data=true
+        }
+        else{
+          data=false
         }
       }
     })
-    return val;
+    return data
+  }
+  isChecked(part,trim){
+    let data
+    this.trimmings.forEach(res=>{
+      if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
+          data=true
+        }
+      }
+    })
+    return data
   }
 }
