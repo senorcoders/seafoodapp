@@ -6,65 +6,103 @@
         </div>
       </div>
         <div class="row">
-          <div class="col-md-3">
-              <div class="form-group" >
-                  <label>{{'LogisticManagment.status' | translate}}</label>
-                  <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders()" [value]='0' >
-                      <option value="0" selected="selected">Select an Option</option>
-                      <option *ngFor="let item of orderStatus;"  [ngValue]="item.id"> {{item.status}}</option>
-                  </select>
+        
+           
+          <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
+            <div class="row">
+              <div class="col-6">
+                  <p class="order-number size-40">Order</p>
                 </div>
-            
-          </div>
-            <div class="col-3">
-              <div class="form-group" >
-                <label>{{'LogisticManagment.orderNumber' | translate}}</label>
-                <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders()"  placeholder="search by Order Number">
-              </div>
-            </div>
-            <div class="col-3">
-              <button class="pink-btn" (click)="clear()">Clear filter</button>
-            </div>
-            <div class="col-3">
-              <a class="pink-btn" href="http://13.232.68.135/xero/connect">Push All Orders to Xero</a>
-            </div>
-            <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
-              <div class="row row-bg" *ngFor="let order of groupOrder">
-                <div class="col-4">
-                  <p class="order-number">Order #{{order.orderNumber}}</p>
-                  <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
+              <div class="col-6">
+                  <p class="order-number size-40">Items</p>
                 </div>
-                <div class="col-8">
-                   <div class="row" *ngFor="let item of orderWithData">
-                    <div class="col-4">
-                      <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
-                        <h5 [innerHtml]="item.fish.name"></h5>                
-                        <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
-                        <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
-                        <p class="qty">Quantity {{item.quantity.value}} kg</p>  
-                        <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
-                      </ng-container>
-                    </div>
-                    <div class="col-4">
-                      <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
-                        <div *ngIf="item.updateInfo">
-                          <p class="date" *ngFor="let update of item.updateInfo;" >
-                            <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
-                          </p>
-                        </div>
-                      </ng-container>
-                    </div>
-                    <div class="col-4">
-                      <ng-container *ngIf="item.status && item.shoppingCart.orderNumber==order.orderNumber">
-                        <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)" >
-                          <option *ngFor="let sitem of orderStatus;" [selected]="item.status.id == sitem.id" [ngValue]="sitem.id"> {{sitem.status}}</option>
-                        </select>
-                      </ng-container>
-                    </div>
+            </div>
+            <div *ngFor="let item of rows" >
+
+            <div class="row row-bg" *ngIf="item.items.length > 0">
+              <div class="col-6">
+                <div class="row">
+                  <div class="col-12">
+                      <p class="order-number text-uppercase">{{item.orderStatus.status}}</p>
+                  </div>
+                  <div class="col-4">
+                      <p class="order-number">Buyer Name</p>
+                      <p class="order-number">Order Number</p>
+                      <p class="order-number">Order Date</p>
+
+                  </div>
+                  <div class="col-8">
+                    <p class="order-number"><strong>{{item.buyer.firstName}} {{item.buyer.lastName}}</strong></p>
+                      <p class="order-number">{{item.orderNumber}}</p>
+                      <p class="order-number">{{item.paidDateTime}}</p>
                   </div>
                 </div>
+                
+              </div> 
+              <div class="col-6">
+                 
+                 <div class="row">
+                  <div class="col-12 order-col" *ngFor="let i of item.items">
+                   
+                     
+                    <ng-container>
+                      <table class="full-table">
+                  
+                        <tr *ngIf="i.fishItem.store">
+                          <td>Seller Name:</td>
+                          <td>{{i.fishItem.store.name}}</td>
+                        </tr>
+                        <tr>
+                          <td>Product Title:</td>
+                          <td [innerHtml]="i.fishItem.name"></td>
+                        </tr>
+                      </table>
+                      <table class="mediana-tabla">
+                        <tr *ngIf="i.fishItem.preparation">
+                          <td>Preparation:</td>
+                          <td>{{i.fishItem.preparation}}</td>
+                        </tr>
+                        <tr>
+                          <td>Seller SKU:</td>
+                          <td>{{i.fishItem.store.owner}}</td>
+                        </tr>
+                      </table>
+                      <table class="medium-table">
+                        <tr>
+                            <td>Quantity:</td>
+                            <td>{{i.quantity.value}} Kg</td>
+                        </tr>
+                        
+                        <tr>
+                          <td>Price:</td>
+                          <!-- <td>{{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</td> -->
+                        </tr>
+                      </table>
+
+                      <table class="medium-table">
+                          <tr>
+                              <td>ATA:</td>
+                              <td>{{i.buyerExpectedDeliveryDate}}</td>
+                          </tr>
+                          
+                          
+                        </table>
+                      <!-- <h5 [innerHtml]="item.fish.name"></h5>                
+                      <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
+                      <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p> -->
+                      <!-- <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+                      <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p> -->
+                    </ng-container>
+                  </div>
+                 
+                  <!-- <div class="col-4">
+                   
+                  </div> -->
+                </div>
               </div>
             </div>
+            </div>
+          </div>
             <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
               <h2 class="black-title">No records found</h2>
             </div>
