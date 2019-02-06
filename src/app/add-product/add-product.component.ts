@@ -97,76 +97,7 @@ export class AddProductComponent implements OnInit {
   ProcessingParts:any;
   showWholeOptions:boolean=false;
   showProcessingParts:boolean=false;
-  defaultTrimming=[
-    {
-      trim:"Trim A",
-      name:'Backbone off'
-    },
-    {
-      trim:"Trim A",
-      name:'Bellybone off'
-    },
-    {
-      trim:"Trim B",
-      name:'Backbone off'
-    },
-    {
-      trim:"Trim B",
-      name:'Bellybone off'
-    },
-    {
-      trim:"Trim B",
-      name:'Collar bone off'
-    },
-    {
-      trim:"Trim C",
-      name:'Backbone off'
-    },
-    {
-      trim:"Trim C",
-      name:'Bellybone off'
-    },
-    {
-      trim:"Trim C",
-      name:'Collar bone off'
-    },
-    {
-      trim:"Trim C",
-      name:'Back fin off'
-    },
-    {
-      trim:"Trim D",
-      name:'Backbone off'
-    },
-    {
-      trim:"Trim D",
-      name:'Bellybone off'
-    },
-    {
-      trim:"Trim D",
-      name:'Collar bone off'
-    },
-    {
-      trim:"Trim E",
-      name:'Backbone off'
-    },
-    {
-      trim:"Trim E",
-      name:'Bellybone off'
-    },
-    {
-      trim:"Trim E",
-      name:'Collar bone off'
-    },
-    {
-      trim:"Trim E",
-      name:'Back fin off'
-    },
-    {
-      trim:"Trim E",
-      name:'Belly fat off'
-    }
-  ]
+  defaultTrimming=[]
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -591,7 +522,6 @@ export class AddProductComponent implements OnInit {
           this.parts.push(res)
         }
       })
-      console.log(this.parts)
       this.ProcessingParts.forEach(res=>{
         if(value==res.type[0].name){
           this.parts.push(res.processingParts)
@@ -608,6 +538,14 @@ export class AddProductComponent implements OnInit {
         let data:any=res
         data.forEach(result=>{
           this.trimmings.push(result.name)
+          if(result.defaultProccessingParts.length>1){
+            result.defaultProccessingParts.forEach(res2=>{
+              this.defaultTrimming.push({trim:result.name,name:res2})
+            })
+          }
+          else{
+            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
+          }
         })
       },
       e=>{
