@@ -49,7 +49,7 @@
         Shipping from {{findCountryName(product?.fish?.country)}}
       </div>
       <div class="col text-center">
-        ${{getTotalxItem(product.quantity.value, product.price.value)}}
+        ${{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}}
       </div>
       <div class="col">
         <button class="pink-btn btn-rm" (click)="showConfirmModal(product.id)"> {{'Cart.delete' | translate}}</button>
@@ -72,19 +72,19 @@
           <table>
             <tr>
               <td><b>Subtotal</b></td>
-              <td>{{total}} AED</td>
+              <td>{{(total).toFixed(2)}} AED</td>
             </tr>
             <tr>
               <td><b>Taxes, Customs and Other Fees</b></td>
-              <td>{{totalOtherFees}} AED</td>
+              <td>{{(totalOtherFees).toFixed(2)}} AED</td>
             </tr>
             <tr>
               <td><b>Shipping</b></td>
-              <td>{{shipping}} AED</td>
+              <td>{{(shipping).toFixed(2)}} AED</td>
             </tr>
             <tr>
               <td><b>Total</b></td>
-              <td><b>{{totalWithShipping}} AED</b></td>
+              <td><b>{{(totalWithShipping).toFixed(2)}} AED</b></td>
             </tr>
           </table>
           
