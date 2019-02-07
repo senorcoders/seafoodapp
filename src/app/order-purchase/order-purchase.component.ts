@@ -231,7 +231,7 @@ export class OrderPurchaseComponent implements OnInit {
 	showModal(id,action){
 		let sellerETA = jQuery( `#epa${id}` ).val()
 		
-		if( sellerETA !== '' && sellerETA !== undefined ) {
+		if( ( sellerETA !== '' && sellerETA !== undefined ) || action === 'cancel') {
 			this.citemId = id;
 			this.action = action;
 			
