@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.getCart();
-    this.getItems()
+    //this.getItems()
   }
 
   getCart(){
@@ -142,9 +142,9 @@ export class CartComponent implements OnInit {
 
   updatecart(items){
     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
-      //this.getItems()
+      this.getItems()
       console.log( 'result', result );
-      this.getCart();
+      //this.getCart();
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
 
