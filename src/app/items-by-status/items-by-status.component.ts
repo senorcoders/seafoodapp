@@ -59,6 +59,7 @@ export class ItemsByStatusComponent implements OnInit {
       ) {
       this.orderService.getAllBuyerOrders( this.user['id'] ).subscribe(
         res => {
+          console.log(res);
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;

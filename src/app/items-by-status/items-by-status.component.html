@@ -39,7 +39,7 @@
                           <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                           <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
                           <p class="qty">Quantity {{item.quantity.value}} kg</p>  
-                          <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
+                          <p class="total">Total: {{((item.quantity.value * item.price.value ) ) | currency:'AED'}}</p>
                         </ng-container>
                       </div>
                       <div  class="col-4">
