@@ -25,6 +25,7 @@ export class ConfirmationComponent implements OnInit {
   email: any;
   amount: any;
   total: any;
+  customerTotal: any;
   params: any = {
     'response' : {
 
@@ -83,7 +84,8 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
-        this.total = (this.totalWithShipping).toFixed(2);
+        this.total = (this.totalWithShipping).toFixed(2) * 100;
+        this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
 
