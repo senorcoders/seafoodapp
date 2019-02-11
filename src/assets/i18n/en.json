@@ -649,7 +649,7 @@
 		"UpdateStatusButton": "Update Status"
 	},
 	"ItemStatus":{
-		"title": "Items Buyed",
+		"title": "Items Purchased",
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"cancelItem": "Cancel Item"
