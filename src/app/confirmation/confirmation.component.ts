@@ -57,8 +57,8 @@ export class ConfirmationComponent implements OnInit {
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
       this.params.shoppingCart = params.merchant_reference;
-      this.amount =  localStorage.getItem('shoppingTotal');
-      this.total = this.amount * 1000;
+      // this.amount =  localStorage.getItem('shoppingTotal');
+      // this.total = this.amount * 1000;
       this.getPersonalData();
       this.getCart();
      
@@ -83,6 +83,7 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
+        this.total = (this.totalWithShipping).toFixed(2);
 
       }
 
