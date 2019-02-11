@@ -102,6 +102,7 @@ import { AdminCountriesComponent } from './admin-countries/admin-countries.compo
 import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
 import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
 import { ReviewcartComponent } from './reviewcart/reviewcart.component';
+import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
 
 
 const appRoutes: Routes = [
@@ -158,6 +159,7 @@ const appRoutes: Routes = [
   { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
   { path: 'payments', component: PaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'manage-orders', component: ManageOrdersComponent, canActivate: [AdminRouterService] },
+  { path: 'logistic-management', component: AdminLogisticManagmentComponent, canActivate: [AdminRouterService] },
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
   { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
@@ -246,7 +248,8 @@ const appRoutes: Routes = [
     AdminCountriesComponent,
     ShippingByCityComponent,
     ManageStoreTrimmingComponent,
-    ReviewcartComponent
+    ReviewcartComponent,
+    AdminLogisticManagmentComponent
   ],
   imports: [
     BrowserModule,

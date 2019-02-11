@@ -78,31 +78,8 @@
     font-weight: bold;
     margin-left: -10px;
 }
-.information-log[_ngcontent-c4] {
-    float: right;
-    font-size: 3em;
-    color: #ee434a;
-    bottom: 0px;
-    position: absolute;
-    right: 0px;
-    margin-right: 1em;
-}
-.information-log .info-modal-log {
-    display: none;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    padding: 2em;
-    border-radius: 5px;
-}
-.information-log:hover .info-modal-log {
-    display: inline-block;
-    cursor: pointer;
-}
-.information-log:hover  .info-modal-log {
-    font-size: 0.3em !important;
-    position: absolute;
-    top: -80px;
-    width: 350px !important;
-    right: 0px;
-    z-index: 999;
+
+.text-uppercase{
+    text-transform: uppercase;
+    font-weight: bold;
 }

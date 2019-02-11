@@ -77,9 +77,9 @@ export class AddProductComponent implements OnInit {
   allCities: any = [];
   cities: any = [];
   preparationOptions=[
-    'Filleted',
-    'Whole',
-    'Gutted'
+    'Head On Gutted ',
+    'Head Off Gutted',
+    'Filleted'
   ]
   wholeOptions=[
     '0-1 KG',
@@ -97,7 +97,9 @@ export class AddProductComponent implements OnInit {
   ProcessingParts:any;
   showWholeOptions:boolean=false;
   showProcessingParts:boolean=false;
-  defaultTrimming=[]
+  currency: FormControl;
+  hsCode: FormControl;
+  spoilageRate: FormControl;
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -147,19 +149,19 @@ export class AddProductComponent implements OnInit {
   createFormControls() {
     this.name = new FormControl('', Validators.required);
     this.price = new FormControl('', Validators.required);
-    this.minimunorder = new FormControl('', Validators.required);
-    this.maximumorder = new FormControl('', Validators.required);
+    this.minimunorder = new FormControl('');
+    this.maximumorder = new FormControl('');
     this.cooming_soon = new FormControl(false, Validators.required);
     this.measurement = new FormControl('', Validators.required);
     this.description = new FormControl('', Validators.required);
     //this.types = new FormControl('', Validators.required);
     this.country = new FormControl('', Validators.required);
-    this.processingCountry = new FormControl('');
+    this.processingCountry = new FormControl('', Validators.required);
     this.raised = new FormControl('', Validators.required);
     this.preparation = new FormControl('', Validators.required);
     this.treatment = new FormControl('', Validators.required);
     this.seller_sku = new FormControl('', Validators.required);
-    this.seafood_sku = new FormControl('', Validators.required);
+    this.seafood_sku = new FormControl('');
     this.stock = new FormControl('', Validators.required);
     this.mortalityRate = new FormControl('', Validators.required );
     this.waterLostRate = new FormControl('', Validators.required);
@@ -167,9 +169,12 @@ export class AddProductComponent implements OnInit {
     this.speciesSelected = new FormControl('', Validators.required);
     this.subSpeciesSelected = new FormControl( '', Validators.required );
     this.descriptorSelected = new FormControl('');
-    this.city = new FormControl();
+    this.city = new FormControl(); 
     this.wholeFishWeight = new FormControl('');
     this.brandName=new FormControl('');
+    this.currency = new FormControl('', Validators.required);
+    this.hsCode = new FormControl('');
+    this.spoilageRate = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -198,7 +203,10 @@ export class AddProductComponent implements OnInit {
       subSpeciesSelected: this.subSpeciesSelected,
       descriptorSelected: this.descriptorSelected,
       wholeFishWeight:this.wholeFishWeight,
-      brandName:this.brandName
+      brandName:this.brandName,
+      currency: this.currency,
+      hsCode: this.hsCode,
+      spoilageRate: this.spoilageRate
     });
     this.myform.controls['measurement'].setValue('kg');
   }
@@ -207,7 +215,6 @@ export class AddProductComponent implements OnInit {
     /*this.pTypes.forEach(row => {
       if (row.id == this.types.value) {
         parentType = row.parentsTypes[0].parent.id;
-
       }
     })*/
 
@@ -235,7 +242,7 @@ export class AddProductComponent implements OnInit {
         'processingCountry': this.processingCountry.value,
         'city': this.city.value,
         'price': {
-          'type': '$',
+          'type': this.currency.value,
           'value': this.price.value,
           'description': this.price.value + ' for pack'
         },
@@ -256,7 +263,10 @@ export class AddProductComponent implements OnInit {
         'waterLostRate': this.waterLostRate.value,
         'status': '5c0866e4a0eda00b94acbdc0',
         'wholeFishWeight':this.wholeFishWeight.value,
-        'brandname':this.brandName.value
+        'brandname':this.brandName.value,
+        'hsCode': this.hsCode.value,
+        'acceptableSpoilageRate': this.spoilageRate.value
+
       };
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
@@ -339,7 +349,7 @@ export class AddProductComponent implements OnInit {
         'name': item.Name,
         'description': item.Description,
         'country': item.Country,
-        processingCountry: item.processingCountry,
+        'processingCountry': item.processingCountry,
         'city': item.city,
         'price': {
           'type': '$',
@@ -506,28 +516,23 @@ export class AddProductComponent implements OnInit {
     )
   }
   showWhole(value){
-    if(value=='Whole'){
-      this.showWholeOptions=true;
+    // if(value=='Whole'){
+    //   this.showWholeOptions=true;
+    // }
+    // else{
+    //    this.showWholeOptions=false;
+    // }
+    // this.parts=[];
+    // this.ProcessingParts.forEach(res=>{
+    //   if(value==res.type[0].name){
+    //     this.parts.push(res.processingParts)
+    //   }
+    // })
+    if(value=='Filleted'){
+      this.showWholeOptions=false
     }
     else{
-       this.showWholeOptions=false;
-    }
-    this.parts=[];
-    if(value =='Whole' || value=='Gutted' || value=='Filleted'){
-      this.showProcessingParts=false
-    }
-    else{
-      this.defaultTrimming.forEach(res=>{
-        if(value==res.trim){
-          this.parts.push(res)
-        }
-      })
-      this.ProcessingParts.forEach(res=>{
-        if(value==res.type[0].name){
-          this.parts.push(res.processingParts)
-        }
-      })
-      this.showProcessingParts=true
+      this.showWholeOptions=true
     }
   }
   getTrimming(){
@@ -538,14 +543,6 @@ export class AddProductComponent implements OnInit {
         let data:any=res
         data.forEach(result=>{
           this.trimmings.push(result.name)
-          if(result.defaultProccessingParts.length>1){
-            result.defaultProccessingParts.forEach(res2=>{
-              this.defaultTrimming.push({trim:result.name,name:res2})
-            })
-          }
-          else{
-            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
-          }
         })
       },
       e=>{
@@ -564,5 +561,3 @@ export class AddProductComponent implements OnInit {
     )
   }
 }
-
-

@@ -153,112 +153,6 @@ export class ManageOrdersComponent implements OnInit {
     );
   }
 
-  markAsRefounded( itemID: string ) {
-    this.orderService.markItemAsRefounded( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as Refounded!', 'Status Change', {positionClass: 'toast-top-right'});
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsRepayed(itemID: string) {
-    this.orderService.markItemAsRepayed(itemID).subscribe(
-      result => {
-        this.toast.success('Item marked as Repayed!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
-  fullfillSubmit(itemid){
-    this.orderService.markItemAsShipped(itemid)
-    .subscribe(
-      result => {
-        console.log( result );
-        this.toast.success('Item marked as shipped!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsArrived( itemID: string ) {
-    this.orderService.markItemAsArrived( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as arrived!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsOutForDelivered( itemID: string ) {
-    this.orderService.markItemAsOutForDelivery( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', {positionClass: 'toast-top-right'});
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  markAsDelivered( itemID: string ){
-    this.orderService.markItemAsDelivered( itemID ).subscribe(
-      result => {
-        this.toast.success('Item marked as delivered!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-      },
-      error => {
-        console.log( error );
-      }
-    );
-  }
-
-  confirmUpdatestatus( selectedStatus, selectedItemID ) {
-    this.selectedStatus = selectedStatus;
-    this.selectedItemID = selectedItemID;
-    jQuery('#confirmUpdateStatus').modal('show');
-  }
-
-  updateStatus() {
-    let selectedStatus: string;
-    let statusName: string = this.selectedStatus;
-    let itemID: string = this.selectedItemID;
-
-    this.orderStatus.map( status => {
-      if ( status.status === statusName ) {
-        selectedStatus = status.id;
-      }
-    } );
-    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
-      result => {
-        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
-        this.getOrders();
-        jQuery('#confirmUpdateStatus').modal('hide');
-      },
-      error => {
-        console.log( error );
-      }
-    );
-    console.log( 'status', selectedStatus );
-    console.log( 'item', itemID );
-  }
-  noUpdate(){
-    jQuery('#confirmUpdateStatus').modal('hide');
-  }
   groupByOrders(orders){
     this.groupOrder=[];
     this.orderWithData=[];
@@ -270,6 +164,7 @@ export class ManageOrdersComponent implements OnInit {
     })
     //group by orderNumber
     this.orderWithData.forEach((val,index)=>{
+      console.log(val);
       if(val.shoppingCart && val.shoppingCart.orderNumber){
         if(index>0){
           if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){

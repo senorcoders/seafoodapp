@@ -24,7 +24,7 @@
             </h2>
             <div class="date">{{citem.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
             <label>{{'OrderPurchase.product' | translate}}: </label>
-			<a class="product" routerLink="/product/{{citem.fish.id}}">{{citem.fish.name}}</a>
+      <a class="product" routerLink="/product/{{citem.fish.id}}">{{citem.fish.name}}</a>
 			<div class="sku"><label>sku: </label>{{citem.fish.seller_sku}}</div>
 			<div class="qty"><label>qty: </label>{{citem.quantity.value}} kg</div>			
 			

@@ -28,6 +28,33 @@
                 <p *ngIf="price.errors.required">{{'AddProduct.price' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
+            <!-- <table>
+                <tr>
+                  <th>Weight</th>
+                  <th>Delivered Price AED</th>
+                  <th>Delivered Price USD</th>
+                </tr>
+                <tr>
+                  <td>25 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>100 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>500 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>1000 KG</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+            </table> -->
           </div>
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
@@ -39,6 +66,98 @@
                   <p *ngIf="measurement.errors.required">{{'AddProduct.price-measurement' | translate}} {{'AddProduct.required' | translate}}</p>
                 </div>
               </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" [ngClass]="{'has-danger': currency.invalid && (currency.dirty || currency.touched),'has-success': currency.valid && (currency.dirty || currency.touched)}">
+              <label>Currency</label>
+              <select class="form-control" formControlName="currency">
+                  <option value="AED" >AED</option>
+
+               <option value="USD" >United States Dollars</option>
+                <option value="EUR">Euro</option>
+                <option value="GBP">United Kingdom Pounds</option>
+                <option value="DZD">Algeria Dinars</option>
+                <option value="ARP">Argentina Pesos</option>
+                <option value="AUD">Australia Dollars</option>
+                <option value="ATS">Austria Schillings</option>
+                <option value="BSD">Bahamas Dollars</option>
+                <option value="BBD">Barbados Dollars</option>
+                <option value="BEF">Belgium Francs</option>
+                <option value="BMD">Bermuda Dollars</option>
+                <option value="BRR">Brazil Real</option>
+                <option value="BGL">Bulgaria Lev</option>
+                <option value="CAD">Canada Dollars</option>
+                <option value="CLP">Chile Pesos</option>
+                <option value="CNY">China Yuan Renmimbi</option>
+                <option value="CYP">Cyprus Pounds</option>
+                <option value="CSK">Czech Republic Koruna</option>
+                <option value="DKK">Denmark Kroner</option>
+                <option value="NLG">Dutch Guilders</option>
+                <option value="XCD">Eastern Caribbean Dollars</option>
+                <option value="EGP">Egypt Pounds</option>
+                <option value="FJD">Fiji Dollars</option>
+                <option value="FIM">Finland Markka</option>
+                <option value="FRF">France Francs</option>
+                <option value="DEM">Germany Deutsche Marks</option>
+                <option value="XAU">Gold Ounces</option>
+                <option value="GRD">Greece Drachmas</option>
+                <option value="HKD">Hong Kong Dollars</option>
+                <option value="HUF">Hungary Forint</option>
+                <option value="ISK">Iceland Krona</option>
+                <option value="INR">India Rupees</option>
+                <option value="IDR">Indonesia Rupiah</option>
+                <option value="IEP">Ireland Punt</option>
+                <option value="ILS">Israel New Shekels</option>
+                <option value="ITL">Italy Lira</option>
+                <option value="JMD">Jamaica Dollars</option>
+                <option value="JPY">Japan Yen</option>
+                <option value="JOD">Jordan Dinar</option>
+                <option value="KRW">Korea (South) Won</option>
+                <option value="LBP">Lebanon Pounds</option>
+                <option value="LUF">Luxembourg Francs</option>
+                <option value="MYR">Malaysia Ringgit</option>
+                <option value="MXP">Mexico Pesos</option>
+                <option value="NLG">Netherlands Guilders</option>
+                <option value="NZD">New Zealand Dollars</option>
+                <option value="NOK">Norway Kroner</option>
+                <option value="PKR">Pakistan Rupees</option>
+                <option value="XPD">Palladium Ounces</option>
+                <option value="PHP">Philippines Pesos</option>
+                <option value="XPT">Platinum Ounces</option>
+                <option value="PLZ">Poland Zloty</option>
+                <option value="PTE">Portugal Escudo</option>
+                <option value="ROL">Romania Leu</option>
+                <option value="RUR">Russia Rubles</option>
+                <option value="SAR">Saudi Arabia Riyal</option>
+                <option value="XAG">Silver Ounces</option>
+                <option value="SGD">Singapore Dollars</option>
+                <option value="SKK">Slovakia Koruna</option>
+                <option value="ZAR">South Africa Rand</option>
+                <option value="KRW">South Korea Won</option>
+                <option value="ESP">Spain Pesetas</option>
+                <option value="XDR">Special Drawing Right (IMF)</option>
+                <option value="SDD">Sudan Dinar</option>
+                <option value="SEK">Sweden Krona</option>
+                <option value="CHF">Switzerland Francs</option>
+                <option value="TWD">Taiwan Dollars</option>
+                <option value="THB">Thailand Baht</option>
+                <option value="TTD">Trinidad and Tobago Dollars</option>
+                <option value="TRL">Turkey Lira</option>
+                <option value="VEB">Venezuela Bolivar</option>
+                <option value="ZMK">Zambia Kwacha</option>
+                <option value="EUR">Euro</option>
+                <option value="XCD">Eastern Caribbean Dollars</option>
+                <option value="XDR">Special Drawing Right (IMF)</option>
+                <option value="XAG">Silver Ounces</option>
+                <option value="XAU">Gold Ounces</option>
+                <option value="XPD">Palladium Ounces</option>
+                <option value="XPT">Platinum Ounces</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="currency.errors && showError">
+                <p *ngIf="currency.errors.required">Currency {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': description.invalid && (description.dirty || description.touched),'has-success': description.valid && (description.dirty || description.touched)}">
@@ -98,7 +217,7 @@
 
           <div class="col-lg-6">
             <div class="form-group" >
-              <label>Product Descriptor</label>
+              <label>Subspecies Variant</label>
               <select  class="form-control" formControlName="descriptorSelected">
                 <option value="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
@@ -108,7 +227,7 @@
 
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
-              <label>{{'AddProduct.seller_sku' | translate}}</label>
+              <label>Product SKU</label>
               <input type="text" class="form-control" formControlName="seller_sku" required>
               <div class="form-control-feedback" *ngIf="seller_sku.errors && showError">
                 <p *ngIf="seller_sku.errors.required">{{'AddProduct.seller_sku' | translate}} {{'AddProduct.required' | translate}}</p>
@@ -118,6 +237,16 @@
               <input type="hidden" class="form-control" formControlName="seafood_sku" disabled required>              
             </div>
           </div>  
+
+          <div class="col-lg-6">
+              <div class="form-group" [ngClass]="{'has-danger': hsCode.invalid && (hsCode.dirty || hsCode.touched),'has-success': hsCode.valid && (hsCode.dirty || hsCode.touched)}">
+                  <label>HS Code <a href="https://hts.usitc.gov/" target="_blank">(look up code)</a></label>
+                  <input class="form-control" formControlName="hsCode" type="text" required>
+                  <div class="form-control-feedback" *ngIf="hsCode.errors && showError">
+                    <p *ngIf="hsCode.errors.required">HS Code {{'AddProduct.required' | translate}}</p>
+                  </div>
+                </div>
+          </div>
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': mortalityRate.invalid && (mortalityRate.dirty || mortalityRate.touched),'has-success': mortalityRate.valid && (mortalityRate.dirty || mortalityRate.touched)}">
               <label>{{'AddProduct.mortalityRate' | translate}}</label>
@@ -189,7 +318,7 @@
         </div>
         <div class="row">
           <div class="col-lg-12"><h2 class="black-title">Products Features</h2></div>
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': waterLostRate.invalid && (waterLostRate.dirty || waterLostRate.touched),'has-success': waterLostRate.valid && (waterLostRate.dirty || waterLostRate.touched)}">
               <label>{{'AddProduct.waterLostRate' | translate}}</label>
               <input class="form-control" formControlName="waterLostRate" type="number" required>
@@ -197,7 +326,16 @@
                 <p *ngIf="waterLostRate.errors.required">{{'AddProduct.waterLostRate' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-          </div>
+          </div> -->
+          <div class="col-lg-6">
+              <div class="form-group" [ngClass]="{'has-danger': spoilageRate.invalid && (spoilageRate.dirty || spoilageRate.touched),'has-success': spoilageRate.valid && (spoilageRate.dirty || spoilageRate.touched)}">
+                <label>Acceptable Spoilage Rate</label>
+                <input type="number" class="form-control" formControlName="spoilageRate" required>
+                <div class="form-control-feedback" *ngIf="spoilageRate.errors && showError">
+                  <p *ngIf="spoilageRate.errors.required">Spoilage Rate {{'AddProduct.required' | translate}}</p>
+                </div>
+              </div>
+            </div> 
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
                 <label>{{'AddProduct.raised' | translate}}</label>
@@ -213,7 +351,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-6">
+          <div class="col-lg-12">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
               <label>{{'AddProduct.preparation' | translate}} <a routerLink="/manage-store-trimming">Manage Trimming</a></label>
               <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
@@ -224,14 +362,14 @@
               </div>
             </div>
           </div>
-          <div class="col-lg-6" *ngIf="showProcessingParts">
+          <!-- <div class="col-lg-6" *ngIf="showProcessingParts">
             <div class="form-group">
               <label>Processing Parts</label>
               <ul class="parts">
                 <li *ngFor="let part of parts">{{part.name}}</li>
               </ul>
             </div>
-          </div>
+          </div> -->
           <div class="col-lg-6" *ngIf="showWholeOptions">
             <div class="form-group">
               <label>Whole Fish Weight </label>
@@ -250,7 +388,6 @@
                 <option value="frozen">Frozen</option>
                 <option value="live">Live</option>
                 <option value="smoked">Smoked</option>
-                <option value="canned">Canned</option>
               </select>
               <div class="form-control-feedback" *ngIf="treatment.errors && showError">
                 <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}} {{'AddProduct.required' | translate}}</p>

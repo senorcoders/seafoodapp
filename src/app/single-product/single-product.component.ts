@@ -296,7 +296,7 @@ setFlexslider(){
     this.averageReview/=this.reviews.length
   }
   getTotal(){
-    let subtotal = this.count * this.priceValue;
+    let subtotal = (this.count * this.priceValue).toFixed(2);
     return subtotal;
   }
 

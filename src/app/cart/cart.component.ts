@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
     this.getCart();
-    this.getItems()
+    //this.getItems()
   }
 
   getCart(){
@@ -60,13 +60,13 @@ export class CartComponent implements OnInit {
         this.cart = cart;
         this.shoppingCartId=cart['id']
         this.products=cart['items'];
-        this.total=cart['total'];
         this.buyerId=cart['buyer']
         this.lastMilteCost = cart['lastMileCost'];
         this.firstMileCost = cart['firstMileCosts'];
         this.sfsMargin = cart['sfsMargin'];
         this.uaeTaxes = cart['uaeTaxes'];
         this.customs = cart['customs'];
+       
 
         this.empty=false;
         this.showLoading=false;
@@ -133,6 +133,7 @@ export class CartComponent implements OnInit {
         }
       }
       items['items'].push(item);
+      console.log( 'get Product Counts', item );
       if (items['items'].length == this.products.length){
         this.updatecart(items);
       } 
@@ -141,7 +142,9 @@ export class CartComponent implements OnInit {
 
   updatecart(items){
     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
-      this.getItems()
+      // this.getItems()
+      console.log( 'result', result );
+      this.getCart();
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
 
