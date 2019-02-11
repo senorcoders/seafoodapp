@@ -1,74 +1,76 @@
-<footer *ngIf="role>0">
-  <div class="container-fluid">
-    <div class="row prefooter">
-      <div class="col-md-6">
-        <h3 class="title">{{'Footer.title' | translate}}</h3>
-        <h2 class="subtitle">{{'Footer.subtitle' | translate}}</h2>
-        <div class="subscribe-form">
-          <form [formGroup]="subscribeForm" (submit)="subscribe()">
-           <div class="form-group">
-             <input type="email" class="form-control" placeholder="{{'Footer.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
-            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
-            <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
-           <input type="submit" class="hide-on-mobile red-btn" value="{{'Footer.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
-           </div>
-          </form>
+<footer *ngIf="!isHomepage">
+  <ng-container *ngIf="role>0 || role==-1">
+    <div class="container-fluid">
+      <div class="row prefooter">
+        <div class="col-md-6">
+          <h3 class="title">{{'Footer.title' | translate}}</h3>
+          <h2 class="subtitle">{{'Footer.subtitle' | translate}}</h2>
+          <div class="subscribe-form">
+            <form [formGroup]="subscribeForm" (submit)="subscribe()">
+             <div class="form-group">
+               <input type="email" class="form-control" placeholder="{{'Footer.subscribe-placeholder' | translate}}" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+              <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
+              <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
+             <input type="submit" class="hide-on-mobile red-btn" value="{{'Footer.subscribe-button' | translate}}" [disabled]="subscribeForm.invalid">
+             </div>
+            </form>
+          </div>
         </div>
-      </div>
-     </div>
-  </div>
-  <div class="footer">
-    <div class="container">
-      <div class="row">
-       <div class="col-lg-3 col-md-3" data-aos="fade-in" data-aos-duration="1000">
-          <div>
-          <a routerLink="/home"><img src="../../assets/Seafood_Souq_blue.png" alt="" class="footer-logo"></a></div>
-      </div>
-      <div class="col-lg-5 col-md-5 footer-menu ">
-        <ul class="list-inline double-custom-list" *ngIf="isLogged; else noLogin">
-          <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter1()">
-            <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
-          </li>
-          <li class="menu-item"><a (click)="logOut()">{{'Footer.logout' | translate}}</a></li>
-        </ul>
-        <ng-template #noLogin>
-          <ul class="list-inline double-custom-list">
-            <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooterNoLogin()">
+       </div>
+    </div>
+    <div class="footer">
+      <div class="container">
+        <div class="row">
+         <div class="col-lg-3 col-md-3" data-aos="fade-in" data-aos-duration="1000">
+            <div>
+            <a routerLink="/home"><img src="../../assets/Seafood_Souq_blue.png" alt="" class="footer-logo"></a></div>
+        </div>
+        <div class="col-lg-5 col-md-5 footer-menu ">
+          <ul class="list-inline double-custom-list" *ngIf="isLogged; else noLogin">
+            <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooter1()">
               <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
             </li>
+            <li class="menu-item"><a (click)="logOut()">{{'Footer.logout' | translate}}</a></li>
           </ul>
-        </ng-template>      
-      </div>
-      <div class=" col-lg-4 col-md-4 footer-info">
-        <h2 class="footer-title">{{'Footer.contact-title' | translate}}</h2>
-        <p>
-          2018, Seafood Souq <br>
-          Dubai Emirates <br>
-          <a href="mailto:info@seafoodsouq.com" class="email-address">info@seafoodsouq.com</a> 
-        </p>
-        <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
-          <li class="nav-item"  *ngIf="isLogged && role==2">
-                <a class="nav-link cart favorites-link" routerLink="/favorites"><fa name="heart"></fa></a>
+          <ng-template #noLogin>
+            <ul class="list-inline double-custom-list">
+              <li class="menu-item" *ngFor="let menuitem of MenuItems.getMenuFooterNoLogin()">
+                <a routerLink="{{menuitem.state}}">{{menuitem.translate[language].name}}</a>
               </li>
-            <li class="nav-item lang-cont">
-              <select class="language" (change)="changeLanguage($event)">
-                <option value="{{lang}}">{{lang}}</option>
-                <option *ngIf="lang=='ar'; else ar" value="en">en</option>
-                <ng-template #ar>
-                  <option value="ar">ar</option>
-                </ng-template>
-              </select>
-            </li>
+            </ul>
+          </ng-template>      
+        </div>
+        <div class=" col-lg-4 col-md-4 footer-info">
+          <h2 class="footer-title">{{'Footer.contact-title' | translate}}</h2>
+          <p>
+            2018, Seafood Souq <br>
+            Dubai Emirates <br>
+            <a href="mailto:info@seafoodsouq.com" class="email-address">info@seafoodsouq.com</a> 
+          </p>
+          <ul class="navbar-nav nav-language" [ngClass]="{'ml-auto':!isLogged}">
+            <li class="nav-item"  *ngIf="isLogged && role==2">
+                  <a class="nav-link cart favorites-link" routerLink="/favorites"><fa name="heart"></fa></a>
+                </li>
+              <li class="nav-item lang-cont">
+                <select class="language" (change)="changeLanguage($event)">
+                  <option value="{{lang}}">{{lang}}</option>
+                  <option *ngIf="lang=='ar'; else ar" value="en">en</option>
+                  <ng-template #ar>
+                    <option value="ar">ar</option>
+                  </ng-template>
+                </select>
+              </li>
+            </ul>
+        </div>
+        <div class="social-network">
+          <ul class="list-inline">
+            <li><a href="#"><fa name="facebook"></fa></a></li>
+            <li><a href="#"><fa name="twitter"></fa></a></li>
+            <li><a href="#"><fa name="instagram"></fa></a></li>
           </ul>
-      </div>
-      <div class="social-network">
-        <ul class="list-inline">
-          <li><a href="#"><fa name="facebook"></fa></a></li>
-          <li><a href="#"><fa name="twitter"></fa></a></li>
-          <li><a href="#"><fa name="instagram"></fa></a></li>
-        </ul>
-      </div>
+        </div>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </footer>
