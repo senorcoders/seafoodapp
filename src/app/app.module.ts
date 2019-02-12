@@ -103,6 +103,7 @@ import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.com
 import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
 import { ReviewcartComponent } from './reviewcart/reviewcart.component';
 import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 
 const appRoutes: Routes = [
@@ -148,6 +149,7 @@ const appRoutes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'guides', component: GuidesComponent },
   { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'about-us', component: AboutComponent },
   { path: 'advanced-search', component: AdvancedSearchComponent, canActivate: [BuyerRouterService] },
   { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
@@ -249,7 +251,8 @@ const appRoutes: Routes = [
     ShippingByCityComponent,
     ManageStoreTrimmingComponent,
     ReviewcartComponent,
-    AdminLogisticManagmentComponent
+    AdminLogisticManagmentComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

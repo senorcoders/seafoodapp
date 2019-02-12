@@ -441,7 +441,7 @@ const menuFooter = [
     }
   },
   {
-    state: '#',
+    state: 'privacy-policy', 
     type: 'link',
     translate: {
       en: {
@@ -587,7 +587,7 @@ const menuFooterNoLogin = [
     }
   },
   {
-    state: '#',
+    state: 'privacy-policy',
     type: 'link',
     translate: {
       en: {
