@@ -453,6 +453,18 @@ const menuFooter = [
     }
   },
   {
+    state: 'cookies-policy', 
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Cookies Policy'
+      },
+      ar: {
+        name: 'Cookies Policy'
+      }
+    }
+  },
+  {
     state: 'about-us',
     type: 'link',
     translate: {
@@ -595,6 +607,18 @@ const menuFooterNoLogin = [
       },
       ar: {
         name: 'Privacy Policy'
+      }
+    }
+  },
+  {
+    state: 'cookies-policy',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Cookies Policy'
+      },
+      ar: {
+        name: 'Cookies Policy'
       }
     }
   },
