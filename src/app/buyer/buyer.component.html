@@ -45,18 +45,45 @@
 		        <div class="form-group">
 		        	<label>{{'Buyer.tel' | translate}}</label>
 		          <input type="text" class="form-control" formControlName="tel">
-		        </div>
-		        <div class="form-group">
+						</div>
+						
+						<div class="form-group">
+							<label>{{'Register.company' | translate}}<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" >
+						</div>
+
+						<div class="form-group">
+              <label>Type of Business<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Type of Business" formControlName="TypeBusiness">              
+            </div>
+						
+						
+						<div style="display:none;" class="form-group">
 		        	<label>{{'Buyer.banking' | translate}}</label>
 		          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
-		        </div>
+						</div>
+						
+						
+						<div class="form-group">
+							<label>{{'Register.Address' | translate}}<span class="field-status red">*</span></label>
+							<input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  >
+						</div>
+						
+
 		        <div class="form-group">
 		        	<label>{{'Buyer.country' | translate}}</label>
 		          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':buyerForm.get('country').invalid && buyerForm.get('country').touched}">
 		             <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
 		          </select>
 		          <div class="invalid-feedback" *ngIf="buyerForm.get('country').hasError('required')"> {{'Buyer.country' | translate}} {{'Buyer.required' | translate}}.</div>
-		        </div>
+						</div>
+						
+						<div class="form-group">
+              <label>{{'Register.City' | translate}}<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City" >              
+            </div>
+
+
 		        <div class="form-group">
 		          <input type="submit" class="btn-red" value="{{'Buyer.save' | translate}}" [disabled]="buyerForm.invalid">
 		        </div>
