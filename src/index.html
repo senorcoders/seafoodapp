@@ -25,11 +25,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.1/bootstrap-slider.min.js"></script>
   <script>
   jQuery(document).ready(function(){
-    jQuery(document).on( 'click', '.hasChildren', function(){
-      jQuery(this).parent().find('.submenu').toggle('slow')
-    });
+    // jQuery(document).on( 'click', '.hasChildren', function(){
+    //   jQuery(this).parent().find('.submenu').toggle('slow')
+    // });
     jQuery(document).on('click','footer a',function() {
-      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
+      jQuery("html, body").scrollTop(0);
       return false;
     });
     jQuery(document).on( 'focusout', '#input-text', function(){
