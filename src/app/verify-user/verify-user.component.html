@@ -45,8 +45,8 @@
 					<div class="col" *ngIf="singleUser.role==2">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
 						<hr class="black-line">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Location: </b>{{singleUser.dataExtra.country}},{{singleUser.dataExtra.City}}, {{singleUser.dataExtra.Address}} <br>
@@ -57,8 +57,8 @@
 					<div class="col" *ngIf="singleUser.role==1">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
 						<hr class="black-line">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
@@ -66,6 +66,7 @@
 						<hr class="black-line">
 						<b>Company name: </b>{{store.companyName}} <br>	
 						<b>Trade/Brand Name: </b>{{store.TradeBrandName}} <br>	
+						<b>Company Type: </b>{{store.companyType}} <br>	
 						<b>Country: </b>{{store.location}} <br>	
 						<b>Address: </b>{{store.Address}} <br>	
 						<b>City: </b>{{store.City}} <br>	
@@ -78,12 +79,17 @@
 
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
+						<b>Address: </b>{{singleUser.dataExtra.Address}} <br>
+						<b>City: </b>{{singleUser.dataExtra.City}} <br>
+						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
+						
 						<b>Country: </b>{{singleUser.dataExtra.country}} <br>
+						<b>Type of Business: </b>{{singleUser.dataExtra.TypeBusiness}} <br>
 					</div>
 				</div>
 			</div>
