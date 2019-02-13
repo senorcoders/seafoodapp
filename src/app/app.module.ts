@@ -104,6 +104,7 @@ import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-sto
 import { ReviewcartComponent } from './reviewcart/reviewcart.component';
 import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 
 
 const appRoutes: Routes = [
@@ -150,6 +151,7 @@ const appRoutes: Routes = [
   { path: 'guides', component: GuidesComponent },
   { path: 'terms-conditions', component: TermsConditionsComponent },
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'cookies-policy', component: CookiesPolicyComponent },
   { path: 'about-us', component: AboutComponent },
   { path: 'advanced-search', component: AdvancedSearchComponent, canActivate: [BuyerRouterService] },
   { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
@@ -252,7 +254,8 @@ const appRoutes: Routes = [
     ManageStoreTrimmingComponent,
     ReviewcartComponent,
     AdminLogisticManagmentComponent,
-    PrivacyPolicyComponent
+    PrivacyPolicyComponent,
+    CookiesPolicyComponent
   ],
   imports: [
     BrowserModule,

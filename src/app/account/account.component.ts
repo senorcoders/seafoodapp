@@ -146,6 +146,7 @@ export class AccountComponent implements OnInit {
   getStoreData(){
     this.productService.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
       let res:any = result;
+      console.log(result);
       if(typeof res !== 'undefined' && res.length > 0){
         this.store = result[0];
         this.logo = result[0].logo;
