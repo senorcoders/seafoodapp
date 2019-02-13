@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from '../services/authentication.service';
 import {ProductService} from '../services/product.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 @Component({
@@ -16,7 +18,32 @@ export class SellerComponent implements OnInit {
 	sellerForm:FormGroup;
 	user:any;
 	countries=environment.countries;
-  constructor(private auth: AuthenticationService, private toast: ToastrService,
+	info:any;
+	store:any = {
+		name:"",
+		description: "",
+		location: "",
+		type:"",
+		productType:"",
+		email:"",
+		Address:"",
+		City:"",
+		zipCode:""
+	};
+	hero:any;
+	heroSlider:SafeStyle;
+	fileHero:any = [];
+	fileToUpload: any = [];
+	buttonText:any;
+	HsImg:any;
+	importImg:any;
+	salesImg:any;
+	tradeImg:any;
+	logo:any;
+	storeEndpoint:any = "api/store/user/";
+	heroEndpoint:any = 'api/store/hero/';
+	fileSfs:any=[];
+  constructor(public productService: ProductService, private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
    private router:Router, private fb:FormBuilder, private product:ProductService) { }
 
   ngOnInit() {
@@ -33,6 +60,31 @@ export class SellerComponent implements OnInit {
 		sfsAgreementForm: [''],
 		ifLocal: [''],
   	})
+  }
+  getPersonalData(){
+    this.info = this.auth.getLoginData();
+    console.log("Info", this.info);
+    this.getStoreData();
+  }
+  getStoreData(userID){
+    this.auth.getData(this.storeEndpoint + userID).subscribe(result =>{
+      let res:any = result;
+      console.log(result);
+      if(typeof res !== 'undefined' && res.length > 0){
+        this.store = result[0];
+        this.logo = result[0].logo;
+        this.hero = result[0].heroImage;
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.store.heroImage})`);
+        this.buttonText = "Update";        
+        this.HsImg=result[0]['SFS_HSCode'];
+        this.importImg=result[0]['SFS_ImportCode'];
+        this.salesImg=result[0]['SFS_SalesOrderForm'];
+        this.tradeImg=result[0]['SFS_TradeLicense']
+      }else{
+        this.buttonText = "upfate";
+        this.new = true;
+      }
+    })
   }
   userForm(){
   	this.sellerForm=this.fb.group({
@@ -75,8 +127,9 @@ export class SellerComponent implements OnInit {
   showEditForm(id){
   	this.auth.getData('user/'+id).subscribe(
   		result=>{
-  			this.user=result
-  			this.userForm()
+			this.user=result;
+			this.getStoreData(id);
+  			this.userForm();
   		},
   		e=>{
   			console.log(e)
@@ -100,5 +153,65 @@ export class SellerComponent implements OnInit {
   			console.log(error)
   		}
   	)
+  }
+
+  storeSubmit(){
+    if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
+      
+        this.updateStore();
+    
+
+    }else{
+      this.toast.error("Please fill all the required fields", "Error",{positionClass:"toast-top-right"} );
+
+    }  
+  }
+  updateStore(){
+    let storeToUpdate = {
+      name:this.store.name,
+      description: this.store.description,
+      location: this.store.location,
+      type:this.store.type,
+      productType:this.store.productType,
+      email:this.store.email,
+      Address:this.store.Address,
+      City:this.store.City,
+      zipCode:this.store.zipCode
+    }
+
+    this.productService.updateData('store/'+this.store.id, storeToUpdate).subscribe(result=>{
+      //update sfs files
+      if(this.fileSfs && this.fileSfs.length>0){
+        if(this.fileSfs[0] && this.fileSfs[0].length>0){
+          this.updateSfs(result['id'],'SFS_SalesOrderForm',0)
+        }
+        if(this.fileSfs[1] && this.fileSfs[1].length>0){
+          this.updateSfs(result['id'],'SFS_TradeLicense',1)
+        }
+        if(this.fileSfs[2] && this.fileSfs[2].length>0){
+          this.updateSfs(result['id'],'SFS_ImportCode',2)
+        }
+         if(this.fileSfs[3] && this.fileSfs[3].length>0){
+          this.updateSfs(result['id'],'SFS_HSCode',3)
+        }
+      }
+      if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+        this.updateFile(this.store.id);
+      }else{
+        this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      }
+
+    })
+  }
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files;
+  }
+  handleFileHero(files: FileList){
+    this.fileHero = files;
+  }
+  handleFileSfs(files: FileList,i){
+    this.fileSfs[i] = files;
+    console.log(this.fileSfs)
   }
 }

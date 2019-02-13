@@ -27,7 +27,12 @@ export class BuyerComponent implements OnInit {
 		country: ['', Validators.required],
 		email: ['', [Validators.email, Validators.required]],
 		tel: [''],
+		companyName: [''],
 		fullBakingInfo: [''],
+		TypeBusiness: [''],
+		Address: [''],
+		City: ['']
+
   	})
   }
   userForm(){
@@ -37,7 +42,12 @@ export class BuyerComponent implements OnInit {
 		country: [this.user.dataExtra.country, Validators.required],
 		email: [this.user.email, [Validators.email, Validators.required]],
 		tel: [this.user.dataExtra.tel],
+		companyName: [ this.user.companyName ],
 		fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
+		TypeBusiness: [this.user.dataExtra.TypeBusiness],
+		Address:[this.user.dataExtra.Address],
+		City: [this.user.dataExtra.City]
+
   	})
   }
   getUsers(){
@@ -77,7 +87,18 @@ export class BuyerComponent implements OnInit {
   	)
   }
   editUser(){
-  	let data=this.buyerForm.value;
+	  let data=this.buyerForm.value;
+	  
+	  let dataExtra={
+		"country": data.location,
+		"tel": data.tel,
+		"Address":data.Address,
+		"City":data.City,
+		"companyName": data.companyName,
+		"TypeBusiness":data.TypeBusiness	  
+	}	
+	  data.dataExtra = dataExtra
+	  console.log( 'buyer', data );
   	this.product.updateData('user/'+this.user.id,data).subscribe(
   		result=>{
 			this.toast.success('User has been edited', 'Well Done', { positionClass: "toast-top-right" })

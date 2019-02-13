@@ -48,7 +48,7 @@
 	        	<label>{{'Seller.tel' | translate}}</label>
 	          <input type="text" class="form-control" formControlName="tel">
 	        </div>
-	        <div class="form-group">
+	        <div style="display: none;" class="form-group">
 	        	<label>{{'Seller.banking' | translate}}</label>
 	          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
 	        </div>
@@ -78,7 +78,132 @@
 	        <div class="form-group">
 	          <input type="submit" class="btn-red" value="{{'Seller.edit-title' | translate}}" [disabled]="sellerForm.invalid">
 	        </div>
-	    </form>
+			</form>
+			<!-- start store form -->
+			<div class="row" style="margin-top: 35px" >
+				<div class="col-lg-12">
+					<h5 class="subtitle">{{'Store.title' | translate}}</h5>
+				</div>
+				<div class="col-lg-12">
+					<form (ngSubmit)="storeSubmit()">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
+									<input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+								</div>
+							</div>
+							<div class="col-lg-6">
+									<div class="form-group">
+										<label>Trade / Brand Name <span style="color:red">*</span></label>
+										<input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+										<div class="form-group">
+											<label>{{'Account.company-type' | translate}}</label>
+											<input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
+										</div>
+									</div>
+	
+									<div class="col-lg-6">
+											<div class="form-group">
+												<label>Country <span style="color:red">*</span></label>
+												<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+											</div>
+										</div>
+	
+										<div class="col-lg-6">
+												<div class="form-group">
+													<label>{{'Account.Address' | translate}} <span style="color:red">*</span></label>
+													<input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
+												</div>
+											</div>
+											<div class="col-lg-6">
+													<div class="form-group">
+														<label>City <span style="color:red">*</span></label>
+														<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
+													</div>
+												</div>
+	
+												<div class="col-lg-6">
+														<div class="form-group img-cont" *ngIf="tradeImg && tradeImg!=''">
+															<img [src]="base + tradeImg" alt="">
+														</div>
+														<div class="form-group">
+															<label>{{'Store.sfs-trade' | translate}} <span style="color:red">*</span></label>
+															<input type="file" class="form-control" type="file" id="sfs-trade" (change)="handleFileSfs($event.target.files,1)">
+														</div>
+													</div>
+	
+													<div class="col-md-6">  
+															<div class="form-group">
+																<label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
+																<input type="text" class="form-control" placeholder="Food Safety Certificate Number (ISO)"  >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
+																<input type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN"   >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Products Interested in Selling <span class="field-status red">*</span></label>
+																<input type="text" class="form-control" placeholder="Products Interested in Selling"   >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Contact Number <span class="field-status red">*</span></label>
+																<input type="number" class="form-control" placeholder="Contact Number"   >
+															</div>
+														</div>
+	
+														<div class="col-md-6">  
+																<div class="form-group">
+																	<label>Currency of Trade <span class="field-status red">*</span></label>
+																	<select class="form-control"  >
+																		<option value="AED">AED</option>
+																		<option value="USD">USD</option>
+																		<option value="EUR">EUR</option>
+																		<option value="GBP">GBP</option>
+																	</select>
+																</div>
+															</div>
+						 
+						</div>
+					 
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group img-cont">
+									<img [src]="base + logo" alt="" style="width: 150px;">
+								</div>
+								<div class="form-group">
+									<label>{{'Store.logo' | translate}}</label>
+									<input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group img-cont">
+									<img [src]="base + hero" alt="" style="width: 350px;">
+								</div>
+								<div class="form-group">
+									<label>{{'Store.hero' | translate}}</label>
+									<input type="file" class="form-control" type="file" id="fileHero" (change)="handleFileHero($event.target.files)">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<button type="submit" class="btn-red">Update Store</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end store form -->
       </div>
   	</div>
   </div>
