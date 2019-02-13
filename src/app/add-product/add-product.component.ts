@@ -39,7 +39,6 @@ export class AddProductComponent implements OnInit {
   maximumorder: FormControl;
   cooming_soon: FormControl;
   measurement: FormControl;
-  description: FormControl;
   types: FormControl;
   parentSelectedType: FormControl;
   speciesSelected: FormControl;
@@ -56,7 +55,6 @@ export class AddProductComponent implements OnInit {
   treatment: FormControl;
   seller_sku: FormControl;
   seafood_sku: FormControl;
-  stock: FormControl;
   waterLostRate: FormControl;
   mortalityRate: FormControl;
   wholeFishWeight: FormControl;
@@ -97,9 +95,7 @@ export class AddProductComponent implements OnInit {
   ProcessingParts:any;
   showWholeOptions:boolean=false;
   showProcessingParts:boolean=false;
-  currency: FormControl;
   hsCode: FormControl;
-  spoilageRate: FormControl;
   price25:any = 0;
   price100:any = 0;
   price500:any = 0;
@@ -158,16 +154,14 @@ export class AddProductComponent implements OnInit {
     this.maximumorder = new FormControl('');
     this.cooming_soon = new FormControl(false, Validators.required);
     this.measurement = new FormControl('', Validators.required);
-    this.description = new FormControl('', Validators.required);
     //this.types = new FormControl('', Validators.required);
     this.country = new FormControl('', Validators.required);
     this.processingCountry = new FormControl('', Validators.required);
     this.raised = new FormControl('', Validators.required);
     this.preparation = new FormControl('', Validators.required);
     this.treatment = new FormControl('', Validators.required);
-    this.seller_sku = new FormControl('', Validators.required);
+    this.seller_sku = new FormControl('');
     this.seafood_sku = new FormControl('');
-    this.stock = new FormControl('', Validators.required);
     this.mortalityRate = new FormControl('', Validators.required );
     this.waterLostRate = new FormControl('');
     this.parentSelectedType = new FormControl('', Validators.required);
@@ -177,9 +171,7 @@ export class AddProductComponent implements OnInit {
     this.city = new FormControl(); 
     this.wholeFishWeight = new FormControl('');
     this.brandName=new FormControl('');
-    this.currency = new FormControl('', Validators.required);
     this.hsCode = new FormControl('');
-    this.spoilageRate = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -190,7 +182,6 @@ export class AddProductComponent implements OnInit {
       maximumorder: this.maximumorder,
       cooming_soon: this.cooming_soon,
       measurement: this.measurement,
-      description: this.description,
       //types: this.types,
       country: this.country,
       processingCountry: this.processingCountry,
@@ -200,7 +191,6 @@ export class AddProductComponent implements OnInit {
       treatment: this.treatment,
       seller_sku: this.seller_sku,
       seafood_sku: this.seafood_sku,
-      stock: this.stock,
       mortalityRate: this.mortalityRate,
       waterLostRate: this.waterLostRate,
       parentSelectedType: this.parentSelectedType,
@@ -209,9 +199,7 @@ export class AddProductComponent implements OnInit {
       descriptorSelected: this.descriptorSelected,
       wholeFishWeight:this.wholeFishWeight,
       brandName:this.brandName,
-      currency: this.currency,
       hsCode: this.hsCode,
-      spoilageRate: this.spoilageRate
     });
     this.myform.controls['measurement'].setValue('kg');
     this.onChanges();
@@ -279,12 +267,12 @@ export class AddProductComponent implements OnInit {
         'store': this.store[0].id,
         'quality': 'good',
         'name': this.name.value,
-        'description': this.description.value,
+        'description': '',
         'country': this.country.value,
         'processingCountry': this.processingCountry.value,
         'city': this.city.value,
         'price': {
-          'type': this.currency.value,
+          'type': '$',
           'value': this.price.value,
           'description': this.price.value + ' for pack'
         },
@@ -300,14 +288,12 @@ export class AddProductComponent implements OnInit {
         'treatment': this.treatment.value,
         'seller_sku': this.seller_sku.value,
         'seafood_sku': this.seafood_sku.value,
-        'stock': this.stock.value,
         'mortalityRate': this.mortalityRate.value,
         'waterLostRate': '',
         'status': '5c0866e4a0eda00b94acbdc0',
         'wholeFishWeight':this.wholeFishWeight.value,
         'brandname':this.brandName.value,
         'hsCode': this.hsCode.value,
-        'acceptableSpoilageRate': this.spoilageRate.value
 
       };
       this.product.saveData('fish', data).subscribe(result => {
@@ -390,7 +376,7 @@ export class AddProductComponent implements OnInit {
         'store': this.store[0].id,
         'quality': item.Quality,
         'name': item.Name,
-        'description': item.Description,
+        'description': '',
         'country': item.Country,
         'processingCountry': item.processingCountry,
         'city': item.city,
@@ -411,7 +397,6 @@ export class AddProductComponent implements OnInit {
         'cooming_soon': item.cooming_soon,
         'seller_sku': item.seller_sku,
         'seafood_sku': item.seafood_sku,
-        'stock': item.stock,
         'mortalityRate': item.mortalityRate,
         'waterLostRate': item.waterLostRate,
       };
@@ -510,8 +495,8 @@ export class AddProductComponent implements OnInit {
         else{
           this.preparationOptions=[
             'Filleted',
-            'Whole',
-            'Gutted'
+            'Head On Gutted',
+            'Head Off Gutted '
           ]
         }
         break;
