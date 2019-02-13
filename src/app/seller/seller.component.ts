@@ -42,7 +42,8 @@ export class SellerComponent implements OnInit {
 	logo:any;
 	storeEndpoint:any = "api/store/user/";
 	heroEndpoint:any = 'api/store/hero/';
-	fileSfs:any=[];
+  fileSfs:any=[];
+ 
   constructor( private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
    private router:Router, private fb:FormBuilder, private productService:ProductService, private product:ProductService) { }
 
