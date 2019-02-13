@@ -72,8 +72,8 @@
 
 		        <div class="form-group">
 		        	<label>{{'Buyer.country' | translate}}</label>
-		          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':buyerForm.get('country').invalid && buyerForm.get('country').touched}">
-		             <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+		          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':buyerForm.get('country').invalid && buyerForm.get('country').touched}">								 
+								 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
 		          </select>
 		          <div class="invalid-feedback" *ngIf="buyerForm.get('country').hasError('required')"> {{'Buyer.country' | translate}} {{'Buyer.required' | translate}}.</div>
 						</div>

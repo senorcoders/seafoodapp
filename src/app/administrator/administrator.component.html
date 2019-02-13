@@ -106,7 +106,7 @@
           <div class="form-group">
             <label>{{'Admin.country' | translate}}</label>
             <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':adminForm.get('location').invalid && adminForm.get('location').touched}">
-              <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+              <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
             </select>
             <div class="invalid-feedback" *ngIf="adminForm.get('location').hasError('required')"> {{'Admin.country' | translate}} {{'Admin.required' | translate}}.</div>
           </div>

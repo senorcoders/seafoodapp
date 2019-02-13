@@ -55,11 +55,11 @@
 	        <div class="form-group">
 	        	<label>{{'Seller.country' | translate}}</label>
 	          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
-	             <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+							<option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
 	          </select>
 	          <div class="invalid-feedback" *ngIf="sellerForm.get('country').hasError('required')"> {{'Seller.country' | translate}} {{'Seller.required' | translate}}.</div>
 	        </div>
-	        <div class="form-group">
+	        <!--<div class="form-group">
 	          <label>{{'Seller.licence' | translate}}</label>
 	          <input type="file" class="form-control" formControlName="uploadTradeLicense">
 	        </div>
@@ -69,7 +69,7 @@
 	        <div class="form-group">
 	        	<label>{{'Seller.sfs' | translate}}</label>
 	          <input type="text" class="form-control" formControlName="ifLocal">
-					</div>
+					</div>-->
 					<div class="form-group">
 						<label>{{'Seller.firstMileCost' | translate}}</label>
 						<input type="text" class="form-control" formControlName="firstMileCost">
