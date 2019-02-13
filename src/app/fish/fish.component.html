@@ -15,7 +15,7 @@
         </div>
         <div class="form-group">
           <label>{{'FishType.image' | translate}}</label>
-          <input type="file" (change)="uploadImage($event.target.files)" class="form-control" id="inputImg">
+          <input #categoryImageInput type="file" (change)="uploadImage($event.target.files)" class="form-control" id="inputImg">
           <div class="row">
             <div class="col">
               <img src="" height="200" alt="Image preview..." id="previewImg">
