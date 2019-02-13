@@ -201,12 +201,12 @@
 		"status": "Status"
 	},
 	"FishType":{
-		"add":"Add Fish Type",
+		"add":"Add Product Categories",
 		"name":"Fish Name",
 		"required":"is required",
 		"description":"Category Description",
 		"current-image":"Current Image",
-		"types":"Fish Types",
+		"types":"Product Categories",
 		"edit":"Edit",
 		"delete":"Delete",
 		"image":"Add Image"

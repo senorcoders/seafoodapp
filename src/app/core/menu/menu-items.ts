@@ -190,14 +190,14 @@ const menuAdmin = [
     ]
   },
   {
-    state: 'fish-type',
+    state: 'product-category',
     type: 'link',
     translate: {
       en: {
-        name: 'Fish Type'
+        name: 'Product Category'
       },
       ar: {
-        name: 'Fish Type'
+        name: 'Product Category'
       }
     }
   },
