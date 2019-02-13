@@ -101,13 +101,33 @@ export class AddProductComponent implements OnInit {
   price500:any = 0;
   price1000:any = 0;
   deliveredPrices = [25, 100, 500, 1000];
+
+
+  typesModal:any;
+	partsModal:any;
+	myformModal: FormGroup;
+  trimmingsModal:any = [];
+  groupOrder=[];
+  showNoData:boolean=false;
+  default=[2,3,4,3,5];
+  defaultTrimming=[];
+  pd=[];
+  hideTrimModal:boolean = true;
+
+
+
   constructor(
     private product: ProductService,
     private toast: ToastrService,
     private auth: AuthenticationService,
-    private countryService: CountriesService
+    private countryService: CountriesService,
+    private fb:FormBuilder
   ) { }
   ngOnInit() {
+    this.myformModal=this.fb.group({
+  		trimmingType:['', Validators.required],
+		processingParts:['', Validators.required]
+  	})
     this.getAllTypesByLevel();
     this.createFormControls();
     this.createForm();
@@ -140,6 +160,9 @@ export class AddProductComponent implements OnInit {
   getStore() {
     this.product.getData(this.storeEndpoint + this.info.id).subscribe(results => {
       this.store = results;
+      this.getTrimmingByStore()
+        this.getParts();
+        this.getTrimmingModal();
       this.getProcessingParts();
       if (this.store.length < 1) {
         this.existStore = false;
@@ -207,6 +230,7 @@ export class AddProductComponent implements OnInit {
 
   onChanges(): void {
     this.myform.valueChanges.subscribe(val => {
+
       if(val.price != "" && val.city != null){
         console.log("Pasa");
         this.deliveredPrices.forEach(element => {
@@ -218,6 +242,10 @@ export class AddProductComponent implements OnInit {
       this.price100 = val.price;
       this.price500 = val.price;
       this.price1000 = val.price;
+     }
+
+     if(val.speciesSelected == '5bda361c78b3140ef5d31fa4'){
+      this.hideTrimModal = false;
      }
     });
   }
@@ -589,5 +617,119 @@ export class AddProductComponent implements OnInit {
         console.log(e)
       }
     )
+  }
+
+
+
+  getTrimmingByStore(){
+    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
+          result=>{
+            this.trimmingsModal=result;
+          },
+          e=>{
+            console.log(e)
+          }
+        )
+  }
+  getTrimmingModal(){
+  	this.product.getData('trimmingtype').subscribe(
+  		result=>{
+  			this.typesModal=result;
+        let data:any=result;
+        data.forEach(result=>{
+          if(result.defaultProccessingParts.length>1){
+            result.defaultProccessingParts.forEach(res2=>{
+              this.defaultTrimming.push({trim:result.name,name:res2})
+            })
+          }
+          else{
+            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
+          }
+        })
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
+  }
+  getParts(){
+  	this.product.getData('processingParts').subscribe(
+  		result=>{
+  			this.partsModal=result;
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
+  }
+  saveData(types,parts){
+  	let data={
+  		"processingParts": parts,
+	    "store": this.store[0].id,
+	    "trimmingType": types
+	}
+  	this.product.saveData('storeTrimming',data).subscribe(
+  		res=>{
+  			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+        this.getTrimmingByStore();
+  		},
+  		e=>{
+  			this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+  			console.log(e)
+  		}
+	)
+  }
+  delete(id){
+    this.product.deleteData('storeTrimming/'+id).subscribe(
+      res=>{
+        this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+        this.getTrimmingByStore();
+      },
+      e=>{
+        this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+        console.log(e)
+      }
+    )
+  }
+  checked(event,type,part){
+    let id;
+    this.trimmingsModal.forEach(res=>{
+      if(type==res.trimmingType){
+        if(part==res.processingParts.id){
+          id=res.id
+        }
+      }
+    })
+    if(event.target.checked){
+      this.saveData(type,part);
+    }
+    else{
+      this.delete(id)
+    }
+  }
+  isDefault(part,trim){
+    let data;
+    this.trimmingsModal.forEach(res=>{
+      if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part)){
+          data=true
+        }
+        else{
+          data=false
+        }
+      }
+    })
+    return data
+  }
+  isChecked(part,trim){
+    let data
+    this.trimmingsModal.forEach(res=>{
+      if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
+          data=true
+        }
+      }
+    })
+    return data
   }
 }
