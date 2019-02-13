@@ -4,7 +4,6 @@ import {ProductService} from '../services/product.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 @Component({
@@ -16,6 +15,7 @@ export class SellerComponent implements OnInit {
 	users:any;
 	showLoading:boolean=true;
 	sellerForm:FormGroup;
+	base:string=environment.apiURLImg;
 	user:any;
 	countries=environment.countries;
 	info:any;
@@ -43,8 +43,8 @@ export class SellerComponent implements OnInit {
 	storeEndpoint:any = "api/store/user/";
 	heroEndpoint:any = 'api/store/hero/';
 	fileSfs:any=[];
-  constructor(public productService: ProductService, private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
-   private router:Router, private fb:FormBuilder, private product:ProductService) { }
+  constructor( private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
+   private router:Router, private fb:FormBuilder, private productService:ProductService, private product:ProductService) { }
 
   ngOnInit() {
   	this.getUsers()
@@ -64,10 +64,9 @@ export class SellerComponent implements OnInit {
   getPersonalData(){
     this.info = this.auth.getLoginData();
     console.log("Info", this.info);
-    this.getStoreData();
   }
-  getStoreData(userID){
-    this.auth.getData(this.storeEndpoint + userID).subscribe(result =>{
+  getStoreData(id){
+    this.auth.getData(this.storeEndpoint + id).subscribe(result =>{
       let res:any = result;
       console.log(result);
       if(typeof res !== 'undefined' && res.length > 0){
@@ -81,8 +80,7 @@ export class SellerComponent implements OnInit {
         this.salesImg=result[0]['SFS_SalesOrderForm'];
         this.tradeImg=result[0]['SFS_TradeLicense']
       }else{
-        this.buttonText = "upfate";
-        this.new = true;
+        this.buttonText = "update";
       }
     })
   }
@@ -154,7 +152,27 @@ export class SellerComponent implements OnInit {
   		}
   	)
   }
+  updateFile(id){
+    if(this.fileToUpload.length>0){
+      this.productService.uploadFile('api/store/logo/'+id, "logo", this.fileToUpload).subscribe(result => {
+        this.toast.success("Your store's logo has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+        this.getStoreData(id);
+      }, error => {
+        this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+      })
+    }
+    if(this.fileHero.length > 0){
+      this.productService.uploadFile(this.heroEndpoint+id, "hero", this.fileHero).subscribe(result => {
+        this.toast.success("Your store's hero has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.heroSlider=this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${result[0].heroImage})`);
+        this.getStoreData(id);
+      }, error => {
+        this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
+      })
+    }
+  }
   storeSubmit(){
     if(this.store.name!="" && this.store.description != "" && this.store.location != ""){
       
@@ -201,6 +219,28 @@ export class SellerComponent implements OnInit {
         this.toast.success("Your store has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }
+
+    })
+  }
+  updateSfs(id,file,index){
+    this.showLoading=true
+    this.productService.updateFile('image/store/sfs/'+file+'/'+id, this.fileSfs[index]).subscribe(result => {
+      this.toast.success(file+" file uploaded",'Well Done',{positionClass:"toast-top-right"})
+      this.getStoreData(id);
+      this.showLoading=false
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
+
+    })
+  }
+  uploadSfsImages(id){
+    this.showLoading=true
+    this.productService.sfsFiles('api/store/sfs/'+id, "sfs", this.fileSfs).subscribe(result => {
+      this.toast.success("Sfs files uploaded",'Well Done',{positionClass:"toast-top-right"})
+      this.getStoreData(id);
+      this.showLoading=false
+    }, error => {
+      this.toast.error(error, "Error",{positionClass:"toast-top-right"} );
 
     })
   }
