@@ -169,10 +169,10 @@ export class AddProductComponent implements OnInit {
     this.seafood_sku = new FormControl('');
     this.stock = new FormControl('', Validators.required);
     this.mortalityRate = new FormControl('', Validators.required );
-    this.waterLostRate = new FormControl('', Validators.required);
+    this.waterLostRate = new FormControl('');
     this.parentSelectedType = new FormControl('', Validators.required);
     this.speciesSelected = new FormControl('', Validators.required);
-    this.subSpeciesSelected = new FormControl( '', Validators.required );
+    this.subSpeciesSelected = new FormControl( '' );
     this.descriptorSelected = new FormControl('');
     this.city = new FormControl(); 
     this.wholeFishWeight = new FormControl('');
@@ -302,7 +302,7 @@ export class AddProductComponent implements OnInit {
         'seafood_sku': this.seafood_sku.value,
         'stock': this.stock.value,
         'mortalityRate': this.mortalityRate.value,
-        'waterLostRate': this.waterLostRate.value,
+        'waterLostRate': '',
         'status': '5c0866e4a0eda00b94acbdc0',
         'wholeFishWeight':this.wholeFishWeight.value,
         'brandname':this.brandName.value,
@@ -311,6 +311,7 @@ export class AddProductComponent implements OnInit {
 
       };
       this.product.saveData('fish', data).subscribe(result => {
+        console.log(result);
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
           this.showError = false;
           console.log( result );
