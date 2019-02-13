@@ -28,33 +28,33 @@
                 <p *ngIf="price.errors.required">{{'AddProduct.price' | translate}} {{'AddProduct.required' | translate}}</p>
               </div>
             </div>
-            <!-- <table>
+            <table class="table text-center">
                 <tr>
-                  <th>Weight</th>
-                  <th>Delivered Price AED</th>
-                  <th>Delivered Price USD</th>
+                  <th scope="col">Weight</th>
+                  <th scope="col">Delivered Price USD</th>
+                  <th scope="col">Delivered Price AED</th>
                 </tr>
                 <tr>
-                  <td>25 KG</td>
-                  <td></td>
-                  <td></td>
+                  <td scope="row">25 KG</td>
+                  <td>{{price25}}</td>
+                  <td>{{price25 | currency: 'AED'}}</td>
                 </tr>
                 <tr>
-                  <td>100 KG</td>
-                  <td></td>
-                  <td></td>
+                  <td scope="row">100 KG</td>
+                  <td>{{price100}}</td>
+                  <td>{{price100 | currency: 'AED'}}</td>
                 </tr>
                 <tr>
-                  <td>500 KG</td>
-                  <td></td>
-                  <td></td>
+                  <td scope="row">500 KG</td>
+                  <td>{{price500}}</td>
+                  <td>{{price500 | currency: 'AED'}}</td>
                 </tr>
                 <tr>
-                  <td>1000 KG</td>
-                  <td></td>
-                  <td></td>
+                  <td scope="row">1000 KG</td>
+                  <td>{{price1000}}</td>
+                  <td>{{price1000 | currency: 'AED'}}</td>
                 </tr>
-            </table> -->
+            </table>
           </div>
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">

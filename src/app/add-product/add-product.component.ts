@@ -100,6 +100,11 @@ export class AddProductComponent implements OnInit {
   currency: FormControl;
   hsCode: FormControl;
   spoilageRate: FormControl;
+  price25:any = 0;
+  price100:any = 0;
+  price500:any = 0;
+  price1000:any = 0;
+  deliveredPrices = [25, 100, 500, 1000];
   constructor(
     private product: ProductService,
     private toast: ToastrService,
@@ -209,6 +214,43 @@ export class AddProductComponent implements OnInit {
       spoilageRate: this.spoilageRate
     });
     this.myform.controls['measurement'].setValue('kg');
+    this.onChanges();
+  }
+
+  onChanges(): void {
+    this.myform.valueChanges.subscribe(val => {
+      if(val.price != "" && val.city != null){
+        console.log("Pasa");
+        this.deliveredPrices.forEach(element => {
+          this.getDeliveredPrice(val.city, element);
+
+        });
+     }else if(val.price != "" && val.city == null){
+      this.price25 = val.price;
+      this.price100 = val.price;
+      this.price500 = val.price;
+      this.price1000 = val.price;
+     }
+    });
+  }
+
+  getDeliveredPrice(val, qty){
+    let data = {
+      "cities": val,
+      "weight": qty
+  }
+    this.product.saveData('shippingRates/bycity', data ).subscribe(res =>{
+      console.log(res);
+      if(qty == 25){
+        this.price25 = res;
+      }else if(qty == 100){
+        this.price100 = res;
+      }else if(qty == 500){
+        this.price500 = res;
+      }else if(qty == 1000){
+        this.price1000 = res;
+      }
+    })
   }
   generateSKU() {
     const parentType = this.parentSelectedType.value;
@@ -428,6 +470,8 @@ export class AddProductComponent implements OnInit {
     this.countryService.getCities( this.country.value ).subscribe(
       result => {
         this.cities = result[0].cities;
+        this.myform.controls['city'].setValue(this.cities[0]['code']);
+
       },
       error => {
 
