@@ -173,8 +173,8 @@ export class AddProductComponent implements OnInit {
   createFormControls() {
     this.name = new FormControl('', Validators.required);
     this.price = new FormControl('', Validators.required);
-    this.minimunorder = new FormControl('');
-    this.maximumorder = new FormControl('');
+    this.minimunorder = new FormControl(1);
+    this.maximumorder = new FormControl(1000);
     this.cooming_soon = new FormControl(false, Validators.required);
     this.measurement = new FormControl('', Validators.required);
     //this.types = new FormControl('', Validators.required);
@@ -189,9 +189,9 @@ export class AddProductComponent implements OnInit {
     this.waterLostRate = new FormControl('');
     this.parentSelectedType = new FormControl('', Validators.required);
     this.speciesSelected = new FormControl('', Validators.required);
-    this.subSpeciesSelected = new FormControl( '' );
-    this.descriptorSelected = new FormControl('');
-    this.city = new FormControl(); 
+    this.subSpeciesSelected = new FormControl( '', Validators.required );
+    this.descriptorSelected = new FormControl();
+    this.city = new FormControl(''); 
     this.wholeFishWeight = new FormControl('');
     this.brandName=new FormControl('');
     this.hsCode = new FormControl('');
@@ -232,7 +232,6 @@ export class AddProductComponent implements OnInit {
     this.myform.valueChanges.subscribe(val => {
 
       if(val.price != "" && val.city != null){
-        console.log("Pasa");
         this.deliveredPrices.forEach(element => {
           this.getDeliveredPrice(val.city, element);
 
@@ -256,7 +255,6 @@ export class AddProductComponent implements OnInit {
       "weight": qty
   }
     this.product.saveData('shippingRates/bycity', data ).subscribe(res =>{
-      console.log(res);
       if(qty == 25){
         this.price25 = res;
       }else if(qty == 100){
@@ -337,6 +335,7 @@ export class AddProductComponent implements OnInit {
 
       });
     } else {
+      console.log(this.myform.value);
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
 
     }
@@ -404,7 +403,6 @@ export class AddProductComponent implements OnInit {
         'store': this.store[0].id,
         'quality': item.Quality,
         'name': item.Name,
-        'description': '',
         'country': item.Country,
         'processingCountry': item.processingCountry,
         'city': item.city,
@@ -518,7 +516,9 @@ export class AddProductComponent implements OnInit {
         selectedType = this.speciesSelected.value;
         if(value=='5bda361c78b3140ef5d31fa4'){
           this.preparationOptions=this.trimmings
-          this.showWholeOptions=true
+          this.showWholeOptions=true;
+          this.myform.controls['preparation'].setValue(this.preparationOptions[0]);
+
         }
         else{
           this.preparationOptions=[
@@ -526,6 +526,8 @@ export class AddProductComponent implements OnInit {
             'Head On Gutted',
             'Head Off Gutted '
           ]
+          this.myform.controls['preparation'].setValue(this.preparationOptions[0]);
+
         }
         break;
 

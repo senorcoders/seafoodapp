@@ -7,7 +7,7 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': name.invalid && (name.dirty || name.touched),'has-success': name.valid && (name.dirty || name.touched)}">
-              <label>{{'AddProduct.name' | translate}}</label>
+              <label>{{'AddProduct.name' | translate}} <span class="field-status red">*</span></label>
               <input type="text" class="form-control" formControlName="name" required>
               <div class="form-control-feedback" *ngIf="name.errors && showError">
                 <p *ngIf="name.errors.required">{{'AddProduct.name' | translate}} {{'AddProduct.required' | translate}}</p>
@@ -22,7 +22,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': country.invalid && (country.dirty || country.touched),'has-success': country.valid && (country.dirty || country.touched)}">
-              <label>{{'AddProduct.country' | translate}}</label>
+              <label>{{'AddProduct.country' | translate}} <span class="field-status red">*</span></label>
               <select  (change)="generateSKU(); getCities();" class="form-control" formControlName="country">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
@@ -33,7 +33,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group" >
-              <label>{{'AddProduct.processingCountry' | translate}}</label>
+              <label>{{'AddProduct.processingCountry' | translate}} <span class="field-status red">*</span></label>
               <select class="form-control" formControlName="processingCountry">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
@@ -41,7 +41,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group">
-              <label>Port of Loading</label>
+              <label>Port of Loading <span class="field-status red">*</span></label>
               <select  class="form-control" formControlName="city">
                 <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>
@@ -50,7 +50,7 @@
           </div>     
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': price.invalid && (price.dirty || price.touched),'has-success': price.valid && (price.dirty || price.touched)}">
-              <label>{{'AddProduct.price' | translate}}</label>
+              <label>{{'AddProduct.price' | translate}} <span class="field-status red">*</span></label>
               <input type="number" class="form-control" formControlName="price" required>
               <div class="form-control-feedback" *ngIf="price.errors && showError">
                 <p *ngIf="price.errors.required">{{'AddProduct.price' | translate}} {{'AddProduct.required' | translate}}</p>
@@ -89,7 +89,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
-                <label>{{'AddProduct.price-measurement' | translate}}</label>
+                <label>{{'AddProduct.price-measurement' | translate}} <span class="field-status red">*</span></label>
                 <select class="form-control" formControlName="measurement" required>
                   <option value="kg" selected>KG</option>
                 </select>
@@ -104,9 +104,9 @@
          
           <div class="col-lg-6">
             <div class="form-group">
-              <label>{{'AddProduct.mainCategory' | translate}} </label>
+              <label>{{'AddProduct.mainCategory' | translate}} <span class="field-status red">*</span></label>
               <select formControlName="parentSelectedType" (change)="getOnChangeLevel(0)" class="form-control">
-                <option v alue="">{{'AddProduct.select' | translate}}</option>
+                <option value="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of typeLevel0"  [value]="type.id" >{{type.name}}</option>
               </select>
               <div class="form-control-feedback" *ngIf="parentSelectedType.errors && showError">
@@ -116,7 +116,7 @@
           </div>
           <div class="col-lg-6">
             <div class="form-group" >
-              <label>{{'AddProduct.species' | translate}}</label>
+              <label>{{'AddProduct.species' | translate}} <span class="field-status red">*</span></label>
               <select  (change)="getOnChangeLevel(1, $event.target.value)" class="form-control" formControlName="speciesSelected">
                 <option value="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
@@ -129,14 +129,12 @@
 
           <div class="col-lg-6">
             <div class="form-group">
-              <label>{{'AddProduct.subSpecies' | translate}} </label>
-              <select formControlName="subSpeciesSelected" (change)="getOnChangeLevel(2)" class="form-control">
+              <label>{{'AddProduct.subSpecies' | translate}} <span class="field-status red">*</span></label>
+              <select formControlName="subSpeciesSelected" (change)="getOnChangeLevel(2)" class="form-control" required>
                 <option v alue="">{{'AddProduct.select' | translate}}</option>
                 <option *ngFor="let type of typeLevel2"  [value]="type.id" >{{type.name}}</option>
               </select>
-              <div class="form-control-feedback" *ngIf="subSpeciesSelected.errors && showError">
-                <p *ngIf="subSpeciesSelected.errors.required">{{'AddProduct.subSpecies' | translate}} {{'AddProduct.required' | translate}}</p>
-              </div>
+             
             </div>
           </div>
 
@@ -151,25 +149,21 @@
           </div>
 
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': seller_sku.invalid && (seller_sku.dirty || seller_sku.touched),'has-success': seller_sku.valid && (seller_sku.dirty || seller_sku.touched)}">
+            <div class="form-group">
               <label>Product SKU</label>
-              <input type="text" class="form-control" formControlName="seller_sku" required>
-              <div class="form-control-feedback" *ngIf="seller_sku.errors && showError">
-                <p *ngIf="seller_sku.errors.required">{{'AddProduct.seller_sku' | translate}} {{'AddProduct.required' | translate}}</p>
-              </div>
+              <input type="text" class="form-control" formControlName="seller_sku" >
+              
             </div>
-            <div class="form-group" [ngClass]="{'has-danger': seafood_sku.invalid && (seafood_sku.dirty || seafood_sku.touched),'has-success': seafood_sku.valid && (seafood_sku.dirty || seafood_sku.touched)}">              
-              <input type="hidden" class="form-control" formControlName="seafood_sku" disabled required>              
+            <div class="form-group">              
+              <input type="hidden" class="form-control" formControlName="seafood_sku" disabled >              
             </div>
           </div>  
 
           <div class="col-lg-6">
-              <div class="form-group" [ngClass]="{'has-danger': hsCode.invalid && (hsCode.dirty || hsCode.touched),'has-success': hsCode.valid && (hsCode.dirty || hsCode.touched)}">
+              <div class="form-group">
                   <label>HS Code <a href="https://hts.usitc.gov/" target="_blank">(look up code)</a></label>
-                  <input class="form-control" formControlName="hsCode" type="text" required>
-                  <div class="form-control-feedback" *ngIf="hsCode.errors && showError">
-                    <p *ngIf="hsCode.errors.required">HS Code {{'AddProduct.required' | translate}}</p>
-                  </div>
+                  <input class="form-control" formControlName="hsCode" type="text" >
+                
                 </div>
           </div>
          
@@ -187,22 +181,18 @@
             </div>
           </div>
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': minimunorder.invalid && (minimunorder.dirty || minimunorder.touched),'has-success': minimunorder.valid && (minimunorder.dirty || minimunorder.touched)}">
+            <div class="form-group" >
               <label>{{'AddProduct.minimun' | translate}}</label>
-              <input type="number" class="form-control" formControlName="minimunorder" required>
-              <div class="form-control-feedback" *ngIf="minimunorder.errors && showError">
-                <p *ngIf="minimunorder.errors.required">{{'AddProduct.minimun' | translate}} {{'AddProduct.required' | translate}}</p>
-              </div>
+              <input type="number" class="form-control" formControlName="minimunorder" >
+              
             </div>
           </div>
           
           <div class="col-lg-6">
-            <div class="form-group" [ngClass]="{'has-danger': maximumorder.invalid && (maximumorder.dirty || maximumorder.touched),'has-success': maximumorder.valid && (maximumorder.dirty || maximumorder.touched)}">
+            <div class="form-group">
               <label>{{'AddProduct.maximum' | translate}}</label>
-              <input type="number" class="form-control" formControlName="maximumorder" required>
-              <div class="form-control-feedback" *ngIf="maximumorder.errors && showError">
-                <p *ngIf="maximumorder.errors.required">{{'AddProduct.maximum' | translate}} {{'AddProduct.required' | translate}}</p>
-              </div>
+              <input type="number" class="form-control" formControlName="maximumorder" >
+             
             </div>
           </div>          
         </div>
@@ -219,7 +209,7 @@
           </div> -->
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': mortalityRate.invalid && (mortalityRate.dirty || mortalityRate.touched),'has-success': mortalityRate.valid && (mortalityRate.dirty || mortalityRate.touched)}">
-              <label>{{'AddProduct.mortalityRate' | translate}}</label>
+              <label>{{'AddProduct.mortalityRate' | translate}} <span class="field-status red">*</span></label>
               <input class="form-control" formControlName="mortalityRate" type="number" required>
               <div class="form-control-feedback" *ngIf="mortalityRate.errors && showError">
                 <p *ngIf="mortalityRate.errors.required">{{'AddProduct.mortalityRate' | translate}} {{'AddProduct.required' | translate}}</p>
@@ -228,7 +218,7 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
-                <label>{{'AddProduct.raised' | translate}}</label>
+                <label>{{'AddProduct.raised' | translate}} <span class="field-status red">*</span></label>
                 <select class="form-control" formControlName="raised">
                   <option value="farmed">Farmed</option>
                   <option value="organically">Organically Farmed</option>
@@ -243,7 +233,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
-              <label>{{'AddProduct.preparation' | translate}} <a class="manage-link" data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a></label>
+              <label>{{'AddProduct.preparation' | translate}} <span class="field-status red">*</span> <a class="manage-link" data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a></label>
               <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
                 <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
               </select>
@@ -272,7 +262,7 @@
         <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': treatment.invalid && (treatment.dirty || treatment.touched),'has-success': treatment.valid && (treatment.dirty || treatment.touched)}">
-              <label>{{'AddProduct.treatment' | translate}}</label>
+              <label>{{'AddProduct.treatment' | translate}} <span class="field-status red">*</span></label>
               <select class="form-control" formControlName="treatment">
                 <option value="fresh">Fresh</option>
                 <option value="frozen">Frozen</option>
@@ -286,7 +276,7 @@
           </div> 
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
-                <label>{{'AddProduct.cooming_soon' | translate}}</label>
+                <label>{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span></label>
                 <select class="form-control" formControlName="cooming_soon">
                   <option value="false">No</option>
                   <option value="true">Yes</option>                
