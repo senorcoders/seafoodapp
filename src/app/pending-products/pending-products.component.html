@@ -47,11 +47,12 @@
 						<span class="storeLocation"><b>Store Location: </b>{{pendingProduct.store.location}}</span>          
 					</div>
 	
-					<div class="col-md-6">
-						<h4>Owner Information</h4>
-						<span class="OwnerName"><b>Owner: </b>{{pendingProduct.owner['firstName']}}  {{pending.owner['lastName']}}</span>	
-						<span class="OwnerName"><b>Email: </b>{{pendingProduct.owner['email']}}</span>	
-					</div>
+					<!--<div class="col-md-6">
+						{{pendingProduct.owner}}
+						<h4 *ngIf="pendingProduct.owner  !== undefined">Owner Information</h4>
+						<span *ngIf="pendingProduct.owner !== undefined" class="OwnerName"><b>Owner: </b>{{pendingProduct.owner.firstName}}  {{pending.owner.lastName}}</span>	
+						<span *ngIf="pendingProduct.owner !== undefined" class="OwnerName"><b>Email: </b>{{pendingProduct.owner.email}}</span>	
+					</div>-->
 				</div>							
 				
         <button class="button red-btn denied" (click)="showDeniedModal(pendingProduct.id)">Denied</button>
