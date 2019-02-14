@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import {ProductService} from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';
 import { PasswordValidation } from '../password';
@@ -25,13 +25,36 @@ userID:any;
 storeID:any;
 image:any;
 regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
+sub:any;
 countries=environment.countries
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService) {
+registerVal;
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService,private route:ActivatedRoute) {
     this.redirectHome();
+    this.sub=this.route.queryParams.subscribe(params=>{
+      if(!params['register']){
+        this.buyerShow=true;
+        this.sellerShow=false;
+        this.RegisterBuyerForm()
+      }
+      else if(params['register']=='seller'){
+        this.buyerShow=false;
+        this.sellerShow=true;
+        this.RegistersellerForm();
+      }
+      else if(params['register']=='buyer'){
+        this.buyerShow=true;
+        this.sellerShow=false;
+        this.RegisterBuyerForm()
+      }
+
+    })
   }
 
   ngOnInit() {
-    this.RegisterBuyerForm();
+    // this.RegisterBuyerForm();
+  }
+   ngOnDestroy() {
+    this.sub.unsubscribe();
   }
   redirectHome(){
      if(this.auth.isLogged()){ 
@@ -39,6 +62,7 @@ countries=environment.countries
     }
   }
   RegisterBuyerForm(){
+    this.registerVal="2";
     this.buyerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
@@ -57,6 +81,7 @@ countries=environment.countries
     })
   }
   RegistersellerForm(){
+    this.registerVal="1"
      this.sellerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],

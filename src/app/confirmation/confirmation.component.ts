@@ -167,10 +167,10 @@ export class ConfirmationComponent implements OnInit {
         'signature': this.signature,
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
-        'amount': this.total,
+        'amount': this.total.toFixed(2),
         'order_description': this.description
       };
-      console.log( JSON.stringify( body ) ) ;
+      console.log( 'payfort body', JSON.stringify( body ) ) ;
       /*this.http.post(this.payFortApi, body,  {
         headers: new HttpHeaders({
           "charset": "utf-8",
@@ -186,7 +186,11 @@ export class ConfirmationComponent implements OnInit {
           this.saveinApi();
           this.clearCart();
         }
-      });
+      },
+      error => {
+        console.log( 'payfort error', error );
+      }
+      );
 
 
 

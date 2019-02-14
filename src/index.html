@@ -30,8 +30,7 @@
     //   jQuery(this).parent().find('.submenu').toggle('slow')
     // });
     jQuery(document).on('click','footer a',function() {
-      jQuery("html, body").scrollTop(0);
-      return false;
+      jQuery("html, body").animate({scrollTop:0}, 'slow');
     });
     jQuery(document).on( 'focusout', '#input-text', function(){
       jQuery('#input-text').css('display','none');
