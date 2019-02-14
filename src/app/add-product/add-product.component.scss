@@ -37,6 +37,11 @@
     cursor: pointer;
 }
 
+.red {
+    color: #f52828;
+    font-size: .8em;
+}
+
 @media screen and (min-width: 1200px){
 	#trimModal .modal-lg{
 		max-width: 1150px !important;
