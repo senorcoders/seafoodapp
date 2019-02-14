@@ -21,7 +21,7 @@
               <td>
                 {{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b>            
               </td>
-              <td>{{getTotalxItem(product.quantity.value, product.price.value)}} AED</td>
+              <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}} AED</td>
             </tr>
             <tr>
               <td><b>Subtotal</b></td>

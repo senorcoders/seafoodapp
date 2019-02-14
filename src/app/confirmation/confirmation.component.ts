@@ -8,6 +8,7 @@ import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { Location } from '@angular/common';
 
 const  API = environment.apiURL;
 @Component({
@@ -49,11 +50,20 @@ export class ConfirmationComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product: ProductService, private http: HttpClient,
-    private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService) { }
+    private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService, private location: Location) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+      if(params.response_code !== '00000' || params.response_code !== '18000'){
+        let that = this;
+        console.log(params.response_message);
+        this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
+          setTimeout(function(){
+            that.location.back();
+
+           }, 5000);
+
+      }
       this.params.response = params;
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
