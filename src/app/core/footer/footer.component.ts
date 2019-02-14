@@ -45,7 +45,6 @@ export class FooterComponent{
           else{
             this.isHomepage=false;
           }
-          console.log(this.isHomepage)
       }
     )
     //language

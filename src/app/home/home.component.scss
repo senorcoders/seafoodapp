@@ -1,6 +1,8 @@
 $ligth-bg:#ebf1f6;
 #hero{
-  height: 961px;
+  height: -moz-calc(100vh - (63px));
+  height: -webkit-calc(100vh - (63px));
+  height: calc(100vh - (63px));
   background: url(../../assets/bg-homepage-2.jpg);
   background-position: center;
   background-size: cover;
@@ -114,6 +116,25 @@ $ligth-bg:#ebf1f6;
   .content{
     padding-left: 208px;
 }
+}
+@media(max-width: 768px){
+  .welcome-title{
+    height: inherit;
+    font-size: 30px;
+  }
+  .subtitle{
+    font-size: 25px;
+    height: inherit;
+  }
+  .blue-btn{
+    font-size: 14px;
+    width: 130px;
+    height: 40px;
+  }
+  .buyer-value, .buyer-title, .means{
+    height: 30px;
+    font-size: 20px;
+  }
 }
 // .small-img{
 //   max-height:100px;

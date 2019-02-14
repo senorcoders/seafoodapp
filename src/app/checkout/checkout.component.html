@@ -182,7 +182,7 @@
                   <input [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd" id="medd{{product.id}}" >
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                 </td>
-                <td>{{getTotalxItem(product.quantity.value, product.price.value)}} AED</td>
+                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}} AED</td>
               </tr>
               <tr>
                 <td><b>Subtotal</b></td>

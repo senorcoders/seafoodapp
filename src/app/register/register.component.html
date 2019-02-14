@@ -11,7 +11,7 @@
 
         <label>{{'Register.select' | translate}}</label>
         <div class="form-group">
-          <select class="form-control" (change)="showForm($event.target.value)">
+          <select class="form-control" (change)="showForm($event.target.value)" [(ngModel)]="registerVal" [ngModelOptions]="{standalone: true}">
             <option value="2">{{'Register.buyer' | translate}}</option>
             <option value="1">{{'Register.seller' | translate}}</option>
           </select>
