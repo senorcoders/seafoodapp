@@ -190,14 +190,14 @@ const menuAdmin = [
     ]
   },
   {
-    state: 'product-category',
+    state: 'product-categories',
     type: 'link',
     translate: {
       en: {
-        name: 'Product Category'
+        name: 'Product Categories'
       },
       ar: {
-        name: 'Product Category'
+        name: 'Product Categories'
       }
     }
   },
