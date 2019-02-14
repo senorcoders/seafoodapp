@@ -32,9 +32,20 @@ export class AdminLogisticManagmentComponent implements OnInit {
     this.user = this.auth.getLoginData();
     this.status = '0';
     this.getManagement();
+    this.getStatus();
   }
 
- 
+  getStatus() {
+    this.orderService.getLogisticOrderStatus().subscribe(
+      res => {
+        this.orderStatus = res;
+      },
+      error => {
+        console.log( error );
+        this.toast.error('Something happend, please refresh the page', 'System Error', { positionClass: 'toast-top-right' });
+      }
+    );
+  }
 
 
   getManagement(){
@@ -43,6 +54,39 @@ export class AdminLogisticManagmentComponent implements OnInit {
       this.rows = data;
     })
 
+  }
+
+  updateStatus() {
+    let selectedStatus: string;
+    let statusName: string = this.selectedStatus;
+    let itemID: string = this.selectedItemID;
+
+    this.orderStatus.map( status => {
+      if ( status.status === statusName ) {
+        selectedStatus = status.id;
+      }
+    } );
+    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+      result => {
+        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        jQuery('#confirmUpdateStatus').modal('hide');
+        this.getManagement();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+    console.log( 'status', selectedStatus );
+    console.log( 'item', itemID );
+  }
+  noUpdate() {
+    jQuery('#confirmUpdateStatus').modal('hide');
+  }
+
+  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+    this.selectedStatus = selectedStatus;
+    this.selectedItemID = selectedItemID;
+    jQuery('#confirmUpdateStatus').modal('show');
   }
 
 

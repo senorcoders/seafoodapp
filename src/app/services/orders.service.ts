@@ -16,6 +16,10 @@ export class OrderService {
     return this.http.get(`${API}orderStatus`);
   }
 
+  getLogisticOrderStatus() {
+    return this.http.get(`${API}api/orderStatus/logistic`);
+  }
+
   getAllOrders() {
     return this.http.get(`${API}api/itemshopping/all`);
   }
