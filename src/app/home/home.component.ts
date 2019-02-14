@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
+import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { CartService } from '../core/cart/cart.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
@@ -28,7 +29,7 @@ export class HomeComponent implements OnInit {
   fishTypeMenu:any;
   fishTypeMenuImages=[];
   fishTypeMenuImagesChild=[];
-  constructor(private isLoggedSr: IsLoginService, private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService) {
+  constructor(private isLoggedSr: IsLoginService, private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService,private router:Router) {
   }
   ngOnInit() {
    this.getFeaturedSeller();
@@ -168,5 +169,8 @@ export class HomeComponent implements OnInit {
         console.log(error)
       }
     )
+  }
+  register(page){
+    this.router.navigate(['/register'],{ queryParams: { register: page } })
   }
 }
