@@ -140,8 +140,9 @@ export class AddProductComponent implements OnInit {
     this.getSubcategories();
     this.getMyData();
     this.getAllCities();
-    this.getCountries();
+    // this.getCountries();
     this.getTrimming();
+    this.countries = environment.countries;
   }
 
   getTypes() {
