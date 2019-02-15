@@ -53,17 +53,17 @@
         </div>
         <div class="row" style="margin-top: 7px" *ngIf="charges && charges.shippingFee">
           <div class="col-5 product-label">Shipping Fees:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.shippingFee}} </div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.shippingFee).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
         </div>
         <div class="row" style="margin-top: 7px" *ngIf="charges && charges.sfsMarginCost">
           <div class="col-5 product-label">SFS Fee:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.sfsMarginCost}} </div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.sfsMarginCost).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">AED</div>
         </div>
         <div class="row" style="margin-top: 6px" *ngIf="charges && charges.uaeTaxesFee">
           <div class="col-5 product-label">Taxes:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.uaeTaxesFee}} </div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.uaeTaxesFee).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">AED</div>
         </div>
         <div class="row last-row">
@@ -73,7 +73,7 @@
         </div>
         <div class="row" *ngIf="charges && charges.finalPrice">
           <div class="col-5 total-price">Total Price:</div>
-          <div class="col-sm-4 col-md-5 total-price-value">{{charges.finalPrice}}</div>
+          <div class="col-sm-4 col-md-5 total-price-value">{{(charges.finalPrice).toFixed(2)}}</div>
           <div class="col-sm-3 col-md-2 currency" style="padding-top: 6px;">AED</div>
         </div>
         <div class="row" style="margin-top: 10px">
