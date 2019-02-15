@@ -43,7 +43,7 @@
                       <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
                       
                       <p class="buyer"><b>Buyer Maximum Delivery Date: </b>{{item.buyerExpectedDeliveryDate}}</p>
-                      <p class="seller"><b>Seller Expected Delivert Date: </b>{{item.sellerExpectedDeliveryDate}}</p>
+                      <p class="seller"><b>Seller Expected Delivery Date: </b>{{item.sellerExpectedDeliveryDate}}</p>
                       
                       <p class="qty">Quantity {{item.quantity.value}} kg</p>  
                       <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
@@ -51,13 +51,13 @@
                     
                   </div>
                   <div class="col-6">
-                    <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
+                    <!-- <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
                       <div *ngIf="item.updateInfo">
                         <p class="date" *ngFor="let update of item.updateInfo;" >
                           <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
                         </p>
                       </div>
-                    </ng-container>
+                    </ng-container> -->
                     <ng-container  *ngIf="item.shoppingCart.orderNumber==order.orderNumber && item.updateInfo">
                       <div class="information-log">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
