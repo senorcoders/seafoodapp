@@ -1,7 +1,7 @@
 <div class="content single-product" *ngIf="show; else elseBlock">
   <div class="container">
     <div class="row">  
-      <div class="col-12" *ngIf="showLoading">
+      <div class="col-12 text-center" *ngIf="showLoading">
         <img src="../../assets/loader.gif" alt="loading..." class="loading">
       </div>
       <div class="col-lg-6 product-img">
@@ -43,43 +43,43 @@
         <h3 class="product-type">{{category}}</h3>
         <div class="row first-row">
           <div class="col-5 product-label">Sellers Price/kg:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{priceValue}} </div>
-          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(priceValue/currentExchangeRate).toFixed(2)}} </div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row">
           <div class="col-5 product-label">Product Price:</div>
           <div class="col-sm-4 col-md-5 product-value" [innerHTML]="getTotal()"></div>
-          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row" style="margin-top: 7px" *ngIf="charges && charges.shippingFee">
           <div class="col-5 product-label">Shipping Fees:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.shippingFee}} </div>
-          <div class="col-sm-3 col-md-2 currency">AED(GBP)</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}} </div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row" style="margin-top: 7px" *ngIf="charges && charges.sfsMarginCost">
           <div class="col-5 product-label">SFS Fee:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.sfsMarginCost}} </div>
-          <div class="col-sm-3 col-md-2 currency">AED</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.sfsMarginCost/currentExchangeRate).toFixed(2)}} </div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row" style="margin-top: 6px" *ngIf="charges && charges.uaeTaxesFee">
           <div class="col-5 product-label">Taxes:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{charges.uaeTaxesFee}} </div>
-          <div class="col-sm-3 col-md-2 currency">AED</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}} </div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row last-row">
           <div class="col-5 product-label">FX Rate Fees:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{FXRateFees}} </div>
-          <div class="col-sm-3 col-md-2 currency">AED</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(FXRateFees/currentExchangeRate).toFixed(2)}} </div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row" *ngIf="charges && charges.finalPrice">
           <div class="col-5 total-price">Total Price:</div>
-          <div class="col-sm-4 col-md-5 total-price-value">{{charges.finalPrice}}</div>
-          <div class="col-sm-3 col-md-2 currency" style="padding-top: 6px;">AED</div>
+          <div class="col-sm-4 col-md-5 total-price-value">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</div>
+          <div class="col-sm-3 col-md-2 currency" style="padding-top: 6px;">{{currency}}</div>
         </div>
         <div class="row" style="margin-top: 10px">
           <div class="col-5 product-label">Delivered Price/kg:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{delivered.toFixed(2)}}</div>
-          <div class="col-sm-3 col-md-2 currency">AED</div>
+          <div class="col-sm-4 col-md-5 product-value">{{(delivered/currentExchangeRate).toFixed(2)}}</div>
+          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
         <div class="row actions-form" *ngIf="isLogged; else login">
           <div class="col-5 product-label">

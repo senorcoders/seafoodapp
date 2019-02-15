@@ -13,6 +13,7 @@ import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 
@@ -47,6 +48,8 @@ export class AddProductComponent implements OnInit {
   base: string = environment.apiURLImg;
   pTypes: any = [];
   parentTypes: any = [];
+  currentPrincingCharges: any = [];
+  currentExchangeRate: number;
   country: FormControl;
   processingCountry: FormControl;
   city: FormControl;
@@ -58,8 +61,8 @@ export class AddProductComponent implements OnInit {
   waterLostRate: FormControl;
   mortalityRate: FormControl;
   wholeFishWeight: FormControl;
-  brandName:FormControl;
-  processingParts:FormControl;
+  brandName: FormControl;
+  processingParts: FormControl;
   fileToUpload: any = [];
   info: any;
   store: any = [];
@@ -74,12 +77,12 @@ export class AddProductComponent implements OnInit {
   showError: boolean = false;
   allCities: any = [];
   cities: any = [];
-  preparationOptions=[
+  preparationOptions = [
     'Head On Gutted ',
     'Head Off Gutted',
     'Filleted'
-  ]
-  wholeOptions=[
+  ];
+  wholeOptions = [
     '0-1 KG',
     '1-2 KG',
     '2-3 KG',
@@ -90,29 +93,29 @@ export class AddProductComponent implements OnInit {
     '7-8 KG',
     '8+ KG'
   ];
-  trimmings=[];
-  parts=[];
-  ProcessingParts:any;
-  showWholeOptions:boolean=false;
-  showProcessingParts:boolean=false;
+  trimmings = [];
+  parts = [];
+  ProcessingParts: any;
+  showWholeOptions: boolean = false;
+  showProcessingParts: boolean = false;
   hsCode: FormControl;
-  price25:any = 0;
-  price100:any = 0;
-  price500:any = 0;
-  price1000:any = 0;
+  price25: any = 0;
+  price100: any = 0;
+  price500: any = 0;
+  price1000: any = 0;
   deliveredPrices = [25, 100, 500, 1000];
 
 
-  typesModal:any;
-	partsModal:any;
-	myformModal: FormGroup;
-  trimmingsModal:any = [];
-  groupOrder=[];
-  showNoData:boolean=false;
-  default=[2,3,4,3,5];
-  defaultTrimming=[];
-  pd=[];
-  hideTrimModal:boolean = true;
+  typesModal: any;
+  partsModal: any;
+  myformModal: FormGroup;
+  trimmingsModal: any = [];
+  groupOrder = [];
+  showNoData: boolean = false;
+  default = [2, 3, 4, 3, 5];
+  defaultTrimming = [];
+  pd = [];
+  hideTrimModal: boolean = true;
 
 
 
@@ -121,13 +124,15 @@ export class AddProductComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthenticationService,
     private countryService: CountriesService,
-    private fb:FormBuilder
+    private pricingChargesService: PricingChargesService,
+    private fb: FormBuilder
   ) { }
   ngOnInit() {
-    this.myformModal=this.fb.group({
-  		trimmingType:['', Validators.required],
-		processingParts:['', Validators.required]
-  	})
+    this.myformModal = this.fb.group({
+      trimmingType: ['', Validators.required],
+      processingParts: ['', Validators.required]
+    });
+    this.getCurrentPricingCharges();
     this.getAllTypesByLevel();
     this.createFormControls();
     this.createForm();
@@ -135,8 +140,9 @@ export class AddProductComponent implements OnInit {
     this.getSubcategories();
     this.getMyData();
     this.getAllCities();
-    this.getCountries();
+    // this.getCountries();
     this.getTrimming();
+    this.countries = environment.countries;
   }
 
   getTypes() {
@@ -147,9 +153,22 @@ export class AddProductComponent implements OnInit {
   }
 
   getSubcategories() {
-    this.product.getSubCategories( this.parentSelectedType.value ).subscribe(result => {
+    this.product.getSubCategories(this.parentSelectedType.value).subscribe(result => {
       this.pTypes = result;
     });
+  }
+
+  getCurrentPricingCharges() {
+    this.pricingChargesService.getCurrentPricingCharges().subscribe(
+      result => {
+        this.currentPrincingCharges = result;
+        console.log('result', result);
+        this.currentExchangeRate = result['exchangeRates'][0].price;
+        console.log( this.currentExchangeRate );
+      }, error => {
+        console.log( error );
+      }
+    )
   }
 
   getMyData() {
@@ -160,9 +179,9 @@ export class AddProductComponent implements OnInit {
   getStore() {
     this.product.getData(this.storeEndpoint + this.info.id).subscribe(results => {
       this.store = results;
-      this.getTrimmingByStore()
-        this.getParts();
-        this.getTrimmingModal();
+      this.getTrimmingByStore();
+      this.getParts();
+      this.getTrimmingModal();
       this.getProcessingParts();
       if (this.store.length < 1) {
         this.existStore = false;
@@ -177,7 +196,7 @@ export class AddProductComponent implements OnInit {
     this.maximumorder = new FormControl(1000);
     this.cooming_soon = new FormControl(false, Validators.required);
     this.measurement = new FormControl('', Validators.required);
-    //this.types = new FormControl('', Validators.required);
+    // this.types = new FormControl('', Validators.required);
     this.country = new FormControl('', Validators.required);
     this.processingCountry = new FormControl('', Validators.required);
     this.raised = new FormControl('', Validators.required);
@@ -185,15 +204,15 @@ export class AddProductComponent implements OnInit {
     this.treatment = new FormControl('', Validators.required);
     this.seller_sku = new FormControl('');
     this.seafood_sku = new FormControl('');
-    this.mortalityRate = new FormControl('', Validators.required );
+    this.mortalityRate = new FormControl('', Validators.required);
     this.waterLostRate = new FormControl('');
     this.parentSelectedType = new FormControl('', Validators.required);
     this.speciesSelected = new FormControl('', Validators.required);
-    this.subSpeciesSelected = new FormControl( '', Validators.required );
+    this.subSpeciesSelected = new FormControl('', Validators.required);
     this.descriptorSelected = new FormControl();
-    this.city = new FormControl(''); 
+    this.city = new FormControl('');
     this.wholeFishWeight = new FormControl('');
-    this.brandName=new FormControl('');
+    this.brandName = new FormControl('');
     this.hsCode = new FormControl('');
   }
 
@@ -205,7 +224,7 @@ export class AddProductComponent implements OnInit {
       maximumorder: this.maximumorder,
       cooming_soon: this.cooming_soon,
       measurement: this.measurement,
-      //types: this.types,
+      // types: this.types,
       country: this.country,
       processingCountry: this.processingCountry,
       city: this.city,
@@ -220,51 +239,55 @@ export class AddProductComponent implements OnInit {
       speciesSelected: this.speciesSelected,
       subSpeciesSelected: this.subSpeciesSelected,
       descriptorSelected: this.descriptorSelected,
-      wholeFishWeight:this.wholeFishWeight,
-      brandName:this.brandName,
+      wholeFishWeight: this.wholeFishWeight,
+      brandName: this.brandName,
       hsCode: this.hsCode,
     });
     this.myform.controls['measurement'].setValue('kg');
     this.onChanges();
+    //this.onCityChange();
+  }
+
+  onCityChange(city): void {
+    console.log('value', city);
+    
+      this.deliveredPrices.forEach(element => {
+        this.getDeliveredPrice(city, element);
+
+      });
+      
   }
 
   onChanges(): void {
     this.myform.valueChanges.subscribe(val => {
-
-      if(val.price != "" && val.city != null){
-        this.deliveredPrices.forEach(element => {
-          this.getDeliveredPrice(val.city, element);
-
-        });
-     }else if(val.price != "" && val.city == null){
-      this.price25 = val.price;
-      this.price100 = val.price;
-      this.price500 = val.price;
-      this.price1000 = val.price;
-     }
-
-     if(val.speciesSelected == '5bda361c78b3140ef5d31fa4'){
-      this.hideTrimModal = false;
-     }
+      if (val.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+        this.hideTrimModal = false;
+      }
+      if (val.city == null) {
+        this.price25 = val.price;
+        this.price100 = val.price;
+        this.price500 = val.price;
+        this.price1000 = val.price;
+      }
     });
   }
 
-  getDeliveredPrice(val, qty){
-    let data = {
-      "cities": val,
-      "weight": qty
-  }
-    this.product.saveData('shippingRates/bycity', data ).subscribe(res =>{
-      if(qty == 25){
+  getDeliveredPrice(val, qty) {
+    const data = {
+      'cities': val,
+      'weight': qty
+    };
+    this.product.saveData('shippingRates/bycity', data).subscribe(res => {
+      if (qty === 25) {
         this.price25 = res;
-      }else if(qty == 100){
+      } else if (qty === 100) {
         this.price100 = res;
-      }else if(qty == 500){
+      } else if (qty === 500) {
         this.price500 = res;
-      }else if(qty == 1000){
+      } else if (qty === 1000) {
         this.price1000 = res;
       }
-    })
+    });
   }
   generateSKU() {
     const parentType = this.parentSelectedType.value;
@@ -285,8 +308,9 @@ export class AddProductComponent implements OnInit {
     );
   }
   onSubmit() {
-    this.showError = true;    
+    this.showError = true;
     if (this.myform.valid) {
+      const priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
         'descriptor': this.descriptorSelected.value,
@@ -299,8 +323,8 @@ export class AddProductComponent implements OnInit {
         'city': this.city.value,
         'price': {
           'type': '$',
-          'value': this.price.value,
-          'description': this.price.value + ' for pack'
+          'value': priceAED,
+          'description': priceAED + ' for pack'
         },
         'weight': {
           'type': this.measurement.value,
@@ -317,20 +341,21 @@ export class AddProductComponent implements OnInit {
         'mortalityRate': this.mortalityRate.value,
         'waterLostRate': '',
         'status': '5c0866e4a0eda00b94acbdc0',
-        'wholeFishWeight':this.wholeFishWeight.value,
-        'brandname':this.brandName.value,
+        'wholeFishWeight': this.wholeFishWeight.value,
+        'brandname': this.brandName.value,
         'hsCode': this.hsCode.value,
 
       };
+      console.log( data );
       this.product.saveData('fish', data).subscribe(result => {
         console.log(result);
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
-          this.showError = false;
-          console.log( result );
-          this.uploadFileToActivity(result['product']['id']);
+        this.showError = false;
+        console.log(result);
+        this.uploadFileToActivity(result['product']['id']);
         // } else {
-          this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-          // this.showError = false;
+        this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+        // this.showError = false;
         // }
 
       });
@@ -358,7 +383,7 @@ export class AddProductComponent implements OnInit {
           console.log(error);
         });
     }
-    if ( this.fileToUpload && this.fileToUpload.length > 0 ) {
+    if (this.fileToUpload && this.fileToUpload.length > 0) {
       this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
         // do something, if upload success
         console.log('Data', data);
@@ -462,7 +487,7 @@ export class AddProductComponent implements OnInit {
         this.cities = result;
       },
       error => {
-        console.log( error );
+        console.log(error);
       }
     );
   }
@@ -479,7 +504,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getCities() {
-    this.countryService.getCities( this.country.value ).subscribe(
+    this.countryService.getCities(this.country.value).subscribe(
       result => {
         this.cities = result[0].cities;
         this.myform.controls['city'].setValue(this.cities[0]['code']);
@@ -505,27 +530,26 @@ export class AddProductComponent implements OnInit {
     );
   }
 
-  getOnChangeLevel( level: number, value ) {
+  getOnChangeLevel(level: number, value) {
     let selectedType = '';
-    switch ( level ) {
+    switch (level) {
       case 0:
         selectedType = this.parentSelectedType.value;
         break;
-    
+
       case 1:
         selectedType = this.speciesSelected.value;
-        if(value=='5bda361c78b3140ef5d31fa4'){
-          this.preparationOptions=this.trimmings
-          this.showWholeOptions=true;
+        if (value === '5bda361c78b3140ef5d31fa4') {
+          this.preparationOptions = this.trimmings;
+          this.showWholeOptions = true;
           this.myform.controls['preparation'].setValue(this.preparationOptions[0]);
 
-        }
-        else{
-          this.preparationOptions=[
+        } else {
+          this.preparationOptions = [
             'Filleted',
             'Head On Gutted',
             'Head Off Gutted '
-          ]
+          ];
           this.myform.controls['preparation'].setValue(this.preparationOptions[0]);
 
         }
@@ -539,10 +563,10 @@ export class AddProductComponent implements OnInit {
         selectedType = this.subSpeciesSelected.value;
         break;
     }
-    console.log( 'selected type id', selectedType );
-    this.product.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+    console.log('selected type id', selectedType);
+    this.product.getData(`fishTypes/${selectedType}/all_levels`).subscribe(
       result => {
-        result['childs'].map( item => {
+        result['childs'].map(item => {
           switch (item.level) {
             case 0:
               this.typeLevel0 = item.fishTypes;
@@ -563,19 +587,19 @@ export class AddProductComponent implements OnInit {
             default:
               break;
           }
-        } );
-        /*for (let index = level; index < result['childs'].length; index++) {          
+        });
+        /*for (let index = level; index < result['childs'].length; index++) {
           if ( index == 0 ) {
-            
+
           }
         }*/
       },
       error => {
-        console.log( error );
+        console.log(error);
       }
-    )
+    );
   }
-  showWhole(value){
+  showWhole(value) {
     // if(value=='Whole'){
     //   this.showWholeOptions=true;
     // }
@@ -588,150 +612,146 @@ export class AddProductComponent implements OnInit {
     //     this.parts.push(res.processingParts)
     //   }
     // })
-    if(value=='Filleted'){
-      this.showWholeOptions=false
-    }
-    else{
-      this.showWholeOptions=true
+    if (value === 'Filleted') {
+      this.showWholeOptions = false;
+    } else {
+      this.showWholeOptions = true;
     }
   }
-  getTrimming(){
-    this.trimmings.push('Whole')
+  getTrimming() {
+    this.trimmings.push('Whole');
     this.trimmings.push('Gutted');
     this.product.getData('trimmingtype').subscribe(
-      res=>{
-        let data:any=res
-        data.forEach(result=>{
-          this.trimmings.push(result.name)
-        })
+      res => {
+        const data: any = res;
+        data.forEach(result => {
+          this.trimmings.push(result.name);
+        });
       },
-      e=>{
-        console.log(e)
+      e => {
+        console.log(e);
       }
-    )
+    );
   }
-  getProcessingParts(){
-    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
-      res=>{
-        this.ProcessingParts=res;
+  getProcessingParts() {
+    this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+      res => {
+        this.ProcessingParts = res;
       },
-      e=>{
-        console.log(e)
+      e => {
+        console.log(e);
       }
-    )
+    );
   }
 
 
 
-  getTrimmingByStore(){
-    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
-          result=>{
-            this.trimmingsModal=result;
-          },
-          e=>{
-            console.log(e)
+  getTrimmingByStore() {
+    this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+      result => {
+        this.trimmingsModal = result;
+      },
+      e => {
+        console.log(e);
+      }
+    );
+  }
+  getTrimmingModal() {
+    this.product.getData('trimmingtype').subscribe(
+      result => {
+        this.typesModal = result;
+        const data: any = result;
+        data.forEach( result => {
+          if (result.defaultProccessingParts.length > 1) {
+            result.defaultProccessingParts.forEach(res2 => {
+              this.defaultTrimming.push({ trim: result.name, name: res2 });
+            });
+          } else {
+            this.defaultTrimming.push({ trim: result.name, name: result.defaultProccessingParts });
           }
-        )
+        });
+      },
+      e => {
+        console.log(e);
+      }
+    );
   }
-  getTrimmingModal(){
-  	this.product.getData('trimmingtype').subscribe(
-  		result=>{
-  			this.typesModal=result;
-        let data:any=result;
-        data.forEach(result=>{
-          if(result.defaultProccessingParts.length>1){
-            result.defaultProccessingParts.forEach(res2=>{
-              this.defaultTrimming.push({trim:result.name,name:res2})
-            })
-          }
-          else{
-            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
-          }
-        })
-  		},
-  		e=>{
-  			console.log(e)
-  		}
-  	)
+  getParts() {
+    this.product.getData('processingParts').subscribe(
+      result => {
+        this.partsModal = result;
+      },
+      e => {
+        console.log(e);
+      }
+    );
   }
-  getParts(){
-  	this.product.getData('processingParts').subscribe(
-  		result=>{
-  			this.partsModal=result;
-  		},
-  		e=>{
-  			console.log(e)
-  		}
-  	)
-  }
-  saveData(types,parts){
-  	let data={
-  		"processingParts": parts,
-	    "store": this.store[0].id,
-	    "trimmingType": types
-	}
-  	this.product.saveData('storeTrimming',data).subscribe(
-  		res=>{
-  			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
-        this.getTrimmingByStore();
-  		},
-  		e=>{
-  			this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
-  			console.log(e)
-  		}
-	)
-  }
-  delete(id){
-    this.product.deleteData('storeTrimming/'+id).subscribe(
-      res=>{
-        this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+  saveData(types, parts) {
+    const data = {
+      'processingParts': parts,
+      'store': this.store[0].id,
+      'trimmingType': types
+    };
+    this.product.saveData('storeTrimming', data).subscribe(
+      res => {
+        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
         this.getTrimmingByStore();
       },
-      e=>{
-        this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
-        console.log(e)
+      e => {
+        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
+        console.log(e);
       }
-    )
+    );
   }
-  checked(event,type,part){
+  delete(id) {
+    this.product.deleteData('storeTrimming/' + id).subscribe(
+      res => {
+        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
+        this.getTrimmingByStore();
+      },
+      e => {
+        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
+        console.log(e);
+      }
+    );
+  }
+  checked(event, type, part) {
     let id;
-    this.trimmingsModal.forEach(res=>{
-      if(type==res.trimmingType){
-        if(part==res.processingParts.id){
-          id=res.id
+    this.trimmingsModal.forEach(res => {
+      if (type === res.trimmingType) {
+        if (part === res.processingParts.id) {
+          id = res.id;
         }
       }
-    })
-    if(event.target.checked){
-      this.saveData(type,part);
-    }
-    else{
-      this.delete(id)
+    });
+    if (event.target.checked) {
+      this.saveData(type, part);
+    } else {
+      this.delete(id);
     }
   }
-  isDefault(part,trim){
+  isDefault(part, trim) {
     let data;
-    this.trimmingsModal.forEach(res=>{
-      if(trim==res.type[0].name){
-        if(res.type[0].defaultProccessingParts.includes(part)){
-          data=true
-        }
-        else{
-          data=false
+    this.trimmingsModal.forEach(res => {
+      if (trim === res.type[0].name) {
+        if (res.type[0].defaultProccessingParts.includes(part)) {
+          data = true;
+        } else {
+          data = false;
         }
       }
-    })
-    return data
+    });
+    return data;
   }
-  isChecked(part,trim){
-    let data
-    this.trimmingsModal.forEach(res=>{
-      if(trim==res.type[0].name){
-        if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
-          data=true
+  isChecked(part, trim) {
+    let data;
+    this.trimmingsModal.forEach(res => {
+      if (trim === res.type[0].name) {
+        if (res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name === part) {
+          data = true;
         }
       }
-    })
-    return data
+    });
+    return data;
   }
 }
