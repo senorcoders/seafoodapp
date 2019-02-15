@@ -42,7 +42,7 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label>Port of Loading <span class="field-status red">*</span></label>
-              <select  class="form-control" formControlName="city">
+              <select  (change)="onCityChange($event.target.value)" class="form-control" formControlName="city">
                 <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>
               
@@ -67,23 +67,23 @@
               </tr>
               <tr>
                 <td scope="row">25 KG</td>
-                <td>{{price25}}</td>
-                <td>{{price25 | currency: 'AED'}}</td>
+                <td>{{price25 | currency: 'USD'}}</td>
+                <td>{{price25*currentExchangeRate | currency: 'AED'}}</td>
               </tr>
               <tr>
                 <td scope="row">100 KG</td>
-                <td>{{price100}}</td>
-                <td>{{price100 | currency: 'AED'}}</td>
+                <td>{{price100 | currency: 'USD'}}</td>
+                <td>{{price100*currentExchangeRate | currency: 'AED'}}</td>
               </tr>
               <tr>
                 <td scope="row">500 KG</td>
-                <td>{{price500}}</td>
-                <td>{{price500 | currency: 'AED'}}</td>
+                <td>{{price500 | currency: 'USD'}}</td>
+                <td>{{price500*currentExchangeRate | currency: 'AED'}}</td>
               </tr>
               <tr>
                 <td scope="row">1000 KG</td>
-                <td>{{price1000}}</td>
-                <td>{{price1000 | currency: 'AED'}}</td>
+                <td>{{price1000 | currency: 'USD'}}</td>
+                <td>{{price1000*currentExchangeRate | currency: 'AED'}}</td>
               </tr>
           </table>
           </div>
