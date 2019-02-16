@@ -168,7 +168,7 @@ export class ConfirmationComponent implements OnInit {
         'signature': this.signature,
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
-        'amount': this.total,
+        'amount': '"'+this.total +"'",
         'order_description': this.description
       };
       console.log( 'payfort body', JSON.stringify( body ) ) ;
