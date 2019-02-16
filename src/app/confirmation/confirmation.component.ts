@@ -94,7 +94,7 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
-        this.total = (this.totalWithShipping).toFixed(2) * 100;
+        this.total = this.totalWithShipping * 100;
         this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
