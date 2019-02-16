@@ -54,7 +54,7 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if(params.response_code != '18000'){
+      if(params.response_code !== '18000'){
         let that = this;
         console.log(params.response_message);
         this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
@@ -94,7 +94,7 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
-        this.total = (this.totalWithShipping).toFixed(2) * 100;
+        this.total = this.totalWithShipping * 100;
         this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
@@ -189,6 +189,7 @@ export class ConfirmationComponent implements OnInit {
       },
       error => {
         console.log( 'payfort error', error );
+        this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
       }
       );
 

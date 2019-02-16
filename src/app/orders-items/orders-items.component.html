@@ -6,7 +6,7 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+			<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
 		</div>
 	</div>
 	<div *ngIf="showData"> 
@@ -24,7 +24,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2">
-						  @ ${{product.price.value}}
+						  @ ${{(product.price.value).toFixed(2)}}
 						</div>
 						<div class="col-md-3">
 						  <div class="product-name">
@@ -37,7 +37,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2 text-center">							
-							${{ ((product.quantity.value * product.price.value ) + product.shipping + product.uaeTaxes + product.customs + product.sfsMargin).toFixed(2) }}
+							${{ ((product.quantity.value * product.price.value )).toFixed(2) }}
 						</div>
 						<div class="col-md-1">
 								<div class="actions">

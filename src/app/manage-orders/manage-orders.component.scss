@@ -79,13 +79,17 @@
     margin-left: -10px;
 }
 .information-log[_ngcontent-c4] {
-    float: right;
-    font-size: 3em;
+    font-size: 2em;
     color: #ee434a;
-    bottom: 0px;
-    position: absolute;
-    right: 0px;
-    margin-right: 1em;
+    float: right;
+    display: inline-block;
+    // float: right;
+    // font-size: 3em;
+    // color: #ee434a;
+    // bottom: 0px;
+    // position: absolute;
+    // right: 0px;
+    // margin-right: 1em;
 }
 .information-log .info-modal-log {
     display: none;
@@ -99,10 +103,16 @@
     cursor: pointer;
 }
 .information-log:hover  .info-modal-log {
-    font-size: 0.3em !important;
+    // font-size: 0.3em !important;
+    // position: absolute;
+    // top: -80px;
+    // width: 350px !important;
+    // right: 0px;
+    // z-index: 999;
+    font-size: 0.4em !important;
     position: absolute;
-    top: -80px;
-    width: 350px !important;
+    width: 100%;
     right: 0px;
     z-index: 999;
+    font-size: 2rem;
 }

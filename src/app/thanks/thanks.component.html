@@ -13,7 +13,7 @@
           <br>
         </div>
       </div>
-      <div *ngIf="loadProduct; else showContent"><img src="../../assets/loader.gif" alt=""></div>
+      <div *ngIf="loadProduct; else showContent" class="text-center"><img src="../../assets/loader.gif" alt=""></div>
       <ng-template #showContent>
       <div class="row">
         <ng-container *ngFor="let product of products; let i = index">
