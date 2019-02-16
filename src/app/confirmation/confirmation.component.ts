@@ -68,6 +68,7 @@ export class ConfirmationComponent implements OnInit {
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
       this.params.shoppingCart = params.merchant_reference;
+      this.params.shoppingCart = this.shoppingCartId;
       // this.amount =  localStorage.getItem('shoppingTotal');
       // this.total = this.amount * 1000;
       this.getPersonalData();
