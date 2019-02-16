@@ -94,7 +94,8 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
-        this.total = this.totalWithShipping * 100;
+        this.total = Math.trunc( this.totalWithShipping * 100 );
+        console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
@@ -167,7 +168,7 @@ export class ConfirmationComponent implements OnInit {
         'signature': this.signature,
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
-        'amount': this.total.toFixed(2),
+        'amount': this.total,
         'order_description': this.description
       };
       console.log( 'payfort body', JSON.stringify( body ) ) ;
