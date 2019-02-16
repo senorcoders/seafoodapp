@@ -96,7 +96,6 @@ import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
 import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
 import { ProductListComponent } from './product-list/product-list.component';
-
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
 import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
@@ -105,6 +104,7 @@ import { ReviewcartComponent } from './reviewcart/reviewcart.component';
 import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
+import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 
 
 const appRoutes: Routes = [
@@ -177,7 +177,8 @@ const appRoutes: Routes = [
   { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] }
+  { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
+  { path: 'city-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
 ];
 
 @NgModule({
@@ -255,7 +256,8 @@ const appRoutes: Routes = [
     ReviewcartComponent,
     AdminLogisticManagmentComponent,
     PrivacyPolicyComponent,
-    CookiesPolicyComponent
+    CookiesPolicyComponent,
+    CitiManagmentComponent
   ],
   imports: [
     BrowserModule,
