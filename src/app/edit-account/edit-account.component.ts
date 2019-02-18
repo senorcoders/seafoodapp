@@ -159,6 +159,7 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['productsIntered'].setValue(this.info.dataExtra['productsIntered']);
     this.sellerForm.controls['contactNumber'].setValue(this.info.dataExtra['contactNumber']);
     this.sellerForm.controls['currencyTrade'].setValue(this.info.dataExtra['currencyTrade']);
+    this.sellerForm.controls['trade'].setValue(this.info.dataExtra['trade']);
   }
 
   updateBuyer(){
