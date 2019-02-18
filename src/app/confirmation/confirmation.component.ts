@@ -54,7 +54,7 @@ export class ConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      if(params.response_code != '18000'){
+      if(params.response_code !== '18000'){
         let that = this;
         console.log(params.response_message);
         this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
@@ -68,6 +68,7 @@ export class ConfirmationComponent implements OnInit {
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
       this.params.shoppingCart = params.merchant_reference;
+      this.params.shoppingCart = this.shoppingCartId;
       // this.amount =  localStorage.getItem('shoppingTotal');
       // this.total = this.amount * 1000;
       this.getPersonalData();
@@ -94,7 +95,8 @@ export class ConfirmationComponent implements OnInit {
         this.shipping = cart['shipping'];
         this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
         this.totalWithShipping = cart['total'];
-        this.total = (this.totalWithShipping).toFixed(2) * 100;
+        this.total = Math.trunc( this.totalWithShipping * 100 );
+        console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
@@ -167,7 +169,7 @@ export class ConfirmationComponent implements OnInit {
         'signature': this.signature,
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
-        'amount': this.total.toFixed(2),
+        'amount': (this.total).toString(),
         'order_description': this.description
       };
       console.log( 'payfort body', JSON.stringify( body ) ) ;
@@ -189,6 +191,7 @@ export class ConfirmationComponent implements OnInit {
       },
       error => {
         console.log( 'payfort error', error );
+        this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
       }
       );
 

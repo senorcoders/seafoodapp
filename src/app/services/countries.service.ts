@@ -34,4 +34,12 @@ export class CountriesService {
   updateMinETA( data ) {
     return this.http.put(`${API}api/countries/cityeta`, data );
   }
+
+  updateCity( data ) {
+    return this.http.put(`${API}api/countries/city`, data );
+  }
+
+  deleteCity( data ) {
+    return this.http.put(`${API}api/countries/city/delete`, data );
+  }
 }

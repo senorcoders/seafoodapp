@@ -108,6 +108,19 @@ const menuAdmin = [
         }
       },
       {
+        state: 'city-management',
+        type: 'link',
+        name: 'Manage City',
+        translate: {
+          en: {
+            name: 'Manage City'
+          },
+          ar: {
+            name: 'Manage City'
+          }
+        }
+      },
+      {
         state: 'manage-countries',
         type: 'link',
         name: 'Manage Countries ETA',

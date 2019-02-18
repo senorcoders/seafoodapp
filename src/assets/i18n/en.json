@@ -669,10 +669,21 @@
 	},
 	"citiETA": {
 		"country": "Country",
-		"city": "Cities",
+		"city": "Cities",		
 		"cityETA": "Minimum ETA",
 		"title": "Min Numbers of days expected to arrived from this cities",
 		"formTitle": "Update City ETA",
 		"button": "Save"
+	},
+	"citiManagement": {
+		"country": "Country",
+		"city": "City",		
+		"city_code": "City Code",
+		"cityETA": "Minimum ETA",
+		"title": "Cities Management",
+		"formTitle": "Add City",
+		"button": "Save",
+		"delete": "Delete"
 	}
+	
 }
