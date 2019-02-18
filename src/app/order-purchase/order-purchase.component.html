@@ -56,8 +56,7 @@
           <div class="col-md-3 col-sm-12 btn-cont" *ngIf="citem.status">
             <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404' || citem.status.id=='5c017af047fb07027943a405' || citem.status.id!=='5c06f4bf7650a503f4b731fd'"
               (click)="showModal(citem.id,'cancel')">Cancel order</a><br>
-            
-            
+
             <div class="" *ngIf="citem.status.id == '5c017ae247fb07027943a404'">
               <label>Expected Delivery Arrive</label>
               <input [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" id="epa{{citem.id}}" >
