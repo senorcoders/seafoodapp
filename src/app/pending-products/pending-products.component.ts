@@ -13,6 +13,8 @@ import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { PricingChargesService } from '../services/pricing-charges.service';
+
 declare var jQuery:any;
 
 @Component({
@@ -26,17 +28,35 @@ export class PendingProductsComponent implements OnInit {
   deniedProductGroup: FormGroup;
 	denialMessage: FormControl;
   id:any;
-  constructor(private toast: ToastrService, private productService: ProductService) { }
+  imageURL:string = environment.apiURLImg;
+  currentPrincingCharges: any = [];
+  currentExchangeRate: number;
+  constructor(
+    private toast: ToastrService,
+    private productService: ProductService,
+    private pricingChargesService: PricingChargesService ) { }
 
   ngOnInit() {
+    this.getCurrentPricingCharges();
     this.getPendingProducts();
     this.createForm();
   }
+  getCurrentPricingCharges() {
+    this.pricingChargesService.getCurrentPricingCharges().subscribe(
+      result => {
+        this.currentPrincingCharges = result;
+        console.log('result', result);
+        this.currentExchangeRate = result['exchangeRates'][0].price;
+        console.log(this.currentExchangeRate);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
 
   createForm(){
-    this.denialMessage = new FormControl('', Validators.required);    
-    
-    this.deniedProductGroup = new FormGroup({            
+    this.denialMessage = new FormControl('', Validators.required);
+    this.deniedProductGroup = new FormGroup({
       denialMessage: this.denialMessage
     });
 	}
