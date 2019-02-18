@@ -131,7 +131,7 @@
 		"title":"Add Product",
 		"name":"Product Title",
 		"price":"Price/KG in USD",
-		"price-measurement":"Weight type per quantity",
+		"price-measurement":"Unit of measurement",
 		"description":"Description",
 		"parent-types": "Select Main Category",
 		"fish-types":"Select Sub Category",
@@ -237,11 +237,11 @@
 		"forgot":"Forgot your password?",
 		"login":"Sign in",
 		"send":"Send",
-		"forgot-password":"Recovery your password"
+		"forgot-password":"Recover your password"
 	},
 	"Register":{
 		"title":"Register",
-		"select":"Are you Seller or Buyer?",
+		"select":"Are you a Seller or Buyer?",
 		"buyer":"Buyer",
 		"seller":"Seller",
 		"first-name":"First Name",
