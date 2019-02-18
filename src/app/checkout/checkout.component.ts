@@ -97,7 +97,7 @@ export class CheckoutComponent implements OnInit {
         this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
-              console.log(res);
+              console.log("Cart", res);
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];

@@ -46,7 +46,7 @@
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
-		"tel":"Telephone",
+		"tel":"Phone Number",
 		"country":"Country",
 		"baking":"Banking Info",
 		"button-update":"Update Account",

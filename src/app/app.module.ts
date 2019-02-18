@@ -105,6 +105,7 @@ import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admi
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
+import { EditAccountComponent } from './edit-account/edit-account.component';
 
 
 const appRoutes: Routes = [
@@ -118,7 +119,7 @@ const appRoutes: Routes = [
   { path: 'product/:id', component: SingleProductComponent },
   { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
-  { path: 'account', component: AccountComponent, canActivate: [RouterProtectionService] },
+  { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
   { path: 'my-products', component: MyProductsComponent, canActivate: [SellerRouterService] },
   { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
   { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
@@ -257,7 +258,8 @@ const appRoutes: Routes = [
     AdminLogisticManagmentComponent,
     PrivacyPolicyComponent,
     CookiesPolicyComponent,
-    CitiManagmentComponent
+    CitiManagmentComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,
