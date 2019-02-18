@@ -5,12 +5,16 @@
   <div class="row" >
     <div class="col-lg-4" *ngFor="let pendingProduct of pendingProducts; let i=index">
       <div class="product-card">
+				<img src="{{imageURL}}{{pendingProduct.imagePrimary}}">
         <h2 class="name">
           {{pendingProduct.name}}
 				</h2>
-				<span class="brandName"><b>Brand Name: </b>{{pendingProduct.brandName}}</span>
-				<span class="description"><b>Description: </b>{{pendingProduct.description}}</span>
+				<span class="brandName"><b>Brand Name: </b>{{pendingProduct.brandname}}</span>
+
+				<span class="type"><b>Main Category: </b>{{pendingProduct.parentsLevel['level0'].name}}</span>
+				<span class="type"><b>Species: </b>{{pendingProduct.parentsLevel['level1'].name}}</span>
 				<span class="type"><b>Subespecies: </b>{{pendingProduct.type.name}}</span>
+				<span class="type"><b>Descriptor: </b>{{pendingProduct.parentsLevel['descriptor'].name}}</span>
 
         <span class="weight"><b>Weight: </b>{{pendingProduct.weight.value}} {{pendingProduct.weight.type}}</span>        
 				<span class="minimunOrder"><b>Minimun Order: </b>{{pendingProduct.minimumOrder}}</span>
@@ -21,22 +25,25 @@
 				<span class="processingCountry"><b>Processing Country: </b>{{pendingProduct.processingCountryName}}</span>
 				
         <span class="quality"><b>Quality: </b>{{pendingProduct.quality}}</span>
-				<span class="stock"><b>Available Stock: </b>{{pendingProduct.stock}}</span>
 				<span class="hscode"><b>HS Code: </b>{{pendingProduct.hsCode}}</span>
 				
-				<span class="seller_sku"><b>Seller SKU: </b>{{pendingProduct.seller_sku}}</span>
+				<span class="seller_sku"><b>Product SKU: </b>{{pendingProduct.seller_sku}}</span>
 				<span class="seafood_sku"><b>Seafood SKU: </b>{{pendingProduct.seafood_sku}}</span>				
 				<span class="waterLostRate"><b>Water Lost Rate: </b>{{pendingProduct.waterLostRate}} %</span>
 				<span class="mortalityRate"><b>Mortality Rate: </b>{{pendingProduct.mortalityRate}} %</span>
 
-				<span class="price"><b>Price: </b>{{pendingProduct.price['value']}}</span>
-				<span class="price"><b>Currency: </b>{{pendingProduct.price.type}}</span>
+				<span class="price"><b>Price/KG in USD: </b>{{pendingProduct.price['value']}}</span>
+				<span class="price"><b>Price/KG in AED: </b>{{(pendingProduct.price['value'] * currentExchangeRate).toFixed(2)}}</span>
+				
 
 				<h4>Product Features</h4>
 				<span class="acceptableSpoilageRate"><b>Acceptable Spoilage Rate: </b>{{pendingProduct.acceptableSpoilageRate}}</span>
 				<span class="raised"><b>Raised: </b>{{pendingProduct.raised}}</span>
 				<span class="prepraration"><b>Preparation: </b>{{pendingProduct.preparation}}</span>
+				<span *ngIf="pendingProduct.wholeFishWeight" class="prepraration"><b>Whole Fish Weight: </b>{{pendingProduct.wholeFishWeight}}</span>
 				<span class="treatment"><b>Treatment: </b>{{pendingProduct.treatment}}</span>
+				<span class="treatment"><b>Cooming Soon: </b>{{pendingProduct.cooming_soon}}</span>
+				
 
 				
 
