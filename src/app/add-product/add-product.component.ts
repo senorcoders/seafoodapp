@@ -140,9 +140,9 @@ export class AddProductComponent implements OnInit {
     this.getSubcategories();
     this.getMyData();
     this.getAllCities();
-    // this.getCountries();
+    this.getCountries();
     this.getTrimming();
-    this.countries = environment.countries;
+    // this.countries = environment.countries;
   }
 
   getTypes() {
@@ -162,9 +162,7 @@ export class AddProductComponent implements OnInit {
     this.pricingChargesService.getCurrentPricingCharges().subscribe(
       result => {
         this.currentPrincingCharges = result;
-        console.log('result', result);
         this.currentExchangeRate = result['exchangeRates'][0].price;
-        console.log( this.currentExchangeRate );
       }, error => {
         console.log( error );
       }
@@ -249,7 +247,6 @@ export class AddProductComponent implements OnInit {
   }
 
   onCityChange(city): void {
-    console.log('value', city);
     
       this.deliveredPrices.forEach(element => {
         this.getDeliveredPrice(city, element);
@@ -263,7 +260,12 @@ export class AddProductComponent implements OnInit {
       if (val.speciesSelected === '5bda361c78b3140ef5d31fa4') {
         this.hideTrimModal = false;
       }
-      if (val.city == null) {
+
+      console.log(val);
+      if(val.price != "" && val.city != null){
+        this.onCityChange(val.city);
+      }
+      else if (val.price != "" && val.city == null) {
         this.price25 = val.price;
         this.price100 = val.price;
         this.price500 = val.price;
@@ -299,7 +301,6 @@ export class AddProductComponent implements OnInit {
 
     this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.country.value).subscribe(
       result => {
-        console.log(result);
         this.seafood_sku.setValue(result);
       },
       error => {
@@ -348,10 +349,8 @@ export class AddProductComponent implements OnInit {
       };
       console.log( data );
       this.product.saveData('fish', data).subscribe(result => {
-        console.log(result);
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
-        console.log(result);
         this.uploadFileToActivity(result['product']['id']);
         // } else {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
@@ -360,7 +359,6 @@ export class AddProductComponent implements OnInit {
 
       });
     } else {
-      console.log(this.myform.value);
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
 
     }
@@ -386,7 +384,6 @@ export class AddProductComponent implements OnInit {
     if (this.fileToUpload && this.fileToUpload.length > 0) {
       this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
         // do something, if upload success
-        console.log('Data', data);
         this.myform.reset();
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
 
@@ -422,7 +419,6 @@ export class AddProductComponent implements OnInit {
 
   structureData() {
     this.products.forEach((item, index) => {
-      console.log(item);
       const product = {
         'type': this.findTypeKey(item.Type),
         'store': this.store[0].id,
@@ -452,10 +448,7 @@ export class AddProductComponent implements OnInit {
         'waterLostRate': item.waterLostRate,
       };
       this.productsToUpload.push(product);
-      console.log(this.productsToUpload);
-      console.log(index);
       if (index === (this.products.length - 1)) {
-        console.log('Ready to Upload');
         this.bulkUpload();
       }
 
@@ -474,7 +467,6 @@ export class AddProductComponent implements OnInit {
 
     const sendData = { 'products': this.productsToUpload };
     this.product.saveData('api/fishs', sendData).subscribe(result => {
-      console.log(result);
       this.toast.success('Products added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
 
     });
@@ -507,8 +499,8 @@ export class AddProductComponent implements OnInit {
     this.countryService.getCities(this.country.value).subscribe(
       result => {
         this.cities = result[0].cities;
-        this.myform.controls['city'].setValue(this.cities[0]['code']);
-
+        this.myform.controls['city'].setValue(result[0].cities[0]['code']);
+        console.log(this.myform.controls['city'].value);
       },
       error => {
 
@@ -563,7 +555,6 @@ export class AddProductComponent implements OnInit {
         selectedType = this.subSpeciesSelected.value;
         break;
     }
-    console.log('selected type id', selectedType);
     this.product.getData(`fishTypes/${selectedType}/all_levels`).subscribe(
       result => {
         result['childs'].map(item => {
@@ -661,14 +652,21 @@ export class AddProductComponent implements OnInit {
       result => {
         this.typesModal = result;
         const data: any = result;
-        data.forEach( result => {
-          if (result.defaultProccessingParts.length > 1) {
-            result.defaultProccessingParts.forEach(res2 => {
-              this.defaultTrimming.push({ trim: result.name, name: res2 });
-            });
-          } else {
-            this.defaultTrimming.push({ trim: result.name, name: result.defaultProccessingParts });
+        data.forEach( res => {
+          if(res.hasOwnProperty('defaultProccessingParts')){
+              res.defaultProccessingParts.forEach(res2 => {
+                    this.defaultTrimming.push({ trim: res.name, name: res2 });
+                  });
+              
           }
+          
+          // if (res.defaultProccessingParts.length > 1) {
+          //   res.defaultProccessingParts.forEach(res2 => {
+          //     this.defaultTrimming.push({ trim: res.name, name: res2 });
+          //   });
+          // } else {
+          //   this.defaultTrimming.push({ trim: res.name, name: res.defaultProccessingParts });
+          // }
         });
       },
       e => {
@@ -733,8 +731,8 @@ export class AddProductComponent implements OnInit {
   isDefault(part, trim) {
     let data;
     this.trimmingsModal.forEach(res => {
-      if (trim === res.type[0].name) {
-        if (res.type[0].defaultProccessingParts.includes(part)) {
+      if (res.type.hasOwnProperty('name') && trim === res.type[0].name) {
+        if (res.type.hasOwnProperty('defaultProccessingParts') && res.type[0].defaultProccessingParts.includes(part)) {
           data = true;
         } else {
           data = false;
@@ -746,7 +744,7 @@ export class AddProductComponent implements OnInit {
   isChecked(part, trim) {
     let data;
     this.trimmingsModal.forEach(res => {
-      if (trim === res.type[0].name) {
+      if (res.type.hasOwnProperty('name') &&  trim === res.type[0].name) {
         if (res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name === part) {
           data = true;
         }
