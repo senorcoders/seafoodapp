@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-payments',
@@ -107,14 +108,14 @@ export class PaymentsComponent implements OnInit {
         e => {
           console.log(e);
         }
-      )
+      );
     }
   }
 
   updateStatus() {
     let selectedStatus: string;
-    let statusName: string = this.selectedStatus;
-    let itemID: string = this.selectedItemID;
+    const statusName: string = this.selectedStatus;
+    const itemID: string = this.selectedItemID;
 
     this.orderStatus.map( status => {
       if ( status.status === statusName ) {
@@ -134,6 +135,7 @@ export class PaymentsComponent implements OnInit {
     console.log( 'status', selectedStatus );
     console.log( 'item', itemID );
   }
+
   noUpdate() {
     jQuery('#confirmUpdateStatus').modal('hide');
   }
