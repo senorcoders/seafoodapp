@@ -162,7 +162,7 @@ const appRoutes: Routes = [
   { path: 'seller-fulfills-orders', component: AdminOrdersComponent, canActivate: [AdminRouterService] },
   { path: 'orders-out-for-delivery', component: AdminOrderOutDeliveryComponent, canActivate: [AdminRouterService] },
   { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
-  { path: 'payments', component: PaymentsComponent, canActivate: [AdminRouterService] },
+  { path: 'payment-management', component: PaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'manage-orders', component: ManageOrdersComponent, canActivate: [AdminRouterService] },
   { path: 'logistic-management', component: AdminLogisticManagmentComponent, canActivate: [AdminRouterService] },
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },

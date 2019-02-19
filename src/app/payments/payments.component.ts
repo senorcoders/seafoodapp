@@ -12,7 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 export class PaymentsComponent implements OnInit {
 
   orders: any = [];
+  orderStatus: any = [];
   showNoData: boolean = false;
+  selectedStatus: any;
+  selectedItemID: any;
+  user: any;
 
   constructor(
     private orderService: OrderService,
@@ -21,7 +25,10 @@ export class PaymentsComponent implements OnInit {
     private auth: AuthenticationService) { }
 
   ngOnInit() {
+    this.user = this.auth.getLoginData();
+
     this.getPayments();
+    this.getPaymentStatus();
   }
 
   getPayments() {
@@ -39,10 +46,24 @@ export class PaymentsComponent implements OnInit {
       }
     );
   }
+
+  getPaymentStatus() {
+    this.orderService.getPaymentStatus().subscribe(
+      res => {
+        this.orderStatus = res;
+      },
+      error => {
+        console.log( error );
+        this.toast.error('Something happend, please refresh the page', 'System Error', { positionClass: 'toast-top-right' });
+      }
+    );
+  }
+
+
   markAsRepayed(itemID: string) {
     this.orderService.markItemAsRepayed(itemID).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success('Item marked as repayed!', 'Status Change', { positionClass: 'toast-top-right' });
         this.getPayments();
       },
       error => {
@@ -53,7 +74,7 @@ export class PaymentsComponent implements OnInit {
   markAsRefunded(itemID: string) {
     this.orderService.markItemAsRefounded(itemID).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success('Item marked as refunded!', 'Status Change', { positionClass: 'toast-top-right' });
         this.getPayments();
       },
       error => {
@@ -88,5 +109,38 @@ export class PaymentsComponent implements OnInit {
         }
       )
     }
+  }
+
+  updateStatus() {
+    let selectedStatus: string;
+    let statusName: string = this.selectedStatus;
+    let itemID: string = this.selectedItemID;
+
+    this.orderStatus.map( status => {
+      if ( status.status === statusName ) {
+        selectedStatus = status.id;
+      }
+    } );
+    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+      result => {
+        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        jQuery('#confirmUpdateStatus').modal('hide');
+        this.getPayments();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+    console.log( 'status', selectedStatus );
+    console.log( 'item', itemID );
+  }
+  noUpdate() {
+    jQuery('#confirmUpdateStatus').modal('hide');
+  }
+
+  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+    this.selectedStatus = selectedStatus;
+    this.selectedItemID = selectedItemID;
+    jQuery('#confirmUpdateStatus').modal('show');
   }
 }

@@ -36,13 +36,25 @@ const menuAdmin = [
     type: 'sub',
     children: [
       { state: 'manage-orders', name: 'Manage Orders', translate: { en: { name: 'Manage Orders' }, ar: { name: 'Manage Orders' } } },
-      { state: 'logistic-management', name: 'Logistic Management', translate: { en: { name: 'Logistic Management' }, ar: { name: 'Logistic Management' } } },
+      {
+        state: 'logistic-management',
+        name: 'Logistic Management',
+        translate: { en: { name: 'Logistic Management' },
+        ar: { name: 'Logistic Management' } } },
+      {
+        state: 'payment-management',
+        name: 'Payment Management',
+        translate: {
+          en: { name: 'Payment Management' },
+          ar: { name: 'Payment Management' }
+        }
+      },
+
       /*{ state: 'seller-fulfills-orders', name: 'Seller Fulfills Orders', translate: { en: { name: 'Seller Fulfills Orders' }, ar: { name: 'Seller Fulfills Orders' } } },
       { state: 'orders-shipped', name: 'Orders Shipped', translate: { en: { name: 'Orders Shipped' }, ar: { name: 'Orders Shipped' } } },
       { state: 'orders-arrived', name: 'Orders Arrived', translate: { en: { name: 'Orders Arrived' }, ar: { name: 'Orders Arrived' } } },
       { state: 'orders-out-for-delivery', name: 'Orders Out for Delivery', translate: { en: { name: 'Orders Out for Delivery' }, ar: { name: 'Order Out for Delivery' } } },
       //{ state: 'orders-delivered', name: 'Orders delivered', translate: { en: { name: 'Orders delivered' }, ar: { name: 'Orders delivered' } } },
-      { state: 'payments', name: 'Payments', translate: { en: { name: 'Payments' }, ar: { name: 'Payments' } } },
       { state: 'repayments', name: 'Repayments', translate: { en: { name: 'Repayments' }, ar: { name: 'Repayments' } } },
       { state: 'refund-cases', name: 'Refund Cases', translate: { en: { name: 'Refund Cases' }, ar: { name: 'Refund Cases' } } },
       { state: 'refunds', name: 'Refunds', translate: { en: { name: 'Refunds' }, ar: { name: 'Refunds' } } }*/
@@ -133,7 +145,7 @@ const menuAdmin = [
           }
         }
       },
-      {
+      /*{
         state: 'manage-shipping-cities',
         type: 'link',
         name: 'Manage City ETA',
@@ -145,7 +157,7 @@ const menuAdmin = [
             name: 'Manage City ETA'
           }
         }
-      }
+      }*/
     ]
   },
   {

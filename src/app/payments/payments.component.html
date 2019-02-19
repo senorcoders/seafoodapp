@@ -14,26 +14,44 @@
           </div>
         <div class="col-12" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
             <div class="col-12 table-design">
-              <div class="row row-bg" *ngFor="let item of orders  ;let i=index ">
-                <div class="col-5">
-                  <p class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
-                  <h5 [innerHtml]="item.fish.name"></h5>                
-                  <span class="store">{{item.store.name}}</span>               
-                  <p class="status"><b>Status:</b>{{item.status.status}}</p>
-                  <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+              <ng-container  *ngFor="let item of orders  ;let i=index ">
+
+                <div class="row row-bg" *ngIf="item.shoppingCart" >
+                  <div class="col-5">
+                    <p *ngIf="item.shoppingCart" class="order-number">Order #{{item.shoppingCart.orderNumber}}</p>                
+                    <h5 [innerHtml]="item.fish.name"></h5>                
+                    <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
+                    <p class="status"><b>Status:</b>{{item.status.status}}</p>
+                    <p class="status"><b>Payment Status:</b>{{item.paymentStatus.status}}</p>
+                    <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+                  </div>
+                  <div class="col-4">
+                      <div *ngIf="item.updateInfo">
+                          <p class="date" *ngFor="let update of item.updateInfo;" >
+                            <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
+                          </p>
+                        </div>
+                  </div>                
+                  <div class="col col-button">
+                      <ng-container>
+                        <table class="medium-table">
+                          <tr>
+                            <td>Status:</td>
+                            <td>
+                              
+                              <select class="form-control" name="status" #device (change)="confirmUpdatestatus($event.target.value, item.id)">
+                                  <option *ngFor="let sitem of orderStatus;" [selected]="i.status == sitem.id" [ngValue]="sitem.id">
+                                      {{sitem.status}}</option>    
+                                  
+                                                                                                
+                              </select>
+                            </td>
+                          </tr>
+                        </table>
+                      </ng-container>                      
                 </div>
-                <div class="col-4">
-                  <p class="date" *ngIf="item.shippedAt" ><strong>Shipped on {{item.shippedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.arrivedAt"><strong>Arrived on {{item.arrivedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.outForDeliveryAt"><strong>Out for Delivery on {{item.outForDeliveryAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.deliveryAt"><strong>Delivered on {{item.deliveryAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
                 </div>
-                <div class="col col-button">
-                    <button *ngIf="item.status.id == '5c017b3c47fb07027943a409'" (click)="markAsRepayed(item.id)" class="btn-red-a">{{'Payments.PaymentButton' | translate}}</button>
-                    <button *ngIf="status == '5c06f4bf7650a503f4b731fd' || status == '5c017b5a47fb07027943a40c'" (click)="markAsRefunded(item.id)" class="btn-red-a">{{'Payments.RefoundButton' | translate}}</button>
-              </div>
-              </div>
+              </ng-container>
             </div>
           </div>
           <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
@@ -43,3 +61,25 @@
       
   </div>
   </div>
+
+  <div class="modal fade" id="confirmUpdateStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">You want to update the status to {{selectedStatus}}?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <button type="button" (click)="updateStatus()" class="blue-btn">Yes</button>
+            <button type="button" (click)="noUpdate()" class="blue-btn-light">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
