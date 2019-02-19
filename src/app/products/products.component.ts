@@ -300,6 +300,7 @@ export class ProductsComponent implements OnInit {
 
   getCart() {
     this.cartService.cart.subscribe((cart: any) => {
+      console.log("Cart", cart);
       this.cart = cart;
     });
   }
@@ -744,6 +745,7 @@ smallDesc(str) {
 
 
     addToCart(product) {
+      console.log("Producto", product);
       const item = {
         'fish': product.id,
         'price': {
