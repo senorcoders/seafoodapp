@@ -9,6 +9,8 @@
     font-size: 0.8em;
 
 }
+
+
 .not-found-grid{
     height: 80vh;
     display: flex;
@@ -115,5 +117,12 @@
 @media(max-width: 998px){
     .btn-red{
         margin-bottom: 20px;
+    }
+}
+
+.bg-red{
+    background-color: #f52828 !important;
+    input.form-control{
+        color: #fff !important;
     }
 }

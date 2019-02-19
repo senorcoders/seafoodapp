@@ -55,13 +55,14 @@ export class ConfirmationComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       if(params.response_code !== '18000'){
-        let that = this;
         console.log(params.response_message);
         this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
-          setTimeout(function(){
-            that.location.back();
+        
+           setTimeout(() => {
+            this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});
 
-           }, 5000);
+
+           }, 5000)
 
       }
       this.params.response = params;

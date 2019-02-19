@@ -573,7 +573,7 @@
 		"filterByCity": "Filter Shipping Rate By City",
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
-		"city": "Cities",
+		"city": "Port of Loading",
 		"cityETA": "Min Numbers of days for shipping"
 	},
 	"PricingCharges": {
