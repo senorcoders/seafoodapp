@@ -610,8 +610,9 @@ export class AddProductComponent implements OnInit {
     }
   }
   getTrimming() {
-    this.trimmings.push('Whole');
-    this.trimmings.push('Gutted');
+    this.trimmings.push('Head On Gutted');
+    this.trimmings.push('Head Off Gutted');
+    this.trimmings.push('Filleted');
     this.product.getData('trimmingtype').subscribe(
       res => {
         const data: any = res;
