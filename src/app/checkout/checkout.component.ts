@@ -50,6 +50,9 @@ export class CheckoutComponent implements OnInit {
   selectYear:any = "19";
   selectMonth:any = "01";
   expiryDate:any;
+  error:boolean = false;
+  name:any;
+  address:any;
 
   constructor(
     private router: Router,
@@ -70,11 +73,14 @@ export class CheckoutComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
+      this.error = params['creditIssue'];
       this.randomID = this.guid();
       this.generateSignature();
       this.getCart();
       this.getPersonalData();
       // this.shipping = localStorage.getItem('shippingCost');
+      this.name = localStorage.getItem('billingInformationName');
+      this.address = localStorage.getItem('billingInformationAddress');
       
 
     });
@@ -281,6 +287,13 @@ export class CheckoutComponent implements OnInit {
     let val = this.selectYear + this.selectMonth;
     console.log(val);
     this.expiryDate = val;
+
+  }
+
+  saveArray(){
+    console.log(this.name, this.address);
+    localStorage.setItem('billingInformationName', this.name);
+    localStorage.setItem('billingInformationAddress', this.address)
 
   }
 }
