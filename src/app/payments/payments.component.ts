@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { PricingChargesService } from '../services/pricing-charges.service';
 import { ToastrService } from 'ngx-toastr';
 declare var jQuery: any;
 
@@ -18,16 +19,17 @@ export class PaymentsComponent implements OnInit {
   selectedStatus: any;
   selectedItemID: any;
   user: any;
-
+  exchangeRate: number;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
     private toast: ToastrService,
-    private auth: AuthenticationService) { }
+    private auth: AuthenticationService,
+    private pricingService: PricingChargesService) { }
 
   ngOnInit() {
     this.user = this.auth.getLoginData();
-
+    this.getExchangeRates();
     this.getPayments();
     this.getPaymentStatus();
   }
@@ -46,6 +48,16 @@ export class PaymentsComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  getExchangeRates() {
+    this.pricingService.getCurrentPricingCharges().subscribe(
+      res => {
+        this.exchangeRate = res['exchangeRates'][0].price;
+      }, error => {
+        console.log( error );
+      }
+    )
   }
 
   getPaymentStatus() {
