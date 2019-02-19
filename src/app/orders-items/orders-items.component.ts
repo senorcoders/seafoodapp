@@ -30,6 +30,7 @@ export class OrdersItemsComponent implements OnInit {
 
   ngOnInit() {
     this.user = this.auth.getLoginData();
+    console.log("User", this.user);
     this.router.params.subscribe(params => {
       this.shoppingCartId = this.router.snapshot.params['id'];
       this.getItems();
