@@ -59,40 +59,43 @@
           
         </div>
         <div class="col-12 table-design">
-          <div class="row row-bg" *ngFor="let ccountry of tableCountries; let ci=cindex">
-            <div class="col-lg-4">
-              <h5 class="country">
-                {{ccountry.name}}
-              </h5>
+          <ng-container *ngFor="let ccountry of tableCountries; let ci=cindex">
+            <div class="row row-bg"  *ngIf="ccountry.cities !== undefined">
+              <div class="col-lg-4">
+                <h5 class="country">
+                  {{ccountry.name}}
+                </h5>
+              </div>
+              <div class="col-lg-8">
+                <table>
+                  <thead>
+                    <tr>
+                      <td>City</td>
+                      <td>Minimun ETA</td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
+                      <td>
+                        {{ccity.name}}
+                      </td>
+                      <td *ngIf="ccity.mineta">
+                        {{ccity.mineta}}
+                      </td>
+                      <td *ngIf="!ccity.mineta">
+                          
+                      </td>
+                      <td>
+                        <button type="button" (click)="deleteCity(ccountry.id, ccity.code)" class="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="col-lg-8">
-              <table>
-                <thead>
-                  <tr>
-                    <td>City</td>
-                    <td>Minimun ETA</td>
-                    <td></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
-                    <td>
-                      {{ccity.name}}
-                    </td>
-                    <td *ngIf="ccity.mineta">
-                      {{ccity.mineta}}
-                    </td>
-                    <td *ngIf="!ccity.mineta">
-                        
-                    </td>
-                    <td>
-                      <button type="button" (click)="deleteCity(ccountry.id, ccity.code)" class="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
+          </ng-container>
+
         </div>
       </div>
     </div>
