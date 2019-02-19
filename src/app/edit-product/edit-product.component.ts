@@ -64,7 +64,6 @@ export class EditProductComponent implements OnInit {
   mainCategory:FormControl;
   descriptor:FormControl;
   specie:FormControl;
-  waterLostRate:FormControl;
   wholeFishWeight:FormControl;
   wholeOptions=[
     '0-1 KG',
@@ -78,16 +77,17 @@ export class EditProductComponent implements OnInit {
     '8+ KG'
   ];
   preparationOptions=[
-    'Filleted',
-    'Whole',
-    'Gutted'
+    'Head On Gutted',
+    'Head Off Gutted',
+    'Filleted'
   ]
   showWholeOptions:boolean=false;
+  hsCode:any;
+  acceptableSpoilageRate:any;
   constructor(private product: ProductService, private route: ActivatedRoute, private router: Router, private toast: ToastrService, private auth: AuthenticationService, private sanitizer: DomSanitizer, private countryService: CountriesService ) {}
   ngOnInit() {
     // this.createFormControls();
     // this.createForm();
-    this.getAllCities();
     this.getCountries();
     this.user = this.auth.getLoginData();
     this.getTypes();
@@ -95,6 +95,9 @@ export class EditProductComponent implements OnInit {
    if (this.user['role'] < 2) {
      this.getDetails();
    }
+
+   this.getAllCities();
+
 
   }
   getDetails() {
@@ -106,14 +109,17 @@ export class EditProductComponent implements OnInit {
       this.price = data['price'].value;
       this.measurement = data['weight'].type;
       this.country = data['country'];
-      this.descriptor=data['descriptor'].id;
+      if(data.hasOwnProperty('descriptor') && data['descriptor'].hasOwnProperty('id')){
+        this.descriptor=data['descriptor'].id;
+
+      }
       if ( data.hasOwnProperty('processingCountry') ) {
         this.processingCountry = data['processingCountry'];
       }
-      this.waterLostRate=data['waterLostRate'];
       this.city = data['city'];
       this.show = true;
       this.types = data['type'].id;
+      this.specie= data['type'].parent;
       this.preparation = data['preparation'];
       this.raised = data['raised'];
       this.minimumOrder = data['minimumOrder'];
@@ -125,7 +131,9 @@ export class EditProductComponent implements OnInit {
       this.status = data['status'];
       this.wholeFishWeight=data['wholeFishWeight'];
       this.selectedStatus = this.status.id;
-      if(data['preparation']=='Whole'){
+      this.hsCode = data['hsCode'];
+      this.acceptableSpoilageRate = data['mortalityRate'];
+      if(data['preparation'] !='Filleted'){
         this.showWholeOptions=true;
       }
       if(data['images']){
@@ -174,7 +182,6 @@ export class EditProductComponent implements OnInit {
          'quality': 'good',
           'name': this.name,
           'brandname':this.brandname,
-          'description': this.description,
           'country': this.country,
           'processingCountry': this.processingCountry,
           'city': this.city,
@@ -198,8 +205,9 @@ export class EditProductComponent implements OnInit {
           'seafood_sku': this.seafood_sku,
           'status': this.selectedStatus,
           'descriptor':this.descriptor,
-          'waterLostRate':this.waterLostRate,
-          'wholeFishWeight':whole
+          'wholeFishWeight':whole,
+          'hsCode': this.hsCode,
+          'mortalityRate': this.acceptableSpoilageRate
       };
       this.product.updateData('fish/' + this.productID, data).subscribe(result => {
         if (this.fileToUpload.length > 0) {
@@ -306,10 +314,11 @@ getAllCities() {
       this.cities = result;
     },
     error => {
-      console.log( error );
+      console.log(error);
     }
   );
 }
+
 showModal(action){
   this.action=action;
   jQuery('#confirm').modal('show');
@@ -350,8 +359,8 @@ getAllTypesByLevel() {
         selectedType = this.specie;
         if(value=='5bda361c78b3140ef5d31fa4'){
           this.preparationOptions=[
-            'Whole',
-            'Gutted',
+            'Head On Gutted',
+            'Head Off Gutted ',
             'Filleted - Trim A',
             'Filleted - Trim B',
             'Filleted - Trim C',
@@ -363,8 +372,8 @@ getAllTypesByLevel() {
         else{
           this.preparationOptions=[
             'Filleted',
-            'Whole',
-            'Gutted'
+            'Head On Gutted',
+            'Head Off Gutted '
           ]
         }
         break;
@@ -408,7 +417,7 @@ getAllTypesByLevel() {
     )
   }
    showWhole(value){
-    if(value=='Whole'){
+    if(value!='Filleted'){
       this.showWholeOptions=true;
     }
     else{
