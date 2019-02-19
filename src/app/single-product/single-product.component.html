@@ -92,7 +92,7 @@
             </div>    
           </div>
           <div class="col-5 product-value">
-            <button *ngIf="cooming_soon == 'false'" (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+            <button  (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-blue btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </div>
           <div class="col-2 currency"></div>
