@@ -42,7 +42,7 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label>Port of Loading <span class="field-status red">*</span></label>
-              <select  (change)="onCityChange($event.target.value)" class="form-control" formControlName="city">
+              <select  class="form-control" formControlName="city">
                 <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>
               

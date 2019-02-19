@@ -282,7 +282,7 @@ export class AccountComponent implements OnInit {
 
       }
 
-    })
+    }) 
   }
   createStore(){
     let myStore = {

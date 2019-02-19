@@ -35,7 +35,7 @@ export class CheckoutComponent implements OnInit {
   randomID: any;
   products: any = [];
   total: any;
-  totalOtherFees: number;
+  totalOtherFees: any;
   shipping: any;
   totalWithShipping: any;
   showShippingFields: boolean = false;
