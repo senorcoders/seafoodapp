@@ -28,13 +28,16 @@
                 <div class="col-4">
                   <p class="order-number">Buyer Name</p>
                   <p class="order-number">Order Number</p>
-                  <p class="order-number">Order Date</p>
+                  <p class="order-number" *ngIf="item.paidDateTime != ''" >Order Date</p>
+                  <p class="order-number" >Buyer Address</p>
 
                 </div>
                 <div class="col-8">
                   <p class="order-number"><strong>{{item.buyer.firstName}} {{item.buyer.lastName}}</strong></p>
                   <p class="order-number">{{item.orderNumber}}</p>
-                  <p class="order-number">{{item.paidDateTime}}</p>
+                  <p class="order-number" *ngIf="item.paidDateTime != ''">{{item.paidDateTime}}</p>
+                  <p class="order-number">{{item.buyer.dataExtra.Address}}</p>
+
                 </div>
               </div>
 
