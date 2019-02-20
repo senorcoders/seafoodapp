@@ -61,6 +61,10 @@ export class SingleProductComponent implements OnInit {
   showTaxes: boolean = false;
   FXRateFees = 0;
   delivered: number = 0;
+  brandname:any;
+  processingCountry:any;
+  countries:any = environment.countries;
+  types:any = '';
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -93,6 +97,7 @@ export class SingleProductComponent implements OnInit {
     const data = this.auth.getLoginData();
     this.idUser = data['id'];
     this.getFavorite();
+    this.getTypes();
   }
 
   verifyQty() {
@@ -174,6 +179,7 @@ export class SingleProductComponent implements OnInit {
       this.mainImg = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
+      this.brandname = data['brandname'];
       if (data['raised'] && data['raised'] !== '') {
         this.raised = data['raised'];
       } else {
@@ -189,7 +195,8 @@ export class SingleProductComponent implements OnInit {
       } else {
         this.treatment = 'Not provided';
       }
-      this.country = data['country'];
+      this.country = data['country'] || '';
+      this.processingCountry = data['processingCountry'] || '';
       if (data['store'].logo && data['store'].logo !== '') {
         this.logo = this.base + data['store'].logo;
       } else {
@@ -366,4 +373,19 @@ export class SingleProductComponent implements OnInit {
       }
     );
   }
+
+  findCountries(code){
+    for (var i=0; i < this.countries.length; i++) {
+        if (this.countries[i].code === code) {
+            return this.countries[i].name;
+        }
+    }
+} 
+
+getTypes(){
+  this.productService.getData(`/fishType/parents/${this.productID}`).subscribe(res =>{
+    console.log("Categorías", res);
+    this.types = res;
+  })
+}
 }
