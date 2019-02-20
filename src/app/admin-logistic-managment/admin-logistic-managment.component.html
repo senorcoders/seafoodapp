@@ -75,7 +75,7 @@
 
                       <tr>
                         <td>Price:</td>
-                        <!-- <td>{{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</td> -->
+                         <td *ngIf="item.total">{{item.total | currency:'AED'}}</td>
                       </tr>
                     </table>
 
