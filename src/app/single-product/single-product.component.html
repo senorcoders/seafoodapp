@@ -21,8 +21,26 @@
             <span class="slide-total-slides"></span>
           </div> -->
         </ng-template>    
-        <div class="product-by">Produced by</div>  
+        <div class="product-by">Company Name</div>  
         <div class="Product-Producer-Name"><a routerLink="/store/{{storeId}}">{{storeName}} </a></div>
+        <div class="product-by width-auto" *ngIf="brandname != ''"><span>Brand name</span>  <a>{{brandname}}</a></div>
+        <table class="no-border">
+          <tr *ngIf="country !=''">
+            <td>Country of Origin</td>
+            <td [innerHtml]="findCountries(country)"></td>
+          </tr>
+          <tr *ngIf="processingCountry != ''">
+            <td>Country of Processing</td>
+            <td [innerHtml]="findCountries(processingCountry)"></td>
+          </tr>
+        </table>
+        <div class="product-details2">Product Details</div>
+        <div class="features-single-product" *ngIf="types != ''">
+          {{types.level0.name}} - {{types.level1.name}} - {{types.level2.name}}
+        </div>
+        <div class="features-single-product">
+          {{raised}} - {{treatment}} -  <span class="underline">{{preparation}}</span>
+        </div>
       </div>
       <div class="col-lg-6 product-content">
         <h2 class="product-name">
@@ -96,6 +114,18 @@
             <button *ngIf="showCart" (click)="goToCart()" class="btn-blue btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </div>
           <div class="col-2 currency"></div>
+        </div>
+        <div class="min-max-row">
+          <table>
+            <tr>
+              <td>{{min}}</td>
+              <td>Min. Order kg</td>
+            </tr>
+            <tr>
+              <td>{{max}}</td>
+              <td>Max. Order kg</td>
+            </tr>
+          </table>
         </div>
         <ng-template #login>
           <div class="row">
