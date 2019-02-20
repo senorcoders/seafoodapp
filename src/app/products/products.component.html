@@ -107,7 +107,7 @@
                   <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
                 </div>
 
-              <div  id="product-{{product.id}}" *ngFor="let product of products; let i=index" class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}} category-{{product.type.name}} {{product.country}} {{i}} {{product.id}} {{product.price.value}}" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
+              <div  id="product-{{product.id}}" *ngFor="let product of products; let i=index" class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}} category-{{removeSpaces(product.type.name)}} {{product.country}} {{i}} {{product.id}} {{product.price.value}}" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
                 <a routerLink="/product/{{product.id}}">
                   <div class="single-product-bg " [style.background-image]="image[i]">
                     <div class="single-kg-box" id="single-price-{{product.id}}">{{product.minimumOrder}} kg</div>
@@ -127,7 +127,7 @@
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
                     <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
                 </p>
-                 <button *ngIf="product.cooming_soon == 'false'" class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+                 <button  class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
               </div>
              
             </div>

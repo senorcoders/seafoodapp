@@ -619,14 +619,18 @@ smallDesc(str) {
 
   }
 
+  removeSpaces(text){
+    return text.replace(" ", '-')
+  }
     increaseWeight(weight, max, i, id, country, category, price) {
+      console.log(weight, max, category, country, price);
       if (weight < max) {
         const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
         weight += 5;
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           console.log( 'cards', cards );
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
@@ -657,7 +661,7 @@ smallDesc(str) {
         weight -= 5;
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
@@ -684,7 +688,7 @@ smallDesc(str) {
         (input as HTMLElement).style.color = '#000';
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
