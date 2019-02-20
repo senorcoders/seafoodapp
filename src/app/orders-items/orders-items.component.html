@@ -24,7 +24,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2">
-						  @ ${{(product.price.value).toFixed(2)}}
+						  @ ${{(product.price.value)}}
 						</div>
 						<div class="col-md-3">
 						  <div class="product-name">
@@ -37,7 +37,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2 text-center">							
-							${{ ((product.quantity.value * product.price.value )).toFixed(2) }}
+							${{ ((product.quantity.value * product.price.value )) }}
 						</div>
 						<div class="col-md-1">
 								<div class="actions">
@@ -47,7 +47,7 @@
 							
 						</div>
 						<div class="col-md-2">
-							<button *ngIf="product.status.id== '5c017ae247fb07027943a404' || product.status.id == '5c017af047fb07027943a405'" (click)="cancelOrder(product.id)" class="btn-red-a">{{'Orders-items.cancel-item' | translate}}</button>
+							<button *ngIf="product.status.id== '5c017ae247fb07027943a404'" (click)="cancelOrder(product.id)" class="btn-red-a">{{'Orders-items.cancel-item' | translate}}</button>
 						</div>
 					  </div>
 					</div>
