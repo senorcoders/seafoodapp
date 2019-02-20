@@ -29,15 +29,13 @@
 				
 				<span class="seller_sku"><b>Product SKU: </b>{{pendingProduct.seller_sku}}</span>
 				<span class="seafood_sku"><b>Seafood SKU: </b>{{pendingProduct.seafood_sku}}</span>				
-				<span class="waterLostRate"><b>Water Lost Rate: </b>{{pendingProduct.waterLostRate}} %</span>
-				<span class="mortalityRate"><b>Mortality Rate: </b>{{pendingProduct.mortalityRate}} %</span>
 
 				<span class="price"><b>Price/KG in USD: </b>{{pendingProduct.price['value']}}</span>
 				<span class="price"><b>Price/KG in AED: </b>{{(pendingProduct.price['value'] * currentExchangeRate).toFixed(2)}}</span>
 				
 
 				<h4>Product Features</h4>
-				<span class="acceptableSpoilageRate"><b>Acceptable Spoilage Rate: </b>{{pendingProduct.acceptableSpoilageRate}}</span>
+				<span class="acceptableSpoilageRate"><b>Acceptable Spoilage Rate: </b>{{pendingProduct.mortalityRate}}</span>
 				<span class="raised"><b>Raised: </b>{{pendingProduct.raised}}</span>
 				<span class="prepraration"><b>Preparation: </b>{{pendingProduct.preparation}}</span>
 				<span *ngIf="pendingProduct.wholeFishWeight" class="prepraration"><b>Whole Fish Weight: </b>{{pendingProduct.wholeFishWeight}}</span>

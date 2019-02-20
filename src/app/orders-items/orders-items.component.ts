@@ -24,7 +24,10 @@ export class OrdersItemsComponent implements OnInit {
   user: any;
   Stars = [];
   count: number = 0;
-  total: any;
+  total: number = 0;
+  subtotal: number = 0;
+  totalShipping: number = 0;
+  totalOther: number = 0;
   constructor(private productService: ProductService, private router: ActivatedRoute, private auth: AuthenticationService,
     private fb: FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer, private orderService: OrderService) { }
 
@@ -132,14 +135,21 @@ export class OrdersItemsComponent implements OnInit {
 
   getTotal() {
     let subtotal: number = 0;
+    let shipping: number = 0;
+    let other: number = 0;
     let itemsProcessed: number = 0;
 
     this.products.forEach(element => {
       itemsProcessed++;
       subtotal += this.getTotalxItem(element.quantity.value, element.price.value);
+      shipping += element.shipping;
+      other += element.customs + element.uaeTaxes + element.sfsMargin;
       // subtotal += element.shipping + element.uaeTaxes + element.customs + element.sfsMargin ;
       if (itemsProcessed === this.products.length) {
-        this.total =  subtotal.toFixed(2);
+        this.totalOther = other;
+        this.totalShipping = shipping;
+        this.subtotal = subtotal;
+        this.total =  subtotal + this.totalOther + this.totalShipping;
       }
     });
   }

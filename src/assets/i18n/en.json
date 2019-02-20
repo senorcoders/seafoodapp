@@ -429,7 +429,10 @@
 		"is-invalid":"You have to write a comment",
 		"send":"Send",
 		"back-orders": "Back to my orders",
+		"subtotal": "Sub Total",
 		"total": "Total",
+		"total-shipping": "Shipping",
+		"total-other": "Other fees and Taxes",
 		"cancel-item": "Cancel Item"
 	},
 	"Comments":{
