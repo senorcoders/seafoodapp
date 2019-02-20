@@ -577,6 +577,7 @@
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
 		"city": "Port of Loading",
+		"addPortOfLoading": "Add Port of Loading",
 		"cityETA": "Min Numbers of days for shipping"
 	},
 	"PricingCharges": {
@@ -680,11 +681,11 @@
 	},
 	"citiManagement": {
 		"country": "Country",
-		"city": "City",		
-		"city_code": "City Code",
+		"city": "Port of Loading",		
+		"city_code": "Port of Loading Code",
 		"cityETA": "Minimum ETA",
-		"title": "Cities Management",
-		"formTitle": "Add City",
+		"title": "Port of Loading",
+		"formTitle": "Add Port of Loading",
 		"button": "Save",
 		"delete": "Delete"
 	}

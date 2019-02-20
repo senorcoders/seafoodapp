@@ -179,7 +179,7 @@ const appRoutes: Routes = [
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
   { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
-  { path: 'city-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
+  { path: 'port-of-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
 ];
 
 @NgModule({

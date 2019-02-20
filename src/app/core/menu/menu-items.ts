@@ -120,15 +120,15 @@ const menuAdmin = [
         }
       },
       {
-        state: 'city-management',
+        state: 'port-loading-management',
         type: 'link',
-        name: 'Manage City',
+        name: 'Port of Loading Management',
         translate: {
           en: {
-            name: 'Manage City'
+            name: 'Port of Loading Management'
           },
           ar: {
-            name: 'Manage City'
+            name: 'Port of Loading Management'
           }
         }
       },
