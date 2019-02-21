@@ -64,6 +64,7 @@ export class PendingProductsComponent implements OnInit {
   getPendingProducts(){
     this.productService.getPendingProducts().subscribe(
       result => {
+        console.log("Pending", result);
         this.pendingProducts = result;
       },
       error => {
