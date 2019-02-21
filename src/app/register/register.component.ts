@@ -157,7 +157,7 @@ registerVal;
       "Address":this.buyerForm.get('Address').value,
       "City":this.buyerForm.get('City').value,
       "companyName": this.buyerForm.get('companyName').value,
-      "TypeBusiness":this.buyerForm.get('TypeBusiness').value
+      "typeBusiness":this.buyerForm.get('TypeBusiness').value
       }
       this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
         result=>{

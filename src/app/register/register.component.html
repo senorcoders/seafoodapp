@@ -91,7 +91,7 @@
               <label>{{'Register.country' | translate}}<span class="field-status red">*</span></label>
               <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
                 <option value="">{{'Register.country' | translate}}</option>
-                <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+                <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
               </select>
               <div class="invalid-feedback" *ngIf="buyerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
             </div>
