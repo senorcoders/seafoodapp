@@ -108,8 +108,8 @@ export class OrderPurchaseComponent implements OnInit {
 			});
 	}
 
-	confirmOrder(itemId: string, index) {
-		index = this.index;
+	confirmOrder(itemId: string) {
+		let index = this.index;
 		let sellerETA = jQuery( `#epa${itemId}` ).val();
 
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
