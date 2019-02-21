@@ -24,7 +24,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2">
-						  @ ${{(product.price.value)}}
+						  @ {{product.price.value | currency: 'AED'}}
 						</div>
 						<div class="col-md-3">
 						  <div class="product-name">
@@ -37,7 +37,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2 text-center">							
-							${{ ((product.quantity.value * product.price.value )) }}
+							{{ ((product.quantity.value * product.price.value )) | currency: 'AED' }}
 						</div>
 						<div class="col-md-1">
 								<div class="actions">
@@ -58,10 +58,10 @@
 						<div class="col-md-3">
 						</div>
 						<div class="col-md-7 text-right">
-							<h5>{{'Orders-items.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{subtotal}}</h5>
-							<h5>{{'Orders-items.total-other' | translate}} &nbsp;&nbsp;&nbsp;   ${{totalOther}}</h5>
-						  <h5>{{'Orders-items.total-shipping' | translate}} &nbsp;&nbsp;&nbsp;   ${{totalShipping}}</h5>
-							<h3 class="subtotal">{{'Orders-items.total' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
+							<h5>{{'Orders-items.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   {{subtotal | currency: 'AED'}}</h5>
+							<h5>{{'Orders-items.total-other' | translate}} &nbsp;&nbsp;&nbsp;   {{totalOther | currency: 'AED'}}</h5>
+						  <h5>{{'Orders-items.total-shipping' | translate}} &nbsp;&nbsp;&nbsp;   {{totalShipping | currency: 'AED'}}</h5>
+							<h3 class="subtotal">{{'Orders-items.total' | translate}} &nbsp;&nbsp;&nbsp;   {{total | currency: 'AED'}}</h3>
 						  <br>
 						</div>
 						
