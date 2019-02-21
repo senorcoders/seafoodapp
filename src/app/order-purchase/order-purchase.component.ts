@@ -237,7 +237,7 @@ export class OrderPurchaseComponent implements OnInit {
 		if(val){
 			console.log(action);
 			if(action=="confirm"){
-				this.confirmOrder(this.citemId, index);
+				this.confirmOrder(this.citemId);
 			}
 			else if(action=='cancel'){
 				this.cancelOrder(this.citemId );
