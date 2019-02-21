@@ -232,8 +232,8 @@ registerVal;
           this.email=this.sellerForm.get('email').value;
           this.userID=res['id']
          
-          //this.createStore();
-          this.showConfirmation=false;
+          this.createStore();
+          // this.showConfirmation=false;
 
         }, error =>{
           this.showError(error.error)
