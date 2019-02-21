@@ -233,7 +233,7 @@ export class OrderPurchaseComponent implements OnInit {
 			this.toast.error('Please select a Expected Delivery Time before Confirm the order', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
-	confirm(val,action, index){
+	confirm(val,action){
 		if(val){
 			console.log(action);
 			if(action=="confirm"){
