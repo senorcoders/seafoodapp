@@ -31,6 +31,7 @@ export class OrderPurchaseComponent implements OnInit {
 	today = new Date();
 	min = new Date();
 	max = new Date();
+	index:any;
 
 	constructor(
 		private fb: FormBuilder,
@@ -107,7 +108,8 @@ export class OrderPurchaseComponent implements OnInit {
 			});
 	}
 
-	confirmOrder(itemId: string) {
+	confirmOrder(itemId: string, index) {
+		index = this.index;
 		let sellerETA = jQuery( `#epa${itemId}` ).val();
 
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
@@ -116,7 +118,9 @@ export class OrderPurchaseComponent implements OnInit {
 				jQuery('#confirm').modal('hide');
 				console.log(res);
 				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
-				this.getItem();
+				//this.getItem();
+				this.items[index].status['id']= "5c017af047fb07027943a405";
+				this.items[index].status['status']= "Pending Fulfillment";
 
 			},
 			e => {
@@ -215,8 +219,10 @@ export class OrderPurchaseComponent implements OnInit {
 		}
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
 	}
-	showModal(id,action){
+	showModal(id,action, index){
 		let sellerETA = jQuery( `#epa${id}` ).val()
+		this.index = index;
+		console.log("index Modal", this.index);
 		
 		if( ( sellerETA !== '' && sellerETA !== undefined ) || action === 'cancel') {
 			this.citemId = id;
@@ -227,11 +233,11 @@ export class OrderPurchaseComponent implements OnInit {
 			this.toast.error('Please select a Expected Delivery Time before Confirm the order', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
-	confirm(val,action){
+	confirm(val,action, index){
 		if(val){
 			console.log(action);
 			if(action=="confirm"){
-				this.confirmOrder(this.citemId);
+				this.confirmOrder(this.citemId, index);
 			}
 			else if(action=='cancel'){
 				this.cancelOrder(this.citemId );
