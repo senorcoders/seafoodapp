@@ -64,18 +64,18 @@
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem;margin-top: 10px;">Store</h5>
 						<hr class="black-line">
-						<b>Company name: </b>{{store.companyName}} <br>	
-						<b>Trade/Brand Name: </b>{{store.TradeBrandName}} <br>	
-						<b>Company Type: </b>{{store.companyType}} <br>	
-						<b>Country: </b>{{store.location}} <br>	
-						<b>Address: </b>{{store.Address}} <br>	
-						<b>City: </b>{{store.City}} <br>	
-						<b>Trade License Number (Registration): </b>{{store.TradeLicenseNumber}} <br>	
-						<b>Food Safety Certificate Number (ISO): </b>{{store.FoodSafetyCertificateNumber}} <br>	
-						<b>Corporate Bank Account Number IBAN: </b>{{store.CorporateBankAccountNumber}} <br>	
-						<b>Currency of Trade: </b>{{store.CurrencyofTrade}} <br>
-						<b>Contact Number: </b>{{store.ContactNumber}} <br>	
-						<b>Products Interested in Selling: </b>{{store.ProductsInterestedSelling}}
+						<b>Company name: </b>{{singleUser.dataExtra.companyName}} <br>	
+						<b>Trade/Brand Name: </b>{{singleUser.dataExtra.trade}} <br>	
+						<b>Company Type: </b>{{singleUser.dataExtracompanyType}} <br>	
+						<b>Country: </b>{{singleUser.dataExtra.country}} <br>	
+						<b>Address: </b>{{singleUser.dataExtra.Address}} <br>	
+						<b>City: </b>{{singleUser.dataExtra.City}} <br>	
+						<b>Trade License Number (Registration): </b>{{singleUser.dataExtra.licenseNumber}} <br>	
+						<b>Food Safety Certificate Number (ISO): </b>{{singleUser.dataExtra.iso}} <br>	
+						<b>Corporate Bank Account Number IBAN: </b>{{singleUser.dataExtra.iban}} <br>	
+						<b>Currency of Trade: </b>{{singleUser.dataExtra.currencyTrade}} <br>
+						<b>Contact Number: </b>{{singleUser.dataExtra.contactNumber}} <br>	
+						<b>Products Interested in Selling: </b>{{singleUser.dataExtra.productsIntered}}
 
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">

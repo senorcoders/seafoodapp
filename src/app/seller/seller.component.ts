@@ -19,7 +19,10 @@ export class SellerComponent implements OnInit {
   showLoading: boolean = true;
   sellerForm: FormGroup;
   base: string = environment.apiURLImg;
-  user: any;
+  user: any = {
+    'dataExtra': ''
+
+  };
   countries: any = [];
   allCities: any = [];
   cities: any = [];
@@ -60,7 +63,6 @@ export class SellerComponent implements OnInit {
     this.sellerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      country: ['', Validators.required],
       firstMileCost: [''],
       email: ['', [Validators.email, Validators.required]],
       tel: [''],
@@ -94,17 +96,17 @@ export class SellerComponent implements OnInit {
     });
   }
   userForm() {
+    console.log(this.user);
     this.sellerForm = this.fb.group({
       firstName: [this.user.firstName, Validators.required],
       lastName: [this.user.lastName, Validators.required],
-      country: [this.user.country, Validators.required],
       firstMileCost: [this.user.firstMileCost],
       email: [this.user.email, [Validators.email, Validators.required]],
       tel: [this.user.dataExtra.tel],
       uploadTradeLicense: [this.user.dataExtra.uploadTradeLicense],
       fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
       sfsAgreementForm: [''],
-      ifLocal: [this.user.dataExtra.ifLocal],
+      ifLocal: [this.user.dataExtra.ifLocal], 
     });
   }
   getUsers() {
@@ -147,8 +149,20 @@ export class SellerComponent implements OnInit {
   editUser() {
     const data = this.sellerForm.value;
     const dataExtra = {
-			'country': data.location,
-			'tel': data.tel
+      'tel': data.tel,
+      "companyName": this.user.dataExtra['companyName'],
+      "companyType": this.user.dataExtra['companyType'],
+      "country": this.user.dataExtra['country'],
+      "Address":this.user.dataExtra['Address'],
+      "City":this.user.dataExtra['City'],
+      "contactNumber": this.user.dataExtra['contactNumber'],
+      "iban": this.user.dataExtra['iban'],
+      "currencyTrade": this.user.dataExtra['currencyTrade'],
+      "iso": this.user.dataExtra['iso'],
+      "productsIntered": this.user.dataExtra['productsIntered'],
+      "licenseNumber": this.user.dataExtra['licenseNumber'],
+      "trade": this.user.dataExtra['trade']
+
     };
     data.dataExtra = dataExtra;
     // this.sellerForm.controls['firstMileCost'].setValue(5);
@@ -190,7 +204,7 @@ export class SellerComponent implements OnInit {
     }
   }
   storeSubmit() {
-    if (this.store.name !== '' && this.store.description !== '' && this.store.location !== '') {
+    if (this.user.dataExtra['companyName'] !== '') {
 
       this.updateStore();
 
@@ -201,40 +215,29 @@ export class SellerComponent implements OnInit {
     }
   }
   updateStore() {
-    const storeToUpdate = {
-      name: this.store.name,
-      description: this.store.description,
-      location: this.store.location,
-      type: this.store.type,
-      productType: this.store.productType,
-      email: this.store.email,
-      Address: this.store.Address,
-      City: this.store.City,
-      zipCode: this.store.zipCode
-    };
+    
+    let storeFullData={
+      "companyName": this.user.dataExtra['companyName'],
+      "companyType": this.user.dataExtra['companyType'],
+      "location": this.user.dataExtra['country'],
+      "Address":this.user.dataExtra['Address'],
+      "City":this.user.dataExtra['City'],
+      "ContactNumber": this.user.dataExtra['contactNumber'],
+      "CorporateBankAccountNumber": this.user.dataExtra['iban'],
+      "CurrencyofTrade": this.user.dataExtra['currencyTrade'],
+      "FoodSafetyCertificateNumber": this.user.dataExtra['iso'],
+      "ProductsInterestedSelling": this.user.dataExtra['productsIntered'],
+      "TradeBrandName": this.user.dataExtra['productsIntered'],
+      "TradeLicenseNumber": this.user.dataExtra['licenseNumber']
+    }
 
-    this.productService.updateData('store/' + this.store.id, storeToUpdate).subscribe(result => {
+    this.productService.updateData('store/' + this.store.id, storeFullData).subscribe(result => {
       // update sfs files
-      if (this.fileSfs && this.fileSfs.length > 0) {
-        if (this.fileSfs[0] && this.fileSfs[0].length > 0) {
-          this.updateSfs(result['id'], 'SFS_SalesOrderForm', 0);
-        }
-        if (this.fileSfs[1] && this.fileSfs[1].length > 0) {
-          this.updateSfs(result['id'], 'SFS_TradeLicense', 1);
-        }
-        if (this.fileSfs[2] && this.fileSfs[2].length > 0) {
-          this.updateSfs(result['id'], 'SFS_ImportCode', 2);
-        }
-        if (this.fileSfs[3] && this.fileSfs[3].length > 0) {
-          this.updateSfs(result['id'], 'SFS_HSCode', 3);
-        }
-      }
-      if (this.fileHero.length > 0 || this.fileToUpload.length > 0) {
-        this.updateFile(this.store.id);
-      } else {
-        this.toast.success('Your store has been updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+        console.log("Store Updated", result);
+        this.editUser();
+        // this.toast.success('Your store has been updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
 
-      }
+      
 
     });
   }

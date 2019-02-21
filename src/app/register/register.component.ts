@@ -32,29 +32,42 @@ registerVal;
     this.redirectHome();
     this.sub=this.route.queryParams.subscribe(params=>{
       if(!params['register']){
-        this.buyerShow=true;
-        this.sellerShow=false;
-        this.RegisterBuyerForm()
+        this.showBuyer();
       }
-      else if(params['register']=='seller'){
-        this.buyerShow=false;
-        this.sellerShow=true;
-        this.RegistersellerForm();
+      else{
+        (params['register'] == 'seller') ? this.showSeller() :  this.showBuyer();
       }
-      else if(params['register']=='buyer'){
-        this.buyerShow=true;
-        this.sellerShow=false;
-        this.RegisterBuyerForm()
-      }
+      
+      
 
     })
   }
 
+
+
   ngOnInit() {
     // this.RegisterBuyerForm();
+    this.RegisterBuyerForm();
+    this.RegistersellerForm();
+
+
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  showBuyer(){
+    this.buyerShow=true;
+    this.sellerShow=false;
+    this.registerVal = '2';
+  }
+
+  showSeller(){
+    this.buyerShow=false;
+    this.sellerShow=true;
+    this.RegistersellerForm();
+    this.registerVal = '1';
+
   }
   redirectHome(){
      if(this.auth.isLogged()){ 
@@ -62,7 +75,6 @@ registerVal;
     }
   }
   RegisterBuyerForm(){
-    this.registerVal="2";
     this.buyerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
@@ -80,8 +92,7 @@ registerVal;
       validator : PasswordValidation.MatchPassword
     })
   }
-  RegistersellerForm(){
-    this.registerVal="1"
+  RegistersellerForm(){ 
      this.sellerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
@@ -162,70 +173,145 @@ registerVal;
   }
 
 
+  createStore(){
+    let store={
+      "name": this.sellerForm.get('companyName').value,
+      "owner":this.userID,
+      "description":""
+    }
+    this.product.saveData('api/store/',store).subscribe(
+      result=>{
+        this.storeID=result[0].id;
+        //update store with full data, api is working in this way
+        let storeFullData={
+          "companyName":this.sellerForm.get('companyName').value,
+          "companyType": this.sellerForm.get('companyType').value,
+          "location": this.sellerForm.get('location').value,
+          "Address":this.sellerForm.get('Address').value,
+          "City":this.sellerForm.get('City').value,
+          "ContactNumber": this.sellerForm.get('ContactNumber').value,
+          "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
+          "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
+          "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+          "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
+          "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
+          "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
+        }
+        console.log(this.storeID)
+        this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
+          result=>{
+            this.showConfirmation=false;
+          },
+          error=>{
+            this.showError(error.error)
+            //if store has error. delete user and store
+            this.product.deleteData('user/'+this.userID).subscribe(
+              result=>{console.log(result)},e=>{console.log(e)})
+            this.product.deleteData('store/'+this.storeID).subscribe(
+              result=>{console.log(result)},e=>{console.log(e)})
+            console.log(error)
+          }
+        )
+      },
+      error=>{
+        this.showError(error.error)
+        console.log(error)
+      }
+    )
+  }
+
+
   submitRegistrationSeller(){
       let dataExtra={
       "tel": this.sellerForm.get('tel').value,
+      'country' : this.sellerForm.get('location').value,
+      'Address' : this.sellerForm.get('Address').value,
+      'City' : this.sellerForm.get('City').value,
+      'companyName' : this.sellerForm.get('companyName').value,
+      'companyType' : this.sellerForm.get('companyType').value,
+      'licenseNumber' : this.sellerForm.get('TradeLicenseNumber').value,
+      'iso' : this.sellerForm.get('FoodSafetyCertificateNumber').value,
+      'iban' : this.sellerForm.get('CorporateBankAccountNumber').value,
+      'productsIntered' : this.sellerForm.get('ProductsInterestedSelling').value,
+      'contactNumber' : this.sellerForm.get('ContactNumber').value,
+      'currencyTrade' : this.sellerForm.get('CurrencyofTrade').value,
+      'trade' : this.sellerForm.get('TradeBrandName').value 
       }
-      //save new seller
-      this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
-        result=>{
+
+        this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(res => {
+          console.log("Res", res);
           this.email=this.sellerForm.get('email').value;
-          this.userID=result['id']
-          //save licence
-          if(this.file.length>0){
-            this.uploadFile(this.userID)
-          }
-          //save store just name and owner
-          let store={
-            "name": this.sellerForm.get('companyName').value,
-            "owner":this.userID,
-            "description":""
-          }
-          this.product.saveData('api/store/',store).subscribe(
-            result=>{
-              this.storeID=result[0].id;
-              //update store with full data, api is working in this way
-              let storeFullData={
-                "companyName":this.sellerForm.get('companyName').value,
-                "companyType": this.sellerForm.get('companyType').value,
-                "location": this.sellerForm.get('location').value,
-                "Address":this.sellerForm.get('Address').value,
-                "City":this.sellerForm.get('City').value,
-                "ContactNumber": this.sellerForm.get('ContactNumber').value,
-                "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
-                "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
-                "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
-                "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
-                "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
-                "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
-              }
-              console.log(this.storeID)
-              this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
-                result=>{
-                  this.showConfirmation=false;
-                },
-                error=>{
-                  this.showError(error.error)
-                  //if store has error. delete user and store
-                  this.product.deleteData('user/'+this.userID).subscribe(
-                    result=>{console.log(result)},e=>{console.log(e)})
-                  this.product.deleteData('store/'+this.storeID).subscribe(
-                    result=>{console.log(result)},e=>{console.log(e)})
-                  console.log(error)
-                }
-              )
-            },
-            error=>{
-              this.showError(error.error)
-              console.log(error)
-            }
-          )
-        },
-        error=>{
-          console.log(error);
-          this.showError(error.error);
-        }
-      )
+          this.userID=res['id']
+         
+          this.createStore();
+          // this.showConfirmation=false;
+
+        }, error =>{
+          this.showError(error.error)
+
+        })
+    
+      
+      // save new seller
+      // this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(
+      //   result=>{
+      //     this.email=this.sellerForm.get('email').value;
+      //     this.userID=result['id']
+      //     //save licence
+      //     if(this.file.length>0){
+      //       this.uploadFile(this.userID)
+      //     }
+      //     //save store just name and owner
+      //     let store={
+      //       "name": this.sellerForm.get('companyName').value,
+      //       "owner":this.userID,
+      //       "description":""
+      //     }
+      //     this.product.saveData('api/store/',store).subscribe(
+      //       result=>{
+      //         this.storeID=result[0].id;
+      //         //update store with full data, api is working in this way
+      //         let storeFullData={
+      //           "companyName":this.sellerForm.get('companyName').value,
+      //           "companyType": this.sellerForm.get('companyType').value,
+      //           "location": this.sellerForm.get('location').value,
+      //           "Address":this.sellerForm.get('Address').value,
+      //           "City":this.sellerForm.get('City').value,
+      //           "ContactNumber": this.sellerForm.get('ContactNumber').value,
+      //           "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
+      //           "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
+      //           "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+      //           "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
+      //           "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
+      //           "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
+      //         }
+      //         console.log(this.storeID)
+      //         this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
+      //           result=>{
+      //             this.showConfirmation=false;
+      //           },
+      //           error=>{
+      //             this.showError(error.error)
+      //             //if store has error. delete user and store
+      //             this.product.deleteData('user/'+this.userID).subscribe(
+      //               result=>{console.log(result)},e=>{console.log(e)})
+      //             this.product.deleteData('store/'+this.storeID).subscribe(
+      //               result=>{console.log(result)},e=>{console.log(e)})
+      //             console.log(error)
+      //           }
+      //         )
+      //       },
+      //       error=>{
+      //         this.showError(error.error)
+      //         console.log(error)
+      //       }
+      //     )
+      //   },
+      //   error=>{
+      //     console.log(error);
+      //     this.showError(error.error);
+      //   }
+      // )
    
   }
   showForm(value){

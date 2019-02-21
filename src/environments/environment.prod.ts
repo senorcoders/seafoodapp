@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  apiURL:"http://13.232.66.55/",
-  apiURLImg:"http://13.232.66.55",
+  apiURL:"http://devapi.seafoodsouq.com/",
+  apiURLImg:"http://devapi.seafoodsouq.com",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},
