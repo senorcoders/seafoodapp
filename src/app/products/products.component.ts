@@ -312,8 +312,8 @@ export class ProductsComponent implements OnInit {
   	this.productService.listProduct(data).subscribe(
   		result => {
         this.isClearButton = false;
-  			this.products = result['productos'];
-        console.log('Productos', this.products);
+¡  			this.products = result['productos'];
+        console.log('Productos', result);
         // add paginations numbers
         // tslint:disable-next-line:radix
         this.pageNumbers = parseInt(result['pagesNumber']);

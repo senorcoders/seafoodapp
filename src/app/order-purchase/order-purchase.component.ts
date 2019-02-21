@@ -55,24 +55,24 @@ export class OrderPurchaseComponent implements OnInit {
 		// this.productS.getData('itemshopping/' + this.itemId).subscribe(
 		this.productS.getData(`api/store/${this.user.id}/order/${this.orderId}`).subscribe(
 			result => {
-				console.log( result );
+				console.log("Items",  result );
 				if (result && result !== '') {
 					this.items = result;
 					this.showLoading = false;
 					this.showProduct = true;
-					if ( result['shoppingCart'].paidDateTime !== undefined ) {
-						this.getDates(result['shoppingCart'].paidDateTime);
-					}
-					// hide or show button
-					if (result['shippingStatus'] === 'shipped') {
-						this.showButton = false;
-					}
-					// show or hide tracking image
-					if (result['trackingFile'] !== '') {
-						this.showTrackingFile = true;
-					} else {
-						this.showTrackingFile = false;
-					}
+					// if ( result['shoppingCart'].hasOwnProperty('paidDateTime') ) {
+					// 	this.getDates(result['shoppingCart'].paidDateTime);
+					// }
+					// // hide or show button
+					// if (result['shippingStatus'] === 'shipped') {
+					// 	this.showButton = false;
+					// }
+					// // show or hide tracking image
+					// if (result['trackingFile'] !== '') {
+					// 	this.showTrackingFile = true;
+					// } else {
+					// 	this.showTrackingFile = false;
+					// }
 				} else {
 					this.showLoading = false;
 					this.showProduct = false;

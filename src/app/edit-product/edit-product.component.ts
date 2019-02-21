@@ -62,7 +62,7 @@ export class EditProductComponent implements OnInit {
   typeLevel2;
   typeLevel3;
   mainCategory:FormControl;
-  descriptor:FormControl;
+  descriptor:any;
   specie:FormControl;
   wholeFishWeight:FormControl;
   wholeOptions=[
@@ -109,8 +109,8 @@ export class EditProductComponent implements OnInit {
       this.price = data['price'].value;
       this.measurement = data['weight'].type;
       this.country = data['country'];
-      if(data.hasOwnProperty('descriptor') && data['descriptor'].hasOwnProperty('id')){
-        this.descriptor=data['descriptor'].id;
+      if(data.hasOwnProperty('descriptor') && data['descriptor'] != null ){
+        (data['descriptor'].hasOwnProperty('id')) ? this.descriptor=data['descriptor'].id : this.descriptor = '' ;
 
       }
       if ( data.hasOwnProperty('processingCountry') ) {
