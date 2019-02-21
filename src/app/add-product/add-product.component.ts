@@ -280,6 +280,7 @@ export class AddProductComponent implements OnInit {
       'weight': qty
     };
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
+      console.log(res);
       if (qty === 25) {
         this.price25 = res;
       } else if (qty === 100) {

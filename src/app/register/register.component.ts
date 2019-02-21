@@ -32,29 +32,42 @@ registerVal;
     this.redirectHome();
     this.sub=this.route.queryParams.subscribe(params=>{
       if(!params['register']){
-        this.buyerShow=true;
-        this.sellerShow=false;
-        this.RegisterBuyerForm()
+        this.showBuyer();
       }
-      else if(params['register']=='seller'){
-        this.buyerShow=false;
-        this.sellerShow=true;
-        this.RegistersellerForm();
+      else{
+        (params['register'] == 'seller') ? this.showSeller() :  this.showBuyer();
       }
-      else if(params['register']=='buyer'){
-        this.buyerShow=true;
-        this.sellerShow=false;
-        this.RegisterBuyerForm()
-      }
+      
+      
 
     })
   }
 
+
+
   ngOnInit() {
     // this.RegisterBuyerForm();
+    this.RegisterBuyerForm();
+    this.RegistersellerForm();
+
+
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  showBuyer(){
+    this.buyerShow=true;
+    this.sellerShow=false;
+    this.registerVal = '2';
+  }
+
+  showSeller(){
+    this.buyerShow=false;
+    this.sellerShow=true;
+    this.RegistersellerForm();
+    this.registerVal = '1';
+
   }
   redirectHome(){
      if(this.auth.isLogged()){ 
@@ -62,7 +75,6 @@ registerVal;
     }
   }
   RegisterBuyerForm(){
-    this.registerVal="2";
     this.buyerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
@@ -81,7 +93,6 @@ registerVal;
     })
   }
   RegistersellerForm(){ 
-    this.registerVal="1"
      this.sellerForm=this.fb.group({
       firstName:['',Validators.required],
       lastName:['',Validators.required],
