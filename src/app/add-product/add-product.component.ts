@@ -300,7 +300,7 @@ export class AddProductComponent implements OnInit {
       }
     })*/
 
-    this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.country.value).subscribe(
+    this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
       result => {
         this.seafood_sku.setValue(result);
       },
@@ -497,14 +497,12 @@ export class AddProductComponent implements OnInit {
   }
 
   getCities() {
-    this.countryService.getCities(this.country.value).subscribe(
+    this.countryService.getCities(this.processingCountry.value).subscribe(
       result => {
+        console.log("Res", result);
         this.cities = result[0].cities;
         this.myform.controls['city'].setValue(result[0].cities[0]['code']);
         console.log(this.myform.controls['city'].value);
-      },
-      error => {
-
       }
     );
   }

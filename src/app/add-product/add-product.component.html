@@ -23,7 +23,7 @@
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': country.invalid && (country.dirty || country.touched),'has-success': country.valid && (country.dirty || country.touched)}">
               <label>{{'AddProduct.country' | translate}} <span class="field-status red">*</span></label>
-              <select  (change)="generateSKU(); getCities();" class="form-control" formControlName="country">
+              <select   class="form-control" formControlName="country">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
               <div class="form-control-feedback" *ngIf="country.errors && showError">
@@ -34,7 +34,7 @@
           <div class="col-lg-6">
             <div class="form-group" >
               <label>{{'AddProduct.processingCountry' | translate}} <span class="field-status red">*</span></label>
-              <select class="form-control" formControlName="processingCountry">
+              <select (change)="generateSKU(); getCities();" class="form-control" formControlName="processingCountry">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
             </div>
