@@ -107,7 +107,7 @@ button#clear {
     filter:grayscale(100%);
   }
   
-  a{
+  a, button{
     pointer-events: none;
     cursor: default;
     text-decoration: none;
