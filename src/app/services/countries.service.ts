@@ -15,6 +15,9 @@ export class CountriesService {
   getCountries(){
     return this.http.get(`${API}countries`)
   }
+  getCountriesWithCities() {
+    return this.http.get(`${API}api/countries/withCities`)
+  }
   getCities( country_code:string ){
     return this.http.get(`${API}countries?code=${country_code}`)
   }
