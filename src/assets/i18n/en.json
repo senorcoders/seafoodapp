@@ -132,7 +132,6 @@
 		"name":"Product Title",
 		"price":"Price/KG in USD",
 		"price-measurement":"Unit of measurement",
-		"description":"Description",
 		"parent-types": "Select Main Category",
 		"fish-types":"Select Sub Category",
 		"country":"Country of Origin",

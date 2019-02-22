@@ -78,7 +78,7 @@ export class AddProductComponent implements OnInit {
   allCities: any = [];
   cities: any = [];
   preparationOptions = [
-    'Head On Gutted ',
+    'Head On Gutted',
     'Head Off Gutted',
     'Filleted'
   ];
@@ -604,10 +604,11 @@ export class AddProductComponent implements OnInit {
     //     this.parts.push(res.processingParts)
     //   }
     // })
-    if (value === 'Filleted') {
-      this.showWholeOptions = false;
-    } else {
+    console.log(value);
+    if (value === 'Head On Gutted' || value === 'Head Off Gutted') {
       this.showWholeOptions = true;
+    } else {
+      this.showWholeOptions = false;
     }
   }
   getTrimming() {
