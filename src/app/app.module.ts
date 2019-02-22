@@ -106,6 +106,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
+import {TooltipModule} from 'ng2-tooltip-directive';
 
 
 const appRoutes: Routes = [
@@ -280,6 +281,7 @@ const appRoutes: Routes = [
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    TooltipModule
   ],
   providers: [
     AuthenticationService,
