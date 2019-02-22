@@ -2,16 +2,17 @@
   <div class="overlay-bn"></div>
   <div class="page-header homepage container">
     <div class="buyer-content">
-      <h2 class="buyer-title">Buyers</h2>
+      <h2 class="buyer-title">Buyers  </h2>
       <h3 class="means">Seafood Souq means</h3>
       <h4 class="buyer-value">more choice</h4>
-      <a class="blue-btn" (click)="register('buyer')">Register to Buy</a>
+      <a *ngIf="role === -1" class="blue-btn" (click)="register('buyer')">Register to Buy</a>
+      
     </div>
     <div class="seller-content">
       <h2 class="buyer-title">Seller</h2>
       <h3 class="means">Seafood Souq means</h3>
       <h4 class="buyer-value">access to an interational market</h4>
-      <a class="blue-btn" (click)="register('seller')">Register to Sell</a>
+      <a *ngIf="role === -1" class="blue-btn" (click)="register('seller')">Register to Sell</a>
     </div>
     <div class="content">
       <h1 class="welcome-title">Welcome to Seafood Souq</h1>
