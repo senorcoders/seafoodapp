@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -23,6 +24,7 @@ export class ManageOrdersComponent implements OnInit {
   showNoData: boolean = false;
   groupOrder=[];
   orderWithData=[];
+  API: string = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -168,11 +170,17 @@ export class ManageOrdersComponent implements OnInit {
       if(val.shoppingCart && val.shoppingCart.orderNumber){
         if(index>0){
           if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
-            this.groupOrder.push( { orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef } );
+            this.groupOrder.push( { 
+              orderNumber: val.shoppingCart.orderNumber,
+              xeroRef: val.shoppingCart.xeroRef,
+              invoice_pdf: val.shoppingCart.invoice_pdf} );
           }
         }
         else{
-          this.groupOrder.push( { orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef } );
+          this.groupOrder.push( {
+            orderNumber: val.shoppingCart.orderNumber,
+            xeroRef: val.shoppingCart.xeroRef,
+            invoice_pdf: val.shoppingCart.invoice_pdf} );
         }
       }
     })

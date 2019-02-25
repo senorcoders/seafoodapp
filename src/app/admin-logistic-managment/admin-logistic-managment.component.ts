@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -21,6 +22,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   selectedItemID: string;
   showNoData: boolean = false;
   rows:any =[];
+  API: string = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
