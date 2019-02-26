@@ -497,7 +497,7 @@ export class AddProductComponent implements OnInit {
   }
 
   getCities() {
-    this.countryService.getCities(this.country.value).subscribe(
+    this.countryService.getCities(this.processingCountry.value).subscribe(
       result => {
         this.cities = result[0].cities;
         this.myform.controls['city'].setValue(result[0].cities[0]['code']);
