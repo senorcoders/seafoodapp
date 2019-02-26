@@ -30,6 +30,21 @@ export class ProductService {
     return this.http.post(`${API}${endpoint}`, data, httpOptions);
 
   }
+
+
+  uploadPDF(fileToUpload, itemId) {
+    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+
+    const formData: FormData = new FormData();
+   
+    for (let i = 0; i < fileToUpload.length; i++) {
+      formData.append('shippingDocs', fileToUpload[i]);
+    }
+    console.log(fileToUpload);
+    return this.http
+      .post(`${API}api/itemshopping/${itemId}/shipping-douments`, formData, httpOptionsForm);
+  }
   getPendingProducts() {
     return this.http.get( `${API}api/fish/pending` );
   }
