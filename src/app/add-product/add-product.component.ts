@@ -501,7 +501,7 @@ export class AddProductComponent implements OnInit {
       result => {
         console.log("Res", result);
         this.cities = result[0].cities;
-        this.myform.controls['processingCountry'].setValue(result[0].cities[0]['code']);
+        this.myform.controls['city'].setValue(result[0].cities[0]['code']);
         console.log(this.myform.controls['processingCountry'].value);
       }
     );
