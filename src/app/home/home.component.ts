@@ -29,9 +29,11 @@ export class HomeComponent implements OnInit {
   fishTypeMenu:any;
   fishTypeMenuImages=[];
   fishTypeMenuImagesChild=[];
+  isLoggedIn:boolean = false;
   constructor(private isLoggedSr: IsLoginService, private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService,private router:Router) {
   }
   ngOnInit() {
+    this.getLoginStatus();
    this.getFeaturedSeller();
    this.getFeaturedProducts();
    this.getFeaturedTypes();
@@ -40,7 +42,15 @@ export class HomeComponent implements OnInit {
       this.role=role
     })
   }
-  getFeaturedProducts(){
+
+  getLoginStatus(){
+   let login = this.auth.getLoginData();
+   console.log("Login", login);
+   if(login != null){
+     this.isLoggedIn = true;
+   }
+  }
+  getFeaturedProducts(){ 
     this.product.getData('featuredproducts').subscribe(
       result=>{
         this.featuredProducts=result;

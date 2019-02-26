@@ -58,7 +58,7 @@ export class PendingProductsComponent implements OnInit {
     this.denialMessage = new FormControl('', Validators.required);
     this.deniedProductGroup = new FormGroup({
       denialMessage: this.denialMessage
-    });
+    }); 
 	}
 
   getPendingProducts(){
