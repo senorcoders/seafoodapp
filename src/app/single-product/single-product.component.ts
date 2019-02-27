@@ -82,12 +82,11 @@ export class SingleProductComponent implements OnInit {
   ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role;
-      // if (role === 1) {
-      //   this.currency = 'USD';
-      // } else {
-      //   this.currency = 'AED(GBP)';
-      // }
-      this.currency = 'AED(USD)';
+      if (role === 1) {
+        this.currency = 'USD';
+      } else {
+        this.currency = 'AED(USD)';
+      }
 
     });
     this.productID = this.route.snapshot.params['id'];

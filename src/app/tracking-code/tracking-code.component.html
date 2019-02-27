@@ -9,7 +9,7 @@
 					    	<div class="row">
 					    		<div class="col">
 						    		<label>Invoice <span class="field-status red">*</span></label>
-							        <input type="file" class="form-control" id="1" accept="application/pdf"
+							        <input type="file" class="form-control" id="1" accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event, 'invoice')"   
 									[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('invoice').hasError('required')">Invoice {{'Register.required' | translate}}.</div>              
@@ -24,7 +24,7 @@
 					    	<div class="row">
 					    		<div class="col">
 						    		<label>Health Certificate <span class="field-status red">*</span></label>
-							        <input type="file" class="form-control" id="2"  accept="application/pdf"
+							        <input type="file" class="form-control" id="2"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event, 'healthCert')" 
 									[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('healthCert').hasError('required')">Healrh Certificate {{'Register.required' | translate}}.</div>              
@@ -39,7 +39,7 @@
 					    	<div class="row">
 					    		<div class="col">
 						    		<label>Packing List <span class="field-status red">*</span></label>
-							        <input type="file" class="form-control" id="3"  accept="application/pdf"
+							        <input type="file" class="form-control" id="3"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event, 'packingList')" 
 									[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('packingList').hasError('required')">Packing List {{'Register.required' | translate}}.</div>              
@@ -54,7 +54,7 @@
 					    	<div class="row">
 					    		<div class="col">
 						    		<label>AWB <span class="field-status red">*</span></label>
-							        <input type="file" class="form-control" id="4" accept="application/pdf"
+							        <input type="file" class="form-control" id="4" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event, 'awb')" 
 									[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('awb').hasError('required')">AWB {{'Register.required' | translate}}.</div>              
@@ -69,8 +69,8 @@
 					    <div class="form-group">
 					    	<div class="row">
 					    		<div class="col">
-						    		<label>Certificate of Origin</label>
-							        <input type="file" class="form-control" id="5"  accept="application/pdf"
+						    		<label>Certificate of Origin <small>(Optional)</small> </label>
+							        <input type="file" class="form-control" id="5"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event, 'certificateOrigin')" 
 									[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('certificateOrigin').hasError('required')">Certificate of Origin {{'Register.required' | translate}}.</div>              
@@ -84,8 +84,8 @@
 					    <div class="form-group">
 					    	<div class="row">
 					    		<div class="col">
-						    		<label>Credit Note</label>
-							        <input type="file" class="form-control" id="6" accept="application/pdf"
+						    		<label>Credit Note <small>(Optional)</small></label>
+							        <input type="file" class="form-control" id="6" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
 									(change)="handleFileInput($event,'creditNote')" 
 									[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
 									<div class="invalid-feedback" *ngIf="trackingForm.get('creditNote').hasError('required')">Credit Note {{'Register.required' | translate}}.</div>              
