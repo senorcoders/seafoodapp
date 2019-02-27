@@ -748,19 +748,21 @@ export class AddProductComponent implements OnInit {
     })
     return data
   }
-  isChecked(part,trim){
-    let data
-    this.trimmingsModal.forEach(res=>{
-      if(res.type.length > 0){
+  
 
-      if(trim==res.type[0].name){
-        if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
-          data = true;
-        }
+isChecked(part,trim){
+  let data
+  this.trimmingsModal.forEach(res=>{
+    if(res.type.length > 0){
+
+    if(trim==res.type[0].name){
+      if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
+        data=true
       }
     }
-    return data
-  });
-}  
+  }
+  })
+  return data
+}
   
 }
