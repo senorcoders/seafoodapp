@@ -108,6 +108,7 @@ import { CitiManagmentComponent } from './citi-managment/citi-managment.componen
 import { EditAccountComponent } from './edit-account/edit-account.component';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import { ngfModule } from 'angular-file';
+import { InternationalPhoneModule } from 'ng4-intl-phone';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -282,7 +283,8 @@ const appRoutes: Routes = [
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     TooltipModule,
-    ngfModule
+    ngfModule,
+    InternationalPhoneModule
     ],
   providers: [
     AuthenticationService,

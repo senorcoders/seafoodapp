@@ -280,8 +280,8 @@
       <div *ngIf="status.id == '5c0866f9a0eda00b94acbdc2' || status.id == '5c3fc078970dc99bb06bed69'" class="form-group">
         <label>{{'EditProduct.status' | translate}}</label>
         <select class="form-control" [(ngModel)]="selectedStatus" [ngModelOptions]="{standalone: true}" [value]="status.id" >
-          <option  value="5c3fc078970dc99bb06bed69">Hidden</option>
-          <option  value="5c0866f9a0eda00b94acbdc2">Approved (Showing in Search)</option>
+          <option  value="5c3fc078970dc99bb06bed69">Inactive</option>
+          <option  value="5c0866f9a0eda00b94acbdc2">Active (Showing in Search)</option>
         </select>
       </div>
     </ng-container>

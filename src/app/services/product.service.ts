@@ -38,9 +38,8 @@ export class ProductService {
 
     const formData: FormData = new FormData();
    
-    for (let i = 0; i < fileToUpload.length; i++) {
-      formData.append('shippingDocs', fileToUpload[i]);
-    }
+      formData.append('shippingDocs', fileToUpload);
+    
     console.log(fileToUpload);
     return this.http
       .post(`${API}api/itemshopping/${itemId}/shipping-douments`, formData, httpOptionsForm);
