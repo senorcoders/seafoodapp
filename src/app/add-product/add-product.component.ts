@@ -261,7 +261,6 @@ export class AddProductComponent implements OnInit {
         this.hideTrimModal = false;
       }
 
-      console.log(val);
       if(val.price != "" && val.city != null){
         this.onCityChange(val.city);
       }
@@ -280,7 +279,6 @@ export class AddProductComponent implements OnInit {
       'weight': qty
     };
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
-      console.log(res);
       if (qty === 25) {
 
         (res == 0) ? this.price25 = this.price.value : this.price25 = res ;
@@ -302,8 +300,10 @@ export class AddProductComponent implements OnInit {
     })*/
 
     this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
-      result => {
+      result => { 
         this.seafood_sku.setValue(result);
+        this.myform.controls['seafood_sku'].setValue(result);
+
       },
       error => {
         console.log(error);
@@ -349,7 +349,6 @@ export class AddProductComponent implements OnInit {
         'hsCode': this.hsCode.value,
 
       };
-      console.log( data );
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
@@ -500,7 +499,6 @@ export class AddProductComponent implements OnInit {
   getCities() {
     this.countryService.getCities(this.processingCountry.value).subscribe(
       result => {
-        console.log("Res", result);
         this.cities = result[0].cities;
         this.myform.controls['city'].setValue(result[0].cities[0]['code']);
         console.log(this.myform.controls['processingCountry'].value);
@@ -639,119 +637,126 @@ export class AddProductComponent implements OnInit {
 
 
 
-  getTrimmingByStore() {
-    this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      result => {
-        this.trimmingsModal = result;
-      },
-      e => {
-        console.log(e);
-      }
-    );
-  }
-  getTrimmingModal() {
-    this.product.getData('trimmingtype').subscribe(
-      result => {
-        this.typesModal = result;
-        const data: any = result;
-        data.forEach( res => {
-          if(res.hasOwnProperty('defaultProccessingParts')){
-              res.defaultProccessingParts.forEach(res2 => {
-                    this.defaultTrimming.push({ trim: res.name, name: res2 });
-                  });
-              
+
+  getTrimmingByStore(){
+    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
+          result=>{
+            this.trimmingsModal=result;
+          },
+          e=>{
+            console.log(e)
           }
-          
-          // if (res.defaultProccessingParts.length > 1) {
-          //   res.defaultProccessingParts.forEach(res2 => {
-          //     this.defaultTrimming.push({ trim: res.name, name: res2 });
-          //   });
-          // } else {
-          //   this.defaultTrimming.push({ trim: res.name, name: res.defaultProccessingParts });
-          // }
-        });
-      },
-      e => {
-        console.log(e);
-      }
-    );
+        )
   }
-  getParts() {
-    this.product.getData('processingParts').subscribe(
-      result => {
-        this.partsModal = result;
-      },
-      e => {
-        console.log(e);
-      }
-    );
+  getTrimmingModal(){
+  	this.product.getData('trimmingtype').subscribe(
+  		result=>{
+  			this.typesModal=result;
+        let data:any=result;
+        data.forEach(result=>{
+          if(result.defaultProccessingParts.length>1){
+            result.defaultProccessingParts.forEach(res2=>{
+              this.defaultTrimming.push({trim:result.name,name:res2})
+            })
+          }
+          else{
+            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
+          }
+        })
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
   }
-  saveData(types, parts) {
-    const data = {
-      'processingParts': parts,
-      'store': this.store[0].id,
-      'trimmingType': types
-    };
-    this.product.saveData('storeTrimming', data).subscribe(
-      res => {
-        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
+  getParts(){
+  	this.product.getData('processingParts').subscribe(
+  		result=>{
+  			this.partsModal=result;
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
+  }
+  saveData(types,parts){
+  	let data={
+  		"processingParts": parts,
+	    "store": this.store[0].id,
+	    "trimmingType": types
+	}
+  	this.product.saveData('storeTrimming',data).subscribe(
+  		res=>{
+  			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+        this.getTrimmingByStore();
+  		},
+  		e=>{
+  			this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+  			console.log(e)
+  		}
+	)
+  }
+  delete(id){
+    this.product.deleteData('storeTrimming/'+id).subscribe(
+      res=>{
+        this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
         this.getTrimmingByStore();
       },
-      e => {
-        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
-        console.log(e);
+      e=>{
+        this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+        console.log(e)
       }
-    );
+    )
   }
-  delete(id) {
-    this.product.deleteData('storeTrimming/' + id).subscribe(
-      res => {
-        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
-        this.getTrimmingByStore();
-      },
-      e => {
-        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
-        console.log(e);
-      }
-    );
-  }
-  checked(event, type, part) {
+  checked(event,type,part){
     let id;
-    this.trimmingsModal.forEach(res => {
-      if (type === res.trimmingType) {
-        if (part === res.processingParts.id) {
-          id = res.id;
+    this.trimmingsModal.forEach(res=>{
+      if(type==res.trimmingType){
+        if(part==res.processingParts.id){
+          id=res.id
         }
       }
-    });
-    if (event.target.checked) {
-      this.saveData(type, part);
-    } else {
-      this.delete(id);
+    })
+    if(event.target.checked){
+      this.saveData(type,part);
+    }
+    else{
+      this.delete(id)
     }
   }
-  isDefault(part, trim) {
+  isDefault(part,trim){
     let data;
-    this.trimmingsModal.forEach(res => {
-      if (res.type.hasOwnProperty('name') && trim === res.type[0].name) {
-        if (res.type.hasOwnProperty('defaultProccessingParts') && res.type[0].defaultProccessingParts.includes(part)) {
-          data = true;
-        } else {
-          data = false;
+    this.trimmingsModal.forEach(res=>{
+      if(res.type.length > 0){
+        if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part)){
+          data=true
+        }
+        else{
+          data=false
         }
       }
-    });
-    return data;
+    }
+    })
+    return data
   }
-  isChecked(part, trim) {
-    let data;
-    this.trimmingsModal.forEach(res => {
-      if (res.type.hasOwnProperty('name') &&  trim === res.type[0].name) {
-        if (res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name === part) {
-          data = true;
+  isChecked(part,trim){
+    let data
+    this.trimmingsModal.forEach(res=>{
+      if(res.type.length > 0){
+
+      if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
+          data=true
         }
       }
-    });
-    return data;
+              
+    }
+    })
+    return data
   }
+
+
+
+  
 }
