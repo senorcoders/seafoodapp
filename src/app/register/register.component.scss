@@ -92,12 +92,15 @@ form{
         text-align: center;
     }
 }
-.form-control{
+.form-control, .form-control input{
     background: #ebf1f6 !important;
     border-radius: 0;
     height: 40px;
     color: black;
     border: 0;
+    button{
+        background: transparent !important;
+    }
 }
 .btn-red{
     border-radius: 0 !important;
@@ -134,4 +137,8 @@ form{
     .left-side{
         text-align: center;
     }
+}
+
+.dropbtn{
+    background: transparent !important;
 }
