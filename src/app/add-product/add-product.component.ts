@@ -164,7 +164,7 @@ export class AddProductComponent implements OnInit {
         this.currentPrincingCharges = result;
         this.currentExchangeRate = result['exchangeRates'][0].price;
       }, error => {
-        console.log( error );
+        console.log(error);
       }
     )
   }
@@ -247,12 +247,12 @@ export class AddProductComponent implements OnInit {
   }
 
   onCityChange(city): void {
-    
-      this.deliveredPrices.forEach(element => {
-        this.getDeliveredPrice(city, element);
 
-      });
-      
+    this.deliveredPrices.forEach(element => {
+      this.getDeliveredPrice(city, element);
+
+    });
+
   }
 
   onChanges(): void {
@@ -262,6 +262,7 @@ export class AddProductComponent implements OnInit {
       }
 
       if(val.price != "" && val.city != null){
+
         this.onCityChange(val.city);
       }
       else if (val.price != "" && val.city == null) {
@@ -281,17 +282,17 @@ export class AddProductComponent implements OnInit {
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
       if (qty === 25) {
 
-        (res == 0) ? this.price25 = this.price.value : this.price25 = res ;
+        (res == 0) ? this.price25 = this.price.value : this.price25 = res;
       } else if (qty === 100) {
-        (res == 0) ? this.price100 = this.price.value : this.price100 = res ;
+        (res == 0) ? this.price100 = this.price.value : this.price100 = res;
       } else if (qty === 500) {
-        (res == 0) ? this.price500 = this.price.value : this.price500 = res ;
+        (res == 0) ? this.price500 = this.price.value : this.price500 = res;
       } else if (qty === 1000) {
-        (res == 0) ? this.price1000 = this.price.value : this.price1000 = res ;
+        (res == 0) ? this.price1000 = this.price.value : this.price1000 = res;
       }
     });
   }
-  generateSKU() {
+  async generateSKU() {
     const parentType = this.parentSelectedType.value;
     /*this.pTypes.forEach(row => {
       if (row.id == this.types.value) {
@@ -299,21 +300,27 @@ export class AddProductComponent implements OnInit {
       }
     })*/
 
-    this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
-      result => { 
-        this.seafood_sku.setValue(result);
-        this.myform.controls['seafood_sku'].setValue(result);
-
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    await new Promise((resolve, reject) => {
+      this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
+        result => {
+          // this.seafood_sku.setValue(result);
+          console.log("sku", result);
+          this.myform.controls["seafood_sku"].setValue(result);
+          resolve();
+        },
+        error => {
+          console.log(error);
+          reject();
+        }
+      );
+    });
   }
-  onSubmit() {
+
+  async onSubmit() {
     this.showError = true;
     if (this.myform.valid) {
-      const priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
+      await this.generateSKU();
+      let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
         'descriptor': this.descriptorSelected.value,
@@ -349,6 +356,7 @@ export class AddProductComponent implements OnInit {
         'hsCode': this.hsCode.value,
 
       };
+
       this.product.saveData('fish', data).subscribe(result => {
         // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
@@ -637,7 +645,6 @@ export class AddProductComponent implements OnInit {
 
 
 
-
   getTrimmingByStore(){
     this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
           result=>{
@@ -688,6 +695,7 @@ export class AddProductComponent implements OnInit {
   	this.product.saveData('storeTrimming',data).subscribe(
   		res=>{
   			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+      
         this.getTrimmingByStore();
   		},
   		e=>{
@@ -747,16 +755,12 @@ export class AddProductComponent implements OnInit {
 
       if(trim==res.type[0].name){
         if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
-          data=true
+          data = true;
         }
       }
-              
     }
-    })
     return data
-  }
-
-
-
+  });
+}  
   
 }

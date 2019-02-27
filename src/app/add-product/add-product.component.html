@@ -34,7 +34,7 @@
           <div class="col-lg-6">
             <div class="form-group" >
               <label >{{'AddProduct.processingCountry' | translate}} <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-              <select (change)="generateSKU(); getCities();" class="form-control" formControlName="processingCountry">
+              <select (change)="getCities();" class="form-control" formControlName="processingCountry">
                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
               </select>
             </div>
