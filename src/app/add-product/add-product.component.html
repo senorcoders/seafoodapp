@@ -231,7 +231,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-lg-12">
+          <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
               <label >{{'AddProduct.preparation' | translate}} <span class="field-status red">*</span> <a class="manage-link" data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
               <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
@@ -258,8 +258,6 @@
               </select>
             </div>
           </div>
-        </div>
-        <div class="row">
           <div class="col-lg-6">
             <div class="form-group" [ngClass]="{'has-danger': treatment.invalid && (treatment.dirty || treatment.touched),'has-success': treatment.valid && (treatment.dirty || treatment.touched)}">
               <label >{{'AddProduct.treatment' | translate}} <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -274,7 +272,7 @@
               </div>
             </div>
           </div> 
-          <div class="col-lg-6">
+          <div class="col-lg-6" style="visibility: hidden;">
               <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
                 <label >{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
                 <select class="form-control" formControlName="cooming_soon">
@@ -285,8 +283,9 @@
                   <p *ngIf="cooming_soon.errors.required">{{'AddProduct.cooming_soon' | translate}} {{'AddProduct.required' | translate}}</p>
                 </div>
               </div>
-            </div>  
-        </div>
+            </div> 
+          </div>
+ 
         <div class="row">
           <div class="col-12">
             <button type="submit" class="btn-red">{{'AddProduct.submit' | translate}}</button>

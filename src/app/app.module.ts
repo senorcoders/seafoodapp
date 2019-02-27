@@ -109,7 +109,6 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import { ngfModule } from 'angular-file';
 
-
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/' },
@@ -284,7 +283,7 @@ const appRoutes: Routes = [
     OwlNativeDateTimeModule,
     TooltipModule,
     ngfModule
-  ],
+    ],
   providers: [
     AuthenticationService,
     MenuItems,
