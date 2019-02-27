@@ -186,8 +186,14 @@ export class ConfirmationComponent implements OnInit {
       .subscribe(res => {
         console.log(res);
         if (res['status'] === '20') {
+	  if ( res['message'] === '20064' ) {
+		this.toast.success( res['response_message'], 'Seafoodsouq', {positionClass: 'toast-top-right'} );
+		console.log( '3ds url', res['3ds_url'] );
+		window.location.assign( res['3ds_url'] );
+	  } else {
           this.saveinApi();
           this.clearCart();
+          }
         }
       },
       error => {
