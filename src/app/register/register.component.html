@@ -272,10 +272,10 @@
             <div class="form-group">
               <label>Currency of Trade <span class="field-status red">*</span></label>
               <select class="form-control" formControlName="CurrencyofTrade"  [ngClass]="{'is-invalid':sellerForm.get('CurrencyofTrade').invalid && sellerForm.get('CurrencyofTrade').touched}">
-                <option value="AED">AED</option>
+                <!-- <option value="AED">AED</option> -->
                 <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
+                <!-- <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option> -->
               </select>
               <div class="invalid-feedback" *ngIf="sellerForm.get('CurrencyofTrade').hasError('required')">Currency of Trade is required.</div>
             </div>
