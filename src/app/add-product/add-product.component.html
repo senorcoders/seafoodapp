@@ -42,7 +42,7 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label >Port of Loading <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-              <select  class="form-control" formControlName="city">
+              <select  class="form-control" formControlName="city" (change)="onCityChange(city.value)">
                 <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>
               
@@ -58,35 +58,7 @@
             </div>
           
           </div>
-          <div class="col-lg-12">
-            <table class="table text-center">
-              <tr>
-                <th scope="col">Weight</th>
-                <th scope="col">Delivered Price USD</th>
-                <th scope="col">Delivered Price AED</th>
-              </tr>
-              <tr>
-                <td scope="row">25 KG</td>
-                <td>{{price25 | currency: 'USD'}}</td>
-                <td>{{price25*currentExchangeRate | currency: 'AED'}}</td>
-              </tr>
-              <tr>
-                <td scope="row">100 KG</td>
-                <td>{{price100 | currency: 'USD'}}</td>
-                <td>{{price100*currentExchangeRate | currency: 'AED'}}</td>
-              </tr>
-              <tr>
-                <td scope="row">500 KG</td>
-                <td>{{price500 | currency: 'USD'}}</td>
-                <td>{{price500*currentExchangeRate | currency: 'AED'}}</td>
-              </tr>
-              <tr>
-                <td scope="row">1000 KG</td>
-                <td>{{price1000 | currency: 'USD'}}</td>
-                <td>{{price1000*currentExchangeRate | currency: 'AED'}}</td>
-              </tr>
-          </table>
-          </div>
+         
           <div class="col-lg-6">
               <div class="form-group" [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
                 <label >{{'AddProduct.price-measurement' | translate}} <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -272,7 +244,7 @@
               </div>
             </div>
           </div> 
-          <div class="col-lg-6" style="visibility: hidden;">
+          <div class="col-lg-6" style="display:  none;">
               <div class="form-group" [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
                 <label >{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
                 <select class="form-control" formControlName="cooming_soon">
@@ -284,6 +256,37 @@
                 </div>
               </div>
             </div> 
+            <div class="col-lg-12"><h2 class="black-title">Delivered Prices</h2></div>
+
+            <div class="col-lg-12">
+              <table class="table text-center">
+                <tr>
+                  <th scope="col">Weight</th>
+                  <th scope="col">Delivered Price USD</th>
+                  <th scope="col">Delivered Price AED</th>
+                </tr>
+                <tr>
+                  <td scope="row">25 KG</td>
+                  <td>{{price25 | currency: 'USD'}}</td>
+                  <td>{{price25*currentExchangeRate | currency: 'AED'}}</td>
+                </tr>
+                <tr>
+                  <td scope="row">100 KG</td>
+                  <td>{{price100 | currency: 'USD'}}</td>
+                  <td>{{price100*currentExchangeRate | currency: 'AED'}}</td>
+                </tr>
+                <tr>
+                  <td scope="row">500 KG</td>
+                  <td>{{price500 | currency: 'USD'}}</td>
+                  <td>{{price500*currentExchangeRate | currency: 'AED'}}</td>
+                </tr>
+                <tr>
+                  <td scope="row">1000 KG</td>
+                  <td>{{price1000 | currency: 'USD'}}</td>
+                  <td>{{price1000*currentExchangeRate | currency: 'AED'}}</td>
+                </tr>
+            </table>
+            </div>
           </div>
  
         <div class="row">

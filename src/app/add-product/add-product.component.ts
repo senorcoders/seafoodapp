@@ -282,13 +282,14 @@ export class AddProductComponent implements OnInit {
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
       console.log(res);
       if (qty === 25) {
-        this.price25 = res;
+
+        (res == 0) ? this.price25 = this.price.value : this.price25 = res ;
       } else if (qty === 100) {
-        this.price100 = res;
+        (res == 0) ? this.price100 = this.price.value : this.price100 = res ;
       } else if (qty === 500) {
-        this.price500 = res;
+        (res == 0) ? this.price500 = this.price.value : this.price500 = res ;
       } else if (qty === 1000) {
-        this.price1000 = res;
+        (res == 0) ? this.price1000 = this.price.value : this.price1000 = res ;
       }
     });
   }
