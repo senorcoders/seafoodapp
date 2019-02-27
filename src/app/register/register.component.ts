@@ -7,6 +7,7 @@ import { Router,ActivatedRoute } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';
 import { PasswordValidation } from '../password';
+import { CountriesService } from '../services/countries.service';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,9 +27,13 @@ storeID:any;
 image:any;
 regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
 sub:any;
-countries=environment.countries
-registerVal;
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService,private route:ActivatedRoute) {
+countries:any = [];
+registerVal; 
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, 
+    private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
+    private product:ProductService,private route:ActivatedRoute,
+    private countryService: CountriesService,
+    ) {
     this.redirectHome();
     this.sub=this.route.queryParams.subscribe(params=>{
       if(!params['register']){
@@ -49,13 +54,23 @@ registerVal;
     // this.RegisterBuyerForm();
     this.RegisterBuyerForm();
     this.RegistersellerForm();
+    this.getCountries();
 
 
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
+  getCountries() {
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   showBuyer(){
     this.buyerShow=true;
     this.sellerShow=false;
@@ -72,7 +87,7 @@ registerVal;
   redirectHome(){
      if(this.auth.isLogged()){ 
       this.router.navigate(["/home"])
-    }
+    }  
   }
   RegisterBuyerForm(){
     this.buyerForm=this.fb.group({
@@ -89,9 +104,13 @@ registerVal;
       companyName:['', Validators.required],
       tcs:['',Validators.requiredTrue]
     }, {
-      validator : PasswordValidation.MatchPassword
+      validator : PasswordValidation.MatchPassword,
+      updateOn: 'submit'
+
     })
   }
+
+ 
   RegistersellerForm(){ 
      this.sellerForm=this.fb.group({
       firstName:['',Validators.required],
