@@ -464,8 +464,8 @@ export class EditProductComponent implements OnInit {
         for (let i = 0; i < filesAmount; i++) {
             var reader = new FileReader();
   
-            reader.onload = function(event) {
-                jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target.result).appendTo('div.gallery');
+            reader.onload = (event: Event) => {
+                jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
             }
   
             reader.readAsDataURL(files[i]);

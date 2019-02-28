@@ -796,8 +796,8 @@ readURL(files) {
   if (files[0]) {
     var reader = new FileReader();
 
-    reader.onload = function(e) {
-      jQuery('#blah').attr('src', e.target.result);
+    reader.onload = (e: Event) => {
+      jQuery('#blah').attr('src', reader.result);
     }
 
     reader.readAsDataURL(files[0]);
@@ -813,8 +813,8 @@ readURL(files) {
       for (let i = 0; i < filesAmount; i++) {
           var reader = new FileReader();
 
-          reader.onload = function(event) {
-              jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target.result).appendTo('div.gallery');
+          reader.onload = (event: Event) => {
+              jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
           }
 
           reader.readAsDataURL(files[i]);
