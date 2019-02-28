@@ -102,7 +102,6 @@ companyType: FormControl;
   showSeller(){
     this.buyerShow=false;
     this.sellerShow=true;
-    this.RegistersellerForm();
     this.registerVal = '1';
 
   }
