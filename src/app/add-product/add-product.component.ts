@@ -16,7 +16,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
-
+declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -68,7 +68,7 @@ export class AddProductComponent implements OnInit {
   store: any = [];
   storeEndpoint: any = 'api/store/user/';
   existStore: boolean = true;
-  primaryImg: any;
+  primaryImg: any = [];
   countries: any = [];
   arrayBuffer: any;
   file: File;
@@ -116,6 +116,7 @@ export class AddProductComponent implements OnInit {
   defaultTrimming = [];
   pd = [];
   hideTrimModal: boolean = true;
+  public loading = false;
 
 
 
@@ -318,6 +319,7 @@ export class AddProductComponent implements OnInit {
 
   async onSubmit() {
     this.showError = true;
+    this.loading = true;
     if (this.myform.valid) {
       await this.generateSKU();
       let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
@@ -358,17 +360,23 @@ export class AddProductComponent implements OnInit {
       };
 
       this.product.saveData('fish', data).subscribe(result => {
-        // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
+        console.log("Lenght de las imagenes", this.fileToUpload, this.primaryImg);
+        if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
         this.uploadFileToActivity(result['product']['id']);
-        // } else {
+        } else {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-        // this.showError = false;
-        // }
+        this.showError = false;
+        this.loading = false;
+        this.myform.reset();
+
+        }
 
       });
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
+      this.loading = false;
+
 
     }
   }
@@ -376,32 +384,51 @@ export class AddProductComponent implements OnInit {
   handleFileInput(files: FileList, opt) {
     if (opt !== 'primary') {
       this.fileToUpload = files;
+      this.imagesPreview(files);
+      
     } else {
       this.primaryImg = files;
+      this.readURL(files);
     }
   }
 
   uploadFileToActivity(productID) {
-    if (this.primaryImg && this.primaryImg.length > 0) {
+    if (this.primaryImg.length > 0 && this.fileToUpload.length > 0) {
       this.product.postFile(this.primaryImg, productID, 'primary').subscribe(
         data => {
           console.log(data);
+          this.saveImages(productID, 'secundary', this.fileToUpload);
+
+
         }, error => {
           console.log(error);
+          this.loading = false;
+
         });
+    }else if(this.fileToUpload.length > 0 && this.primaryImg.length == 0){
+      this.saveImages(productID, 'secundary', this.fileToUpload);
+    }else if(this.primaryImg.length > 0 && this.fileToUpload.length == 0){
+      this.saveImages(productID, 'primary', this.primaryImg);
+
     }
-    if (this.fileToUpload && this.fileToUpload.length > 0) {
-      this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
+   
+
+
+  }
+
+  saveImages(productID, status, files){
+      this.product.postFile(files, productID, status).subscribe(data => {
         // do something, if upload success
         this.myform.reset();
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+        this.loading = false;
 
       }, error => {
         console.log(error);
+        this.loading = false;
+
       });
-    }
-
-
+    
   }
 
   incomingfile(event) {
@@ -764,5 +791,36 @@ isChecked(part,trim){
   })
   return data
 }
+
+readURL(files) {
+  if (files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = function(e) {
+      jQuery('#blah').attr('src', e.target.result);
+    }
+
+    reader.readAsDataURL(files[0]);
+  }
+}
+
+
+ imagesPreview(files) {
+
+  if (files) {
+      var filesAmount = files.length;
+
+      for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+
+          reader.onload = function(event) {
+              jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target.result).appendTo('div.gallery');
+          }
+
+          reader.readAsDataURL(files[i]);
+      }
+  }
+
+};
   
 }

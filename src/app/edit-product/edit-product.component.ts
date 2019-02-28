@@ -87,6 +87,9 @@ export class EditProductComponent implements OnInit {
   showWholeOptions: boolean = false;
   hsCode: any;
   acceptableSpoilageRate: any;
+  imageAPI:any = [];
+  public loading = false;
+
   constructor(private product: ProductService, private route: ActivatedRoute, 
     private router: Router, private toast: ToastrService, 
     private auth: AuthenticationService, private sanitizer: DomSanitizer, 
@@ -123,6 +126,7 @@ export class EditProductComponent implements OnInit {
       this.description = data['description'];
       this.brandname = data['brandname'];
       this.price = (data['price'].value / this.currentExchangeRate).toFixed(2);
+      console.log("Precio", this.price);
       this.measurement = data['weight'].type;
       this.country = data['country'];
       if (data.hasOwnProperty('descriptor') && data['descriptor'] != null) {
@@ -145,16 +149,18 @@ export class EditProductComponent implements OnInit {
       this.seafood_sku = data['seafood_sku'];
       this.status = data['status'];
       this.wholeFishWeight = data['wholeFishWeight'];
-      this.selectedStatus = this.status.id;
+       (data['status'] != null) ? this.selectedStatus = this.status.id : this.selectedStatus = null;
       this.hsCode = data['hsCode'];
       this.acceptableSpoilageRate = data['mortalityRate'];
       if (data['preparation'] != 'Filleted') {
         this.showWholeOptions = true;
       }
       if (data['images']) {
+        this.imageAPI = data['images'];
         data['images'].forEach((val, index) => {
           if (val.hasOwnProperty('src')) {
             console.log('Val', val);
+
             this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`));
             // this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
             console.log(this.images);
@@ -162,8 +168,8 @@ export class EditProductComponent implements OnInit {
           }
         });
       }
-      console.log(data['imagePrimary']);
-      if (data['imagePrimary'] != null) {
+      console.log(data);
+      if (data['imagePrimary'] != null && data['imagePrimary'] != '') {
         this.primaryImgLink = data['imagePrimary'];
         this.primaryImg = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${this.primaryImgLink})`);
       }
@@ -185,6 +191,7 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loading = true;
     let whole;
     if (this.showWholeOptions) {
       whole = this.wholeFishWeight
@@ -233,7 +240,7 @@ export class EditProductComponent implements OnInit {
       } else {
         console.log('No images');
         this.toast.success('Product updated succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-
+        this.loading = false;
       }
 
     });
@@ -253,10 +260,13 @@ export class EditProductComponent implements OnInit {
   }
   handleFileInput(files: FileList) {
     this.fileToUpload = files;
+    this.imagesPreview(files);
   }
   addPrimaryImg(img: FileList) {
     this.product.postFile(img, this.productID, 'primary').subscribe(data => {
       // this.myform.reset();
+      this.imageAPI = [];
+      this.images = [];
       this.getDetails();
       this.toast.success('Primary Image was added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
     }, error => {
@@ -270,14 +280,17 @@ export class EditProductComponent implements OnInit {
       console.log('Data', data);
       this.getDetails();
       this.toast.success('Product updated succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+      this.loading = false;
     }, error => {
       console.log(error);
+      this.loading = false;
+
     });
   }
   updatePrimaryImg(img: FileList) {
 
     if (img.length > 0) {
-      console.log('IMage', this.primaryImgLink);
+      console.log('IMage', this.primaryImgLink.substring(1));
 
       const link = this.primaryImgLink.substring(1);
       this.product.updatePrimaryImage(img, link).subscribe(
@@ -293,10 +306,12 @@ export class EditProductComponent implements OnInit {
     }
   }
   deleteNode(i) {
-    const link = this.images[i].src.substring(1);
+    console.log(this.images, i);
+    const link = this.imageAPI[i].src.substring(1);
     this.product.deleteData(link).subscribe(result => {
       this.toast.success('Image deleted succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
       this.images.splice(i, 1);
+      this.imageAPI.splice(i, 1);
     });
   }
 
@@ -440,4 +455,22 @@ export class EditProductComponent implements OnInit {
       this.showWholeOptions = false;
     }
   }
+
+  imagesPreview(files) {
+
+    if (files) {
+        var filesAmount = files.length;
+  
+        for (let i = 0; i < filesAmount; i++) {
+            var reader = new FileReader();
+  
+            reader.onload = function(event) {
+                jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target.result).appendTo('div.gallery');
+            }
+  
+            reader.readAsDataURL(files[i]);
+        }
+    }
+  
+  };
 }

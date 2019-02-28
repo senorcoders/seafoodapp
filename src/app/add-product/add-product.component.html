@@ -1,8 +1,12 @@
+
 <div class="container" *ngIf="existStore; else elseBlock">
   <div style="height: 100px;"></div>
+
   <div class="row">
     <div class="col-md-12">
       <h1 class="title">{{'AddProduct.title' | translate}}</h1>
+      <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
+
       <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" class="form-design">
         <div class="row">
           <div class="col-lg-6">
@@ -143,13 +147,17 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label >{{'AddProduct.primary-image' | translate}} <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-              <input class="form-control" type="file" id="primary" multiple (change)="handleFileInput($event.target.files, 'primary' )" >
+              <input class="form-control" type="file" id="primary"  (change)="handleFileInput($event.target.files, 'primary' )" >
+              <img id="blah" src="#" alt="your image" />
+
             </div>
           </div>
           <div class="col-lg-6">
             <div class="form-group">
               <label  for="file">{{'AddProduct.images' | translate}} <img tooltip="Lorem Ipsum" placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
               <input class="form-control" type="file" id="file" multiple (change)="handleFileInput($event.target.files, 'secundary')" >
+              <div class="gallery"></div>
+
             </div>
           </div>
           <div class="col-lg-6">
@@ -326,6 +334,7 @@
 	-->
   <div style="height: 100px;"></div>
 </div>
+
 <ng-template #elseBlock>
   <div class="not-found-grid">
     <div style="padding: 0 30%;">
