@@ -45,6 +45,7 @@ TypeBusiness:FormControl;
 TradeLicenseNumber:FormControl;
 FoodSafetyCertificateNumber:FormControl;
 CorporateBankAccountNumber:FormControl;
+swiftCode:FormControl;
 CurrencyofTrade:FormControl;
 ContactNumber:FormControl;
 ProductsInterestedSelling:FormControl;
@@ -129,6 +130,7 @@ companyType: FormControl;
     this.TradeLicenseNumber= new FormControl('', [Validators.required]);
     this.FoodSafetyCertificateNumber= new FormControl('', [Validators.required]);
     this.CorporateBankAccountNumber= new FormControl('', [Validators.required]);
+    this.swiftCode = new FormControl('', [Validators.nullValidator]);
     this.CurrencyofTrade= new FormControl('', [Validators.required]);
     this.ContactNumber= new FormControl('', [Validators.required]);
     this.ProductsInterestedSelling= new FormControl('', [Validators.required]);
@@ -180,6 +182,7 @@ companyType: FormControl;
       TradeLicenseNumber:this.TradeLicenseNumber,
       FoodSafetyCertificateNumber:this.FoodSafetyCertificateNumber,
       CorporateBankAccountNumber:this.CorporateBankAccountNumber,
+      swiftCode:this.swiftCode,
       CurrencyofTrade:this.CurrencyofTrade,
       ContactNumber:this.ContactNumber,
       ProductsInterestedSelling: this.ProductsInterestedSelling,
@@ -323,6 +326,7 @@ verifyMatch(){
       'licenseNumber' : this.sellerForm.get('TradeLicenseNumber').value,
       'iso' : this.sellerForm.get('FoodSafetyCertificateNumber').value,
       'iban' : this.sellerForm.get('CorporateBankAccountNumber').value,
+      'swiftCode' : this.sellerForm.get('swiftCode').value,
       'productsIntered' : this.sellerForm.get('ProductsInterestedSelling').value,
       'contactNumber' : this.sellerForm.get('ContactNumber').value,
       'currencyTrade' : this.sellerForm.get('CurrencyofTrade').value,
