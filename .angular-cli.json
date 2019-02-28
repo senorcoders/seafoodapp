@@ -23,15 +23,12 @@
         "styles.scss",
         "../node_modules/ngx-toastr/toastr.css",
         "../node_modules/font-awesome/css/font-awesome.css",
-        "../node_modules/aos/dist/aos.css",
-        "../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-        "../node_modules/intl-tel-input/build/css/intlTelInput.css"
-      ],
+        "../node_modules/aos/dist/aos.css"      ],
       "scripts": [
         "../node_modules/bigslide/dist/bigSlide.js",
         "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/aos/dist/aos.js"
-      ],
+          ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

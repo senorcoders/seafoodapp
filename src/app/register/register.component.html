@@ -19,7 +19,7 @@
       </div>
     </div>
     <div *ngIf="buyerShow">
-      <form [formGroup]="buyerForm" (submit)="register()">
+      <form [formGroup]="buyerForm" (submit)="registerBuyer()">
         <div class="row">
           <div class="col-md-6">
             <div class="form-group">
@@ -45,6 +45,7 @@
             </div>
           </div>
           <div class="col-md-6">
+
             <div class="form-group">
               <label>{{'Register.tel' | translate}}<span class="field-status red">*</span></label>
               <!-- <input type="number" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}"> -->
@@ -129,7 +130,7 @@
       </form>
     </div>
     <div *ngIf="sellerShow">
-      <form [formGroup]="sellerForm" (submit)="register()">
+      <form [formGroup]="sellerForm" (submit)="registerSeller()">
         <h3 class="black-title">{{'Register.seller-info' | translate}}</h3>
         <div class="row">
           <div class="col-md-6">
