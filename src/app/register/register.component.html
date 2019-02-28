@@ -259,6 +259,13 @@
           </div>
           <div class="col-md-6">  
             <div class="form-group">
+              <label>Swift Code</label>
+              <input type="text" class="form-control" placeholder="Swift Code" formControlName="swiftCode">
+              <!-- <div class="invalid-feedback" *ngIf="sellerForm.get('ProductsInterestedSelling').hasError('required')">Products Interested in Selling is required.</div> -->
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
               <label>Products Interested in Selling <span class="field-status red">*</span></label>
               <input type="text" class="form-control" placeholder="Products Interested in Selling" formControlName="ProductsInterestedSelling"  [ngClass]="{'is-invalid':sellerForm.get('ProductsInterestedSelling').invalid && sellerForm.get('ProductsInterestedSelling').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('ProductsInterestedSelling').hasError('required')">Products Interested in Selling is required.</div>
