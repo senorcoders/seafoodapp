@@ -8,6 +8,8 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';
 import { PasswordValidation } from '../password';
 import { CountriesService } from '../services/countries.service';
+declare var jQuery:any;
+declare var window:any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -72,6 +74,14 @@ companyType: FormControl;
 
 
   ngOnInit() {
+    jQuery(document).ready(function(){
+
+      var input = document.querySelector("#phone");
+      var inputS = document.querySelector("#phoneS");
+      window.intlTelInput(input);
+      window.intlTelInput(inputS);
+    
+    });  
     // this.RegisterBuyerForm();
     this.createFormControls();
     this.RegisterBuyerForm();
@@ -197,7 +207,7 @@ companyType: FormControl;
 
 
   registerBuyer(){
-  
+    console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
         this.verifyMatch();
