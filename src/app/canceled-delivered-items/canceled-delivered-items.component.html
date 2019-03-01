@@ -11,9 +11,9 @@
                 <label>{{'ItemStatus.status' | translate}}</label>
                 <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders()" [value]='0' >
                     <option value="0" selected="selected">Select an Option</option>
-                    <option [ngValue]="5c017b3c47fb07027943a409"> Delivered</option>
-                    <option [ngValue]="5c017b5a47fb07027943a40c"> Buyer Cancelled Order</option>
-                    <option [ngValue]="5c06f4bf7650a503f4b731fd"> Seller Cancelled Order</option>
+                    <option value="5c017b3c47fb07027943a409"> Delivered</option>
+                    <option value="5c017b5a47fb07027943a40c"> Buyer Cancelled Order</option>
+                    <option value="5c06f4bf7650a503f4b731fd"> Seller Cancelled Order</option>
                 </select>
               </div>
           
@@ -48,7 +48,7 @@
                 <div  class="col-4">
                   <div *ngIf="item.updateInfo">
                     <p class="date" *ngFor="let update of item.updateInfo;" >
-                      <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}} </strong>
+                      <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
                     </p>
 
                   </div>

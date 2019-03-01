@@ -24,6 +24,7 @@ export class FooterComponent{
   isLogged:boolean=false;
   lang:any;
   role:any;
+  isHomepage:boolean;
   constructor(private fb: FormBuilder,private menuItems: MenuItems, private router:Router, 
     private toast:ToastrService,private auth:AuthenticationService,private languageService:LanguageService, private menu:MenuItems,
     private isLoggedSr: IsLoginService, private translate: TranslateService){
@@ -36,6 +37,16 @@ export class FooterComponent{
     jQuery(window).on('load', function() {
       AOS.refresh();
     });
+    this.router.events.subscribe(
+      ()=>{
+        if(this.router.url=="/"){
+            this.isHomepage=true
+          }
+          else{
+            this.isHomepage=false;
+          }
+      }
+    )
     //language
     this.translate.setDefaultLang(defaultLanguage);
     this.translate.addLangs(additionalLanguages);

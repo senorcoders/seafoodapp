@@ -127,7 +127,7 @@
 	"AddProduct":{
 		"title":"Add Product",
 		"name":"Name",
-		"price":"Quantity per order",
+		"price":"Quantity per order in USD",
 		"price-measurement":"Weight type per quantity",
 		"description":"Description",
 		"fish-types":"Fish Types",
@@ -243,7 +243,7 @@
 		"City":"City",
 		"zipCode":"Zip Code",
 		"designation":"Designation",
-		"seller-info":"Seller Information",
+		"seller-info":"Account Details",
 		"company-info":"Company Information",
 		"company":"Company Name",
 		"company-type":"Company Type",

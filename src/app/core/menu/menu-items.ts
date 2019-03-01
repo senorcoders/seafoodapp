@@ -36,12 +36,25 @@ const menuAdmin = [
     type: 'sub',
     children: [
       { state: 'manage-orders', name: 'Manage Orders', translate: { en: { name: 'Manage Orders' }, ar: { name: 'Manage Orders' } } },
+      {
+        state: 'logistic-management',
+        name: 'Logistic Management',
+        translate: { en: { name: 'Logistic Management' },
+        ar: { name: 'Logistic Management' } } },
+      {
+        state: 'payment-management',
+        name: 'Payment Management',
+        translate: {
+          en: { name: 'Payment Management' },
+          ar: { name: 'Payment Management' }
+        }
+      },
+
       /*{ state: 'seller-fulfills-orders', name: 'Seller Fulfills Orders', translate: { en: { name: 'Seller Fulfills Orders' }, ar: { name: 'Seller Fulfills Orders' } } },
       { state: 'orders-shipped', name: 'Orders Shipped', translate: { en: { name: 'Orders Shipped' }, ar: { name: 'Orders Shipped' } } },
       { state: 'orders-arrived', name: 'Orders Arrived', translate: { en: { name: 'Orders Arrived' }, ar: { name: 'Orders Arrived' } } },
       { state: 'orders-out-for-delivery', name: 'Orders Out for Delivery', translate: { en: { name: 'Orders Out for Delivery' }, ar: { name: 'Order Out for Delivery' } } },
       //{ state: 'orders-delivered', name: 'Orders delivered', translate: { en: { name: 'Orders delivered' }, ar: { name: 'Orders delivered' } } },
-      { state: 'payments', name: 'Payments', translate: { en: { name: 'Payments' }, ar: { name: 'Payments' } } },
       { state: 'repayments', name: 'Repayments', translate: { en: { name: 'Repayments' }, ar: { name: 'Repayments' } } },
       { state: 'refund-cases', name: 'Refund Cases', translate: { en: { name: 'Refund Cases' }, ar: { name: 'Refund Cases' } } },
       { state: 'refunds', name: 'Refunds', translate: { en: { name: 'Refunds' }, ar: { name: 'Refunds' } } }*/
@@ -106,6 +119,45 @@ const menuAdmin = [
           }
         }
       },
+      {
+        state: 'port-loading-management',
+        type: 'link',
+        name: 'Port of Loading Management',
+        translate: {
+          en: {
+            name: 'Port of Loading Management'
+          },
+          ar: {
+            name: 'Port of Loading Management'
+          }
+        }
+      },
+      {
+        state: 'manage-countries',
+        type: 'link',
+        name: 'Manage Countries ETA',
+        translate: {
+          en: {
+            name: 'Manage Countries ETA'
+          },
+          ar: {
+            name: 'Manage Countries ETA'
+          }
+        }
+      },
+      /*{
+        state: 'manage-shipping-cities',
+        type: 'link',
+        name: 'Manage City ETA',
+        translate: {
+          en: {
+            name: 'Manage City ETA'
+          },
+          ar: {
+            name: 'Manage City ETA'
+          }
+        }
+      }*/
     ]
   },
   {
@@ -135,6 +187,19 @@ const menuAdmin = [
         }
       },
       {
+        state: 'products-list/page/1',
+        type: 'link',
+        name: 'Product List',
+        translate: {
+          en: {
+            name: 'Product List'
+          },
+          ar: {
+            name: 'Product List'
+          }
+        }
+      },
+      {
         state: 'pending-products',
         type: 'link',
         name: 'Pending Approval',
@@ -150,14 +215,14 @@ const menuAdmin = [
     ]
   },
   {
-    state: 'fish-type',
+    state: 'product-categories',
     type: 'link',
     translate: {
       en: {
-        name: 'Fish Type'
+        name: 'Product Categories'
       },
       ar: {
-        name: 'Fish Type'
+        name: 'Product Categories'
       }
     }
   },
@@ -401,6 +466,30 @@ const menuFooter = [
     }
   },
   {
+    state: 'privacy-policy', 
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Privacy Policy'
+      },
+      ar: {
+        name: 'Privacy Policy'
+      }
+    }
+  },
+  {
+    state: 'cookies-policy', 
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Cookies Policy'
+      },
+      ar: {
+        name: 'Cookies Policy'
+      }
+    }
+  },
+  {
     state: 'about-us',
     type: 'link',
     translate: {
@@ -531,6 +620,30 @@ const menuFooterNoLogin = [
       },
       ar: {
         name: 'Terms & Conditions'
+      }
+    }
+  },
+  {
+    state: 'privacy-policy',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Privacy Policy'
+      },
+      ar: {
+        name: 'Privacy Policy'
+      }
+    }
+  },
+  {
+    state: 'cookies-policy',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Cookies Policy'
+      },
+      ar: {
+        name: 'Cookies Policy'
       }
     }
   },

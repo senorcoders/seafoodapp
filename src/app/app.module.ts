@@ -95,6 +95,18 @@ import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
 import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
 import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
+import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
+import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
+import { ReviewcartComponent } from './reviewcart/reviewcart.component';
+import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
+import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
+import { EditAccountComponent } from './edit-account/edit-account.component';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -105,9 +117,9 @@ const appRoutes: Routes = [
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
   { path: 'product/:id', component: SingleProductComponent },
-  { path: 'fish-type', component: FishComponent, canActivate: [AdminRouterService] },
+  { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
-  { path: 'account', component: AccountComponent, canActivate: [RouterProtectionService] },
+  { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
   { path: 'my-products', component: MyProductsComponent, canActivate: [SellerRouterService] },
   { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
   { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
@@ -139,6 +151,8 @@ const appRoutes: Routes = [
   { path: 'contact-us', component: ContactUsComponent },
   { path: 'guides', component: GuidesComponent },
   { path: 'terms-conditions', component: TermsConditionsComponent },
+  { path: 'privacy-policy', component: PrivacyPolicyComponent },
+  { path: 'cookies-policy', component: CookiesPolicyComponent },
   { path: 'about-us', component: AboutComponent },
   { path: 'advanced-search', component: AdvancedSearchComponent, canActivate: [BuyerRouterService] },
   { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
@@ -148,17 +162,24 @@ const appRoutes: Routes = [
   { path: 'seller-fulfills-orders', component: AdminOrdersComponent, canActivate: [AdminRouterService] },
   { path: 'orders-out-for-delivery', component: AdminOrderOutDeliveryComponent, canActivate: [AdminRouterService] },
   { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
-  { path: 'payments', component: PaymentsComponent, canActivate: [AdminRouterService] },
+  { path: 'payment-management', component: PaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'manage-orders', component: ManageOrdersComponent, canActivate: [AdminRouterService] },
+  { path: 'logistic-management', component: AdminLogisticManagmentComponent, canActivate: [AdminRouterService] },
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
   { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
+  { path: 'reviewcart', component: ReviewcartComponent, canActivate: [BuyerRouterService] },
   { path: 'checkout', component: CheckoutComponent, canActivate: [BuyerRouterService] },
   { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
   { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] }
+  { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
+  { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
+  { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
+  { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
+  { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
+  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
 ];
 
 @NgModule({
@@ -228,7 +249,17 @@ const appRoutes: Routes = [
     RefundCasesComponent,
     ManageOrdersComponent,
     ItemsByStatusComponent,
-    CanceledDeliveredItemsComponent
+    CanceledDeliveredItemsComponent,
+    ProductListComponent,
+    AdminCountriesComponent,
+    ShippingByCityComponent,
+    ManageStoreTrimmingComponent,
+    ReviewcartComponent,
+    AdminLogisticManagmentComponent,
+    PrivacyPolicyComponent,
+    CookiesPolicyComponent,
+    CitiManagmentComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -246,7 +277,9 @@ const appRoutes: Routes = [
       deps: [Http]
     }),
     NgxSmartModalModule.forRoot(),
-    BarRatingModule
+    BarRatingModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
   providers: [
     AuthenticationService,
@@ -263,6 +296,7 @@ const appRoutes: Routes = [
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
     OrderService   // {
     //   provide: HTTP_INTERCEPTORS,
     //   useClass: Interceptor,

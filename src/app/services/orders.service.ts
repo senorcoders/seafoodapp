@@ -16,6 +16,14 @@ export class OrderService {
     return this.http.get(`${API}orderStatus`);
   }
 
+  getPaymentStatus() {
+    return this.http.get(`${API}api/orderStatus/payments`);
+  }
+
+  getLogisticOrderStatus() {
+    return this.http.get(`${API}api/orderStatus/logistic`);
+  }
+
   getAllOrders() {
     return this.http.get(`${API}api/itemshopping/all`);
   }
@@ -102,6 +110,12 @@ export class OrderService {
   updateStatus( statusID: string, itemID: string, user: any ) {
     return this.http.put( `${API}api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
   }
+  updateETA( id, eta ) {
+    return this.http.put( `${API}itemshopping/${id}`, {buyerExpectedDeliveryDate: eta} )
+  }
+  updateItemsETA( data: any ) {
+    return this.http.put( `${API}api/itemshopping/updateETA`, data );
+  }
 
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ) {
     const httpOptionsForm: any = {headers: new HttpHeaders() };
@@ -121,5 +135,9 @@ export class OrderService {
       formData.append('image9', image9  );
     // }
     return this.http.post(`${API}shipping/${id}/upload`, formData, httpOptionsForm);
+  }
+
+  syncOrdersWithXeroInvoiceService() {
+    return this.http.get(`${API}xero/connect`);
   }
 }

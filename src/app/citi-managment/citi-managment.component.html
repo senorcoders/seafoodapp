@@ -1,0 +1,101 @@
+<div class="container">
+	<div class="row">
+    <div class="col-12">
+      <h3 class="black-title">{{'citiManagement.title'| translate}}</h3>
+    </div>
+    <div class="col-12"><h3 class="black-title">{{'citiManagement.formTitle' | translate}}</h3></div>
+    <div class="col-md-12">
+      <form  [formGroup]="myform"  class="form-design">
+        <div class="row">
+
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'citiManagement.country' | translate}}</label>
+              <select (change)="getCities()" class="form-control" id="country" formControlName="country">                
+                <option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+             
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'citiManagement.city' | translate}}</label>
+              <input type="text" class="form-control" id="city" formControlName="city" />
+            </div>
+          </div>
+          
+          
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'citiManagement.cityETA' | translate}}</label>
+              <input type="number" class="form-control" formControlName="mineta" required>
+            </div>
+          </div>  
+          <div class="col-lg-2">
+            <button type="button" (click)="onSubmit()" class="btn-red">{{'citiManagement.button' | translate}}</button>
+          </div>
+        </div>
+        
+        
+      </form>
+    </div>
+   
+  </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12"><h3 class="black-title">{{'citiManagement.title' | translate}}</h3></div>
+        <div class="col-md-6">
+          
+          <!--<div class="form-group" >
+            <label>Filter By Country</label>
+            <select (change)="getFilterCountries()" id="filterCountry" class="form-control" >
+              <option value="{{ccountry.id}}" *ngFor="let ccountry of countries"  >{{ccountry.name}}</option>              
+            </select>
+            
+          </div>-->
+          
+        </div>
+        <div class="col-12 table-design">
+          <ng-container *ngFor="let ccountry of tableCountries; let ci=cindex">
+            <div class="row row-bg"  *ngIf="ccountry.cities !== undefined">
+              <div class="col-lg-4">
+                <h5 class="country">
+                  {{ccountry.name}}
+                </h5>
+              </div>
+              <div class="col-lg-8">
+                <table>
+                  <thead>
+                    <tr>
+                      <td>{{'citiManagement.city' | translate}}</td>
+                      <td>Minimun ETA</td>
+                      <td></td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
+                      <td>
+                        {{ccity.name}}
+                      </td>
+                      <td *ngIf="ccity.mineta">
+                        {{ccity.mineta}}
+                      </td>
+                      <td *ngIf="!ccity.mineta">
+                          
+                      </td>
+                      <td>
+                        <button type="button" (click)="deleteCity(ccountry.id, ccity.code)" class="deleteButton"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>

@@ -1,6 +1,6 @@
 <div class="container" >
 	<div class="row" *ngIf="showLoading; else product">
-		<div class="col-12">
+		<div class="col-12 text-center">
 			<img src="../../assets/loader.gif" alt="" />
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 		    			<h2 class="name">
 			    			{{item.buyer.firstName}} {{item.buyer.lastName}}
 			    		</h2>
-						<div class="date">  {{item.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}} </div>
+						<div class="date">  {{item.updatedAt | date: 'EEEE, MMMM d, y, HH:mm'}} </div>
 						<!--<div class="date">  {{ dates[i]} </div>-->
 						<!-- <a class="product" routerLink="/product/{{item.fish.id}}">{{item.fish.name}}</a>-->
 						<div class="status" *ngIf="item.status">  {{item.status.status}} </div>
@@ -53,7 +53,7 @@
 		    			<h2 class="name">
 			    			{{shipped.buyer.firstName}} {{shipped.buyer.lastName}}
 			    		</h2>
-						<div class="date"> {{shipped.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
+						<div class="date"> {{shipped.updatedAt | date: 'EEEE, MMMM d, y, HH:mm'}}</div>
 						
 		    			<!--<a class="product" routerLink="/product/{{shipped.fish.id}}">{{shipped.fish.name}}</a>-->
 		    		</div>

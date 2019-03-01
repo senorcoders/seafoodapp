@@ -20,7 +20,9 @@ export class ItemsByStatusComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-
+  itemID:any;
+  groupOrder=[];
+  orderWithData=[];
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -57,9 +59,11 @@ export class ItemsByStatusComponent implements OnInit {
       ) {
       this.orderService.getAllBuyerOrders( this.user['id'] ).subscribe(
         res => {
+          console.log(res);
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -75,6 +79,7 @@ export class ItemsByStatusComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -91,6 +96,7 @@ export class ItemsByStatusComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -107,6 +113,7 @@ export class ItemsByStatusComponent implements OnInit {
           if (res['length'] > 0) {
             this.orders = res;
             this.showNoData = false;
+            this.groupByOrders(res)
           } else {
             this.showNoData = true;
           }
@@ -181,7 +188,8 @@ export class ItemsByStatusComponent implements OnInit {
   cancelItem( itemID: string ) {
     const cancelStatus = '5c017b5a47fb07027943a40c';
     this.orderService.updateStatus( cancelStatus, itemID, this.user ).subscribe(
-      result => {
+      result => { 
+        jQuery('#confirm').modal('hide');
         this.toast.success(`Item marked as Cancelled!` , 'Status Change', { positionClass: 'toast-top-right' });
       },
       error => {
@@ -189,5 +197,45 @@ export class ItemsByStatusComponent implements OnInit {
       }
     )
   }
-
+  showModal(id){
+    this.itemID=id;
+    jQuery('#confirm').modal('show');
+  }
+  confirm(val){
+    if(val){
+      this.cancelItem(this.itemID)
+    }
+    else{
+       jQuery('#confirm').modal('hide');
+    }
+  }
+  groupByOrders(orders){
+    this.groupOrder=[];
+    this.orderWithData=[];
+    //get order with products.
+    this.orders.forEach((val)=>{
+      if(val.fish && val.fish!=''){
+        this.orderWithData.push(val)
+      }
+    })
+    //group by orderNumber
+    this.orderWithData.forEach((val,index)=>{
+      if(val.shoppingCart && val.shoppingCart.orderNumber){
+        if(index>0){
+          if(val.shoppingCart.orderNumber!=this.orderWithData[index-1].shoppingCart.orderNumber){
+            this.groupOrder.push(val.shoppingCart.orderNumber)
+          }
+        }
+        else{
+          this.groupOrder.push(val.shoppingCart.orderNumber);
+        }
+      }
+    })
+    if(this.groupOrder.length==0){
+      this.showNoData=true
+    }
+    else{
+      this.showNoData = false;
+    }
+  }
 }

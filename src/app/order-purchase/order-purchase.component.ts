@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment';
+declare var jQuery:any;
 @Component({
 	selector: 'app-order-purchase',
 	templateUrl: './order-purchase.component.html',
@@ -25,6 +26,12 @@ export class OrderPurchaseComponent implements OnInit {
 	showButton: boolean = true;
 	showTrackingFile: boolean = false;
 	API = environment.apiURLImg;
+	citemId:any;
+	action:string;
+	today = new Date();
+	min = new Date();
+	max = new Date();
+
 	constructor(
 		private fb: FormBuilder,
 		private route: ActivatedRoute,
@@ -32,6 +39,8 @@ export class OrderPurchaseComponent implements OnInit {
 		private toast: ToastrService,
 		private auth: AuthenticationService
 	) {
+		this.min.setDate( this.today.getDate() );
+    	this.max.setDate( this.today.getDate() + 90 );
 
 		this.route.params.subscribe(params => {
 			this.orderId = (this.route.snapshot.params['item']);
@@ -51,7 +60,9 @@ export class OrderPurchaseComponent implements OnInit {
 					this.items = result;
 					this.showLoading = false;
 					this.showProduct = true;
-					this.getDates(result['shoppingCart'].paidDateTime);
+					if ( result['shoppingCart'].paidDateTime !== undefined ) {
+						this.getDates(result['shoppingCart'].paidDateTime);
+					}
 					// hide or show button
 					if (result['shippingStatus'] === 'shipped') {
 						this.showButton = false;
@@ -85,6 +96,7 @@ export class OrderPurchaseComponent implements OnInit {
 		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(res => {
 
 			console.log(res);
+			jQuery('#confirm').modal('hide');
 			this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
 			this.showButton = false;
 			this.getItem();
@@ -94,25 +106,14 @@ export class OrderPurchaseComponent implements OnInit {
 				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 			});
 	}
-	FulfillsOrder(itemId: string) {
-		this.productS.updateData(`api/itemshopping/${itemId}/5c13f453d827ce28632af048`, 
-		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(
-			res => {
-				this.toast.success('Order status changed', 'Well Done', { positionClass: 'toast-top-right' });
-				this.showButton = false;
-				this.getItem();
-			},
-			e => {
-				console.log(e);
-				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-			}
-		);
-	}
+
 	confirmOrder(itemId: string) {
+		let sellerETA = jQuery( `#epa${itemId}` ).val();
 
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
-		{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(
+		{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA } ).subscribe(
 			res => {
+				jQuery('#confirm').modal('hide');
 				console.log(res);
 				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
 				this.getItem();
@@ -213,6 +214,32 @@ export class OrderPurchaseComponent implements OnInit {
 			ampm = 'PM';
 		}
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+	}
+	showModal(id,action){
+		let sellerETA = jQuery( `#epa${id}` ).val()
+		
+		if( ( sellerETA !== '' && sellerETA !== undefined ) || action === 'cancel') {
+			this.citemId = id;
+			this.action = action;
+			
+			jQuery('#confirm').modal('show');
+		} else {
+			this.toast.error('Please select a Expected Delivery Time before Confirm the order', 'Error', { positionClass: 'toast-top-right' });
+		}
+	}
+	confirm(val,action){
+		if(val){
+			console.log(action);
+			if(action=="confirm"){
+				this.confirmOrder(this.citemId);
+			}
+			else if(action=='cancel'){
+				this.cancelOrder(this.citemId );
+			}
+		}
+		else{
+			jQuery('#confirm').modal('hide');
+		}
 	}
 }
 

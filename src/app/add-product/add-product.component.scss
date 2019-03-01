@@ -9,3 +9,41 @@
 	color:red;
 	font-family: 'Roboto', sans-serif;
 }
+.parts{
+	    columns: 2;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+.types{
+	font-size: 1.5rem;
+}
+.partsModal{
+	font-size: 12px;
+    color: black;
+    letter-spacing: 1px;
+}
+.checkboxes{
+	text-align: center;
+	padding-top: 10px;
+	input{
+		height: 20px;
+		width: 20px;
+	}
+}
+
+.manage-link{
+    color: #007bff !important;
+    cursor: pointer;
+}
+
+.red {
+    color: #f52828;
+    font-size: .8em;
+}
+
+@media screen and (min-width: 1200px){
+	#trimModal .modal-lg{
+		max-width: 1150px !important;
+	}
+}

@@ -8,6 +8,7 @@ import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { Location } from '@angular/common';
 
 const  API = environment.apiURL;
 @Component({
@@ -25,6 +26,7 @@ export class ConfirmationComponent implements OnInit {
   email: any;
   amount: any;
   total: any;
+  customerTotal: any;
   params: any = {
     'response' : {
 
@@ -44,26 +46,40 @@ export class ConfirmationComponent implements OnInit {
   products: any = [];
   shipping: any;
   totalWithShipping: any;
+  totalOtherFees: any;
 
 
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product: ProductService, private http: HttpClient,
-    private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService) { }
+    private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService, private location: Location) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log(params);
+      if(params.response_code !== '18000'){
+        console.log(params.response_message);
+        this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
+        
+           setTimeout(() => {
+            this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});
+
+
+           }, 5000)
+
+      }
       this.params.response = params;
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
       this.params.shoppingCart = params.merchant_reference;
-      this.amount =  localStorage.getItem('shoppingTotal');
-      this.total = this.amount * 1000;
+      this.params.shoppingCart = this.shoppingCartId;
+      // this.amount =  localStorage.getItem('shoppingTotal');
+      // this.total = this.amount * 1000;
       this.getPersonalData();
       this.getCart();
-      this.shipping = localStorage.getItem('shippingCost');
-      this.shipping = this.shipping * 1000;
-      this.totalWithShipping = localStorage.getItem('shoppingTotal');
-      this.totalWithShipping = this.totalWithShipping * 1000;
+     
+      // this.shipping = localStorage.getItem('shippingCost');
+      // this.shipping = this.shipping * 1000;
+      // this.totalWithShipping = localStorage.getItem('shoppingTotal');
+      // this.totalWithShipping = this.totalWithShipping * 1000;
+      // this.totalOtherFees = localStorage.getItem('totalOtherFees');
       // this.generateSignature();
 
     });
@@ -76,7 +92,13 @@ export class ConfirmationComponent implements OnInit {
         this.buyerId = cart['buyer'];
         this.apiShopID = cart['id'];
         this.products = cart['items'];
-        this.totalAPI = cart['total'] * 1000;
+        this.totalAPI = cart['subTotal'];
+        this.shipping = cart['shipping'];
+        this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
+        this.totalWithShipping = cart['total'];
+        this.total = Math.trunc( this.totalWithShipping * 100 );
+        console.log("Total", this.total);
+        this.customerTotal = (this.totalWithShipping).toFixed(2);
 
       }
 
@@ -148,10 +170,10 @@ export class ConfirmationComponent implements OnInit {
         'signature': this.signature,
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
-        'amount': this.total,
+        'amount': (this.total).toString(),
         'order_description': this.description
       };
-      console.log( JSON.stringify( body ) ) ;
+      console.log( 'payfort body', JSON.stringify( body ) ) ;
       /*this.http.post(this.payFortApi, body,  {
         headers: new HttpHeaders({
           "charset": "utf-8",
@@ -167,14 +189,19 @@ export class ConfirmationComponent implements OnInit {
           this.saveinApi();
           this.clearCart();
         }
-      });
+      },
+      error => {
+        console.log( 'payfort error', error );
+        this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
+      }
+      );
 
 
 
     }
 
     getTotalxItem(count, price) {
-      return (count * price) * 1000;
+      return (count * price);
     }
 
 }

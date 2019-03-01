@@ -17,6 +17,7 @@
   <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick.css"/>
   <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/jquery.slick/1.6.0/slick-theme.css"/>
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
   <script src="https://unpkg.com/slick-carousel@1.6.0/slick/slick.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.0/jquery.flexslider-min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
@@ -25,12 +26,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.2.1/bootstrap-slider.min.js"></script>
   <script>
   jQuery(document).ready(function(){
-    jQuery(document).on( 'click', '.hasChildren', function(){
-      jQuery(this).parent().find('.submenu').toggle('slow')
-    });
+    // jQuery(document).on( 'click', '.hasChildren', function(){
+    //   jQuery(this).parent().find('.submenu').toggle('slow')
+    // });
     jQuery(document).on('click','footer a',function() {
-      jQuery("html, body").animate({ scrollTop: 0 }, "slow");
-      return false;
+      jQuery("html, body").animate({scrollTop:0}, 'slow');
     });
     jQuery(document).on( 'focusout', '#input-text', function(){
       jQuery('#input-text').css('display','none');

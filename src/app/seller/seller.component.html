@@ -1,6 +1,6 @@
 <div class="container" >
 	<div class="row">
-		<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
 		<div class="col-12">
 			<h3 class="black-title">{{'Seller.title' | translate}}</h3>
 		</div>
@@ -48,18 +48,18 @@
 	        	<label>{{'Seller.tel' | translate}}</label>
 	          <input type="text" class="form-control" formControlName="tel">
 	        </div>
-	        <div class="form-group">
+	        <div style="display: none;" class="form-group">
 	        	<label>{{'Seller.banking' | translate}}</label>
 	          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
 	        </div>
-	        <div class="form-group">
+	        <!-- <div class="form-group">
 	        	<label>{{'Seller.country' | translate}}</label>
 	          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
-	             <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+							<option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
 	          </select>
 	          <div class="invalid-feedback" *ngIf="sellerForm.get('country').hasError('required')"> {{'Seller.country' | translate}} {{'Seller.required' | translate}}.</div>
-	        </div>
-	        <div class="form-group">
+	        </div> -->
+	        <!--<div class="form-group">
 	          <label>{{'Seller.licence' | translate}}</label>
 	          <input type="file" class="form-control" formControlName="uploadTradeLicense">
 	        </div>
@@ -69,7 +69,7 @@
 	        <div class="form-group">
 	        	<label>{{'Seller.sfs' | translate}}</label>
 	          <input type="text" class="form-control" formControlName="ifLocal">
-					</div>
+					</div>-->
 					<div class="form-group">
 						<label>{{'Seller.firstMileCost' | translate}}</label>
 						<input type="text" class="form-control" formControlName="firstMileCost">
@@ -78,7 +78,130 @@
 	        <div class="form-group">
 	          <input type="submit" class="btn-red" value="{{'Seller.edit-title' | translate}}" [disabled]="sellerForm.invalid">
 	        </div>
-	    </form>
+			</form>
+			<!-- start store form -->
+			<div class="row" style="margin-top: 35px" >
+				<div class="col-lg-12">
+					<h5 class="subtitle">{{'Store.title' | translate}}</h5>
+				</div>
+				<div class="col-lg-12">
+					<form (ngSubmit)="storeSubmit()">
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
+									<input type="text" class="form-control" [(ngModel)]="user.dataExtra.companyName" [ngModelOptions]="{standalone: true}">
+								</div>
+							</div>
+							<div class="col-lg-6">
+									<div class="form-group">
+										<label>Trade / Brand Name <span style="color:red">*</span></label>
+										<input type="text" class="form-control" [(ngModel)]="user.dataExtra.trade" [ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+										<div class="form-group">
+											<label>{{'Account.company-type' | translate}}</label>
+											<input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="user.dataExtra.companyType" [ngModelOptions]="{standalone: true}">
+										</div>
+									</div>
+	
+									<div class="col-lg-6">
+											<div class="form-group">
+												<label>Country <span style="color:red">*</span></label>
+												<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="user.dataExtra.country" [ngModelOptions]="{standalone: true}">
+											</div>
+										</div>
+	
+										<div class="col-lg-6">
+												<div class="form-group">
+													<label>{{'Account.Address' | translate}} <span style="color:red">*</span></label>
+													<input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="user.dataExtra.Address" [ngModelOptions]="{standalone: true}">
+												</div>
+											</div>
+											<div class="col-lg-6">
+													<div class="form-group">
+														<label>City <span style="color:red">*</span></label>
+														<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="user.dataExtra.City" [ngModelOptions]="{standalone: true}">
+													</div>
+												</div>
+	
+												<div class="col-lg-6">
+													
+														<div class="form-group">
+															<label>Trade License Number (Registration<span style="color:red">*</span></label>
+															<input type="number" class="form-control" [(ngModel)]="user.dataExtra.licenseNumber" [ngModelOptions]="{standalone: true}">
+														</div>
+													</div>
+	
+													<div class="col-md-6">  
+															<div class="form-group">
+																<label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
+																<input type="text" [(ngModel)]="user.dataExtra.iso" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Food Safety Certificate Number (ISO)"  >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
+																<input type="text"  [(ngModel)]="user.dataExtra.iban" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Corporate Bank Account Number IBAN"   >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Products Interested in Selling <span class="field-status red">*</span></label>
+																<input type="text" class="form-control" [(ngModel)]="user.dataExtra.productsIntered" [ngModelOptions]="{standalone: true}" placeholder="Products Interested in Selling"   >
+															</div>
+														</div>
+														<div class="col-md-6">  
+															<div class="form-group">
+																<label>Contact Number <span class="field-status red">*</span></label>
+																<input type="number" class="form-control" [(ngModel)]="user.dataExtra.contactNumber" [ngModelOptions]="{standalone: true}" placeholder="Contact Number"   >
+															</div>
+														</div>
+	
+														<div class="col-md-6">  
+																<div class="form-group">
+																	<label>Currency of Trade <span class="field-status red">*</span></label>
+																	<select class="form-control"  [(ngModel)]="user.dataExtra.currencyTrade" [ngModelOptions]="{standalone: true}">
+																		<option value="AED">AED</option>
+																		<option value="USD">USD</option>
+																		<option value="EUR">EUR</option>
+																		<option value="GBP">GBP</option>
+																	</select>
+																</div>
+															</div>
+						 
+						</div>
+					 
+						<!-- <div class="row">
+							<div class="col-lg-6">
+								<div class="form-group img-cont">
+									<img [src]="base + logo" alt="" style="width: 150px;">
+								</div>
+								<div class="form-group">
+									<label>{{'Store.logo' | translate}}</label>
+									<input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)">
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group img-cont">
+									<img [src]="base + hero" alt="" style="width: 350px;">
+								</div>
+								<div class="form-group">
+									<label>{{'Store.hero' | translate}}</label>
+									<input type="file" class="form-control" type="file" id="fileHero" (change)="handleFileHero($event.target.files)">
+								</div>
+							</div>
+						</div> -->
+						<div class="row">
+							<div class="col-12">
+								<button type="submit" class="btn-red">Update Store</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			<!-- end store form -->
       </div>
   	</div>
   </div>

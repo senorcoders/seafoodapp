@@ -13,6 +13,8 @@ import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { PricingChargesService } from '../services/pricing-charges.service';
+
 declare var jQuery:any;
 
 @Component({
@@ -25,18 +27,36 @@ export class PendingProductsComponent implements OnInit {
   selectedProductID:any;
   deniedProductGroup: FormGroup;
 	denialMessage: FormControl;
-  
-  constructor(private toast: ToastrService, private productService: ProductService) { }
+  id:any;
+  imageURL:string = environment.apiURLImg;
+  currentPrincingCharges: any = [];
+  currentExchangeRate: number;
+  constructor(
+    private toast: ToastrService,
+    private productService: ProductService,
+    private pricingChargesService: PricingChargesService ) { }
 
   ngOnInit() {
+    this.getCurrentPricingCharges();
     this.getPendingProducts();
     this.createForm();
   }
+  getCurrentPricingCharges() {
+    this.pricingChargesService.getCurrentPricingCharges().subscribe(
+      result => {
+        this.currentPrincingCharges = result;
+        console.log('result', result);
+        this.currentExchangeRate = result['exchangeRates'][0].price;
+        console.log(this.currentExchangeRate);
+      }, error => {
+        console.log(error);
+      }
+    );
+  }
 
   createForm(){
-    this.denialMessage = new FormControl('', Validators.required);    
-    
-    this.deniedProductGroup = new FormGroup({            
+    this.denialMessage = new FormControl('', Validators.required);
+    this.deniedProductGroup = new FormGroup({
       denialMessage: this.denialMessage
     });
 	}
@@ -51,18 +71,25 @@ export class PendingProductsComponent implements OnInit {
       }
     )
   }
-  approveProduct( productID:string ){
-    this.productService.patchStatus( productID, '5c0866f9a0eda00b94acbdc2', { message: '' } )
-    .subscribe(
-      result => {
-        this.getPendingProducts();
-        this.toast.success("Product Approved Successfully!",'Well Done',{positionClass:"toast-top-right"})
-      },
-      error => {
-        this.getPendingProducts();
-        this.toast.error("Something wrong happened, please try again", "Error",{positionClass:"toast-top-right"} );
-      }
-    )
+  confirm( val ){
+    if(val){
+      this.productService.patchStatus( this.id, '5c0866f9a0eda00b94acbdc2', { message: '' } )
+      .subscribe(
+        result => {
+          this.getPendingProducts();
+          this.id='';
+          jQuery('#confirm').modal('hide');
+          this.toast.success("Product Approved Successfully!",'Well Done',{positionClass:"toast-top-right"})
+        },
+        error => {
+          this.getPendingProducts();
+          this.toast.error("Something wrong happened, please try again", "Error",{positionClass:"toast-top-right"} );
+        }
+      )
+    }
+    else{
+      jQuery('#confirm').modal('hide');
+    }
   }
   deniedProduct(){
     let productID = this.selectedProductID;
@@ -83,5 +110,9 @@ export class PendingProductsComponent implements OnInit {
   showDeniedModal(productID:string){
 		this.selectedProductID= productID;    
     jQuery('#deniedProducts').modal('show');
+  }
+  showModal(id){
+    this.id=id;
+    jQuery('#confirm').modal('show');
   }
 }

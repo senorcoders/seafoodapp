@@ -1,217 +1,25 @@
-<div class="page-header homepage container" id="hero" *ngIf="role!=2">
-  <!-- <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading"> -->
-  <div class="content">
-    <h1 class="big-title">
-      {{ "Home.big-title-banner" | translate }} <br>
-      {{ "Home.big-title-banner-2" | translate }}
-    </h1>
-    <h3 class="small-title">{{ "Home.small-title-banner" | translate }}</h3>
-    <a href="" class="buy-btn">{{ "Home.banner-button" | translate }}</a>
-  </div>
-  <img src="../../assets/banner.png" class="banner-img" alt="">
-</div>
-<div class="home-register" *ngIf="role!=2">
-  <div class="container">
-    <div class="row text-center">
-      <div class="col-md-12 ">
-        <h2 class="title">{{ "Home.seller-reg-title" | translate }} </h2>
-      </div>
-      <div class="col-md-4">
-        <img src="../../assets/pricing.png" alt="" height="40px">
-        <br>
-          <h3 class="small-title">{{ "Home.pricing" | translate }} </h3> 
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-      </div>
-      <div class="col-md-4">
-          <img src="../../assets/buyers.png" alt="" height="40px">
-          <br>
-            <h3 class="small-title">{{ "Home.buyers" | translate }} </h3> 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-        </div>
-        <div class="col-md-4">
-            <img src="../../assets/controls.png" alt="" height="40px">
-            <br>
-              <h3 class="small-title">{{ "Home.control" | translate }} </h3> 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-          </div>
+<div id="hero">
+  <div class="overlay-bn"></div>
+  <div class="page-header homepage container">
+    <div class="buyer-content">
+      <h2 class="buyer-title">Buyers</h2>
+      <h3 class="means">Seafood Souq means</h3>
+      <h4 class="buyer-value">more choice</h4>
+      <a class="blue-btn" (click)="register('buyer')">Register to Buy</a>
     </div>
-  </div>
-</div>
-
-<div class="home-register white-home-register" *ngIf="role!=2">
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-12 ">
-          <h2 class="title">{{ "Home.buyer-reg-title" | translate }} </h2>
-
-        </div>
-        <div class="col-md-4">
-          <img src="../../assets/pricing.png" alt="" height="40px">
-          <br>
-            <h3 class="small-title">{{ "Home.pricing" | translate }} </h3> 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-        </div>
-        <div class="col-md-4">
-            <img src="../../assets/buyers.png" alt="" height="40px">
-            <br>
-              <h3 class="small-title">{{ "Home.traceability" | translate }} </h3> 
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-          </div>
-          <div class="col-md-4">
-              <img src="../../assets/controls.png" alt="" height="40px">
-              <br>
-                <h3 class="small-title">{{ "Home.choice" | translate }} </h3> 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, veritatis sed ex.</p>
-
-            </div>
-      </div>
+    <div class="seller-content">
+      <h2 class="buyer-title">Seller</h2>
+      <h3 class="means">Seafood Souq means</h3>
+      <h4 class="buyer-value">access to an interational market</h4>
+      <a class="blue-btn" (click)="register('seller')">Register to Sell</a>
     </div>
-  </div>
-<div class="about" *ngIf="role!=2">
-  <div class="container">
-    <div class="row">
-    <div class="col-md-6 col-lg-6 white-bg">
-      <h2 class="title">{{"Home.about" | translate}}</h2>
-      <hr class="hr-small">
-      <div class="description">{{'Home.about-text' | translate}}</div>
-      <a href="#" class="pink-btn">{{'Home.more' | translate}}</a>
+    <div class="content">
+      <h1 class="welcome-title">Welcome to Seafood Souq</h1>
+      <h2 class="subtitle">The fully digital seafood marketplace.</h2>
+      <!-- <h3 class="small-title">{{ "Home.small-title-banner" | translate }}</h3>
+      <a href="" class="buy-btn">{{ "Home.banner-button" | translate }}</a> -->
     </div>
-    <div class="col-md-6 col-lg-6">
-      <img src="../../assets/about-section.png" alt="" style="max-width: 100%;">
-    </div>
+    <!-- <img src="../../assets/banner.png" class="banner-img" alt=""> -->
   </div>
-  </div>
-</div>
-<div class="products-section" [ngClass]="{'product-section-buyer':role==2}">
-  <div class="white-bg">
-    <div class="row">
-      <div class="col">
-        <h2 class="title">{{"Home.title" | translate}}</h2>
-        <hr class="hr-small">
-      </div>
-    </div>
-  </div>
-  <div class="content-products">
-    <div class="container">
-      <div *ngIf="loadProduct; else showContent"><img src="../../assets/loader.gif" alt=""></div>
-      <ng-template #showContent>
-      <div class="row">
-        <ng-container *ngFor="let product of products; let i = index">
-          <div class="col-lg-4 products">
-            <div class="bg">
-              <div class="img-container">
-                <a routerLink="/product/{{product.id}}">
-                  <div class="product-img" [style.background-image]="images[i]"></div>
-                  <!-- <img src="{{images[i]}}" class="product-img"></a> -->
-                </a>
-              </div>
-              <a routerLink="/product/{{product.id}}"><h3 class="product-name">{{product.name}}</h3></a>
-              <a routerLink="/fish-type/{{product.type.name}}/1"><span class="product-type">{{product.type.name}}</span></a>
-              <hr class="black-line">
-              <div class="desc">{{getShortDesc(product.description)}}</div>
-              <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>
-            </div>
-          </div>
-        </ng-container>
-      </div>
-      </ng-template>
-    </div>
-  </div>
-</div>
-<div class="fish-types">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <h2 class="title">{{"Home.fist-type" | translate}}</h2>
-        <hr class="hr-small">
-      </div>
-    </div>
-    <div class="row">
-      <ng-container *ngFor="let type of fishTypeMenu; let i = index">
-          <div class="col-lg-4 products">
-            <div class="border-product">
-              <div class="img-container">
-                <a routerLink="/fish-type/{{type.name}}/1">
-                  <div class="product-img" [ngClass]="{'product-no-border':fishTypeMenuImages[i].changingThisBreaksApplicationSecurity=='url(../../assets/Logo-1.png)'}" [style.background-image]="fishTypeMenuImages[i]"></div>
-                </a>
-              </div>
-              <h3 class="product-name">{{type.name}}</h3>
-              <hr class="black-line">
-              <div class="desc">{{getShortDesc(type.description)}}</div>
-            </div>
-          </div>
-<!--           <ng-template #fishChildren>
-            <div class="col-lg-4 products" *ngFor="let child of type.childsTypes; let j=index">
-              <div class="border">
-                <div class="img-container">
-                  <a routerLink="/fish-type/{{child.child.name}}/1">
-                    <div class="product-img">
-                      <img src="{{API+child.child.images[0].src}}" alt="" *ngIf="child.child.images && child.child.images.length>0;else default">
-                      <ng-template #default>
-                        <img src="../../assets/default.jpg" alt="">
-                      </ng-template>
-                    </div>
-                  </a>
-                </div>
-                <a routerLink="/fish-type/{{type.name}}/1"><h3 class="product-name">{{child.child.name}}</h3></a>
-                <a routerLink="/fish-type/{{type.name}}/1"><span class="product-type">{{child.child.name}}</span></a>
-                <hr class="black-line">
-                <div class="desc">{{getShortDesc(child.child.description)}}</div>
-              </div>
-            </div>
-          </ng-template> -->
-        </ng-container>
-      </div>
-  </div>
-</div>
-<div class="seller-section container" *ngIf="role!=2">
-  <div class="row featuredSeller">
-    <div class="col-12 seller-title">
-      <h2 class="title">{{"Home.featuredSeller" | translate}}</h2>
-      <hr class="hr-small">
-    </div>
-    <div class="col-lg-3 col-md-6 featuredSellerItem" *ngFor="let featuredSeller of featuredSellers; let i=index">
-      <a routerLink="store/{{featuredSeller.id}}"><img class="logo" src="{{logos[i]}}"/></a>
-    </div>
-  </div>
-</div>
-<div class="row fish-categories" *ngIf="role!=2">
-  <div class="col-12">
-    <h2 class="title">{{"Home.fist-type" | translate}}</h2>
-    <hr class="hr-small">
-  </div>
-  <ng-container *ngFor="let featuredtype of featuredtypes; let i=index">
-  <div class="col-lg-4 cat-img-2" [style.background-image]="featuredTypesImages[i]" *ngIf="i==0 || i==3; else twoBlock">
-    <div class="overlay-cat">
-      <div class="cat-content">
-        <a routerLink="/fish-type/{{featuredtype.name}}/1"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
-        <div class="description">
-          <h5 class="desc-title">{{'Home.description' | translate}}</h5>{{featuredtype.description}}
-        </div>
-        <a routerLink="/fish-type/{{featuredtype.name}}/1" class="white-btn">{{'Home.details' | translate}}</a>
-      </div>
-    </div>
-  </div>
-  <ng-template #twoBlock>
-    <div class="col-lg-4 two-img" id="featured{{i}}">
-      <div class="cat-img-3 " id="featuredtype{{i}}" [style.background-image]="featuredTypesImages[i]">
-        <div class="overlay-cat">
-          <div class="cat-content">
-            <a routerLink="/fish-type/{{featuredtype.name}}/1"><h3 class="title-cat">{{featuredtype.name}}</h3></a>
-            <div class="description">
-              <h5 class="desc-title">{{'Home.description' | translate}}</h5>
-              {{featuredtype.description}}
-            </div>
-            <a routerLink="/fish-type/{{featuredtype.name}}/1" class="white-btn">{{'Home.details' | translate}}</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ng-template>
-  </ng-container>
-</div>
+</div> 
+<!-- <app-footer></app-footer> -->

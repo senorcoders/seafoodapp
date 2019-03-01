@@ -6,7 +6,7 @@
 	</div>
 	<div class="row">
 		<div class="col">
-			<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+			<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
 		</div>
 	</div>
 	<div *ngIf="showData"> 
@@ -24,7 +24,7 @@
 						  </div>
 						</div>
 						<div class="col-md-2">
-						  @ ${{product.price.value}}
+						  @ ${{(product.price.value)}}
 						</div>
 						<div class="col-md-3">
 						  <div class="product-name">
@@ -33,11 +33,11 @@
 						  </div>
 						  <div class="product-description">
 							{{product.fish.description}}
-							<p *ngIf="product.status" >{{product.status.status}}</p>
+							<p *ngIf="user.role == '0'" >{{product.status.status}}</p>
 						  </div>
 						</div>
 						<div class="col-md-2 text-center">							
-							${{ (product.quantity.value * product.price.value ) + product.shipping + product.uaeTaxes + product.customs + product.sfsMargin }}
+							${{ ((product.quantity.value * product.price.value )) }}
 						</div>
 						<div class="col-md-1">
 								<div class="actions">
@@ -47,7 +47,7 @@
 							
 						</div>
 						<div class="col-md-2">
-							<button *ngIf="product.status.id== '5c017ae247fb07027943a404' || product.status.id == '5c017af047fb07027943a405'" (click)="cancelOrder(product.id)" class="btn-red-a">{{'Orders-items.cancel-item' | translate}}</button>
+							<button *ngIf="product.status.id== '5c017ae247fb07027943a404'" (click)="cancelOrder(product.id)" class="btn-red-a">{{'Orders-items.cancel-item' | translate}}</button>
 						</div>
 					  </div>
 					</div>
@@ -58,7 +58,10 @@
 						<div class="col-md-3">
 						</div>
 						<div class="col-md-7 text-right">
-						  <h3 class="subtotal">{{'Orders-items.total' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
+							<h5>{{'Orders-items.subtotal' | translate}} &nbsp;&nbsp;&nbsp;   ${{subtotal}}</h5>
+							<h5>{{'Orders-items.total-other' | translate}} &nbsp;&nbsp;&nbsp;   ${{totalOther}}</h5>
+						  <h5>{{'Orders-items.total-shipping' | translate}} &nbsp;&nbsp;&nbsp;   ${{totalShipping}}</h5>
+							<h3 class="subtotal">{{'Orders-items.total' | translate}} &nbsp;&nbsp;&nbsp;   ${{total}}</h3>
 						  <br>
 						</div>
 						

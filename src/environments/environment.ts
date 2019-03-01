@@ -5,8 +5,8 @@
 
 export const environment = {
   production: false,
-  apiURL:"http://13.232.68.135/",
-  apiURLImg:"http://13.232.68.135",
+  apiURL:"http://devapi.seafoodsouq.com/",
+  apiURLImg:"http://devapi.seafoodsouq.com",
   //apiURL:"http://localhost:7000/",
   //apiURLImg:"http://localhost:7000",
   countries:[

@@ -9,6 +9,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+declare var jQuery: any;
 @Component({
   selector: 'app-edit-product',
   templateUrl: './edit-product.component.html',
@@ -22,6 +23,7 @@ export class EditProductComponent implements OnInit {
   ];
   myform: FormGroup;
   name: FormControl;
+  brandname:FormControl;
   price: FormControl;
   measurement: FormControl;
   description: FormControl;
@@ -54,11 +56,38 @@ export class EditProductComponent implements OnInit {
   countries: any = [];
   status: any;
   selectedStatus: any;
+  action:string;
+  typeLevel0:any;
+  typeLevel1;
+  typeLevel2;
+  typeLevel3;
+  mainCategory:FormControl;
+  descriptor:FormControl;
+  specie:FormControl;
+  wholeFishWeight:FormControl;
+  wholeOptions=[
+    '0-1 KG',
+    '1-2 KG',
+    '2-3 KG',
+    '3-4 KG',
+    '4-5 KG',
+    '5-6 KG',
+    '6-7 KG',
+    '7-8 KG',
+    '8+ KG'
+  ];
+  preparationOptions=[
+    'Head On Gutted',
+    'Head Off Gutted',
+    'Filleted'
+  ]
+  showWholeOptions:boolean=false;
+  hsCode:any;
+  acceptableSpoilageRate:any;
   constructor(private product: ProductService, private route: ActivatedRoute, private router: Router, private toast: ToastrService, private auth: AuthenticationService, private sanitizer: DomSanitizer, private countryService: CountriesService ) {}
   ngOnInit() {
     // this.createFormControls();
     // this.createForm();
-    this.getAllCities();
     this.getCountries();
     this.user = this.auth.getLoginData();
     this.getTypes();
@@ -67,21 +96,30 @@ export class EditProductComponent implements OnInit {
      this.getDetails();
    }
 
+   this.getAllCities();
+
+
   }
   getDetails() {
     this.product.getProductDetail(this.productID).subscribe(data => {
       console.log( data );
       this.name = data['name'];
       this.description = data['description'];
+      this.brandname=data['brandname'];
       this.price = data['price'].value;
       this.measurement = data['weight'].type;
       this.country = data['country'];
+      if(data.hasOwnProperty('descriptor') && data['descriptor'].hasOwnProperty('id')){
+        this.descriptor=data['descriptor'].id;
+
+      }
       if ( data.hasOwnProperty('processingCountry') ) {
         this.processingCountry = data['processingCountry'];
       }
       this.city = data['city'];
       this.show = true;
       this.types = data['type'].id;
+      this.specie= data['type'].parent;
       this.preparation = data['preparation'];
       this.raised = data['raised'];
       this.minimumOrder = data['minimumOrder'];
@@ -91,8 +129,15 @@ export class EditProductComponent implements OnInit {
       this.seller_sku = data['seller_sku'];
       this.seafood_sku = data['seafood_sku'];
       this.status = data['status'];
+      this.wholeFishWeight=data['wholeFishWeight'];
       this.selectedStatus = this.status.id;
-      data['images'].forEach((val, index) => {
+      this.hsCode = data['hsCode'];
+      this.acceptableSpoilageRate = data['mortalityRate'];
+      if(data['preparation'] !='Filleted'){
+        this.showWholeOptions=true;
+      }
+      if(data['images']){
+        data['images'].forEach((val, index) => {
         if (val.hasOwnProperty('src')) {
           console.log('Val', val);
           this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`));
@@ -101,6 +146,7 @@ export class EditProductComponent implements OnInit {
 
         }
       });
+      }
       console.log(data['imagePrimary']);
       if (data['imagePrimary'] != null) {
         this.primaryImgLink = data['imagePrimary'];
@@ -113,6 +159,7 @@ export class EditProductComponent implements OnInit {
     console.log('Error', error);
     this.show = false;
   });
+    this.getAllTypesByLevel();
   }
 
   getTypes() {
@@ -123,11 +170,18 @@ export class EditProductComponent implements OnInit {
   }
 
   onSubmit() {
+    let whole;
+    if(this.showWholeOptions){
+      whole=this.wholeFishWeight
+    }
+    else{
+      whole=''
+    }
       const data = {
         'type' : this.types,
          'quality': 'good',
           'name': this.name,
-          'description': this.description,
+          'brandname':this.brandname,
           'country': this.country,
           'processingCountry': this.processingCountry,
           'city': this.city,
@@ -149,7 +203,11 @@ export class EditProductComponent implements OnInit {
           'coomingSoon': this.cooming_soon,
           'seller_sku': this.seller_sku,
           'seafood_sku': this.seafood_sku,
-          'status': this.selectedStatus
+          'status': this.selectedStatus,
+          'descriptor':this.descriptor,
+          'wholeFishWeight':whole,
+          'hsCode': this.hsCode,
+          'mortalityRate': this.acceptableSpoilageRate
       };
       this.product.updateData('fish/' + this.productID, data).subscribe(result => {
         if (this.fileToUpload.length > 0) {
@@ -256,9 +314,114 @@ getAllCities() {
       this.cities = result;
     },
     error => {
-      console.log( error );
+      console.log(error);
     }
   );
 }
 
+showModal(action){
+  this.action=action;
+  jQuery('#confirm').modal('show');
+}
+confirm(val,action){
+  if(val){
+    if(action=='update'){
+      this.onSubmit();
+      jQuery('#confirm').modal('hide');
+    }
+    else if(action=='delete'){
+      this.deleteProduct()
+      jQuery('#confirm').modal('hide');
+    }
+  }
+}
+getAllTypesByLevel() {
+    this.product.getData(`getTypeLevel`).subscribe(
+      result => {
+        this.typeLevel0 = result['level0'];
+        this.typeLevel1 = result['level1'];
+        this.typeLevel2 = result['level2'];
+        this.typeLevel3 = result['level3'];
+      },
+      error => {
+
+      }
+    );
+  }
+    getOnChangeLevel( level: number, value ) {
+    let selectedType;
+    switch ( level ) {
+      case 0:
+        selectedType = this.mainCategory;
+        break;
+    
+      case 1:
+        selectedType = this.specie;
+        if(value=='5bda361c78b3140ef5d31fa4'){
+          this.preparationOptions=[
+            'Head On Gutted',
+            'Head Off Gutted ',
+            'Filleted - Trim A',
+            'Filleted - Trim B',
+            'Filleted - Trim C',
+            'Filleted - Trim D',
+            'Filleted - Trim D',
+          ]
+          this.showWholeOptions=true
+        }
+        else{
+          this.preparationOptions=[
+            'Filleted',
+            'Head On Gutted',
+            'Head Off Gutted '
+          ]
+        }
+        break;
+
+      case 3:
+        selectedType = this.types;
+        break;
+
+      default:
+        selectedType = this.types;
+        break;
+    }
+    this.product.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+      result => {
+        result['childs'].map( item => {
+          switch (item.level) {
+            case 0:
+              this.typeLevel0 = item.fishTypes;
+              break;
+
+            case 1:
+              this.typeLevel1 = item.fishTypes;
+              break;
+
+            case 2:
+              this.typeLevel2 = item.fishTypes;
+              break;
+
+            case 3:
+              this.typeLevel3 = item.fishTypes;
+              break;
+
+            default:
+              break;
+          }
+        } );
+      },
+      error => {
+        console.log( error );
+      }
+    )
+  }
+   showWhole(value){
+    if(value!='Filleted'){
+      this.showWholeOptions=true;
+    }
+    else{
+       this.showWholeOptions=false;
+    }
+  }
 }

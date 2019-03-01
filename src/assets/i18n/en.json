@@ -46,7 +46,7 @@
 		"first-name":"First Name",
 		"last-name":"Last Name",
 		"email":"Email",
-		"tel":"Telephone",
+		"tel":"Phone Number",
 		"country":"Country",
 		"baking":"Banking Info",
 		"button-update":"Update Account",
@@ -130,8 +130,8 @@
 	"AddProduct":{
 		"title":"Add Product",
 		"name":"Product Title",
-		"price":"Price/KG in DHS",
-		"price-measurement":"Weight type per quantity",
+		"price":"Price/KG in USD",
+		"price-measurement":"Unit of measurement",
 		"description":"Description",
 		"parent-types": "Select Main Category",
 		"fish-types":"Select Sub Category",
@@ -155,7 +155,7 @@
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
-		"mortalityRate": "Mortality Rate",
+		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country",
 		"mainCategory": "Main Category",
 		"species": "Species",
@@ -201,12 +201,12 @@
 		"status": "Status"
 	},
 	"FishType":{
-		"add":"Add Fish Type",
+		"add":"Add Product Categories",
 		"name":"Fish Name",
 		"required":"is required",
 		"description":"Category Description",
 		"current-image":"Current Image",
-		"types":"Fish Types",
+		"types":"Product Categories",
 		"edit":"Edit",
 		"delete":"Delete",
 		"image":"Add Image"
@@ -237,11 +237,11 @@
 		"forgot":"Forgot your password?",
 		"login":"Sign in",
 		"send":"Send",
-		"forgot-password":"Recovery your password"
+		"forgot-password":"Recover your password"
 	},
 	"Register":{
 		"title":"Register",
-		"select":"Are you Seller or Buyer?",
+		"select":"Are you a Seller or Buyer?",
 		"buyer":"Buyer",
 		"seller":"Seller",
 		"first-name":"First Name",
@@ -263,7 +263,7 @@
 		"City":"City",
 		"zipCode":"Zip Code",
 		"designation":"Designation",
-		"seller-info":"Seller Information",
+		"seller-info":"Account Details",
 		"company-info":"Company Information",
 		"company":"Company Name",
 		"company-type":"Company Type",
@@ -429,7 +429,10 @@
 		"is-invalid":"You have to write a comment",
 		"send":"Send",
 		"back-orders": "Back to my orders",
+		"subtotal": "Sub Total",
 		"total": "Total",
+		"total-shipping": "Shipping",
+		"total-other": "Other fees and Taxes",
 		"cancel-item": "Cancel Item"
 	},
 	"Comments":{
@@ -573,7 +576,9 @@
 		"filterByCity": "Filter Shipping Rate By City",
 		"countryPlaceholder": "Select a Country",
 		"country": "Country",
-		"city": "Cities"
+		"city": "Port of Loading",
+		"addPortOfLoading": "Add Port of Loading",
+		"cityETA": "Min Numbers of days for shipping"
 	},
 	"PricingCharges": {
 		"title": "System Pricing Charges",
@@ -583,6 +588,7 @@
 		"customs": "Customs (%)",
 		"lastMileCost":  "Last Mile Cost ( AED )",
 		"updateButton": "Update (%)",
+		"exchangeRates": "Exchange Rate (AED / USD)",
 		"date": "Updated At",
 		"type": "Type",
 		"price": "Price"
@@ -634,8 +640,20 @@
 		"DeliveredButton": "Mark as Delivered",
 		"UpdateStatusButton": "Update Status"
 	},
+	"LogisticManagment": {
+		"title": "Logistic Managment",
+		"status": "Status",
+		"orderNumber": "Order Number",
+		"PaymentButton": "Mark Payment",
+		"RefoundButton": "Mark Refounded",
+		"ShippedButton": "Mark as Shipped",
+		"ArrivedButton": "Mark as Arrived",
+		"OutForDelivered": "Mark as Out for Delivered",
+		"DeliveredButton": "Mark as Delivered",
+		"UpdateStatusButton": "Update Status"
+	},
 	"ItemStatus":{
-		"title": "Items Buyed",
+		"title": "Items Purchased",
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"cancelItem": "Cancel Item"
@@ -644,5 +662,32 @@
 		"title": "Canceled and Delivered Items",
 		"status": "Status",
 		"orderNumber": "Order Number"
+	},
+	"ManageCountries": {
+		"title": "Manage Countries ETA",
+		"ETA": "Expected Delivery Time (in days)",
+		"Country": "Country",
+		"Countries": "Countries",
+		"Save": "Update",
+		"formTitle": "Update Country Estimated Delivery Date"
+	},
+	"citiETA": {
+		"country": "Country",
+		"city": "Cities",		
+		"cityETA": "Minimum ETA",
+		"title": "Min Numbers of days expected to arrived from this cities",
+		"formTitle": "Update City ETA",
+		"button": "Save"
+	},
+	"citiManagement": {
+		"country": "Country",
+		"city": "Port of Loading",		
+		"city_code": "Port of Loading Code",
+		"cityETA": "Minimum ETA",
+		"title": "Port of Loading",
+		"formTitle": "Add Port of Loading",
+		"button": "Save",
+		"delete": "Delete"
 	}
+	
 }

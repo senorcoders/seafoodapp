@@ -1,6 +1,6 @@
 <div class="container" *ngIf="isInfo; else noInfo">
 	<div class="row">
-		<div class="col-12" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
 		<div class="col-12"><h3 class="black-title">{{'VerifyUser.title' | translate}}</h3></div>
 		<div class="col-12 table-design">
 	        <div class="row row-bg" *ngFor="let user of users; let i=index">
@@ -9,7 +9,7 @@
 				  {{user.firstName}} {{user.lastName}}
 				  
 	              <img src="../../assets/trash-icon.png" alt=""  (click)="showConfirmModal(user.id)" class="delete">
-	              <fa name="check" class="edit" (click)="accept(user.id)"></fa>
+	              <fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
 	              <fa name="eye" class="edit" (click)="popUp(i)"></fa>
 	            </h2>
 	            <div class="product">
@@ -45,36 +45,51 @@
 					<div class="col" *ngIf="singleUser.role==2">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
 						<hr class="black-line">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Location: </b>{{singleUser.dataExtra.country}},{{singleUser.dataExtra.City}}, {{singleUser.dataExtra.Address}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
-						<b>ZipCode: </b>{{singleUser.dataExtra.zipCode}} <br>
-						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem; margin-top: 10px;">Company</h5>
-						<hr class="black-line">
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
-						<b>Company Email: </b>{{singleUser.dataExtra.companyEmail}} <br>
-						<b>Company Tel: </b>{{singleUser.dataExtra.companyTel}} <br>
-						<b>Delivery Address: </b>{{singleUser.dataExtra.deliveryAddress}} <br>
-						<b>Designation: </b>{{singleUser.dataExtra.designation}} <br>
+						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
+						<hr class="black-line">
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
-						<b>Designation: </b>{{singleUser.dataExtra.designation}} <br>
+						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem;margin-top: 10px;">Store</h5>
+						<hr class="black-line">
+						<b>Company name: </b>{{singleUser.dataExtra.companyName}} <br>	
+						<b>Trade/Brand Name: </b>{{singleUser.dataExtra.trade}} <br>	
+						<b>Company Type: </b>{{singleUser.dataExtracompanyType}} <br>	
+						<b>Country: </b>{{singleUser.dataExtra.country}} <br>	
+						<b>Address: </b>{{singleUser.dataExtra.Address}} <br>	
+						<b>City: </b>{{singleUser.dataExtra.City}} <br>	
+						<b>Trade License Number (Registration): </b>{{singleUser.dataExtra.licenseNumber}} <br>	
+						<b>Food Safety Certificate Number (ISO): </b>{{singleUser.dataExtra.iso}} <br>	
+						<b>Corporate Bank Account Number IBAN: </b>{{singleUser.dataExtra.iban}} <br>	
+						<b>Currency of Trade: </b>{{singleUser.dataExtra.currencyTrade}} <br>
+						<b>Contact Number: </b>{{singleUser.dataExtra.contactNumber}} <br>	
+						<b>Products Interested in Selling: </b>{{singleUser.dataExtra.productsIntered}}
+
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">
-						<b>Name: </b>{{singleUser.firstName}} <br>
-						<b>LastName: </b>{{singleUser.lastName}} <br>
+						<b>First Name: </b>{{singleUser.firstName}} <br>
+						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
+						<b>Address: </b>{{singleUser.dataExtra.Address}} <br>
+						<b>City: </b>{{singleUser.dataExtra.City}} <br>
+						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
+						
 						<b>Country: </b>{{singleUser.dataExtra.country}} <br>
+						<b>Type of Business: </b>{{singleUser.dataExtra.TypeBusiness}} <br>
 					</div>
 				</div>
 			</div>
@@ -115,6 +130,26 @@
 
 							<button type="button" (click)="refuse()" class="btn-red">Save</button>
 						</form>
+					</div>					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				  <span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<button (click)="confirm(true)" class="blue-btn">Yes</button>
+						<button (click)="confirm(false)" class="blue-btn-light">No</button>
 					</div>					
 				</div>
 			</div>

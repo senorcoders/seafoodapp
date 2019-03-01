@@ -6,6 +6,8 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 @import "~ngx-smart-modal/ngx-smart-modal";
 @import '~ngx-bar-rating/themes/br-fontawesome-o-theme';
+@import "~ng-pick-datetime/assets/style/picker.min.css";
+
 @font-face{
   font-family: Avenir;
   src: url(./assets/fonts/Avenir-Book-01.ttf) format('truetype');
@@ -962,5 +964,56 @@ app-register, app-login{
   }
   .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 37px !important;
+  }
+}
+.blue-btn{
+  background: #0055bd;
+  border: none;
+  padding: 3px 10px;
+  color: #fff!important;
+  text-transform: capitalize;
+  font-size: 14px;
+  display: inline-block;
+  text-decoration: none !important;
+  cursor: pointer;
+  font-family: roboto;
+}
+.blue-btn-light{
+  border: 1px solid #0055bd;
+  color:#0055bd;
+  font-size: 1rem;
+  display: inline-block;
+  text-decoration: none !important;
+  cursor: pointer;
+  text-transform: capitalize;
+  background: transparent;
+  padding: 10px 15px;
+  margin-right: 5px;
+  font-family: roboto;
+}
+.blue-btn-light.active{
+  background: #0055bd;
+  color:white;
+}
+.modal-body{
+  .blue-btn{
+    border: 1px solid #0055bd !important;
+    font-size: 14px !important;
+    padding: 3px 10px !important;
+    color:white !important;
+    width: 49%;
+    background: #0055bd !important;
+    margin-right: 0.5%;
+    height: 46px !important;
+    margin-left: 0 !important
+  }
+  .blue-btn-light{
+    border: 1px solid #0055bd !important;
+    font-size: 14px !important;
+    height: 46px !important;
+    color:#0055bd !important;
+    width: 49%;
+    margin-right: 0 !important;
+    margin-left: 0.5%;
   }
 }

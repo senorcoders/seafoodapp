@@ -6,6 +6,10 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { CartService } from '../core/cart/cart.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { DateTimeAdapter } from 'ng-pick-datetime';
+import { ToastrService } from 'ngx-toastr';
+declare var jQuery:any;
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -31,25 +35,53 @@ export class CheckoutComponent implements OnInit {
   randomID: any;
   products: any = [];
   total: any;
-  totalOtherFees: number;
+  totalOtherFees: any;
   shipping: any;
   totalWithShipping: any;
   showShippingFields: boolean = false;
   check: boolean = false;
   info: any;
   buyerId: string;
+  today = new Date();
+  min = new Date();
+  max = new Date();
+  expectedDates: any = [];
+  all_medd_ok: Boolean = false;
+  selectYear:any = "19";
+  selectMonth:any = "01";
+  expiryDate:any;
+  error:boolean = false;
+  name:any;
+  address:any;
 
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private Cart: CartService,
+    private auth: AuthenticationService,
+    private orders: OrderService,
+    private toast: ToastrService,
+    dateAdapter: DateTimeAdapter<any>
+  ) {
+    this.min.setDate( this.today.getDate() + 3 );
+    this.max.setDate( this.today.getDate() + 120 );
 
-  constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient, private Cart: CartService, private auth: AuthenticationService, private orders: OrderService) { }
+    dateAdapter.setLocale('en-EN'); // change locale to Japanese
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
+      this.error = params['creditIssue'];
       this.randomID = this.guid();
       this.generateSignature();
       this.getCart();
       this.getPersonalData();
       // this.shipping = localStorage.getItem('shippingCost');
+      this.name = localStorage.getItem('billingInformationName');
+      this.address = localStorage.getItem('billingInformationAddress');
+      
 
     });
   }
@@ -65,16 +97,19 @@ export class CheckoutComponent implements OnInit {
         /*this.total=cart['total'];
         this.shipping=cart['shipping']
         this.totalOtherFees=cart['totalOtherFees']*/
-        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
+        // this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
         this.buyerId = cart['buyer'];
 
         this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
+              console.log("Cart", res);
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
+              localStorage.setItem('shoppingTotal', this.totalWithShipping);
+
             },
             error => {
               console.log(error);
@@ -139,18 +174,70 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  emitValue() {
+    let localOk = true;
+    this.expectedDates = [];
+    this.products.map( ( product, index ) => {
+      console.log('product', product);
+      const expectedDate = jQuery( `#medd${product.id}` ).val();
+      console.log( 'expected', expectedDate );
+      if ( expectedDate === '' || expectedDate === undefined ) {
+        localOk = false;
+        this.all_medd_ok = false;
+      } else {
+        this.orders.updateETA( product.id, expectedDate ).subscribe(
+          result => {
+            console.log( 'leng', this.products.length );
+            console.log( 'index', index + 1 );
+            if ( this.products.length === index + 1 ) {
+              if ( localOk ) {
+                this.all_medd_ok = true;
+              } else {
+                this.all_medd_ok = false;
+              }
+            }
+          }, error => {
+            console.log(error);
+          }
+        )
+        this.expectedDates.push( { id: product.id, buyerExpectedDeliveryDate: expectedDate  } );
+      }
+
+    } );
+  }
+
   onSubmit() {
-    if (this.checkoutForm.valid) {
-      console.log('Valido');
-      this.sendDataToPayfort().subscribe(res => {
-        console.log(res);
-      });
-    } else {
-      this.validateAllFormFields(this.checkoutForm);
-    }
+    
+
+    //if ( all_medd_ok ) {
+      
+      /*this.orders.updateItemsETA( { etas: this.expectedDates } ).subscribe(
+        res=>{
+          this.toast.success('ETA updated', 'Success', { positionClass: 'toast-top-right' });
+        },
+        error => {
+          this.toast.error('Error updating ETA', 'Error', { positionClass: 'toast-top-right' });
+          console.log( error );
+        }
+      )*/
+      /*if (this.checkoutForm.valid) {
+        console.log('Valido');
+        this.sendDataToPayfort().subscribe(res => {
+          console.log(res);
+        });
+      } else {
+        this.validateAllFormFields(this.checkoutForm);
+      }*/
+    //} else {
+    //  this.toast.error('Please fill all Max Expected Delivery Dates', 'Error', { positionClass: 'toast-top-right' });
+    //}
+
 
   }
 
+  changeDate(value) {
+    console.log( 'change date input', value );
+  }
 
   sendDataToPayfort() {
     const formBody = new FormData();
@@ -163,7 +250,7 @@ export class CheckoutComponent implements OnInit {
     formBody.set('merchant_reference', this.checkoutForm.get('merchant_reference').value);
     formBody.set('service_command', this.checkoutForm.get('service_command').value);
     formBody.set('signature', this.checkoutForm.get('signature').value);
-
+    formBody.set('MaxDeliveryDate', this.expectedDates );
 
     return this.http.post(this.payForAPI,
       formBody, {
@@ -193,5 +280,20 @@ export class CheckoutComponent implements OnInit {
     } else {
       this.showShippingFields = false;
     }
+  }
+
+
+  onDateChange(){
+    let val = this.selectYear + this.selectMonth;
+    console.log(val);
+    this.expiryDate = val;
+
+  }
+
+  saveArray(){
+    console.log(this.name, this.address);
+    localStorage.setItem('billingInformationName', this.name);
+    localStorage.setItem('billingInformationAddress', this.address)
+
   }
 }

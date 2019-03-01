@@ -230,7 +230,7 @@ export class ProductsComponent implements OnInit {
       //this.getSubCategories( subcategorySelected );
       if ( subcategorySelected === 0 ) {
         this.getAllTypesByLevel();
-        jQuery('.subcategory-container').hide();        
+        //jQuery('.subcategory-container').hide();        
       } else {
         this.getOnChangeLevel( 0, subcategorySelected );
         jQuery('.subcategory-container').show();
@@ -245,7 +245,7 @@ export class ProductsComponent implements OnInit {
       const subcategorySelected = e.target.value;
       this.getOnChangeLevel( 1, subcategorySelected );
       if ( subcategorySelected === 0 ) {
-        jQuery('.subcategory-container').hide();
+        //jQuery('.subcategory-container').hide();
       } else {
         jQuery('.subcategory-container').show();
       }
@@ -255,7 +255,7 @@ export class ProductsComponent implements OnInit {
       const subcategorySelected = e.target.value;
       this.getOnChangeLevel( 2, subcategorySelected );
       if ( subcategorySelected === 0 ) {
-        jQuery('.subspecies-container').hide();
+        //jQuery('.subspecies-container').hide();
       } else {
         jQuery('.subspecies-container').show();
       }
@@ -265,7 +265,7 @@ export class ProductsComponent implements OnInit {
     jQuery('.descriptor').on('change', (e) => {
       const subcategorySelected = e.target.value;      
       if ( subcategorySelected === 0 ) {
-        jQuery('.descriptor-container').hide();
+        //jQuery('.descriptor-container').hide();
       } else {
         jQuery('.descriptor-container').show();
       }
@@ -300,6 +300,7 @@ export class ProductsComponent implements OnInit {
 
   getCart() {
     this.cartService.cart.subscribe((cart: any) => {
+      console.log("Cart", cart);
       this.cart = cart;
     });
   }
@@ -618,14 +619,18 @@ smallDesc(str) {
 
   }
 
+  removeSpaces(text){
+    return text.replace(" ", '-')
+  }
     increaseWeight(weight, max, i, id, country, category, price) {
+      console.log(weight, max, category, country, price);
       if (weight < max) {
         const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
         weight += 5;
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           console.log( 'cards', cards );
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
@@ -656,7 +661,7 @@ smallDesc(str) {
         weight -= 5;
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
@@ -683,7 +688,7 @@ smallDesc(str) {
         (input as HTMLElement).style.color = '#000';
         if (category !== '') {
           const row = document.getElementById('products-container');
-          const cards = row.querySelectorAll('.category-' + category);
+          const cards = row.querySelectorAll('.category-' + this.removeSpaces(category));
           for (let index = 0; index < cards.length; index++) {
               const classes = cards[index].className.split(' ');
               this.products[classes[6]].minimumOrder = weight;
@@ -744,6 +749,7 @@ smallDesc(str) {
 
 
     addToCart(product) {
+      console.log("Producto", product);
       const item = {
         'fish': product.id,
         'price': {

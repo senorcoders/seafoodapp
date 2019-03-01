@@ -1,0 +1,60 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="black-title">Products List</h2>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+		</div>
+	</div>
+	<div *ngIf="showData; else Nodata">
+		<div class="row">
+			<div class="col-12">
+				<input type="text" placeholder="Filter by Name" class="filter-field" (change)="search($event.target.value)">
+				<a class="blue-btn" (click)="clear()">Clear Search</a>
+			</div>
+			<div class="col-12">
+				<div class="col-12 table-design">
+					<div class="row row-bg" *ngFor="let product of products | filter : searchText ;let i=index ">
+						<div class="col">
+							<div class="product-image" [style.background-image]="image[i]"></div>
+						</div>
+						<div class="col">
+							<p class="order-number"><b>{{product.name}}</b></p>
+							<span >Status:<br> <b>{{product.status.status }}</b></span>
+						</div>
+						<div class="col date-span">
+							Seafood SKU: <span *ngIf="product.seafood_sku"><b>{{product.seafood_sku}}</b></span> <br>
+							Seller SKU: <span *ngIf="product.seafood_sku"><b>{{product.seller_sku}}</b></span>
+						</div>
+						<div class="col">
+							Store: <b>{{product.store.name}}</b>
+						</div>
+						<div class="col">
+							<span class="price">AED {{product.price.value}} / kg</span>
+						</div>
+						<div class="col">
+							<a routerLink="/edit-product/{{product.id}}" class="blue-btn">View Product</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="margin-top: 20px" *ngIf="showPagination">
+            <div class="col" style="text-align: center;">
+                <span class="blue-btn-light previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+                <span *ngFor="let number of paginationNumbers" class="numberPage blue-btn-light" [ngClass]="{'active': page==number}" (click)="goTo(number,1)">{{number}}</span>
+                <span class="blue-btn-light next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+            </div>
+        </div>		
+	</div>
+	<ng-template #Nodata>
+		<div class="row">
+			<div class="col-12">
+				<h2 class="black-title">No products Found</h2>
+			</div>
+		</div>
+	</ng-template>
+</div>

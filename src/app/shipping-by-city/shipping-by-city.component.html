@@ -1,0 +1,95 @@
+<div class="container">
+	<div class="row">
+    <div class="col-12">
+      <h3 class="black-title">{{'citiETA.title'| translate}}</h3>
+    </div>
+    <div class="col-12"><h3 class="black-title">{{'citiETA.formTitle' | translate}}</h3></div>
+    <div class="col-md-12">
+      <form  [formGroup]="myform"  class="form-design">
+        <div class="row">
+
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'citiETA.country' | translate}}</label>
+              <select (change)="getCities()" class="form-control" id="country" formControlName="country">                
+                <option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+             
+            </div>
+          </div>
+
+          <div class="col-lg-3">
+            <div class="form-group" >
+              <label>{{'citiETA.city' | translate}}</label>
+              <select class="form-control" id="city" formControlName="city">                
+                <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+              </select>
+             
+            </div>
+          </div>
+          
+          
+          <div class="col-lg-4">
+            <div class="form-group" >
+              <label>{{'citiETA.cityETA' | translate}}</label>
+              <input type="number" class="form-control" formControlName="mineta" required>
+            </div>
+          </div>  
+          <div class="col-lg-2">
+            <button type="button" (click)="onSubmit()" class="btn-red">{{'citiETA.button' | translate}}</button>
+          </div>
+        </div>
+        
+        
+      </form>
+    </div>
+   
+  </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12"><h3 class="black-title">{{'citiETA.title' | translate}}</h3></div>
+        <!--<div class="col-md-6">
+          <div class="form-group" >
+            <label>{{'ShippingRates.filterByCountry' | translate}}</label>
+            <select (change)="getFilterCountry()" class="form-control" id="filterCountry">
+              <option *ngFor="let ccountry of countries" value="{{ccountry.id}}" >{{ccountry.name}}</option>
+            </select>
+            
+          </div>
+        </div>-->
+        <div class="col-12 table-design">
+          <div class="row row-bg" *ngFor="let ccountry of tableCountries; let ci=cindex">
+            <div class="col-lg-4">
+              <h5 class="country">
+                {{ccountry.name}}
+              </h5>
+            </div>
+            <div class="col-lg-8">
+              <table>
+                <thead>
+                  <tr>
+                    <td>City</td>
+                    <td>Minimun ETA</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr  *ngFor="let ccity of ccountry.cities; let ic=indexCity">
+                    <td>
+                      {{ccity.name}}
+                    </td>
+                    <td *ngIf="ccity.mineta">
+                      {{ccity.mineta}}
+                    </td>
+                    <td *ngIf="!ccity.mineta">
+                        
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

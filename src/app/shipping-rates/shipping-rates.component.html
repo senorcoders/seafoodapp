@@ -3,7 +3,11 @@
     <div class="col-12">
       <h3 class="black-title">{{'ShippingRates.title'| translate}}</h3>
     </div>
-    <div class="col-12"><h3 class="black-title">{{'ShippingRates.formTitle' | translate}}</h3></div>
+    <div class="col-12"><h3 class="black-title">{{'ShippingRates.formTitle' | translate}}</h3>       
+      <a [routerLink]="['/port-of-loading-management']" >
+        {{'ShippingRates.addPortOfLoading' | translate}}
+      </a>
+    </div>
     <div class="col-md-12">
       <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" class="form-design">
         <div class="row">
@@ -20,7 +24,7 @@
 
           <div class="col-lg-3">
             <div class="form-group" >
-              <label>{{'ShippingRates.city' | translate}}</label>
+              <label>{{'ShippingRates.city' | translate}}</label>              
               <select class="form-control" id="sellerCity" formControlName="sellerCity">                
                 <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
               </select>

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { PricingChargesService } from '../services/pricing-charges.service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery: any;
 
 @Component({
   selector: 'app-payments',
@@ -12,16 +14,24 @@ import { ToastrService } from 'ngx-toastr';
 export class PaymentsComponent implements OnInit {
 
   orders: any = [];
+  orderStatus: any = [];
   showNoData: boolean = false;
-
+  selectedStatus: any;
+  selectedItemID: any;
+  user: any;
+  exchangeRate: number;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
     private toast: ToastrService,
-    private auth: AuthenticationService) { }
+    private auth: AuthenticationService,
+    private pricingService: PricingChargesService) { }
 
   ngOnInit() {
+    this.user = this.auth.getLoginData();
+    this.getExchangeRates();
     this.getPayments();
+    this.getPaymentStatus();
   }
 
   getPayments() {
@@ -39,10 +49,34 @@ export class PaymentsComponent implements OnInit {
       }
     );
   }
+
+  getExchangeRates() {
+    this.pricingService.getCurrentPricingCharges().subscribe(
+      res => {
+        this.exchangeRate = res['exchangeRates'][0].price;
+      }, error => {
+        console.log( error );
+      }
+    )
+  }
+
+  getPaymentStatus() {
+    this.orderService.getPaymentStatus().subscribe(
+      res => {
+        this.orderStatus = res;
+      },
+      error => {
+        console.log( error );
+        this.toast.error('Something happend, please refresh the page', 'System Error', { positionClass: 'toast-top-right' });
+      }
+    );
+  }
+
+
   markAsRepayed(itemID: string) {
     this.orderService.markItemAsRepayed(itemID).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success('Item marked as repayed!', 'Status Change', { positionClass: 'toast-top-right' });
         this.getPayments();
       },
       error => {
@@ -53,7 +87,7 @@ export class PaymentsComponent implements OnInit {
   markAsRefunded(itemID: string) {
     this.orderService.markItemAsRefounded(itemID).subscribe(
       result => {
-        this.toast.success('Item marked as out for delivery!', 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success('Item marked as refunded!', 'Status Change', { positionClass: 'toast-top-right' });
         this.getPayments();
       },
       error => {
@@ -86,7 +120,41 @@ export class PaymentsComponent implements OnInit {
         e => {
           console.log(e);
         }
-      )
+      );
     }
+  }
+
+  updateStatus() {
+    let selectedStatus: string;
+    const statusName: string = this.selectedStatus;
+    const itemID: string = this.selectedItemID;
+
+    this.orderStatus.map( status => {
+      if ( status.status === statusName ) {
+        selectedStatus = status.id;
+      }
+    } );
+    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+      result => {
+        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        jQuery('#confirmUpdateStatus').modal('hide');
+        this.getPayments();
+      },
+      error => {
+        console.log( error );
+      }
+    );
+    console.log( 'status', selectedStatus );
+    console.log( 'item', itemID );
+  }
+
+  noUpdate() {
+    jQuery('#confirmUpdateStatus').modal('hide');
+  }
+
+  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+    this.selectedStatus = selectedStatus;
+    this.selectedItemID = selectedItemID;
+    jQuery('#confirmUpdateStatus').modal('show');
   }
 }

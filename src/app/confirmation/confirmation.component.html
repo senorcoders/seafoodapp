@@ -43,8 +43,8 @@
     <div class="col-6">
       <div class="form-group">
           <label>Amount (AED)</label>
-
-          <input type="number" class="form-control" disabled name="amount" [value]="total" >
+          <input type="text" class="form-control" disabled name="customer_amount" [value]="customerTotal" >
+          <input type="hidden" class="form-control" disabled name="amount" [value]="total" >
 
       </div>
     </div>
@@ -68,7 +68,7 @@
           </tr>
           <tr *ngFor="let product of products; index as i;">
             <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
-            <td>AED {{getTotalxItem(product.quantity.value, product.price.value)}}</td>
+            <td>AED {{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}}</td>
           </tr>
           <tr>
             <td><b>Subtotal</b></td>
@@ -77,6 +77,10 @@
           <tr>
             <td><b>Shipping</b></td>
             <td><b>AED {{shipping}}</b></td>
+          </tr>
+          <tr>
+            <td><b>Taxes, Customs and Other Fees</b></td>
+            <td><b>AED {{totalOtherFees}} </b></td> 
           </tr>
           <tr>
             <td><b>Total</b></td>
