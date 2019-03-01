@@ -161,7 +161,6 @@
            <div class="form-group">
              <label>{{'Register.tel' | translate}} <span class="field-status red">*</span></label>
              <input class="form-control" type="tel" id="phoneS" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}">
-
              <!-- <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}"> -->
              <div class="invalid-feedback" *ngIf="sellerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
              <div class="invalid-feedback" *ngIf="sellerForm.controls.tel.errors">Only numbers allowed</div>
@@ -200,81 +199,75 @@
            <div class="form-group">
              <label>Trade/Brand Name <span class="field-status red">*</span></label>
              <input type="text" class="form-control" placeholder="Trade/Brand Name" formControlName="TradeBrandName"  [ngClass]="{'is-invalid':sellerForm.get('TradeBrandName').invalid && sellerForm.get('TradeBrandName').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('TradeBrandName').hasError('required')">Trade/Brand Name is required.</div>
-           </div>
-         </div>
-         <div class="col-md-6">
-           <div class="form-group">
-             <label>{{'Register.company-type' | translate}} <span class="field-status red">*</span></label>
-             <select class="form-control" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
-               <option value="Producer">Producer</option>
-               <option value="Processor">Processor </option>
-               <option value="Trader">Trader</option>
-             </select>
-             <div class="invalid-feedback" *ngIf="sellerForm.get('companyType').hasError('required')"> {{'Register.company-type' | translate}} {{'Register.required' | translate}}.</div>
-           </div>
-         </div>
-         <div class="col-md-6">
-           <div class="form-group">
-             <label>{{'Register.country' | translate}} <span class="field-status red">*</span></label>
-             <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
-               <option value="">{{'Register.country' | translate}}</option>
-                <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
-             </select>
-             <div class="invalid-feedback" *ngIf="sellerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
-           </div>
-         </div>
-         <div class="col-md-6">
-           <div class="form-group">
-             <label>{{'Register.Address' | translate}} <span class="field-status red">*</span></label>
-             <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':sellerForm.get('Address').invalid && sellerForm.get('Address').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
-           </div>
-         </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>{{'Register.City' | translate}} <span class="field-status red">*</span></label>
-             <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':sellerForm.get('City').invalid && sellerForm.get('City').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
-           </div>
-         </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>Trade License Number (Registration) <span class="field-status red">*</span></label>
-             <input type="text" class="form-control" placeholder="Trade License Number (Registration)" formControlName="TradeLicenseNumber"  [ngClass]="{'is-invalid':sellerForm.get('TradeLicenseNumber').invalid && sellerForm.get('TradeLicenseNumber').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('TradeLicenseNumber').hasError('required')">Trade License Number (Registration) is required.</div>
-           </div>
-         </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
-             <input type="text" class="form-control" placeholder="Food Safety Certificate Number (ISO)" formControlName="FoodSafetyCertificateNumber"  [ngClass]="{'is-invalid':sellerForm.get('FoodSafetyCertificateNumber').invalid && sellerForm.get('FoodSafetyCertificateNumber').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('FoodSafetyCertificateNumber').hasError('required')">Food Safety Certificate Number (ISO) is required.</div>
-           </div>
-         </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
-             <input type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN" formControlName="CorporateBankAccountNumber"  [ngClass]="{'is-invalid':sellerForm.get('CorporateBankAccountNumber').invalid && sellerForm.get('CorporateBankAccountNumber').touched}">
-             <div class="invalid-feedback" *ngIf="sellerForm.get('CorporateBankAccountNumber').hasError('required')">Corporate Bank Account Number IBAN is required.</div>
-           </div>
-         </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>Swift Code</label>
-             <input type="text" class="form-control" placeholder="Swift Code" formControlName="swiftCode">
-           </div>
-         </div>
-         <div class="col-md-6">  
-          <div class="form-group">
-            <label>Products Interested in Selling <span class="field-status red">*</span></label>
-            <input type="text" class="form-control" placeholder="Products Interested in Selling" formControlName="ProductsInterestedSelling"  [ngClass]="{'is-invalid':sellerForm.get('ProductsInterestedSelling').invalid && sellerForm.get('ProductsInterestedSelling').touched}">
-            <div class="invalid-feedback" *ngIf="sellerForm.get('ProductsInterestedSelling').hasError('required')">Products Interested in Selling is required.</div>
+              <div class="invalid-feedback" *ngIf="sellerForm.get('TradeBrandName').hasError('required')">Trade/Brand Name is required.</div>
+            </div>
           </div>
-        </div>
-         <div class="col-md-6">  
-           <div class="form-group">
-             <label>Contact Number <span class="field-status red">*</span></label>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{'Register.company-type' | translate}} <span class="field-status red">*</span></label>
+              <select class="form-control" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
+                <option value="Producer">Producer</option>
+                <option value="Processor">Processor </option>
+                <option value="Trader">Trader</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="sellerForm.get('companyType').hasError('required')"> {{'Register.company-type' | translate}} {{'Register.required' | translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{'Register.country' | translate}} <span class="field-status red">*</span></label>
+              <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
+                <option value="">{{'Register.country' | translate}}</option>
+                 <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+              </select>
+              <div class="invalid-feedback" *ngIf="sellerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>{{'Register.Address' | translate}} <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':sellerForm.get('Address').invalid && sellerForm.get('Address').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>{{'Register.City' | translate}} <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':sellerForm.get('City').invalid && sellerForm.get('City').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>Trade License Number (Registration) <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Trade License Number (Registration)" formControlName="TradeLicenseNumber"  [ngClass]="{'is-invalid':sellerForm.get('TradeLicenseNumber').invalid && sellerForm.get('TradeLicenseNumber').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('TradeLicenseNumber').hasError('required')">Trade License Number (Registration) is required.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Food Safety Certificate Number (ISO)" formControlName="FoodSafetyCertificateNumber"  [ngClass]="{'is-invalid':sellerForm.get('FoodSafetyCertificateNumber').invalid && sellerForm.get('FoodSafetyCertificateNumber').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('FoodSafetyCertificateNumber').hasError('required')">Food Safety Certificate Number (ISO) is required.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN" formControlName="CorporateBankAccountNumber"  [ngClass]="{'is-invalid':sellerForm.get('CorporateBankAccountNumber').invalid && sellerForm.get('CorporateBankAccountNumber').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('CorporateBankAccountNumber').hasError('required')">Corporate Bank Account Number IBAN is required.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>Products Interested in Selling <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Products Interested in Selling" formControlName="ProductsInterestedSelling"  [ngClass]="{'is-invalid':sellerForm.get('ProductsInterestedSelling').invalid && sellerForm.get('ProductsInterestedSelling').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('ProductsInterestedSelling').hasError('required')">Products Interested in Selling is required.</div>
+            </div>
+          </div>
+          <div class="col-md-6">  
+            <div class="form-group">
+              <label>Contact Number <span class="field-status red">*</span></label>
              <input type="number" class="form-control" placeholder="Contact Number" formControlName="ContactNumber"  [ngClass]="{'is-invalid':sellerForm.get('ContactNumber').invalid && sellerForm.get('ContactNumber').touched}">
              <div class="invalid-feedback" *ngIf="sellerForm.get('ContactNumber').hasError('required')">Contact Number is required.</div>
            </div>
