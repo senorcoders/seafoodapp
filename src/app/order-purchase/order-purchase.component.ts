@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment';
-declare var jQuery:any;
+declare var jQuery: any;
 @Component({
 	selector: 'app-order-purchase',
 	templateUrl: './order-purchase.component.html',
@@ -26,12 +26,12 @@ export class OrderPurchaseComponent implements OnInit {
 	showButton: boolean = true;
 	showTrackingFile: boolean = false;
 	API = environment.apiURLImg;
-	citemId:any;
-	action:string;
+	citemId: any;
+	action: string;
 	today = new Date();
 	min = new Date();
 	max = new Date();
-	index:any;
+	index: any;
 
 	constructor(
 		private fb: FormBuilder,
@@ -40,8 +40,8 @@ export class OrderPurchaseComponent implements OnInit {
 		private toast: ToastrService,
 		private auth: AuthenticationService
 	) {
-		this.min.setDate( this.today.getDate() );
-    	this.max.setDate( this.today.getDate() + 90 );
+		this.min.setDate(this.today.getDate());
+		this.max.setDate(this.today.getDate() + 90);
 
 		this.route.params.subscribe(params => {
 			this.orderId = (this.route.snapshot.params['item']);
@@ -56,7 +56,7 @@ export class OrderPurchaseComponent implements OnInit {
 		// this.productS.getData('itemshopping/' + this.itemId).subscribe(
 		this.productS.getData(`api/store/${this.user.id}/order/${this.orderId}`).subscribe(
 			result => {
-				console.log("Items",  result );
+				console.log("Items", result);
 				if (result && result !== '') {
 					this.items = result;
 					this.showLoading = false;
@@ -93,40 +93,40 @@ export class OrderPurchaseComponent implements OnInit {
 		};
 
 		// this.productS.updateData('api/itemshopping/status/' + this.itemId, status).subscribe( res => {
-		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`, 
-		{ userEmail: this.user['email'], userID: this.user['id'] } ).subscribe(res => {
+		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`,
+			{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(res => {
 
-			console.log(res);
-			jQuery('#confirm').modal('hide');
-			this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
-			this.showButton = false;
-			this.getItem();
+				console.log(res);
+				jQuery('#confirm').modal('hide');
+				this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
+				this.showButton = false;
+				this.getItem();
 
-		},
-			e => {
-				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-			});
+			},
+				e => {
+					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+				});
 	}
 
 	confirmOrder(itemId: string) {
 		let index = this.index;
-		let sellerETA = jQuery( `#epa${itemId}` ).val();
+		let sellerETA = jQuery(`#epa${itemId}`).val();
 
-		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405', 
-		{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA } ).subscribe(
-			res => {
-				jQuery('#confirm').modal('hide');
-				console.log(res);
-				this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
-				//this.getItem();
-				this.items[index].status['id']= "5c017af047fb07027943a405";
-				this.items[index].status['status']= "Pending Fulfillment";
+		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405',
+			{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
+				res => {
+					jQuery('#confirm').modal('hide');
+					console.log(res);
+					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
+					//this.getItem();
+					this.items[index].status['id'] = "5c017af047fb07027943a405";
+					this.items[index].status['status'] = "Pending Fulfillment";
 
-			},
-			e => {
-				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-			}
-		);
+				},
+				e => {
+					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+				}
+			);
 	}
 	setShipped(itemId: string) {
 		this.productS.setShippedProduct('api/itemshopping/status/' + itemId).subscribe(
@@ -164,10 +164,10 @@ export class OrderPurchaseComponent implements OnInit {
 	handleFileInput(files: FileList) {
 		this.fileToUpload = files;
 	}
-	sendTracking( itemId: string ) {
+	sendTracking(itemId: string) {
 		if (this.trackingForm.get('code').value !== '' || this.fileToUpload !== '') {
 			if (this.fileToUpload !== '') {
-				this.uploadFile( itemId );
+				this.uploadFile(itemId);
 			}
 			if (this.trackingForm.get('code').value !== '') {
 				const data = {
@@ -175,7 +175,7 @@ export class OrderPurchaseComponent implements OnInit {
 				};
 				this.productS.updateData('itemshopping/' + itemId, data).subscribe(
 					result => {
-						this.setShipped( itemId );
+						this.setShipped(itemId);
 					},
 					e => {
 						console.log(e);
@@ -189,7 +189,7 @@ export class OrderPurchaseComponent implements OnInit {
 			this.toast.error('You have to add a code or a code picture', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
-	uploadFile( itemId: string ) {
+	uploadFile(itemId: string) {
 		if (this.fileToUpload.length > 0) {
 			this.productS.uploadFile('api/itemshopping/trackingfile/' + itemId, 'file', this.fileToUpload).subscribe(result => {
 				this.toast.success('Your tracking\'s Image has been upload successfully!', 'Well Done', { positionClass: 'toast-top-right' });
@@ -219,33 +219,39 @@ export class OrderPurchaseComponent implements OnInit {
 		}
 		this.date = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
 	}
-	showModal(id,action, index){
-		let sellerETA = jQuery( `#epa${id}` ).val()
+	showModal(id, action, index) {
+		let sellerETA = jQuery(`#epa${id}`).val()
 		this.index = index;
 		console.log("index Modal", this.index);
-		
-		if( ( sellerETA !== '' && sellerETA !== undefined ) || action === 'cancel') {
+
+		if ((sellerETA !== '' && sellerETA !== undefined) || action === 'cancel') {
 			this.citemId = id;
 			this.action = action;
-			
+
 			jQuery('#confirm').modal('show');
 		} else {
 			this.toast.error('Please select a Expected Delivery Time before Confirm the order', 'Error', { positionClass: 'toast-top-right' });
 		}
 	}
-	confirm(val,action){
-		if(val){
+	confirm(val, action) {
+		if (val) {
 			console.log(action);
-			if(action=="confirm"){
+			if (action == "confirm") {
 				this.confirmOrder(this.citemId);
 			}
-			else if(action=='cancel'){
-				this.cancelOrder(this.citemId );
+			else if (action == 'cancel') {
+				this.cancelOrder(this.citemId);
 			}
 		}
-		else{
+		else {
 			jQuery('#confirm').modal('hide');
 		}
+	}
+
+	public stateValidForCancelnOrder(citem) {
+		console.log(citem);
+		console.log(citem.status.id !== '5c017ae247fb07027943a404' || citem.status.id !== '5c017af047fb07027943a405' || citem.status.id !== '5c06f4bf7650a503f4b731fd');
+		return citem.status.id !== '5c017ae247fb07027943a404' || citem.status.id !== '5c017af047fb07027943a405' || citem.status.id !== '5c06f4bf7650a503f4b731fd';
 	}
 }
 
