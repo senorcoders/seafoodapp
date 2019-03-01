@@ -73,7 +73,7 @@
              <label>{{'Register.repeat' | translate}}<span class="field-status red">*</span></label>
              <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
              <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
-             <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Password not match</div>
+             <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
 
            </div>
          </div>
@@ -182,7 +182,7 @@
              <label>{{'Register.repeat' | translate}} <span class="field-status red">*</span></label>
              <input type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':sellerForm.get('rePassword').invalid && sellerForm.get('rePassword').touched}">
              <div class="invalid-feedback" *ngIf="sellerForm.get('rePassword').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
-             <div class="invalid-feedback" *ngIf="sellerForm.controls.rePassword.errors?.MatchPassword"> Password not match</div>
+             <div class="invalid-feedback" *ngIf="sellerForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
 
            </div>
          </div>
