@@ -24,7 +24,7 @@
     <div class="row row-bg" *ngFor="let product of products; index as i;">
       <div class="col">
         <div class="box-input">
-          <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value">
+          <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value"(change)="validateMax(i)">
         </div>
       </div>
       <div class="col text-center" *ngIf="product.fish.type">
