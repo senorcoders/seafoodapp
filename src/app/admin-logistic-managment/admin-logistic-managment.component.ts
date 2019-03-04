@@ -89,5 +89,11 @@ export class AdminLogisticManagmentComponent implements OnInit {
     jQuery('#confirmUpdateStatus').modal('show');
   }
 
+  mapDocs(doc){
+    let file = doc.split("/");
+    if(file[3] != undefined){
+      return `<a download href="http://devapi.seafoodsouq.com/api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
+    }
+  }
 
 }

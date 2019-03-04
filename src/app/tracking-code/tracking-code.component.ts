@@ -103,6 +103,7 @@ export class TrackingCodeComponent implements OnInit {
       console.log(index, numItems);
       
         this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
+          console.log(res);
             this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
           
           
