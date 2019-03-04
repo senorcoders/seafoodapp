@@ -107,11 +107,36 @@ export class OrderPurchaseComponent implements OnInit {
 					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
 				});
 	}
-
+ 
 	confirmOrder(itemId: string) {
 		let index = this.index;
 		let sellerETA = jQuery(`#epa${itemId}`).val();
 
+		let inputDate = sellerETA.split("/");
+		let buyerDate = this.items[index].buyerExpectedDeliveryDate.split("/");
+
+		var dateEnd:any = new Date(inputDate[2],inputDate[0] - 1,inputDate[1]);
+		var dateStart:any = new Date(buyerDate[2], buyerDate[0] - 1, buyerDate[1]);
+
+
+		console.log(inputDate, buyerDate, dateStart, dateEnd);
+
+		if(Date.parse(dateEnd) < Date.parse(dateStart)){
+			console.log("Pasa");
+			this.changeStatus(index, sellerETA, itemId);
+		}else{
+			console.log("No pasa");
+			jQuery('#confirm').modal('hide');
+
+		this.toast.error('Your selected date is higher than the buyer expected delivered date', 'Sorry', { positionClass: 'toast-top-right' });
+
+		}    
+		
+
+		
+	}
+
+	changeStatus(index, sellerETA, itemId){
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405',
 			{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
 				res => {
@@ -249,8 +274,8 @@ export class OrderPurchaseComponent implements OnInit {
 	}
 
 	public stateValidForCancelnOrder(citem) {
-		console.log(citem);
-		console.log(citem.status.id !== '5c017ae247fb07027943a404' || citem.status.id !== '5c017af047fb07027943a405' || citem.status.id !== '5c06f4bf7650a503f4b731fd');
+		// console.log(citem);
+		// console.log(citem.status.id !== '5c017ae247fb07027943a404' || citem.status.id !== '5c017af047fb07027943a405' || citem.status.id !== '5c06f4bf7650a503f4b731fd');
 		return citem.status.id !== '5c017ae247fb07027943a404' || citem.status.id !== '5c017af047fb07027943a405' || citem.status.id !== '5c06f4bf7650a503f4b731fd';
 	}
 }
