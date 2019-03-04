@@ -115,7 +115,7 @@ export class CartComponent implements OnInit {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(
       result=>{
         console.log(result);
-        this.products.splice(i, 1);
+        this.products.splice(i, 1); 
         this.getItems();
         jQuery('#confirmDelete').modal('hide');
 
