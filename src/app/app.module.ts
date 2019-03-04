@@ -106,7 +106,9 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
-
+import {TooltipModule} from 'ng2-tooltip-directive';
+import { ngfModule } from 'angular-file';
+import { NgxLoadingModule } from 'ngx-loading';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -259,7 +261,7 @@ const appRoutes: Routes = [
     PrivacyPolicyComponent,
     CookiesPolicyComponent,
     CitiManagmentComponent,
-    EditAccountComponent
+    EditAccountComponent,
   ],
   imports: [
     BrowserModule,
@@ -280,7 +282,11 @@ const appRoutes: Routes = [
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-  ],
+    TooltipModule,
+    ngfModule,
+    NgxLoadingModule.forRoot({}),
+
+    ],
   providers: [
     AuthenticationService,
     MenuItems,

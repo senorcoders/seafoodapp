@@ -80,7 +80,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
-  createFormControls(){
+  createFormControls(){ 
     this.buyerFirstName = new FormControl('', [Validators.required]);
     this.buyerLastName = new FormControl('',[Validators.required]);
     this.buyerEmail = new FormControl('', [Validators.email, Validators.required]);

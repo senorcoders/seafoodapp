@@ -5,7 +5,9 @@
   <div class="row" >
     <div class="col-lg-4" *ngFor="let pendingProduct of pendingProducts; let i=index">
       <div class="product-card">
-				<img src="{{imageURL}}{{pendingProduct.imagePrimary}}">
+				<img  *ngIf="pendingProduct.imagePrimary != null" src="{{imageURL}}{{pendingProduct.imagePrimary}}">
+				<img  *ngIf="pendingProduct.imagePrimary == null" src="../../assets/default-img-product.jpg">
+
         <h2 class="name">
           {{pendingProduct.name}}
 				</h2>
@@ -13,8 +15,7 @@
 
 				<span class="type"><b>Main Category: </b>{{pendingProduct.parentsLevel['level0'].name}}</span>
 				<span class="type"><b>Species: </b>{{pendingProduct.parentsLevel['level1'].name}}</span>
-				<span class="type"><b>Subspecies: </b>{{pendingProduct.type.name}}</span>
-				<span class="type"><b>Description: </b>{{pendingProduct.parentsLevel['descriptor'].name}}</span>
+				<span class="type"><b>Subspecies: </b>{{pendingProduct?.type?.name}}</span>
 
         <span class="weight"><b>Weight: </b>{{pendingProduct.weight.value}} {{pendingProduct.weight.type}}</span>        
 				<span class="minimunOrder"><b>Minimun Order: </b>{{pendingProduct.minimumOrder}}</span>

@@ -33,7 +33,7 @@
 											<span *ngIf="shoppingCart.orderStatus" >{{shoppingCart.orderStatus.status | uppercase}}</span>
 										</div>
 										<div class="col">
-												<span class="price">$ {{(shoppingCart.total).toFixed(2)}}</span>
+												<span class="price">{{shoppingCart.total | currency: 'AED'}}</span>
 										</div>
 										<div class="col">
 												<a routerLink="/orders-items/{{shoppingCart.id}}" class="btn-red-a">{{'Orders.see-button' | translate}}</a>

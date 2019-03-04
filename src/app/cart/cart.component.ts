@@ -174,4 +174,11 @@ export class CartComponent implements OnInit {
 		this.itemToDelete = itemID;
     jQuery('#confirmDelete').modal('show');
   }
+
+  validateMax(i){
+    console.log(this.products[i].quantity.value);
+    if(this.products[i].quantity.value > this.products[i].fish.maximumOrder){
+      this.products[i].quantity.value = this.products[i].fish.maximumOrder;
+    }
+  }
 }

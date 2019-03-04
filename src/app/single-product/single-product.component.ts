@@ -85,8 +85,9 @@ export class SingleProductComponent implements OnInit {
       if (role === 1) {
         this.currency = 'USD';
       } else {
-        this.currency = 'AED(GBP)';
+        this.currency = 'AED(USD)';
       }
+
     });
     this.productID = this.route.snapshot.params['id'];
     this.getCurrentPricingCharges();
@@ -176,7 +177,7 @@ export class SingleProductComponent implements OnInit {
       this.priceValue = data['price'].value;
       this.priceType = this.currency; // data['price'].type;
       this.measurement = data['weight'].type;
-      this.mainImg = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
+      if(data['imagePrimary'] !== null) { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`)) }else{ this.mainImg = (this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)'))};
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
