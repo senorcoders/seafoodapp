@@ -177,7 +177,7 @@ const appRoutes: Routes = [
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
   { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
+  { path: 'historical-orders', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
   { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
