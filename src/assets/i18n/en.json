@@ -688,6 +688,9 @@
 		"formTitle": "Add Port of Loading",
 		"button": "Save",
 		"delete": "Delete"
+	},
+	"historicalOrders": {
+		"title": "Historical Orders"
 	}
 	
 }

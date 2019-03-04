@@ -342,9 +342,9 @@ const menuBuyer = [
         translate: { en: { name: 'Items Status' }, ar: { name: 'Items Status' } }
       },
       {
-        state: 'canceled-delivered-items',
-        name: 'Canceled & Delivered Items',
-        translate: { en: { name: 'Canceled Delivered Status' }, ar: { name: 'Canceled Delivered Items' } }
+        state: 'historical-orders',
+        name: 'Historical Orders',
+        translate: { en: { name: 'Historical Orders' }, ar: { name: 'Historical Orders' } }
       }
     ],
     translate: {
