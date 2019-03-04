@@ -130,8 +130,8 @@ export class OrderPurchaseComponent implements OnInit {
 					console.log(res);
 					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
 					this.getItem();
-					// this.items[index].status['id'] = "5c017af047fb07027943a405";
-					// this.items[index].status['status'] = "Pending Fulfillment";
+					this.items[index].status['id'] = "5c017af047fb07027943a405";
+					this.items[index].status['status'] = "Pending Fulfillment";
 
 				},
 				e => {
