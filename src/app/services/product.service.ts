@@ -42,7 +42,7 @@ export class ProductService {
     
     console.log(fileToUpload);
     return this.http
-      .post(`${API}api/itemshopping/${itemId}/shipping-douments`, formData, httpOptionsForm);
+      .post(`${API}api/itemshopping/${itemId}/shipping-documents`, formData, httpOptionsForm);
   }
   getPendingProducts() {
     return this.http.get( `${API}api/fish/pending` );
