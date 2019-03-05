@@ -640,7 +640,7 @@
 		"UpdateStatusButton": "Update Status"
 	},
 	"LogisticManagment": {
-		"title": "Logistic Managment",
+		"title": "Logistic Management",
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"PaymentButton": "Mark Payment",
