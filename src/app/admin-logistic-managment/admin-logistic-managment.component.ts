@@ -13,14 +13,14 @@ declare var jQuery: any;
 export class AdminLogisticManagmentComponent implements OnInit {
   orders: any = [];
   orderStatus: any = [];
-  status: any;
+  status = "0";
   newStatus: any;
-  orderNumber: any;
+  public orderNumber = "";
   user: any;
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-  rows:any =[];
+  rows: any = [];
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -41,16 +41,15 @@ export class AdminLogisticManagmentComponent implements OnInit {
         this.orderStatus = res;
       },
       error => {
-        console.log( error );
+        console.log(error);
         this.toast.error('Something happend, please refresh the page', 'System Error', { positionClass: 'toast-top-right' });
       }
     );
   }
 
 
-  getManagement(){
+  getManagement() {
     this.productService.getData('api/shoppingcart/orderlogistic').subscribe(data => {
-      console.log("Manag", data);
       this.rows = data;
     })
 
@@ -61,33 +60,63 @@ export class AdminLogisticManagmentComponent implements OnInit {
     let statusName: string = this.selectedStatus;
     let itemID: string = this.selectedItemID;
 
-    this.orderStatus.map( status => {
-      if ( status.status === statusName ) {
+    this.orderStatus.map(status => {
+      if (status.status === statusName) {
         selectedStatus = status.id;
       }
-    } );
-    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+    });
+    this.orderService.updateStatus(selectedStatus, itemID, this.user).subscribe(
       result => {
-        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success(`Item marked as ${statusName}!`, 'Status Change', { positionClass: 'toast-top-right' });
         jQuery('#confirmUpdateStatus').modal('hide');
         this.getManagement();
       },
       error => {
-        console.log( error );
+        console.log(error);
       }
     );
-    console.log( 'status', selectedStatus );
-    console.log( 'item', itemID );
+    console.log('status', selectedStatus);
+    console.log('item', itemID);
   }
+
   noUpdate() {
     jQuery('#confirmUpdateStatus').modal('hide');
   }
 
-  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+  confirmUpdatestatus(selectedStatus, selectedItemID) {
     this.selectedStatus = selectedStatus;
     this.selectedItemID = selectedItemID;
     jQuery('#confirmUpdateStatus').modal('show');
   }
 
+  //funcion solo para recagar el bind de los elementos
+  public getOrders() { }
+
+  public filter(item) {
+    let status = true, statusItems = 0;
+    //Comprobamos si todos los items son falsos
+    if (this.status !== "0") {
+      for (let i of item.items) {
+        if (this.filterStatus(i) === false) {
+          statusItems += 1;
+        }
+      }
+      if (item.items.length === statusItems) status = false;
+    }
+    if (status === true && this.orderNumber !== "") status = item.orderNumber.toString().includes(this.orderNumber);
+    return status;
+  }
+
+  public filterStatus(item) {
+    let status = true;
+    // if (item.orderStatus === null || item.orderStatus === undefined) return false;
+    if (this.status !== "0") status = this.status === item.status;
+    return status;
+  }
+
+  public clearFilters(){
+    this.status = "0";
+    this.orderNumber = "";
+  }
 
 }
