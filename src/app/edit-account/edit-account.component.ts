@@ -64,16 +64,21 @@ export class EditAccountComponent implements OnInit {
     this.createFormControls();
     this.createBuyerForm();
     this.createSellerForm();
-    this.getPersonalData();
-    await this.getStoreData();
+   this.getPersonalData();
+    console.log(this.info.role);
+    if(this.info['role'] == 1){
+      await this.getStoreData();
+      this.setSellerValues();
+
+    }
     this.setValues();
    
 
   }
-  getPersonalData(){
-    this.info = this.auth.getLoginData();
-    console.log(this.info);
-    return this.info;
+   getPersonalData(){
+      this.info = this.auth.getLoginData();
+      console.log(this.info);
+      return this.info;   
     // this.getStoreData();
   }
 
@@ -159,6 +164,11 @@ export class EditAccountComponent implements OnInit {
     this.buyerForm.controls['telephone'].setValue(this.info.dataExtra['tel']);
     this.buyerForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
     this.buyerForm.controls['typeBusiness'].setValue(this.info.dataExtra['typeBusiness']);
+   
+
+  }
+
+  setSellerValues(){
     this.sellerForm.controls['firstName'].setValue(this.info.firstName);
     this.sellerForm.controls['lastName'].setValue(this.info.lastName);
     this.sellerForm.controls['email'].setValue(this.info.email);
@@ -176,7 +186,6 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['currencyTrade'].setValue(this.info.dataExtra['currencyTrade']);
     this.sellerForm.controls['trade'].setValue(this.info.dataExtra['trade']);
     this.sellerForm.controls['storeDescription'].setValue(this.store[0].description);
-
   }
 
   updateBuyer(){

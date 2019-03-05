@@ -17,7 +17,7 @@
 			</div>
 			<div class="col-12">
 					<div class="col-12 table-design">
-						<div  *ngFor="let shoppingCart of shoppingCarts | filter : searchText ;let i=index ">
+						<div  *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
 								<div class="row row-bg" *ngIf="shoppingCart.items.length > 0">
 										<div class="col">
 												<img [src]="getImage(shoppingCart)" alt="" class="shoppingcart">
