@@ -45,6 +45,7 @@ export class CartComponent implements OnInit {
   /******** END Other fees ***********/
   otherFees:number = 0;
   totalWithShipping:any;
+  index:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService, private cartService:OrderService) { }
 
@@ -113,7 +114,11 @@ export class CartComponent implements OnInit {
   deleteItem(i, id){
     this.productService.deleteData(`itemshopping/${id}`).subscribe(
       result=>{
+        console.log(result);
+        this.products.splice(i, 1); 
         this.getItems();
+        jQuery('#confirmDelete').modal('hide');
+
       },
       e=>{
         this.toast.error("Error deleting item!", "Error",{positionClass:"toast-top-right"} );
@@ -170,8 +175,9 @@ export class CartComponent implements OnInit {
     return null;
   }
 
-  showConfirmModal(itemID:string){
-		this.itemToDelete = itemID;
+  showConfirmModal(itemID:string, index){
+    this.itemToDelete = itemID;
+    this.index = index;
     jQuery('#confirmDelete').modal('show');
   }
 

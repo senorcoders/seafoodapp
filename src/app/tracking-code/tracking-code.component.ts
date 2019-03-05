@@ -103,6 +103,7 @@ export class TrackingCodeComponent implements OnInit {
       console.log(index, numItems);
       
         this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
+          console.log(res);
             this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
           
           
@@ -120,10 +121,12 @@ export class TrackingCodeComponent implements OnInit {
 
     if(event.target.files.length > 0) {
       let file = event.target.files;
-      console.log(file);
+      let ext = file[0].name.split(".");
+      console.log("Nombre", name + '.' + ext[1]);
 
        var blob = file[0].slice(0, file[0].size, file[0].type); 
-       var newFile = new File([blob], name, {type: file[0].type});
+       console.log(blob);
+       var newFile = new File([blob], name + '.' + ext[1], {type: file[0].type});
 
         console.log(newFile);
       // file[0].name=name;

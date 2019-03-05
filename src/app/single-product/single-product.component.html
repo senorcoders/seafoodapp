@@ -36,7 +36,7 @@
         </table>
         <div class="product-details2">Product Details</div>
         <div class="features-single-product" *ngIf="types != ''">
-          {{types.level0.name}} - {{types.level1.name}} - {{types.level2.name}}
+          {{types?.level0?.name}} - {{types?.level1?.name}} - {{types?.level2?.name}}
         </div>
         <div class="features-single-product">
           {{raised}} - {{treatment}} -  <span class="underline">{{preparation}}</span>

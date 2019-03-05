@@ -50,7 +50,7 @@
       </div>
       <div class="col text-center">
         {{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}
-      </div>
+      </div> 
       <div class="col">
         <button class="pink-btn btn-rm" (click)="showConfirmModal(product.id)"> {{'Cart.delete' | translate}}</button>
       </div>
@@ -108,7 +108,7 @@
 				<div class="row">
 					<div class="col">											
               <h4>Are you sure you would like to delete?</h4>
-							<button type="button" (click)="deleteItem( '', itemToDelete )" class="btn-red-a btn-yes">Yes</button>						
+							<button type="button" (click)="deleteItem( index, itemToDelete )" class="btn-red-a btn-yes">Yes</button>						
 					</div>					
 				</div>
 			</div>
