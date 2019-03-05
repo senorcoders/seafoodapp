@@ -37,7 +37,7 @@
               <div class="col-8">
                  <div class="row" *ngFor="let item of orderWithData">
                   <div class="col-6">
-                    <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
+                    <ng-container *ngIf="item.shoppingCart!==null&&item.shoppingCart!==undefined? item.shoppingCart.orderNumber==order.orderNumber : false">
                       <h5 [innerHtml]="item.fish.name"></h5>                
                       <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                       <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
@@ -58,7 +58,7 @@
                         </p>
                       </div>
                     </ng-container> -->
-                    <ng-container  *ngIf="item.shoppingCart.orderNumber==order.orderNumber && item.updateInfo">
+                    <ng-container  *ngIf="validateUpdateInfo(item, order)">
                       <div class="information-log">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         <div class="info-modal-log">

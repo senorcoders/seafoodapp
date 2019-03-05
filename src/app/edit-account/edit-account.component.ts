@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormControlName, Validators } from '@angular/fo
 import { environment } from '../../environments/environment.prod';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+declare var jQuery:any;
 
 @Component({
   selector: 'app-edit-account',
@@ -43,16 +44,28 @@ export class EditAccountComponent implements OnInit {
   SellerProductsIntered: FormControl;
   sellerContactNumber: FormControl;
   sellerCurrencyTrade: FormControl;
+  storeEndpoint:any = "api/store/user/";
+  store:any;
+  sellerStoreDescription: FormControl;
+  base:string=environment.apiURLImg;
+  logo:any;
+  hero:any;
+  fileToUpload: any = [];
+  fileHero:any = [];
+  heroEndpoint:any = 'api/store/hero/';
+  logoEndpoint:any = 'api/store/logo/';
+
 
 
 
   constructor(private auth: AuthenticationService, private rest: ProductService, private toast:ToastrService) { }
 
-   ngOnInit() {
+   async ngOnInit() {
     this.createFormControls();
     this.createBuyerForm();
     this.createSellerForm();
     this.getPersonalData();
+    await this.getStoreData();
     this.setValues();
    
 
@@ -90,6 +103,7 @@ export class EditAccountComponent implements OnInit {
     this.SellerProductsIntered = new FormControl('', [Validators.required]);
     this.sellerContactNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
     this.sellerCurrencyTrade = new FormControl('', [Validators.required]);
+    this.sellerStoreDescription= new FormControl('', [Validators.required]);
 
   }
 
@@ -128,7 +142,8 @@ export class EditAccountComponent implements OnInit {
       iban: this.sellerIBAN,
       productsIntered: this.SellerProductsIntered,
       contactNumber: this.sellerContactNumber,
-      currencyTrade: this.sellerCurrencyTrade
+      currencyTrade: this.sellerCurrencyTrade,
+      storeDescription: this.sellerStoreDescription
      }, {
     updateOn: 'submit'
   });
@@ -147,11 +162,11 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['firstName'].setValue(this.info.firstName);
     this.sellerForm.controls['lastName'].setValue(this.info.lastName);
     this.sellerForm.controls['email'].setValue(this.info.email);
-    this.sellerForm.controls['country'].setValue(this.info.dataExtra['country']);
-    this.sellerForm.controls['address'].setValue(this.info.dataExtra['Address']);
-    this.sellerForm.controls['city'].setValue(this.info.dataExtra['City']);
+    this.sellerForm.controls['country'].setValue(this.store[0].location);
+    this.sellerForm.controls['address'].setValue(this.store[0].Address);
+    this.sellerForm.controls['city'].setValue(this.store[0].City);
     this.sellerForm.controls['telephone'].setValue(this.info.dataExtra['tel']);
-    this.sellerForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
+    this.sellerForm.controls['companyName'].setValue(this.store[0].name);
     this.sellerForm.controls['companyType'].setValue(this.info.dataExtra['companyType']);
     this.sellerForm.controls['licenseNumber'].setValue(this.info.dataExtra['licenseNumber']);
     this.sellerForm.controls['iso'].setValue(this.info.dataExtra['iso']);
@@ -160,6 +175,8 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['contactNumber'].setValue(this.info.dataExtra['contactNumber']);
     this.sellerForm.controls['currencyTrade'].setValue(this.info.dataExtra['currencyTrade']);
     this.sellerForm.controls['trade'].setValue(this.info.dataExtra['trade']);
+    this.sellerForm.controls['storeDescription'].setValue(this.store[0].description);
+
   }
 
   updateBuyer(){
@@ -223,7 +240,12 @@ export class EditAccountComponent implements OnInit {
     this.rest.updateData('user/'+this.info.id, data).subscribe(res =>{
       console.log(res);
       this.auth.setLoginData(this.info);
-      this.toast.success("Your account information has beed updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+      if(this.info.role == 1){
+        this.updateStore();
+      }else{
+        this.toast.success("Your account information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      }
 
     },  error =>{
       this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
@@ -250,4 +272,95 @@ export class EditAccountComponent implements OnInit {
       this.toast.error('Password and Repeat password not matched', "Error",{positionClass:"toast-top-right"} );
     }
 }
+
+async getStoreData(){
+  await new Promise((resolve, reject) => {
+    this.rest.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
+      this.store = result;
+      this.logo = result[0].logo;
+      this.hero = result[0].heroImage;
+      console.log("Store", this.store[0]);
+      resolve();
+     
+    }, error => {
+      console.error(error);
+      reject();
+    })
+  })
+ 
+}
+
+
+updateStore(){
+  
+  let storeFullData={
+    "companyName":this.sellerForm.get('companyName').value,
+    "companyType": this.sellerForm.get('companyType').value,
+    "location": this.sellerForm.get('country').value,
+    "Address":this.sellerForm.get('address').value,
+    "City":this.sellerForm.get('city').value,
+    "ContactNumber": this.sellerForm.get('contactNumber').value,
+    "CorporateBankAccountNumber": this.sellerForm.get('iban').value,
+    "CurrencyofTrade": this.sellerForm.get('currencyTrade').value,
+    "FoodSafetyCertificateNumber": this.sellerForm.get('iso').value,
+    "ProductsInterestedSelling": this.sellerForm.get('productsIntered').value,
+    "TradeBrandName": this.sellerForm.get('trade').value,
+    "TradeLicenseNumber": this.sellerForm.get('licenseNumber').value,
+    "description": this.sellerForm.get('storeDescription').value
+  }
+  this.rest.updateData('store/'+this.store[0].id, storeFullData).subscribe(
+    result=>{
+
+      if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+        (this.fileHero.length > 0) ? this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
+        (this.fileToUpload.length > 0) ? this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
+        this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      }else{
+        this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+
+      }
+
+      console.log("Update Store", result);
+
+    },
+    error=>{
+
+      console.log(error)
+    }
+  )
+}
+
+handleFileInput(files: FileList) {
+  this.fileToUpload = files;
+  this.readFile(files, '#logo');
+  
+}
+handleFileHero(files: FileList){
+  this.fileHero = files;
+  this.readFile(files, '#hero');
+
+}
+
+uploadFile(id, endpoint, file, from){
+  this.rest.uploadFile(endpoint+id, from, file).subscribe(result => {
+    console.log("File", result);
+  }, error => {
+    console.log("File Error", error);
+  })
+}
+
+
+readFile(files, id){
+  if (files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = (e: Event) => {
+      jQuery(id).attr('src', reader.result);
+    }
+
+    reader.readAsDataURL(files[0]);
+  }
+}
+
 }
