@@ -142,7 +142,7 @@ export class AccountComponent implements OnInit {
     this.info = this.auth.getLoginData();
     console.log("Info", this.info);
     this.getStoreData();
-  }
+  } 
   getStoreData(){
     this.productService.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
       let res:any = result;
