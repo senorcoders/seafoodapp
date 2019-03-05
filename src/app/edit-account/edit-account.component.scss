@@ -90,6 +90,11 @@
         max-width: 100%;
     }
 }
+
+#hero, #logo{
+	max-width: 100%;
+    padding: 20px;
+}
 @media(max-width: 998px){
     .btn-red{
         margin-bottom: 20px;
