@@ -109,6 +109,7 @@ import { EditAccountComponent } from './edit-account/edit-account.component';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import { ngfModule } from 'angular-file';
 import { NgxLoadingModule } from 'ngx-loading';
+import { FilternumberPipe } from './filternumber.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -262,6 +263,7 @@ const appRoutes: Routes = [
     CookiesPolicyComponent,
     CitiManagmentComponent,
     EditAccountComponent,
+    FilternumberPipe,
   ],
   imports: [
     BrowserModule,
