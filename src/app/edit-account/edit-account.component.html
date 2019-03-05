@@ -23,7 +23,7 @@
               <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>              
             </div>
           </div>
-
+ 
 
           <div class="col-lg-6">
             <div class="form-group">
@@ -157,6 +157,16 @@
               <div class="invalid-feedback" *ngIf="sellerForm.get('trade').hasError('required')">Trade/Brand Name is required.</div>
             </div>
           </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+                <label>Company Description <span class="field-status red">*</span></label>
+                <textarea class="form-control" formControlName="storeDescription" [ngClass]="{'is-invalid':sellerForm.get('storeDescription').invalid && sellerForm.get('storeDescription').touched}"></textarea>
+                <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div>
+            </div>
+           
+
+          </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.company-type' | translate}} <span class="field-status red">*</span></label>
@@ -242,7 +252,31 @@
 
 
         </div>
-
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{'Store.logo' | translate}}</label>
+                    <input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)" accept="image/*">
+                    <img id="logo">
+                  </div>
+              <div class="form-group img-cont" *ngIf="logo != ''">
+                <img [src]="base + logo" alt="" style="width: 150px;">
+              </div>
+             
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{'Store.hero' | translate}}</label>
+                    <input type="file" class="form-control" type="file" id="fileHero" accept="image/*"
+                      (change)="handleFileHero($event.target.files)">
+                      <img id="hero" alt="">
+                  </div>
+              <div class="form-group img-cont" *ngIf="hero != ''">
+                <img [src]="base + hero" alt="" style="width: 350px;">
+              </div>
+              
+            </div>
+          </div>
         <div class="row">
           <div class="col-lg-6">
             <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
