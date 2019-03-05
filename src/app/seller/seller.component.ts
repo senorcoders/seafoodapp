@@ -157,6 +157,7 @@ export class SellerComponent implements OnInit {
       "City":this.user.dataExtra['City'],
       "contactNumber": this.user.dataExtra['contactNumber'],
       "iban": this.user.dataExtra['iban'],
+      "swiftCode": this.user.dataExtra['swiftCode'],
       "currencyTrade": this.user.dataExtra['currencyTrade'],
       "iso": this.user.dataExtra['iso'],
       "productsIntered": this.user.dataExtra['productsIntered'],
@@ -236,9 +237,6 @@ export class SellerComponent implements OnInit {
         console.log("Store Updated", result);
         this.editUser();
         // this.toast.success('Your store has been updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
-
-      
-
     });
   }
   updateSfs(id, file, index) {

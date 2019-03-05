@@ -208,7 +208,7 @@ export class ProductsComponent implements OnInit {
       });
       jQuery(document).ready(function() {
         jQuery([document.documentElement, document.body]).animate({
-          scrollTop: jQuery('#search').offset().top
+          // scrollTop: jQuery('#search').offset().top
         }, 1000);
       });
 
@@ -313,7 +313,7 @@ export class ProductsComponent implements OnInit {
   		result => {
         this.isClearButton = false;
   			this.products = result['productos'];
-        console.log('Productos', this.products);
+        console.log('Productos', result);
         // add paginations numbers
         // tslint:disable-next-line:radix
         this.pageNumbers = parseInt(result['pagesNumber']);
@@ -329,7 +329,8 @@ export class ProductsComponent implements OnInit {
 	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
 	            } else {
 	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-	            }
+              }
+              console.log(this.image);
 	        });
 	        if (this.products.length === 0) {
 	          this.showNotFound = true;
