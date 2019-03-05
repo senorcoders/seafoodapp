@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import * as moment from 'moment';
 declare var jQuery: any;
 
 @Component({
@@ -21,6 +22,11 @@ export class AdminLogisticManagmentComponent implements OnInit {
   selectedItemID: string;
   showNoData: boolean = false;
   rows: any = [];
+  public useFilterDate = false;
+
+  public date1 = new Date();
+  public date2 = new Date();
+
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -29,6 +35,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.date2.setMonth(new Date().getMonth()+ 1);
     this.user = this.auth.getLoginData();
     this.status = '0';
     this.getManagement();
@@ -50,7 +57,12 @@ export class AdminLogisticManagmentComponent implements OnInit {
 
   getManagement() {
     this.productService.getData('api/shoppingcart/orderlogistic').subscribe(data => {
-      this.rows = data;
+      this.rows = (data as any[]).map(it => {
+        if (typeof it.paidDateTime === 'string' && it.paidDateTime !== "")
+          it.paidDateTime = new Date(it.paidDateTime);
+
+        return it;
+      });
     })
 
   }
@@ -89,7 +101,10 @@ export class AdminLogisticManagmentComponent implements OnInit {
     jQuery('#confirmUpdateStatus').modal('show');
   }
 
-  //funcion solo para recagar el bind de los elementos
+  public filterDateChange(){
+  }
+
+  //funcion solo para recargar el bind de los elementos
   public getOrders() { }
 
   public filter(item) {
@@ -103,6 +118,12 @@ export class AdminLogisticManagmentComponent implements OnInit {
       }
       if (item.items.length === statusItems) status = false;
     }
+    //Ahora hacemos filtros por date paid
+    if(status === true && this.useFilterDate === true){
+      let date = moment(item.paidDateTime);
+      status = date.isBetween(this.date1, this.date2);
+    }
+
     if (status === true && this.orderNumber !== "") status = item.orderNumber.toString().includes(this.orderNumber);
     return status;
   }
