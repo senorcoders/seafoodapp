@@ -56,7 +56,8 @@
 						{{singleUser.dataExtra.Address}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
-						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness!==undefined?singleUser.dataExtra.TypeBusiness:singleUser.dataExtra.typeBusiness}}
+						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness!==undefined?singleUser.dataExtra.TypeBusiness:singleUser.dataExtra.typeBusiness}}<br>
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
@@ -81,7 +82,8 @@
 						<b>Swift Code: </b>{{singleUser.dataExtra.swiftCode}} <br>
 						<b>Currency of Trade: </b>{{singleUser.dataExtra.currencyTrade}} <br>
 						<b>Contact Number: </b>{{singleUser.dataExtra.contactNumber}} <br>
-						<b>Products Interested in Selling: </b>{{singleUser.dataExtra.productsIntered}}
+						<b>Products Interested in Selling: </b>{{singleUser.dataExtra.productsIntered}}<br>
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">
 						<b>First Name: </b>{{singleUser.firstName}} <br>
@@ -94,6 +96,7 @@
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
 						<b>Country: </b>{{singleUser.dataExtra.country}} <br>
 						<b>Type of Business: </b>{{singleUser.dataExtra.TypeBusiness}} <br>
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
 					</div>
 				</div>
 			</div>
