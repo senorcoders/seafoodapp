@@ -32,8 +32,7 @@
 				<span class="seafood_sku"><b>Seafood SKU: </b>{{pendingProduct.seafood_sku}}</span>				
 
 				<span class="price"><b>Price/KG in USD: </b>{{pendingProduct.price['value']}}</span>
-				<span class="price"><b>Price/KG in AED: </b>{{(pendingProduct.price['value'] * currentExchangeRate).toFixed(2)}}</span>
-				
+				<span class="price"><b>Price/KG in AED: </b>{{(pendingProduct.price['value'] * currentExchangeRate).toFixed(2)}}</span>				
 
 				<h4>Product Features</h4>
 				<span class="acceptableSpoilageRate"><b>Acceptable Spoilage Rate: </b>{{pendingProduct.mortalityRate}}</span>
@@ -41,10 +40,7 @@
 				<span class="prepraration"><b>Preparation: </b>{{pendingProduct.preparation}}</span>
 				<span *ngIf="pendingProduct.wholeFishWeight" class="prepraration"><b>Whole Fish Weight: </b>{{pendingProduct.wholeFishWeight}}</span>
 				<span class="treatment"><b>Treatment: </b>{{pendingProduct.treatment}}</span>
-				<span class="treatment"><b>Cooming Soon: </b>{{pendingProduct.cooming_soon}}</span>
-				
-
-				
+				<span class="treatment"><b>Cooming Soon: </b>{{pendingProduct.cooming_soon}}</span>				
 
 				<div class="row">
 					<div class="col-md-6">
@@ -60,7 +56,7 @@
 						<span *ngIf="pendingProduct.owner !== undefined" class="OwnerName"><b>Email: </b>{{pendingProduct.owner.email}}</span>	
 					</div>-->
 				</div>							
-				
+				<span class="price"><b>Submitted at:  </b>{{pendingProduct.createdAt | date: 'yyyy-MM-dd'}}</span><br>
         <button class="button red-btn denied" (click)="showDeniedModal(pendingProduct.id)">Reject Product</button>
         <button class="button red-btn approved" (click)="showModal(pendingProduct.id)">Approve</button>
       </div>
