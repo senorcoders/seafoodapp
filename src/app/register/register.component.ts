@@ -7,6 +7,9 @@ import { Router,ActivatedRoute } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';
 import { PasswordValidation } from '../password';
+import { CountriesService } from '../services/countries.service';
+declare var jQuery:any;
+declare var window:any;
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -26,9 +29,34 @@ storeID:any;
 image:any;
 regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
 sub:any;
-countries=environment.countries
-registerVal;
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, private product:ProductService,private route:ActivatedRoute) {
+countries:any = [];
+registerVal; 
+firstName:FormControl;
+lastName:FormControl;
+location:FormControl;
+emailForm:FormControl;
+password:FormControl;
+rePassword:FormControl;
+tel:FormControl;
+Address:FormControl;
+City:FormControl;
+TypeBusiness:FormControl;
+ companyName:FormControl;
+ tcs:FormControl;
+ TradeBrandName:FormControl;
+TradeLicenseNumber:FormControl;
+FoodSafetyCertificateNumber:FormControl;
+CorporateBankAccountNumber:FormControl;
+swiftCode:FormControl;
+CurrencyofTrade:FormControl;
+ContactNumber:FormControl;
+ProductsInterestedSelling:FormControl;
+companyType: FormControl;
+  constructor(private fb:FormBuilder, private auth: AuthenticationService, 
+    private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
+    private product:ProductService,private route:ActivatedRoute,
+    private countryService: CountriesService,
+    ) {
     this.redirectHome();
     this.sub=this.route.queryParams.subscribe(params=>{
       if(!params['register']){
@@ -46,16 +74,35 @@ registerVal;
 
 
   ngOnInit() {
+    jQuery(document).ready(function(){
+
+      var input = document.querySelector("#phone");
+      var inputS = document.querySelector("#phoneS");
+      window.intlTelInput(input);
+      window.intlTelInput(inputS);
+    
+    });  
     // this.RegisterBuyerForm();
+    this.createFormControls();
     this.RegisterBuyerForm();
     this.RegistersellerForm();
+    this.getCountries();
 
 
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
   }
-
+  getCountries() {
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   showBuyer(){
     this.buyerShow=true;
     this.sellerShow=false;
@@ -65,77 +112,122 @@ registerVal;
   showSeller(){
     this.buyerShow=false;
     this.sellerShow=true;
-    this.RegistersellerForm();
     this.registerVal = '1';
 
   }
   redirectHome(){
      if(this.auth.isLogged()){ 
       this.router.navigate(["/home"])
-    }
+    }  
   }
+
+
+  createFormControls(){ 
+    this.firstName = new FormControl('', [Validators.required]);
+    this.lastName = new FormControl('',[Validators.required]);
+    this.location = new FormControl('', [Validators.required]);
+    this.emailForm = new FormControl('',[Validators.required]);
+    this.password = new FormControl('',[Validators.required, Validators.pattern(this.regex)]);
+    this.rePassword = new FormControl('',[Validators.required]);
+    this.tel = new FormControl('',[Validators.required]);
+    this.Address = new FormControl('',[Validators.required]);
+    this.City = new FormControl('',[Validators.required]);
+    this.TypeBusiness = new FormControl('',[Validators.required]);
+    this.companyName = new FormControl('',[Validators.required]);
+    this.tcs = new FormControl('', [Validators.requiredTrue]);
+    this.TradeBrandName= new FormControl('', [Validators.required]);
+    this.TradeLicenseNumber= new FormControl('', [Validators.required]);
+    this.FoodSafetyCertificateNumber= new FormControl('', [Validators.required]);
+    this.CorporateBankAccountNumber= new FormControl('', [Validators.required]);
+    this.swiftCode = new FormControl('', [Validators.nullValidator]);
+    this.CurrencyofTrade= new FormControl('', [Validators.required]);
+    this.ContactNumber= new FormControl('', [Validators.required]);
+    this.ProductsInterestedSelling= new FormControl('', [Validators.required]);
+    this.companyType = new FormControl('', [Validators.required]);
+
+
+  }
+
+ 
+
   RegisterBuyerForm(){
-    this.buyerForm=this.fb.group({
-      firstName:['',Validators.required],
-      lastName:['',Validators.required],
-      location:['', Validators.required],
-      email:['',[Validators.email, Validators.required]],
-      password:['', [Validators.required, Validators.pattern(this.regex)]],
-      rePassword:['', Validators.required],
-      tel:['', [Validators.required, Validators.pattern('[0-9]+')]],
-      Address:['', Validators.required],
-      City:['', Validators.required],
-      TypeBusiness:['',Validators.required],
-      companyName:['', Validators.required],
-      tcs:['',Validators.requiredTrue]
-    }, {
-      validator : PasswordValidation.MatchPassword
-    })
+    this.buyerForm = new FormGroup({
+      firstName:this.firstName,
+      lastName:this.lastName,
+      location:this.location,
+      email:this.emailForm,
+      password:this.password,
+      rePassword:this.rePassword,
+      tel:this.tel,
+      Address:this.Address,
+      City:this.City,
+      TypeBusiness:this.TypeBusiness,
+      companyName:this.companyName,
+      tcs:this.tcs
+
+
+    },{
+      updateOn: 'submit'
+    });
+
+
   }
-  RegistersellerForm(){ 
-     this.sellerForm=this.fb.group({
-      firstName:['',Validators.required],
-      lastName:['',Validators.required],
-      email:['',[Validators.email, Validators.required]],
-      password:['', [Validators.required, Validators.pattern(this.regex)]],
-      rePassword:['', Validators.required],
-      tel:['',[Validators.required, Validators.pattern('[0-9]+')]],
-      location:['', Validators.required],
-      Address:['', Validators.required],
-      City:['', Validators.required],
-      companyName:['', Validators.required],
-      companyType:['', Validators.required],
-      tcs:['',Validators.requiredTrue],
-      TradeBrandName:['',Validators.required],
-      TradeLicenseNumber:['', Validators.required],
-      FoodSafetyCertificateNumber:['', Validators.required],
-      CorporateBankAccountNumber:['', Validators.required],
-      CurrencyofTrade:['', Validators.required],
-      ContactNumber:['', Validators.required],
-      ProductsInterestedSelling:['', Validators.required],
-    }, {
-      validator : PasswordValidation.MatchPassword
-    })
+
+
+  RegistersellerForm(){
+    this.sellerForm = new FormGroup({
+      firstName:this.firstName,
+      lastName:this.lastName,
+      location:this.location,
+      email:this.emailForm,
+      password:this.password,
+      rePassword:this.rePassword,
+      tel:this.tel,
+      Address:this.Address,
+      City:this.City,
+      companyName:this.companyName,
+      tcs:this.tcs,
+      TradeBrandName:this.TradeBrandName,
+      TradeLicenseNumber:this.TradeLicenseNumber,
+      FoodSafetyCertificateNumber:this.FoodSafetyCertificateNumber,
+      CorporateBankAccountNumber:this.CorporateBankAccountNumber,
+      swiftCode:this.swiftCode,
+      CurrencyofTrade:this.CurrencyofTrade,
+      ContactNumber:this.ContactNumber,
+      ProductsInterestedSelling: this.ProductsInterestedSelling,
+      companyType: this.companyType
+
+
+    },{
+      updateOn: 'submit'
+    });
+
+
   }
-  register(){
-    if(this.sellerShow){
-       if(this.sellerForm.valid){
-        this.submitRegistrationSeller();
-       }else{
-         this.validateAllFormFields(this.sellerForm);
-       }
-    }
-    else{
+
+
+  registerBuyer(){
+    console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
-        this.submitRegistrationBuyer();
+        this.verifyMatch();
         console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
         this.validateAllFormFields(this.buyerForm);
       }
      
-    }
+    
+  }
+
+
+  registerSeller(){
+       if(this.sellerForm.valid){
+         (this.sellerForm.get('password').value != this.sellerForm.get('rePassword').value ) ? this.sellerForm.get('rePassword').setErrors( {MatchPassword: true} ) : this.submitRegistrationSeller();
+       }else{
+         this.validateAllFormFields(this.sellerForm);
+       }
+   
   }
 
 
@@ -150,6 +242,17 @@ registerVal;
   });
 }
 
+
+verifyMatch(){
+  let password = this.buyerForm.get('password').value; // to get value in input tag
+       let confirmPassword = this.buyerForm.get('rePassword').value; // to get value in input tag
+        if(password != confirmPassword) {
+            // console.log('false');
+            this.buyerForm.get('rePassword').setErrors( {MatchPassword: true} )
+        } else {
+           this.submitRegistrationBuyer()
+        }
+}
   submitRegistrationBuyer(){
       let dataExtra={
       "country": this.buyerForm.get('location').value,
@@ -157,7 +260,7 @@ registerVal;
       "Address":this.buyerForm.get('Address').value,
       "City":this.buyerForm.get('City').value,
       "companyName": this.buyerForm.get('companyName').value,
-      "TypeBusiness":this.buyerForm.get('TypeBusiness').value
+      "typeBusiness":this.buyerForm.get('TypeBusiness').value
       }
       this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
         result=>{
@@ -232,6 +335,7 @@ registerVal;
       'licenseNumber' : this.sellerForm.get('TradeLicenseNumber').value,
       'iso' : this.sellerForm.get('FoodSafetyCertificateNumber').value,
       'iban' : this.sellerForm.get('CorporateBankAccountNumber').value,
+      'swiftCode' : this.sellerForm.get('swiftCode').value,
       'productsIntered' : this.sellerForm.get('ProductsInterestedSelling').value,
       'contactNumber' : this.sellerForm.get('ContactNumber').value,
       'currencyTrade' : this.sellerForm.get('CurrencyofTrade').value,

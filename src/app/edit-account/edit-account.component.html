@@ -23,7 +23,7 @@
               <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>              
             </div>
           </div>
-
+ 
 
           <div class="col-lg-6">
             <div class="form-group">
@@ -146,21 +146,31 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.company' | translate}} <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" [ngClass]="{'is-invalid':sellerForm.get('companyName').invalid && sellerForm.get('companyName').touched}">
+              <input disabled type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" [ngClass]="{'is-invalid':sellerForm.get('companyName').invalid && sellerForm.get('companyName').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('companyName').hasError('required')"> {{'Register.company' | translate}} {{'Register.required' | translate}}.</div>
             </div>
           </div>
           <div class="col-md-6">  
             <div class="form-group">
               <label>Trade/Brand Name <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="Trade/Brand Name" formControlName="trade"  [ngClass]="{'is-invalid':sellerForm.get('trade').invalid && sellerForm.get('trade').touched}">
+              <input  disabled type="text" class="form-control" placeholder="Trade/Brand Name" formControlName="trade"  [ngClass]="{'is-invalid':sellerForm.get('trade').invalid && sellerForm.get('trade').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('trade').hasError('required')">Trade/Brand Name is required.</div>
             </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-group">
+                <label>Company Description <span class="field-status red">*</span></label>
+                <textarea class="form-control" formControlName="storeDescription" [ngClass]="{'is-invalid':sellerForm.get('storeDescription').invalid && sellerForm.get('storeDescription').touched}"></textarea>
+                <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div>
+            </div>
+           
+
           </div>
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.company-type' | translate}} <span class="field-status red">*</span></label>
-              <select class="form-control" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
+              <select disabled class="form-control" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
                 <option value="Producer">Producer</option>
                 <option value="Processor">Processor </option>
                 <option value="Trader">Trader</option>
@@ -171,7 +181,7 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.country' | translate}} <span class="field-status red">*</span></label>
-              <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
+              <select disabled class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
                 <option value="">{{'Register.country' | translate}}</option>
                  <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
               </select>
@@ -181,21 +191,21 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>{{'Register.Address' | translate}} <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="address"  [ngClass]="{'is-invalid':sellerForm.get('address').invalid && sellerForm.get('address').touched}">
+              <input disabled type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="address"  [ngClass]="{'is-invalid':sellerForm.get('address').invalid && sellerForm.get('address').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
             </div>
           </div>
           <div class="col-md-6">  
             <div class="form-group">
               <label>{{'Register.City' | translate}} <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="city"  [ngClass]="{'is-invalid':sellerForm.get('city').invalid && sellerForm.get('city').touched}">
+              <input disabled type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="city"  [ngClass]="{'is-invalid':sellerForm.get('city').invalid && sellerForm.get('city').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('city').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
             </div>
           </div>
           <div class="col-md-6">  
             <div class="form-group">
               <label>Trade License Number (Registration) <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="Trade License Number (Registration)" formControlName="licenseNumber"  [ngClass]="{'is-invalid':sellerForm.get('licenseNumber').invalid && sellerForm.get('licenseNumber').touched}">
+              <input  disabled type="text" class="form-control" placeholder="Trade License Number (Registration)" formControlName="licenseNumber"  [ngClass]="{'is-invalid':sellerForm.get('licenseNumber').invalid && sellerForm.get('licenseNumber').touched}">
               <div class="invalid-feedback" *ngIf="sellerForm.get('licenseNumber').hasError('required')">Trade License Number (Registration) is required.</div>
             </div>
           </div>
@@ -230,7 +240,7 @@
           <div class="col-md-6">  
             <div class="form-group">
               <label>Currency of Trade <span class="field-status red">*</span></label>
-              <select class="form-control" formControlName="currencyTrade"  [ngClass]="{'is-invalid':sellerForm.get('currencyTrade').invalid && sellerForm.get('currencyTrade').touched}">
+              <select disabled class="form-control" formControlName="currencyTrade"  [ngClass]="{'is-invalid':sellerForm.get('currencyTrade').invalid && sellerForm.get('currencyTrade').touched}">
                 <option value="AED">AED</option>
                 <option value="USD">USD</option>
                 <option value="EUR">EUR</option>
@@ -242,7 +252,31 @@
 
 
         </div>
-
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{'Store.logo' | translate}}</label>
+                    <input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)" accept="image/*">
+                    <img id="logo">
+                  </div>
+              <div class="form-group img-cont" *ngIf="logo != ''">
+                <img [src]="base + logo" alt="" style="width: 150px;">
+              </div>
+             
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label>{{'Store.hero' | translate}}</label>
+                    <input type="file" class="form-control" type="file" id="fileHero" accept="image/*"
+                      (change)="handleFileHero($event.target.files)">
+                      <img id="hero" alt="">
+                  </div>
+              <div class="form-group img-cont" *ngIf="hero != ''">
+                <img [src]="base + hero" alt="" style="width: 350px;">
+              </div>
+              
+            </div>
+          </div>
         <div class="row">
           <div class="col-lg-6">
             <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
