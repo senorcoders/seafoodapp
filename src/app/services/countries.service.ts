@@ -13,7 +13,7 @@ export class CountriesService {
   constructor( private http: HttpClient ) { }
 
   getCountries(){
-    return this.http.get(`${API}countries`)
+    return this.http.get(`${API}countries?limit=300`)
   }
   getCountriesWithCities() {
     return this.http.get(`${API}api/countries/withCities`)
