@@ -5,8 +5,10 @@
 
 export const environment = {
   production: false,
-  apiURL:"http://devapi.seafoodsouq.com/",
-  apiURLImg:"http://devapi.seafoodsouq.com",
+  //apiURL:"http://devapi.seafoodsouq.com/",
+	//apiURLImg:"http://devapi.seafoodsouq.com",
+	apiURL:"http://13.232.66.55/",
+  apiURLImg:"http://13.232.66.55",
   //apiURL:"http://localhost:7000/",
   //apiURLImg:"http://localhost:7000",
   countries:[

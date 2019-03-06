@@ -88,7 +88,8 @@
                   <p class="order-number">{{item.orderNumber}}</p>
                   <p class="order-number" *ngIf="item.paidDateTime != ''">{{item.paidDateTime}}</p>
                   <p class="order-number">{{item.buyer.dataExtra.Address}}</p>
-
+                  
+                  <a class="purchase_pdf" *ngIf="item.invoice_pdf" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{item.invoice_pdf}}/pdf_invoices" >Invoice Order PDF</a>
                 </div>
               </div>
 
@@ -105,7 +106,8 @@
 
                       <tr *ngIf="i.fishItem.store">
                         <td>Seller Name:</td>
-                        <td>{{i.fishItem.store.name}}</td>
+                        <td>{{i.fishItem.store.name}}
+                        </td>
                       </tr>
                       <tr>
                         <td>Product Title:</td>
@@ -142,6 +144,8 @@
 
 
                     </table>
+                    
+                    <a class="purchase_pdf" *ngIf="item.po_path" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{i.po_path}}/pdf_purchase_order" >Purchase Order PDF</a>
                     <!-- <h5 [innerHtml]="item.fish.name"></h5>                
                       <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                       <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p> -->

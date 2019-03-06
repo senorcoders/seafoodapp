@@ -3,6 +3,7 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 import * as moment from 'moment';
 declare var jQuery: any;
 
@@ -21,6 +22,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
+  API: string = environment.apiURL;
   rows: any = [];
   public useFilterDate = false;
 

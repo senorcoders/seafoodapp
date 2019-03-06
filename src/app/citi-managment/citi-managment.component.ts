@@ -50,6 +50,7 @@ export class CitiManagmentComponent implements OnInit {
     this.createForm();
     this.getCountries();
     this.getAllCities();
+    this.getCountriesWithCities();
   }
 
   getFilterCountry() {
@@ -81,8 +82,18 @@ export class CitiManagmentComponent implements OnInit {
   getCountries() {
     this.countryService.getCountries().subscribe(
       result => {
-        this.tableCountries = result;
         this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  getCountriesWithCities() {
+    this.countryService.getCountriesWithCities().subscribe(
+      result => {
+        this.tableCountries = result;
       },
       error => {
         console.log(error);
@@ -145,8 +156,7 @@ export class CitiManagmentComponent implements OnInit {
     this.countryService.updateCity(this.myform.value)
       .subscribe(
         result => {
-           this.getCountries();
-          //this.getFilterCountries();
+          this.getCountriesWithCities();
           this.toast.success('City updated succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         },
         error => {
@@ -159,8 +169,7 @@ export class CitiManagmentComponent implements OnInit {
     this.countryService.deleteCity( { country: countryID, city: cityCode } )
       .subscribe(
         result => {
-           this.getCountries();
-          //this.getFilterCountries();
+           this.getCountriesWithCities();
           this.toast.success('City deleted succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         },
         error => {

@@ -26,12 +26,14 @@
             <button class="pink-btn" (click)="clear()">Clear filter</button>
           </div>
           <div class="col-3">
-            <a class="pink-btn" href="http://13.232.68.135/xero/connect">Push All Orders to Xero</a>
+            <a class="pink-btn" href="{{API}}/xero/connect">Push All Orders to Xero</a>
           </div>
           <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
             <div class="row row-bg" *ngFor="let order of groupOrder">
               <div class="col-4">
                 <p class="order-number">Order #{{order.orderNumber}}</p>
+                <p class="order-number">
+                  <a *ngIf="order.invoice_pdf" class="purchase_pdf" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{order.invoice_pdf}}/pdf_invoices" >Invoice Order PDF</a></p>
                 <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
               </div>
               <div class="col-8">
@@ -47,6 +49,7 @@
                       
                       <p class="qty">Quantity {{item.quantity.value}} kg</p>  
                       <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p>
+                      <a *ngIf="item.po_path" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{item.po_path}}/pdf_purchase_order" >Purchase Order PDF</a>
                     </ng-container>
                     
                   </div>
