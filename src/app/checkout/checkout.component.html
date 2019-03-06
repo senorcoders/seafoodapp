@@ -191,23 +191,23 @@
                   <input [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd" id="medd{{product.id}}" >
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                 </td>
-                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}} AED</td>
+                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}} </td>
               </tr>
               <tr *ngIf="total != ''">
                 <td><b>Subtotal</b></td>
-                <td><b>{{(total).toFixed(2)}} AED</b></td>
+                <td><b>{{(total) | currency: 'AED'}}</b></td>
               </tr>
               <tr *ngIf="shipping !=''"> 
                 <td><b>Shipping</b></td>
-                <td><b>{{(shipping).toFixed(2)}} AED</b></td>
+                <td><b>{{(shipping) | currency: 'AED'}}</b></td>
               </tr>
               <tr *ngIf="totalOtherFees != ''">
                 <td><b>Taxes, Customs and Other Fees</b></td>
-                <td><b>{{(totalOtherFees).toFixed(2)}} AED</b></td> 
+                <td><b>{{(totalOtherFees) | currency: 'AED'}} </b></td> 
               </tr>
               <tr *ngIf="totalWithShipping != ''">
                 <td><b>Total</b></td>
-                <td><b>{{(totalWithShipping).toFixed(2)}} AED</b></td>
+                <td><b>{{(totalWithShipping) | currency: 'AED'}} </b></td>
               </tr>
               
             </table>
