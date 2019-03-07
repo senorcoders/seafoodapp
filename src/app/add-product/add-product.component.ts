@@ -687,6 +687,8 @@ export class AddProductComponent implements OnInit {
   		result=>{
   			this.typesModal=result;
         let data:any=result;
+
+        console.log("Trimming Types", result);
         data.forEach(result=>{
           if(result.defaultProccessingParts.length>1){
             result.defaultProccessingParts.forEach(res2=>{
@@ -734,7 +736,7 @@ export class AddProductComponent implements OnInit {
   delete(id){
     this.product.deleteData('storeTrimming/'+id).subscribe(
       res=>{
-        this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+        this.toast.success("Trimmings Deleted!",'Well Done',{positionClass:"toast-top-right"})
         this.getTrimmingByStore();
       },
       e=>{
