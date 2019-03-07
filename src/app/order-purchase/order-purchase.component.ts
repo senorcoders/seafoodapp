@@ -114,7 +114,7 @@ export class OrderPurchaseComponent implements OnInit {
 			console.log("No pasa");
 			jQuery('#confirm').modal('hide');
 
-		this.toast.error('Your selected date is higher than the buyer expected delivered date', 'Sorry', { positionClass: 'toast-top-right' });
+		// this.toast.error('Your selected date is higher than the buyer expected delivered date', 'Sorry', { positionClass: 'toast-top-right' });
 
 		}    
 		
@@ -129,7 +129,7 @@ export class OrderPurchaseComponent implements OnInit {
 					jQuery('#confirm').modal('hide');
 					console.log(res);
 					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
-					this.getItem();
+					// this.getItem();
 					this.items[index].status['id'] = "5c017af047fb07027943a405";
 					this.items[index].status['status'] = "Pending Fulfillment";
 
