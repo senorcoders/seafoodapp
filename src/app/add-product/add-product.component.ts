@@ -16,6 +16,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
+import { NgProgress } from 'ngx-progressbar';
 declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
@@ -126,7 +127,8 @@ export class AddProductComponent implements OnInit {
     private auth: AuthenticationService,
     private countryService: CountriesService,
     private pricingChargesService: PricingChargesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public ngProgress: NgProgress
   ) { }
   ngOnInit() {
     this.myformModal = this.fb.group({
@@ -322,6 +324,7 @@ export class AddProductComponent implements OnInit {
     this.loading = true;
     if (this.myform.valid) {
       await this.generateSKU();
+      this.ngProgress.start();
       let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
@@ -368,6 +371,8 @@ export class AddProductComponent implements OnInit {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.showError = false;
         this.loading = false;
+        this.ngProgress.done();
+
         this.myform.reset();
 
         }
@@ -376,6 +381,8 @@ export class AddProductComponent implements OnInit {
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
+      this.ngProgress.done();
+
 
 
     }
@@ -403,6 +410,8 @@ export class AddProductComponent implements OnInit {
         }, error => {
           console.log(error);
           this.loading = false;
+          this.ngProgress.done();
+
 
         });
     }else if(this.fileToUpload.length > 0 && this.primaryImg.length == 0){
@@ -422,10 +431,14 @@ export class AddProductComponent implements OnInit {
         this.myform.reset();
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.loading = false;
+        this.ngProgress.done();
+
 
       }, error => {
         console.log(error);
         this.loading = false;
+        this.ngProgress.done();
+
 
       });
     

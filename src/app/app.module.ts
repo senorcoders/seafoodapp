@@ -110,6 +110,7 @@ import {TooltipModule} from 'ng2-tooltip-directive';
 import { ngfModule } from 'angular-file';
 import { NgxLoadingModule } from 'ngx-loading';
 import { FilternumberPipe } from './filternumber.pipe';
+import { NgProgressModule } from 'ngx-progressbar';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -287,6 +288,7 @@ const appRoutes: Routes = [
     TooltipModule,
     ngfModule,
     NgxLoadingModule.forRoot({}),
+    NgProgressModule
 
     ],
   providers: [
