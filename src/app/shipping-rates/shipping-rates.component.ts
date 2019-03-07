@@ -45,7 +45,7 @@ export class ShippingRatesComponent implements OnInit {
 
   ngOnInit() {
     this.getCountries();
-    this.getAllCities();
+    //this.getAllCities();
     this.createForm();
     jQuery('#filterCountry').select2({
       placeholder: {
@@ -88,6 +88,7 @@ export class ShippingRatesComponent implements OnInit {
   }
 
   getCities(){
+    console.log( this.sellerCountry.value );
     this.countryService.getCities( this.sellerCountry.value ).subscribe(
       result => {
         this.cities = result[0].cities;
@@ -325,6 +326,7 @@ export class ShippingRatesComponent implements OnInit {
     .subscribe(
       result=>{
         this.getShippingRatesByCity();
+        this.getShippingCountries();
         this.toast.success("Shipping rate added succesfully!",'Well Done',{positionClass:"toast-top-right"})
       },
       error => {
@@ -337,6 +339,8 @@ export class ShippingRatesComponent implements OnInit {
     .subscribe(
       result => {
         this.getShippingRatesByCity();
+        this.getShippingCountries();
+
         this.toast.success("Shipping rate deleted succesfully!",'Well Done',{positionClass:"toast-top-right"})
       } ,
       error => {
