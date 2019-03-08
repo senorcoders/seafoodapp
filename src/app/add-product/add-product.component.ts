@@ -17,6 +17,7 @@ import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 import { NgProgress } from 'ngx-progressbar';
+import { Router } from '@angular/router';
 declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
@@ -128,7 +129,8 @@ export class AddProductComponent implements OnInit {
     private countryService: CountriesService,
     private pricingChargesService: PricingChargesService,
     private fb: FormBuilder,
-    public ngProgress: NgProgress
+    public ngProgress: NgProgress,
+    private router:Router
   ) { }
   ngOnInit() {
     this.myformModal = this.fb.group({
@@ -374,6 +376,8 @@ export class AddProductComponent implements OnInit {
         this.ngProgress.done();
 
         this.myform.reset();
+        this.router.navigate(['/my-products']);
+
 
         }
 
@@ -432,6 +436,8 @@ export class AddProductComponent implements OnInit {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.loading = false;
         this.ngProgress.done();
+        this.router.navigate(['/my-products']);
+
 
 
       }, error => {
