@@ -109,10 +109,11 @@ export class OrderPurchaseComponent implements OnInit {
 
 		if(Date.parse(dateEnd) < Date.parse(dateStart)){
 			console.log("Pasa");
-			this.changeStatus(index, sellerETA, itemId);
+			this.changeStatus(index, sellerETA, itemId, 'pasa');
 		}else{
 			console.log("No pasa");
-			jQuery('#confirm').modal('hide');
+			this.changeStatus(index, sellerETA, itemId, 'no-pasa');
+
 
 		// this.toast.error('Your selected date is higher than the buyer expected delivered date', 'Sorry', { positionClass: 'toast-top-right' });
 
@@ -122,7 +123,7 @@ export class OrderPurchaseComponent implements OnInit {
 		
 	}
 
-	changeStatus(index, sellerETA, itemId){
+	changeStatus(index, sellerETA, itemId, status){
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405',
 			{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
 				res => {
@@ -130,8 +131,11 @@ export class OrderPurchaseComponent implements OnInit {
 					console.log(res);
 					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
 					// this.getItem();
-					this.items[index].status['id'] = "5c017af047fb07027943a405";
-					this.items[index].status['status'] = "Pending Fulfillment";
+					if(status == 'pasa'){
+						this.items[index].status['id'] = "5c017af047fb07027943a405";
+						this.items[index].status['status'] = "Pending Fulfillment";
+					}
+				
 
 				},
 				e => {
