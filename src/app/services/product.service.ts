@@ -26,8 +26,23 @@ export class ProductService {
     return this.http.get( `${API}fishTypes/Tree` );
   }
 
+  // TODO MAKE COMMENTS
   saveData(endpoint, data) {
     return this.http.post(`${API}${endpoint}`, data, httpOptions);
+
+  }
+
+  getData(endpoint) {
+    return this.http.get(`${API}${endpoint}`);
+  }
+
+  deleteData(endpoint) {
+    return this.http.delete(`${API}${endpoint}`, httpOptions);
+
+  }
+
+  updateData(endpoint, data) {
+    return this.http.put(`${API}${endpoint}`, data, httpOptions);
 
   }
 
@@ -57,10 +72,7 @@ export class ProductService {
     return this.http.post(`${API}api/fish/fish/sku`, data, httpOptions);
   }
 
-  updateData(endpoint, data) {
-    return this.http.put(`${API}${endpoint}`, data, httpOptions);
-
-  }
+ 
 
   patchData(endpoint, data) {
     return this.http.patch(`${API}${endpoint}`, data, httpOptions);
@@ -73,14 +85,7 @@ export class ProductService {
   setShippedProduct(endpoint) {
     return this.http.put(`${API}${endpoint}`, httpOptions);
   }
-  getData(endpoint) {
-    return this.http.get(`${API}${endpoint}`);
-  }
-
-  deleteData(endpoint) {
-    return this.http.delete(`${API}${endpoint}`, httpOptions);
-
-  }
+ 
   getProdutsByCategory(category, page) {
     return this.http.get(`${API}api/fish-type/${category}/${page}/12`);
   }
