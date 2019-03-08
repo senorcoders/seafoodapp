@@ -98,47 +98,28 @@ export class OrderPurchaseComponent implements OnInit {
 		let index = this.index;
 		let sellerETA = jQuery(`#epa${itemId}`).val();
 
-		let inputDate = sellerETA.split("/");
-		let buyerDate = this.items[index].buyerExpectedDeliveryDate.split("/");
-
-		var dateEnd:any = new Date(inputDate[2],inputDate[0] - 1,inputDate[1]);
-		var dateStart:any = new Date(buyerDate[2], buyerDate[0] - 1, buyerDate[1]);
-
-
-		console.log(inputDate, buyerDate, dateStart, dateEnd);
-
-		if(Date.parse(dateEnd) < Date.parse(dateStart)){
-			console.log("Pasa");
-			this.changeStatus(index, sellerETA, itemId);
-		}else{
-			console.log("No pasa");
-			jQuery('#confirm').modal('hide');
-
-		// this.toast.error('Your selected date is higher than the buyer expected delivered date', 'Sorry', { positionClass: 'toast-top-right' });
-
-		}    
-		
-
-		
-	}
-
-	changeStatus(index, sellerETA, itemId){
 		this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405',
-			{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
-				res => {
-					jQuery('#confirm').modal('hide');
-					console.log(res);
+		{ userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
+			res => {
+				jQuery('#confirm').modal('hide');
+				console.log(res);
 					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
-					// this.getItem();
-					this.items[index].status['id'] = "5c017af047fb07027943a405";
-					this.items[index].status['status'] = "Pending Fulfillment";
+					this.items[index].status['id'] = res['item'][0].status['id'];
+					this.items[index].status['status'] = res['item'][0].status['status'];
+				
+			
 
-				},
-				e => {
-					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-				}
-			);
+			},
+			e => {
+				this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+			}
+		);
+		
+
+		
 	}
+
+
 
 	setShipped(itemId: string) {
 		this.productS.setShippedProduct('api/itemshopping/status/' + itemId).subscribe(
