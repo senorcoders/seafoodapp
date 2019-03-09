@@ -10,6 +10,7 @@ import { CountriesService } from '../services/countries.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
+import { NgProgress } from 'ngx-progressbar';
 declare var jQuery: any;
 @Component({
   selector: 'app-edit-product',
@@ -93,7 +94,9 @@ export class EditProductComponent implements OnInit {
   constructor(private product: ProductService, private route: ActivatedRoute, 
     private router: Router, private toast: ToastrService, 
     private auth: AuthenticationService, private sanitizer: DomSanitizer, 
-    private countryService: CountriesService, private pricingChargesService: PricingChargesService) { }
+    private countryService: CountriesService, private pricingChargesService: PricingChargesService,
+    public ngProgress: NgProgress
+    ) { }
   ngOnInit() {
     // this.createFormControls();
     // this.createForm();
@@ -192,6 +195,7 @@ export class EditProductComponent implements OnInit {
 
   onSubmit() {
     this.loading = true;
+    this.ngProgress.start();
     let whole;
     if (this.showWholeOptions) {
       whole = this.wholeFishWeight
@@ -241,6 +245,7 @@ export class EditProductComponent implements OnInit {
         console.log('No images');
         this.toast.success('Product updated succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.loading = false;
+        this.ngProgress.done();
       }
 
     });
@@ -281,9 +286,13 @@ export class EditProductComponent implements OnInit {
       this.getDetails();
       this.toast.success('Product updated succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
       this.loading = false;
+      this.ngProgress.done();
+
     }, error => {
       console.log(error);
       this.loading = false;
+      this.ngProgress.done();
+
 
     });
   }

@@ -2,7 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-12">
-        <h2 class="black-title">{{'ItemStatus.title' | translate}}</h2>
+        <h2 class="black-title">{{'historicalOrders.title' | translate}}</h2>
       </div>
     </div>
       <div class="row">
@@ -38,19 +38,12 @@
                   <p class="qty">Quantity {{item.quantity.value}} kg</p>  
                   <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED '}}</p>
                 </div>
-                <!--<div class="col-4">
-                  <p class="date" *ngIf="item.shippedAt" ><strong>Shipped on {{item.shippedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.arrivedAt"><strong>Arrived on {{item.arrivedAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.outForDeliveryAt"><strong>Out for Delivery on {{item.outForDeliveryAt *1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.deliveryAt"><strong>Delivered on {{item.deliveryAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>
-                  <p class="date" *ngIf="item.CancelAt"><strong>Cancel on {{item.CancelAt*1000 | date: 'EEEE, MMMM d, y'}} </strong></p>                  
-                </div>-->
                 <div  class="col-4">
                   <div *ngIf="item.updateInfo">
-                    <p class="date" *ngFor="let update of item.updateInfo;" >
+                    <!--<p class="date" *ngFor="let update of item.updateInfo;" >
                       <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
                     </p>
-
+-->
                   </div>
                 </div>
                 <div class="col"  *ngIf="item.status">                  

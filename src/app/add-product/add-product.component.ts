@@ -16,6 +16,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
+import { NgProgress } from 'ngx-progressbar';
+import { Router } from '@angular/router';
 declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
@@ -126,7 +128,9 @@ export class AddProductComponent implements OnInit {
     private auth: AuthenticationService,
     private countryService: CountriesService,
     private pricingChargesService: PricingChargesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public ngProgress: NgProgress,
+    private router:Router
   ) { }
   ngOnInit() {
     this.myformModal = this.fb.group({
@@ -322,6 +326,7 @@ export class AddProductComponent implements OnInit {
     this.loading = true;
     if (this.myform.valid) {
       await this.generateSKU();
+      this.ngProgress.start();
       let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
@@ -368,7 +373,11 @@ export class AddProductComponent implements OnInit {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.showError = false;
         this.loading = false;
+        this.ngProgress.done();
+
         this.myform.reset();
+        this.router.navigate(['/my-products']);
+
 
         }
 
@@ -376,6 +385,8 @@ export class AddProductComponent implements OnInit {
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
+      this.ngProgress.done();
+
 
 
     }
@@ -403,6 +414,8 @@ export class AddProductComponent implements OnInit {
         }, error => {
           console.log(error);
           this.loading = false;
+          this.ngProgress.done();
+
 
         });
     }else if(this.fileToUpload.length > 0 && this.primaryImg.length == 0){
@@ -422,10 +435,16 @@ export class AddProductComponent implements OnInit {
         this.myform.reset();
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
         this.loading = false;
+        this.ngProgress.done();
+        this.router.navigate(['/my-products']);
+
+
 
       }, error => {
         console.log(error);
         this.loading = false;
+        this.ngProgress.done();
+
 
       });
     
@@ -687,6 +706,8 @@ export class AddProductComponent implements OnInit {
   		result=>{
   			this.typesModal=result;
         let data:any=result;
+
+        console.log("Trimming Types", result);
         data.forEach(result=>{
           if(result.defaultProccessingParts.length>1){
             result.defaultProccessingParts.forEach(res2=>{
@@ -734,7 +755,7 @@ export class AddProductComponent implements OnInit {
   delete(id){
     this.product.deleteData('storeTrimming/'+id).subscribe(
       res=>{
-        this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+        this.toast.success("Trimmings Deleted!",'Well Done',{positionClass:"toast-top-right"})
         this.getTrimmingByStore();
       },
       e=>{

@@ -149,7 +149,7 @@ export class SingleProductComponent implements OnInit {
   }
   getProductDetail() {
     this.productService.getProductDetail(this.productID).subscribe(data => {
-      console.log(data);
+      console.log("Producto", data);
       if( this.role !== 1 ) {
         this.currentExchangeRate = 1;
       }

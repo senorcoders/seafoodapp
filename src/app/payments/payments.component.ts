@@ -4,6 +4,7 @@ import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -20,6 +21,7 @@ export class PaymentsComponent implements OnInit {
   selectedItemID: any;
   user: any;
   exchangeRate: number;
+  API: string = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,

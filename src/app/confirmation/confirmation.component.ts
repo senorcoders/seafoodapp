@@ -48,11 +48,15 @@ export class ConfirmationComponent implements OnInit {
   totalWithShipping: any;
   totalOtherFees: any;
   responseCode: string;
+  env: any;
 
   constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product: ProductService, private http: HttpClient,
     private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService, private location: Location) { }
 
   ngOnInit() {
+    this.env = environment;
+    // bypass payfort, payfort only works in main domain
+    if ( this.env.payfort ) {
     this.route.queryParams.subscribe(params => {
       this.responseCode = params.response_code;
       if(params.response_code !== '18000' && params.response_code !== '02000'){
@@ -71,19 +75,11 @@ export class ConfirmationComponent implements OnInit {
       this.shoppingCartId = params.merchant_reference;
       this.params.shoppingCart = params.merchant_reference;
       this.params.shoppingCart = this.shoppingCartId;
-      // this.amount =  localStorage.getItem('shoppingTotal');
-      // this.total = this.amount * 1000;
+     });
+    }
 
       this.getPersonalData();
       this.getCart();
-      // this.shipping = localStorage.getItem('shippingCost');
-      // this.shipping = this.shipping * 1000;
-      // this.totalWithShipping = localStorage.getItem('shoppingTotal');
-      // this.totalWithShipping = this.totalWithShipping * 1000;
-      // this.totalOtherFees = localStorage.getItem('totalOtherFees');
-      // this.generateSignature();
-
-    });
   }
 
   getCart() {
@@ -128,9 +124,10 @@ export class ConfirmationComponent implements OnInit {
   }
 
   saveinApi() {
-    console.log(this.params);
     this.params.shoppingCart = this.apiShopID;
-    this.product.saveData('payments/payfort', this.params).subscribe(result => console.log(result));
+    if ( this.env.payfort ) {
+      this.product.saveData('payments/payfort', this.params).subscribe(result => console.log(result));
+    }
   }
 
   clearCart() {
@@ -149,7 +146,10 @@ export class ConfirmationComponent implements OnInit {
           result => {
           // set the new cart value
           this.Cart.setCart(result);
-          this.router.navigate(['/thanks']);
+	  setTimeout(() => {
+                  this.router.navigate(['/thanks']);
+          }, 3000)
+          //this.router.navigate(['/thanks']);
           },
           e => {
             console.log(e);
@@ -164,7 +164,7 @@ export class ConfirmationComponent implements OnInit {
     );
   }
     submit() {
-
+      
       this.generateSignature();
       const body = {
         'command': this.command,
@@ -181,14 +181,9 @@ export class ConfirmationComponent implements OnInit {
         'order_description': this.description
       };
       console.log( 'payfort body', JSON.stringify( body ) ) ;
-      /*this.http.post(this.payFortApi, body,  {
-        headers: new HttpHeaders({
-          "charset": "utf-8",
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json; charset=utf-8'
-        })
-      }).subscribe(res => console.log(res))*/
 
+      // bypass payfort, payfort only works in main domain
+      if ( this.env.payfort ) {
       this.http.get(`${API}payfort/authorization?command=${this.command}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`)
       .subscribe(res => {
         console.log(res);
@@ -205,13 +200,21 @@ export class ConfirmationComponent implements OnInit {
           this.saveinApi();
           this.clearCart();
           }
+       } else {
+          this.saveinApi();
+          this.clearCart();
+          }
+        },
+        error => {
+          console.log( 'payfort error', error );
+          this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
         }
-      },
-      error => {
-        console.log( 'payfort error', error );
-        this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
+        );
+      } else {
+        this.saveinApi();
+        this.clearCart();
       }
-      );
+      
 
 
 
