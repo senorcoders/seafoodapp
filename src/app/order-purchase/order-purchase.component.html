@@ -55,20 +55,20 @@
           </div>
           <div class="col-md-3 col-sm-12 btn-cont" *ngIf="citem.status">
             <a class="pink-btn"
-              *ngIf="stateValidForCancelnOrder(citem)"
+            *ngIf="citem.updateInfo != null"
               (click)="showModal(citem.id,'cancel', i)">Cancel order</a><br>
 
-            <div class="" *ngIf="citem.status.id == '5c017ae247fb07027943a404'">
+            <div class="" *ngIf="citem.updateInfo == null">
               <label>Expected Delivery Date</label>
               <input [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" id="epa{{citem.id}}">
               <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </div>
-            <a *ngIf="citem.status.id == '5c017ae247fb07027943a404'" class="pink-btn"
+            <a *ngIf="citem.updateInfo == null" class="pink-btn"
               (click)="showModal(citem.id,'confirm', i)">{{'OrderPurchase.confirmOrder'
                   | translate}}</a><br>
 
             <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn"
-              *ngIf="citem.status.id == '5c017af047fb07027943a405' || citem.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped'
+            *ngIf="citem.updateInfo != null">{{'OrderPurchase.shipped'
               | translate}}</a>
           </div>
         </div>
