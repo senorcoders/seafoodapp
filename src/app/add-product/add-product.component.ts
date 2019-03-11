@@ -163,6 +163,8 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+
+
   getCurrentPricingCharges() {
     this.pricingChargesService.getCurrentPricingCharges().subscribe(
       result => {

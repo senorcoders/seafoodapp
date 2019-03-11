@@ -48,6 +48,16 @@
 }
 
 
+.loader-gif{
+	position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    margin: auto;
+}
+
 
 @media screen and (min-width: 1200px){
 	#trimModal .modal-lg{
