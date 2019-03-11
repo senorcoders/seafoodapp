@@ -1033,3 +1033,7 @@ app-register, app-login{
 .hidden{
   display: none !important;
 }
+
+.backdrop{
+  position: fixed !important;
+}

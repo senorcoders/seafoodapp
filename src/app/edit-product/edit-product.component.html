@@ -28,8 +28,14 @@
           </div>
       <div class="col-md-12" style="margin-top: -70px;">
         <h1 class="title" style="margin-bottom: 20px">{{'EditProduct.detail' | translate}}</h1>
-        <ngx-loading [show]="loading" [config]="{ backdropBorderRadius: '3px' }"></ngx-loading>
-
+        <ng-template #customLoadingTemplate>
+          <div class="row">
+            <div class="col">
+              <div class="col-12 text-center" ><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
+            </div>
+          </div>
+        </ng-template>
+        <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
         <form class="form-design">
           <div class="row">
             <div class="col-lg-6">
