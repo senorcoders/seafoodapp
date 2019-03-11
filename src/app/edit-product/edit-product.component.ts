@@ -111,6 +111,7 @@ export class EditProductComponent implements OnInit {
     this.getAllCities();
   }
 
+
   getCurrentPricingCharges() {
     this.pricingChargesService.getCurrentPricingCharges().subscribe(
       result => {
