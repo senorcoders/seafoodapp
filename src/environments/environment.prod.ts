@@ -197,7 +197,7 @@ export const environment = {
 	    {name: "Saudi Arabia", code: "SA"},
 	    {name: "Senegal", code: "SN"},
 	    {name: "Serbia and Montenegro", code: "CS"},
-	    {name: "Seychelles", code: "SC"},
+	    {name: "Scotland", code: "SC"},
 	    {name: "Sierra Leone", code: "SL"},
 	    {name: "Singapore", code: "SG"},
 	    {name: "Slovakia", code: "SK"},
