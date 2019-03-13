@@ -38,8 +38,8 @@
         <div class="features-single-product" *ngIf="types != ''">
           {{types?.level0?.name}} - {{types?.level1?.name}} - {{types?.level2?.name}}
         </div>
-        <div class="features-single-product">
-          {{raised}} - {{treatment}} -  <span class="underline">{{preparation}}</span>
+        <div class="features-single-product ">
+          {{raised}} - {{treatment}} -  <span >{{preparation}}</span> <div style="display: initial;" *ngIf="wholeFishWeight != null"> - <span>{{wholeFishWeight}}</span></div>
         </div>
       </div>
       <div class="col-lg-6 product-content">
@@ -84,11 +84,18 @@
           <div class="col-sm-4 col-md-5 product-value">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
+        <div class="row" style="margin-top: 6px">
+          <div class="col-5 product-label">Acceptable spoilage rate:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{mortalityRate}} </div>
+          <div class="col-sm-3 col-md-2 currency">%</div>
+        </div>
+        <br>
         <div class="row last-row">
           <div class="col-5 product-label">FX Rate Fees:</div>
           <div class="col-sm-4 col-md-5 product-value">{{(FXRateFees/currentExchangeRate).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
+      
         <div class="row" *ngIf="charges && charges.finalPrice">
           <div class="col-5 total-price">Total Price:</div>
           <div class="col-sm-4 col-md-5 total-price-value">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</div>

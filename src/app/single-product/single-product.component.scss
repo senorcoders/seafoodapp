@@ -586,7 +586,7 @@ input::-webkit-inner-spin-button {
     color: #757575;
     text-transform: capitalize;
     padding: 5px 0;
-    .underline{
+    .underline, span:last-child{
         text-decoration: underline;
         font-weight: bold;
     }

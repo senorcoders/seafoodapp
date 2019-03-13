@@ -66,6 +66,8 @@ export class SingleProductComponent implements OnInit {
   processingCountry:any;
   countries:any = [];
   types:any = '';
+  mortalityRate:any;
+  wholeFishWeight:any = null;
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -196,6 +198,7 @@ export class SingleProductComponent implements OnInit {
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
+      this.mortalityRate = data['mortalityRate'];
       if (data['raised'] && data['raised'] !== '') {
         this.raised = data['raised'];
       } else {
@@ -217,6 +220,10 @@ export class SingleProductComponent implements OnInit {
         this.logo = this.base + data['store'].logo;
       } else {
         this.logo = '../../assets/seafood-souq-seller-logo-default.png';
+      }
+
+      if(data.hasOwnProperty('wholeFishWeight') && data['wholeFishWeight'] != ''){
+        this.wholeFishWeight = data['wholeFishWeight'];
       }
       this.getReview();
       this.setFlexslider();
