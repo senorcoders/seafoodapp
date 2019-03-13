@@ -9,6 +9,7 @@ import { PricingChargesService } from '../services/pricing-charges.service';
 declare var jQuery: any;
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { CountriesService } from '../services/countries.service';
 @Component({
   selector: 'app-single-product',
   templateUrl: './single-product.component.html',
@@ -63,7 +64,7 @@ export class SingleProductComponent implements OnInit {
   delivered: number = 0;
   brandname:any;
   processingCountry:any;
-  countries:any = environment.countries;
+  countries:any = [];
   types:any = '';
   constructor(
     private route: ActivatedRoute,
@@ -74,7 +75,9 @@ export class SingleProductComponent implements OnInit {
     private isLoggedSr: IsLoginService,
     private cartService: CartService,
     private sanitizer: DomSanitizer,
-    private pricingServices: PricingChargesService
+    private pricingServices: PricingChargesService,
+    private countryService: CountriesService,
+
   ) {
 
   }
@@ -99,8 +102,20 @@ export class SingleProductComponent implements OnInit {
     this.idUser = data['id'];
     this.getFavorite();
     this.getTypes();
+    this.getCountries();
   }
 
+
+  getCountries() {
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   verifyQty() {
     if (this.count > this.max) {
       this.count = this.max;
