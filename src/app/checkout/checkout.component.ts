@@ -8,6 +8,7 @@ import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 declare var jQuery:any;
 
 @Component({
@@ -40,6 +41,7 @@ export class CheckoutComponent implements OnInit {
   totalWithShipping: any;
   showShippingFields: boolean = false;
   check: boolean = false;
+  env: any;
   info: any;
   buyerId: string;
   today = new Date();
@@ -53,7 +55,8 @@ export class CheckoutComponent implements OnInit {
   error:boolean = false;
   name:any;
   address:any;
-
+  formAction: string = '';
+  formMethod: string = 'POST';
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -62,7 +65,7 @@ export class CheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private orders: OrderService,
     private toast: ToastrService,
-    dateAdapter: DateTimeAdapter<any>
+    dateAdapter: DateTimeAdapter<any>    
   ) {
     this.min.setDate( this.today.getDate() + 3 );
     this.max.setDate( this.today.getDate() + 120 );
@@ -71,6 +74,15 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.env = environment;
+    // bypass payfort, payfort only works in main domain
+    if ( this.env.payfort ) {
+      this.formAction = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+    } else {      
+      this.formAction = '/confirmation';
+      this.formMethod = 'GET';
+    }
+
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
       this.error = params['creditIssue'];

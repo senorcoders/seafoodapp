@@ -4,8 +4,11 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false,
-  apiURL:"http://devapi.seafoodsouq.com/",
+	production: false,
+	payfort: false,
+  //apiURL:"http://devapi.seafoodsouq.com/",
+	//apiURLImg:"http://devapi.seafoodsouq.com",
+	apiURL:"http://devapi.seafoodsouq.com/",
   apiURLImg:"http://devapi.seafoodsouq.com",
   //apiURL:"http://localhost:7000/",
   //apiURLImg:"http://localhost:7000",
@@ -203,7 +206,7 @@ export const environment = {
 	    {name: "Saudi Arabia", code: "SA"},
 	    {name: "Senegal", code: "SN"},
 	    {name: "Serbia and Montenegro", code: "CS"},
-	    {name: "Seychelles", code: "SC"},
+	    {name: "Scotland", code: "SC"},
 	    {name: "Sierra Leone", code: "SL"},
 	    {name: "Singapore", code: "SG"},
 	    {name: "Slovakia", code: "SK"},

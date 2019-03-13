@@ -132,7 +132,6 @@
 		"name":"Product Title",
 		"price":"Price/KG in USD",
 		"price-measurement":"Unit of measurement",
-		"description":"Description",
 		"parent-types": "Select Main Category",
 		"fish-types":"Select Sub Category",
 		"country":"Country of Origin",
@@ -223,8 +222,8 @@
 		"empty":"Your cart is empty"
 	},
 	"ConfirmationEmail":{
-		"text":"Your email has been verified successfully. Please",
-		"login":"Login Now"
+		"text":"Your email has been verified successfully. ",
+		"login":"If you have received our approval email you can login from here. Otherwise, we will get back to you within 24 hours from registration."
 	},
 	"Login":{
 		"title":"Login",
@@ -641,7 +640,7 @@
 		"UpdateStatusButton": "Update Status"
 	},
 	"LogisticManagment": {
-		"title": "Logistic Managment",
+		"title": "Logistic Management",
 		"status": "Status",
 		"orderNumber": "Order Number",
 		"PaymentButton": "Mark Payment",
@@ -688,6 +687,9 @@
 		"formTitle": "Add Port of Loading",
 		"button": "Save",
 		"delete": "Delete"
+	},
+	"historicalOrders": {
+		"title": "Historical Orders"
 	}
 	
 }

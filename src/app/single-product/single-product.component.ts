@@ -9,6 +9,7 @@ import { PricingChargesService } from '../services/pricing-charges.service';
 declare var jQuery: any;
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { CountriesService } from '../services/countries.service';
 @Component({
   selector: 'app-single-product',
   templateUrl: './single-product.component.html',
@@ -63,8 +64,10 @@ export class SingleProductComponent implements OnInit {
   delivered: number = 0;
   brandname:any;
   processingCountry:any;
-  countries:any = environment.countries;
+  countries:any = [];
   types:any = '';
+  mortalityRate:any;
+  wholeFishWeight:any = null;
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -74,7 +77,9 @@ export class SingleProductComponent implements OnInit {
     private isLoggedSr: IsLoginService,
     private cartService: CartService,
     private sanitizer: DomSanitizer,
-    private pricingServices: PricingChargesService
+    private pricingServices: PricingChargesService,
+    private countryService: CountriesService,
+
   ) {
 
   }
@@ -85,8 +90,9 @@ export class SingleProductComponent implements OnInit {
       if (role === 1) {
         this.currency = 'USD';
       } else {
-        this.currency = 'AED(GBP)';
+        this.currency = 'AED(USD)';
       }
+
     });
     this.productID = this.route.snapshot.params['id'];
     this.getCurrentPricingCharges();
@@ -98,8 +104,20 @@ export class SingleProductComponent implements OnInit {
     this.idUser = data['id'];
     this.getFavorite();
     this.getTypes();
+    this.getCountries();
   }
 
+
+  getCountries() {
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
   verifyQty() {
     if (this.count > this.max) {
       this.count = this.max;
@@ -148,7 +166,7 @@ export class SingleProductComponent implements OnInit {
   }
   getProductDetail() {
     this.productService.getProductDetail(this.productID).subscribe(data => {
-      console.log(data);
+      console.log("Producto", data);
       if( this.role !== 1 ) {
         this.currentExchangeRate = 1;
       }
@@ -176,10 +194,11 @@ export class SingleProductComponent implements OnInit {
       this.priceValue = data['price'].value;
       this.priceType = this.currency; // data['price'].type;
       this.measurement = data['weight'].type;
-      this.mainImg = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`);
+      if(data['imagePrimary'] !== null) { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`)) }else{ this.mainImg = (this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)'))};
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
+      this.mortalityRate = data['mortalityRate'];
       if (data['raised'] && data['raised'] !== '') {
         this.raised = data['raised'];
       } else {
@@ -201,6 +220,10 @@ export class SingleProductComponent implements OnInit {
         this.logo = this.base + data['store'].logo;
       } else {
         this.logo = '../../assets/seafood-souq-seller-logo-default.png';
+      }
+
+      if(data.hasOwnProperty('wholeFishWeight') && data['wholeFishWeight'] != ''){
+        this.wholeFishWeight = data['wholeFishWeight'];
       }
       this.getReview();
       this.setFlexslider();

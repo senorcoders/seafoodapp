@@ -21,23 +21,23 @@
               <td>
                 {{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b>            
               </td>
-              <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}} AED</td>
+              <td>{{(getTotalxItem(product.quantity.value, product.price.value)) | currency: 'AED'}}</td>
             </tr>
             <tr>
               <td><b>Subtotal</b></td>
-              <td><b>{{(total).toFixed(2)}} AED</b></td>
+              <td><b>{{(total) | currency: 'AED'}} </b></td>
             </tr>
             <tr>
               <td><b>Shipping</b></td>
-              <td><b>{{(shipping).toFixed(2)}} AED</b></td>
+              <td><b>{{(shipping) | currency: 'AED'}}</b></td>
             </tr>
             <tr>
               <td><b>Taxes, Customs and Other Fees</b></td>
-              <td><b>{{(totalOtherFees).toFixed(2)}} AED</b></td> 
+              <td><b>{{(totalOtherFees) | currency: 'AED'}}</b></td> 
             </tr>
             <tr>
               <td><b>Total</b></td>
-              <td><b>{{(totalWithShipping).toFixed(2)}} AED</b></td>
+              <td><b>{{(totalWithShipping) | currency: 'AED'}}</b></td>
             </tr>
             
           </table>

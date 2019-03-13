@@ -16,7 +16,9 @@ import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
-
+import { NgProgress } from 'ngx-progressbar';
+import { Router } from '@angular/router';
+declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -68,7 +70,7 @@ export class AddProductComponent implements OnInit {
   store: any = [];
   storeEndpoint: any = 'api/store/user/';
   existStore: boolean = true;
-  primaryImg: any;
+  primaryImg: any = [];
   countries: any = [];
   arrayBuffer: any;
   file: File;
@@ -78,7 +80,7 @@ export class AddProductComponent implements OnInit {
   allCities: any = [];
   cities: any = [];
   preparationOptions = [
-    'Head On Gutted ',
+    'Head On Gutted',
     'Head Off Gutted',
     'Filleted'
   ];
@@ -116,6 +118,7 @@ export class AddProductComponent implements OnInit {
   defaultTrimming = [];
   pd = [];
   hideTrimModal: boolean = true;
+  public loading = false;
 
 
 
@@ -125,7 +128,9 @@ export class AddProductComponent implements OnInit {
     private auth: AuthenticationService,
     private countryService: CountriesService,
     private pricingChargesService: PricingChargesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public ngProgress: NgProgress,
+    private router:Router
   ) { }
   ngOnInit() {
     this.myformModal = this.fb.group({
@@ -158,13 +163,15 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+
+
   getCurrentPricingCharges() {
     this.pricingChargesService.getCurrentPricingCharges().subscribe(
       result => {
         this.currentPrincingCharges = result;
         this.currentExchangeRate = result['exchangeRates'][0].price;
       }, error => {
-        console.log( error );
+        console.log(error);
       }
     )
   }
@@ -247,12 +254,12 @@ export class AddProductComponent implements OnInit {
   }
 
   onCityChange(city): void {
-    
-      this.deliveredPrices.forEach(element => {
-        this.getDeliveredPrice(city, element);
 
-      });
-      
+    this.deliveredPrices.forEach(element => {
+      this.getDeliveredPrice(city, element);
+
+    });
+
   }
 
   onChanges(): void {
@@ -261,8 +268,8 @@ export class AddProductComponent implements OnInit {
         this.hideTrimModal = false;
       }
 
-      console.log(val);
       if(val.price != "" && val.city != null){
+
         this.onCityChange(val.city);
       }
       else if (val.price != "" && val.city == null) {
@@ -280,19 +287,19 @@ export class AddProductComponent implements OnInit {
       'weight': qty
     };
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
-      console.log(res);
       if (qty === 25) {
-        this.price25 = res;
+
+        (res == 0) ? this.price25 = this.price.value : this.price25 = res;
       } else if (qty === 100) {
-        this.price100 = res;
+        (res == 0) ? this.price100 = this.price.value : this.price100 = res;
       } else if (qty === 500) {
-        this.price500 = res;
+        (res == 0) ? this.price500 = this.price.value : this.price500 = res;
       } else if (qty === 1000) {
-        this.price1000 = res;
+        (res == 0) ? this.price1000 = this.price.value : this.price1000 = res;
       }
     });
   }
-  generateSKU() {
+  async generateSKU() {
     const parentType = this.parentSelectedType.value;
     /*this.pTypes.forEach(row => {
       if (row.id == this.types.value) {
@@ -300,19 +307,29 @@ export class AddProductComponent implements OnInit {
       }
     })*/
 
-    this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.country.value).subscribe(
-      result => {
-        this.seafood_sku.setValue(result);
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    await new Promise((resolve, reject) => {
+      this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
+        result => {
+          // this.seafood_sku.setValue(result);
+          console.log("sku", result);
+          this.myform.controls["seafood_sku"].setValue(result);
+          resolve();
+        },
+        error => {
+          console.log(error);
+          reject();
+        }
+      );
+    });
   }
-  onSubmit() {
+
+  async onSubmit() {
     this.showError = true;
+    this.loading = true;
     if (this.myform.valid) {
-      const priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
+      await this.generateSKU();
+      this.ngProgress.start();
+      let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
         'descriptor': this.descriptorSelected.value,
@@ -348,19 +365,31 @@ export class AddProductComponent implements OnInit {
         'hsCode': this.hsCode.value,
 
       };
-      console.log( data );
+
       this.product.saveData('fish', data).subscribe(result => {
-        // if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
+        console.log("Lenght de las imagenes", this.fileToUpload, this.primaryImg);
+        if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
         this.uploadFileToActivity(result['product']['id']);
-        // } else {
+        } else {
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-        // this.showError = false;
-        // }
+        this.showError = false;
+        this.loading = false;
+        this.ngProgress.done();
+
+        this.myform.reset();
+        this.router.navigate(['/my-products']);
+
+
+        }
 
       });
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
+      this.loading = false;
+      this.ngProgress.done();
+
+
 
     }
   }
@@ -368,32 +397,59 @@ export class AddProductComponent implements OnInit {
   handleFileInput(files: FileList, opt) {
     if (opt !== 'primary') {
       this.fileToUpload = files;
+      this.imagesPreview(files);
+      
     } else {
       this.primaryImg = files;
+      this.readURL(files);
     }
   }
 
   uploadFileToActivity(productID) {
-    if (this.primaryImg && this.primaryImg.length > 0) {
+    if (this.primaryImg.length > 0 && this.fileToUpload.length > 0) {
       this.product.postFile(this.primaryImg, productID, 'primary').subscribe(
         data => {
           console.log(data);
+          this.saveImages(productID, 'secundary', this.fileToUpload);
+
+
         }, error => {
           console.log(error);
+          this.loading = false;
+          this.ngProgress.done();
+
+
         });
+    }else if(this.fileToUpload.length > 0 && this.primaryImg.length == 0){
+      this.saveImages(productID, 'secundary', this.fileToUpload);
+    }else if(this.primaryImg.length > 0 && this.fileToUpload.length == 0){
+      this.saveImages(productID, 'primary', this.primaryImg);
+
     }
-    if (this.fileToUpload && this.fileToUpload.length > 0) {
-      this.product.postFile(this.fileToUpload, productID, 'secundary').subscribe(data => {
+   
+
+
+  }
+
+  saveImages(productID, status, files){
+      this.product.postFile(files, productID, status).subscribe(data => {
         // do something, if upload success
         this.myform.reset();
         this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+        this.loading = false;
+        this.ngProgress.done();
+        this.router.navigate(['/my-products']);
+
+
 
       }, error => {
         console.log(error);
+        this.loading = false;
+        this.ngProgress.done();
+
+
       });
-    }
-
-
+    
   }
 
   incomingfile(event) {
@@ -497,14 +553,11 @@ export class AddProductComponent implements OnInit {
   }
 
   getCities() {
-    this.countryService.getCities(this.country.value).subscribe(
+    this.countryService.getCities(this.processingCountry.value).subscribe(
       result => {
         this.cities = result[0].cities;
         this.myform.controls['city'].setValue(result[0].cities[0]['code']);
-        console.log(this.myform.controls['city'].value);
-      },
-      error => {
-
+        console.log(this.myform.controls['processingCountry'].value);
       }
     );
   }
@@ -604,10 +657,11 @@ export class AddProductComponent implements OnInit {
     //     this.parts.push(res.processingParts)
     //   }
     // })
-    if (value === 'Filleted') {
-      this.showWholeOptions = false;
-    } else {
+    console.log(value);
+    if (value === 'Head On Gutted' || value === 'Head Off Gutted') {
       this.showWholeOptions = true;
+    } else {
+      this.showWholeOptions = false;
     }
   }
   getTrimming() {
@@ -639,119 +693,157 @@ export class AddProductComponent implements OnInit {
 
 
 
-  getTrimmingByStore() {
-    this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      result => {
-        this.trimmingsModal = result;
-      },
-      e => {
-        console.log(e);
-      }
-    );
-  }
-  getTrimmingModal() {
-    this.product.getData('trimmingtype').subscribe(
-      result => {
-        this.typesModal = result;
-        const data: any = result;
-        data.forEach( res => {
-          if(res.hasOwnProperty('defaultProccessingParts')){
-              res.defaultProccessingParts.forEach(res2 => {
-                    this.defaultTrimming.push({ trim: res.name, name: res2 });
-                  });
-              
+  getTrimmingByStore(){
+    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
+          result=>{
+            this.trimmingsModal=result;
+          },
+          e=>{
+            console.log(e)
           }
-          
-          // if (res.defaultProccessingParts.length > 1) {
-          //   res.defaultProccessingParts.forEach(res2 => {
-          //     this.defaultTrimming.push({ trim: res.name, name: res2 });
-          //   });
-          // } else {
-          //   this.defaultTrimming.push({ trim: res.name, name: res.defaultProccessingParts });
-          // }
-        });
-      },
-      e => {
-        console.log(e);
-      }
-    );
+        )
   }
-  getParts() {
-    this.product.getData('processingParts').subscribe(
-      result => {
-        this.partsModal = result;
-      },
-      e => {
-        console.log(e);
-      }
-    );
+  getTrimmingModal(){
+  	this.product.getData('trimmingtype').subscribe(
+  		result=>{
+  			this.typesModal=result;
+        let data:any=result;
+
+        console.log("Trimming Types", result);
+        data.forEach(result=>{
+          if(result.defaultProccessingParts.length>1){
+            result.defaultProccessingParts.forEach(res2=>{
+              this.defaultTrimming.push({trim:result.name,name:res2})
+            })
+          }
+          else{
+            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
+          }
+        })
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
   }
-  saveData(types, parts) {
-    const data = {
-      'processingParts': parts,
-      'store': this.store[0].id,
-      'trimmingType': types
-    };
-    this.product.saveData('storeTrimming', data).subscribe(
-      res => {
-        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
+  getParts(){
+  	this.product.getData('processingParts').subscribe(
+  		result=>{
+  			this.partsModal=result;
+  		},
+  		e=>{
+  			console.log(e)
+  		}
+  	)
+  }
+  saveData(types,parts){
+  	let data={
+  		"processingParts": parts,
+	    "store": this.store[0].id,
+	    "trimmingType": types
+	}
+  	this.product.saveData('storeTrimming',data).subscribe(
+  		res=>{
+  			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
+      
+        this.getTrimmingByStore();
+  		},
+  		e=>{
+  			this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+  			console.log(e)
+  		}
+	)
+  }
+  delete(id){
+    this.product.deleteData('storeTrimming/'+id).subscribe(
+      res=>{
+        this.toast.success("Trimmings Deleted!",'Well Done',{positionClass:"toast-top-right"})
         this.getTrimmingByStore();
       },
-      e => {
-        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
-        console.log(e);
+      e=>{
+        this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
+        console.log(e)
       }
-    );
+    )
   }
-  delete(id) {
-    this.product.deleteData('storeTrimming/' + id).subscribe(
-      res => {
-        this.toast.success('Trimmings Saved!', 'Well Done', { positionClass: 'toast-top-right' });
-        this.getTrimmingByStore();
-      },
-      e => {
-        this.toast.error('Please try again', 'Error', { positionClass: 'toast-top-right' });
-        console.log(e);
-      }
-    );
-  }
-  checked(event, type, part) {
+  checked(event,type,part){
     let id;
-    this.trimmingsModal.forEach(res => {
-      if (type === res.trimmingType) {
-        if (part === res.processingParts.id) {
-          id = res.id;
+    this.trimmingsModal.forEach(res=>{
+      if(type==res.trimmingType){
+        if(part==res.processingParts.id){
+          id=res.id
         }
       }
-    });
-    if (event.target.checked) {
-      this.saveData(type, part);
-    } else {
-      this.delete(id);
+    })
+    if(event.target.checked){
+      this.saveData(type,part);
+    }
+    else{
+      this.delete(id)
     }
   }
-  isDefault(part, trim) {
+  isDefault(part,trim){
     let data;
-    this.trimmingsModal.forEach(res => {
-      if (res.type.hasOwnProperty('name') && trim === res.type[0].name) {
-        if (res.type.hasOwnProperty('defaultProccessingParts') && res.type[0].defaultProccessingParts.includes(part)) {
-          data = true;
-        } else {
-          data = false;
+    this.trimmingsModal.forEach(res=>{
+      if(res.type.length > 0){
+        if(trim==res.type[0].name){
+        if(res.type[0].defaultProccessingParts.includes(part)){
+          data=true
+        }
+        else{
+          data=false
         }
       }
-    });
-    return data;
+    }
+    })
+    return data
   }
-  isChecked(part, trim) {
-    let data;
-    this.trimmingsModal.forEach(res => {
-      if (res.type.hasOwnProperty('name') &&  trim === res.type[0].name) {
-        if (res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name === part) {
-          data = true;
-        }
+  
+
+isChecked(part,trim){
+  let data
+  this.trimmingsModal.forEach(res=>{
+    if(res.type.length > 0){
+
+    if(trim==res.type[0].name){
+      if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
+        data=true
       }
-    });
-    return data;
+    }
   }
+  })
+  return data
+}
+
+readURL(files) {
+  if (files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = (e: Event) => {
+      jQuery('#blah').attr('src', reader.result);
+    }
+
+    reader.readAsDataURL(files[0]);
+  }
+}
+
+
+ imagesPreview(files) {
+
+  if (files) {
+      var filesAmount = files.length;
+
+      for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+
+          reader.onload = (event: Event) => {
+              jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
+          }
+
+          reader.readAsDataURL(files[i]);
+      }
+  }
+
+};
+  
 }

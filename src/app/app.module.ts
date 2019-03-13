@@ -106,7 +106,11 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
-
+import {TooltipModule} from 'ng2-tooltip-directive';
+import { ngfModule } from 'angular-file';
+import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
+import { FilternumberPipe } from './filternumber.pipe';
+import { NgProgressModule } from 'ngx-progressbar';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -174,7 +178,7 @@ const appRoutes: Routes = [
   { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
   { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'canceled-delivered-items', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
+  { path: 'historical-orders', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
   { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
@@ -259,7 +263,8 @@ const appRoutes: Routes = [
     PrivacyPolicyComponent,
     CookiesPolicyComponent,
     CitiManagmentComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    FilternumberPipe,
   ],
   imports: [
     BrowserModule,
@@ -280,7 +285,14 @@ const appRoutes: Routes = [
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-  ],
+    TooltipModule,
+    ngfModule,
+    NgxLoadingModule.forRoot({
+      animationType: ngxLoadingAnimationTypes.wanderingCubes
+    }),
+    NgProgressModule
+
+    ],
   providers: [
     AuthenticationService,
     MenuItems,

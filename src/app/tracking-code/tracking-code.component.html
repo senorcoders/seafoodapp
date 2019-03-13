@@ -5,136 +5,100 @@
 			<form [formGroup]="trackingForm" (submit)="saveTracking()" class="form-design">
 				<div class="row">
 					<div class="col-lg-6">
-						<!-- <div class="form-group">
-					    	<input type="text" class="form-control" placeholder="{{'OrderPurchase.tracking-code' | translate}}" formControlName="code">
-					    </div> -->
 						<div class="form-group">
 					    	<div class="row">
 					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="1" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 0)" formControlName="file1">
+						    		<label>Invoice <span class="field-status red">*</span></label>
+							        <input type="file" class="form-control" id="1" accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event, 'invoice')"   
+									[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('invoice').hasError('required')">Invoice {{'Register.required' | translate}}.</div>              
+
 								    	</div>
-							    <div class="col" *ngIf="isVisible[0]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview1" class="preview">
-							    </div>
+							    
 					    	</div>
-					    </div>
-						<div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="2" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 1)" formControlName="file2">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[1]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview2" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="3" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 2)" formControlName="file3">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[2]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview3" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="4" 
-							        (change)="handleFileInput($event.target.files, $event.target.id,$event, 3)" formControlName="file4">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[3]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview4" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="5" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 4)" formControlName="file5">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[4]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview5" class="preview">
-							    </div>
-					    	</div>
-					    </div>
+						</div>
 					</div>
+					<div class="col-lg-6">
+						<div class="form-group">
+					    	<div class="row">
+					    		<div class="col">
+						    		<label>Health Certificate <span class="field-status red">*</span></label>
+							        <input type="file" class="form-control" id="2"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event, 'healthCert')" 
+									[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('healthCert').hasError('required')">Healrh Certificate {{'Register.required' | translate}}.</div>              
+
+								    	</div>
+							   
+					    	</div>
+						</div>
+				</div>
+				<div class="col-lg-6">
+					    <div class="form-group">
+					    	<div class="row">
+					    		<div class="col">
+						    		<label>Packing List <span class="field-status red">*</span></label>
+							        <input type="file" class="form-control" id="3"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event, 'packingList')" 
+									[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('packingList').hasError('required')">Packing List {{'Register.required' | translate}}.</div>              
+
+								    	</div>
+							   
+					    	</div>
+						</div>
+				</div>
+				<div class="col-lg-6">
+					    <div class="form-group">
+					    	<div class="row">
+					    		<div class="col">
+						    		<label>AWB <span class="field-status red">*</span></label>
+							        <input type="file" class="form-control" id="4" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event, 'awb')" 
+									[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('awb').hasError('required')">AWB {{'Register.required' | translate}}.</div>              
+
+								    	</div>
+							   
+					    	</div>
+						</div>
+				</div>
+
+				<div class="col-lg-6">
+					    <div class="form-group">
+					    	<div class="row">
+					    		<div class="col">
+						    		<label>Certificate of Origin <small>(Optional)</small> </label>
+							        <input type="file" class="form-control" id="5"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event, 'certificateOrigin')" 
+									[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('certificateOrigin').hasError('required')">Certificate of Origin {{'Register.required' | translate}}.</div>              
+
+								    	</div>
+							   
+					    	</div>
+						</div>
+				</div>
 					<div class="col-lg-6">
 					    <div class="form-group">
 					    	<div class="row">
 					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="6" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event,5)" formControlName="file6">
+						    		<label>Credit Note <small>(Optional)</small></label>
+							        <input type="file" class="form-control" id="6" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+									(change)="handleFileInput($event,'creditNote')" 
+									[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
+									<div class="invalid-feedback" *ngIf="trackingForm.get('creditNote').hasError('required')">Credit Note {{'Register.required' | translate}}.</div>              
+
 								    	</div>
-							    <div class="col" *ngIf="isVisible[5]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview6" class="preview">
-							    </div>
+							    
 					    	</div>
 					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="7" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 6)" formControlName="file7">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[6]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview7" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="8" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 7)"
-							        formControlName="file8">
-								    	</div>
-							    <div class="col" *ngIf="isVisible[7]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview8" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="9" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 8)" formControlName="file9">
-								</div>
-							    <div class="col" *ngIf="isVisible[8]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview9" class="preview">
-							    </div>
-					    	</div>
-					    </div>
-					    <div class="form-group">
-					    	<div class="row">
-					    		<div class="col">
-						    		<label>{{'TrackingOrder.file' | translate}}</label>
-							        <input type="file" class="form-control" id="10" 
-							        (change)="handleFileInput($event.target.files, $event.target.id, $event, 9)" formControlName="file10">
-								</div>
-							    <div class="col" *ngIf="isVisible[9]">
-							    	<img src="./assets/default.jpg" alt=""  id="preview10" class="preview">
-							    </div>
-					    	</div>
-					    </div>
+					   
 					</div>
 					<div class="col-lg-12">
 						<div class="form-group">
-					    	<button type="submit" class="btn-red" [disabled]="trackingForm.invalid">{{'TrackingOrder.save' | translate}}</button>
+					    	<button type="submit" class="btn-red">{{'TrackingOrder.save' | translate}}</button>
 					    </div>
 					</div>
 				</div>

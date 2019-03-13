@@ -1017,3 +1017,23 @@ app-register, app-login{
     margin-left: 0.5%;
   }
 }
+
+.dropbtn{
+  background: transparent !important;
+  padding: 0;
+  padding-right: 10px;
+}
+
+.phone-input input{
+  background: transparent !important;
+  border: none !important;
+  padding: 0;
+}
+
+.hidden{
+  display: none !important;
+}
+
+.backdrop{
+  position: fixed !important;
+}

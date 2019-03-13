@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-lg-3">
-      <h1 class="title">Checkout</h1>
+      <h1 class="title">Checkout</h1>      
       <h1 class="subtitle">Billing Details</h1>
       <div class="shipping-details table-checkout">
         <h5>Shipping Information</h5>
@@ -29,8 +29,7 @@
       </div>
     </div>
     <div class="col-lg-9">
-        <form #form  action="https://sbcheckout.PayFort.com/FortAPI/paymentPage" method="POST" ngNativeValidate (ngSubmit)="form.submit()">
-        <!--<form #form ngNativeValidate (ngSubmit)="onSubmit()">-->
+        <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
         <div class="row">
           <div class="col-lg-12" *ngIf="error">
             <p class="red">We had an error processing your credit card, please try again</p>
@@ -191,23 +190,23 @@
                   <input [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd" id="medd{{product.id}}" >
                   <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                 </td>
-                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2)}} AED</td>
+                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}} </td>
               </tr>
               <tr *ngIf="total != ''">
                 <td><b>Subtotal</b></td>
-                <td><b>{{(total).toFixed(2)}} AED</b></td>
+                <td><b>{{(total) | currency: 'AED'}}</b></td>
               </tr>
               <tr *ngIf="shipping !=''"> 
                 <td><b>Shipping</b></td>
-                <td><b>{{(shipping).toFixed(2)}} AED</b></td>
+                <td><b>{{(shipping) | currency: 'AED'}}</b></td>
               </tr>
               <tr *ngIf="totalOtherFees != ''">
                 <td><b>Taxes, Customs and Other Fees</b></td>
-                <td><b>{{(totalOtherFees).toFixed(2)}} AED</b></td> 
+                <td><b>{{(totalOtherFees) | currency: 'AED'}} </b></td> 
               </tr>
               <tr *ngIf="totalWithShipping != ''">
                 <td><b>Total</b></td>
-                <td><b>{{(totalWithShipping).toFixed(2)}} AED</b></td>
+                <td><b>{{(totalWithShipping) | currency: 'AED'}} </b></td>
               </tr>
               
             </table>

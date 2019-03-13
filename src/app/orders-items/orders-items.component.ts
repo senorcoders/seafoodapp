@@ -42,6 +42,7 @@ export class OrdersItemsComponent implements OnInit {
     this.productService.getData(`api/items/${this.user.id}/${this.shoppingCartId}`).subscribe(
       result => {
         this.products = result;
+        console.log("Productos", result);
         this.getTotal();
         console.log( 'Order', this.products );
         this.showLoading = false;

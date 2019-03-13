@@ -45,6 +45,7 @@ export class CartComponent implements OnInit {
   /******** END Other fees ***********/
   otherFees:number = 0;
   totalWithShipping:any;
+  index:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService, private cartService:OrderService) { }
 
@@ -55,23 +56,31 @@ export class CartComponent implements OnInit {
 
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
-      console.log(cart)
-      if(cart && cart['items'] !=''){
-        this.cart = cart;
-        this.shoppingCartId=cart['id']
-        this.products=cart['items'];
-        this.buyerId=cart['buyer']
-        this.lastMilteCost = cart['lastMileCost'];
-        this.firstMileCost = cart['firstMileCosts'];
-        this.sfsMargin = cart['sfsMargin'];
-        this.uaeTaxes = cart['uaeTaxes'];
-        this.customs = cart['customs'];
+      console.log("Cart", cart)
+      if(cart && cart.hasOwnProperty('items')){
+        console.log("Si existe");
+        if(cart['items'].length > 0){
+          console.log("Si es mayor a cero");
+          this.cart = cart;
+          this.shoppingCartId=cart['id']
+          this.products=cart['items'];
+          this.buyerId=cart['buyer']
+          this.lastMilteCost = cart['lastMileCost'];
+          this.firstMileCost = cart['firstMileCosts'];
+          this.sfsMargin = cart['sfsMargin'];
+          this.uaeTaxes = cart['uaeTaxes'];
+          this.customs = cart['customs'];
+         
+  
+          this.empty=false;
+          this.showLoading=false;
+          
+          this.getTotal();
+        }else{
+          this.empty=true;
+          this.showLoading=false;
+        }
        
-
-        this.empty=false;
-        this.showLoading=false;
-        
-        this.getTotal();
       }
       else{
         this.showLoading=false;
@@ -113,7 +122,11 @@ export class CartComponent implements OnInit {
   deleteItem(i, id){
     this.productService.deleteData(`itemshopping/${id}`).subscribe(
       result=>{
+        console.log(result);
+        this.products.splice(i, 1); 
         this.getItems();
+        jQuery('#confirmDelete').modal('hide');
+
       },
       e=>{
         this.toast.error("Error deleting item!", "Error",{positionClass:"toast-top-right"} );
@@ -170,8 +183,16 @@ export class CartComponent implements OnInit {
     return null;
   }
 
-  showConfirmModal(itemID:string){
-		this.itemToDelete = itemID;
+  showConfirmModal(itemID:string, index){
+    this.itemToDelete = itemID;
+    this.index = index;
     jQuery('#confirmDelete').modal('show');
+  }
+
+  validateMax(i){
+    console.log(this.products[i].quantity.value);
+    if(this.products[i].quantity.value > this.products[i].fish.maximumOrder){
+      this.products[i].quantity.value = this.products[i].fish.maximumOrder;
+    }
   }
 }

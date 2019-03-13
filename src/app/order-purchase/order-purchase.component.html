@@ -20,15 +20,16 @@
         <div class="row row-bg">
           <div class="col-md-5 col-sm-12">
             <h2 class="name">
-				{{citem.shoppingCart.buyer.firstName}} {{citem.shoppingCart.buyer.lastName}}
+              {{citem.shoppingCart.buyer.firstName}} {{citem.shoppingCart.buyer.lastName}}
             </h2>
             <div class="date">{{citem.shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, hh:mm a zzzz'}}</div>
             <label>{{'OrderPurchase.product' | translate}}: </label>
-      <a class="product" routerLink="/product/{{citem.fish.id}}">{{citem.fish.name}}</a>
-			<div class="sku"><label>sku: </label>{{citem.fish.seller_sku}}</div>
-			<div class="qty"><label>qty: </label>{{citem.quantity.value}} kg</div>			
-			
-            <div class="address" *ngIf="citem.shoppingCart.buyer.dataExtra.deliveryAddress && citem.shoppingCart.buyer.dataExtra.deliveryAddress !='';else address">
+            <a class="product" routerLink="/product/{{citem.fish.id}}">{{citem.fish.name}}</a>
+            <div class="sku"><label>sku: </label>{{citem.fish.seller_sku}}</div>
+            <div class="qty"><label>qty: </label>{{citem.quantity.value}} kg</div>
+
+            <div class="address"
+              *ngIf="citem.shoppingCart.buyer.dataExtra.deliveryAddress && citem.shoppingCart.buyer.dataExtra.deliveryAddress !='';else address">
               <label>{{'OrderPurchase.address' | translate}}: </label>
               {{citem.shoppingCart.buyer.dataExtra.deliveryAddress}}
             </div>
@@ -45,26 +46,29 @@
             </div>
           </div>
           <div class="col-md-4 col-sm-12">
-            <div *ngIf="citem.updateInfo">
-                <button type="button" class="btn btn-primary btn-circle-sc" data-toggle="modal" [attr.data-target]="'#exampleModalCenter-' + citem.id">
-                    <i class="fa fa-info-circle" aria-hidden="true"></i>
-                  </button>                
-
-             
+            <div *ngIf="citem.updateInfo && user.role == 0">              
+              <button type="button" class="btn btn-primary btn-circle-sc" data-toggle="modal"
+                [attr.data-target]="'#exampleModalCenter-' + citem.id">
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+              </button>
             </div>
           </div>
           <div class="col-md-3 col-sm-12 btn-cont" *ngIf="citem.status">
-            <a class="pink-btn" *ngIf="citem.status.id == '5c017ae247fb07027943a404' || citem.status.id=='5c017af047fb07027943a405' || citem.status.id!=='5c06f4bf7650a503f4b731fd'"
-              (click)="showModal(citem.id,'cancel')">Cancel order</a><br>
+            <a class="pink-btn"
+            *ngIf="citem.updateInfo != null"
+              (click)="showModal(citem.id,'cancel', i)">Cancel order</a><br>
 
-            <div class="" *ngIf="citem.status.id == '5c017ae247fb07027943a404'">
+            <div class="" *ngIf="citem.updateInfo == null">
               <label>Expected Delivery Date</label>
-              <input [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" id="epa{{citem.id}}" >
-                    <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+              <input [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" id="epa{{citem.id}}">
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
             </div>
-                <a *ngIf="citem.status.id == '5c017ae247fb07027943a404'" class="pink-btn" (click)="showModal(citem.id,'confirm')">{{'OrderPurchase.confirmOrder'
+            <a *ngIf="citem.updateInfo == null" class="pink-btn"
+              (click)="showModal(citem.id,'confirm', i)">{{'OrderPurchase.confirmOrder'
                   | translate}}</a><br>
-            <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn" *ngIf="citem.status.id == '5c017af047fb07027943a405' || citem.status.id=='5c13f453d827ce28632af048'">{{'OrderPurchase.shipped'
+
+            <a routerLink="/tracking-code/{{citem.id}}" class="pink-btn"
+            *ngIf="citem.updateInfo != null">{{'OrderPurchase.shipped'
               | translate}}</a>
           </div>
         </div>
@@ -85,27 +89,29 @@
           </div>
         </div>
       </div>
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter-{{citem.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Logs</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <p class="date" *ngFor="let update of citem.updateInfo;" >
-                <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}} </strong>
+      <!-- Modal -->
+      <div class="modal fade" id="exampleModalCenter-{{citem.id}}" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Logs</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p class="date" *ngFor="let update of citem.updateInfo;">
+                <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y'}} <br> by {{update.by}}
+                </strong>
               </p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
 
 
     </div>
@@ -132,7 +138,7 @@
           <div class="col">
             <button (click)="confirm(true,action)" class="blue-btn">Yes</button>
             <button (click)="confirm(false,action)" class="blue-btn-light">No</button>
-          </div>          
+          </div>
         </div>
       </div>
     </div>

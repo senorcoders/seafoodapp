@@ -36,10 +36,10 @@
         </table>
         <div class="product-details2">Product Details</div>
         <div class="features-single-product" *ngIf="types != ''">
-          {{types.level0.name}} - {{types.level1.name}} - {{types.level2.name}}
+          {{types?.level0?.name}} - {{types?.level1?.name}} - {{types?.level2?.name}}
         </div>
-        <div class="features-single-product">
-          {{raised}} - {{treatment}} -  <span class="underline">{{preparation}}</span>
+        <div class="features-single-product ">
+          {{raised}} - {{treatment}} -  <span >{{preparation}}</span> <div style="display: initial;" *ngIf="wholeFishWeight != null"> - <span>{{wholeFishWeight}}</span></div>
         </div>
       </div>
       <div class="col-lg-6 product-content">
@@ -84,11 +84,18 @@
           <div class="col-sm-4 col-md-5 product-value">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
+        <div class="row" style="margin-top: 6px">
+          <div class="col-5 product-label">Acceptable spoilage rate:</div>
+          <div class="col-sm-4 col-md-5 product-value">{{mortalityRate}} </div>
+          <div class="col-sm-3 col-md-2 currency">%</div>
+        </div>
+        <br>
         <div class="row last-row">
           <div class="col-5 product-label">FX Rate Fees:</div>
           <div class="col-sm-4 col-md-5 product-value">{{(FXRateFees/currentExchangeRate).toFixed(2)}} </div>
           <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
         </div>
+      
         <div class="row" *ngIf="charges && charges.finalPrice">
           <div class="col-5 total-price">Total Price:</div>
           <div class="col-sm-4 col-md-5 total-price-value">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</div>
@@ -102,7 +109,7 @@
         <div class="row actions-form" *ngIf="isLogged; else login">
           <div class="col-5 product-label">
             <div class="quantity">
-              <div class="qty-wrapper">
+              <div class="qty-wrapper" *ngIf="!cooming_soon">
                 <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" id="input-text">
                 <input type="text" id="qty-text" class="qty" (click)="showHide('qty-text')" value="{{count}} Kg">
                 <!-- <span>kg</span> -->
@@ -110,7 +117,7 @@
             </div>    
           </div>
           <div class="col-5 product-value">
-            <button  (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+            <button *ngIf="!cooming_soon"  (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
             <button *ngIf="showCart" (click)="goToCart()" class="btn-blue btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
           </div>
           <div class="col-2 currency"></div>
