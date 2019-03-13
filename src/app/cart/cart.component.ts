@@ -56,23 +56,31 @@ export class CartComponent implements OnInit {
 
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
-      console.log(cart)
-      if(cart && cart['items'] !=''){
-        this.cart = cart;
-        this.shoppingCartId=cart['id']
-        this.products=cart['items'];
-        this.buyerId=cart['buyer']
-        this.lastMilteCost = cart['lastMileCost'];
-        this.firstMileCost = cart['firstMileCosts'];
-        this.sfsMargin = cart['sfsMargin'];
-        this.uaeTaxes = cart['uaeTaxes'];
-        this.customs = cart['customs'];
+      console.log("Cart", cart)
+      if(cart && cart.hasOwnProperty('items')){
+        console.log("Si existe");
+        if(cart['items'].length > 0){
+          console.log("Si es mayor a cero");
+          this.cart = cart;
+          this.shoppingCartId=cart['id']
+          this.products=cart['items'];
+          this.buyerId=cart['buyer']
+          this.lastMilteCost = cart['lastMileCost'];
+          this.firstMileCost = cart['firstMileCosts'];
+          this.sfsMargin = cart['sfsMargin'];
+          this.uaeTaxes = cart['uaeTaxes'];
+          this.customs = cart['customs'];
+         
+  
+          this.empty=false;
+          this.showLoading=false;
+          
+          this.getTotal();
+        }else{
+          this.empty=true;
+          this.showLoading=false;
+        }
        
-
-        this.empty=false;
-        this.showLoading=false;
-        
-        this.getTotal();
       }
       else{
         this.showLoading=false;
