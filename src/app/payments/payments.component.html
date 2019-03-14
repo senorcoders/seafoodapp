@@ -26,10 +26,19 @@
                     <p class="status"><b>Status:</b>{{item.status.status}}</p>
                     <p class="status"><b>Payment Status:</b>{{item.paymentStatus.status}}</p>
                     <p class="qty">Quantity {{item.quantity.value}} kg</p>  
-                    <p><b>Invoice Value</b>: AED {{(item.quantity.value * item.price.value ) + item.shipping + item.sfsMargin + item.customs + item.uaeTaxes }} </p>
+                    <div *ngIf="!item.total; else newTotal">
+                    <p><b>Invoice Value</b>: {{(item.quantity.value * item.price.value ) + item.shipping + item.sfsMargin + item.customs + item.uaeTaxes | currency:'AED':'symbol':'1.2-2' }} </p>
                     <p><b>Purchase Value:</b> </p>
-                    <p class="qty">USD {{(item.quantity.value * item.price.value /exchangeRate ).toFixed(2)}} </p>  
-                    <p class="qty">AED {{(item.quantity.value * item.price.value )}} </p>  
+                    <p class="qty"> {{(item.quantity.value * item.price.value /exchangeRate ).toFixed(2) | currency:'USD':'symbol':'1.2-2' }} </p>  
+                    <p class="qty"> {{(item.quantity.value * item.price.value ) | currency:'AED':'symbol':'1.2-2' }}  </p>  
+                    </div>
+                    <ng-template #newTotal>
+                    <p><b>Invoice Value</b>: {{ item.total | currency:'AED':'symbol':'1.2-2' }} </p>
+                    <p><b>Purchase Value:</b> </p>
+                    <p class="qty"> {{(item.subtotal /exchangeRate ).toFixed(2) | currency:'USD':'symbol':'1.2-2' }} </p>  
+                    <p class="qty"> {{(item.subtotal ) | currency:'AED':'symbol':'1.2-2' }}  </p>  
+                    </ng-template>
+                    
                   </div>
                   <div class="col-4">
                       <div *ngIf="item.updateInfo">
