@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 declare var jQuery: any;
 import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
+import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-products',
@@ -772,6 +773,10 @@ smallDesc(str) {
           this.cartService.setCart(result);
           this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
 
+      }, err => {
+        if ( err.error ) {
+        this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+        }
       });
     }
 
