@@ -83,6 +83,7 @@ export class MyProductsComponent implements OnInit {
     } else {
       this.productService.getData('store/' + this.store.id).subscribe(result => {
         this.products = result['fishs'];
+        console.log("Products seller", this.products);
         // working on the images to use like background
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
