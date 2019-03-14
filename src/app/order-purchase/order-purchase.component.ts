@@ -103,7 +103,7 @@ export class OrderPurchaseComponent implements OnInit {
 			res => {
 				jQuery('#confirm').modal('hide');
 				console.log(res);
-					this.toast.success('Order Confirmed', 'Well Done', { positionClass: 'toast-top-right' });
+					this.toast.success('Order Confirmed ', 'Well Done', { positionClass: 'toast-top-right' });
 					this.items[index].status['id'] = res['item'][0].status['id'];
 					this.items[index].status['status'] = res['item'][0].status['status'];
 					this.items[index].updateInfo = res['item'][0].updateInfo;
