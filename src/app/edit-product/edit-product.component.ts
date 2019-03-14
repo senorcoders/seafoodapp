@@ -116,7 +116,7 @@ export class EditProductComponent implements OnInit {
     this.pricingChargesService.getCurrentPricingCharges().subscribe(
       result => {
         this.currentPrincingCharges = result;
-        this.currentExchangeRate = result['exchangeRates'][0].price;
+        this.currentExchangeRate = result['exchangeRates'];
       }, error => {
         console.log(error);
       }
