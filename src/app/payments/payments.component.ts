@@ -55,7 +55,7 @@ export class PaymentsComponent implements OnInit {
   getExchangeRates() {
     this.pricingService.getCurrentPricingCharges().subscribe(
       res => {
-        this.exchangeRate = res['exchangeRates'][0].price;
+        this.exchangeRate = res['exchangeRates'];
       }, error => {
         console.log( error );
       }

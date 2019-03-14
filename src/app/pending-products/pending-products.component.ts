@@ -46,7 +46,7 @@ export class PendingProductsComponent implements OnInit {
       result => {
         this.currentPrincingCharges = result;
         console.log('result', result);
-        this.currentExchangeRate = result['exchangeRates'][0].price;
+        this.currentExchangeRate = result['exchangeRates'];
         console.log(this.currentExchangeRate);
       }, error => {
         console.log(error);
