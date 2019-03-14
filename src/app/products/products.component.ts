@@ -727,18 +727,22 @@ smallDesc(str) {
           const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
           const priceTByWeight =  result['finalPrice'] / Number(parseFloat( weight ) );
           const priceT: any = Number( priceTByWeight.toFixed(4) ).toString();
+          const btn = document.getElementById('btn-add-' + id);
+
 
           // console.log(priceT);
           (box as HTMLElement).style.display = 'block';
+          (btn as HTMLElement).style.visibility = 'visible';
+
           for (let index = 0; index < prices.length; index++) {
             (prices[index] as HTMLElement).style.display = 'flex';
             }
         if (result.hasOwnProperty('message')) {
           deliveredPice.innerHTML = result['message'];
-          deliveredPiceTotal.innerHTML = '';
+          // deliveredPiceTotal.innerHTML = '';
         } else {
           deliveredPice.innerHTML = 'AED ' + priceT + ' / kg';
-          deliveredPiceTotal.innerHTML = '';
+          // deliveredPiceTotal.innerHTML = '';
         }
 
       });
@@ -774,16 +778,16 @@ smallDesc(str) {
     myEnterFunction(id) {
       const card = document.getElementById('product-' + id);
       const prices = document.getElementById('delivered-cont-' + id);
-      const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
+      // const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
       const btn = document.getElementById('btn-add-' + id);
       const sellerPrice = card.querySelectorAll('.sellers-price');
       const singlePrice = card.querySelectorAll('.single-price');
       const singleCalc = card.querySelectorAll('.single-calc');
       if ((prices as HTMLElement).style.display === 'flex') {
-        deliveredPiceTotal.innerHTML = '';
+        // deliveredPiceTotal.innerHTML = '';
         (card as HTMLElement).style.marginBottom = '50px';
         (btn as HTMLElement).style.visibility = 'visible';
-        (btn as HTMLElement).style.marginTop = '-30px';
+        (btn as HTMLElement).style.marginTop = '-5px';
         (sellerPrice[0] as HTMLElement).style.display = 'none';
         (singlePrice[0] as HTMLElement).style.display = 'flex';
         (singleCalc[0] as HTMLElement).style.display = 'block';
@@ -796,15 +800,15 @@ smallDesc(str) {
     leaveFunction(id) {
       const card = document.getElementById('product-' + id);
       const prices = document.getElementById('delivered-cont-' + id);
-      const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
+      // const deliveredPiceTotal: any = document.getElementById('product-' + id + '-delivered-total');
       const btn = document.getElementById('btn-add-' + id);
       const sellerPrice = card.querySelectorAll('.sellers-price');
       const singlePrice = card.querySelectorAll('.single-price');
       const singleCalc = card.querySelectorAll('.single-calc');
 
       if ((prices as HTMLElement).style.display === 'flex') {
-        (btn as HTMLElement).style.visibility = 'hidden';
-        deliveredPiceTotal.innerHTML = 'Delivered Price';
+        // (btn as HTMLElement).style.visibility = 'hidden';
+        // deliveredPiceTotal.innerHTML = 'Delivered Price';
         (sellerPrice[0] as HTMLElement).style.display = 'flex';
         (singlePrice[0] as HTMLElement).style.display = 'none';
         (singleCalc[0] as HTMLElement).style.display = 'none';
