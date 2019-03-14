@@ -53,6 +53,7 @@
 
              <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
              <div class="invalid-feedback" *ngIf="buyerForm?.controls?.tel?.errors">Only numbers allowed</div>
+             <div class="invalid-feedback" *ngIf="buyerPhoneValid">Please follow the phone number format</div>
             
            </div>
 
