@@ -29,7 +29,7 @@
                 </div>
                 <div class="box descriptor-container">          
                   <select class="js-example-basic-single descriptor" name="descriptor" data-placeholder="Select Store">
-                    <option value="0">Select Descriptor</option>
+                    <option value="0">Select Sub-species variant</option>
                     <option value="{{subCategory.id}}" *ngFor="let subCategory of searchDescriptor">{{subCategory.name}}</option>
                   </select>
                 </div>
@@ -125,7 +125,8 @@
                 </p>                
                 <p class="hidden-prices blue" id="delivered-cont-{{product.id}}" style="display:none;">
                     <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
-                    <span class="small-span" id="product-{{product.id}}-delivered-total">Delivered </span>
+                    <button style="margin-top: -5px;"  class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+
                 </p>
                  <button  class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
               </div>
