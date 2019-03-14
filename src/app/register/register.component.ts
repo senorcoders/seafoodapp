@@ -52,6 +52,8 @@ CurrencyofTrade:FormControl;
 ContactNumber:FormControl;
 ProductsInterestedSelling:FormControl;
 companyType: FormControl;
+iti:any;
+buyerPhoneValid: boolean = false;
   constructor(private fb:FormBuilder, private auth: AuthenticationService, 
     private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
     private product:ProductService,private route:ActivatedRoute,
@@ -74,25 +76,48 @@ companyType: FormControl;
 
 
   ngOnInit() {
-    jQuery(document).ready(function(){
-
-      var input = document.querySelector("#phone");
-      var inputS = document.querySelector("#phoneS");
-      window.intlTelInput(input);
-      window.intlTelInput(inputS);
-    
-    });  
-    // this.RegisterBuyerForm();
     this.createFormControls();
     this.RegisterBuyerForm();
     this.RegistersellerForm();
     this.getCountries();
+    var that = this;
+
+    jQuery(document).ready(function(){
+
+      var input = document.querySelector("#phone");
+      var inputS = document.querySelector("#phoneS");
+      var iti = window.intlTelInput(input);
+      window.intlTelInput(inputS);
+      var handleChange = function() {
+        var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
+        console.log("text", text);
+        if(iti.isValidNumber()){
+          // that.buyerForm.controls['tel'].setValue(text);
+        }else{
+          that.buyerPhoneValid = true;
+        }
+
+      };
+      
+      // listen to "keyup", but also "change" to update when the user selects a country
+      input.addEventListener('change', handleChange);
+      input.addEventListener('keyup', handleChange);
+     
+    });  
+    
+    
+    // this.RegisterBuyerForm();
+   
 
 
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+ 
+  
+  
   getCountries() {
     this.countryService.getCountries().subscribe(
       result => {
@@ -210,7 +235,7 @@ companyType: FormControl;
     console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
-        this.verifyMatch();
+        //this.verifyMatch();
         console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
