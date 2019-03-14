@@ -43,10 +43,11 @@ export class ShippingRatesComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
-    this.getCountries();
-    //this.getAllCities();
+  async ngOnInit() {
     this.createForm();
+
+    await this.getCountries();
+    //this.getAllCities();
     jQuery('#filterCountry').select2({
       placeholder: {
         id: '0', // the value of the option
@@ -76,15 +77,21 @@ export class ShippingRatesComponent implements OnInit {
     this.getShippingCountries();
   }
 
-  getCountries(){
-    this.countryService.getCountries().subscribe(
-      result => {
-        this.countries = result;
-      },
-      error => {
-        console.log(error);
-      }
-    )
+  async getCountries(){
+    await new Promise((resolve, reject) => {
+      this.countryService.getCountries().subscribe(
+        result => {
+          console.log("Countries", result);
+          this.countries = result;
+          resolve();
+        },
+        error => {
+          console.log(error);
+          reject();
+        }
+      )
+    })
+   
   }
 
   getCities(){
@@ -233,12 +240,19 @@ export class ShippingRatesComponent implements OnInit {
   }
   getShippingCountries(){
     this.shippingService.getShippingCountries().subscribe( 
-      result =>{        
-        if (result instanceof Array) {        
-          result.map( row => {        
+      result =>{  
+        let sCountries:any = result;
+        console.log("Shipping Countries", result);      
+        if (sCountries.length > 0) {    
+          console.log("Es mayou a cero");    
+          sCountries.map( row => { 
+            console.log("ROW", row); 
+            console.log("countries", this.countries);      
           this.countries.forEach( element => {
-            if( element.code == row ){              
-              console.log( element );
+            console.log("Elementos", element.code, row);             
+
+            if( element.code == row ){ 
+              console.log("elemento", element );
               this.shippingCountries.push( element );
               
             }
