@@ -132,32 +132,6 @@ const menuAdmin = [
           }
         }
       },
-      {
-        state: 'manage-countries',
-        type: 'link',
-        name: 'Manage Countries ETA',
-        translate: {
-          en: {
-            name: 'Manage Countries ETA'
-          },
-          ar: {
-            name: 'Manage Countries ETA'
-          }
-        }
-      },
-      /*{
-        state: 'manage-shipping-cities',
-        type: 'link',
-        name: 'Manage City ETA',
-        translate: {
-          en: {
-            name: 'Manage City ETA'
-          },
-          ar: {
-            name: 'Manage City ETA'
-          }
-        }
-      }*/
     ]
   },
   {

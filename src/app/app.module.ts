@@ -179,8 +179,7 @@ const appRoutes: Routes = [
   { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
   { path: 'historical-orders', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
-  { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
+  { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },  
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
   { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
   { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
