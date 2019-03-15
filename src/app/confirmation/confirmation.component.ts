@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Renderer2, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
@@ -21,7 +24,7 @@ export class ConfirmationComponent implements OnInit {
   accessToken: any = 'Ddx5kJoJWr11sF6Hr6E4';
   merchantID: any = 'aZCWXhqJ';
   apiPass: any = 'bafgiwugfiwgfyyf';
-  command: string = 'AUTHORIZATION';
+  command: string = 'PURCHASE';
   signature: any;
   email: any;
   amount: any;
@@ -31,7 +34,7 @@ export class ConfirmationComponent implements OnInit {
     'response' : {
 
     },
-    'type': 'AUTHORIZATION',
+    'type': 'PURCHASE',
     'shoppingCart': ''
 
   };
@@ -50,26 +53,36 @@ export class ConfirmationComponent implements OnInit {
   responseCode: string;
   env: any;
 
-  constructor(private route: ActivatedRoute, private auth: AuthenticationService, private product: ProductService, private http: HttpClient,
-    private orders: OrdersService, private Cart: CartService, private router: Router, private toast: ToastrService, private location: Location) { }
+  constructor(private route: ActivatedRoute,
+    private auth: AuthenticationService,
+    private product: ProductService,
+    private http: HttpClient,
+    private orders: OrdersService,
+    private Cart: CartService,
+    private router: Router,
+    private toast: ToastrService,
+    private location: Location,
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document) { }
 
   ngOnInit() {
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
-    this.route.queryParams.subscribe(params => {
-      this.responseCode = params.response_code;
-      if(params.response_code !== '18000' && params.response_code !== '02000'){
-        console.log(params.response_message);
-        this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
-        
-           setTimeout(() => {
+      this.route.queryParams.subscribe(params => {
+        this.responseCode = params.response_code;
+        if(params.response_code !== '18000' && params.response_code !== '02000'){
+          console.log(params.response_message);
+          this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
+          
+          setTimeout(() => {
             this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});
-
-
-           }, 5000)
-
-      }
+            
+            
+          }, 5000)
+          
+        }
+        this.addFingerPrintScript();
       this.params.response = params;
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
@@ -80,6 +93,14 @@ export class ConfirmationComponent implements OnInit {
 
       this.getPersonalData();
       this.getCart();
+  }
+  addFingerPrintScript() {
+    const s = this.renderer2.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://mpsnare.iesnare.com/snare.js';
+    s.text = ``;
+    this.renderer2.appendChild(this._document.body, s);
+
   }
 
   getCart() {
@@ -107,6 +128,9 @@ export class ConfirmationComponent implements OnInit {
     });
   }
   generateSignature() {
+    const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
+    console.log('finger', finger.value);
+
     const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
 
     console.log(string);
@@ -164,10 +188,12 @@ export class ConfirmationComponent implements OnInit {
     );
   }
     submit() {
-      
+      const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
+      console.log('finger', finger.value);
       this.generateSignature();
-      const body = {
+      const body = {        
         'command': this.command,
+        'device_fingerprint': finger.value,
         'access_code': this.accessToken,
         'merchant_identifier': this.merchantID,
         'merchant_reference': this.shoppingCartId,

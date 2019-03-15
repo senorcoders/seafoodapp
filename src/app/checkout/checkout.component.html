@@ -38,7 +38,8 @@
                 <div class="form-group">
                     <label>Cardholder Name </label>
                     <input type="text" class="form-control" name="card_holder_name" required [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" (change)="saveArray()">
-  
+                    <input type="text" id="device_fingerprint" name="device_fingerprint"/>
+                    
                   </div>
             </div>
           <div class="col-lg-6">

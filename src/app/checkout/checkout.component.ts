@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Renderer2, Inject } from '@angular/core';
+import { DOCUMENT } from '@angular/platform-browser';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
@@ -59,6 +62,8 @@ export class CheckoutComponent implements OnInit {
   formMethod: string = 'POST';
   constructor(
     private router: Router,
+    private renderer2: Renderer2,
+    @Inject(DOCUMENT) private _document,
     private route: ActivatedRoute,
     private http: HttpClient,
     private Cart: CartService,
@@ -75,10 +80,13 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.env = environment;
+    this.addFingerPrintScript();
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
       this.formAction = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
-    } else {      
+
+     
+    } else {
       this.formAction = '/confirmation';
       this.formMethod = 'GET';
     }
@@ -87,7 +95,6 @@ export class CheckoutComponent implements OnInit {
       this.shoppingCartId = params['shoppingCartId'];
       this.error = params['creditIssue'];
       this.randomID = this.guid();
-      this.generateSignature();
       this.getCart();
       this.getPersonalData();
       // this.shipping = localStorage.getItem('shippingCost');
@@ -96,6 +103,14 @@ export class CheckoutComponent implements OnInit {
       
 
     });
+  }
+  addFingerPrintScript() {
+    const s = this.renderer2.createElement('script');
+    s.type = 'text/javascript';
+    s.src = 'https://mpsnare.iesnare.com/snare.js';
+    s.text = ``;
+    this.renderer2.appendChild(this._document.body, s);
+
   }
   getPersonalData() {
     this.info = this.auth.getLoginData();
@@ -121,6 +136,7 @@ export class CheckoutComponent implements OnInit {
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
               localStorage.setItem('shoppingTotal', this.totalWithShipping);
+              this.generateSignature();
 
             },
             error => {
@@ -132,7 +148,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
   generateSignature() {
-    const string = this.apiPass + 'access_code=' + this.accessToken + 'language=enmerchant_identifier=' + this.merchantID + 'merchant_reference=' + this.randomID + 'service_command=TOKENIZATION' + this.apiPass;
+    const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
+    console.log('finger', finger.value);
+    const string = this.apiPass + 'access_code=' + this.accessToken + 'device_fingerprint='+ finger.value +'language=enmerchant_identifier=' + this.merchantID + 'merchant_reference=' + this.randomID + 'service_command=TOKENIZATION' + this.apiPass;
     console.log(string);
     this.signatureCode = shajs('sha256').update(string).digest('hex');
     console.log(this.signatureCode);
