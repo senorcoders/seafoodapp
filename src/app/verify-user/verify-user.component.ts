@@ -27,6 +27,8 @@ export class VerifyUserComponent implements OnInit {
   denialMessage: FormControl;
   store: any;
   id: any;
+  buyers:any = [];
+  sellers:any = [];
   constructor(private auth: AuthenticationService, private toast: ToastrService) { }
 
   ngOnInit() {
@@ -51,6 +53,7 @@ export class VerifyUserComponent implements OnInit {
           this.users = result; console.log(result);
           this.showLoading = false
           this.isInfo = true
+          this.splitUsers();
         }
         else {
           this.showLoading = false;
@@ -63,6 +66,16 @@ export class VerifyUserComponent implements OnInit {
         this.isInfo = false
       }
     )
+  }
+
+  splitUsers(){
+    this.users.forEach(element => {
+      if(element.role == 2){
+        this.buyers.push(element);
+      }else{
+        this.sellers.push(element);
+      }
+    });
   }
   confirm(val) {
     if (val) {
