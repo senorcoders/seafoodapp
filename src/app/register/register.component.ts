@@ -54,7 +54,9 @@ ProductsInterestedSelling:FormControl;
 companyType: FormControl;
 iti:any;
 buyerPhoneValid: boolean = false;
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, 
+sellerPhoneValid: boolean = false;
+
+constructor(private fb:FormBuilder, private auth: AuthenticationService, 
     private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
     private product:ProductService,private route:ActivatedRoute,
     private countryService: CountriesService,
@@ -87,14 +89,30 @@ buyerPhoneValid: boolean = false;
       var input = document.querySelector("#phone");
       var inputS = document.querySelector("#phoneS");
       var iti = window.intlTelInput(input);
-      window.intlTelInput(inputS);
+      var itiseller = window.intlTelInput(inputS);
       var handleChange = function() {
         var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
         console.log("text", text);
         if(iti.isValidNumber()){
-          // that.buyerForm.controls['tel'].setValue(text);
+          that.buyerPhoneValid = false;
+
+          that.buyerForm.controls['tel'].setValue(text);
         }else{
           that.buyerPhoneValid = true;
+        }
+
+      };
+
+
+      var handleChangeSeller = function() {
+        var text = (itiseller.isValidNumber()) ?  itiseller.getNumber() : "Please enter a number below";
+        console.log("text", text);
+        if(itiseller.isValidNumber()){
+          that.sellerPhoneValid = false;
+
+          that.sellerForm.controls['tel'].setValue(text);
+        }else{
+          that.sellerPhoneValid = true;
         }
 
       };
@@ -102,6 +120,8 @@ buyerPhoneValid: boolean = false;
       // listen to "keyup", but also "change" to update when the user selects a country
       input.addEventListener('change', handleChange);
       input.addEventListener('keyup', handleChange);
+      inputS.addEventListener('change', handleChangeSeller);
+      inputS.addEventListener('keyup', handleChangeSeller);
      
     });  
     
@@ -113,6 +133,20 @@ buyerPhoneValid: boolean = false;
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
+  }
+
+  validateBuyerPhone(){
+    console.log("Validating", this.buyerPhoneValid, this.buyerForm.get('tel').value);
+    if(this.buyerPhoneValid == true){
+      jQuery('#phone').val('');
+    }
+  }
+
+  validateSellerPhone(){
+    console.log("Validating", this.sellerPhoneValid, this.sellerForm.get('tel').value);
+    if(this.sellerPhoneValid == true){
+      jQuery('#phoneS').val('');
+    }
   }
 
  
@@ -235,7 +269,7 @@ buyerPhoneValid: boolean = false;
     console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
-        //this.verifyMatch();
+        this.verifyMatch();
         console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
@@ -289,6 +323,7 @@ verifyMatch(){
       }
       this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
         result=>{
+          console.log("Resgistro", result);
           this.email=this.buyerForm.get('email').value;
           this.showConfirmation=false;
         },

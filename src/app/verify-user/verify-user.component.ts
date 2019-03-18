@@ -47,6 +47,8 @@ export class VerifyUserComponent implements OnInit {
   }
 
   getPendingUsers() {
+    this.buyers = [];
+    this.sellers = [];
     this.auth.getData('user?where={"status":""}').subscribe(
       result => {
         if (result && result != '') {
@@ -115,8 +117,12 @@ export class VerifyUserComponent implements OnInit {
     jQuery('#deniedUser').modal('show');
   }
 
-  popUp(i) {
-    this.singleUser = this.users[i];
+  popUp(i, where) {
+    if(where == 'buyer'){
+      this.singleUser = this.buyers[i];
+    }else{
+      this.singleUser = this.sellers[i];
+    }
     console.log(this.singleUser);
     if (this.singleUser.role == 1) {
       this.store = ""

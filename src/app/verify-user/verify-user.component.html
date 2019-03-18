@@ -16,7 +16,7 @@
 										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
 										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
 										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
-										<fa name="eye" class="edit" (click)="popUp(i)"></fa>
+										<fa name="eye" class="edit" (click)="popUp(i, 'buyer')"></fa>
 									</h2>
 									<div class="product">
 										{{user.email}}
@@ -36,7 +36,7 @@
 										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
 										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
 										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
-										<fa name="eye" class="edit" (click)="popUp(i)"></fa>
+										<fa name="eye" class="edit" (click)="popUp(i, 'seller')"></fa>
 									</h2>
 									<div class="product">
 										{{user.email}}
