@@ -41,7 +41,7 @@
             <div class="col-lg-6">
                 <div class="form-group" >
                     <label>{{'AddProduct.name' | translate}} <span class="field-status red">*</span></label>
-                    <input disabled type="text"
+                    <input [disabled]="user['role'] != 0" type="text"
                            class="form-control"
                            required [(ngModel)]="name" [ngModelOptions]="{standalone: true}" >
                   </div>
@@ -58,7 +58,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Country of Origin<span class="field-status red">*</span></label>
-                    <select disabled (change)="getCities();" class="form-control" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" >
+                    <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="country" [ngModelOptions]="{standalone: true}" >
                       <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
                     </select>
                   </div>
@@ -67,7 +67,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{'EditProduct.processingCountry' | translate}} <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" [(ngModel)]="processingCountry" [ngModelOptions]="{standalone: true}" >
+                    <select  (change)="getCities();" [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="processingCountry" [ngModelOptions]="{standalone: true}" >
                       <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
                     </select>
                   </div>
@@ -76,7 +76,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Port of Loading <span class="field-status red">*</span></label>
-                    <select  disabled class="form-control" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" >
+                    <select  [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="city" [ngModelOptions]="{standalone: true}" >
                       <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
                     </select>
                   </div>
@@ -95,7 +95,7 @@
             <div class="col-lg-6">
                 <div class="form-group" >
                     <label>Unit of measurement <span class="field-status red">*</span></label>
-                    <select  disabled class="form-control" required [(ngModel)]="measurement" [ngModelOptions]="{standalone: true}" > 
+                    <select  [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="measurement" [ngModelOptions]="{standalone: true}" > 
                       <option value="kg">KG</option>
                     </select>
               
@@ -105,7 +105,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Main Category <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" required [(ngModel)]="mainCategory" [ngModelOptions]="{standalone: true}"  (change)="getOnChangeLevel(0)"> 
+                    <select [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="mainCategory" [ngModelOptions]="{standalone: true}"  (change)="getOnChangeLevel(0)"> 
                     <option *ngFor="let type of typeLevel0"[value]="type.id" >{{type.name}}</option>
                   </select>
                   </div>
@@ -114,7 +114,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Species <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" required [(ngModel)]="specie" [ngModelOptions]="{standalone: true}"  (change)="getOnChangeLevel(1, $event.target.value)"> 
+                    <select [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="specie" [ngModelOptions]="{standalone: true}"  (change)="getOnChangeLevel(1, $event.target.value)"> 
                     <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
                   </select>
                   </div>
@@ -123,7 +123,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Subspecies <span class="field-status red">*</span></label>
-                    <select disabled  class="form-control" 
+                    <select [disabled]="user['role'] != 0"  class="form-control" 
                             [(ngModel)]="types" [ngModelOptions]="{standalone: true}" (change)="getOnChangeLevel(2)">
                       <option *ngFor="let type of typeLevel2"
                               [value]="type.id">{{type.name}}
@@ -148,7 +148,7 @@
                 <div class="form-group" >
                     <label>Product SKU</label>
                     <input type="text" class="form-control"  [(ngModel)]="seller_sku" [ngModelOptions]="{standalone: true}" required >
-                    <input disabled type="hidden" class="form-control" [(ngModel)]="seafood_sku" [ngModelOptions]="{standalone: true}" required >      
+                    <input [disabled]="user['role'] != 0" type="hidden" class="form-control" [(ngModel)]="seafood_sku" [ngModelOptions]="{standalone: true}" required >      
                   </div>
             </div>
 
@@ -198,14 +198,14 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{'AddProduct.mortalityRate' | translate}} <span class="field-status red">*</span></label>
-                    <input disabled type="number" class="form-control" [(ngModel)]="acceptableSpoilageRate" [ngModelOptions]="{standalone: true}" >
+                    <input [disabled]="user['role'] != 0" type="number" class="form-control" [(ngModel)]="acceptableSpoilageRate" [ngModelOptions]="{standalone: true}" >
                   </div> 
             </div>
 
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{'AddProduct.raised' | translate}} <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" [(ngModel)]="raised" [ngModelOptions]="{standalone: true}" >
+                    <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="raised" [ngModelOptions]="{standalone: true}" >
                       <option value="farmed">Farmed</option>
                       <option value="organically">Organically Farmed</option>
                       <option value="wild">Wild</option>
@@ -216,13 +216,13 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{'AddProduct.preparation' | translate}} <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" [(ngModel)]="preparation" [ngModelOptions]="{standalone: true}"  (change)="showWhole($event.target.value)">
+                    <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="preparation" [ngModelOptions]="{standalone: true}"  (change)="showWhole($event.target.value)">
                       <option value="{{option}}" *ngFor="let option of preparationOptions">{{option}}</option>
                     </select>
                   </div>
                   <div class="form-group" *ngIf="showWholeOptions">
                     <label>Whole Fish Weight</label>
-                    <select disabled class="form-control" [(ngModel)]="wholeFishWeight" [ngModelOptions]="{standalone: true}" >
+                    <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="wholeFishWeight" [ngModelOptions]="{standalone: true}" >
                       <option value="{{whole}}" *ngFor="let whole of wholeOptions">{{whole}}</option>
                     </select>
                   </div>
@@ -231,7 +231,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>{{'AddProduct.treatment' | translate}} <span class="field-status red">*</span></label>
-                    <select  disabled class="form-control" [(ngModel)]="treatment" [ngModelOptions]="{standalone: true}" >
+                    <select  [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="treatment" [ngModelOptions]="{standalone: true}" >
                       <option value="fresh">Fresh</option>
                       <option value="frozen">Frozen</option>
                       <option value="live">Live</option>
@@ -244,7 +244,7 @@
             <div class="col-lg-6" *ngIf="user['role'] == 0">
                 <div class="form-group">
                     <label>{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span></label>
-                    <select disabled class="form-control" [(ngModel)]="cooming_soon" [ngModelOptions]="{standalone: true}" >
+                    <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="cooming_soon" [ngModelOptions]="{standalone: true}" >
                       <option value="false">No</option>
                       <option value="true">Yes</option>        
                     </select>

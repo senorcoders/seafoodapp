@@ -337,8 +337,8 @@ export class EditProductComponent implements OnInit {
   }
 
   getCities() {
-    console.log(this.country);
-    this.countryService.getCities(this.country).subscribe(
+    console.log(this.processingCountry);
+    this.countryService.getCities(this.processingCountry).subscribe(
       result => {
         this.cities = result[0].cities;
       },
