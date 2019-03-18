@@ -48,12 +48,14 @@
 
            <div class="form-group">
              <label>{{'Register.tel' | translate}}<span class="field-status red">*</span></label>
+
+             <input class="form-control" type="tel" id="phone" (blur)="validateBuyerPhone()">
              <!-- <input type="number" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}"> -->
-             <input class="form-control" type="tel" id="phone" formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
+             <input class="form-control" type="hidden"  formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
 
              <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
              <div class="invalid-feedback" *ngIf="buyerForm?.controls?.tel?.errors">Only numbers allowed</div>
-             <div class="invalid-feedback" *ngIf="buyerPhoneValid">Please follow the phone number format</div>
+             <div *ngIf="buyerPhoneValid" class="invalid-phone">Please follow the phone number format</div>
             
            </div>
 
@@ -161,10 +163,13 @@
          <div class="col-md-6">
            <div class="form-group">
              <label>{{'Register.tel' | translate}} <span class="field-status red">*</span></label>
-             <input class="form-control" type="tel" id="phoneS" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}">
+             <input class="form-control" type="tel" id="phoneS" (blur)="validateSellerPhone()">
+             <input class="form-control" type="hidden"  formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}">
              <!-- <input type="text" class="form-control" placeholder="{{'Register.tel' | translate}}" formControlName="tel" [ngClass]="{'is-invalid':sellerForm.get('tel').invalid && sellerForm.get('tel').touched}"> -->
              <div class="invalid-feedback" *ngIf="sellerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
              <div class="invalid-feedback" *ngIf="sellerForm.controls.tel.errors">Only numbers allowed</div>
+             <div *ngIf="sellerPhoneValid" class="invalid-phone">Please follow the phone number format</div>
+
 
            </div>
          </div>
