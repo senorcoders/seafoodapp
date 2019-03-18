@@ -1,8 +1,8 @@
 export const environment = {
 	production: false,
 	payfort: false,
-  apiURL:"http://stagingapi.seafoodsouq.com/",
-  apiURLImg:"http://stagingapi.seafoodsouq.com",
+  apiURL:"https://stagingapi.seafoodsouq.com/",
+  apiURLImg:"https://stagingapi.seafoodsouq.com",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},
