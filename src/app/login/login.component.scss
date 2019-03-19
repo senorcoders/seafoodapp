@@ -4,7 +4,7 @@
     margin-bottom: 20px;
     letter-spacing: 2px;
     a{
-        text-decoration: none !important;
+        text-decoration: none;
     }
 }
 .account{
@@ -12,11 +12,7 @@
     font-size: 1.1rem;
     text-transform: uppercase;
 }
-.recovery{
-    color: #8c8c8c !important;
-    text-transform: capitalize;
-    font-size: 1rem;
-}
+
 .login-option a{
 	cursor: pointer;
 }
@@ -108,4 +104,121 @@ form{
     .left-side{
         text-align: center;
     }
+}
+
+.seafoodFormContainer{
+    background: #fff;
+    .content{
+        max-width: 600px;
+        background: white;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+    }
+}
+
+.logo {
+    width: 68px;
+    height: 48px;
+    object-fit: contain;
+  }
+
+  .introductory-title{
+    font-family: Roboto;
+    font-size: 40px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.18;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+    padding-bottom: 60px;
+  }
+
+  .login-nav-logo{
+      padding: 20px 0px;
+  }
+
+  .input-group{
+    max-width: 368px;
+    margin: 0 auto;
+    margin-bottom: 60px;
+
+    input.form-control{
+        background: none !important;
+        height: auto !important;
+        border-bottom: solid 2px #c2c2c2;
+        border-radius: 0 !important;
+
+    }
+    input.form-control.is-invalid{
+        border-bottom: solid 2px #f44848;
+
+    }
+    input:focus{
+        outline: none !important;
+        box-shadow: none !important;
+        border-bottom: solid 2px #3181f0 !important;
+
+    }
+
+    .has-float-label label{
+        font-size: 12px;
+    }
+    label{
+        width: 40px;
+        height: 19px;
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.19;
+        letter-spacing: normal;
+        text-align: left;
+        color: #000000;
+    }
+    .form-control:placeholder-shown:not(:focus)+*{
+     font-size: inherit; 
+    opacity: 1; 
+    }
+  }
+
+
+.btn-blue{
+    width: 256px;
+    height: 56px;
+    border-radius: 100px !important;
+    background-color: #3181f0;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.btn-blue:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.recovery{
+    width: 128px;
+  height: 19px;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.56;
+  letter-spacing: normal;
+  text-align: left;
+  color: #3181f0 !important;
+  text-decoration: underline !important;
 }
