@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../core/cart/cart.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { environment } from '../../environments/environment.prod';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
