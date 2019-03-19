@@ -1,5 +1,5 @@
 
-  <div class="page-header seafoodFormContainer" id="hero">
+  <div class="page-header seafoodFormContainer" id="hero" (window:resize)="onResize($event)">
     <div class="container">
       <div class="row login-nav-logo">
         <div class="col-lg-4 text-left">
@@ -41,28 +41,10 @@
       <div class="row">
       
         <div class="col-lg-12 text-center">
-          <a (click)="showPopup()" class="recovery">Forgot password?</a>
+          <a routerLink="/forgot-password" class="recovery">Forgot password?</a>
         </div>
       </div>
     </div>
   </div>
+
 </div>   
-<div class="popup-form" *ngIf="showForm">
-  <div class="outside" (click)="closeForm()"></div>
-  <div class="content">
-    <h2 class="black-title">{{'Login.forgot-password' | translate}}</h2>
-    <hr class="hr-small">
-    <div class="start">
-      <span *ngFor="let star of Stars"><fa name="star" (click)="getstar(star)" [ngClass]="{'is-active':star<=count}"></fa></span>
-    </div>
-    <form [formGroup]="forgotForm" (submit)="forgotPassword()">
-      <div class="form-group">
-        <label>{{'Login.email' | translate}}</label>
-        <input type="email"class="form-control" placeholder="{{'Login.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':forgotForm.get('email').invalid && forgotForm.get('email').touched}"/>
-        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('required')">{{'Login.email' | translate}} {{'Login.required' | translate}}.</div>
-        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('email') && !forgotForm.get('email').hasError('required')">{{'Login.invalid' | translate}} {{'Login.email' | translate}}</div>
-      </div>
-      <input type="submit" class="btn-red" value="{{'Login.send' | translate}}" [disabled]="forgotForm.invalid">
-    </form>
-  </div>
-</div>

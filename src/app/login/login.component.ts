@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     this.setHeight(event.target.innerHeight);
   }
   constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, 
-    private toast:ToastrService, private isLoginService:IsLoginService, private cart:CartService,
+    private isLoginService:IsLoginService, private cart:CartService,
     private product: ProductService, private orders:OrdersService) {
     this.redirectHome();
   }
@@ -120,25 +120,6 @@ export class LoginComponent implements OnInit {
     //this.toast.error(e,'Error',{positionClass:"toast-top-right"})
     this.wrongData = true;
   }
-  showPopup(){
-    this.forgotForm=this.fb.group({
-      email:['',[Validators.required, Validators.email]]
-    })
-    this.showForm=true
-  }
-  closeForm(){
-    this.showForm=false
-  }
-  forgotPassword(){
-    this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
-      result=>{
-        this.toast.success('Please check your email for password reset instructions','',{positionClass:"toast-top-right"})
-        this.showForm=false
-      },
-      e=>{
-        this.showError(e.error)
-        console.log(e)
-      }
-    )
-  }
+  
+ 
 }

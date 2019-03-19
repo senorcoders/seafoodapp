@@ -111,6 +111,7 @@ import { ngfModule } from 'angular-file';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { FilternumberPipe } from './filternumber.pipe';
 import { NgProgressModule } from 'ngx-progressbar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -183,7 +184,8 @@ const appRoutes: Routes = [
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
   { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
-  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
+  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] },
+  {path: 'forgot-password', component: ForgotPasswordComponent}
 ];
 
 @NgModule({
@@ -265,6 +267,7 @@ const appRoutes: Routes = [
     CitiManagmentComponent,
     EditAccountComponent,
     FilternumberPipe,
+    ForgotPasswordComponent,
   ],
   imports: [
     BrowserModule,
