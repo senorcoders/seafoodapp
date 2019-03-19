@@ -38,7 +38,6 @@
                 <div class="form-group">
                     <label>Cardholder Name </label>
                     <input type="text" class="form-control" name="card_holder_name" required [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" (change)="saveArray()">
-                    <input type="text" id="device_fingerprint" name="device_fingerprint"/>
                     
                   </div>
             </div>
@@ -47,7 +46,7 @@
                 'bg-red': error
               }">
                   <label>Card Number <img height="30px" src="../../assets/cards.png" alt=""></label>
-                  <input type="number" class="form-control" name="card_number" required>
+                  <input (keypress)="validateLength($event, 16, 'card_number')" id="card_number" type="number" class="form-control" name="card_number" required>
 
                 </div>
           </div>
@@ -63,7 +62,7 @@
                 'bg-red': error
               }">
                   <label>Card Security Code</label>
-                  <input type="number" class="form-control" name="card_security_code" required>
+                  <input (keypress)="validateLength($event, 4, 'card_security_code')" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
 
                 </div>
           </div>

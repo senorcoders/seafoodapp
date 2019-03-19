@@ -80,7 +80,7 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.env = environment;
-    this.addFingerPrintScript();
+    //this.addFingerPrintScript();
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
       this.formAction = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
@@ -104,14 +104,14 @@ export class CheckoutComponent implements OnInit {
 
     });
   }
-  addFingerPrintScript() {
+  /*addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
     s.type = 'text/javascript';
     s.src = 'https://mpsnare.iesnare.com/snare.js';
     s.text = ``;
     this.renderer2.appendChild(this._document.body, s);
 
-  }
+  }*/
   getPersonalData() {
     this.info = this.auth.getLoginData();
   }
@@ -148,9 +148,9 @@ export class CheckoutComponent implements OnInit {
     });
   }
   generateSignature() {
-    const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
-    console.log('finger', finger.value);
-    const string = this.apiPass + 'access_code=' + this.accessToken + 'device_fingerprint='+ finger.value +'language=enmerchant_identifier=' + this.merchantID + 'merchant_reference=' + this.randomID + 'service_command=TOKENIZATION' + this.apiPass;
+    //const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
+    //console.log('finger', finger.value);
+    const string = this.apiPass + 'access_code=' + this.accessToken +'language=enmerchant_identifier=' + this.merchantID + 'merchant_reference=' + this.randomID + 'service_command=TOKENIZATION' + this.apiPass;
     console.log(string);
     this.signatureCode = shajs('sha256').update(string).digest('hex');
     console.log(this.signatureCode);
@@ -326,4 +326,18 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('billingInformationAddress', this.address)
 
   }
+  validateLength(event: any, length: number, id: string) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    const icard_number = <HTMLInputElement> document.getElementById(id);
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
+    console.log( icard_number.value.length, length );
+    if ( icard_number.value.length >= length ) {
+      event.preventDefault();
+    }
+  }
+
 }

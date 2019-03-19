@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { Renderer2, Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -29,6 +30,7 @@ export class ConfirmationComponent implements OnInit {
   email: any;
   amount: any;
   total: any;
+  ip: string;
   customerTotal: any;
   params: any = {
     'response' : {
@@ -71,7 +73,7 @@ export class ConfirmationComponent implements OnInit {
     if ( this.env.payfort ) {
       this.route.queryParams.subscribe(params => {
         this.responseCode = params.response_code;
-        if(params.response_code !== '18000' && params.response_code !== '02000'){
+        if(params.response_code !== '18000' && params.response_code !== '02000' && params.response_code !== '14000'){
           console.log(params.response_message);
           this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
           
@@ -82,7 +84,8 @@ export class ConfirmationComponent implements OnInit {
           }, 5000)
           
         }
-        this.addFingerPrintScript();
+      this.getRealIp();
+      this.addFingerPrintScript();
       this.params.response = params;
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
@@ -118,8 +121,9 @@ export class ConfirmationComponent implements OnInit {
         console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
 	// if we came from 3d secure url and its successfull, let's go to thankyou page and set the cart paid
-      	if ( this.responseCode == '02000' && this.total > 0 ) {
-
+	console.log( 'clear cart', this.total );
+      	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) ) {
+		console.log( 'clear cart', this.total );
         	this.saveinApi(); // save payfort reponse
         	this.clearCart(); // set cart paid
         }
@@ -127,18 +131,42 @@ export class ConfirmationComponent implements OnInit {
 
     });
   }
+  getRealIp(){
+	this.http.get( 'https://jsonip.com/' )
+	.subscribe(
+      	  res=>{
+          this.ip = res['ip'];
+	  console.log( 'real', this.ip );
+	  //this.generateSignature();
+	},
+	 error=>{
+          console.log( 'payfort error', error );
+          this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
+        })
+  }
   generateSignature() {
-    const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
-    console.log('finger', finger.value);
 
-    const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
+//    this.http.get( 'https://jsonip.com/' ) 
+//    .subscribe(
+//	res=>{
+	 // this.ip = res['ip'];
+	  console.log( 'real', this.ip );
+	  const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
+	  console.log('finger', finger.value);
 
-    console.log(string);
-    // var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.amount}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}${this.apiPass}`;
-    // this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
-    // this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
-    this.signature = shajs('sha256').update(string).digest('hex');
-    console.log('Signature: ', this.signature);
+	  const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}customer_ip=${this.ip}device_fingerprint=${finger.value}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
+
+	  console.log(string);
+	  // var string = `${this.apiPass}access_code=${this.accessToken}amount=${this.amount}command=AUTHORIZATIONcurrency=AEDcustomer_email=${this.info['email']}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}${this.apiPass}`;
+	  // this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
+	  // this.apiPass + 'access_code='+this.accessToken+'language=enmerchant_identifier='+this.merchantID+'merchant_reference='+this.shoppingCartId+'command=AUTHORIZATIONamount='+ this.total +'=AEDcustomer_email=' + this.info['email'] + this.apiPass;
+	  this.signature = shajs('sha256').update(string).digest('hex');
+	  console.log('Signature: ', this.signature);
+//	},
+//	error=>{
+//	  console.log( 'payfort error', error );
+  //        this.toast.error(error, 'Payfort Error', {positionClass: 'toast-top-right'} );
+//	})
   }
 
   getPersonalData() {
@@ -188,13 +216,13 @@ export class ConfirmationComponent implements OnInit {
     );
   }
     submit() {
-      const finger: HTMLInputElement = document.getElementById( 'device_fingerprint' );
+      const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
       console.log('finger', finger.value);
       this.generateSignature();
       const body = {        
         'command': this.command,
-        'device_fingerprint': finger.value,
-        'access_code': this.accessToken,
+        'access_code': 'Ddx5kJoJWr11sF6Hr6E4',
+	'device_fingerprint': finger.value,
         'merchant_identifier': this.merchantID,
         'merchant_reference': this.shoppingCartId,
         'currency': 'AED',
@@ -204,13 +232,15 @@ export class ConfirmationComponent implements OnInit {
         'settlement_reference': 'Seafoods',
         'customer_email': this.email,
         'amount': (this.total).toString(),
-        'order_description': this.description
+        'order_description': this.description,
+	'customer_ip': this.ip
       };
       console.log( 'payfort body', JSON.stringify( body ) ) ;
 
       // bypass payfort, payfort only works in main domain
       if ( this.env.payfort ) {
-      this.http.get(`${API}payfort/authorization?command=${this.command}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`)
+      this.http.post(`${API}payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
+      //this.http.post( `${API}payfort/authorization`, body )
       .subscribe(res => {
         console.log(res);
         if (res['status'] === '20') {
@@ -222,13 +252,14 @@ export class ConfirmationComponent implements OnInit {
 		   window.location.assign( res['3ds_url'] );
                 }, 5000)
 		//window.location.assign( res['3ds_url'] );
+	
 	  } else {
-          this.saveinApi();
-          this.clearCart();
+          //this.saveinApi();
+          //this.clearCart();
           }
        } else {
-          this.saveinApi();
-          this.clearCart();
+          //this.saveinApi();
+          //this.clearCart();
           }
         },
         error => {
