@@ -2,6 +2,8 @@ footer{
     box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
     background-color: #000000;
     padding: 50px 0;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #c2c2c2;
     .logo{
         width: 68px;
         height: 48px;
@@ -53,5 +55,68 @@ footer{
             }
         }
         
+    }
+
+    .form-title{
+        width: 152px;
+        height: 19px;
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.19;
+        letter-spacing: normal;
+        text-align: left;
+        color: #ffffff;
+    }
+
+    input, button{
+        border: solid 1px #666666;
+        background-color: #363636;
+        border-radius: 0;
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: 300;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        text-align: left;
+        color: #c2c2c2;
+        height: 40px;
+    }
+
+    button{
+        border-left: 0;
+    }
+
+     .footer-icons a{
+        font-size: 24px !important;
+    }
+}
+
+.sub-footer{
+    background-color: #000000;
+    padding: 20px 0;
+
+    .language{
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: left;
+        color: #ffffff;
+        border: none;
+    }
+}
+
+@media screen and (max-width: 768px){
+    strong{
+        width: 100% !important;
+        text-align: center !important;
     }
 }

@@ -111,7 +111,38 @@
                   <li><a href="#">Cookies policy</a></li>
                 </ul>
               </div>
+              <div class="col-md-4">
+                <p class="form-title">Get more information</p>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Write your email" aria-label="Write your email" aria-describedby="basic-addon2">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <ul class="list-inline footer-icons">
+                      <li class="list-inline-item"><a href="https://www.facebook.com/seafoodsouq/" target="_blank"><fa name="facebook-official"></fa></a></li>
+                      <li class="list-inline-item"><a href="https://twitter.com/SeafoodSouq" target="_blank"><fa name="twitter"></fa></a></li>
+                      <li class="list-inline-item"><a href="https://www.instagram.com/seafoodsouq/" target="_blank"><fa name="instagram"></fa></a></li>
+                    </ul>
+              </div>
         </div>
   </div>
  
 </footer>
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6"></div>
+      <div class="col-md-6 text-right">
+          <select class="language" (change)="changeLanguage($event)">
+              <option value="{{lang}}">{{lang}}</option>
+              <option *ngIf="lang=='ar'; else ar" value="en">English</option>
+              <ng-template #ar>
+                <option value="ar">Arab</option>
+              </ng-template>
+            </select>
+      </div>
+    </div>
+  </div>
+</div>
