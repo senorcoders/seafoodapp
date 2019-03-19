@@ -57,6 +57,7 @@ buyerPhoneValid: boolean = false;
 sellerPhoneValid: boolean = false;
 
 constructor(private fb:FormBuilder, private auth: AuthenticationService, 
+
     private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
     private product:ProductService,private route:ActivatedRoute,
     private countryService: CountriesService,
@@ -90,6 +91,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
       var inputS = document.querySelector("#phoneS");
       var iti = window.intlTelInput(input);
       var itiseller = window.intlTelInput(inputS);
+
       var handleChange = function() {
         var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
         console.log("text", text);
@@ -97,19 +99,17 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
           that.buyerPhoneValid = false;
 
           that.buyerForm.controls['tel'].setValue(text);
+
         }else{
           that.buyerPhoneValid = true;
         }
 
       };
-
-
       var handleChangeSeller = function() {
         var text = (itiseller.isValidNumber()) ?  itiseller.getNumber() : "Please enter a number below";
         console.log("text", text);
         if(itiseller.isValidNumber()){
           that.sellerPhoneValid = false;
-
           that.sellerForm.controls['tel'].setValue(text);
         }else{
           that.sellerPhoneValid = true;
@@ -122,6 +122,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
       input.addEventListener('keyup', handleChange);
       inputS.addEventListener('change', handleChangeSeller);
       inputS.addEventListener('keyup', handleChangeSeller);
+
      
     });  
     
@@ -269,7 +270,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
     console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
-        this.verifyMatch();
+        //this.verifyMatch();
         console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
