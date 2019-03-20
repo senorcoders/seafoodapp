@@ -1036,3 +1036,74 @@ app-register, app-login, app-forgot-password{
 .backdrop{
   position: fixed !important;
 }
+
+form-wizard{
+  .card{
+      border: none !important;
+  }
+  .card-header{
+      display: none !important;
+  }
+
+  .card-footer button:nth-child(2){
+    width: 256px;
+    height: 56px;
+    border-radius: 100px !important;
+    background-color: #3181f0;
+    font-family: Roboto;
+    font-size: 24px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.33;
+    letter-spacing: normal;
+    color: #ffffff;
+    cursor: pointer;
+    float: none !important;
+    text-align: center;
+    border: none;
+  }
+
+  .card-block{
+    overflow-y: hidden !important;
+    overflow:  hidden !important;
+  }
+
+  .card-footer button:nth-child(1), .card-footer button:nth-child(3){
+    display: none;
+  }
+}
+
+.intl-tel-input.allow-dropdown input{
+  padding-left: 52px !important;
+}
+
+.intl-tel-input .country-list{
+  z-index: 9 !important;
+}
+
+.select2-container--default .select2-selection--single{
+  color: black;
+  border: 0;
+  background: none !important;
+  height: 45px !important;
+  border-bottom: solid 2px #c2c2c2;
+  border-radius: 0 !important;
+  padding-left: 0;
+}
+.select2-container{
+  margin-left: -14px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+  display: none !important;
+}
+
+.select2-container--open .select2-dropdown--below{
+  left: 13px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+  text-align: left !important;
+  line-height: 55px !important;
+}

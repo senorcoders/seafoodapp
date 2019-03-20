@@ -113,6 +113,8 @@ import { FilternumberPipe } from './filternumber.pipe';
 import { NgProgressModule } from 'ngx-progressbar';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
+import { FormWizardModule } from 'angular2-wizard';
+import { Select2Module } from 'ng2-select2';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -295,7 +297,9 @@ const appRoutes: Routes = [
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes
     }),
-    NgProgressModule
+    NgProgressModule,
+    FormWizardModule,
+    Select2Module
 
     ],
   providers: [

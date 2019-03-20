@@ -9,79 +9,189 @@
         </div>
       </div>
     </div>
-
-  
-
     <div class="container max-800">
-      <div class="row">
-          <div class="col-lg-12">
-              <h1 class="introductory-title">I am a buyer</h1>
-              <a href="#" class="recovery">I am a seller</a>
-          </div>
-      </div>
+
+    <form-wizard>
+        <wizard-step [title]="'Step1'" [isValid]="buyerForm.valid" >
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="introductory-title">I am a buyer</h1>
+                    <a href="#" class="recovery">I am a seller</a>
+                </div>
+            </div>
+            
+            <form [formGroup]="buyerForm">
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="first" type="text" class="form-control" placeholder="{{'Register.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
+                            <label for="first">{{'Register.first-name' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="last" type="text" class="form-control" placeholder="{{'Register.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
+                            <label for="last">{{'Register.last-name' | translate}}</label> 
+                      <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                        <input id="email" type="email" class="form-control" placeholder="{{'Register.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}" (change)="verifyEmail($event.target.value)">
+                        <label for="email">{{'Register.email' | translate}}</label> 
+                        <div class="EmailNotification" *ngIf="showEmailVerification">{{'Register.EmailNotification' | translate}}</div>
+                        <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.required' | translate}}.</div>
+                        <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.invalid' | translate}}</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input  class="form-control" type="tel" id="phone" (blur)="validateBuyerPhone()">
+                            <label for="phone">{{'Register.tel' | translate}}</label> 
+                      <input class="form-control" type="hidden"  formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
+
+                    <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
+                    <div class="invalid-feedback" *ngIf="buyerForm?.controls?.tel?.errors">Only numbers allowed</div>
+                    <div *ngIf="buyerPhoneValid" class="invalid-phone">Please follow the phone number format</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="password" type="password"  minlength="8" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
+                            <label for="password">{{'Register.password' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('password') || buyerForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters maximum 20, 1 uppercase and 1 number.</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input  id="repassword" type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}" (change)="verifyMatch()">
+                            <label for="repassword">Confirm password</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
+                            <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-12 text-left">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">
+                        <label class="form-check-label" for="tcs">I agree with <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
+                        <div class="invalid-feedback" *ngIf="buyerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
+
+                      </div>
+                </div>
+                <div class="col-lg-12 text-center ellipsis-wizard">
+                  <ul class="list-inline">
+                    <li class="list-inline-item"><div class="ellipsis-dark"></div></li>
+                    <li class="list-inline-item"><div class="ellipsis-light"></div></li>
+
+                  </ul>
+                </div>
+               
+              </div>
+            </form>
+          
+        </wizard-step>
+        <wizard-step [title]="'Step2'">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="introductory-title">Now you are a buyer at Seafood Souq</h1>
+                    <p class="fill-company">Fill in your company information</p>
+                </div>
+            </div>
+            
+            <form [formGroup]="companyForm" (submit)="registerBuyer()">
+              <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="companyName" type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" [ngClass]="{'is-invalid':companyForm.get('companyName').invalid && companyForm.get('companyName').touched}">
+                            <label for="companyName">{{'Register.company' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="companyForm.get('companyName').hasError('required')"> {{'Register.company' | translate}} {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="type" type="text" class="form-control" placeholder="Type of Business" formControlName="TypeBusiness" [ngClass]="{'is-invalid':companyForm.get('TypeBusiness').invalid && companyForm.get('TypeBusiness').touched}">
+                            <label for="type">Type of business</label> 
+                            <div class="invalid-feedback" *ngIf="companyForm.get('TypeBusiness').hasError('required')"> Type of Business is required.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <select id="country" class="form-control n" formControlName="location" [ngClass]="{'is-invalid':companyForm.get('location').invalid && companyForm.get('location').touched}">
+                                <option value="">{{'Register.country' | translate}}</option>
+                                <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+                              </select>                    
+                             <label for="country">{{'Register.country' | translate}}</label> 
+                      <div class="invalid-feedback" *ngIf="companyForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="city" type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':companyForm.get('City').invalid && companyForm.get('City').touched}">
+                            <label for="city">{{'Register.City' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="companyForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group input-group" style="max-width: 100% !important;">
+                        <span class="has-float-label">    
+                            <input id="address" type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':companyForm.get('Address').invalid && companyForm.get('Address').touched}">
+                            <label for="address">{{'Register.Address' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="companyForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+                      </span>         
+                    </div>
+                </div>
+                <div class="col-lg-12 text-center ellipsis-wizard">
+                    <ul class="list-inline">
+                      <li class="list-inline-item"><div class="ellipsis-dark"></div></li>
+                      <li class="list-inline-item"><div class="ellipsis-dark"></div></li>
+  
+                    </ul>
+                  </div>
+               
+                <div class="col-lg-12 text-center" >
+                    <div class="form-group">
+                      <button type="submit" class="btn-blue">Finish</button>
+                      </div>
+                </div>
+              </div>
+            </form>
+        </wizard-step>
+       
+      </form-wizard>
+
       
-      <form>
-        <div class="row">
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="first" type="text" class="form-control" placeholder="Your name">
-                <label for="first">First Name</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="last" type="text" class="form-control" placeholder="Your last name">
-                <label for="last">Last Name</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="email" type="email" class="form-control" placeholder="Your email">
-                <label for="email">Email</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="phone" type="tel" class="form-control" placeholder="Your phone number">
-                <label for="phone">Phone</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="password" type="password" class="form-control" placeholder="Your password">
-                <label for="password">Password</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group input-group">
-                  <span class="has-float-label">    
-                <input id="repassword" type="password" class="form-control" placeholder="Confirm your password">
-                <label for="repassword">Confirm password</label> 
-                </span>         
-              </div>
-          </div>
-          <div class="col-lg-12 text-left">
-              <div class="form-check">
-                  <input type="checkbox" class="form-check-input" id="tcs" >
-                  <label class="form-check-label" for="tcs">I agree with <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
-                </div>
-          </div>
-          <div class="col-lg-12 text-center" style="margin-top: 50px;">
-              <div class="form-group">
-                <button type="button" class="btn-blue">Next</button>
-                </div>
-          </div>
+    </div>
+    </div>
+
+    <div class="container-confirmation" *ngIf="!showConfirmation">
+        <div class="content">
+          <h1>{{'Register.message' | translate}}</h1>
+          <a routerLink="/"><h2>{{'Register.submessage' | translate}}</h2></a>
         </div>
-      </form>
-    </div>
-    </div>
+       </div> 

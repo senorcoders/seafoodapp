@@ -150,6 +150,7 @@ form{
         height: auto !important;
         border-bottom: solid 2px #c2c2c2;
         border-radius: 0 !important;
+        padding-left: 0;
 
     }
     input.form-control.is-invalid{
@@ -165,6 +166,8 @@ form{
 
     .has-float-label label{
         font-size: 12px;
+        left: 0 !important;
+
     }
     label{
         width: 40px;
