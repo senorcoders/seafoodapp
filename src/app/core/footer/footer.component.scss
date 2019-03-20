@@ -112,6 +112,17 @@ footer{
         color: #ffffff;
         border: none;
     }
+
+    .footer-logos{
+        margin-bottom: 0;
+        img{
+            height: 32px;
+        }
+    }
+    .row{
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 @media screen and (max-width: 768px){
