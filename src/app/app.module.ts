@@ -112,11 +112,12 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { FilternumberPipe } from './filternumber.pipe';
 import { NgProgressModule } from 'ngx-progressbar';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/' },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegistrationBuyerComponent },
   { path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
@@ -268,6 +269,7 @@ const appRoutes: Routes = [
     EditAccountComponent,
     FilternumberPipe,
     ForgotPasswordComponent,
+    RegistrationBuyerComponent,
   ],
   imports: [
     BrowserModule,
