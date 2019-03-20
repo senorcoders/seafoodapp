@@ -270,7 +270,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
     console.log(this.buyerForm.value);
       if(this.buyerForm.valid){
         console.log("Valid");
-        //this.verifyMatch();
+        this.verifyMatch();
         console.log(this.buyerForm.value);
       }else{
         console.log("Invalid");
