@@ -35,7 +35,7 @@ email:string;
 
 
   constructor(private auth: AuthenticationService, private countryService: CountriesService, private toast:ToastrService) { }
-
+ 
   ngOnInit() {
     this.createFormControls();
     this.RegisterBuyerForm();

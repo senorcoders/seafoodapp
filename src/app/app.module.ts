@@ -115,11 +115,13 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
 import { FormWizardModule } from 'angular2-wizard';
 import { Select2Module } from 'ng2-select2';
+import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/' },
   { path: 'register', component: RegistrationBuyerComponent },
+  { path: 'register-seller', component:  RegistrationSellerComponent},
   { path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
@@ -272,6 +274,7 @@ const appRoutes: Routes = [
     FilternumberPipe,
     ForgotPasswordComponent,
     RegistrationBuyerComponent,
+    RegistrationSellerComponent,
   ],
   imports: [
     BrowserModule,
