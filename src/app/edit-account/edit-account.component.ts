@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormControlName, Validators } from '@angular/fo
 import { environment } from '../../environments/environment';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgProgress } from 'ngx-progressbar';
 declare var jQuery:any;
 
 @Component({
@@ -14,7 +15,7 @@ declare var jQuery:any;
 export class EditAccountComponent implements OnInit {
   info:any;
   buyerForm: FormGroup;
-  buyerFirstName: FormControl;
+  buyerFirstName: FormControl; 
   buyerLastName: FormControl;
   buyerEmail: FormControl;
   buyerPhoneNumber: FormControl;
@@ -54,11 +55,12 @@ export class EditAccountComponent implements OnInit {
   fileHero:any = [];
   heroEndpoint:any = 'api/store/hero/';
   logoEndpoint:any = 'api/store/logo/';
+  public loading = false;
 
 
 
 
-  constructor(private auth: AuthenticationService, private rest: ProductService, private toast:ToastrService) { }
+  constructor(private auth: AuthenticationService, private rest: ProductService, private toast:ToastrService, public ngProgress: NgProgress,) { }
 
    async ngOnInit() {
     this.createFormControls();
@@ -226,7 +228,8 @@ export class EditAccountComponent implements OnInit {
       this.info.dataExtra['contactNumber'] = this.sellerForm.get('contactNumber').value;
       this.info.dataExtra['currencyTrade'] = this.sellerForm.get('currencyTrade').value;
       this.info.dataExtra['trade'] = this.sellerForm.get('trade').value;
-  
+      this.loading = true;
+      this.ngProgress.start();
       this.updateAccount(this.info);
     }else{
       this.validateAllFormFields(this.sellerForm);
@@ -252,11 +255,15 @@ export class EditAccountComponent implements OnInit {
       if(this.info.role == 1){
         this.updateStore();
       }else{
+        this.loading = false;
+        this.ngProgress.done();
         this.toast.success("Your account information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
-
+        
       }
 
     },  error =>{
+      this.loading = false;
+        this.ngProgress.done();
       this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
     })
   }
@@ -318,14 +325,18 @@ updateStore(){
     "description": this.sellerForm.get('storeDescription').value
   }
   this.rest.updateData('store/'+this.store[0].id, storeFullData).subscribe(
-    result=>{
+    async result=>{
 
       if(this.fileHero.length > 0 || this.fileToUpload.length>0){
-        (this.fileHero.length > 0) ? this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
-        (this.fileToUpload.length > 0) ? this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
+        (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
+        (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
+        this.loading = false;
+        this.ngProgress.done();
         this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }else{
+        this.loading = false;
+        this.ngProgress.done();
         this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
 
       }
@@ -334,7 +345,8 @@ updateStore(){
 
     },
     error=>{
-
+      this.loading = false;
+      this.ngProgress.done();
       console.log(error)
     }
   )
@@ -351,12 +363,17 @@ handleFileHero(files: FileList){
 
 }
 
-uploadFile(id, endpoint, file, from){
+  async uploadFile(id, endpoint, file, from){
+
+  await new Promise((resolve, reject) => {
   this.rest.uploadFile(endpoint+id, from, file).subscribe(result => {
     console.log("File", result);
+    resolve();
   }, error => {
     console.log("File Error", error);
+    reject();
   })
+});
 }
 
 

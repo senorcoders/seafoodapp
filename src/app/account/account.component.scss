@@ -90,6 +90,16 @@
         max-width: 100%;
     }
 }
+
+.loader-gif{
+	position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    margin: auto;
+}
 @media(max-width: 998px){
     .btn-red{
         margin-bottom: 20px;
