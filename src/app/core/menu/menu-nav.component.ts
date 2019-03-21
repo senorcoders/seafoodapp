@@ -133,15 +133,15 @@ export class MenuNavComponent{
   //   }
   // }
   getFishTypeMenu(){
-    this.productService.getData('featuredtypes-menu').subscribe(
-      result=>{
-        this.fishTypeMenu=result;
-        this.addFishTypeMenu();
-      },
-      error=>{
-        console.log(error)
-      }
-    )
+    // this.productService.getData('featuredtypes-menu').subscribe(
+    //   result=>{
+    //     this.fishTypeMenu=result;
+    //     this.addFishTypeMenu();
+    //   },
+    //   error=>{
+    //     // console.log(error)
+    //   }
+    // )
   }
   search(){
     this.showSuggestion=false;
