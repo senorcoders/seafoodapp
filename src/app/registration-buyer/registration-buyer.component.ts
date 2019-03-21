@@ -32,6 +32,9 @@ companyForm: FormGroup;
 countries:any = [];
 showConfirmation=true;
 email:string;
+step1:boolean = true;
+step2:boolean = false;
+
 
 
   constructor(private auth: AuthenticationService, private countryService: CountriesService, private toast:ToastrService) { }
@@ -103,6 +106,8 @@ email:string;
       tel:this.tel,
       tcs:this.tcs
 
+    },{
+      updateOn: 'submit'
     });
 
 
@@ -157,7 +162,10 @@ email:string;
           if(password != confirmPassword) {
               // console.log('false');
               this.buyerForm.get('rePassword').setErrors( {MatchPassword: true} )
-          } 
+          } else{
+            this.step1 = false;
+            this.step2 = true;
+          }
   }
 
   //Get list of countries from the API
@@ -229,4 +237,14 @@ showError(e){
   this.toast.error(e,'Error',{positionClass:"toast-top-right"})
 }
  
+submitStep1(){
+  console.log(this.buyerForm.value);
+  if(this.buyerForm.valid){
+    console.log("Valido");
+    this.verifyMatch();
+  }else{
+    console.log("Invalido");
+    this.validateAllFormFields(this.buyerForm);
+  }
+}
 }

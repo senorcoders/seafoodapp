@@ -9,10 +9,7 @@
         </div>
       </div>
     </div>
-    <div class="container max-800">
-
-    <form-wizard>
-        <wizard-step [title]="'Step1'" [isValid]="buyerForm.valid" >
+    <div class="container max-800" [hidden]="!step1">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="introductory-title">I am a buyer</h1>
@@ -20,7 +17,7 @@
                 </div>
             </div>
             
-            <form [formGroup]="buyerForm">
+            <form [formGroup]="buyerForm" (submit)="submitStep1()">
               <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group input-group">
@@ -78,7 +75,7 @@
                 <div class="col-lg-6">
                     <div class="form-group input-group">
                         <span class="has-float-label">    
-                            <input  id="repassword" type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}" (change)="verifyMatch()">
+                            <input  id="repassword" type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
                             <label for="repassword">Confirm password</label> 
                             <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
                             <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
@@ -100,12 +97,19 @@
 
                   </ul>
                 </div>
+
+                <div class="col-lg-12 text-center" >
+                    <div class="form-group">
+                      <button type="submit" class="btn-blue">Next</button>
+                      </div>
+                </div>
                
               </div>
             </form>
-          
-        </wizard-step>
-        <wizard-step [title]="'Step2'">
+      
+    </div>
+
+    <div class="container max-800" [hidden]="!step2">
             <div class="row">
                 <div class="col-lg-12">
                     <h1 class="introductory-title">Now you are a buyer at Seafood Souq</h1>
@@ -181,11 +185,6 @@
                 </div>
               </div>
             </form>
-        </wizard-step>
-       
-      </form-wizard>
-
-      
     </div>
     </div>
 
