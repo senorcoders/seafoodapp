@@ -386,7 +386,7 @@ export class AddProductComponent implements OnInit {
       });
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
-      this.loading = false;
+      this.loading = false; 
       this.ngProgress.done();
 
 

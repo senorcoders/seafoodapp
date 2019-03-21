@@ -1,4 +1,15 @@
+<ng-progress></ng-progress>
+
 <div class="container">
+  
+          <ng-template #customLoadingTemplate>
+            <div class="row">
+              <div class="col">
+                <div class="col-12 text-center" ><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
+              </div>
+            </div>
+          </ng-template>
+          <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
   <div style="height: 100px;"></div>
   <div class="row">
     <div class="col-lg-3">

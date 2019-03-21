@@ -193,6 +193,10 @@ export class CartComponent implements OnInit {
     console.log(this.products[i].quantity.value);
     if(this.products[i].quantity.value > this.products[i].fish.maximumOrder){
       this.products[i].quantity.value = this.products[i].fish.maximumOrder;
+      this.getAllProductsCount();
+    }else{
+      this.getAllProductsCount();
     }
   }
 }
+  

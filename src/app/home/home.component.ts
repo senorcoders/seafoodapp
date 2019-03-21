@@ -45,7 +45,6 @@ export class HomeComponent implements OnInit {
 
   getLoginStatus(){
    let login = this.auth.getLoginData();
-   console.log("Login", login);
    if(login != null){
      this.isLoggedIn = true;
    }
@@ -125,55 +124,59 @@ export class HomeComponent implements OnInit {
     })
   }
   getFishTypeMenu(){
-    this.product.getData('featuredtypes-menu').subscribe(
-      result=>{
-        this.fishTypeMenu=result['featureds'];
-        this.fishTypeMenu.forEach((data,index)=>{
-          // if(data.childsTypes.length>0){
-          //   let j=this.fishTypeMenuImagesChild.length;
-          //   data.childsTypes.forEach((child, i)=>{
-          //     //console.log(child.child.images[0].src)
-          //     if(child.child.images && child.child.images.length>0){
-          //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${child.child.images[0].src})`)
-          //     }
-          //     else{
-          //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
-          //     }
-          //     j++;
-          //     //console.log(this.fishTypeMenuImagesChild[i])
-          //   })
-          // }
-          //else{
-            if(data.images && data.images.length>0){
-              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
-            }
-            else{
-              this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/Logo-1.png)")
-            }
-          //}
-        })
-      },
-      e=>{
-       console.log(e)
-      }
-    )
+    // this.product.getData('featuredtypes-menu').subscribe(
+    //   result=>{
+    //     this.fishTypeMenu=result['featureds'];
+    //     this.fishTypeMenu.forEach((data,index)=>{
+    //       // if(data.childsTypes.length>0){
+    //       //   let j=this.fishTypeMenuImagesChild.length;
+    //       //   data.childsTypes.forEach((child, i)=>{
+    //       //     //console.log(child.child.images[0].src)
+    //       //     if(child.child.images && child.child.images.length>0){
+    //       //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${child.child.images[0].src})`)
+    //       //     }
+    //       //     else{
+    //       //       this.fishTypeMenuImagesChild[j]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+    //       //     }
+    //       //     j++;
+    //       //     //console.log(this.fishTypeMenuImagesChild[i])
+    //       //   })
+    //       // }
+    //       //else{
+    //         if(data.images && data.images.length>0){
+    //           this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+    //         }
+    //         else{
+    //           this.fishTypeMenuImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/Logo-1.png)")
+    //         }
+    //       //}
+    //     })
+    //   },
+    //   e=>{
+    //    console.log(e)
+    //   }
+    // )
   }
   getFeaturedTypes(){
     this.product.getData('featuredtypes/').subscribe(
       result=>{
-        this.featuredtypes=result['featureds'];
-        this.featuredtypes.forEach((data, index)=>{
-          if(data.images && data.images.length>0){
-            this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
-          }
-          else{
-            this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
-          }
-        })
-        jQuery(document).ready(function(){
-          jQuery('#featuredtype2').appendTo('#featured1')
-        jQuery('#featured2').remove();
-        })
+        console.log("res", result);
+        if(result.hasOwnProperty('featureds')){
+          this.featuredtypes=result['featureds'];
+          this.featuredtypes.forEach((data, index)=>{
+            if(data.images && data.images.length>0){
+              this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+            }
+            else{
+              this.featuredTypesImages[index]=this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default.jpg)")
+            }
+          })
+          jQuery(document).ready(function(){
+            jQuery('#featuredtype2').appendTo('#featured1')
+          jQuery('#featured2').remove();
+          })
+        }
+        
       },
       error=>{
         console.log(error)

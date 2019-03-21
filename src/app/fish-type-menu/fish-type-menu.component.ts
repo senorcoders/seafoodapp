@@ -42,14 +42,14 @@ export class FishTypeMenuComponent implements OnInit {
   	)
   }
   getMenuList(){
-  	this.product.getData('featuredtypes-menu/').subscribe(
-  		result=>{
-  			this.menuListSaved=result
-  		},
-  		e=>{
-  			console.log(e)
-  		}
-  	)
+  	// this.product.getData('featuredtypes-menu/').subscribe(
+  	// 	result=>{
+  	// 		this.menuListSaved=result
+  	// 	},
+  	// 	e=>{
+  	// 		console.log(e)
+  	// 	}
+  	// )
   }
   selectParent(id){
   	this.parent=id;
