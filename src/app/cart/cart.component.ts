@@ -179,7 +179,7 @@ export class CartComponent implements OnInit {
         if (this.countries[i]['code'] === value) {
             return this.countries[i].name;
         }
-    }
+    } 
     return null;
   }
 
