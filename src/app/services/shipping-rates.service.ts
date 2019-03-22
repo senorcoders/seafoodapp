@@ -6,39 +6,38 @@ import { environment } from '../../environments/environment';
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
 };
-const  API=environment.apiURL;
 @Injectable()
 export class ShippingRatesService {
 
   constructor(private http: HttpClient) { }
 
   getShippingRates(){
-    return this.http.get(`${API}shippingRates`)
+    return this.http.get(`shippingRates`)
   }
 
   getShippingRatesByCountry( country:string ){
-    return this.http.get(`${API}shippingRates?sellerCountry=${country}`)
+    return this.http.get(`shippingRates?sellerCountry=${country}`)
   }
 
   getShippingRatesByCity( country:string, city:string ){
-    return this.http.get(`${API}shippingRates?sellerCountry=${country}&sellerCity=${city}`)
-    //return this.http.get(`${API}shippingRates/country/${country}/city/${city}`)
+    return this.http.get(`shippingRates?sellerCountry=${country}&sellerCity=${city}`)
+    //return this.http.get(`shippingRates/country/${country}/city/${city}`)
   }
 
   getShippingCountries(){
-    return this.http.get(`${API}shippingRates/countries`)
+    return this.http.get(`shippingRates/countries`)
   }
 
   getShippingCities( country:string ){  
-    return this.http.get(`${API}shippingRates/country/${country}/cities`)
+    return this.http.get(`shippingRates/country/${country}/cities`)
   }
 
   saveShippingRates(data){
-    return this.http.post(`${API}shippingRates`, data, httpOptions);
+    return this.http.post(`shippingRates`, data, httpOptions);
 
   }
 
   deleteShippingRates(id){
-    return this.http.delete(`${API}shippingRates/${id}`, httpOptions);
+    return this.http.delete(`shippingRates/${id}`, httpOptions);
   }
 }

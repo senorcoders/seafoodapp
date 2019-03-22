@@ -24,7 +24,6 @@ export class ManageOrdersComponent implements OnInit {
   showNoData: boolean = false;
   groupOrder=[];
   orderWithData=[];
-  API: string = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,

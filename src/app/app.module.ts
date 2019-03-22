@@ -319,11 +319,11 @@ const appRoutes: Routes = [
     CountriesService,
     PricingChargesService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
-    OrderService   // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: Interceptor,
-    //   multi: true,
-    // }
+    OrderService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

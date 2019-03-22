@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core'
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
@@ -25,7 +24,7 @@ export class LoginComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, 
+  constructor(private auth: AuthenticationService, private router:Router, 
     private isLoginService:IsLoginService, private cart:CartService,
     private product: ProductService, private orders:OrdersService) {
     this.redirectHome();

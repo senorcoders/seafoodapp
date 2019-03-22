@@ -1,15 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import { environment } from '../../environments/environment';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
 };
-// const httpOptionsForm = {
-//   headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data'})
-// };
-const  API = environment.apiURL;
+
 @Injectable()
 export class ProductService {
 
@@ -17,38 +12,38 @@ export class ProductService {
 
   // Function to Get List of all fish with pagination
   listProduct(data) {
-    return this.http.get(`${API}api/fish/${data.pageNumber}/${data.numberProduct}`);
+    return this.http.get(`api/fish/${data.pageNumber}/${data.numberProduct}`);
   }
 
   // Function to get the product categories with a limit parameter
   getAllCategoriesProducts() {
-    return this.http.get(`${API}FishType?limit=100`);
+    return this.http.get(`FishType?limit=100`);
   }
 
   // Function to get the Tree Categories
   getTreeCategory() {
-    return this.http.get( `${API}fishTypes/Tree` );
+    return this.http.get( `fishTypes/Tree` );
   }
 
   // General function to post data to the API
   saveData(endpoint, data) {
-    return this.http.post(`${API}${endpoint}`, data, httpOptions);
+    return this.http.post(`${endpoint}`, data, httpOptions);
 
   }
   // General function to get data to the API
   getData(endpoint) {
-    return this.http.get(`${API}${endpoint}`);
+    return this.http.get(`${endpoint}`);
   }
 
   // General function to delete data to the API
   deleteData(endpoint) {
-    return this.http.delete(`${API}${endpoint}`, httpOptions);
+    return this.http.delete(`${endpoint}`, httpOptions);
 
   }
 
   // General function to put data to the API
   updateData(endpoint, data) {
-    return this.http.put(`${API}${endpoint}`, data, httpOptions);
+    return this.http.put(`${endpoint}`, data, httpOptions);
 
   }
 
@@ -64,12 +59,12 @@ export class ProductService {
     
     console.log(fileToUpload);
     return this.http
-      .post(`${API}api/itemshopping/${itemId}/shipping-documents`, formData, httpOptionsForm);
+      .post(`api/itemshopping/${itemId}/shipping-documents`, formData, httpOptionsForm);
   }
 
   // Funtion to get the pending products
   getPendingProducts() {
-    return this.http.get( `${API}api/fish/pending` );
+    return this.http.get( `api/fish/pending` );
   }
 
   //Function to get the Seafood SKU required to upload a new product
@@ -80,59 +75,59 @@ export class ProductService {
       subcategory_code: subcategory,
       country: country_code
     };
-    return this.http.post(`${API}api/fish/fish/sku`, data, httpOptions);
+    return this.http.post(`api/fish/fish/sku`, data, httpOptions);
   }
 
  
 // General function to patch data
   patchData(endpoint, data) {
-    return this.http.patch(`${API}${endpoint}`, data, httpOptions);
+    return this.http.patch(`${endpoint}`, data, httpOptions);
   }
 
   // Function to patch fish status
   patchStatus(id, status, message ) {
-    return this.http.put( `${API}api/fish/${id}/status/${status}/`, message, httpOptions );
+    return this.http.put( `api/fish/${id}/status/${status}/`, message, httpOptions );
   }
 
   //Function to set shipped product
   setShippedProduct(endpoint) {
-    return this.http.put(`${API}${endpoint}`, httpOptions);
+    return this.http.put(`${endpoint}`, httpOptions);
   }
  
   // Function to get product by category
   getProdutsByCategory(category, page) {
-    return this.http.get(`${API}api/fish-type/${category}/${page}/12`);
+    return this.http.get(`api/fish-type/${category}/${page}/12`);
   }
 
   //Function to search product by name
   searchProductByName(name, page) {
     const body = {'search': name};
-    return this.http.post(`${API}api/fish/search/${page}/12`, body, httpOptions);
+    return this.http.post(`api/fish/search/${page}/12`, body, httpOptions);
   }
 
   //Function to get a product detail
   getProductDetail(id) {
-    return this.http.get(`${API}fish/${id}`);
+    return this.http.get(`fish/${id}`);
   }
 
   //Function to add a fish data
   addCategory(data) {
-    return this.http.post(`${API}fishtype`, data, httpOptions);
+    return this.http.post(`fishtype`, data, httpOptions);
   }
 
   //Function to get the parent levels of a fish
   getParentLevels() {
-    return this.http.get(`${API}allFishTypeParents`);
+    return this.http.get(`allFishTypeParents`);
   }
 
   //Function to edit a fish category
   editCategory(id, data) {
-    return this.http.put(`${API}fishtype/${id}`, data, httpOptions);
+    return this.http.put(`fishtype/${id}`, data, httpOptions);
   }
 
   //Function to de delete a fish category
   deleteCategory(id) {
-    return this.http.delete(`${API}fishtype/${id}`, httpOptions);
+    return this.http.delete(`fishtype/${id}`, httpOptions);
   }
 
   //Function to delete a image category
@@ -148,7 +143,7 @@ export class ProductService {
     for (let i = 0; i < file.length; i++) {
       formData.append('images', file[i]);
     }
-    return this.http.post(`${API}api/fishtype/images/${id}`, formData, httpOptionsForm);
+    return this.http.post(`api/fishtype/images/${id}`, formData, httpOptionsForm);
   }
 
   //Function to post a file to the API
@@ -161,12 +156,12 @@ export class ProductService {
       for (let i = 0; i < fileToUpload.length; i++) {
         formData.append('images', fileToUpload[i]);
       }
-      return this.http.post(`${API}api/fish/images/${id}`, formData, httpOptionsForm);
+      return this.http.post(`api/fish/images/${id}`, formData, httpOptionsForm);
     } else {
       for (let i = 0; i < fileToUpload.length; i++) {
         formData.append('image', fileToUpload[i]);
       }
-      return this.http.post(`${API}api/fish/image/${id}`, formData, httpOptionsForm);
+      return this.http.post(`api/fish/image/${id}`, formData, httpOptionsForm);
     }
   }
 
@@ -179,7 +174,7 @@ uploadFile(endpoint, field, fileToUpload) {
     formData.append(field, fileToUpload[i]);
 }
   return this.http
-    .post(`${API}${endpoint}`, formData, httpOptionsForm);
+    .post(`${endpoint}`, formData, httpOptionsForm);
 }
 
 
@@ -200,12 +195,12 @@ uploadFile(endpoint, field, fileToUpload) {
       formData.append('logo', fileToUpload[i]);
     }
     return this.http
-      .post(`${API}api/store`, formData, httpOptionsForm);
+      .post(`api/store`, formData, httpOptionsForm);
   }
 
   //Function to get store by product 
   getStoreByProduct(id) {
-    return this.http.get(`${API}store/${id}`);
+    return this.http.get(`store/${id}`);
   }
 
   //Function to recovery password 
@@ -215,7 +210,7 @@ uploadFile(endpoint, field, fileToUpload) {
       'password': oldpassword,
       'newPassword': newpassword
     };
-    return this.http.put(`${API}api/user/update-password`, data, httpOptions);
+    return this.http.put(`api/user/update-password`, data, httpOptions);
   }
 
   //Function to update primary image
@@ -226,17 +221,17 @@ uploadFile(endpoint, field, fileToUpload) {
     for (let i = 0; i < fileToUpload.length; i++) {
       formData.append('image', fileToUpload[i]);
     }
-    return this.http.put(`${API}${link}`, formData, httpOptionsForm);
+    return this.http.put(`${link}`, formData, httpOptionsForm);
   }
 
   //Function to get suggestions
   suggestions(name) {
-    return this.http.post(`${API}api/fish/suggestions`, name, httpOptions);
+    return this.http.post(`api/fish/suggestions`, name, httpOptions);
   }
 
   //Function to add a fish to favorites
   isFavorite(data) {
-    return this.http.post(`${API}api/favoritefish`, data, httpOptions);
+    return this.http.post(`api/favoritefish`, data, httpOptions);
   }
 
   //Function to add sfsFiles
@@ -247,7 +242,7 @@ uploadFile(endpoint, field, fileToUpload) {
     for (let i = 0; i < fileToUpload.length; i++) {
       formData.append(field, fileToUpload[i][0]);
     }
-    return this.http.post(`${API}${endpoint}`, formData, httpOptionsForm);
+    return this.http.post(`${endpoint}`, formData, httpOptionsForm);
   }
 
   //Function to update a file
@@ -258,7 +253,7 @@ uploadFile(endpoint, field, fileToUpload) {
     for (let i = 0; i < fileToUpload.length; i++) {
       formData.append('sfs', fileToUpload[i]);
   }
-    return this.http.put(`${API}${endpoint}`, formData, httpOptionsForm);
+    return this.http.put(`${endpoint}`, formData, httpOptionsForm);
   }
   /************Filter Store*************/
   filterFish(
@@ -290,25 +285,25 @@ uploadFile(endpoint, field, fileToUpload) {
       'maximumOrder': max,
       'cooming_soon': cooming_soon
     };
-    return this.http.post(`${API}fish/filter`, data, httpOptions);
+    return this.http.post(`fish/filter`, data, httpOptions);
   }
 
   //Function to get the categories
   getCategories() {
-    return this.http.get(`${API}fishTypes/parents`);
+    return this.http.get(`fishTypes/parents`);
   }
 
   //Function to get subcategories
   getSubCategories(parent_id: string) {
     if ( parent_id === '' ) {
-      return this.http.get(`${API}fishTypes/childs`);
+      return this.http.get(`fishTypes/childs`);
     } else {
-      return this.http.get(`${API}fishTypes/${parent_id}/childs`);
+      return this.http.get(`fishTypes/${parent_id}/childs`);
     }
   }
 
   //Function to get fish countries
   getFishCountries() {
-    return this.http.get(`${API}fish/country`);
+    return this.http.get(`fish/country`);
   }
 }

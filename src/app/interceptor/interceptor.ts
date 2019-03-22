@@ -12,9 +12,12 @@ export class Interceptor implements HttpInterceptor {
 
         let event: HttpRequest<any>;
         let data = localStorage.getItem('login');
+
         if (data) {
             let json = JSON.parse(data);
             let token = json['token'];
+            console.log("Token Interceptor", token);
+
 
             event = req.clone({
                 url: Interceptor.url + req.url,
