@@ -130,10 +130,10 @@ step2:boolean = false;
 
   //Verify if email is already taken in the app database
   verifyEmail(email){
-    this.auth.getData(`user?where={"email":{"like":"${email}"}}`).subscribe(
+    this.auth.getData(`api/user/email/${email}/`).subscribe(
       result=>{
         //if return data it means that email is already used
-        if(result && result['length']>0){
+        if(result['message']==true){
           this.showEmailVerification=true;
           this.buyerForm.get('email').setErrors( {'incorrect': true} )
 
