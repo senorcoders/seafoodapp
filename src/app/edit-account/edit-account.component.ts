@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgProgress } from 'ngx-progressbar';
+import { Router } from '@angular/router';
 declare var jQuery:any;
 
 @Component({
@@ -60,7 +61,8 @@ export class EditAccountComponent implements OnInit {
 
 
 
-  constructor(private auth: AuthenticationService, private rest: ProductService, private toast:ToastrService, public ngProgress: NgProgress,) { }
+  constructor(private auth: AuthenticationService, private rest: ProductService, 
+    private toast:ToastrService, public ngProgress: NgProgress, private router:Router) { }
 
    async ngOnInit() {
     this.createFormControls();
@@ -150,7 +152,7 @@ export class EditAccountComponent implements OnInit {
       productsIntered: this.SellerProductsIntered,
       contactNumber: this.sellerContactNumber,
       currencyTrade: this.sellerCurrencyTrade,
-      storeDescription: this.sellerStoreDescription
+       storeDescription: this.sellerStoreDescription
      }, {
     updateOn: 'submit'
   });
@@ -333,11 +335,13 @@ updateStore(){
         this.loading = false;
         this.ngProgress.done();
         this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.router.navigate(['/recent-purchases']);
 
       }else{
         this.loading = false;
         this.ngProgress.done();
         this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.router.navigate(['/recent-purchases']);
 
       }
 
