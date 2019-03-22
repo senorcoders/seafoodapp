@@ -7,14 +7,13 @@ import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import {  HttpClient } from '@angular/common/http';
 import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Location } from '@angular/common';
 
-const  API = environment.apiURL;
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -239,7 +238,7 @@ export class ConfirmationComponent implements OnInit {
 
       // bypass payfort, payfort only works in main domain
       if ( this.env.payfort ) {
-      this.http.post(`${API}payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
+      this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
       //this.http.post( `${API}payfort/authorization`, body )
       .subscribe(res => {
         console.log(res);
