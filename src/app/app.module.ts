@@ -125,7 +125,7 @@ const appRoutes: Routes = [
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
-  { path: 'product/:id', component: SingleProductComponent },
+  { path: 'product/:id', component: SingleProductComponent, canActivate: [BuyerRouterService]  },
   { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
   { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },

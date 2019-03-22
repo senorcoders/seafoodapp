@@ -82,6 +82,7 @@ export class LoginComponent implements OnInit {
   sendDataLogin(){
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
+        console.log("Login Res", data);
         this.auth.setLoginData(data);
         this.isLoginService.setLogin(true,data['role'])
         //get login data
