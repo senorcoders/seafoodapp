@@ -86,7 +86,7 @@
               <div class="col-lg-12 text-left">
                   <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':sellerForm.get('tcs').invalid && sellerForm.get('tcs').touched}">
-                      <label class="form-check-label" for="tcs">I agree with <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
+                      <label class="form-check-label" for="tcs">I agree with <a routerLink="/terms-conditions" target="_blank">Terms and Conditions</a></label>
                       <div class="invalid-feedback" *ngIf="sellerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
 
                     </div>

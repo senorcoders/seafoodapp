@@ -117,7 +117,7 @@
                 <p *ngIf="product.price.value" class="single-kg-price">
                   <span>AED {{product.price.value}} / {{product.weight.type}} </span> 
                   <span class="sellers-price">Sellers Price</span>
-                   <input [disabled]="product.cooming_soon" type="number" (keyup.enter)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)"  class="single-price"  [(ngModel)]="product.minimumOrder" (blur)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
+                   <input [disabled]="product.cooming_soon" type="number" (keyup.enter)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)"  class="single-price"  [(ngModel)]="product.minimumOrder" (input)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
                   <span class="single-calc">
                     <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">+</button>
                     <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country, product.type.name, product.price.value)">-</button>
