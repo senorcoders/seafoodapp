@@ -22,7 +22,6 @@ export class AdminLogisticManagmentComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-  API: string = environment.apiURL;
   rows: any = [];
   public useFilterDate = false;
 

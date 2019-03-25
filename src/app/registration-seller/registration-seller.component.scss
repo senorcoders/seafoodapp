@@ -74,18 +74,7 @@ form{
     .black-title{
         text-align: center;
     }
-    .content{
-        position: absolute;
-        max-width: 500px;
-        width: 100%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        padding: 40px;
-        background: white;
-        box-shadow: 2px 5px 20px -4px black;
-        z-index: 10;
-    }
+    
 }
 @media(max-width: 998px){
     .black-title{
@@ -108,13 +97,7 @@ form{
 
 .seafoodFormContainer{
     background: #fff;
-    .content{
-        max-width: 600px;
-        background: white;
-        padding: 0;
-        border-radius: 0;
-        box-shadow: none;
-    }
+   
 }
 
 .logo {
@@ -133,11 +116,11 @@ form{
     letter-spacing: normal;
     text-align: center;
     color: #000000;
-    padding-bottom: 60px;
   }
 
   .login-nav-logo{
       padding: 20px 0px;
+      align-items: center;
   }
 
   .input-group{
@@ -153,6 +136,14 @@ form{
         padding-left: 0;
 
     }
+
+    select.form-control{
+        background: none !important;
+        border-radius: 0 !important;
+        border-bottom: solid 2px #c2c2c2;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+    }
     input.form-control.is-invalid{
         border-bottom: solid 2px #f44848;
 
@@ -167,10 +158,8 @@ form{
     .has-float-label label{
         font-size: 12px;
         left: 0 !important;
-
     }
     label{
-        width: 40px;
         height: 19px;
         font-family: Roboto;
         font-size: 16px;
@@ -221,10 +210,155 @@ form{
   font-stretch: normal;
   line-height: 1.56;
   letter-spacing: normal;
-  text-align: left;
+  text-align: center;
   color: #3181f0 !important;
   text-decoration: underline !important;
+  margin-bottom: 40px;
+  display: block;
+  width: 100%;
 }
+.login-btn{
+    width: 168px;
+    height: 40px;
+    border-radius: 24px;
+    background-color: #3181f0;
+    font-family: Roboto;
+    font-size: 17px;
+    font-weight: 300;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.18;
+    letter-spacing: normal;
+    text-align: center;
+    color: #ffffff;
+    cursor: pointer;
+    border: none;
+}
+
+.login-btn:focus{
+    outline: none;
+}
+
+.form-check-label{
+    font-family: Roboto;
+  font-size: 15px !important;
+  font-weight: 300;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.56;
+  letter-spacing: normal;
+  text-align: left;
+  color: #0000;
+  letter-spacing: initial !important;
+  a{
+    font-family: Roboto;
+    font-size: 16px;
+    color: #3181f0;
+    text-decoration: underline;
+  }
+}
+
+#hero{
+    min-height: 100vh;
+    height: auto;
+}
+
+
+.fill-company{
+    font-size: 16px;
+    margin-bottom: 0;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 0.48;
+    letter-spacing: normal;
+    text-align: center;
+    color: #000000;
+    margin-bottom: 60px;
+    margin-top: 20px;
+}
+
+.ellipsis-wizard{
+    margin-top: 30px;
+    margin-bottom: 20px;
+    ul{
+        margin: 0;
+        .ellipsis-dark{
+            width: 8px;
+          height: 8px;
+          background-color: #000000;
+          border-radius: 4px;
+        }
+        .ellipsis-light{
+            width: 8px;
+          height: 8px;
+          background-color: #c2c2c2;
+          border-radius: 4px;
+        }
+    }
+}
+
+.invalid-feedback, .invalid-phone, .EmailNotification{
+    font-family: Roboto;
+  font-size: 12px !important;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  text-align: left !important;
+  color: #f44848 !important;
+}
+
+.container-confirmation{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: white;
+    top: 0;
+    h1{
+        font-family: 'Roboto', sans-serif Medium;
+    }
+    a{
+        text-decoration: none !important;
+    }
+    h2{
+        font-size: 1.5rem;
+        color: #eb1c24 !important;
+        margin-top: 20px;
+        font-family: 'Roboto', sans-serif Medium;
+        
+    }
+    .content{
+        transform: translate(-50%,-50%);
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        position: absolute;
+        text-align: center;
+    }
+}
+
+
+.label-radio{
+    width: 100%;
+    text-align: left;
+    label{
+        height: 14px;
+        font-family: Roboto;
+        font-size: 12px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.17;
+        letter-spacing: normal;
+        text-align: left;
+        color: #000000;
+        margin-bottom: 0;
+    }
+}
+
 
 @media screen and (max-width: 768px){
     .introductory-title{
@@ -232,8 +366,18 @@ form{
         padding: 10px;
     }
 
-    .seafoodFormContainer .content{
-        padding: 10px;
-        top: 60%;
+    .login-nav-logo{
+        .text-right, .text-left{
+            text-align: center !important;
+            margin-top: 20px;
+        }
+    }
+   
+}
+
+@media screen and (min-width: 769px){
+    .max-800{
+        max-width: 800px;
+        margin: 80px auto;
     }
 }

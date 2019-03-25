@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { HostListener } from '@angular/core'
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import {CartService} from '../core/cart/cart.service';
@@ -25,8 +24,8 @@ export class LoginComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, private router:Router, 
-    private toast:ToastrService, private isLoginService:IsLoginService, private cart:CartService,
+  constructor(private auth: AuthenticationService, private router:Router, 
+    private isLoginService:IsLoginService, private cart:CartService,
     private product: ProductService, private orders:OrdersService) {
     this.redirectHome();
   }
@@ -83,6 +82,7 @@ export class LoginComponent implements OnInit {
   sendDataLogin(){
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
+        console.log("Login Res", data);
         this.auth.setLoginData(data);
         this.isLoginService.setLogin(true,data['role'])
         //get login data
@@ -120,25 +120,6 @@ export class LoginComponent implements OnInit {
     //this.toast.error(e,'Error',{positionClass:"toast-top-right"})
     this.wrongData = true;
   }
-  showPopup(){
-    this.forgotForm=this.fb.group({
-      email:['',[Validators.required, Validators.email]]
-    })
-    this.showForm=true
-  }
-  closeForm(){
-    this.showForm=false
-  }
-  forgotPassword(){
-    this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
-      result=>{
-        this.toast.success('Please check your email for password reset instructions','',{positionClass:"toast-top-right"})
-        this.showForm=false
-      },
-      e=>{
-        this.showError(e.error)
-        console.log(e)
-      }
-    )
-  }
+  
+ 
 }

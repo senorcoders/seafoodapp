@@ -6,115 +6,114 @@ import { environment } from '../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
 };
-const  API = environment.apiURL;
 @Injectable()
 export class OrderService {
 
   constructor( private http: HttpClient ) { }
 
   getOrderStatus() {
-    return this.http.get(`${API}orderStatus`);
+    return this.http.get(`orderStatus`);
   }
 
   getPaymentStatus() {
-    return this.http.get(`${API}api/orderStatus/payments`);
+    return this.http.get(`api/orderStatus/payments`);
   }
 
   getLogisticOrderStatus() {
-    return this.http.get(`${API}api/orderStatus/logistic`);
+    return this.http.get(`api/orderStatus/logistic`);
   }
 
   getAllOrders() {
-    return this.http.get(`${API}api/itemshopping/all`);
+    return this.http.get(`api/itemshopping/all`);
   }
   getOrdersByStatus( status: string ) {
-    return this.http.get(`${API}api/itemshopping/status/${status}`);
+    return this.http.get(`api/itemshopping/status/${status}`);
   }
   getOrdersByNumber( orderNumber: string ) {
-    return this.http.get(`${API}api/itemshopping/order-number/${orderNumber}`);
+    return this.http.get(`api/itemshopping/order-number/${orderNumber}`);
   }
   getOrdersByStatusAndNumber( status: string, orderNumber: string ) {
-    return this.http.get(`${API}api/itemshopping/status/${status}/order-number/${orderNumber}`);
+    return this.http.get(`api/itemshopping/status/${status}/order-number/${orderNumber}`);
   }
   
   // Get Buyer Orders
   getAllBuyerOrders( userID:string ) {
-    return this.http.get(`${API}api/itemshopping/${userID}/all`);
+    return this.http.get(`api/itemshopping/${userID}/all`);
   }
   getCanceledDeliveredOrders( userID:string ){
-    return this.http.get( `${API}api/itemshopping/${userID}/canceled-delivered` );
+    return this.http.get( `api/itemshopping/${userID}/canceled-delivered` );
   }
   getOrdersBuyerByStatus( userID:string, status: string ) {
-    return this.http.get(`${API}api/itemshopping/${userID}/status/${status}`);
+    return this.http.get(`api/itemshopping/${userID}/status/${status}`);
   }
   getOrdersBuyerByNumber( userID:string, orderNumber: string ) {
-    return this.http.get(`${API}api/itemshopping/${userID}/order-number/${orderNumber}`);
+    return this.http.get(`api/itemshopping/${userID}/order-number/${orderNumber}`);
   }
   getOrdersBuyerByStatusAndNumber( userID:string, status: string, orderNumber: string ) {
-    return this.http.get(`${API}api/itemshopping/${userID}/status/${status}/order-number/${orderNumber}`);
+    return this.http.get(`api/itemshopping/${userID}/status/${status}/order-number/${orderNumber}`);
   }
   // End get buyer orders
 
   getCart( buyer: string ) {
-    return this.http.post(`${API}shoppingcart`, { buyer: buyer });
+    return this.http.post(`shoppingcart`, { buyer: buyer });
   }
 
   updateCart( id: string, data: any ) {
-    return this.http.put(`${API}shoppingcart/${id}`, data, httpOptions);
+    return this.http.put(`shoppingcart/${id}`, data, httpOptions);
   }
 
 
   getSellerFulfillsOrders() {
-    return this.http.get(`${API}itemshopping/status/5c13f453d827ce28632af048`);
+    return this.http.get(`itemshopping/status/5c13f453d827ce28632af048`);
   }
 
   getPayedItems() {
-    return this.http.get(`${API}itemshopping/payed`);
+    return this.http.get(`itemshopping/payed`);
   }
 
   getCanceledItems() {
-    return this.http.get(`${API}itemshopping/cancel`);
+    return this.http.get(`itemshopping/cancel`);
   }
   getItemsPayedByOrderNumber(order){
-    return this.http.get(`${API}itemshopping/payed/${order}`);
+    return this.http.get(`itemshopping/payed/${order}`);
   }
 
   markItemAsShipped( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b0e47fb07027943a406`, {} );
   }
 
   markItemAsDelivered( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b3c47fb07027943a409`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b3c47fb07027943a409`, {} );
   }
 
   markItemAsOutForDelivery( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b2147fb07027943a408`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b2147fb07027943a408`, {} );
   }
 
   markItemAsArrived( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b1447fb07027943a407`, {} );
   }
 
   markItemAsRepayed( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b4f47fb07027943a40b`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b4f47fb07027943a40b`, {} );
   }
 
   markItemAsCancelByBuyer( itemID: string ){
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b5a47fb07027943a40c`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b5a47fb07027943a40c`, {} );
   }
 
   markItemAsRefounded( itemID: string ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/5c017b7047fb07027943a40e`, {} );
+    return this.http.put( `api/itemshopping/${itemID}/5c017b7047fb07027943a40e`, {} );
   }
 
   updateStatus( statusID: string, itemID: string, user: any ) {
-    return this.http.put( `${API}api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
+    return this.http.put( `api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
   }
   updateETA( id, eta ) {
-    return this.http.put( `${API}itemshopping/${id}`, {buyerExpectedDeliveryDate: eta} )
+    return this.http.put( `itemshopping/${id}`, {buyerExpectedDeliveryDate: eta} )
   }
   updateItemsETA( data: any ) {
-    return this.http.put( `${API}api/itemshopping/updateETA`, data );
+    return this.http.put( `api/itemshopping/updateETA`, data );
   }
 
   uploadShippingImages( id, image0, image1, image2, image3, image4, image5, image6, image7, image8, image9 ) {
@@ -134,10 +133,10 @@ export class OrderService {
       formData.append('image8', image8  );
       formData.append('image9', image9  );
     // }
-    return this.http.post(`${API}shipping/${id}/upload`, formData, httpOptionsForm);
+    return this.http.post(`shipping/${id}/upload`, formData, httpOptionsForm);
   }
 
   syncOrdersWithXeroInvoiceService() {
-    return this.http.get(`${API}xero/connect`);
+    return this.http.get(`xero/connect`);
   }
 }

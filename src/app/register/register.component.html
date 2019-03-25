@@ -97,7 +97,7 @@
          <div class="col-md-6">
            <div class="form-group">
              <label>{{'Register.country' | translate}}<span class="field-status red">*</span></label>
-             <select class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
+             <select class="form-control js-example-basic-single location" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
                <option value="">{{'Register.country' | translate}}</option>
                <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
              </select>

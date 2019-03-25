@@ -34,10 +34,10 @@ export class HomeComponent implements OnInit {
   }
   ngOnInit() {
     this.getLoginStatus();
-   this.getFeaturedSeller();
-   this.getFeaturedProducts();
-   this.getFeaturedTypes();
-   this.getFishTypeMenu();
+  //  this.getFeaturedSeller();
+  //  this.getFeaturedProducts();
+  //  this.getFeaturedTypes();
+  //  this.getFishTypeMenu();
    this.isLoggedSr.role.subscribe((role:number)=>{
       this.role=role
     })

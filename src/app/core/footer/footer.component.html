@@ -1,5 +1,5 @@
 <footer>
-  <ng-container *ngIf="role>0 || role==-1">
+  <!-- <ng-container *ngIf="role>0 || role==-1">
     <div class="container-fluid">
       <div class="row prefooter" *ngIf="isHomepage==false">
         <div class="col-md-6">
@@ -76,5 +76,88 @@
         </div>
       </div>
     </div>
-  </ng-container>
+  </ng-container> -->
+
+  <div class="container">
+      <div class="row">
+          <div class="col-md-2">
+            <img class="logo" src="../../../assets/white-logo.png" alt="Logo">
+            <p><small>Al Quoz Industrial Area 3
+                Dubai, United Arab Emirates
+                hello@seafoodsouq.com</small></p>
+          </div>
+          <div class="col-md-2">
+            <strong>Company</strong>
+            <ul>
+              <li><a routerLink="/about-us">About us</a></li>
+              <li><a routerLink="#">Careers</a></li>
+              <li><a routerLink="/sfspay">SFSPay</a></li>
+            </ul>
+          </div>
+          <div class="col-md-2">
+              <strong>Support</strong>
+              <ul>
+                <li><a routerLink="/guides">Guides</a></li>
+                <li><a routerLink="/hep">Help</a></li>
+                <li><a routerLink="/faq">FAQ</a></li>
+                <li><a routerLink="/contact-us">Contact us</a></li>
+              </ul>
+            </div>
+            <div class="col-md-2">
+                <strong>Policies</strong>
+                <ul>
+                  <li><a routerLink="/terms-conditions">Terms &amp; conditions</a></li>
+                  <li><a routerLink="/privacy-policy">Privacy policy</a></li>
+                  <li><a routerLink="/cookies-policy">Cookies policy</a></li>
+                </ul>
+              </div>
+              <div class="col-md-4">
+                <p class="form-title">Get more information</p>
+                <form [formGroup]="subscribeForm" (submit)="subscribe()">
+
+                <div class="input-group mb-3">
+
+                    <input type="text" class="form-control" placeholder="Write your email" aria-label="Write your email" aria-describedby="basic-addon2" formControlName="email" [ngClass]="{'is-invalid':subscribeForm.get('email').invalid && subscribeForm.get('email').touched}">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i>
+                      </button>
+                 
+                    </div>
+                  </div>
+
+                    <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('required')">Email Required.</div>
+                    <div class="invalid-feedback" *ngIf="subscribeForm.get('email').hasError('email') && !subscribeForm.get('email').hasError('required')">Invalid Email</div>  
+                  </form>
+                  <ul class="list-inline footer-icons">
+                      <li class="list-inline-item"><a href="https://www.facebook.com/seafoodsouq/" target="_blank"><fa name="facebook-official"></fa></a></li>
+                      <li class="list-inline-item"><a href="https://twitter.com/SeafoodSouq" target="_blank"><fa name="twitter"></fa></a></li>
+                      <li class="list-inline-item"><a href="https://www.instagram.com/seafoodsouq/" target="_blank"><fa name="instagram"></fa></a></li>
+                    </ul>
+              </div>
+        </div>
+  </div>
+ 
 </footer>
+<div class="sub-footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <ul class="list-inline footer-logos">
+          <li class="list-inline-item"><img src="../../../assets/truste.png" alt=""></li>
+          <li class="list-inline-item"><img src="../../../assets/norton.png" alt=""></li>
+          <li class="list-inline-item"><img src="../../../assets/visa.png" alt=""></li>
+          <li class="list-inline-item"><img src="../../../assets/mastercard.png" alt=""></li>
+        </ul>
+      </div>
+      <div class="col-md-6 text-right">
+          <select class="language" (change)="changeLanguage($event)">
+              <option value="{{lang}}">{{lang}}</option>
+              <option *ngIf="lang=='ar'; else ar" value="en">English</option>
+              <ng-template #ar>
+                <option value="ar">Arab</option>
+              </ng-template>
+            </select>
+      </div>
+    </div>
+  </div>
+</div>

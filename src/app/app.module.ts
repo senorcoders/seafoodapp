@@ -111,16 +111,21 @@ import { ngfModule } from 'angular-file';
 import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { FilternumberPipe } from './filternumber.pipe';
 import { NgProgressModule } from 'ngx-progressbar';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
+import { Select2Module } from 'ng2-select2';
+import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', redirectTo: '/' },
-  { path: 'register', component: RegisterComponent },
+  { path: 'register', component: RegistrationBuyerComponent },
+  { path: 'register-seller', component:  RegistrationSellerComponent},
   { path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
-  { path: 'product/:id', component: SingleProductComponent },
+  { path: 'product/:id', component: SingleProductComponent, canActivate: [BuyerRouterService]  },
   { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
   { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
@@ -183,7 +188,8 @@ const appRoutes: Routes = [
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
   { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
-  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] }
+  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] },
+  {path: 'forgot-password', component: ForgotPasswordComponent}
 ];
 
 @NgModule({
@@ -265,6 +271,9 @@ const appRoutes: Routes = [
     CitiManagmentComponent,
     EditAccountComponent,
     FilternumberPipe,
+    ForgotPasswordComponent,
+    RegistrationBuyerComponent,
+    RegistrationSellerComponent,
   ],
   imports: [
     BrowserModule,
@@ -290,7 +299,8 @@ const appRoutes: Routes = [
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes
     }),
-    NgProgressModule
+    NgProgressModule,
+    Select2Module
 
     ],
   providers: [
@@ -309,11 +319,11 @@ const appRoutes: Routes = [
     CountriesService,
     PricingChargesService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
-    OrderService   // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: Interceptor,
-    //   multi: true,
-    // }
+    OrderService,{
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    }
   ],
   bootstrap: [AppComponent]
 })

@@ -1,57 +1,50 @@
-  <div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/login-bg.jpg)" (window:resize)="onResize($event)">
+
+  <div class="page-header seafoodFormContainer" id="hero" (window:resize)="onResize($event)">
+    <div class="container">
+      <div class="row login-nav-logo">
+        <div class="col-lg-4 text-left">
+          <a routerLink="/"><img src="../../assets/logo-black.svg" alt="Logo" class="logo"></a> 
+        </div>
+      </div>
+    </div>
   <div class="content">
     <div class="row">
-      <div class="col-lg-6 left-side"><img class="logo" src="../../assets/logo-login.png" alt=""></div>
-      <div class="col-lg-6 right-side">
-        <a routerLink="/" class="return">{{'Login.return' | translate}}</a>
-        <h3 class="black-title">{{'Login.title' | translate}}</h3>
+      <div class="col-lg-12">
+          <h1 class="introductory-title">It’s always good to have you here</h1>
       </div>
     </div>
     <form [formGroup]="loginForm" (ngSubmit)="login()">
-      <div class="invalid-feedback" style="display: block; text-align: left;" *ngIf="wrongData">The Email or Password you entered is incorrect.</div>
-      <div class="form-group">
-        <label>{{'Login.email' | translate}}</label>
-        <input #emailInput type="email" class="form-control" placeholder="{{'Login.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':loginForm.get('email').invalid && loginForm.get('email').touched}">
-        <div class="invalid-feedback" *ngIf="loginForm.get('email').hasError('required')">{{'Login.email' | translate}} {{'Login.required' | translate}}.</div>
-        <div class="invalid-feedback" *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">{{'Login.invalid' | translate}} {{'Login.email' | translate}}</div>	
+      <div class="invalid-feedback" style="display: block; text-align: center;
+      margin-bottom: 20px;" *ngIf="wrongData">The Email or Password you entered is incorrect.</div>
+      <div class="form-group input-group">
+          <span class="has-float-label">
+
+        <input id="email" #emailInput type="email" class="form-control" placeholder="Your Email" formControlName="email" [ngClass]="{'is-invalid':loginForm.get('email').invalid && loginForm.get('email').touched}">
+        <label for="email">{{'Login.email' | translate}}</label>
+        <div class="invalid-feedback text-left" *ngIf="loginForm.get('email').hasError('required')">{{'Login.email' | translate}} {{'Login.required' | translate}}.</div>
+        <div class="invalid-feedback text-left" *ngIf="loginForm.get('email').hasError('email') && !loginForm.get('email').hasError('required')">{{'Login.invalid' | translate}} {{'Login.email' | translate}}</div>	
+        </span>
+   
+      </div>
+      <div class="form-group input-group">
+          <span class="has-float-label">
+        <input id="password" type="password" class="form-control" placeholder="Your password" formControlName="password" [ngClass]="{'is-invalid':loginForm.get('password').invalid && loginForm.get('password').touched}">
+        <label for="password">{{'Login.password' | translate}}</label>
+        <div class="invalid-feedback text-left" *ngIf="loginForm.get('password').hasError('required')"> {{'Login.password' | translate}} {{'Login.required' | translate}}.</div>
+        </span>
       </div>
       <div class="form-group">
-        <label>{{'Login.password' | translate}}</label>
-        <input type="password" class="form-control" placeholder="Password" formControlName="password" [ngClass]="{'is-invalid':loginForm.get('password').invalid && loginForm.get('password').touched}">
-        <div class="invalid-feedback" *ngIf="loginForm.get('password').hasError('required')"> {{'Login.password' | translate}} {{'Login.required' | translate}}.</div>
-      </div>
-      <div class="form-group">
-        <input type="submit" class="btn-red" value="{{'Login.login' | translate}}">
+        <input type="submit" class="btn-blue" value="Login">
       </div>
     </form>
     <div class="login-option">
       <div class="row">
-        <div class="col-lg-6">
-          <a  routerLink="/register" class="account">{{'Login.account' | translate}}</a>
-        </div>
-        <div class="col-lg-6">
-          <a (click)="showPopup()" class="recovery">{{'Login.forgot' | translate}}</a>
+      
+        <div class="col-lg-12 text-center">
+          <a routerLink="/forgot-password" class="recovery">Forgot password?</a>
         </div>
       </div>
     </div>
   </div>
+
 </div>   
-<div class="popup-form" *ngIf="showForm">
-  <div class="outside" (click)="closeForm()"></div>
-  <div class="content">
-    <h2 class="black-title">{{'Login.forgot-password' | translate}}</h2>
-    <hr class="hr-small">
-    <div class="start">
-      <span *ngFor="let star of Stars"><fa name="star" (click)="getstar(star)" [ngClass]="{'is-active':star<=count}"></fa></span>
-    </div>
-    <form [formGroup]="forgotForm" (submit)="forgotPassword()">
-      <div class="form-group">
-        <label>{{'Login.email' | translate}}</label>
-        <input type="email"class="form-control" placeholder="{{'Login.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':forgotForm.get('email').invalid && forgotForm.get('email').touched}"/>
-        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('required')">{{'Login.email' | translate}} {{'Login.required' | translate}}.</div>
-        <div class="invalid-feedback" *ngIf="forgotForm.get('email').hasError('email') && !forgotForm.get('email').hasError('required')">{{'Login.invalid' | translate}} {{'Login.email' | translate}}</div>
-      </div>
-      <input type="submit" class="btn-red" value="{{'Login.send' | translate}}" [disabled]="forgotForm.invalid">
-    </form>
-  </div>
-</div>
