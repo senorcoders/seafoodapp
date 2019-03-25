@@ -685,6 +685,7 @@ smallDesc(str) {
     }
 
     getWeight(weight, max, i, id, country, category, price) {
+      console.log("On change");
       if (weight < max) {
         const input = document.getElementById('single-price-' + id);
         (input as HTMLElement).style.color = '#000';
