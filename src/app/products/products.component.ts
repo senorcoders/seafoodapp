@@ -9,6 +9,7 @@ declare var jQuery: any;
 import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
+import { CountriesService } from '../services/countries.service';
 
 @Component({
   selector: 'app-products',
@@ -39,7 +40,7 @@ export class ProductsComponent implements OnInit {
   searchSubSpecie: any;
   searchDescriptor: any;
   countries: any;
-  allCountries = environment.countries;
+  allCountries:any = [];
   minPriceField: number = 0;
   maxPriceField: number = 35;
   cooming_soon: string = '';
@@ -55,9 +56,10 @@ export class ProductsComponent implements OnInit {
     private islogin: IsLoginService,
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
-    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService) { }
+    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
+    private countryservice: CountriesService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     jQuery('.category').select2( {  width: 'resolve'  } );
     jQuery('.subcategory').select2();
     jQuery('.subspecies').select2();
@@ -299,12 +301,28 @@ export class ProductsComponent implements OnInit {
       this.filterProducts();
     });
 
-   
+   await this.getCountries();
     this.getFishCountries();
     this.getSubCategories('');
     this.getCart();
   }
 
+  async getCountries() {
+    await new Promise((resolve, reject) => {
+      this.countryservice.getCountries().subscribe(
+        result => {
+          console.log("ALl countries", result);
+          this.allCountries = result;
+          resolve();
+        },
+        error => {
+          console.log(error);
+          reject();
+        }
+      );
+    })
+   
+  }
 
   getCart() {
     this.cartService.cart.subscribe((cart: any) => {
@@ -487,6 +505,7 @@ smallDesc(str) {
   getFishCountries() {
   	this.productService.getFishCountries().subscribe(
   		result => {
+        console.log("Countries", result);
         const filterCountries: any = [];
         this.allCountries.map( country => {
           const exists = Object.keys(result).some(function(k) {

@@ -48,6 +48,8 @@ export class RegistrationSellerComponent implements OnInit {
   userID: any;
   showConfirmation=true;
   storeID:any;
+  isValid:boolean = false;
+btnText:any = 'Finish';
 
 
 
@@ -279,6 +281,8 @@ export class RegistrationSellerComponent implements OnInit {
     console.log(this.legalForm.value);
     if(this.legalForm.valid){
       console.log("Valido");
+      this.isValid = true;
+      this.btnText = 'Loading...'
       this.submitRegistrationSeller();
       
     }else{
@@ -314,6 +318,8 @@ export class RegistrationSellerComponent implements OnInit {
         this.createStore();
 
       }, error =>{
+        this.isValid = false;
+        this.btnText = 'Finish'
         this.showError(error.error)
 
       })
@@ -355,8 +361,12 @@ createStore(){
         result=>{
           console.log("REesult", result);
           this.showConfirmation=false;
+          this.isValid = false;
+          this.btnText = 'Finish'
         },
         error=>{
+          this.isValid = false;
+          this.btnText = 'Finish'
           this.showError(error.error)
           //if store has error. delete user and store
           this.product.deleteData('user/'+this.userID).subscribe(
@@ -370,6 +380,8 @@ createStore(){
     error=>{
       this.showError(error.error)
       console.log(error)
+      this.isValid = false;
+      this.btnText = 'Finish'
     }
   )
 }
