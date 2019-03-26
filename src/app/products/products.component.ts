@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
-import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer, SafeStyle } from '@angular/platform-browser';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html',
+  templateUrl: './products.component.html', 
   styleUrls: ['./products.component.scss']
 })
 export class ProductsComponent implements OnInit {
@@ -114,9 +114,12 @@ export class ProductsComponent implements OnInit {
       this.isClearButton = true;
       this.showLoading = true;
       jQuery('.category').val(0).trigger('change');
-      jQuery('.subcategory').val(0).trigger('change');
-      jQuery('.subspecies').val(0).trigger('change');
-      jQuery('.descriptor').val(0).trigger('change');
+      // jQuery('.subcategory').val(0).trigger('change');
+      // jQuery('.subspecies').val(0).trigger('change');
+      // jQuery('.descriptor').val(0).trigger('change');
+      jQuery('.subcategory-container').css('display', 'none');
+      jQuery('.subspecies-container').css('display', 'none');
+      jQuery('.descriptor-container').css('display', 'none');
       
       jQuery('.country').val(0).trigger('change');
       jQuery('#selectTreatment').val(0).trigger('change');
@@ -207,13 +210,13 @@ export class ProductsComponent implements OnInit {
       this.islogin.role.subscribe((role: number) => {
         this.role = role;
       });
-      jQuery(document).ready(function() {
-        jQuery([document.documentElement, document.body]).animate({
-          // scrollTop: jQuery('#search').offset().top
-        }, 1000);
-      });
+      // jQuery(document).ready(function() {
+      //   jQuery([document.documentElement, document.body]).animate({
+      //     // scrollTop: jQuery('#search').offset().top
+      //   }, 1000);
+      // });
 
-    });
+    }); 
   	this.searchForm = this.fb.group({
   		search: ['', Validators.required]
     });
@@ -237,9 +240,9 @@ export class ProductsComponent implements OnInit {
         jQuery('.subcategory-container').show();
       }
       
-      jQuery('.subcategory').val(0).trigger('change');
-      jQuery('.subspecies').val(0).trigger('change');
-      jQuery('.descriptor').val(0).trigger('change');
+      // jQuery('.subcategory').val(0).trigger('change');
+      // jQuery('.subspecies').val(0).trigger('change');
+      // jQuery('.descriptor').val(0).trigger('change');
       this.filterProducts();
     });
     jQuery('.subcategory').on('change', (e) => {
@@ -250,11 +253,15 @@ export class ProductsComponent implements OnInit {
       } else {
         jQuery('.subcategory-container').show();
       }
+      jQuery('.subspecies-container').show();
+
       this.filterProducts();
     });
     jQuery('.subspecies').on('change', (e) => {
       const subcategorySelected = e.target.value;
       this.getOnChangeLevel( 2, subcategorySelected );
+      jQuery('.descriptor-container').show();
+
       if ( subcategorySelected === 0 ) {
         //jQuery('.subspecies-container').hide();
       } else {
@@ -293,6 +300,7 @@ export class ProductsComponent implements OnInit {
       this.filterProducts();
     });
 
+   
     this.getFishCountries();
     this.getSubCategories('');
     this.getCart();
