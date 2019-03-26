@@ -205,7 +205,6 @@ export class ProductsComponent implements OnInit {
         this.getProducts(12, this.page);
       } else {
         this.paginationSearch = true;
-        this.Search(this.search, this.page);
       }
       this.islogin.role.subscribe((role: number) => {
         this.role = role;
@@ -439,43 +438,8 @@ deleteProduct(id, index) {
 
   });
 }
-Search(query, page) {
-this.productService.searchProductByName(query, page).subscribe(
-  result => {
-        this.searchPage += 1;
-        this.products = result['fish'];
-        this.pageNumbers = parseInt( result[ 'pagesCount' ] );
-        for (let i = 1; i <= this.pageNumbers; i++) {
-          this.paginationNumbers.push(i);
-        }
-        this.showLoading = false;
-        // working on the images to use like background
-         this.products.forEach((data, index) => {
-            if (data.imagePrimary && data.imagePrimary !== '') {
-              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
-            } else if (data.images && data.images.length > 0) {
-              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
-            } else {
-              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-            }
-         });
-        if (this.products.length === 0) {
-          this.showNotFound = true;
-        } else {
-          this.showNotFound = false;
-        }
-        this.nextProductsExist(2);
-        this.previousProductExist(2);
-      },
-      error => {
-        console.log(error);
-      }
-    );
-}
-searchProducts(query) {
-  this.paginationNumbers = [];
-  this.router.navigate([`/products/${query}/1`]);
-}
+
+
 deleteNode(i) {
   this.products.splice(i, 1);
 }
