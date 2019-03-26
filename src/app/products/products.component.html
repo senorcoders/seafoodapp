@@ -14,7 +14,7 @@
                     <option value="0">Select Category</option>
                     <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
                   </select>
-                </div>
+                </div> 
                 <div class="box subcategory-container">          
                   <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
                     <option value="0">Select Species</option>
@@ -133,7 +133,7 @@
              
             </div>
             <div class="row" *ngIf="!paginationSearch">
-              <div class="col" style="text-align: center;">
+              <div class="col" style="text-align: center;" *ngIf="number > 1">
                 <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
                 <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,1)">{{number}}</span>
                 <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
