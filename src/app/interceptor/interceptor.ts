@@ -16,7 +16,6 @@ export class Interceptor implements HttpInterceptor {
         if (data) {
             let json = JSON.parse(data);
             let token = json['token'];
-            console.log("Token Interceptor", token);
 
 
             event = req.clone({

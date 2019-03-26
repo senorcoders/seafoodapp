@@ -3,8 +3,8 @@ import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
-import { environment } from '../../environments/environment';
 import * as moment from 'moment';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -24,6 +24,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   showNoData: boolean = false;
   rows: any = [];
   public useFilterDate = false;
+   API:any = environment.apiURL;
 
   public date1 = new Date();
   public date2 = new Date();
@@ -144,8 +145,12 @@ export class AdminLogisticManagmentComponent implements OnInit {
   public mapDocs(doc) {
     let file = doc.split("/");
     if (file[3] != undefined) {
-      return `<a download href="http://devapi.seafoodsouq.com/api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
+  
+      return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
     }
   }
+
+
+
 
 }
