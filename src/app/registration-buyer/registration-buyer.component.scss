@@ -193,6 +193,12 @@ form{
     text-align: center;
     color: #ffffff;
     cursor: pointer;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    fa{
+        margin-right: 5px;
+    }
 }
 
 .btn-blue:focus{

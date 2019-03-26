@@ -34,10 +34,12 @@ showConfirmation=true;
 email:string;
 step1:boolean = true;
 step2:boolean = false;
+isValid:boolean = false;
+btnText:any = 'Finish';
 
 
-
-  constructor(private auth: AuthenticationService, private countryService: CountriesService, private toast:ToastrService) { }
+  constructor(private auth: AuthenticationService, 
+    private countryService: CountriesService, private toast:ToastrService) { }
  
   ngOnInit() {
     this.createFormControls();
@@ -186,6 +188,8 @@ step2:boolean = false;
     console.log(this.buyerForm.value, this.companyForm.value);
       if(this.companyForm.valid){
         console.log("Valid");
+        this.isValid = true;
+        this.btnText = 'Loading...'
         this.submitRegistrationBuyer()
       }else{
         console.log("Invalid");
@@ -223,10 +227,14 @@ step2:boolean = false;
         console.log("Resgistro", result);
         this.email=this.buyerForm.get('email').value;
         this.showConfirmation=false;
+        this.isValid = false;
+        this.btnText = 'Finish'
       },
       error=>{
         console.log(error);
         this.showError(error.error);
+        this.isValid = false;
+        this.btnText = 'Finish'
       }
     )
   
