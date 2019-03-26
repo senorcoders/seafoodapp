@@ -44,6 +44,7 @@ step2:boolean = false;
     this.RegisterBuyerForm();
     this.registerCompanyForm();
     this.getCountries();
+
     var that = this;
 
     // jQuery('.countries').select2();

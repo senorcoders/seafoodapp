@@ -163,7 +163,7 @@
             <div class="col-lg-6">
                 <div class="form-group" *ngIf="!primaryImg">
                     <label for="primary">{{'AddProduct.primary-image' | translate}}</label>
-                    <input type="file" (change)="addPrimaryImg($event.target.files )" required>
+                    <input type="file" (change)="addPrimaryImg($event.target.files )" required accept="image/*">
                 </div>
             </div>
 
@@ -172,7 +172,7 @@
                     <label for="file">{{'AddProduct.images' | translate}}</label>
                     <input type="file"
                            id="file" multiple
-                           (change)="handleFileInput($event.target.files)" >
+                           (change)="handleFileInput($event.target.files)" accept="image/*">
                            <div class="gallery"></div>
                   </div>
             </div>
