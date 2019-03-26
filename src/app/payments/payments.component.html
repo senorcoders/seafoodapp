@@ -19,8 +19,8 @@
                 <div class="row row-bg" *ngIf="item.shoppingCart" >
                   <div class="col-5">
                     <p *ngIf="item.shoppingCart" class="order-number">Order #{{item.shoppingCart.orderNumber}}</p> 
-                    <p class="order-number"><a class="purchase_pdf" *ngIf="item.shoppingCart.invoice_pdf" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{item.shoppingCart.invoice_pdf}}/pdf_invoices" >Invoice Order PDF</a></p>               
-                    <a *ngIf="item.po_path" target="_blank" href="{{API}}/api/shoppingcart/PDF/{{item.po_path}}/pdf_purchase_order" >Purchase Order PDF</a>
+                    <p class="order-number"><a class="purchase_pdf" *ngIf="item.shoppingCart.invoice_pdf" target="_blank" href="{{API}}api/shoppingcart/PDF/{{item.shoppingCart.invoice_pdf}}/pdf_invoices" >Invoice Order PDF</a></p>               
+                    <a *ngIf="item.po_path" target="_blank" href="{{API}}api/shoppingcart/PDF/{{item.po_path}}/pdf_purchase_order" >Purchase Order PDF</a>
                     <h5 [innerHtml]="item.fish.name"></h5>                
                     <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
                     <p class="status"><b>Status:</b>{{item.status.status}}</p>

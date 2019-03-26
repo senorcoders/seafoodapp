@@ -21,6 +21,7 @@ export class PaymentsComponent implements OnInit {
   selectedItemID: any;
   user: any;
   exchangeRate: number;
+  public API:any = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private toast: ToastrService,
