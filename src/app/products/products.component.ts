@@ -314,6 +314,7 @@ export class ProductsComponent implements OnInit {
     });
   }
   getProducts(cant, page) {
+    console.log("Page", page);
   	const data = {
   		pageNumber: page,
   		numberProduct: cant
@@ -331,20 +332,26 @@ export class ProductsComponent implements OnInit {
         }
   			this.showLoading = false;
   			// working on the images to use like background
-         	this.products.forEach( ( data, index ) => {
-	            if (data.imagePrimary && data.imagePrimary !== '') {
-	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
-	            } else if (data.images && data.images.length > 0) {
-	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
-	            } else {
-	              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-              }
-              console.log(this.image);
-	        });
 	        if (this.products.length === 0) {
-	          this.showNotFound = true;
+            if(page > 1){
+              this.router.navigate([`/products/all/1`]);
+            }else{
+              this.showNotFound = true;
+            }
+
 	        } else {
-	          this.showNotFound = false;
+            this.showNotFound = false;
+            
+         	this.products.forEach( ( data, index ) => {
+            if (data.imagePrimary && data.imagePrimary !== '') {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+            } else if (data.images && data.images.length > 0) {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
+            } else {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+            }
+            console.log(this.image);
+        });
 	        }
 	        this.nextProductsExist(1);
           this.previousProductExist(1);
