@@ -235,49 +235,9 @@ form{
 	position: relative;
 }
 @media (min-width: 1300px){
-	.img-logo{
-    padding-left: 212px;
-    display: block;
-    margin-right: 19px;
-	}
-	.container {
-	    max-width: 1440px;
-	}
+	
 	.top-nav{
-		.container{
-			padding:0 !important;
-		}
-		nav{
-			padding:0 !important;
-		}
-		.nav-item {
-		    height: 63px !important;
-		    width: 158px !important;
-		    margin-right: 16px !important;
-		    display: flex !important;
-		    align-items: center !important;
-		}
-		.nav-link{
-			font-family: Roboto;
-		    font-size: 18px;
-		    font-weight: 500;
-		    font-style: normal;
-		    font-stretch: normal;
-		    line-height: normal;
-		    letter-spacing: normal;
-		    text-align: center;
-		    text-transform: capitalize;
-		    color: #7484AA !important;
-		    width: 100%;
-		    padding: 20px 0 !important;
-		}
-		.bar{
-			height: 26px !important;
-		    width: 1px !important;
-		    border: 1px solid white;
-		    margin-left: 50px !important;
-		    margin-right: 51px !important;
-		}
+	
 		.admin-navbar{
 			.nav-item{
 				width: auto !important
