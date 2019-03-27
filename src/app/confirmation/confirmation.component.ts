@@ -7,7 +7,7 @@ import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
-import {  HttpClient, HttpBackend } from '@angular/common/http';
+import {  HttpClient } from '@angular/common/http';
 import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
@@ -65,8 +65,7 @@ export class ConfirmationComponent implements OnInit {
     private location: Location,
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private _document,
-    handler: HttpBackend) { 
-      this.http = new HttpClient(handler);
+    ) { 
     }
 
   ngOnInit() {
