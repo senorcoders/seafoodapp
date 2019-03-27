@@ -12,6 +12,7 @@ import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-products',
@@ -60,9 +61,10 @@ userInfo:any;
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: OrderService,
-    private countryservice: CountriesService, private auth: AuthenticationService) { 
-
+    private countryservice: CountriesService, private auth: AuthenticationService, private titleS: TitleService) { 
+      this.titleS.setTitle('Browse');
     }
+
 
   async ngOnInit() {
     this.userInfo = this.auth.getLoginData();

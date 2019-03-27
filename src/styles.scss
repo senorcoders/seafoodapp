@@ -1083,6 +1083,7 @@ form-wizard{
   z-index: 9 !important;
 }
 
+<<<<<<< HEAD
 #toast-container > div {
   opacity:1;
 }
@@ -1114,3 +1115,8 @@ form-wizard{
 .gray-bg{
   background-color: #F7F8F9;
 }
+=======
+.navbar-dark .navbar-toggler-icon{
+  background-color: #0D1321;
+}
+>>>>>>> 41ea4ea... Add component name to some cp
