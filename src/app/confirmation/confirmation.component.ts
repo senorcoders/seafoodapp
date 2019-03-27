@@ -69,7 +69,6 @@ export class ConfirmationComponent implements OnInit {
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
       this.httpO = new HttpClient(handler);
-
     }
 
   async ngOnInit() {
