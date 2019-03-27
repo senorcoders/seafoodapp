@@ -1082,6 +1082,9 @@ form-wizard{
   z-index: 9 !important;
 }
 
+#toast-container > div {
+  opacity:1;
+}
 // .select2-container--default .select2-selection--single{
 //   color: black;
 //   border: 0;

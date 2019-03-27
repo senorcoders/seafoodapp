@@ -58,7 +58,6 @@ export class ProductsComponent implements OnInit {
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
     private countryservice: CountriesService) { 
-      this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
 
     }
 
