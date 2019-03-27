@@ -7,6 +7,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platf
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
 import {IsLoginService} from '../core/login/is-login.service';
+import { TitleService } from '../title.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -30,9 +31,17 @@ export class HomeComponent implements OnInit {
   fishTypeMenuImages=[];
   fishTypeMenuImagesChild=[];
   isLoggedIn:boolean = false;
-  constructor(private isLoggedSr: IsLoginService, private product:ProductService, private auth: AuthenticationService, private sanitizer:DomSanitizer, private cart:CartService,private router:Router) {
+  constructor(private isLoggedSr: IsLoginService, private product:ProductService, 
+    private auth: AuthenticationService, private sanitizer:DomSanitizer, 
+    private cart:CartService,private router:Router,
+    private titleS: TitleService) {
+      this.titleS.setTitle('Seafoodsouq');
+
   }
+
+  
   ngOnInit() {
+
     this.getLoginStatus();
    this.isLoggedSr.role.subscribe((role:number)=>{
       this.role=role
