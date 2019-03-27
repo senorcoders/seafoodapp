@@ -12,6 +12,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 
 @Component({
@@ -70,8 +71,8 @@ export class CheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private orders: OrderService,
     private toast: ToastrService,
-    dateAdapter: DateTimeAdapter<any>    
-  ) {
+    dateAdapter: DateTimeAdapter<any>,
+    private titleS: TitleService) {     this.titleS.setTitle('Checkout');
     this.min.setDate( this.today.getDate() + 3 );
     this.max.setDate( this.today.getDate() + 120 );
 

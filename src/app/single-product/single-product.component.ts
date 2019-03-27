@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/plat
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
 import 'rxjs/add/operator/catch';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-single-product',
@@ -81,8 +82,7 @@ export class SingleProductComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
-
-  ) {
+    private titleS: TitleService) {     this.titleS.setTitle('Product');
 
   }
 

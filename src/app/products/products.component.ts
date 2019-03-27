@@ -10,6 +10,7 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-products',
@@ -57,7 +58,7 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
-    private countryservice: CountriesService) { }
+    private countryservice: CountriesService,private titleS: TitleService) {     this.titleS.setTitle('Browse'); }
 
   async ngOnInit() {
     jQuery('.category').select2( {  width: 'resolve'  } );

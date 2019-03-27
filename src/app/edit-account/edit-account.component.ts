@@ -70,7 +70,7 @@ export class EditAccountComponent implements OnInit {
   
    async ngOnInit() {
 
-    this.createFormControls();
+    this.createFormControls();  
     this.createBuyerForm();
     this.createSellerForm();
    this.getPersonalData();

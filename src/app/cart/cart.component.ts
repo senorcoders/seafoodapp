@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import { OrdersService } from '../core/orders/orders.service';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -47,7 +48,9 @@ export class CartComponent implements OnInit {
   totalWithShipping:any;
   index:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService, private cartService:OrderService) { }
+    private toast:ToastrService, private Cart: CartService, private router:Router, 
+    private orders:OrdersService, private cartService:OrderService,
+    private titleS: TitleService) {     this.titleS.setTitle('Cart'); }
 
   ngOnInit() {
     this.getCart();

@@ -354,7 +354,8 @@ form{
 	    position: absolute;
 	    top: 63px;
 	    left: 0px;
-	    background: #313131;
+		background: #f2f2f2;
+		z-index: 99999;
 	}
 }
 @media(max-width: 992px){
