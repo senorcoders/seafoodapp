@@ -7,46 +7,57 @@
 		<div class="col-12 table-design">
 			<div class="row">
 				<div class="col-lg-6">
-						<h3 class="black-title">Buyers</h3>
+					<h3 class="black-title">Buyers</h3>
 
-						<div class="row row-bg" *ngFor="let user of buyers; let i=index">
-								<div class="col-lg-12">
-									<h2 class="name">
-										{{user.firstName}} 
-										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
-										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
-										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
-										<fa name="eye" class="edit" (click)="popUp(i, 'buyer')"></fa>
-									</h2>
-									<div class="product">
-										{{user.email}}
-										<hr class="black-line">
-									</div>
-								</div>
+					<div class="row row-bg" *ngFor="let user of buyers; let i=index">
+						<div class="col-lg-12">
+							<h2 class="name">
+								{{user.firstName}}
+								<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
+								<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)"
+									class="delete">
+								<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
+								<fa name="eye" class="edit" (click)="popUp(i, 'buyer')"></fa>
+							</h2>
+							<div class="product">
+								{{user.email}}
+								<hr class="black-line">
 							</div>
+						</div>
+					</div>
 				</div>
 
 				<div class="col-lg-6">
-						<h3 class="black-title">Sellers</h3>
+					<h3 class="black-title">Sellers</h3>
 
-						<div class="row row-bg" *ngFor="let user of sellers; let i=index">
-								<div class="col-lg-12">
-									<h2 class="name">
-										{{user.firstName}} 
-										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
-										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
-										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
-										<fa name="eye" class="edit" (click)="popUp(i, 'seller')"></fa>
-									</h2>
-									<div class="product">
-										{{user.email}}
-										<hr class="black-line">
-									</div>
-								</div>
+					<div class="row row-bg" *ngFor="let user of sellers; let i=index">
+						<div class="col-lg-12">
+							<h2 class="name">
+								{{user.firstName}}
+								<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
+								<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)"
+									class="delete">
+								<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
+								<fa name="eye" class="edit" (click)="popUp(i, 'seller')"></fa>
+							</h2>
+							<div class="product">
+								{{user.email}}
+								<hr class="black-line">
 							</div>
+						</div>
+					</div>
 				</div>
 			</div>
-			
+		</div>
+		<div class="row">
+			<div class="col" style="text-align: center;">
+				<span class="btn-red-a previous" (click)="previousPageSearch()"
+					*ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
+				<span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+					[ngClass]="{'active': page==number}" (click)="getPendingUsersWithPagination(number)">{{number+1}}</span>
+				<span class="btn-red-a next" (click)="nextPageSearch()"
+					*ngIf="showNextPS">{{'Products.next' | translate}}</span>
+			</div>
 		</div>
 	</div>
 </div>
@@ -83,8 +94,9 @@
 						{{singleUser.dataExtra.Address}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
-						<b>Type of Business:</b> {{singleUser.dataExtra.TypeBusiness!==undefined?singleUser.dataExtra.TypeBusiness:singleUser.dataExtra.typeBusiness}}<br>
-						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
+						<b>Type of Business:</b>
+						{{singleUser.dataExtra.TypeBusiness!==undefined?singleUser.dataExtra.TypeBusiness:singleUser.dataExtra.typeBusiness}}<br>
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
@@ -94,7 +106,9 @@
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
-						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem;margin-top: 10px;">Store
+						<h5
+							style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem;margin-top: 10px;">
+							Store
 						</h5>
 						<hr class="black-line">
 						<b>Company name: </b>{{singleUser.dataExtra.companyName}} <br>
@@ -110,7 +124,7 @@
 						<b>Currency of Trade: </b>{{singleUser.dataExtra.currencyTrade}} <br>
 						<b>Contact Number: </b>{{singleUser.dataExtra.contactNumber}} <br>
 						<b>Products Interested in Selling: </b>{{singleUser.dataExtra.productsIntered}}<br>
-						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==0">
 						<b>First Name: </b>{{singleUser.firstName}} <br>
@@ -123,7 +137,7 @@
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
 						<b>Country: </b>{{singleUser.dataExtra.country}} <br>
 						<b>Type of Business: </b>{{singleUser.dataExtra.TypeBusiness}} <br>
-						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} 
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}}
 					</div>
 				</div>
 			</div>

@@ -27,8 +27,16 @@ export class VerifyUserComponent implements OnInit {
   denialMessage: FormControl;
   store: any;
   id: any;
-  buyers:any = [];
-  sellers:any = [];
+  buyers: any = [];
+  sellers: any = [];
+
+  //Pagination
+  private skip = 0;
+  private limit = 20;
+  public count = 20;
+  public paginationNumbers = [];
+  public page = 0;
+
   constructor(private auth: AuthenticationService, private toast: ToastrService) { }
 
   ngOnInit() {
@@ -47,15 +55,21 @@ export class VerifyUserComponent implements OnInit {
   }
 
   getPendingUsers() {
+
     this.buyers = [];
     this.sellers = [];
-    this.auth.getData('user?where={"status":""}').subscribe(
+
+    this.auth.getData(`user-not-verified?limit=${this.limit}&skip=${this.skip}`).subscribe(
       result => {
+        let data: any = result;
         if (result && result != '') {
-          this.users = result; console.log(result);
+          console.log(result);
+          this.users = data.users;
+          this.count = data.count;
           this.showLoading = false
           this.isInfo = true
           this.splitUsers();
+          this.calcPagination();
         }
         else {
           this.showLoading = false;
@@ -68,13 +82,64 @@ export class VerifyUserComponent implements OnInit {
         this.isInfo = false
       }
     )
+    
   }
 
-  splitUsers(){
+  getPendingUsersWithPagination(index) {
+
+    this.buyers = [];
+    this.sellers = [];
+    this.skip = this.limit * index;
+    this.page = index;
+    this.auth.getData(`user-not-verified?limit=${this.limit}&skip=${this.skip}`).subscribe(
+      result => {
+        let data: any = result;
+        if (result && result != '') {
+          console.log(result);
+          this.users = data.users;
+          this.count = data.count;
+          this.showLoading = false
+          this.isInfo = true
+          this.splitUsers();
+          this.calcPagination();
+        }
+        else {
+          this.showLoading = false;
+          this.isInfo = false
+        }
+      },
+      e => {
+        console.log(e)
+        this.showLoading = false;
+        this.isInfo = false
+      }
+    )
+
+    
+  }
+
+  private calcPagination() {
+    this.paginationNumbers = []; console.log(this.count);
+    let length = this.count / 20;
+    console.log(length);
+    if (length < 1) {
+      length = 0;
+    } else if (length % 1 !== 0){
+      length = parseInt(length.toString());
+      length += 1
+    };
+
+    this.paginationNumbers = []; console.log(length);
+    for (let i = 0; i < length; i++) {
+      this.paginationNumbers.push(i);
+    }
+  }
+
+  splitUsers() {
     this.users.forEach(element => {
-      if(element.role == 2){
+      if (element.role == 2) {
         this.buyers.push(element);
-      }else{
+      } else {
         this.sellers.push(element);
       }
     });
@@ -118,9 +183,9 @@ export class VerifyUserComponent implements OnInit {
   }
 
   popUp(i, where) {
-    if(where == 'buyer'){
+    if (where == 'buyer') {
       this.singleUser = this.buyers[i];
-    }else{
+    } else {
       this.singleUser = this.sellers[i];
     }
     console.log(this.singleUser);

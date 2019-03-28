@@ -21,3 +21,20 @@ h5{
 .table-design .row-bg {
     margin: -10px;
 }
+
+.previous, .next{
+	margin-bottom: 20px;
+  }
+  .numberPage{
+	margin-right: 10px;
+	margin-bottom: 10px;
+  }
+  .pink-btn{
+	padding: 10px 15px;
+	color: #0055bd !important;
+	border: 2px solid #0055bd !important;
+  }
+  .active {
+	background: #0055bd;
+	color: white !important;
+  }
