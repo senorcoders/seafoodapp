@@ -1,0 +1,286 @@
+<ng-progress></ng-progress>
+
+<div class="container">
+  <div style="height: 100px;"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="title">{{'AddProduct.title' | translate}}</h1>
+      <ng-template #customLoadingTemplate>
+        <div class="row">
+          <div class="col">
+            <div class="col-12 text-center"><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
+          </div>
+        </div>
+      </ng-template>
+      <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+      </ngx-loading>
+
+      <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" class="form-design">
+        <fish-form></fish-form>
+        
+        <div>
+          <div class="col-12">
+            <h2 style="text-align: center;">{{'CreateProduct.productFeatures' | translate}}</h2>
+          </div>
+
+          <div class="col-lg-6">
+            <label> <span calss="selectionable" [ngClass]="wholeFishAction===true?'select':''"
+                (click)="assingWholeFish(true)">{{'CreateProduct.wholeFish' | translate}}</span> | <span
+                (click)="assingWholeFish(false)" calss="selectionable"
+                [ngClass]="wholeFishAction===true?'':'select'">{{'CreateProduct.filletedFish' | translate}}</span> <img
+                tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+                placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+
+          </div>
+
+          <div class="col-lg-6">
+            <label [hidden]="wholeFishAction===false">
+              <div class="square"></div> <span calss="selectionable"
+                (click)="assingWholeFish(true)">{{'CreateProduct.wholeFish' | translate}}</span>
+              &nbsp;&nbsp;&nbsp;&nbsp; <div class="square"></div> <span (click)="assingWholeFish(false)"
+                calss="selectionable">{{'CreateProduct.filletedFish' | translate}}</span> <img
+                tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+                placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20">
+            </label>
+
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
+              <label>{{'CreateProduct.headOffWeight' | translate}} </label>
+              <select class="form-control" formControlName="measurement" required>
+                <option value="kg" selected>KG</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
+              <label>{{'CreateProduct.headOnWeight' | translate}} <span class="field-status red">*</span> </label>
+              <select class="form-control" formControlName="measurement" required>
+                <option value="kg" selected>KG</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="measurement.errors && showError">
+                <p *ngIf="measurement.errors.required">{{'CreateProduct.headOnWeight' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'CreateProduct.acceptableSpoilageRate' | translate}} <span class="field-status red">*</span> <img
+                  tooltip="The main image displayed on your product when buyers are browsing" placement="right"
+                  show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+              <input type="number" class="form-control" formControlName="maximumorder">
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
+              <label>{{'CreateProduct.raised' | translate}} <span class="field-status red">*</span> </label>
+              <select class="form-control" formControlName="measurement" required>
+                <option value="kg" selected>KG</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="measurement.errors && showError">
+                <p *ngIf="measurement.errors.required">{{'CreateProduct.raised' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': measurement.invalid && (measurement.dirty || measurement.touched),'has-success': measurement.valid && (measurement.dirty || measurement.touched)}">
+              <label>{{'AddProduct.price-measurement' | translate}} <span class="field-status red">*</span> </label>
+              <select class="form-control" formControlName="measurement" required>
+                <option value="kg" selected>KG</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="measurement.errors && showError">
+                <p *ngIf="measurement.errors.required">{{'AddProduct.price-measurement' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.primary-image' | translate}} <img
+                  tooltip="The main image displayed on your product when buyers are browsing" placement="right"
+                  show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+              <input class="form-control" type="file" id="primary"
+                (change)="handleFileInput($event.target.files, 'primary' )" accept="image/*">
+              <img id="blah" alt="" />
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="file">{{'AddProduct.images' | translate}} <img
+                  tooltip="Any additional images you have for the product." placement="right" show-delay="0"
+                  src="../../assets/question.png" alt="" width="20"></label>
+              <input class="form-control" type="file" accept="image/*" id="file" multiple
+                (change)="handleFileInput($event.target.files, 'secundary')">
+              <div class="gallery"></div>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <h2 class="black-title">Products Features</h2>
+          </div>
+          <!-- <div class="col-lg-6">
+        <div class="form-group" [ngClass]="{'has-danger': waterLostRate.invalid && (waterLostRate.dirty || waterLostRate.touched),'has-success': waterLostRate.valid && (waterLostRate.dirty || waterLostRate.touched)}">
+          <label>{{'AddProduct.waterLostRate' | translate}}</label>
+          <input class="form-control" formControlName="waterLostRate" type="number" required>
+          <div class="form-control-feedback" *ngIf="waterLostRate.errors && showError">
+            <p *ngIf="waterLostRate.errors.required">{{'AddProduct.waterLostRate' | translate}} {{'AddProduct.required' | translate}}</p>
+          </div>
+        </div>
+      </div> -->
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': mortalityRate.invalid && (mortalityRate.dirty || mortalityRate.touched),'has-success': mortalityRate.valid && (mortalityRate.dirty || mortalityRate.touched)}">
+              <label>{{'AddProduct.mortalityRate' | translate}} <span class="field-status red">*</span> <img
+                  tooltip="This is the maximum % of spoiled product a customer must accept within a shipment"
+                  placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+              <input class="form-control" formControlName="mortalityRate" type="number" required>
+              <div class="form-control-feedback" *ngIf="mortalityRate.errors && showError">
+                <p *ngIf="mortalityRate.errors.required">{{'AddProduct.mortalityRate' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': raised.invalid && (raised.dirty || raised.touched),'has-success': raised.valid && (raised.dirty || raised.touched)}">
+              <label>{{'AddProduct.raised' | translate}} <span class="field-status red">*</span> <img
+                  tooltip="This field reflects the environment in which the product was raised" placement="right"
+                  show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+              <select class="form-control" formControlName="raised">
+                <option value="farmed">Farmed</option>
+                <option value="organically">Organically Farmed</option>
+                <option value="wild">Wild</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="raised.errors && showError">
+                <p *ngIf="raised.errors.required">{{'AddProduct.raised' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': preparation.invalid && (preparation.dirty || preparation.touched),'has-success': preparation.valid && (preparation.dirty || preparation.touched)}">
+              <label>{{'AddProduct.preparation' | translate}} <span class="field-status red">*</span> <a
+                  class="manage-link" data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage
+                  Trimming</a> <img tooltip="This field reflects any post harvest treatment/processing of the product"
+                  placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+              <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
+                <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="preparation.errors && showError">
+                <p *ngIf="preparation.errors.required">{{'AddProduct.preparation' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="col-lg-6" *ngIf="showProcessingParts">
+        <div class="form-group">
+          <label>Processing Parts</label>
+          <ul class="parts">
+            <li *ngFor="let part of parts">{{part.name}}</li>
+          </ul>
+        </div>
+      </div> -->
+          <div class="col-lg-6" *ngIf="showWholeOptions">
+            <div class="form-group">
+              <label>Whole Fish Weight <img tooltip="Lorem Ipsum" placement="right" show-delay="0"
+                  src="../../assets/question.png" alt="" width="20"></label>
+              <select class="form-control" formControlName="wholeFishWeight">
+                <option value="{{whole}}" *ngFor="let whole of wholeOptions">{{whole}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group"
+              [ngClass]="{'has-danger': treatment.invalid && (treatment.dirty || treatment.touched),'has-success': treatment.valid && (treatment.dirty || treatment.touched)}">
+              <label>{{'AddProduct.treatment' | translate}} <span class="field-status red">*</span> <img
+                  tooltip="Any post harvest treatment of the product" placement="right" show-delay="0"
+                  src="../../assets/question.png" alt="" width="20"></label>
+              <select class="form-control" formControlName="treatment">
+                <option value="fresh">Fresh</option>
+                <option value="frozen">Frozen</option>
+                <option value="live">Live</option>
+                <option value="smoked">Smoked</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="treatment.errors && showError">
+                <p *ngIf="treatment.errors.required">{{'AddProduct.treatment' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6" style="display:  none;">
+            <div class="form-group"
+              [ngClass]="{'has-danger': cooming_soon.invalid && (cooming_soon.dirty || cooming_soon.touched),'has-success': cooming_soon.valid && (cooming_soon.dirty || cooming_soon.touched)}">
+              <label>{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span></label>
+              <select class="form-control" formControlName="cooming_soon">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+              <div class="form-control-feedback" *ngIf="cooming_soon.errors && showError">
+                <p *ngIf="cooming_soon.errors.required">{{'AddProduct.cooming_soon' | translate}}
+                  {{'AddProduct.required' | translate}}</p>
+              </div>
+            </div>
+          </div>
+          <!--<div class="col-lg-12"><h2 class="black-title">Delivered Prices</h2></div>
+
+        <div class="col-lg-12">
+          <table class="table text-center">
+            <tr>
+              <th scope="col">Weight</th>
+              <th scope="col">Delivered Price USD</th>
+              <th scope="col">Delivered Price AED</th>
+            </tr>
+            <tr>
+              <td scope="row">25 KG</td>
+              <td>{{price25 | currency: 'USD'}}</td>
+              <td>{{price25*currentExchangeRate | currency: 'AED'}}</td>
+            </tr>
+            <tr>
+              <td scope="row">100 KG</td>
+              <td>{{price100 | currency: 'USD'}}</td>
+              <td>{{price100*currentExchangeRate | currency: 'AED'}}</td>
+            </tr>
+            <tr>
+              <td scope="row">500 KG</td>
+              <td>{{price500 | currency: 'USD'}}</td>
+              <td>{{price500*currentExchangeRate | currency: 'AED'}}</td>
+            </tr>
+            <tr>
+              <td scope="row">1000 KG</td>
+              <td>{{price1000 | currency: 'USD'}}</td>
+              <td>{{price1000*currentExchangeRate | currency: 'AED'}}</td>
+            </tr>
+        </table>
+        </div>-->
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button type="submit" class="btn-red">{{'AddProduct.submit' | translate}}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div style="height: 100px;"></div>
+</div>
