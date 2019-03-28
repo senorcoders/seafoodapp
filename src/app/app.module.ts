@@ -116,6 +116,8 @@ import { RegistrationBuyerComponent } from './registration-buyer/registration-bu
 import { Select2Module } from 'ng2-select2';
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 import { NonsellerRouterService } from './services/nonseller-router.service';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { FishFormComponent } from './fish-form/fish-form.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -124,6 +126,7 @@ const appRoutes: Routes = [
   { path: 'register-seller', component:  RegistrationSellerComponent},
   { path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
+  { path: 'add-product-1', component: CreateProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
   { path: 'product/:id', component: SingleProductComponent, canActivate: [NonsellerRouterService]  },
@@ -275,6 +278,8 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     RegistrationBuyerComponent,
     RegistrationSellerComponent,
+    CreateProductComponent,
+    FishFormComponent,
   ],
   imports: [
     BrowserModule,
