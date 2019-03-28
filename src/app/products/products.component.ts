@@ -58,7 +58,8 @@ export class ProductsComponent implements OnInit {
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
-    private countryservice: CountriesService,private titleS: TitleService) {     this.titleS.setTitle('Browse'); }
+    private countryservice: CountriesService, private titleS: TitleService) {     this.titleS.setTitle('Browse'); }
+
 
   async ngOnInit() {
     jQuery('.category').select2( {  width: 'resolve'  } );
