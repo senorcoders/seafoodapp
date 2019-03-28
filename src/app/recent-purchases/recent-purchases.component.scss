@@ -10,3 +10,195 @@
 p.order-number {
     margin-bottom: 0px;
 }
+.input-hidden{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+    border: none;
+}
+.black-title{
+    text-align: center;
+    margin: 40px;
+    font-family: 'Open Sans', sans-serif;
+    text-transform: initial;
+    color: #3E4E75 !important;
+}
+.orders-tabs{
+    background: #F7F8F9;
+    padding: 100px 15px;
+    .nav-tabs {
+        border-bottom: 1px solid #b5bed1;
+    }
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+        background: none;
+        border: none;
+        border-bottom: 2px solid #99a3b6;
+        color: #3E4E75 !important;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 22px;
+        padding: 15px 30px;
+    
+    }
+    .nav-tabs .nav-link{
+        color: #3E4E75 !important;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 22px;
+        padding: 15px 30px;
+    }
+    .table thead th {
+        vertical-align: bottom;
+        border-bottom: 1px solid #b5bed1;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 15px;
+        text-transform: uppercase;
+        color: #7484AA;
+        padding: 25px 15px;
+        border-top: none;
+        font-weight: 300;
+    }
+
+     .table td {
+        vertical-align: top;
+        border-top: none;
+        border-bottom: 1px solid #e4e6e9;
+        text-align: center;
+        padding: 25px 15px;
+        font-family: 'Open Sans', sans-serif;
+        color: #0D1321;
+        font-size: 12px;
+        a{
+            float: right;
+            img{
+                height: 14px;
+                width: 14px; 
+                margin-left: 5px; 
+            }
+        }
+        button{
+            float: right;
+            background: transparent;
+            border: none;
+            outline: none;
+            padding: 0;
+            img{
+                   height: 14px;
+                    width: 14px;  
+                    margin-left: 5px;            
+            }
+        }
+    }
+
+    .table th, .table td{
+        width: 16%;
+    }
+
+    .table th:first-child, .table td:first-child, .table th:last-child, .table td:last-child{
+        width: 10%;
+    }
+}
+
+.modal-confirm{
+    border-radius: 10px;
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        .modal-header{
+            border: none;
+            .modal-title{
+                text-align: center;
+                font-family: 'Josefin Sans', sans-serif;
+                width: 100%;
+                color: #7484AA;
+                font-weight: 300;
+                padding: 20px;
+            }
+        }
+
+        .modal-body{
+            padding-bottom: 30px;
+        }
+
+            .blue-btn{
+                width: 100px;
+                background: #3E4E75 !important;
+                text-transform: uppercase;
+                font-family: 'Josefin Sans', sans-serif;
+                border-radius: 5px;
+                outline: none;
+                border: 2px solid #3E4E75 !important;
+                margin-left: 10px !important;
+            }
+            .blue-btn-light{
+                width: 100px;
+                background: #ffffff !important;
+                text-transform: uppercase;
+                font-family: 'Josefin Sans', sans-serif;
+                border-radius: 5px;
+                outline: none;
+                color: #7484AA !important;
+                border: 2px solid #7484AA !important;
+                font-weight: 300;
+                margin-right: 10px !important;
+            }
+        
+    }
+}
+
+#shippingDocs{
+
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        .modal-header{
+            background: #F7F8F9;
+            padding: 40px 20px;
+            border: none;
+            .modal-title{
+                color: #7484AA;
+                font-family: 'Josefin Sans', sans-serif;
+                text-align: center;
+                width: 100%;
+                font-weight: 300;
+            }
+        }
+        .form-design{
+            .col-lg-12{
+                border-bottom: 1px solid #F0F0F1;
+                margin-bottom: 15px !important;
+                padding: 10px;
+            }
+
+            .col-lg-12:last-child{
+                border: none;
+            }
+            .form-group{
+             background: none !important;
+             margin-bottom: 0 !important;
+             .form-control{
+                border-bottom: 1px solid #ccced3 !important;
+                border-radius: 0;
+                width: 60%;
+             }
+             label{
+                color: #7484AA !important;
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: 300;
+                text-transform: uppercase;
+                font-size: 15px;
+                letter-spacing: initial;
+                img{
+                    width: 15px;
+                    height: 15px;
+                    vertical-align: top;
+                }
+             }
+            } 
+         }
+    }
+    
+}
