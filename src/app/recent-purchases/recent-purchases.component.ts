@@ -27,6 +27,8 @@ export class RecentPurchasesComponent implements OnInit {
   showLoading: boolean = true;
   showProduct: boolean = false;
   showShipped: boolean = false;
+  showDelivered: boolean = false;
+  showCancelled: boolean = false;
   firstProducts: any;
   min = new Date();
   max = new Date();
@@ -46,6 +48,8 @@ export class RecentPurchasesComponent implements OnInit {
   files:any;
   itemId: any;
   subindex: any;
+  delivered:any = [];
+  cancelled:any = [];
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -61,13 +65,19 @@ export class RecentPurchasesComponent implements OnInit {
 
     this.user = this.auth.getLoginData();
     this.getStore();
+
+ 
   }
+
+
   getStore() {
     this.productS.getData('api/store/user/' + this.user.id).subscribe(
       result => {
         this.storeID = result[0].id;
         this.getPurchases();
         this.getPurchasesShipped();
+        this.getDelivered();
+        this.getCancelled();
       },
       e => {
         console.log(e);
@@ -441,6 +451,33 @@ openShippingModal(id, index){
   jQuery('#shippingDocs').modal('show');
   this.itemId = id;
 
+}
+
+
+//Get delivered orders
+
+getDelivered(){
+  this.productS.getData(`/api/store/${this.user.id}/order/status/5c017b3c47fb07027943a409`).subscribe(res => {
+      console.log("Delivered Orders", res);
+      let arr:any = res;
+      if(arr.length > 0){
+        this.delivered = res;
+        this.showDelivered = true;
+      }
+  })
+}
+
+//Get cancelled orders
+
+getCancelled(){
+  this.productS.getData(`/api/store/${this.user.id}/order/status/5c06f4bf7650a503f4b731fd`).subscribe(res => {
+      console.log("Delivered Orders", res);
+      let arr:any = res;
+      if(arr.length > 0){
+        this.cancelled = res;
+        this.showCancelled = true;
+      }
+  })
 }
 
 

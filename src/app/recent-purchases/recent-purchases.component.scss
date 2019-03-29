@@ -210,3 +210,11 @@ p.order-number {
 .sub-td{
     padding: 0 !important;
 }
+.expandible-link img {
+    content: url('../../assets/svg/minus.svg');
+    display: block;
+}
+.expandible-link.collapsed img{
+    content: url('../../assets/svg/plus.svg');
+    display: block;
+}
