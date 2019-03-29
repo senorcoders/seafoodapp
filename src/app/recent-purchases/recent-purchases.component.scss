@@ -25,6 +25,10 @@ p.order-number {
     text-transform: initial;
     color: #3E4E75 !important;
 }
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+    border:none;
+}
 .orders-tabs{
     background: #F7F8F9;
     padding: 100px 15px;
@@ -40,6 +44,7 @@ p.order-number {
         font-weight: 300;
         font-size: 22px;
         padding: 15px 30px;
+        letter-spacing: 1.75px;
     
     }
     .nav-tabs .nav-link{
@@ -48,6 +53,7 @@ p.order-number {
         font-weight: 300;
         font-size: 22px;
         padding: 15px 30px;
+        letter-spacing: 1.75px;
     }
     .table thead th {
         vertical-align: bottom;
@@ -60,6 +66,7 @@ p.order-number {
         padding: 25px 15px;
         border-top: none;
         font-weight: 300;
+        letter-spacing: 1.5px;
     }
 
      .table td {
@@ -71,6 +78,7 @@ p.order-number {
         font-family: 'Open Sans', sans-serif;
         color: #0D1321;
         font-size: 12px;
+        font-weight: 300;
         a{
             float: right;
             img{
