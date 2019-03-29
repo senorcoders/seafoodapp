@@ -1,0 +1,26 @@
+table{
+    th:first-child, td:first-child{
+        width: 40%;
+    }
+    th, td{
+        text-align: center;
+        vertical-align: middle;
+        font-family: 'Open Sans', sans-serif;
+
+    }
+
+    .red-title{
+        color: red;
+        font-size: 20px;
+    }
+
+    .green-title{
+        color: green;
+        font-size: 20px;
+    }
+}
+
+p{
+    font-family: 'Open Sans', sans-serif;
+
+}
