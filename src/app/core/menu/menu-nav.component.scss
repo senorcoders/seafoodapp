@@ -5,6 +5,7 @@
 	background: #313131;
     height: 63px;
     display: flex;
+
 	a:hover{
 			color:#3181f0 !important;
     	}
@@ -370,6 +371,8 @@ form{
 	.fish-type-menu{
 		display: none;
 	}
+
+	
 }
 @media(max-width: 575px){
 	.address{
