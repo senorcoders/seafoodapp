@@ -54,6 +54,9 @@ p.order-number {
         font-size: 22px;
         padding: 15px 30px;
         letter-spacing: 1.75px;
+        border: none;
+        border-bottom: 2px solid transparent;
+
     }
     .table thead th {
         vertical-align: bottom;
