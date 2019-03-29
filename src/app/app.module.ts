@@ -118,7 +118,10 @@ import { RegistrationSellerComponent } from './registration-seller/registration-
 import { NonsellerRouterService } from './services/nonseller-router.service';
 import { TitleService } from './title.service';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { FishFormComponent } from './fish-form/fish-form.component';
+import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
+import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
+import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
+import { Ng5SliderModule } from 'ng5-slider';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -281,6 +284,8 @@ const appRoutes: Routes = [
     RegistrationSellerComponent,
     CreateProductComponent,
     FishFormComponent,
+    FishFeaturesComponent,
+    AvancedPricingComponent,
   ],
   imports: [
     BrowserModule,
@@ -307,7 +312,8 @@ const appRoutes: Routes = [
       animationType: ngxLoadingAnimationTypes.wanderingCubes
     }),
     NgProgressModule,
-    Select2Module
+    Select2Module,
+    Ng5SliderModule
 
     ],
   providers: [

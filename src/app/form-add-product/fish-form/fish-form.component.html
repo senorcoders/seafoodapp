@@ -1,13 +1,13 @@
 <div class="row" formGroupName="product">
   <div class="col-lg-6">
     <div class="form-group"
-      [ngClass]="{'has-danger': name.invalid && (name.dirty || name.touched),'has-success': name.valid && (name.dirty || name.touched)}">
+      [ngClass]="{'has-danger': controls().name.invalid && (controls().name.dirty || controls().name.touched),'has-success': controls().name.valid && (controls().name.dirty || controls().name.touched)}">
       <label>{{'CreateProduct.name' | translate}} <span class="field-status red">*</span> <img
           tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
       <input type="text" class="form-control" formControlName="name" required>
-      <div class="form-control-feedback" *ngIf="name.errors && showError">
-        <p *ngIf="name.errors.required">{{'CreateProduct.name' | translate}}
+      <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
+        <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
           {{'CreateProduct.required' | translate}}
         </p>
       </div>
@@ -23,21 +23,22 @@
   </div>
   <div class="col-lg-6">
     <div class="form-group"
-      [ngClass]="{'has-danger': country.invalid && (country.dirty || country.touched),'has-success': country.valid && (country.dirty || country.touched)}">
+      [ngClass]="{'has-danger': controls().country.invalid && (controls().country.dirty || controls().country.touched),'has-success': controls().country.valid && (controls().country.dirty || controls().country.touched)}">
       <label>{{'CreateProduct.country' | translate}} <span class="field-status red">*</span> <img
           tooltip="The country where the product was harvested" placement="right" show-delay="0"
           src="../../assets/question.png" alt="" width="20"></label>
       <select class="form-control" formControlName="country">
         <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
       </select>
-      <div class="form-control-feedback" *ngIf="country.errors && showError">
-        <p *ngIf="country.errors.required">{{'CreateProduct.country' | translate}}
+      <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
+        <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
           {{'CreateProduct.required' | translate}}</p>
       </div>
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-danger': controls().processingCountry.invalid && (controls().processingCountry.dirty || controls().processingCountry.touched),'has-success': controls().processingCountry.valid && (controls().processingCountry.dirty || controls().processingCountry.touched)}">
       <label>{{'CreateProduct.processingCountry' | translate}} <span class="field-status red">*</span> <img
           tooltip="The country where the product was processed" placement="right" show-delay="0"
           src="../../assets/question.png" alt="" width="20"></label>
@@ -47,31 +48,32 @@
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-danger': controls().city.invalid && (controls().city.dirty || controls().city.touched),'has-success': controls().city.valid && (controls().city.dirty || controls().country.touched)}">
       <label>{{'CreateProduct.portLoading' | translate}} <span class="field-status red">*</span> <img
           tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
       <select class="form-control" formControlName="city" (change)="onCityChange(city.value)">
         <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
       </select>
-
+      <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
+        <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
     </div>
   </div>
 
   <div class="col-lg-6">
     <div class="form-group"
-      [ngClass]="{'has-danger': price.invalid && (price.dirty || price.touched),'has-success': price.valid && (price.dirty || price.touched)}">
+      [ngClass]="{'has-danger': controls().kg.invalid && (controls().kg.dirty || controls().kg.touched),'has-success': controls().kg.valid && (controls().kg.dirty || controls().kg.touched)}">
       <label>{{'CreateProduct.Kg' | translate}} </label>
       <input type="number" class="form-control" formControlName="kg" required>
-      <!-- <div class="form-control-feedback" *ngIf="price.errors && showError">
-        <p *ngIf="price.errors.required">{{'AddProduct.Kg' | translate}}
-          {{'AddProduct.required' | translate}}</p>
-      </div> -->
     </div>
   </div>
 
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-danger': controls().parentSelectedType.invalid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched),'has-success': controls().parentSelectedType.valid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched)}">
       <label>{{'CreateProduct.mainCategory' | translate}} <span class="field-status red">*</span> <img
           tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -79,14 +81,15 @@
         <option value="">{{'AddProduct.select' | translate}}</option>
         <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
       </select>
-      <div class="form-control-feedback" *ngIf="parentSelectedType.errors && showError">
-        <p *ngIf="parentSelectedType.errors.required">{{'CreateProduct.mainCategory' | translate}}
+      <div class="form-control-feedback" *ngIf="controls().parentSelectedType.errors&&parentForm.submitted">
+        <p *ngIf="controls().parentSelectedType.errors.required">{{'CreateProduct.mainCategory' | translate}}
           {{'CreateProduct.required' | translate}}</p>
       </div>
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-danger': controls().speciesSelected.invalid && (controls().speciesSelected.dirty || controls().speciesSelected.touched),'has-success': controls().speciesSelected.valid && (controls().speciesSelected.dirty || controls().speciesSelected.touched)}">
       <label>{{'CreateProduct.species' | translate}} <span class="field-status red">*</span> <img
           tooltip="The species of the product you are selling (Eg: Salmon, cod, lobster, etc.)" placement="right"
           show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -95,15 +98,16 @@
         <option value="">{{'CreateProduct.select' | translate}}</option>
         <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
       </select>
-      <div class="form-control-feedback" *ngIf="speciesSelected.errors && showError">
-        <p *ngIf="speciesSelected.errors.required">{{'CreateProduct.species' | translate}}
+      <div class="form-control-feedback" *ngIf="controls().speciesSelected.errors&&parentForm.submitted">
+        <p *ngIf="controls().speciesSelected.errors.required">{{'CreateProduct.species' | translate}}
           {{'CreateProduct.required' | translate}}</p>
       </div>
     </div>
   </div>
 
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+    [ngClass]="{'has-danger': controls().subSpeciesSelected.invalid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched),'has-success': controls().subSpeciesSelected.valid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched)}">
       <label>{{'CreateProduct.subSpecies' | translate}} <span class="field-status red">*</span> <img
           tooltip="The specific classification of your product within the species (Eg: Atlantic Salmon, Pacific Salmon, etc.)"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -111,6 +115,10 @@
         <option v alue="">{{'CreateProduct.select' | translate}}</option>
         <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>
       </select>
+      <div class="form-control-feedback" *ngIf="controls().subSpeciesSelected.errors&&parentForm.submitted">
+        <p *ngIf="controls().subSpeciesSelected.errors.required">{{'CreateProduct.subSpecies' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
     </div>
   </div>
   <div class="col-lg-6">
@@ -130,9 +138,6 @@
       <label>{{'CreateProduct.productSku' | translate}} <img tooltip="Optional field for your unique product code"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
       <input type="text" class="form-control" formControlName="seller_sku">
-    </div>
-    <div class="form-group">
-      <input type="hidden" class="form-control" formControlName="seafood_sku" disabled>
     </div>
   </div>
   <div class="col-lg-6">
