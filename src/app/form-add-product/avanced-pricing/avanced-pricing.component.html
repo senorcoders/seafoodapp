@@ -1,0 +1,127 @@
+<div class="row" formGroupName="price">
+  <div class="col-12">
+    <h2 style="text-align: center; text-transform: uppercase;">{{'CreateProduct.advancepricing' | translate}}</h2>
+  </div>
+
+  <div class="col-12">
+    <label style="text-align:center; width:100%;"> <span calss="selectionable" [ngClass]="headAction===true?'select':''"
+        (click)="assingHead(true)">{{'CreateProduct.headOn' | translate}}</span> | <span (click)="assingHead(false)"
+        calss="selectionable" [ngClass]="headAction===true?'':'select'">{{'CreateProduct.headOff' | translate}}</span>
+      <img
+        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+        placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+  </div>
+
+  <div class="col-12">
+    <div class="row">
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" formControlName="kg01" type="checkbox" form id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            0-1 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg12" value="" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            1-2 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg23" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            2-3 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg34" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            3-4 KG
+          </label>
+        </div>
+      </div>
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg34" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            4-5 KG
+          </label>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg56" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            5-6 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg67" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            6-7 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg78" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            7-8 KG
+          </label>
+        </div>
+      </div>
+
+      <div class="col form-group">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" formControlName="kg8m" id="defaultCheck1">
+          <label class="form-check-label" for="defaultCheck1">
+            8+ KG
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="row">
+      <div *ngFor="let k of weights.on.keys" (click)="selectKey(k)" class="col">{{kgNames[k]}}</div>
+      <div class="col-12">
+        <div class="row">
+          <div class="col-6">quantity range (kg)</div>
+          <div class="col-6">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row">
+              <div class="col-9">
+                  <ng5-slider [(value)]="weights.on[keySelect][i].min" [(highValue)]="weights.on[keySelect][i].max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-3">
+                {{price.price}}
+                <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>

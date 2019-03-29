@@ -205,8 +205,11 @@
 		"headOffWeight": "Head Off Weight...",
 		"acceptableSpoilageRate": "Acceptable Spoilage Rate...",
 		"headOnWeight": "Head On Weight...",
+		"headOn": "head on",
+		"headOff": "head off",
 		"raised": "Raised....",
-		"description": "Descriptor"
+		"description": "Descriptor",
+		"advancepricing": "advanced pricing"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",

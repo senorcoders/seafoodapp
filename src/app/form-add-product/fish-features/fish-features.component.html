@@ -1,0 +1,72 @@
+<div class="row" formGroupName="features">
+  <div class="col-12">
+    <h2 style="text-align: center;">{{'CreateProduct.productFeatures' | translate}}</h2>
+  </div>
+
+  <div class="col-lg-6">
+    <label> <span calss="selectionable" [ngClass]="wholeFishAction===true?'select':''"
+        (click)="assingWholeFish(true)">{{'CreateProduct.wholeFish' | translate}}</span> | <span
+        (click)="assingWholeFish(false)" calss="selectionable"
+        [ngClass]="wholeFishAction===true?'':'select'">{{'CreateProduct.filletedFish' | translate}}</span> <img
+        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+        placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+  </div>
+
+  <div class="col-lg-6">
+    <label [hidden]="wholeFishAction===false">
+      <div class="square"></div> <span calss="selectionable"
+        (click)="assingWholeFish(true)" style="text-transform: uppercase;">{{'CreateProduct.headOff' | translate}}</span>
+      &nbsp;&nbsp;&nbsp;&nbsp; <div class="square"></div> <span (click)="assingWholeFish(false)"
+        calss="selectionable" style="text-transform: uppercase;">{{'CreateProduct.headOn' | translate}}</span> <img
+        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+        placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20">
+    </label>
+
+  </div>
+
+  <div class="col-lg-6">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().headOffWeight.invalid && (controls().headOffWeight.dirty || controls().headOffWeight.touched),'has-success': controls().headOffWeight.valid && (controls().headOffWeight.dirty || controls().headOffWeight.touched)}">
+      <label>{{'CreateProduct.headOffWeight' | translate}} </label>
+      <select class="form-control" formControlName="headOffWeight" required>
+        <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().headOnWeight.invalid && (controls().headOnWeight.dirty || controls().headOnWeight.touched),'has-success': controls().headOnWeight.valid && (controls().headOnWeight.dirty || controls().headOnWeight.touched)}">
+      <label>{{'CreateProduct.headOnWeight' | translate}} <span class="field-status red">*</span> </label>
+      <select class="form-control" formControlName="headOnWeight" required>
+        <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
+      </select>
+      <div class="form-control-feedback" *ngIf="controls().headOnWeight.errors &&parentForm.submitted">
+        <p *ngIf="controls().headOnWeight.errors.required">{{'CreateProduct.headOnWeight' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6">
+    <div class="form-group">
+      <label>{{'CreateProduct.acceptableSpoilageRate' | translate}} <span class="field-status red">*</span> <img
+          tooltip="The main image displayed on your product when buyers are browsing" placement="right"
+          show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+      <input type="number" class="form-control" formControlName="acceptableSpoilageRate">
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().raised.invalid && (controls().raised.dirty || controls().raised.touched),'has-success': controls().raised.valid && (controls().raised.dirty || controls().raised.touched)}">
+      <label>{{'CreateProduct.raised' | translate}} <span class="field-status red">*</span> </label>
+      <select class="form-control" formControlName="raised" required>
+        <option *ngFor="let r of raised" value="{{r.name}}" selected>{{r.name}}</option>
+      </select>
+      <div class="form-control-feedback" *ngIf="controls().raised.errors &&parentForm.submitted">
+        <p *ngIf="controls().raised.errors.required">{{'CreateProduct.raised' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+</div>
