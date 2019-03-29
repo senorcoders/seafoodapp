@@ -1106,7 +1106,10 @@ form-wizard{
 //   left: 13px !important;
 // }
 
-// .select2-container--default .select2-selection--single .select2-selection__rendered{
-//   text-align: left !important;
-//   line-height: 55px !important;
-// }
+
+.tooltip {
+  z-index: 100000000; 
+}
+.gray-bg{
+  background-color: #F7F8F9;
+}
