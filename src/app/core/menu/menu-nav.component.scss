@@ -36,6 +36,7 @@
 		background-size: cover !important;
 		background-position: center !important;
 		border-radius: 50%;
+		margin: 0 auto;
 	}
 	a:hover{
 			color:#3181f0 !important;
@@ -363,6 +364,8 @@ form{
 	.fish-type-menu{
 		display: none;
 	}
+
+	
 }
 @media(max-width: 575px){
 	.address{
