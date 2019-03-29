@@ -45,6 +45,7 @@ export class RecentPurchasesComponent implements OnInit {
   creditNote: FormControl;
   files:any;
   itemId: any;
+  subindex: any;
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -207,7 +208,7 @@ export class RecentPurchasesComponent implements OnInit {
 
 
   //Confirm order function
-  confirmOrder(itemId: string) {
+  confirmOrder(itemId: string, subindex?) {
 		let index = this.index;
 		let sellerETA = jQuery(`#epa${itemId}`).val();
 
@@ -216,8 +217,14 @@ export class RecentPurchasesComponent implements OnInit {
 			res => {
 				jQuery('#confirm').modal('hide');
         console.log(res);
-					this.toast.success(res['message'], 'Alert', { positionClass: 'toast-top-right' });
-					this.firstNoShipped[index].items[0].updateInfo = res['item'][0].updateInfo;
+          this.toast.success(res['message'], 'Alert', { positionClass: 'toast-top-right' });
+          if(subindex != undefined){
+            this.firstNoShipped[index].items[subindex].updateInfo = res['item'][0].updateInfo;
+
+          }else{
+            this.firstNoShipped[index].items[0].updateInfo = res['item'][0].updateInfo;
+
+          }
 				
 			
 
@@ -233,10 +240,11 @@ export class RecentPurchasesComponent implements OnInit {
   
 
   //Show Modal for Confirm order
-  showModal(id, action, index, where) {
+  showModal(id, action, index, where, subindex?) {
 		let sellerETA = jQuery(`#epa${id}`).val()
     this.index = index;
     this.where = where;
+    this.subindex = subindex;
 		console.log("index Modal", this.index);
 
 		if ((sellerETA !== '' && sellerETA !== undefined) || action === 'cancel') {
@@ -276,13 +284,28 @@ export class RecentPurchasesComponent implements OnInit {
 		this.productS.updateData(`api/itemshopping/${status.id}/${status.status}`,
 			{ userEmail: this.user['email'], userID: this.user['id'] }).subscribe(res => {
 
-				console.log(res);
+				console.log(res, this.subindex);
 				jQuery('#confirm').modal('hide');
         this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
         if(this.where == 'pending'){
-        	this.firstNoShipped.splice(this.index, 1);
+          if(this.subindex != undefined){
+            console.log("indefinida");
+            this.firstNoShipped[this.index].items.splice(this.subindex, 1);
+
+          }else{
+            console.log("Definida");
+            this.firstNoShipped.splice(this.index, 1);
+
+          }
         }else{
-          this.firstShipped.splice(this.index, 1);
+          if(this.subindex != undefined){
+            this.firstShipped[this.index].items.splice(this.subindex, 1);
+
+          }else{
+            this.firstShipped.splice(this.index, 1);
+
+          }
+
         }
 			},
 				e => {
@@ -291,11 +314,17 @@ export class RecentPurchasesComponent implements OnInit {
   }
   
   //Function to open calendar to confirm order
-  selectDate(id, index){
+  selectDate(id, index, subindex?){
     this.index = index;
    let date = jQuery('#epa' + id).val();
    console.log("Item ID", id, date);
-   this.confirmOrder(id);
+   if(subindex != undefined){
+    this.confirmOrder(id, subindex);
+
+   }else{
+    this.confirmOrder(id);
+
+   }
 
   }
 
@@ -414,32 +443,5 @@ openShippingModal(id, index){
 
 }
 
-generateCollapse(items, index, order, date, address){
-  console.log("Items to add", items, index);
-  items.forEach(element => {
 
-   
-    
-
-    var markup = `<tr _ngcontent-c3>
-    <td _ngcontent-c3>${order}</td>
-    <td _ngcontent-c3>${date}</td>
-    <td _ngcontent-c3>${address}</td>
-    <td _ngcontent-c3>${element.quantity.value} kg </td>
-    <td _ngcontent-c3>${element.fish.seafood_sku}</td>
-    <td _ngcontent-c3> ${element.fish.name}</td>
-    <td _ngcontent-c3>
-    <button _ngcontent-c3 [owlDateTimeTrigger]="dt1"  *ngIf="${element.updateInfo} == null"><img _ngcontent-c3  src="../../assets/svg/calendar-blank.svg" alt=""></button>
-    <button _ngcontent-c3 *ngIf="shipped.items[0].updateInfo != null" (click)="showModal(${element.id},'cancel', i, 'shipped')"><img _ngcontent-c3  src="../../assets/svg/close.svg" alt=""></button>
-    <button _ngcontent-c3 *ngIf="shipped.items[0].updateInfo != null" (click)="openShippingModal(${element.id}, i)"><img _ngcontent-c3  src="../../assets/svg/attachment.svg" alt=""></button>
-    <input  (change)="selectDate(${element.id})" type="hidden" [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa${element.id}">
-    <owl-date-time _ngcontent-c3="" _nghost-c4="" ng-reflect-picker-type="calendar"></owl-date-time>
-        </td>
-  </tr>`;
-  // jQuery("#shipped-table tbody").append(markup);
-  jQuery('#shipped-table > tbody > tr').eq(index).after(markup);
-
-  });
-
-}
 }
