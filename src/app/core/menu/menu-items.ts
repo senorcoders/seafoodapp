@@ -288,13 +288,9 @@ const menuSeller = [
     }
   },
   {
-    state: 'products',
-    type: 'sub',
+    state: 'my-products',
+    type: 'link',
     icon: 'fish-v.svg',
-    children: [
-      { state: 'add-product', name: 'add new', translate: { en: { name: 'Add New' }, ar: { name: 'Add New' } } },
-      { state: 'my-products', name: 'my products', translate: { en: { name: 'My Products' }, ar: { name: 'My Products' } } }
-    ],
     translate: {
       en: {
         name: 'My Products'
