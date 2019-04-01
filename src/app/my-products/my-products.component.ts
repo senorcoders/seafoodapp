@@ -31,7 +31,7 @@ export class MyProductsComponent implements OnInit {
     private pricingChargesService: PricingChargesService,
     private sanitizer: DomSanitizer,
     private titleS: TitleService) {
-      this.titleS.setTitle('My Products');
+      this.titleS.setTitle('Products');
 
      }
 
