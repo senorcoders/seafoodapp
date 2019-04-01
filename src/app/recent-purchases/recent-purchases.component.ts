@@ -50,6 +50,14 @@ export class RecentPurchasesComponent implements OnInit {
   subindex: any;
   delivered:any = [];
   cancelled:any = [];
+  label6:any = 'Select a file to attach...';
+  label5:any = 'Select a file to attach...';
+  label4:any = 'Select a file to attach...';
+  label3:any = 'Select a file to attach...';
+  label2:any = 'Select a file to attach...';
+  label1:any = 'Select a file to attach...';
+
+
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -408,11 +416,12 @@ export class RecentPurchasesComponent implements OnInit {
           this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
             console.log(res);
               this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
-
+              
               jQuery('#shippingDocs').modal('hide');
-
+              this.cleanLabels();
           }, error => {
             console.log(error);
+            this.cleanLabels();
           })
         });
   
@@ -421,6 +430,14 @@ export class RecentPurchasesComponent implements OnInit {
   
   }
 
+  cleanLabels(){
+    this.label1 = 'Select a file to attach...';
+    this.label2 = 'Select a file to attach...';
+    this.label3 = 'Select a file to attach...';
+    this.label4 = 'Select a file to attach...';
+    this.label5 = 'Select a file to attach...';
+    this.label6 = 'Select a file to attach...';
+  }
   //Get file on input change and change the name before upload it
 
   handleFileInput(event, name) {
@@ -439,6 +456,22 @@ export class RecentPurchasesComponent implements OnInit {
       // file[0].name=name;
 
       this.trackingForm.get(`${name}`).setValue(newFile);
+      if(name == 'invoice'){
+        this.label1 =  name + '.' + ext[1];
+      }else if(name == 'healthCert'){
+        this.label2 =  name + '.' + ext[1];
+      }else if(name == 'packingList'){
+        this.label3 =  name + '.' + ext[1];
+
+      }else if(name == 'awb'){
+        this.label4 =  name + '.' + ext[1];
+
+      }else if(name == 'certificateOrigin'){
+        this.label5 =  name + '.' + ext[1];
+
+      }else {
+        this.label6 = name + '.' + ext[1];
+      }
     }
   }
 
