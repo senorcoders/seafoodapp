@@ -59,7 +59,7 @@ export class CartComponent implements OnInit {
 
   getCart(){
     this.Cart.cart.subscribe((cart:any)=>{
-      console.log("Cart", cart)
+      console.log("Cart del OBSERVABLE", cart)
       if(cart && cart.hasOwnProperty('items')){
         console.log("Si existe");
         if(cart['items'].length > 0){
@@ -97,6 +97,7 @@ export class CartComponent implements OnInit {
     this.cartService.getCart( this.buyerId )
     .subscribe(
       res=> {
+        console.log("Carrito del API", res);
         this.total= res['subTotal'];
         this.shipping = res['shipping'];
         this.totalOtherFees = res['totalOtherFees']+res['uaeTaxes'];
