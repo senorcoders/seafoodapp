@@ -42,34 +42,37 @@ p.order-number {
         color: #3E4E75 !important;
         text-transform: uppercase;
         font-weight: 300;
-        font-size: 22px;
+        font-size: 28px;
         padding: 15px 30px;
         letter-spacing: 1.75px;
+        line-height: 34px;
     
     }
     .nav-tabs .nav-link{
-        color: #3E4E75 !important;
+        color: #7484AA !important;
         text-transform: uppercase;
         font-weight: 300;
-        font-size: 22px;
+        font-size: 28px;
         padding: 15px 30px;
         letter-spacing: 1.75px;
         border: none;
         border-bottom: 2px solid transparent;
-
+        line-height: 34px;
     }
     .table thead th {
         vertical-align: bottom;
         border-bottom: 1px solid #b5bed1;
         text-align: center;
         font-family: 'Open Sans', sans-serif;
-        font-size: 15px;
         text-transform: uppercase;
         color: #7484AA;
-        padding: 25px 15px;
+        padding: 35px 15px;
         border-top: none;
         font-weight: 300;
         letter-spacing: 1.5px;
+        font-size: 21px;
+        line-height: 28px;
+    
     }
 
      .table td {
@@ -77,11 +80,12 @@ p.order-number {
         border-top: none;
         border-bottom: 1px solid #e4e6e9;
         text-align: center;
-        padding: 25px 15px;
+        padding: 35px 15px;
         font-family: 'Open Sans', sans-serif;
         color: #0D1321;
-        font-size: 12px;
         font-weight: 300;
+        font-size: 16px;
+    line-height: 22px;
         a{
             float: right;
             img{
@@ -115,11 +119,17 @@ p.order-number {
 
 .modal-confirm{
     border-radius: 10px;
+    .modal-dialog{
+        max-width: 900px !important;
+        width: 100%;
+    }
     .modal-content{
         border-radius: 10px;
         border: none;
+        height: 350px;
         .modal-header{
             border: none;
+            padding: 50px 1rem;
             .modal-title{
                 text-align: center;
                 font-family: 'Josefin Sans', sans-serif;
@@ -127,6 +137,9 @@ p.order-number {
                 color: #7484AA;
                 font-weight: 300;
                 padding: 20px;
+                font-size: 38px;
+                letter-spacing: 1.15px;
+                line-height: 45px;
             }
         }
 
@@ -135,7 +148,7 @@ p.order-number {
         }
 
             .blue-btn{
-                width: 100px;
+                width: 175px;
                 background: #3E4E75 !important;
                 text-transform: uppercase;
                 font-family: 'Josefin Sans', sans-serif;
@@ -143,9 +156,13 @@ p.order-number {
                 outline: none;
                 border: 2px solid #3E4E75 !important;
                 margin-left: 10px !important;
+                font-size: 21px !important;
+                letter-spacing: 1.5px;
+                line-height: 25px;
+                height: 60px !important;
             }
             .blue-btn-light{
-                width: 100px;
+                width: 175px;
                 background: #ffffff !important;
                 text-transform: uppercase;
                 font-family: 'Josefin Sans', sans-serif;
@@ -155,6 +172,10 @@ p.order-number {
                 border: 2px solid #7484AA !important;
                 font-weight: 300;
                 margin-right: 10px !important;
+                font-size: 21px !important;
+                letter-spacing: 1.5px;
+                line-height: 25px;
+                height: 60px !important;
             }
         
     }
@@ -162,12 +183,16 @@ p.order-number {
 
 #shippingDocs{
 
+    .modal-dialog{
+        max-width: 1100px;
+        width: 100%;
+    }
     .modal-content{
         border-radius: 10px;
         border: none;
         .modal-header{
             background: #F7F8F9;
-            padding: 40px 20px;
+            padding: 60px 20px;
             border: none;
             .modal-title{
                 color: #7484AA;
@@ -175,9 +200,16 @@ p.order-number {
                 text-align: center;
                 width: 100%;
                 font-weight: 300;
+                font-size: 28px;
+                line-height: 34px;
+            }
+            img{
+                width: 32px;
+                height: 25px;
             }
         }
         .form-design{
+            padding: 0 50px;
             .col-lg-12{
                 border-bottom: 1px solid #F0F0F1;
                 margin-bottom: 15px !important;
@@ -194,18 +226,45 @@ p.order-number {
                 border-bottom: 1px solid #ccced3 !important;
                 border-radius: 0;
                 width: 60%;
+                display: none;
              }
              label{
                 color: #7484AA !important;
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
                 text-transform: uppercase;
-                font-size: 15px;
                 letter-spacing: initial;
+                letter-spacing: initial;
+                font-size: 21px;
+                letter-spacing: 1.75px;
+                line-height: 25px;
+                small{
+                    font-weight: 300;
+                }
                 img{
-                    width: 15px;
-                    height: 15px;
-                    vertical-align: top;
+                    width: 17px;
+                    height: 17px;
+                    vertical-align: middle;
+                }
+             }
+
+             .fake-input{
+                width: 60%;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 300;
+                font-style: italic;
+                text-transform: initial;
+                font-size: 21px;
+                color: #9A9EA8 !important;
+                line-height: 25px;
+                border-bottom: 1px solid #ccced3 !important;
+                display: block;
+                padding-top: 10px !important;
+                padding-bottom: 10px !important;
+                padding-left: 0 !important;
+                img{
+                    width: 20px;
+                    vertical-align: inherit;
                 }
              }
             } 
