@@ -32,6 +32,8 @@ p.order-number {
 .orders-tabs{
     background: #F7F8F9;
     padding: 100px 15px;
+    min-width: 915px;
+    overflow: scroll;
     .nav-tabs {
         border-bottom: 1px solid #b5bed1;
     }
@@ -60,7 +62,7 @@ p.order-number {
         line-height: 34px;
     }
     .table thead th {
-        vertical-align: bottom;
+        vertical-align: middle;
         border-bottom: 1px solid #b5bed1;
         text-align: center;
         font-family: 'Open Sans', sans-serif;
@@ -76,7 +78,7 @@ p.order-number {
     }
 
      .table td {
-        vertical-align: top;
+        vertical-align: middle;
         border-top: none;
         border-bottom: 1px solid #e4e6e9;
         text-align: center;
@@ -86,6 +88,18 @@ p.order-number {
         font-weight: 300;
         font-size: 16px;
     line-height: 22px;
+    position: relative;
+    .new-span{
+
+    font-family: 'Open Sans', sans-serif;
+    color: #397367;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    line-height: 19px;
+    position: absolute;
+    left: 10px;
+    }
         a{
             float: right;
             img{
@@ -105,14 +119,23 @@ p.order-number {
                     width: 14px;  
                     margin-left: 5px;            
             }
+            .alert-circle{
+                width: 12px;
+                height: 12px;
+                margin: 0 !important;
+                vertical-align: text-top;   
+            }
+            .calendar-icon{
+                margin: 0;
+            }
         }
     }
 
     .table th, .table td{
-        width: 16%;
+        width: 15%;
     }
 
-    .table th:first-child, .table td:first-child, .table th:last-child, .table td:last-child{
+    .table th:last-child, .table td:last-child{
         width: 10%;
     }
 }
@@ -280,6 +303,18 @@ p.order-number {
 
 .sub-td{
     padding: 0 !important;
+    td{
+        border-bottom-style: dashed !important;
+
+    }
+    tr:last-child td{
+        border-bottom-style: solid !important;
+        border-bottom-color: #3E4E75 !important;
+
+    }
+    tbody{
+        border-top: 2px solid #3E4E75;
+    }
 }
 .expandible-link img {
     content: url('../../assets/svg/minus.svg');

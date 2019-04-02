@@ -42,6 +42,8 @@ export class HomeComponent implements OnInit {
   
   ngOnInit() {
 
+    console.log("Probando Home");
+
     this.getLoginStatus();
    this.isLoggedSr.role.subscribe((role:number)=>{
       this.role=role
