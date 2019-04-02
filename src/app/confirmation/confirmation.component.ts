@@ -110,8 +110,13 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
   async getCart() {
     await new Promise((resolve, reject) => {
+=======
+  getCart() {
+
+>>>>>>> e882bab... Remove observable from shopping process
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
@@ -133,10 +138,15 @@ export class ConfirmationComponent implements OnInit {
         	this.clearCart(); // set cart paid
         }
       }
+<<<<<<< HEAD
     }, error =>{
       reject();
     })
   });
+=======
+    })
+
+>>>>>>> e882bab... Remove observable from shopping process
   
   }
   getRealIp(){
