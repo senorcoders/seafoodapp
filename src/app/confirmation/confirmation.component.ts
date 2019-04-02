@@ -13,6 +13,7 @@ import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Location } from '@angular/common';
+import { OrderService } from '../services/orders.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -60,10 +61,10 @@ export class ConfirmationComponent implements OnInit {
     private http: HttpClient,
     private httpO: HttpClient,
     private orders: OrdersService,
-    private Cart: CartService,
+    private orderS: OrderService,
     private router: Router,
     private toast: ToastrService,
-    private location: Location,
+    private Cart: CartService,
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
@@ -110,10 +111,10 @@ export class ConfirmationComponent implements OnInit {
   }
 
   getCart() {
-    this.Cart.cart.subscribe((cart: any) => {
+
+    this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
-        this.buyerId = cart['buyer'];
         this.apiShopID = cart['id'];
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
@@ -131,8 +132,9 @@ export class ConfirmationComponent implements OnInit {
         	this.clearCart(); // set cart paid
         }
       }
+    })
 
-    });
+  
   }
   getRealIp(){
 	this.httpO.get( 'https://jsonip.com/' )
@@ -176,6 +178,7 @@ export class ConfirmationComponent implements OnInit {
     this.info = this.auth.getLoginData();
     console.log('Info', this.info);
     this.email = this.info['email'];
+    this.buyerId = this.info['id'];
   }
 
   saveinApi() {
