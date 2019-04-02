@@ -113,6 +113,7 @@ export class ConfirmationComponent implements OnInit {
 
   async getCart() {
     await new Promise((resolve, reject) => {
+
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
