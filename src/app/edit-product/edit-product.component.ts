@@ -157,7 +157,7 @@ export class EditProductComponent implements OnInit {
       this.hsCode = data['hsCode'];
       this.acceptableSpoilageRate = data['mortalityRate'];
       if (data['preparation'] != 'Filleted') {
-        this.showWholeOptions = true;
+        this.showWholeOptions = true; 
       }
       if (data['images']) {
         this.imageAPI = data['images'];
@@ -184,6 +184,7 @@ export class EditProductComponent implements OnInit {
       console.log('Error', error);
       this.show = false;
     });
+    this.getFishCategoryLevel();
     this.getAllTypesByLevel();
   }
 
@@ -375,6 +376,14 @@ export class EditProductComponent implements OnInit {
         jQuery('#confirm').modal('hide');
       }
     }
+  }
+
+
+  getFishCategoryLevel(){
+    this.product.getData(`fishType/parents/${this.productID}`).subscribe(res => {
+        console.log("Fish Level",  res);
+        this.mainCategory = res['level0'].id;
+    })
   }
   getAllTypesByLevel() {
     this.product.getData(`getTypeLevel`).subscribe(
