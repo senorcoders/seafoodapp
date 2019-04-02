@@ -71,7 +71,7 @@ export class ConfirmationComponent implements OnInit {
       this.httpO = new HttpClient(handler);
     }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
@@ -99,7 +99,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
       this.getPersonalData();
-      this.getCart();
+      await this.getCart();
   }
   addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
@@ -110,8 +110,8 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
-  getCart() {
-
+  async getCart() {
+    await new Promise((resolve, reject) => {
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
@@ -124,6 +124,7 @@ export class ConfirmationComponent implements OnInit {
         this.total = Math.trunc( this.totalWithShipping * 100 );
         console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
+        resolve();
 	// if we came from 3d secure url and its successfull, let's go to thankyou page and set the cart paid
 	console.log( 'clear cart', this.total );
       	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) ) {
@@ -132,8 +133,10 @@ export class ConfirmationComponent implements OnInit {
         	this.clearCart(); // set cart paid
         }
       }
+    }, error =>{
+      reject();
     })
-
+  });
   
   }
   getRealIp(){
