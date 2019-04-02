@@ -179,7 +179,7 @@
           <div class="form-group input-group">
               <span class="has-float-label">     
 
-            <input id="tel" placeholder="{{'Account.tel' | translate}}" type="number" class="form-control" formControlName="telephone" [ngClass]="{'is-invalid':sellerForm.get('telephone').invalid && sellerForm.get('telephone').touched}">
+            <input id="tel" placeholder="{{'Account.tel' | translate}}" type="tel" class="form-control" formControlName="telephone" [ngClass]="{'is-invalid':sellerForm.get('telephone').invalid && sellerForm.get('telephone').touched}">
             <label for="tel">{{'Account.tel' | translate}}<span class="field-status red">*</span></label>
             <div class="invalid-feedback" *ngIf="sellerForm.get('telephone').hasError('required')">{{'Account.tel' | translate}} {{'Register.required' | translate}}.</div>
             <div class="invalid-feedback" *ngIf="sellerForm.controls.telephone.errors">Only numbers allowed</div>
