@@ -236,12 +236,16 @@ export class SingleProductComponent implements OnInit {
       this.show = false;
     });
   }
-  showHide(id) {
-    jQuery('#' + id).css('display', 'none');
-    jQuery('#input-text').css('display', 'block');
-    jQuery('#input-text').focus();
+  showElements() {
+    document.getElementById('qty-text').style.display = 'none';
+    document.getElementById('input-text').style.display = 'block';
   }
-  getCart() {
+
+  hideElements() {
+    document.getElementById('input-text').style.display = 'none';
+    document.getElementById('qty-text').style.display = 'block';
+  }
+      getCart() {
     this.cartService.cart.subscribe((cart: any) => {
       this.cart = cart;
     });
