@@ -10,12 +10,9 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
-<<<<<<< HEAD
 import { TitleService } from '../title.service';
-=======
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
->>>>>>> eb670441bd9e35b852e0c7751a2e644dd3678fb6
 
 @Component({
   selector: 'app-products',
@@ -63,14 +60,10 @@ userInfo:any;
     private islogin: IsLoginService,
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
-<<<<<<< HEAD
-    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
-    private countryservice: CountriesService, private titleS: TitleService) {     this.titleS.setTitle('Browse'); }
-=======
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: OrderService,
-    private countryservice: CountriesService, private auth: AuthenticationService) { 
->>>>>>> eb670441bd9e35b852e0c7751a2e644dd3678fb6
-
+    private countryservice: CountriesService, private auth: AuthenticationService,  private titleS: TitleService) { 
+      this.titleS.setTitle('Browse');
+    }
 
   async ngOnInit() {
     this.userInfo = this.auth.getLoginData();
