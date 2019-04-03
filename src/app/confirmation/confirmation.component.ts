@@ -13,6 +13,7 @@ import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Location } from '@angular/common';
+import { OrderService } from '../services/orders.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -60,17 +61,17 @@ export class ConfirmationComponent implements OnInit {
     private http: HttpClient,
     private httpO: HttpClient,
     private orders: OrdersService,
-    private Cart: CartService,
+    private orderS: OrderService,
     private router: Router,
     private toast: ToastrService,
-    private location: Location,
+    private Cart: CartService,
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
       this.httpO = new HttpClient(handler);
     }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
@@ -98,7 +99,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
       this.getPersonalData();
-      this.getCart();
+      await this.getCart();
   }
   addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
@@ -109,11 +110,12 @@ export class ConfirmationComponent implements OnInit {
 
   }
 
-  getCart() {
-    this.Cart.cart.subscribe((cart: any) => {
+
+  async getCart() {
+    await new Promise((resolve, reject) => {
+    this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
-        this.buyerId = cart['buyer'];
         this.apiShopID = cart['id'];
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
@@ -123,6 +125,7 @@ export class ConfirmationComponent implements OnInit {
         this.total = Math.trunc( this.totalWithShipping * 100 );
         console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
+        resolve();
 	// if we came from 3d secure url and its successfull, let's go to thankyou page and set the cart paid
 	console.log( 'clear cart', this.total );
       	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) ) {
@@ -132,7 +135,11 @@ export class ConfirmationComponent implements OnInit {
         }
       }
 
-    });
+    }, error =>{
+      reject();
+    })
+  });
+
   }
   getRealIp(){
 	this.httpO.get( 'https://jsonip.com/' )
@@ -176,6 +183,7 @@ export class ConfirmationComponent implements OnInit {
     this.info = this.auth.getLoginData();
     console.log('Info', this.info);
     this.email = this.info['email'];
+    this.buyerId = this.info['id'];
   }
 
   saveinApi() {
