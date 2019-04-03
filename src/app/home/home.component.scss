@@ -98,6 +98,11 @@ $ligth-bg:#ebf1f6;
   background: #fff !important;
   height: auto;
 }
+.blue-btn:hover{
+  background: #7484AA !important;
+  border: 1px solid #7484AA !important;
+  color: #ffffff !important;
+}
 .buyer-content{
   position: absolute;
   top: 19px;
@@ -205,7 +210,11 @@ $ligth-bg:#ebf1f6;
           }
           a:hover{
             text-decoration: none;
-          }
+            background: #7484AA !important;
+            border: 1px solid #7484AA !important;
+            color: #ffffff !important;
+
+        }
         }
       }
     }

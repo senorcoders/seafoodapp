@@ -116,6 +116,7 @@ import { RegistrationBuyerComponent } from './registration-buyer/registration-bu
 import { Select2Module } from 'ng2-select2';
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 import { NonsellerRouterService } from './services/nonseller-router.service';
+import { TitleService } from './title.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -320,6 +321,7 @@ const appRoutes: Routes = [
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
+    TitleService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
     OrderService,{
       provide: HTTP_INTERCEPTORS,

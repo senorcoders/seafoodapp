@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import {Router} from '@angular/router';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -45,7 +46,8 @@ export class CartComponent implements OnInit {
   index:any;
   userinfo:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private router:Router, private cartService:OrderService) { }
+    private toast:ToastrService, private router:Router, private cartService:OrderService, private titleS: TitleService) {  this.titleS.setTitle('Cart');}
+
 
   ngOnInit() {
     // this.getCart();
@@ -61,6 +63,7 @@ export class CartComponent implements OnInit {
   getTotal(){
     this.cartService.getCart( this.buyerId )
     .subscribe(
+
       cart=> {
         console.log("Cart", cart);
         if(cart && cart.hasOwnProperty('items')){

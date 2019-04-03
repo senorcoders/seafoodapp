@@ -14,6 +14,7 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from 'ngx-toastr';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 
 @Component({
@@ -32,7 +33,8 @@ export class AdminCountriesComponent implements OnInit {
   constructor(public countriesService: CountriesService,
     private auth: AuthenticationService,
     public ngxSmartModalService: NgxSmartModalService,
-    private toast: ToastrService, private sanitizer: DomSanitizer) { }
+    private toast: ToastrService, private sanitizer: DomSanitizer,
+    private titleS: TitleService) {     this.titleS.setTitle('Countries'); }
 
   ngOnInit() {
     this.createForm();

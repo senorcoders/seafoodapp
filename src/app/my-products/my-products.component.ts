@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-my-products',
@@ -28,7 +29,11 @@ export class MyProductsComponent implements OnInit {
     private productService: ProductService,
     private toast: ToastrService,
     private pricingChargesService: PricingChargesService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private titleS: TitleService) {
+      this.titleS.setTitle('Products');
+
+     }
 
   ngOnInit() {
     this.user = this.auth.getLoginData();

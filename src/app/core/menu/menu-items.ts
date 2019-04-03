@@ -277,6 +277,7 @@ const menuSeller = [
   {
     state: 'recent-purchases',
     type: 'link',
+    icon: 'box.svg',
     translate: {
       en: {
         name: 'Orders'
@@ -287,12 +288,9 @@ const menuSeller = [
     }
   },
   {
-    state: 'products',
-    type: 'sub',
-    children: [
-      { state: 'add-product', name: 'add new', translate: { en: { name: 'Add New' }, ar: { name: 'Add New' } } },
-      { state: 'my-products', name: 'my products', translate: { en: { name: 'My Products' }, ar: { name: 'My Products' } } }
-    ],
+    state: 'my-products',
+    type: 'link',
+    icon: 'fish-v.svg',
     translate: {
       en: {
         name: 'My Products'

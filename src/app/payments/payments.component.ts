@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { TitleService } from '../title.service';
 declare var jQuery: any;
 
 @Component({
@@ -26,7 +27,8 @@ export class PaymentsComponent implements OnInit {
     private orderService: OrderService,
     private toast: ToastrService,
     private auth: AuthenticationService,
-    private pricingService: PricingChargesService) { }
+    private pricingService: PricingChargesService,
+    private titleS: TitleService) {     this.titleS.setTitle('Payments'); }
 
   ngOnInit() {
     this.user = this.auth.getLoginData();
