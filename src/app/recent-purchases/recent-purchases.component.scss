@@ -170,20 +170,6 @@ p.order-number {
             padding-bottom: 30px;
         }
 
-            .blue-btn{
-                width: 175px;
-                background: #3E4E75 !important;
-                text-transform: uppercase;
-                font-family: 'Josefin Sans', sans-serif;
-                border-radius: 5px;
-                outline: none;
-                border: 2px solid #3E4E75 !important;
-                margin-left: 10px !important;
-                font-size: 21px !important;
-                letter-spacing: 1.5px;
-                line-height: 25px;
-                height: 60px !important;
-            }
             .blue-btn-light{
                 width: 175px;
                 background: #ffffff !important;
@@ -199,6 +185,12 @@ p.order-number {
                 letter-spacing: 1.5px;
                 line-height: 25px;
                 height: 60px !important;
+            }
+
+            .blue-btn-light:hover{
+                background: #3E4E75 !important;
+                border: 2px solid #3E4E75 !important;
+                color: #ffffff !important;
             }
         
     }
