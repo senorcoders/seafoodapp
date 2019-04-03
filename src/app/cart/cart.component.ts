@@ -63,6 +63,7 @@ export class CartComponent implements OnInit {
   getTotal(){
     this.cartService.getCart( this.buyerId )
     .subscribe(
+
       cart=> {
         console.log("Cart", cart);
         if(cart && cart.hasOwnProperty('items')){

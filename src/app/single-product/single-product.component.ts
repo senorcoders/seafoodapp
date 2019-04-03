@@ -82,8 +82,10 @@ export class SingleProductComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
-    private cartService:OrderService,
-    private titleS: TitleService) {     this.titleS.setTitle('Product');}
+    private cartService:OrderService,  private titleS: TitleService
+  ) {
+    this.titleS.setTitle('Product');
+  }
 
   ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {

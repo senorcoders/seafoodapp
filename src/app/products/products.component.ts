@@ -61,7 +61,7 @@ userInfo:any;
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: OrderService,
-    private countryservice: CountriesService, private auth: AuthenticationService, private titleS: TitleService) { 
+    private countryservice: CountriesService, private auth: AuthenticationService,  private titleS: TitleService) { 
       this.titleS.setTitle('Browse');
     }
 
