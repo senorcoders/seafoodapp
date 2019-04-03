@@ -83,32 +83,17 @@ export class RecentPurchasesComponent implements OnInit {
   chargeJS(){
     console.log(jQuery('#slidinTab'))
       //Sliding underline effect
-
-
-  
       var $el, leftPos, newWidth;
       var $mainNav:any = jQuery("#slidinTab");
   
       $mainNav.append("<li id='magic-line'></li>");
-      // position: absolute;
-      // bottom: -2px;
-      // left: 0;
-      // width: 100px;
-      // height: 2px;
-      // background: #000000;
+ 
       jQuery('#magic-line').css('position', 'absolute');
       jQuery('#magic-line').css('background', '#99a3b6');
       jQuery('#magic-line').css('height', '2px');
       jQuery('#magic-line').css('width', '240px');
       jQuery('#magic-line').css('left', '0');
       jQuery('#magic-line').css('bottom', '-2px');
-
-
-
-
-
-  
-  
       /* Cache it */
       var $magicLine = jQuery("#magic-line");
 
