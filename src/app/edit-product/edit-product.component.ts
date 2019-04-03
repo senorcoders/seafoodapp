@@ -68,8 +68,8 @@ export class EditProductComponent implements OnInit {
   descriptor: any;
   specie: FormControl;
   wholeFishWeight: FormControl;
-  currentPrincingCharges:any;
-  currentExchangeRate:any;
+  currentPrincingCharges: any;
+  currentExchangeRate: any;
   wholeOptions = [
     '0-1 KG',
     '1-2 KG',
@@ -89,15 +89,16 @@ export class EditProductComponent implements OnInit {
   showWholeOptions: boolean = false;
   hsCode: any;
   acceptableSpoilageRate: any;
-  imageAPI:any = [];
+  imageAPI: any = [];
   public loading = false;
 
-  constructor(private product: ProductService, private route: ActivatedRoute, 
-    private router: Router, private toast: ToastrService, 
-    private auth: AuthenticationService, private sanitizer: DomSanitizer, 
+  constructor(private product: ProductService, private route: ActivatedRoute,
+    private router: Router, private toast: ToastrService,
+    private auth: AuthenticationService, private sanitizer: DomSanitizer,
     private countryService: CountriesService, private pricingChargesService: PricingChargesService,
     public ngProgress: NgProgress,
     private titleS: TitleService) {     this.titleS.setTitle('Edit Product'); }
+
   ngOnInit() {
     // this.createFormControls();
     // this.createForm();
@@ -154,7 +155,7 @@ export class EditProductComponent implements OnInit {
       this.seafood_sku = data['seafood_sku'];
       this.status = data['status'];
       this.wholeFishWeight = data['wholeFishWeight'];
-       (data['status'] != null) ? this.selectedStatus = this.status.id : this.selectedStatus = null;
+      (data['status'] != null) ? this.selectedStatus = this.status.id : this.selectedStatus = null;
       this.hsCode = data['hsCode'];
       this.acceptableSpoilageRate = data['mortalityRate'];
       if (data['preparation'] != 'Filleted') {
@@ -164,12 +165,8 @@ export class EditProductComponent implements OnInit {
         this.imageAPI = data['images'];
         data['images'].forEach((val, index) => {
           if (val.hasOwnProperty('src')) {
-            console.log('Val', val);
-
-            this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`));
-            // this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${val.src})`);
+            this.images.push(val);
             console.log(this.images);
-
           }
         });
       }
@@ -187,6 +184,10 @@ export class EditProductComponent implements OnInit {
     });
     this.getFishCategoryLevel();
     this.getAllTypesByLevel();
+  }
+
+  public byPassImageUrl(image) {
+    return this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${image.src})`);
   }
 
   getTypes() {
@@ -239,6 +240,7 @@ export class EditProductComponent implements OnInit {
       'hsCode': this.hsCode,
       'mortalityRate': this.acceptableSpoilageRate
     };
+    
     this.product.updateData('fish/' + this.productID, data).subscribe(result => {
       if (this.fileToUpload.length > 0) {
         this.uploadFileToActivity(this.productID);
@@ -479,18 +481,18 @@ export class EditProductComponent implements OnInit {
   imagesPreview(files) {
 
     if (files) {
-        var filesAmount = files.length;
-  
-        for (let i = 0; i < filesAmount; i++) {
-            var reader = new FileReader();
-  
-            reader.onload = (event: Event) => {
-                jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
-            }
-  
-            reader.readAsDataURL(files[i]);
+      var filesAmount = files.length;
+
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+
+        reader.onload = (event: Event) => {
+          jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
         }
+
+        reader.readAsDataURL(files[i]);
+      }
     }
-  
+
   };
 }
