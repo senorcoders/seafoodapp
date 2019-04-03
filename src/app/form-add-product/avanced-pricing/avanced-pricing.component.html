@@ -103,25 +103,34 @@
       <div *ngFor="let k of weights.on.keys" (click)="selectKey(k)" class="col">{{kgNames[k]}}</div>
       <div class="col-12">
         <div class="row">
-          <div class="col-6">quantity range (kg)</div>
-          <div class="col-6">price (USD)</div>
+          <div class="col-9">quantity range (kg)</div>
+          <div class="col-3">price (USD)</div>
 
           <div class="col-12">
             <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row">
               <div class="col-9">
-                  <ng5-slider [(value)]="weights.on[keySelect][i].min" [(highValue)]="weights.on[keySelect][i].max" [options]="options"></ng5-slider>
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.on[keySelect][i].min"
+                  [(highValue)]="weights.on[keySelect][i].max" [options]="options"></ng5-slider>
               </div>
               <div class="col-3">
-                {{price.price}}
+                <input type="number" [(ngModel)]="weights.on[keySelect][i].price">
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
               </div>
             </div>
-          </div>
+            <div class="row" *ngIf="keySelect!==''">
+              <div class="col-9">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
+                  [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-3">
+                <input type="number" (change)="addPricing()" placeholder="Type Price Here" [(ngModel)]="valueExample">
+              </div>
+            </div>
 
+          </div>
         </div>
       </div>
     </div>
+
+
   </div>
-
-
-</div>

@@ -30,8 +30,9 @@ export class FishFeaturesComponent implements OnInit {
     this.features.addControl('features', new FormGroup({
       headOffWeight: new FormControl('', Validators.nullValidator),
       headOnWeight: new FormControl('', Validators.nullValidator),
-      acceptableSpoilageRate: new FormControl('', Validators.nullValidator),
-      raised: new FormControl('', Validators.nullValidator),
+      acceptableSpoilageRate: new FormControl('', Validators.required),
+      raised: new FormControl('', Validators.required),
+      treatment: new FormControl('', Validators.required)
     }))
   }
 
@@ -42,7 +43,7 @@ export class FishFeaturesComponent implements OnInit {
     });
   }
 
-  private reaised(){
+  private reaised() {
     this.productService.getData("raised").subscribe(it => {
       this.raised = it as any;
     });
