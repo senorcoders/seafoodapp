@@ -68,16 +68,63 @@ export class RecentPurchasesComponent implements OnInit {
      }
 
   ngOnInit() {
+
+  
     this.createFormControl();
     this.createForm();
 
     this.user = this.auth.getLoginData();
     this.getStore();
 
+   
  
   }
 
+  chargeJS(){
+    console.log(jQuery('#slidinTab'))
+      //Sliding underline effect
 
+
+  
+      var $el, leftPos, newWidth;
+      var $mainNav:any = jQuery("#slidinTab");
+  
+      $mainNav.append("<li id='magic-line'></li>");
+      // position: absolute;
+      // bottom: -2px;
+      // left: 0;
+      // width: 100px;
+      // height: 2px;
+      // background: #000000;
+      jQuery('#magic-line').css('position', 'absolute');
+      jQuery('#magic-line').css('background', '#99a3b6');
+      jQuery('#magic-line').css('height', '2px');
+      jQuery('#magic-line').css('width', '240px');
+      jQuery('#magic-line').css('left', '0');
+      jQuery('#magic-line').css('bottom', '-2px');
+
+
+
+
+
+  
+  
+      /* Cache it */
+      var $magicLine = jQuery("#magic-line");
+
+  
+          jQuery("#slidinTab li a").click(function() {
+          $el = jQuery(this);
+          leftPos = $el.position().left;
+          newWidth = $el.width();
+  
+          $magicLine.stop().animate({
+              left: leftPos,
+              // width: newWidth
+          });
+      });
+
+  }
   getStore() {
     this.productS.getData('api/store/user/' + this.user.id).subscribe(
       result => {
@@ -103,6 +150,8 @@ export class RecentPurchasesComponent implements OnInit {
 
           this.showLoading = false;
           this.showProduct = true;
+          setTimeout(() =>  this.chargeJS(), 1000);
+
           // this.getFirstNoShipped();
           // this.getDates();
         } else {
