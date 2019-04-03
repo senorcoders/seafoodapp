@@ -45,19 +45,20 @@ export class HomeComponent implements OnInit {
     console.log("Probando Home");
 
     this.getLoginStatus();
-  //  this.getFeaturedSeller();
-  //  this.getFeaturedProducts();
-  //  this.getFeaturedTypes();
-  //  this.getFishTypeMenu();
    this.isLoggedSr.role.subscribe((role:number)=>{
       this.role=role
+      if( this.role === -1 )
+        this.isLoggedIn = false;
     })
   }
 
   getLoginStatus(){
-   let login = this.auth.getLoginData();
+    let login = this.auth.getLoginData();
+    console.log( 'login status', login );
    if(login != null){
      this.isLoggedIn = true;
+   } else {
+     this.isLoggedIn = false;
    }
   }
   getFeaturedProducts(){ 

@@ -141,9 +141,9 @@ export class MenuNavComponent{
       search:['', Validators.required]
     })
   }
-  logOut(){
-    this.isLoggedSr.setLogin(false,-1)
-    this.auth.logOut();
+  async logOut(){
+    await this.isLoggedSr.setLogin( false, -1 );
+    await this.auth.logOut();
     this.router.navigate(["/home"]);
   }
   // openSearch(){
