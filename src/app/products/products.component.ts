@@ -10,9 +10,9 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
+import { TitleService } from '../title.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-products',
@@ -64,6 +64,7 @@ userInfo:any;
     private countryservice: CountriesService, private auth: AuthenticationService, private titleS: TitleService) { 
       this.titleS.setTitle('Browse');
     }
+
 
 
   async ngOnInit() {
