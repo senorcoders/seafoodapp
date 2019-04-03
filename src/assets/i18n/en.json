@@ -209,7 +209,8 @@
 		"headOff": "head off",
 		"raised": "Raised....",
 		"description": "Descriptor",
-		"advancepricing": "advanced pricing"
+		"advancepricing": "advanced pricing",
+		"back": "Back"
 	},
 	"SingleProduct":{
 		"add":"Add to cart",

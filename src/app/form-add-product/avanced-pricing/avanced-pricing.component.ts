@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone, EventEmitter } from '@angular/core';
 import { ControlContainer, FormGroupDirective, FormControl, Validators, FormGroup } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Options } from 'ng5-slider';
@@ -33,6 +33,13 @@ export class AvancedPricingComponent implements OnInit {
     step: 1
   };
 
+  public valueExample: number;
+  public exampleValues = {
+    min: 0,
+    max: 1
+  };
+  public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+
   constructor(private parentForm: FormGroupDirective) { }
 
   ngOnInit() {
@@ -65,6 +72,11 @@ export class AvancedPricingComponent implements OnInit {
         newOptions.floor = min;
         newOptions.ceil = max;
         this.options = newOptions;
+        this.exampleValues = {
+          min: newOptions.floor,
+          max: newOptions.ceil
+        };
+        this.refreshSlider();
       }
     });
 
@@ -75,6 +87,8 @@ export class AvancedPricingComponent implements OnInit {
       if (this.headAction === true) {
         this.weights.on = this.proccessWeights(this.weights.on, it);
       }
+
+      this.refreshSlider();
     });
   }
 
@@ -89,15 +103,44 @@ export class AvancedPricingComponent implements OnInit {
       }
     }
     data.keys = keys;
+    this.refreshSlider();
     return data;
   }
 
   public selectKey(k) {
     this.keySelect = k;
+    console.log(this.weights);
+    this.refreshSlider();
   }
 
-  public deletePrice(i) {
-    console.log(i);
+  public deletePrice(on, i) {
+    console.log(on, i);
+    if (this.headAction === true) {
+      if (this.weights.on[this.keySelect].length === 1) {
+        this.weights.on[this.keySelect] = [];
+      }else{
+        this.weights.on[this.keySelect].splice(i, 1);
+      } 
+    } else {
+      // this.weights.off[this.keySelect].push(it);
+    }
+    this.refreshSlider();
+  }
+
+  public addPricing() {
+    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price };
+    if (this.headAction === true) {
+      this.weights.on[this.keySelect].push(it);
+    } else {
+      this.weights.off[this.keySelect].push(it);
+    }
+    this.valueExample = 0;
+    this.exampleValues = {
+      min: this.options.floor,
+      max: this.options.ceil
+    };
+    this.refreshSlider();
   }
 
   public assingHead(r) {
@@ -106,6 +149,10 @@ export class AvancedPricingComponent implements OnInit {
 
   public controls() {
     return (this.parentForm.form.controls.price as FormGroup).controls;
+  }
+
+  private refreshSlider() {
+    this.manualRefresh.emit();
   }
 
 }
