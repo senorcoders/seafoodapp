@@ -32,8 +32,7 @@ p.order-number {
 .orders-tabs{
     background: #F7F8F9;
     padding: 100px 0px;
-    min-width: 915px;
-    overflow: scroll;
+    
     .nav-tabs {
         border-bottom: 1px solid #b5bed1;
     }
@@ -137,6 +136,11 @@ p.order-number {
 
     .table th:last-child, .table td:last-child{
         width: 10%;
+    }
+
+    @media screen and (max-width: 920px) {
+        min-width: 915px;
+        overflow: scroll;
     }
 }
 
