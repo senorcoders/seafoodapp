@@ -11,6 +11,7 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/plat
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { NgProgress } from 'ngx-progressbar';
+import { TitleService } from '../title.service';
 declare var jQuery: any;
 @Component({
   selector: 'app-edit-product',
@@ -95,8 +96,9 @@ export class EditProductComponent implements OnInit {
     private router: Router, private toast: ToastrService,
     private auth: AuthenticationService, private sanitizer: DomSanitizer,
     private countryService: CountriesService, private pricingChargesService: PricingChargesService,
-    public ngProgress: NgProgress
-  ) { }
+    public ngProgress: NgProgress,
+    private titleS: TitleService) {     this.titleS.setTitle('Edit Product'); }
+
   ngOnInit() {
     // this.createFormControls();
     // this.createForm();
@@ -157,7 +159,7 @@ export class EditProductComponent implements OnInit {
       this.hsCode = data['hsCode'];
       this.acceptableSpoilageRate = data['mortalityRate'];
       if (data['preparation'] != 'Filleted') {
-        this.showWholeOptions = true;
+        this.showWholeOptions = true; 
       }
       if (data['images']) {
         this.imageAPI = data['images'];
@@ -180,6 +182,7 @@ export class EditProductComponent implements OnInit {
       console.log('Error', error);
       this.show = false;
     });
+    this.getFishCategoryLevel();
     this.getAllTypesByLevel();
   }
 
@@ -376,6 +379,14 @@ export class EditProductComponent implements OnInit {
         jQuery('#confirm').modal('hide');
       }
     }
+  }
+
+
+  getFishCategoryLevel(){
+    this.product.getData(`fishType/parents/${this.productID}`).subscribe(res => {
+        console.log("Fish Level",  res);
+        this.mainCategory = res['level0'].id;
+    })
   }
   getAllTypesByLevel() {
     this.product.getData(`getTypeLevel`).subscribe(

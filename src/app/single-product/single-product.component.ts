@@ -11,6 +11,8 @@ import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/plat
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
 import 'rxjs/add/operator/catch';
+import { OrderService } from '../services/orders.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-single-product',
@@ -77,13 +79,12 @@ export class SingleProductComponent implements OnInit {
     private toast: ToastrService,
     private router: Router,
     private isLoggedSr: IsLoginService,
-    private cartService: CartService,
     private sanitizer: DomSanitizer,
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
-
+    private cartService:OrderService,  private titleS: TitleService
   ) {
-
+    this.titleS.setTitle('Product');
   }
 
   ngOnInit() {
@@ -98,12 +99,13 @@ export class SingleProductComponent implements OnInit {
     });
     this.productID = this.route.snapshot.params['id'];
     this.getCurrentPricingCharges();
-    this.getCart();
     this.isLoggedSr.isLogged.subscribe((val: boolean) => {
       this.isLogged = val;
     });
     const data = this.auth.getLoginData();
     this.idUser = data['id'];
+    this.getCart();
+
     this.getFavorite();
     this.getTypes();
     this.getCountries();
@@ -237,15 +239,27 @@ export class SingleProductComponent implements OnInit {
       this.show = false;
     });
   }
-  showHide(id) {
-    jQuery('#' + id).css('display', 'none');
-    jQuery('#input-text').css('display', 'block');
-    jQuery('#input-text').focus();
+  showElements() {
+    document.getElementById('qty-text').style.display = 'none';
+    document.getElementById('input-text').style.display = 'block';
   }
+
+  hideElements() {
+    document.getElementById('input-text').style.display = 'none';
+    document.getElementById('qty-text').style.display = 'block';
+  }
+     
+
   getCart() {
-    this.cartService.cart.subscribe((cart: any) => {
-      this.cart = cart;
-    });
+   
+    this.cartService.getCart( this.idUser ).subscribe(
+      cart=> { 
+        console.log("Cart", cart);
+        this.cart = cart;
+      },
+      error=> {
+        console.log( error );
+      })
   }
 
   increaseCount() {
@@ -279,7 +293,7 @@ export class SingleProductComponent implements OnInit {
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
       this.showCart = true;
       // set the new value to cart
-      this.cartService.setCart(result);
+      // this.cartService.setCart(result);
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
     }, err => {

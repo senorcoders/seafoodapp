@@ -66,6 +66,7 @@ btnText:any = 'Finish';
     this.registerBankForm();
     this.registerlegalForm();
     this.getCountries();
+    this.setValues();
     var that = this;
 
 
@@ -176,6 +177,12 @@ btnText:any = 'Finish';
     },{
       updateOn: 'submit'
     })
+  }
+
+  //PREset USD option
+  setValues(){
+    this.legalForm.controls['CurrencyofTrade'].setValue('USD');
+
   }
     //Get list of countries from the API
     getCountries() {

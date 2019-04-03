@@ -12,6 +12,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 
 @Component({
@@ -70,8 +71,8 @@ export class CheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private orders: OrderService,
     private toast: ToastrService,
-    dateAdapter: DateTimeAdapter<any>    
-  ) {
+    dateAdapter: DateTimeAdapter<any>,
+    private titleS: TitleService) {     this.titleS.setTitle('Checkout');
     this.min.setDate( this.today.getDate() + 3 );
     this.max.setDate( this.today.getDate() + 120 );
 
@@ -95,8 +96,8 @@ export class CheckoutComponent implements OnInit {
       this.shoppingCartId = params['shoppingCartId'];
       this.error = params['creditIssue'];
       this.randomID = this.guid();
-      this.getCart();
       this.getPersonalData();
+      this.getCart();
       // this.shipping = localStorage.getItem('shippingCost');
       this.name = localStorage.getItem('billingInformationName');
       this.address = localStorage.getItem('billingInformationAddress');
@@ -114,38 +115,32 @@ export class CheckoutComponent implements OnInit {
   }*/
   getPersonalData() {
     this.info = this.auth.getLoginData();
+    this.buyerId = this.info['id'];
   }
   getCart() {
 
-
-    this.Cart.cart.subscribe((cart: any) => {
-      if (cart && cart['items'] !== '') {
-        this.products = cart['items'];
-        /*this.total=cart['total'];
-        this.shipping=cart['shipping']
-        this.totalOtherFees=cart['totalOtherFees']*/
-        // this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
-        this.buyerId = cart['buyer'];
-
-        this.orders.getCart(this.buyerId)
+      this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
+              if (res && res['items'] !== '') {
+
               console.log("Cart", res);
+              this.products = res['items'];
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
               this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
               this.totalWithShipping = res['total'];
               localStorage.setItem('shoppingTotal', this.totalWithShipping);
               this.generateSignature();
+            }
 
             },
             error => {
               console.log(error);
             }
           );
-      }
+      
 
-    });
   }
   generateSignature() {
     //const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );

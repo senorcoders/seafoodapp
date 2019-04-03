@@ -1,10 +1,43 @@
 .top-nav{
-    box-shadow: 0px 10px 11px -7px #eeeeee;
-	font-family: 'Roboto', sans-serif;
-	color: #f1f1f1;
-	background: #313131;
-    height: 63px;
-    display: flex;
+	font-family: 'Josefin Sans', sans-serif;
+	color: #7484AA;
+	background: #ffffff;
+	border-bottom: 2px solid #fafafb;
+	display: flex;
+	.address{
+		padding: 20px;
+		border-right: 2px solid #fafafb;
+	}
+
+	.title-menu{
+		p{
+			margin: 0;
+			padding: 0 25px;
+			text-transform: uppercase;
+			color: #3E4E75;
+			font-family: 'Josefin Sans', sans-serif;
+			font-weight: 300;
+		}
+	}
+
+	.navbar{
+		border-left: 2px solid #fafafb;
+    	height: 100%;
+	}
+
+	.menu-icon{
+		height: 32px;
+		width: auto;
+	}
+
+	.headshot-logo{
+		height: 45px;
+		width: 45px;
+		background-size: cover !important;
+		background-position: center !important;
+		border-radius: 50%;
+		margin: 0 auto;
+	}
 	a:hover{
 			color:#3181f0 !important;
     	}
@@ -182,8 +215,8 @@ form{
     color:white;
 }
 .nav-link{
-    padding-left: 3rem !important;
-    padding-right: 3rem !important;
+	padding-left: 30px !important;
+    padding-right: 30px !important;
 }
 .admin-navbar .nav-link{
     padding-left: 1rem !important;
@@ -192,7 +225,7 @@ form{
 .img-logo{
 	img{
 	    max-width: 100%;
-	    width: 63px;
+	    width: 52px;
 	    height: auto;
 	  }
 }
@@ -203,49 +236,9 @@ form{
 	position: relative;
 }
 @media (min-width: 1300px){
-	.img-logo{
-    padding-left: 212px;
-    display: block;
-    margin-right: 19px;
-	}
-	.container {
-	    max-width: 1440px;
-	}
+	
 	.top-nav{
-		.container{
-			padding:0 !important;
-		}
-		nav{
-			padding:0 !important;
-		}
-		.nav-item {
-		    height: 63px !important;
-		    width: 158px !important;
-		    margin-right: 16px !important;
-		    display: flex !important;
-		    align-items: center !important;
-		}
-		.nav-link{
-			font-family: Roboto;
-		    font-size: 18px;
-		    font-weight: 500;
-		    font-style: normal;
-		    font-stretch: normal;
-		    line-height: normal;
-		    letter-spacing: normal;
-		    text-align: center;
-		    text-transform: capitalize;
-		    color: #ffffff !important;
-		    width: 100%;
-		    padding: 20px 0 !important;
-		}
-		.bar{
-			height: 26px !important;
-		    width: 1px !important;
-		    border: 1px solid white;
-		    margin-left: 50px !important;
-		    margin-right: 51px !important;
-		}
+	
 		.admin-navbar{
 			.nav-item{
 				width: auto !important
@@ -307,8 +300,7 @@ form{
 	}
 	.navbar-toggler{
 		position: absolute;
-	    top: 11px;
-	    right: 40px;
+	    right: 0px;
 	}
 	.bar{
 		display: none !important;
@@ -322,7 +314,8 @@ form{
 	    position: absolute;
 	    top: 63px;
 	    left: 0px;
-	    background: #313131;
+		background: #f2f2f2;
+		z-index: 99999;
 	}
 }
 @media(max-width: 992px){
@@ -370,6 +363,8 @@ form{
 	.fish-type-menu{
 		display: none;
 	}
+
+	
 }
 @media(max-width: 575px){
 	.address{

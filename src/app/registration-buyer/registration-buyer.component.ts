@@ -131,6 +131,8 @@ btnText:any = 'Finish';
 
   }
 
+ 
+
   //Verify if email is already taken in the app database
   verifyEmail(email){
     this.auth.getData(`api/user/email/${email}/`).subscribe(

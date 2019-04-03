@@ -10,6 +10,8 @@ import {TranslateService} from 'ng2-translate';
 import {LanguageService} from '../language/language.service';
 import { CartService } from '../cart/cart.service';
 import { OrdersService } from '../orders/orders.service';
+import { environment } from '../../../environments/environment';
+import { TitleService } from '../../title.service';
 declare var jQuery:any;
 const defaultLanguage = "en";
 const additionalLanguages = ["ar"];
@@ -33,12 +35,29 @@ export class MenuNavComponent{
   lang:any;
   //show:boolean=false;
   showOrders:boolean=false;
+  logo: any = '../../../assets/logo-placeholder.jpg';
+  storeEndpoint:any = "api/store/user/";
+  base:string=environment.apiURLImg;
+  title:any;
+
+
   constructor(private fb: FormBuilder ,private auth:AuthenticationService,private menuItems: MenuItems,
    private isLoggedSr: IsLoginService, private router:Router, private productService: ProductService,
    private toast:ToastrService, private translate: TranslateService,private languageService:LanguageService,
-   private cart:CartService, private orders:OrdersService){
+   private cart:CartService, private orders:OrdersService, private titleS: TitleService   ){
+
+  }
+
+  ngAfterContentInit(){
+    this.titleS.getTitle().subscribe(appTitle =>{
+      this.title = appTitle
+    }, error =>{
+      console.log("Title er", error);
+    } );
+
   }
   ngOnInit(){
+
     jQuery(document).ready(function(){
       jQuery('#search-icon').on('click',function(){
         setTimeout(function(){jQuery('#search-input').focus()},300)
@@ -65,6 +84,9 @@ export class MenuNavComponent{
     })
     if(this.auth.isLogged()){
       this.userData=this.auth.getLoginData();
+      if(this.userData.role == 1){
+        this.getStore();
+      }
       this.isLoggedSr.setLogin(true, this.userData.role)
       //create the cart
       let cart={
@@ -119,9 +141,9 @@ export class MenuNavComponent{
       search:['', Validators.required]
     })
   }
-  logOut(){
-    this.isLoggedSr.setLogin(false,-1)
-    this.auth.logOut();
+  async logOut(){
+    await this.isLoggedSr.setLogin( false, -1 );
+    await this.auth.logOut();
     this.router.navigate(["/home"]);
   }
   // openSearch(){
@@ -217,5 +239,19 @@ export class MenuNavComponent{
       this.lang=value
       this.languageService.setLanguage(value);
     }
+  }
+
+  //Get store for seller
+  getStore(){
+    this.productService.getData(this.storeEndpoint+this.userData['id']).subscribe(result =>{
+      if(result[0].hasOwnProperty('logo') && result[0]['logo'] != ''){
+        this.logo = this.base + result[0].logo;
+      }else{
+        this.logo = '../../../assets/logo-placeholder.jpg'
+      }
+     
+    }, error => {
+      console.error(error);
+    })
   }
 }

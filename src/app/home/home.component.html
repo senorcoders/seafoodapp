@@ -22,4 +22,94 @@
     <!-- <img src="../../assets/banner.png" class="banner-img" alt=""> -->
   </div>
 </div> 
-<!-- <app-footer></app-footer> -->
+
+<div class="gray-bg" *ngIf="!isLoggedIn">
+    <div class="container-fluid">
+        <div class="row bordered-row">
+          <div class="col-lg-12 text-center custom-section">
+              <img src="../../assets/fishing.png" alt="" class="img-fluid">
+              <h3 class="title-bold">We believe in a connected world and it’s industries, where size and distance doesn't matter.</h3>
+              <h3 class="title-light">Welcome to an e-commerce platform that facilitates direct buyer to seller interaction. We're also completely transparent!</h3>
+          </div>
+        </div>
+
+        <div class="row bordered-row">
+          <div class="col-lg-12">
+              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Buy with us</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Sell with us</a>
+                  </li>
+                
+                </ul>
+          </div>
+
+          <div class="col-lg-12 custom-section">
+              <div class="tab-content" id="myTabContent">
+                  <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
+                      <div class="row">
+                          
+                          <div class="col-lg-6 box-content">
+                            <h4>BETTER PRICE</h4>
+                            <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
+                            <a routerLink="/register">REGISTER TO BUY</a>
+                          </div>
+                          <div class="col-lg-6">
+                              <img src="../../assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
+                      <div class="row">
+                          
+                          <div class="col-lg-6 box-content">
+                            <h4>BETTER PRICE</h4>
+                            <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
+                            <a routerLink="/register-seller">REGISTER TO BUY</a>
+                          </div>
+                          <div class="col-lg-6">
+                              <img src="../../assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
+                          </div>
+                      </div>
+                  </div>
+                </div>
+          </div>
+            
+              
+        </div>
+        <div class="row bordered-row">
+          <div class="col-lg-12 custom-section">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="../../assets/svg/parcel.svg" alt="" class="img-fluid" width="280px">
+                </div>
+                <div class="col-lg-6 box-content">
+                  <h4>FULL TRACEABILITY</h4>
+                  <p>Get what you paid for with the knowledge of where your fish is really coming from with a fully trackable order journey.</p>
+                  <a routerLink="/register">REGISTER TO BUY</a>
+                </div>
+            </div>
+          </div>
+            
+        </div>
+
+        <div class="row bordered-row">
+            <div class="col-lg-12 custom-section">
+              <div class="row">
+                  <div class="col-lg-6 box-content">
+                      <h4>COMPLETE TRANSPARENCY</h4>
+                      <p>Seafood Souq is an unbiased marketplace that promotes full transparency and complete understanding of price for all with visible cost breakdowns</p>
+                      <a routerLink="/register">REGISTER TO BUY</a>
+                    </div>
+                  <div class="col-lg-6">
+                      <img src="../../assets/svg/handshake.svg" alt="" class="img-fluid" width="280px">
+                  </div>
+                  
+              </div>
+            </div>
+              
+          </div>
+      </div>
+</div>

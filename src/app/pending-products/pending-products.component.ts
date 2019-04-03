@@ -14,6 +14,7 @@ import { CountriesService } from '../services/countries.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
+import { TitleService } from '../title.service';
 
 declare var jQuery:any;
 
@@ -34,7 +35,8 @@ export class PendingProductsComponent implements OnInit {
   constructor(
     private toast: ToastrService,
     private productService: ProductService,
-    private pricingChargesService: PricingChargesService ) { }
+    private pricingChargesService: PricingChargesService,
+    private titleS: TitleService) {     this.titleS.setTitle('Pending Products'); }
 
   ngOnInit() {
     this.getCurrentPricingCharges();
