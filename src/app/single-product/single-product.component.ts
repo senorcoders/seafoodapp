@@ -189,6 +189,7 @@ export class SingleProductComponent implements OnInit {
           this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value.src})`));
         });
       }
+      console.log(data["images"]);
       this.price = data['price'].description;
       this.category = data['type'].name;
       this.show = true;

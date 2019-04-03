@@ -20,7 +20,7 @@
         </div>
         <div class="col-lg-4 col-md-6 mg-bt" *ngFor="let image of images; index as i; first as isFirst">
             <div class="primaryImg-cont">
-                <div class="bg-img" [style.background-image]="image" *ngIf="!showLoading"></div>
+                <div class="bg-img" [style.background-image]="byPassImageUrl(image)" *ngIf="!showLoading"></div>
             </div> 
             <div class="bg">
                 <a (click)="deleteNode(i)" class="pink-btn">{{'EditProduct.delete-img-btn' | translate}}</a>
