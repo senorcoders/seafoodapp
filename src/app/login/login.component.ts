@@ -20,6 +20,8 @@ export class LoginComponent implements OnInit {
   wrongData:boolean = false;
   email: FormControl;
   password: FormControl;
+  isValid:boolean = false;
+  loginText:any = 'Login';
  @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -53,7 +55,9 @@ export class LoginComponent implements OnInit {
   }
   redirectHome(){
      if(this.auth.isLogged()){
-      this.router.navigate(["/"])
+      this.router.navigate(["/"]);
+      this.isValid = false;
+      this.loginText = 'Login';
     }
   }
   setHeight(h){
@@ -80,6 +84,8 @@ export class LoginComponent implements OnInit {
   }
 
   sendDataLogin(){
+    this.isValid = true;
+    this.loginText = 'Loading...';
     this.auth.login(this.loginForm.value).subscribe(
       data=>{
         console.log("Login Res", data);
@@ -95,9 +101,11 @@ export class LoginComponent implements OnInit {
           if(result && result!=''){
             this.orders.setOrders(true)
           }
+
         },
         e=>{
-          console.log(e)
+          console.log(e);
+        
         }
         )
         //get cart
@@ -113,6 +121,8 @@ export class LoginComponent implements OnInit {
       error=>{
         console.log(error);
         this.showError(error.error);
+        this.isValid = false;
+        this.loginText = 'Login';
       } 
     )
   }
