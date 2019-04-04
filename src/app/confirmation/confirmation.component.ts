@@ -97,9 +97,9 @@ export class ConfirmationComponent implements OnInit {
       this.params.shoppingCart = this.shoppingCartId;
      });
     }
-
-      this.getPersonalData();
-      await this.getCart();
+        
+    this.getPersonalData();
+    await this.getCart();
   }
   addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
@@ -142,7 +142,8 @@ export class ConfirmationComponent implements OnInit {
 
   }
   getRealIp(){
-	this.httpO.get( 'https://jsonip.com/' )
+  this.http.get( '/user/ip' )
+	//this.httpO.get( 'https://jsonip.com/' )
 	.subscribe(
       	  res=>{
           this.ip = res['ip'];
