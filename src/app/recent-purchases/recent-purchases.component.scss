@@ -31,16 +31,19 @@ p.order-number {
 }
 .orders-tabs{
     background: #F7F8F9;
-    padding: 100px 15px;
-    min-width: 915px;
-    overflow: scroll;
+    padding: 100px 0px;
+    
     .nav-tabs {
         border-bottom: 1px solid #b5bed1;
+        position: relative;
+        .nav-item a{
+            width: 240px;
+        }
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
         background: none;
         border: none;
-        border-bottom: 2px solid #99a3b6;
+        border-bottom: 2px solid transparent;
         color: #3E4E75 !important;
         text-transform: uppercase;
         font-weight: 300;
@@ -137,6 +140,11 @@ p.order-number {
 
     .table th:last-child, .table td:last-child{
         width: 10%;
+    }
+
+    @media screen and (max-width: 961px) {
+        min-width: 960px;
+        overflow: scroll;
     }
 }
 
@@ -315,4 +323,13 @@ p.order-number {
 .expandible-link.collapsed img{
     content: url('../../assets/svg/plus.svg');
     display: block;
+}
+
+#magic-line {
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 100px;
+	height: 2px;
+	background: #000000;
 }

@@ -24,7 +24,7 @@
                       <h5>{{product?.type?.name}}</h5>
                     </div>
                     <div class="col-md-4 text-right">
-                        <a routerLink="/edit-product/{{product.id}}" style="margin-right: 10px;">
+                        <a routerLink="/edit-product/{{product?.id}}" style="margin-right: 10px;">
                           <img src="../../assets/svg/pencil.svg" alt="" >
                        </a>
                         <a (click)="deleteProduct(product.id, i)"><img src="../../assets/svg/trash.svg" alt="" ></a>
@@ -32,7 +32,7 @@
                   </div>
                 </div>
                 <div class="product-body">
-                  <a routerLink="/edit-product/{{product.id}}" class="image-link-holder">
+                  <a routerLink="/edit-product/{{product?.id}}" class="image-link-holder">
                     <div class="product-single-img" [style.background-image]="image[i]">
                       <div class="product-overlay"></div>
                       <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
