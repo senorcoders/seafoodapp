@@ -97,14 +97,14 @@ export class ConfirmationComponent implements OnInit {
       this.params.shoppingCart = this.shoppingCartId;
      });
     }
-
-      this.getPersonalData();
-      await this.getCart();
+        
+    this.getPersonalData();
+    await this.getCart();
   }
   addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
     s.type = 'text/javascript';
-    s.src = 'https://mpsnare.iesnare.com/snare.js';
+    s.src = 'https://devapi.seafoodsouq.com/cdn/snare.js';
     s.text = ``;
     this.renderer2.appendChild(this._document.body, s);
 
@@ -142,7 +142,8 @@ export class ConfirmationComponent implements OnInit {
 
   }
   getRealIp(){
-	this.httpO.get( 'https://jsonip.com/' )
+  this.http.get( '/user/ip' )
+	//this.httpO.get( 'https://jsonip.com/' )
 	.subscribe(
       	  res=>{
           this.ip = res['ip'];

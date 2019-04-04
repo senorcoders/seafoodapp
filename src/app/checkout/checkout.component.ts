@@ -105,14 +105,7 @@ export class CheckoutComponent implements OnInit {
 
     });
   }
-  /*addFingerPrintScript() {
-    const s = this.renderer2.createElement('script');
-    s.type = 'text/javascript';
-    s.src = 'https://mpsnare.iesnare.com/snare.js';
-    s.text = ``;
-    this.renderer2.appendChild(this._document.body, s);
-
-  }*/
+ 
   getPersonalData() {
     this.info = this.auth.getLoginData();
     this.buyerId = this.info['id'];
