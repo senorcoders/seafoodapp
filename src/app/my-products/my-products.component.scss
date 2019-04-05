@@ -138,12 +138,14 @@
     height: 335px;
     margin: 84px auto;
     text-align: center;
+    transition: all .2s ease-in-out;
     div{
       padding-top: 25%;
     }
-    img{
+    svg{
       width: 64px;
       height: 64px;
+      cursor: pointer;
     }
     h3{
       color: #9A9EA8;
@@ -155,5 +157,14 @@
       text-transform: uppercase;
       margin-top: 15px;
 
+    }
+  }
+
+  .add-new-box:hover{
+    h3{
+      color: #3E4E75;
+    }
+    svg .a{
+      fill: #3E4E75;
     }
   }
