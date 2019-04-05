@@ -10,6 +10,9 @@
 	.address{
 		padding: 20px 50px;
 		border-right: 2px solid #fafafb;
+		height: 110px;
+    	display: flex;
+    	align-items: center;
 	
 	}
 
@@ -21,6 +24,9 @@
 			color: #3E4E75;
 			font-family: 'Josefin Sans', sans-serif;
 			font-weight: 300;
+			font-size: 21px;
+			left: 1.75px;
+			line-height: 25px;
 		}
 	}
 
