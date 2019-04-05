@@ -20,177 +20,34 @@
 
   <div class="col-12" [hidden]="!showPricingValue">
     <div class="row" [hidden]="headAction===false">
-      <div class="col form-group">
+      <div class="col form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" formControlName="kg01" type="checkbox" form id="defaultCheck1">
+          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" form id="defaultCheck1">
           <label class="form-check-label" for="defaultCheck1">
-            0-1 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg12" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            1-2 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg23" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            2-3 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg34" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            3-4 KG
-          </label>
-        </div>
-      </div>
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg45" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            4-5 KG
+            {{getNameWhole(whole.id)}}
           </label>
         </div>
       </div>
 
     </div>
-    <div class="row" [hidden]="headAction===false">
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg56" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            5-6 KG
-          </label>
-        </div>
-      </div>
 
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg67" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            6-7 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg78" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            7-8 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg8m" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            8+ KG
-          </label>
-        </div>
-      </div>
-    </div>
     <!-- off checkbox -->
     <div class="row" [hidden]="headAction===true">
-      <div class="col form-group">
+      <div class="col form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" formControlName="kg01_off" type="checkbox" form id="defaultCheck1">
+          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" form id="defaultCheck1">
           <label class="form-check-label" for="defaultCheck1">
-            0-1 KG
+            {{getNameWhole(whole.id)}}
           </label>
         </div>
       </div>
 
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg12_off" value="" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            1-2 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg23_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            2-3 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg34_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            3-4 KG
-          </label>
-        </div>
-      </div>
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg45_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            4-5 KG
-          </label>
-        </div>
-      </div>
-
-    </div>
-    <div class="row" [hidden]="headAction===true">
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg56_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            5-6 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg67_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            6-7 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg78_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            7-8 KG
-          </label>
-        </div>
-      </div>
-
-      <div class="col form-group">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" formControlName="kg8m_off" id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
-            8+ KG
-          </label>
-        </div>
-      </div>
     </div>
   </div>
 
   <div class="col-12" [hidden]="!showPricingValue">
     <div class="row" [hidden]="headAction===false">
-      <div *ngFor="let k of weights.on.keys" (click)="selectKey(k)" class="col selectionable">{{kgNames[k]}}</div>
+      <div *ngFor="let k of weights.on.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col selectionable">{{getNameWhole(k)}}</div>
       <div class="col-12">
         <div class="row">
           <div class="col-9">quantity range (kg)</div>
@@ -202,8 +59,8 @@
                 <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.on[keySelect][i].min"
                   [(highValue)]="weights.on[keySelect][i].max" [options]="options"></ng5-slider>
               </div>
-              <div class="col-3">
-                $<input type="number" placeholder="Type Price Here" formControlName="example" [(ngModel)]="weights.on[keySelect][i].price">kg
+              <div class="col-3" [formGroupName]="getIdentifier(keySelect)">
+                $<input type="number" [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''" placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">kg
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
               </div>
             </div>
@@ -222,8 +79,9 @@
       </div>
     </div>
 
+    <!-- los slides se itera por controls de formualrios  -->
     <div class="row" [hidden]="headAction===true">
-      <div *ngFor="let k of weights.off.keys" (click)="selectKey(k)" class="col selectionable">{{kgNames[k]}}</div>
+      <div *ngFor="let k of weights.off.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col selectionable">{{getNameWhole(k)}}</div>
       <div class="col-12">
         <div class="row">
           <div class="col-9">quantity range (kg)</div>
@@ -235,8 +93,8 @@
                 <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.off[keySelect][i].min"
                   [(highValue)]="weights.off[keySelect][i].max" [options]="options"></ng5-slider>
               </div>
-              <div class="col-3">
-                $<input type="number" placeholder="Type Price Here" formControlName="example" [(ngModel)]="weights.off[keySelect][i].price">kg
+              <div class="col-3" [formGroupName]="getIdentifier(keySelect)">
+                $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''" type="number" placeholder="Type Price Here" [formControlName]="i">kg
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
               </div>
             </div>
@@ -246,7 +104,7 @@
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-3">
-                $<input type="number" (change)="addPricing()" placeholder="Type Price Here" [(ngModel)]="valueExample">kg
+                $<input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here" [(ngModel)]="valueExample">kg
               </div>
             </div>
 
@@ -254,4 +112,5 @@
         </div>
       </div>
     </div>
+    
   </div>

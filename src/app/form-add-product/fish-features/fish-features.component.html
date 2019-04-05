@@ -119,7 +119,7 @@
       [ngClass]="{'has-danger': controls().raised.invalid && (controls().raised.dirty || controls().raised.touched),'has-success': controls().raised.valid && (controls().raised.dirty || controls().raised.touched)}">
       <label>{{'CreateProduct.raised' | translate}} <span class="field-status red">*</span> </label>
       <select class="form-control" formControlName="raised" required>
-        <option *ngFor="let r of raised" value="{{r.name}}" selected>{{r.name}}</option>
+        <option *ngFor="let r of raised" value="{{r.id}}" selected>{{r.name}}</option>
       </select>
       <div class="form-control-feedback" *ngIf="controls().raised.errors &&parentForm.submitted">
         <p *ngIf="controls().raised.errors.required">{{'CreateProduct.raised' | translate}}
@@ -133,10 +133,7 @@
       [ngClass]="{'has-danger': controls().treatment.invalid && (controls().treatment.dirty || controls().treatment.touched),'has-success': controls().treatment.valid && (controls().treatment.dirty || controls().treatment.touched)}">
       <label>{{'CreateProduct.treatment' | translate}} <span class="field-status red">*</span> </label>
       <select class="form-control" formControlName="treatment">
-        <option value="fresh">Fresh</option>
-        <option value="frozen">Frozen</option>
-        <option value="live">Live</option>
-        <option value="smoked">Smoked</option>
+        <option [value]="tr.id" *ngFor="let tr of treatments">{{tr.name}}</option>
       </select>
       <div class="form-control-feedback" *ngIf="controls().treatment.errors &&parentForm.submitted">
         <p *ngIf="controls().treatment.errors.required">{{'CreateProduct.treatment' | translate}}
