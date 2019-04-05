@@ -5,6 +5,9 @@
     a:hover{
       text-decoration: none;
     }
+    a:not([href]):not([tabindex]){
+      cursor: pointer;
+    }
   }
 
   .single-product-box{

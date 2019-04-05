@@ -1098,3 +1098,59 @@ form-wizard{
 .gray-bg{
   background-color: #F7F8F9;
 }
+
+.top-nav .nav-link {
+  svg, .a{
+    fill: #7484AA !important;
+
+  }
+}
+.top-nav .active-link, .top-nav .nav-link:hover{
+  svg, .a{
+    fill: #3E4E75 !important;
+  }
+}
+
+.single-product-box{
+ 
+  .product-header{   
+    svg{
+      width: 18px;
+      height: 18px;
+    }
+    svg, .a{
+     fill: #7484aa;
+    }
+
+    a:hover{
+      svg, .a{
+        fill: #3E4E75;
+
+      }
+    }
+  }
+}
+
+.orders-tabs{
+  .table td{
+    button{
+      svg{
+        height: 14px;
+        width: 14px;  
+        margin-left: 5px;    
+      }
+      svg, .a{
+        fill: #0D1321;
+      }
+      .calendar-icon{
+        margin: 0;
+    }
+    }
+  
+    button:hover{
+      svg, .a{
+        fill: #3E4E75;
+      }
+    }
+  }
+}

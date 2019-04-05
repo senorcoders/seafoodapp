@@ -45,9 +45,9 @@
 								<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
 								<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
 								<td *ngIf="item.items.length == 1">
-										<button [owlDateTimeTrigger]="dt1"  *ngIf="item.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null" (click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img src="../../assets/svg/close.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null" (click)="openShippingModal(item.items[0].id, i)"><img *ngIf="item.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="item.items[0].shippingFiles == null ? 'calendar-icon' : ''" src="../../assets/svg/attachment.svg" alt=""></button>
+										<button [owlDateTimeTrigger]="dt1"  *ngIf="item.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
+										<button *ngIf="item.items[0].updateInfo != null" (click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img  class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+										<button *ngIf="item.items[0].updateInfo != null" (click)="openShippingModal(item.items[0].id, i)"><img *ngIf="item.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img   [className]="item.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
 										<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{item.items[0].id}}">
 										<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(item.items[0].id, i)"></owl-date-time>
 									</td>
@@ -72,9 +72,9 @@
 												<td >{{sub?.fish?.seafood_sku}}</td>
 												<td >{{sub?.fish?.name}} </td>
 												<td >
-														<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-														<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img src="../../assets/svg/close.svg" alt=""></button>
-														<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="sub.shippingFiles == null ? 'calendar-icon' : ''" src="../../assets/svg/attachment.svg" alt=""></button>
+														<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
+														<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+														<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img  [className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
 														<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{sub.id}}">
 														<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(sub.id, i, subi)"></owl-date-time>
 													</td>
@@ -116,9 +116,9 @@
 										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
 										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 										<td *ngIf="shipped.items.length == 1">
-												<button [owlDateTimeTrigger]="dt1"  *ngIf="shipped.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-												<button *ngIf="shipped.items[0].updateInfo != null" (click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img src="../../assets/svg/close.svg" alt=""></button>
-												<button *ngIf="shipped.items[0].updateInfo != null" (click)="openShippingModal(shipped.items[0].id, i)"><img *ngIf="shipped.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="shipped.items[0].shippingFiles == null ? 'calendar-icon' : ''" src="../../assets/svg/attachment.svg" alt=""></button>
+												<button [owlDateTimeTrigger]="dt1"  *ngIf="shipped.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
+												<button *ngIf="shipped.items[0].updateInfo != null" (click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+												<button *ngIf="shipped.items[0].updateInfo != null" (click)="openShippingModal(shipped.items[0].id, i)"><img *ngIf="shipped.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="shipped.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
 												<input (change)="selectDate(shipped.items[0].id)" type="hidden" [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{shipped.items[0].id}}">
 												<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(shipped.items[0].id, i)"></owl-date-time>
 											</td>
@@ -146,9 +146,9 @@
 														<td >{{sub?.fish?.seafood_sku}}</td>
 														<td >{{sub?.fish?.name}} </td>
 														<td >
-																<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-																<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img src="../../assets/svg/close.svg" alt=""></button>
-																<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="sub.shippingFiles == null ? 'calendar-icon' : ''" src="../../assets/svg/attachment.svg" alt=""></button>
+																<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
+																<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+																<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
 																<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{sub.id}}">
 																<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(sub.id, i, subi)"></owl-date-time>
 															</td>

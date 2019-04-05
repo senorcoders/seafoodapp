@@ -89,11 +89,12 @@ export class RecentPurchasesComponent implements OnInit {
       $mainNav.append("<li id='magic-line'></li>");
  
       jQuery('#magic-line').css('position', 'absolute');
-      jQuery('#magic-line').css('background', '#99a3b6');
+      jQuery('#magic-line').css('background', '#3E4E75');
       jQuery('#magic-line').css('height', '2px');
       jQuery('#magic-line').css('width', '300px');
       jQuery('#magic-line').css('left', '0');
       jQuery('#magic-line').css('bottom', '-2px');
+      jQuery('#magic-line').css('border-radius', '2px');
       /* Cache it */
       var $magicLine = jQuery("#magic-line");
 
@@ -108,6 +109,42 @@ export class RecentPurchasesComponent implements OnInit {
               // width: newWidth
           });
       });
+
+
+      jQuery('img.order-icon').each(function(){
+        var $img = jQuery(this);
+        var imgID = $img.attr('id');
+        var imgClass = $img.attr('class');
+        var imgURL = $img.attr('src');
+    
+        jQuery.get(imgURL, function(data) {
+            // Get the SVG tag, ignore the rest
+            var $svg = jQuery(data).find('svg');
+    
+            // Add replaced image's ID to the new SVG
+            if(typeof imgID !== 'undefined') {
+                $svg = $svg.attr('id', imgID);
+            }
+            // Add replaced image's classes to the new SVG
+            if(typeof imgClass !== 'undefined') {
+                $svg = $svg.attr('class', imgClass+' replaced-svg');
+            }
+    
+            // Remove any invalid XML tags as per http://validator.w3.org
+            $svg = $svg.removeAttr('xmlns:a');
+            
+            // Check if the viewport is set, else we gonna set it if we can.
+            if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+                $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+            }
+         
+            
+            // Replace image with new SVG
+            $img.replaceWith($svg);
+    
+        }, 'xml');
+    
+    });
 
   }
   getStore() {

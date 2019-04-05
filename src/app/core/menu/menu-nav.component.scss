@@ -40,6 +40,18 @@
 		width: auto;
 	}
 
+	.nav-link {
+		svg, .a{
+			fill: #7484AA !important;
+
+		}
+	}
+	.active-link, .nav-link:hover{
+		svg, .a{
+			fill: #3E4E75 !important;
+		}
+	}
+
 	.headshot-logo{
 		height: 45px;
 		width: 45px;
