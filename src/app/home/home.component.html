@@ -23,7 +23,7 @@
   </div>
 </div> 
 
-<div class="gray-bg" *ngIf="!isLoggedIn">
+<div class="gray-bg">
     <div class="container-fluid">
         <div class="row bordered-row">
           <div class="col-lg-12 text-center custom-section">
@@ -54,7 +54,7 @@
                           <div class="col-lg-6 box-content">
                             <h4>BETTER PRICE</h4>
                             <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
-                            <a routerLink="/register">REGISTER TO BUY</a>
+                            <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
                           </div>
                           <div class="col-lg-6">
                               <img src="../../assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
@@ -67,7 +67,7 @@
                           <div class="col-lg-6 box-content">
                             <h4>BETTER PRICE</h4>
                             <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
-                            <a routerLink="/register-seller">REGISTER TO BUY</a>
+                            <a *ngIf="!isLoggedIn" routerLink="/register-seller">REGISTER TO BUY</a>
                           </div>
                           <div class="col-lg-6">
                               <img src="../../assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
@@ -88,7 +88,7 @@
                 <div class="col-lg-6 box-content">
                   <h4>FULL TRACEABILITY</h4>
                   <p>Get what you paid for with the knowledge of where your fish is really coming from with a fully trackable order journey.</p>
-                  <a routerLink="/register">REGISTER TO BUY</a>
+                  <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
                 </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
                   <div class="col-lg-6 box-content">
                       <h4>COMPLETE TRANSPARENCY</h4>
                       <p>Seafood Souq is an unbiased marketplace that promotes full transparency and complete understanding of price for all with visible cost breakdowns</p>
-                      <a routerLink="/register">REGISTER TO BUY</a>
+                      <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
                     </div>
                   <div class="col-lg-6">
                       <img src="../../assets/svg/handshake.svg" alt="" class="img-fluid" width="280px">
