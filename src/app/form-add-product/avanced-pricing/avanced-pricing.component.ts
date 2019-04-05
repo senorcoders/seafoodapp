@@ -1,7 +1,8 @@
 import { Component, OnInit, NgZone, EventEmitter } from '@angular/core';
-import { ControlContainer, FormGroupDirective, FormControl, Validators, FormGroup } from '@angular/forms';
+import { ControlContainer, FormGroupDirective, FormControl, Validators, FormGroup, FormArray, RequiredValidator } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Options } from 'ng5-slider';
+import { ProductService } from '../../services/product.service';
 
 @Component({
   selector: 'avanced-pricing',
@@ -36,6 +37,7 @@ export class AvancedPricingComponent implements OnInit {
     kg78_off: '7-8 KG',
     kg8m_off: '8+ KG',
   };
+  public wholesFish: any[] = [];
   public keySelect = '';
   public options: Options = {
     floor: 0,
@@ -49,38 +51,35 @@ export class AvancedPricingComponent implements OnInit {
     max: 1
   };
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+  private priceEnableChange = true;
+  public identifier = "_arr";
 
-  constructor(private parentForm: FormGroupDirective) { }
+  constructor(private parentForm: FormGroupDirective, private productService: ProductService) { }
 
   ngOnInit() {
     this.createFormGroup();
+    this.productService.getData("wholefishweight").subscribe(its => {
+      let wholes = its as any[];
+      //Agregamos los wholes antes
+      for (let i of wholes) {
+        (this.parentForm.form.controls.price as FormGroup).addControl(i.id, new FormControl('', Validators.nullValidator));
+      }
+      for (let i of wholes) {
+        (this.parentForm.form.controls.price as FormGroup).addControl(i.id + "_off", new FormControl('', Validators.nullValidator));
+      }
+      this.wholesFish = its as any;
+    })
+
   }
 
   private createFormGroup() {
+
     this.price = this.parentForm.form;
     this.price.addControl('price', new FormGroup({
-      kg01: new FormControl(false, Validators.nullValidator),
-      kg12: new FormControl(false, Validators.nullValidator),
-      kg23: new FormControl(false, Validators.nullValidator),
-      kg34: new FormControl(false, Validators.nullValidator),
-      kg45: new FormControl(false, Validators.nullValidator),
-      kg56: new FormControl(false, Validators.nullValidator),
-      kg67: new FormControl(false, Validators.nullValidator),
-      kg78: new FormControl(false, Validators.nullValidator),
-      kg8m: new FormControl(false, Validators.nullValidator),
-      kg01_off: new FormControl(false, Validators.nullValidator),
-      kg12_off: new FormControl(false, Validators.nullValidator),
-      kg23_off: new FormControl(false, Validators.nullValidator),
-      kg34_off: new FormControl(false, Validators.nullValidator),
-      kg45_off: new FormControl(false, Validators.nullValidator),
-      kg56_off: new FormControl(false, Validators.nullValidator),
-      kg67_off: new FormControl(false, Validators.nullValidator),
-      kg78_off: new FormControl(false, Validators.nullValidator),
-      kg8m_off: new FormControl(false, Validators.nullValidator),
-      headAction: new FormControl(this.headAction, Validators.required),
-      weights: new FormControl('', Validators.nullValidator),
-      example: new FormControl('', Validators.nullValidator)
-    }))
+      headAction : new FormControl(this.headAction, Validators.required),
+      weights : new FormControl('', Validators.nullValidator),
+      example : new FormControl('', Validators.nullValidator)
+    }));
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
@@ -105,14 +104,21 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para detectar los cambios en los checkboxs
     this.parentForm.form.controls.price.valueChanges.subscribe(it => {
-      //El usuario tiene seleccionado el head on
-      if (this.headAction === true) {
-        this.weights.on = this.proccessWeights(this.weights.on, it);
-      } else {
-        this.weights.off = this.proccessWeights(this.weights.off, it);
+      //cuando se agregan contoles de slide al formuario
+      //Crea un bucle sin fin de cambios
+      if (this.priceEnableChange === true) {
+        //Para que los controles que se agreguen no probocen el bucle
+        this.priceEnableChange = false;
+        //El usuario tiene seleccionado el head on
+        if (this.headAction === true) {
+          this.weights.on = this.proccessWeights(this.weights.on, it);
+        } else {
+          this.weights.off = this.proccessWeights(this.weights.off, it);
+        }
+        // console.log(this.weights);
+        this.refreshSlider();
       }
-      // console.log(this.weights);
-      this.refreshSlider();
+
     });
 
     //Para mostrar el advance pricing
@@ -123,10 +129,24 @@ export class AvancedPricingComponent implements OnInit {
     });
   }
 
+  public getNameWhole(id) {
+    if (id.includes("_off") === true) {
+      id = id.replace("_off", "");
+    }
+    return this.wholesFish.find(it => {
+      return it.id === id;
+    }).name;
+  }
+
   private proccessWeights(data, weights) {
     let keys = Object.keys(weights);
     keys = keys.filter(it => {
-      if (it === 'headAction' || it === 'weights' || it === 'example') return false;
+      if (
+        it === 'headAction' ||
+        it === 'weights' ||
+        it === 'example' ||
+        it.includes(this.identifier) === true
+      ) return false;
       if (this.headAction === true) {
         if (it.includes('_off') === true) return false;
         else return weights[it];
@@ -135,14 +155,21 @@ export class AvancedPricingComponent implements OnInit {
         else return false;
       }
     });
-    // console.log(keys);
+    console.log(keys);
     for (let k of keys) {
       if (data[k] === undefined) {
         data[k] = [{ min: 1, max: 2, price: 45 }];
+        try {
+          (this.parentForm.form.controls.price as FormGroup)
+            .addControl(k + this.identifier, new FormGroup(this.controlsArray(data[k])));
+          console.log((this.parentForm.form.controls.price as FormGroup).controls[k + this.identifier]);
+        }
+        catch (e) { console.error(e); }
       }
     }
     data.keys = keys;
     this.refreshSlider();
+    this.priceEnableChange = true;
     return data;
   }
 
@@ -152,37 +179,78 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public deletePrice(on, i) {
-    console.log(on, i);
+    let index = 0;
     if (this.headAction === true) {
       if (this.weights.on[this.keySelect].length === 1) {
         this.weights.on[this.keySelect] = [];
+        index = 1;
       } else {
         this.weights.on[this.keySelect].splice(i, 1);
+        index = this.weights.on[this.keySelect].length;
       }
     } else {
       if (this.weights.off[this.keySelect].length === 1) {
         this.weights.off[this.keySelect] = [];
+        index = 1;
       } else {
         this.weights.off[this.keySelect].splice(i, 1);
+        index = this.weights.off[this.keySelect].length;
       }
     }
+
+    //Para remover los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
+        .removeControl((index - 1).toString());
+    }
+    catch (e) { console.error(e); }
+
     this.refreshSlider();
   }
 
   public addPricing() {
     let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price };
+    let index = 0;
     if (this.headAction === true) {
       this.weights.on[this.keySelect].push(it);
+      index = this.weights.on[this.keySelect].length;
     } else {
       this.weights.off[this.keySelect].push(it);
+      index = this.weights.off[this.keySelect].length;
     }
+
+    //Para agregar los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
+        .addControl((index - 1).toString(), new FormControl('', Validators.required));
+    }
+    catch (e) { console.error(e); }
+
     this.valueExample = 0;
     this.exampleValues = {
       min: this.options.floor,
       max: this.options.ceil
     };
     this.refreshSlider();
+  }
+
+  private controlsArray(arr) {
+    let d = {};
+    for (let i in arr) {
+      d[i] = new FormControl('', Validators.required);
+    }
+
+    return d;
+  }
+
+  public getIdentifier(key, i) {
+    return key + this.identifier;
+  }
+
+  public getControl(key, i) {
+    return ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
+      .controls[i];
   }
 
   public assingHead(r) {

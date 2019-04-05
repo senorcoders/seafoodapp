@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
 import { FormGroupDirective, ControlContainer, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { ProductService } from '../../services/product.service';
@@ -13,6 +13,8 @@ import { NgClass, NgIf } from '@angular/common';
 })
 export class FishFormComponent implements OnInit {
 
+  @ViewChild('myInput')
+  myInputVariable: ElementRef;
   public product: FormGroup;
   public countries = [];
   public cities = [];
@@ -36,6 +38,8 @@ export class FishFormComponent implements OnInit {
   ];
   public trimmings = [];
   public showWholeOptions = false;
+
+  public images = [];
 
   constructor(private parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone
@@ -63,14 +67,10 @@ export class FishFormComponent implements OnInit {
       descriptorSelected: new FormControl('', Validators.nullValidator),
       seller_sku: new FormControl('', Validators.nullValidator),
       hsCode: new FormControl('', Validators.nullValidator),
-      minimunorder: new FormControl('', Validators.nullValidator),
-      maximumorder: new FormControl('', Validators.nullValidator),
+      minimunorder: new FormControl('', Validators.required),
+      maximumorder: new FormControl('', Validators.required),
+      images: new FormControl('', Validators.required)
     }));
-    // setInterval(()=>{
-    //   console.log(this.controls().name.value+ " => "+ this.controls().name.valid);
-    //   console.log(this.controls().brandName.value+ " => "+ this.controls().brandName.valid);
-    //   console.log(this.controls().processingCountry.value+ " => "+ this.controls().processingCountry.valid);
-    // }, 5000)
   }
 
   public controls() {
@@ -172,7 +172,8 @@ export class FishFormComponent implements OnInit {
 
   getAllTypesByLevel() {
     this.productService.getData(`getTypeLevel`).subscribe(
-      result => { console.log(result, "variant");
+      result => {
+        console.log(result, "variant");
         this.typeLevel0 = result['level0'];
         this.typeLevel1 = result['level1'];
         this.typeLevel2 = result['level2'];
@@ -268,8 +269,64 @@ export class FishFormComponent implements OnInit {
     this.parentForm.form.patchValue({ product: value })
   }
 
-  private reloadForm() {
-    this.zone.run(function () { console.log("reload form"); });
+  public onFileChange(event, i?) {
+
+    if (event.target.files && event.target.files.length) {
+      if (i !== undefined && i !== null) {
+        let file = event.target.files[0];
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          this.images[i] = reader.result;
+          this.reSavedImages();
+        };
+      } else {
+        for (let file of event.target.files) {
+          let reader = new FileReader();
+          reader.readAsDataURL(file);
+
+          reader.onload = () => {
+            this.images.push(reader.result);
+            this.reSavedImages();
+          };
+        }
+      }
+
+    }
+  }
+
+  public remove(i) {
+    if (this.images.length === 1) {
+      this.images = [];
+    } else {
+      this.images.splice(i, 1);
+    }
+    this.reSavedImages();
+  }
+
+
+  public change(i) {
+    let input = document.createElement("input");
+    input.setAttribute("hidden", "");
+    input.setAttribute("type", "file");
+    input.setAttribute("accept", "");
+    input.setAttribute("class", "form-control");
+    input.onchange = event => this.onFileChange(event, i);
+    input.click();
+  }
+
+  private reSavedImages() {
+    this.setValue({
+      images: this.images.length === 0 ? '' : JSON.stringify(this.images)
+    });
+    if (this.images.length === 0) this.resetFiles();
+  }
+
+  private resetFiles() {
+    console.log(this.myInputVariable.nativeElement.files);
+    this.myInputVariable.nativeElement.value = "";
+    console.log(this.myInputVariable.nativeElement.files);
   }
 
 }

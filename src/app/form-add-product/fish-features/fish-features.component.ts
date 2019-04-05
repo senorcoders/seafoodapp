@@ -35,6 +35,8 @@ export class FishFeaturesComponent implements OnInit {
   public existStore = true;
   public ProcessingParts = [];
   public trimmings = [];
+  private identifier = "_arr";
+  public treatments = [];
 
   constructor(private parentForm: FormGroupDirective, private productService: ProductService,
     private auth: AuthenticationService, private toast: ToastrService) { }
@@ -111,17 +113,6 @@ export class FishFeaturesComponent implements OnInit {
         this.setValue({ preparation: this.preparationOptions[0] });
 
       }
-
-      // if (it.price != "" && it.city != null) {
-
-      //   // this.onCityChange(val.city);
-      // }
-      // else if (val.price != "" && val.city == null) {
-      //   this.price25 = val.price;
-      //   this.price100 = val.price;
-      //   this.price500 = val.price;
-      //   this.price1000 = val.price;
-      // }
     });
 
     this.checkPriceForm();
@@ -129,13 +120,18 @@ export class FishFeaturesComponent implements OnInit {
 
   private checkPriceForm() {
     if (this.parentForm.form.controls.price !== undefined) {
-      this.parentForm.form.controls.price.valueChanges.subscribe(it => {
-        let keys = Object.keys(it);
+      this.parentForm.form.controls.price.valueChanges.subscribe(ig => {
+        let keys = Object.keys(ig);
         keys = keys.filter(it => {
-          if (it === 'headAction') return false;
-          return it[it];
+          if (
+            it === 'headAction' ||
+            it === 'weights' ||
+            it === 'example' ||
+            it.includes(this.identifier) === true
+          ) return false;
+          return ig[it] === true;
         });
-        if (keys.length > 2) {
+        if (keys.length > 1) {
           this.head = 'both';
         }
       });
@@ -147,6 +143,10 @@ export class FishFeaturesComponent implements OnInit {
   private getwholeFishWeight() {
     this.productService.getData("fishpreparation").subscribe(it => {
       this.wholeFishs = it as any;
+      console.log(it);
+    });
+    this.productService.getData("treatment").subscribe(it => {
+      this.treatments = it as any;
       console.log(it);
     });
   }
