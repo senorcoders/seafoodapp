@@ -37,7 +37,7 @@ p.order-number {
         border-bottom: 1px solid #b5bed1;
         position: relative;
         .nav-item a{
-            width: 240px;
+            width: 300px;
         }
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
@@ -142,8 +142,8 @@ p.order-number {
         width: 10%;
     }
 
-    @media screen and (max-width: 961px) {
-        min-width: 960px;
+    @media screen and (max-width: 1201px) {
+        min-width: 1200px;
         overflow: scroll;
     }
 }
