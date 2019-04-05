@@ -91,7 +91,7 @@ export class RecentPurchasesComponent implements OnInit {
       jQuery('#magic-line').css('position', 'absolute');
       jQuery('#magic-line').css('background', '#99a3b6');
       jQuery('#magic-line').css('height', '2px');
-      jQuery('#magic-line').css('width', '240px');
+      jQuery('#magic-line').css('width', '300px');
       jQuery('#magic-line').css('left', '0');
       jQuery('#magic-line').css('bottom', '-2px');
       /* Cache it */

@@ -31,13 +31,13 @@ p.order-number {
 }
 .orders-tabs{
     background: #F7F8F9;
-    padding: 100px 0px;
+    padding: 155px 0px;
     
     .nav-tabs {
         border-bottom: 1px solid #b5bed1;
         position: relative;
         .nav-item a{
-            width: 240px;
+            width: 300px;
         }
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
@@ -142,8 +142,8 @@ p.order-number {
         width: 10%;
     }
 
-    @media screen and (max-width: 961px) {
-        min-width: 960px;
+    @media screen and (max-width: 1201px) {
+        min-width: 1200px;
         overflow: scroll;
     }
 }
@@ -297,6 +297,9 @@ p.order-number {
     
 }
 
+.table tbody + tbody {
+    border-top: 1px solid #dee2e6;
+}
 .sub-table{
     margin: 0;
 }
@@ -313,7 +316,7 @@ p.order-number {
 
     }
     tbody{
-        border-top: 2px solid #3E4E75;
+        border-top: 1px solid #3E4E75;
     }
 }
 .expandible-link img {

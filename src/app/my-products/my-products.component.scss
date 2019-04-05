@@ -1,7 +1,7 @@
   .products-section{
     background: #F7F8F9;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 155px;
+    padding-bottom: 155px;
     a:hover{
       text-decoration: none;
     }
@@ -93,6 +93,9 @@
   
         }
       }
+      .image-link-holder{
+        transition: all .2s ease-in-out;
+      }
       .image-link-holder:hover{
         .product-single-img{
           .product-view-details{
@@ -123,11 +126,19 @@
         font-family: 'Josefin Sans', sans-serif;
         font-size: 21px;
         line-height: 25px;
-        color: #3E4E75;
+        color: #7484AA;
       }
     }
 
 
+  }
+
+  .single-product-box:hover{
+    .product-footer{
+      h5{
+        color: #3E4E75;
+      }
+    }
   }
 
   .add-new-box{
@@ -138,12 +149,14 @@
     height: 335px;
     margin: 84px auto;
     text-align: center;
+    transition: all .2s ease-in-out;
     div{
       padding-top: 25%;
     }
-    img{
+    svg{
       width: 64px;
       height: 64px;
+      cursor: pointer;
     }
     h3{
       color: #9A9EA8;
@@ -155,5 +168,21 @@
       text-transform: uppercase;
       margin-top: 15px;
 
+    }
+  }
+
+  .add-new-box:hover{
+    h3{
+      color: #3E4E75;
+    }
+    svg .a{
+      fill: #3E4E75;
+    }
+  }
+
+  @media screen and (min-width: 1550px){
+    .container-fluid{
+      padding-left: 155px;
+      padding-right: 155px;
     }
   }
