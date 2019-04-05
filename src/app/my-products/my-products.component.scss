@@ -93,6 +93,9 @@
   
         }
       }
+      .image-link-holder{
+        transition: all .2s ease-in-out;
+      }
       .image-link-holder:hover{
         .product-single-img{
           .product-view-details{
@@ -123,11 +126,19 @@
         font-family: 'Josefin Sans', sans-serif;
         font-size: 21px;
         line-height: 25px;
-        color: #3E4E75;
+        color: #7484AA;
       }
     }
 
 
+  }
+
+  .single-product-box:hover{
+    .product-footer{
+      h5{
+        color: #3E4E75;
+      }
+    }
   }
 
   .add-new-box{
