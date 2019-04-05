@@ -1,7 +1,7 @@
   .products-section{
     background: #F7F8F9;
-    padding-top: 100px;
-    padding-bottom: 100px;
+    padding-top: 155px;
+    padding-bottom: 155px;
     a:hover{
       text-decoration: none;
     }
@@ -177,5 +177,12 @@
     }
     svg .a{
       fill: #3E4E75;
+    }
+  }
+
+  @media screen and (min-width: 1550px){
+    .container-fluid{
+      padding-left: 155px;
+      padding-right: 155px;
     }
   }
