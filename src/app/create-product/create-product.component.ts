@@ -180,7 +180,6 @@ export class CreateProductComponent implements OnInit {
       this.store = results;
       this.getTrimmingByStore();
       this.getParts();
-      this.getTrimmingModal();
       this.getProcessingParts();
       if (this.store.length < 1) {
         this.existStore = false;
@@ -247,7 +246,16 @@ export class CreateProductComponent implements OnInit {
 
   async onSubmit() {
     this.showError = true;
-    this.loading = true; console.log(this.myform);
+    this.loading = true;
+    let keys = Object.keys(this.myform.controls)
+    for (let name of keys) {
+      let keys_ = Object.keys((this.myform.controls[name] as any).controls);
+      for (let na of keys_) {
+        if ((this.myform.controls[name] as any).controls[na].valid === false) {
+          console.log(name + "." + na, (this.myform.controls[name] as any).controls[na]);
+        }
+      }
+    }
     if (this.myform.valid) {
       console.log(this.myform.value);
       //   await this.generateSKU();
@@ -307,6 +315,8 @@ export class CreateProductComponent implements OnInit {
       //     }
 
       //   });
+      this.loading = false;
+      this.ngProgress.done();
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
@@ -586,32 +596,6 @@ export class CreateProductComponent implements OnInit {
     this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
       result => {
         this.trimmingsModal = result;
-      },
-      e => {
-        console.log(e)
-      }
-    )
-  }
-  getTrimmingModal() {
-    this.product.getData('trimmingtype').subscribe(
-      result => {
-        this.typesModal = result;
-        let data: any = result;
-
-        console.log("Trimming Types", result);
-        data.forEach(result => {
-          if (result.defaultProccessingParts) {
-            if (result.defaultProccessingParts.length > 1) {
-              result.defaultProccessingParts.forEach(res2 => {
-                this.defaultTrimming.push({ trim: result.name, name: res2 })
-              })
-            }
-
-          }
-          else {
-            this.defaultTrimming.push({ trim: result.name, name: result.defaultProccessingParts })
-          }
-        })
       },
       e => {
         console.log(e)

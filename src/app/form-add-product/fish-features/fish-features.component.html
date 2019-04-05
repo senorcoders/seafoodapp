@@ -11,34 +11,57 @@
         tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
         placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
   </div>
-
-  <div class="col-lg-6">
-    <label [hidden]="wholeFishAction===false">
-      <div class="square"></div> <span calss="selectionable" (click)="assingWholeFish(true)"
-        style="text-transform: uppercase;">{{'CreateProduct.headOff' | translate}}</span>
-      &nbsp;&nbsp;&nbsp;&nbsp; <div class="square"></div> <span (click)="assingWholeFish(false)" calss="selectionable"
-        style="text-transform: uppercase;">{{'CreateProduct.headOn' | translate}}</span> <img
-        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
-        placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20">
-    </label>
-
+  <!-- para guardar si esta selecionado wholeFishAction -->
+  <div class="form-group" hidden>
+    <input type="text" class="form-control" formControlName="wholeFishAction">
   </div>
 
   <div class="col-lg-6">
+    <label [hidden]="wholeFishAction===false">
+      <div [ngClass]="head==='both'||head==='off'?'select':''" (click)="assignHead('off')" class="square selectionable">
+      </div> <span calss="selectionable" style="text-transform: uppercase;"
+        (click)="assignHead('off')">{{'CreateProduct.headOff' | translate}}</span>
+      &nbsp;&nbsp;&nbsp;&nbsp; <div [ngClass]="head==='both'||head==='on'?'select':''" (click)="assignHead('on')"
+        class="square selectionable"></div> <span calss="selectionable" style="text-transform: uppercase;"
+        (click)="assignHead('on')">{{'CreateProduct.headOn' | translate}}</span> <img
+        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+        placement="right" show-delay="0" src="../../assets/question.png" width="20">
+    </label>
+  </div>
+  <!-- para tener guardado si es head on o head off o ambos -->
+  <div class="form-group" hidden>
+    <input type="text" class="form-control" formControlName="head">
+  </div>
+
+  <div class="col-lg-6" [hidden]="wholeFishAction!==true||head!=='off'">
     <div class="form-group"
       [ngClass]="{'has-danger': controls().headOffWeight.invalid && (controls().headOffWeight.dirty || controls().headOffWeight.touched),'has-success': controls().headOffWeight.valid && (controls().headOffWeight.dirty || controls().headOffWeight.touched)}">
       <label>{{'CreateProduct.headOffWeight' | translate}} </label>
       <select class="form-control" formControlName="headOffWeight" required>
-        <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
+        <!-- <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option> -->
+        <option value="0-1kg">0-1 KG</option>
+        <option value="1-2kg">1-2 KG</option>
+        <option value="2-3kg">2-3 KG</option>
+        <option value="4-5kg">4-5 KG</option>
+        <option value="5-6kg">5-6 KG</option>
+        <option value="6-7kg">6-7 KG</option>
+        <option value="8+kg">8+ KG</option>
       </select>
     </div>
   </div>
-  <div class="col-lg-6">
+  <div class="col-lg-6" [hidden]="wholeFishAction!==true||head!=='on'">
     <div class="form-group"
       [ngClass]="{'has-danger': controls().headOnWeight.invalid && (controls().headOnWeight.dirty || controls().headOnWeight.touched),'has-success': controls().headOnWeight.valid && (controls().headOnWeight.dirty || controls().headOnWeight.touched)}">
       <label>{{'CreateProduct.headOnWeight' | translate}} <span class="field-status red">*</span> </label>
       <select class="form-control" formControlName="headOnWeight" required>
-        <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
+        <!-- <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option> -->
+        <option value="0-1kg">0-1 KG</option>
+        <option value="1-2kg">1-2 KG</option>
+        <option value="2-3kg">2-3 KG</option>
+        <option value="4-5kg">4-5 KG</option>
+        <option value="5-6kg">5-6 KG</option>
+        <option value="6-7kg">6-7 KG</option>
+        <option value="8+kg">8+ KG</option>
       </select>
       <div class="form-control-feedback" *ngIf="controls().headOnWeight.errors &&parentForm.submitted">
         <p *ngIf="controls().headOnWeight.errors.required">{{'CreateProduct.headOnWeight' | translate}}
@@ -47,12 +70,48 @@
     </div>
   </div>
 
+  <div class="col-lg-6" [hidden]="wholeFishAction!==false">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().preparation.invalid && (controls().preparation.dirty || controls().preparation.touched),'has-success': controls().preparation.valid && (controls().preparation.dirty || controls().preparation.touched)}">
+      <label>{{'CreateProduct.preparation' | translate}} <span class="field-status red">*</span> <a class="manage-link"
+          data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a> <img
+          tooltip="This field reflects any post harvest treatment/processing of the product" placement="right"
+          show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+      <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
+        <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
+      </select>
+      <div class="form-control-feedback" *ngIf="controls().preparation.errors &&parentForm.submitted">
+        <p *ngIf="controls().preparation.errors.required">{{'CreateProduct.preparation' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-6" [hidden]="head==='both'">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().price.invalid && (controls().price.dirty || controls().price.touched),'has-success': controls().price.valid && (controls().price.dirty || controls().price.touched)}">
+      <label>{{'CreateProduct.price' | translate}} <span class="field-status red">*</span> <img
+          tooltip="The main image displayed on your product when buyers are browsing" placement="right" show-delay="0"
+          src="../../assets/question.png" alt="" width="20"></label>
+      <input type="number" class="form-control" formControlName="price">
+      <div class="form-control-feedback" *ngIf="controls().price.errors &&parentForm.submitted">
+        <p *ngIf="controls().price.errors.required">{{'CreateProduct.price' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
+    </div>
+  </div>
   <div class="col-lg-6">
-    <div class="form-group">
+    <div class="form-group"
+      [ngClass]="{'has-danger': controls().acceptableSpoilageRate.invalid && (controls().acceptableSpoilageRate.dirty || controls().acceptableSpoilageRate.touched),'has-success': controls().acceptableSpoilageRate.valid && (controls().acceptableSpoilageRate.dirty || controls().acceptableSpoilageRate.touched)}">
       <label>{{'CreateProduct.acceptableSpoilageRate' | translate}} <span class="field-status red">*</span> <img
           tooltip="The main image displayed on your product when buyers are browsing" placement="right" show-delay="0"
           src="../../assets/question.png" alt="" width="20"></label>
       <input type="number" class="form-control" formControlName="acceptableSpoilageRate">
+      <div class="form-control-feedback" *ngIf="controls().acceptableSpoilageRate.errors &&parentForm.submitted">
+        <p *ngIf="controls().acceptableSpoilageRate.errors.required">
+          {{'CreateProduct.acceptableSpoilageRate' | translate}}
+          {{'CreateProduct.required' | translate}}</p>
+      </div>
     </div>
   </div>
   <div class="col-lg-6">
@@ -86,4 +145,47 @@
     </div>
   </div>
 
+</div>
+
+<div class="modal fade" id="trimModal" tabindex="-1" role="dialog" aria-labelledby="trimModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="trimModalTitle">Manage Salmon Trimming</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-2"></div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col" *ngFor="let part of partsModal">
+                <span class="partsModal">{{part.name}}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="row" *ngFor="let type of typesModal; let i=index" style="margin-bottom: 20px">
+              <div class="col-2">
+                <span class="types">{{type.name}}</span>
+              </div>
+              <div class="col-10">
+                <div class="row">
+                  <div class="col checkboxes" *ngFor="let part of partsModal; let j=index">
+                    <input type="checkbox" class="form-check-input df" [disabled]="isDefault(part.name,type.name)"
+                      [checked]="isChecked(part.name,type.name)" (click)="checked($event, type.id, part.id)">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

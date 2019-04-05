@@ -13,6 +13,7 @@ import { Options } from 'ng5-slider';
 export class AvancedPricingComponent implements OnInit {
 
   price;
+  private await_ = false;
   public headAction = true;
   public weights = { on: {}, off: {} };
   public kgNames = {
@@ -24,7 +25,16 @@ export class AvancedPricingComponent implements OnInit {
     kg56: '5-6 KG',
     kg67: '6-7 KG',
     kg78: '7-8 KG',
-    kg8m: '8+ KG'
+    kg8m: '8+ KG',
+    kg01_off: '0-1 KG',
+    kg12_off: '1-2 KG',
+    kg23_off: '2-3 KG',
+    kg34_off: '3-4 KG',
+    kg45_off: '4-5 KG',
+    kg56_off: '5-6 KG',
+    kg67_off: '6-7 KG',
+    kg78_off: '7-8 KG',
+    kg8m_off: '8+ KG',
   };
   public keySelect = '';
   public options: Options = {
@@ -32,7 +42,7 @@ export class AvancedPricingComponent implements OnInit {
     ceil: 0,
     step: 1
   };
-
+  public showPricingValue = false;
   public valueExample: number;
   public exampleValues = {
     min: 0,
@@ -58,11 +68,23 @@ export class AvancedPricingComponent implements OnInit {
       kg67: new FormControl(false, Validators.nullValidator),
       kg78: new FormControl(false, Validators.nullValidator),
       kg8m: new FormControl(false, Validators.nullValidator),
+      kg01_off: new FormControl(false, Validators.nullValidator),
+      kg12_off: new FormControl(false, Validators.nullValidator),
+      kg23_off: new FormControl(false, Validators.nullValidator),
+      kg34_off: new FormControl(false, Validators.nullValidator),
+      kg45_off: new FormControl(false, Validators.nullValidator),
+      kg56_off: new FormControl(false, Validators.nullValidator),
+      kg67_off: new FormControl(false, Validators.nullValidator),
+      kg78_off: new FormControl(false, Validators.nullValidator),
+      kg8m_off: new FormControl(false, Validators.nullValidator),
+      headAction: new FormControl(this.headAction, Validators.required),
+      weights: new FormControl('', Validators.nullValidator),
+      example: new FormControl('', Validators.nullValidator)
     }))
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
-      console.log(it);
+      // console.log(it);
       let min = Number(it.minimunorder);
       let max = Number(it.maximumorder);
       if (min > 0 && max > 0) {
@@ -86,17 +108,34 @@ export class AvancedPricingComponent implements OnInit {
       //El usuario tiene seleccionado el head on
       if (this.headAction === true) {
         this.weights.on = this.proccessWeights(this.weights.on, it);
+      } else {
+        this.weights.off = this.proccessWeights(this.weights.off, it);
       }
-
+      // console.log(this.weights);
       this.refreshSlider();
+    });
+
+    //Para mostrar el advance pricing
+    this.parentForm.form.controls.features.valueChanges.subscribe(it => {
+      if (it.head === 'both') {
+        if (this.showPricingValue === false) this.showPricingValue = true;
+      }
     });
   }
 
   private proccessWeights(data, weights) {
     let keys = Object.keys(weights);
     keys = keys.filter(it => {
-      return weights[it];
+      if (it === 'headAction' || it === 'weights' || it === 'example') return false;
+      if (this.headAction === true) {
+        if (it.includes('_off') === true) return false;
+        else return weights[it];
+      } else {
+        if (it.includes('_off') === true) return weights[it];
+        else return false;
+      }
     });
+    // console.log(keys);
     for (let k of keys) {
       if (data[k] === undefined) {
         data[k] = [{ min: 1, max: 2, price: 45 }];
@@ -109,7 +148,6 @@ export class AvancedPricingComponent implements OnInit {
 
   public selectKey(k) {
     this.keySelect = k;
-    console.log(this.weights);
     this.refreshSlider();
   }
 
@@ -118,11 +156,15 @@ export class AvancedPricingComponent implements OnInit {
     if (this.headAction === true) {
       if (this.weights.on[this.keySelect].length === 1) {
         this.weights.on[this.keySelect] = [];
-      }else{
+      } else {
         this.weights.on[this.keySelect].splice(i, 1);
-      } 
+      }
     } else {
-      // this.weights.off[this.keySelect].push(it);
+      if (this.weights.off[this.keySelect].length === 1) {
+        this.weights.off[this.keySelect] = [];
+      } else {
+        this.weights.off[this.keySelect].splice(i, 1);
+      }
     }
     this.refreshSlider();
   }
@@ -145,14 +187,32 @@ export class AvancedPricingComponent implements OnInit {
 
   public assingHead(r) {
     this.headAction = r;
+    this.keySelect = '';
+    this.refreshSlider();
   }
 
   public controls() {
     return (this.parentForm.form.controls.price as FormGroup).controls;
   }
 
+  public showPricing(res) {
+    this.showPricingValue = res;
+  }
+
   private refreshSlider() {
+    if (this.await_ === false) {
+      this.await_ = true;
+      setTimeout(() => {
+        let r = { weights: JSON.stringify(this.weights) };
+        this.setValue(r);
+        this.await_ = false;
+      }, 500);
+    }
     this.manualRefresh.emit();
+  }
+
+  private setValue(value) {
+    this.parentForm.form.patchValue({ price: value })
   }
 
 }

@@ -9,6 +9,76 @@
 .square{
     width: 1rem;
     height: 1rem;
-    background-color: black;
     display: inline-block;
+    border: 1px solid black;
+}
+.square.select{
+    background-color: black;
+}
+
+.not-found-grid{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+}
+.form-control-feedback{
+	color:red;
+	font-family: 'Roboto', sans-serif;
+}
+.parts{
+	    columns: 2;
+    font-size: 12px;
+    padding-bottom: 10px;
+}
+
+.types{
+	font-size: 1.5rem;
+}
+.partsModal{
+	font-size: 12px;
+    color: black;
+    letter-spacing: 1px;
+}
+.checkboxes{
+	text-align: center;
+	padding-top: 10px;
+	input{
+		height: 20px;
+		width: 20px;
+	}
+}
+
+.manage-link{
+    color: #007bff !important;
+    cursor: pointer;
+}
+
+.red {
+    color: #f52828;
+    font-size: .8em;
+}
+
+#blah{
+	max-width: 100%;
+    padding: 20px;
+}
+
+
+.loader-gif{
+	position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    margin: auto;
+}
+
+
+@media screen and (min-width: 1200px){
+	#trimModal .modal-lg{
+		max-width: 1150px !important;
+	}
 }

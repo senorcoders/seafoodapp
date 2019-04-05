@@ -49,7 +49,7 @@ export class FishFormComponent implements OnInit {
   }
 
   private createFormGroup() {
-    this.product = this.parentForm.form; console.log(this.parentForm.submitted);
+    this.product = this.parentForm.form;
     this.product.addControl('product', new FormGroup({
       name: new FormControl('', Validators.required),
       brandName: new FormControl('', Validators.nullValidator),
@@ -172,7 +172,7 @@ export class FishFormComponent implements OnInit {
 
   getAllTypesByLevel() {
     this.productService.getData(`getTypeLevel`).subscribe(
-      result => {
+      result => { console.log(result, "variant");
         this.typeLevel0 = result['level0'];
         this.typeLevel1 = result['level1'];
         this.typeLevel2 = result['level2'];
