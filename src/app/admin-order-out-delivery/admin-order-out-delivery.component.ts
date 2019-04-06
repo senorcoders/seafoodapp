@@ -3,6 +3,7 @@ import {ProductService} from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import {AuthenticationService} from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-admin-order-out-delivery',
@@ -13,7 +14,9 @@ export class AdminOrderOutDeliveryComponent implements OnInit {
 
   orders:any = [];
 
-  constructor( private orderService:OrderService, private productService:ProductService, private toast:ToastrService, private auth:AuthenticationService ) { }
+  constructor( private orderService:OrderService, private productService:ProductService, 
+    private toast:ToastrService, private auth:AuthenticationService,
+    private titleS: TitleService) {     this.titleS.setTitle('Out Delivery'); }
 
   ngOnInit() {
     this.getOrdersOutForDelivery();

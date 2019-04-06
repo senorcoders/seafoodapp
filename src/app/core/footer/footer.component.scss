@@ -1,133 +1,120 @@
 footer{
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.04);
-    background-color: #000000;
-    padding: 50px 0;
+    background-color: #fff;
+    padding-top: 50px;
     padding-bottom: 20px;
-    border-bottom: 1px solid #c2c2c2;
-    .logo{
-        width: 68px;
-        height: 48px;
-        object-fit: contain;
-        margin-bottom: 20px;
-    }
-    small{
-        width: 148px;
-        height: 50px;
-        font-family: Roboto;
-        font-size: 12px;
-        font-weight: 200;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.5;
-        letter-spacing: normal;
-        text-align: left;
-        color: #ffffff;
-    }
+    border-top: 2px solid #fafafb;
 
     strong{
-        width: 68px;
-        height: 19px;
-        font-family: Roboto;
-        font-size: 16px;
-        font-weight: bold;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.19;
-        letter-spacing: normal;
-        text-align: left;
-        color: #ffffff;
-        margin-bottom: 20px;
+        color: #0D1321;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        text-transform: uppercase;
         display: block;
+        margin-bottom: 20px;
+        font-weight: 300;
     }
+    a{
+        color: #7484AA;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    a:hover{
+        color: #3E4E75;
+    }
+
+    .col{
+        text-align: center;
+    }
+
     ul{
         padding: 0;
         li{
-            padding-bottom: 5px;
-            a{
-                font-family: Roboto;
-                font-size: 16px;
-                font-weight: 200;
-                font-style: normal;
-                font-stretch: normal;
-                line-height: 1.5;
-                letter-spacing: normal;
-                text-align: left;
-            }
+            padding: 7px 0;
         }
-        
     }
 
-    .form-title{
-        width: 152px;
-        height: 19px;
-        font-family: Roboto;
-        font-size: 16px;
+    .logo{
+        width: 50px;
+        margin-bottom: 20px;
+        margin-top: -10px;    }
+
+    p{
+        color: #0D1321;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        margin: 0;
+        line-height: 20px;
+        font-weight: 400;
         font-weight: 300;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.19;
-        letter-spacing: normal;
-        text-align: left;
-        color: #ffffff;
     }
 
-    input, button{
-        border: solid 1px #666666;
-        background-color: #363636;
-        border-radius: 0;
-        font-family: Roboto;
-        font-size: 16px;
-        font-weight: 300;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.25;
-        letter-spacing: normal;
-        text-align: left;
-        color: #c2c2c2;
-        height: 40px;
-    }
-
-    button{
-        border-left: 0;
-    }
-
-     .footer-icons a{
-        font-size: 24px !important;
-    }
+   
 }
 
 .sub-footer{
-    background-color: #000000;
-    padding: 20px 0;
-
-    .language{
-        font-family: Roboto;
-        font-size: 16px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.5;
-        letter-spacing: normal;
-        text-align: left;
-        color: #ffffff;
-        border: none;
+    border-top: 2px solid #fafafb;
+    .footer-logos{
+        margin: 0;
+        img{
+            height: 35px; 
+            opacity: .5;
+        }
+        li{
+            margin-left: 20px;
+        }
+        li:first-child{
+            img{
+                height: 53px;
+            }
+        }
+        li:last-child{
+            img{
+                height: 14px;
+            }
+        }
+       
     }
 
-    .footer-logos{
-        margin-bottom: 0;
-        img{
-            height: 32px;
+    p{
+        color: #0D1321;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        margin: 0;
+        line-height: 20px;
+        font-weight: 400;
+        font-weight: 300;
+    }
+    ul.copyright{
+        margin: 0;
+        padding: 0;
+        padding-top: 10px;
+        select{
+            color: #0D1321;
+            border-color: #0D1321;
         }
     }
-    .row{
-        justify-content: center;
-        align-items: center;
+    .container{
+        max-width: 85% !important;
+        .col-md-6{
+            padding: 0;
+        }
+
+        @media screen  and(max-width: 1400px){
+            max-width: 90% !important;
+        }
+       
     }
 }
 
+
 @media screen and (max-width: 768px){
-    strong{
-        width: 100% !important;
-        text-align: center !important;
+    footer{
+        .col{
+            width: 100%;
+            flex-basis: auto;
+            margin: 10px 0;
+        }
     }
 }

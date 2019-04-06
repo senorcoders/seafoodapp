@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { CartService } from '../core/cart/cart.service';
 import { OrderService } from '../services/orders.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-reviewcart',
@@ -16,13 +16,13 @@ export class ReviewcartComponent implements OnInit {
   totalWithShipping: any;
   buyerId: string;
   shoppingCartId: any;
-
+  userInfo:any;
 
   constructor(
-    private Cart: CartService,
     private orders: OrderService,
     private route: ActivatedRoute,
     private router: Router,
+    private auth: AuthenticationService
 
 
   ) { }
@@ -30,6 +30,8 @@ export class ReviewcartComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
+      this.userInfo = this.auth.getLoginData();
+      this.buyerId = this.userInfo['id'];
       this.getCart();
 
     });
@@ -37,20 +39,12 @@ export class ReviewcartComponent implements OnInit {
   }
 
   getCart() {
-
-
-    this.Cart.cart.subscribe((cart: any) => {
-      if (cart && cart['items'] !== '') {
-        this.products = cart['items'];
-        /*this.total=cart['total'];
-        this.shipping=cart['shipping']
-        this.totalOtherFees=cart['totalOtherFees']*/
-        this.totalWithShipping = this.total + this.shipping + this.totalOtherFees;
-        this.buyerId = cart['buyer'];
-
-        this.orders.getCart(this.buyerId)
+   this.orders.getCart(this.buyerId)
           .subscribe(
             res => {
+              if (res && res['items'] !== '') {
+              this.products = res['items'];
+
               console.log(res);
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
@@ -60,15 +54,14 @@ export class ReviewcartComponent implements OnInit {
               localStorage.setItem('shoppingTotal', this.totalWithShipping);
               localStorage.setItem('shoppingCartId', this.shoppingCartId);
               localStorage.setItem('totalOtherFees', this.totalOtherFees);
+            }
           
             },
             error => {
               console.log(error);
             }
           );
-      }
-
-    });
+  
   }
 
   getTotalxItem(count, price) {

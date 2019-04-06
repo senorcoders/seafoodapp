@@ -13,6 +13,7 @@ import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from '../../environments/environment';
 import { Location } from '@angular/common';
+import { OrderService } from '../services/orders.service';
 
 @Component({
   selector: 'app-confirmation',
@@ -60,17 +61,17 @@ export class ConfirmationComponent implements OnInit {
     private http: HttpClient,
     private httpO: HttpClient,
     private orders: OrdersService,
-    private Cart: CartService,
+    private orderS: OrderService,
     private router: Router,
     private toast: ToastrService,
-    private location: Location,
+    private Cart: CartService,
     private renderer2: Renderer2,
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
       this.httpO = new HttpClient(handler);
     }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
@@ -96,24 +97,25 @@ export class ConfirmationComponent implements OnInit {
       this.params.shoppingCart = this.shoppingCartId;
      });
     }
-
-      this.getPersonalData();
-      this.getCart();
+        
+    this.getPersonalData();
+    await this.getCart();
   }
   addFingerPrintScript() {
     const s = this.renderer2.createElement('script');
     s.type = 'text/javascript';
-    s.src = 'https://mpsnare.iesnare.com/snare.js';
+    s.src = 'https://devapi.seafoodsouq.com/cdn/snare.js';
     s.text = ``;
     this.renderer2.appendChild(this._document.body, s);
 
   }
 
-  getCart() {
-    this.Cart.cart.subscribe((cart: any) => {
+
+  async getCart() {
+    await new Promise((resolve, reject) => {
+    this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
-        this.buyerId = cart['buyer'];
         this.apiShopID = cart['id'];
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
@@ -123,6 +125,7 @@ export class ConfirmationComponent implements OnInit {
         this.total = Math.trunc( this.totalWithShipping * 100 );
         console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
+        resolve();
 	// if we came from 3d secure url and its successfull, let's go to thankyou page and set the cart paid
 	console.log( 'clear cart', this.total );
       	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) ) {
@@ -132,10 +135,15 @@ export class ConfirmationComponent implements OnInit {
         }
       }
 
-    });
+    }, error =>{
+      reject();
+    })
+  });
+
   }
   getRealIp(){
-	this.httpO.get( 'https://jsonip.com/' )
+  this.http.get( '/user/ip' )
+	//this.httpO.get( 'https://jsonip.com/' )
 	.subscribe(
       	  res=>{
           this.ip = res['ip'];
@@ -176,6 +184,7 @@ export class ConfirmationComponent implements OnInit {
     this.info = this.auth.getLoginData();
     console.log('Info', this.info);
     this.email = this.info['email'];
+    this.buyerId = this.info['id'];
   }
 
   saveinApi() {

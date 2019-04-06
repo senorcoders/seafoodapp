@@ -6,6 +6,7 @@ import { FormBuilder } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
+import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-my-products',
@@ -28,9 +29,15 @@ export class MyProductsComponent implements OnInit {
     private productService: ProductService,
     private toast: ToastrService,
     private pricingChargesService: PricingChargesService,
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer,
+    private titleS: TitleService) {
+      this.titleS.setTitle('Products');
+
+     }
 
   ngOnInit() {
+    
+
     this.user = this.auth.getLoginData();
     this.getCurrentPricingCharges();
     this.getMyData();
@@ -69,6 +76,8 @@ export class MyProductsComponent implements OnInit {
     if (this.user.role === 0) {
       this.productService.getData('store/allProducts').subscribe(result => {
         this.products = result;
+        setTimeout(() =>  this.replaceImgBySvg(), 1000);
+
         // working on the images to use like background
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
@@ -84,6 +93,8 @@ export class MyProductsComponent implements OnInit {
       this.productService.getData('store/' + this.store.id).subscribe(result => {
         this.products = result['fishs'];
         console.log("Products seller", this.products);
+        setTimeout(() =>  this.replaceImgBySvg(), 1000);
+
         // working on the images to use like background
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
@@ -97,6 +108,44 @@ export class MyProductsComponent implements OnInit {
       });
     }
 
+  }
+
+
+  replaceImgBySvg(){
+    jQuery('img.icon-action').each(function(){
+      var $img = jQuery(this);
+      var imgID = $img.attr('id');
+      var imgClass = $img.attr('class');
+      var imgURL = $img.attr('src');
+  
+      jQuery.get(imgURL, function(data) {
+          // Get the SVG tag, ignore the rest
+          var $svg = jQuery(data).find('svg');
+  
+          // Add replaced image's ID to the new SVG
+          if(typeof imgID !== 'undefined') {
+              $svg = $svg.attr('id', imgID);
+          }
+          // Add replaced image's classes to the new SVG
+          if(typeof imgClass !== 'undefined') {
+              $svg = $svg.attr('class', imgClass+' replaced-svg');
+          }
+  
+          // Remove any invalid XML tags as per http://validator.w3.org
+          $svg = $svg.removeAttr('xmlns:a');
+          
+          // Check if the viewport is set, else we gonna set it if we can.
+          if(!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
+              $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+          }
+       
+          
+          // Replace image with new SVG
+          $img.replaceWith($svg);
+  
+      }, 'xml');
+  
+  });
   }
 
   smallDesc(str) {
