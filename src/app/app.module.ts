@@ -116,11 +116,15 @@ import { RegistrationBuyerComponent } from './registration-buyer/registration-bu
 import { Select2Module } from 'ng2-select2';
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 import { NonsellerRouterService } from './services/nonseller-router.service';
+
 import { CreateProductComponent } from './create-product/create-product.component';
 import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
 import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
 import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
 import { Ng5SliderModule } from 'ng5-slider';
+
+import { TitleService } from './title.service';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -331,6 +335,7 @@ const appRoutes: Routes = [
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
+    TitleService,
     {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
     OrderService,{
       provide: HTTP_INTERCEPTORS,

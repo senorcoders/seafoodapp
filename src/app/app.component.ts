@@ -12,7 +12,6 @@ export class AppComponent{
   
   constructor(public _router: Router){
     this.router = _router.url;
-
   }
   
   

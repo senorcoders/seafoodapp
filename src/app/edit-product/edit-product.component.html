@@ -135,7 +135,7 @@
             <div class="col-lg-6">
                 <div class="form-group">
                     <label>Subspecies  Variant</label>
-                    <select  class="form-control" 
+                    <select [disabled]="user['role'] != 0" class="form-control" 
                             [(ngModel)]="descriptor" [ngModelOptions]="{standalone: true}">
                       <option *ngFor="let type of typeLevel3"
                               [value]="type.id">{{type.name}}

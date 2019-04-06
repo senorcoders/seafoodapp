@@ -10,6 +10,9 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
+import { TitleService } from '../title.service';
+import { OrderService } from '../services/orders.service';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-products',
@@ -50,18 +53,23 @@ export class ProductsComponent implements OnInit {
   deliveredPrice: number = 0;
   cartEndpoint: any = 'api/shopping/add/';
   cart: any;
-
+  buyerId:any;
+userInfo:any;
 
   constructor(
     private islogin: IsLoginService,
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
-    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: CartService,
-    private countryservice: CountriesService) { 
-
+    private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: OrderService,
+    private countryservice: CountriesService, private auth: AuthenticationService,  private titleS: TitleService) { 
+      this.titleS.setTitle('Browse');
     }
 
+
+
   async ngOnInit() {
+    this.userInfo = this.auth.getLoginData();
+    this.buyerId = this.userInfo['id'];
     jQuery('.category').select2( {  width: 'resolve'  } );
     jQuery('.subcategory').select2();
     jQuery('.subspecies').select2();
@@ -306,6 +314,7 @@ export class ProductsComponent implements OnInit {
    await this.getCountries();
     this.getFishCountries();
     this.getSubCategories('');
+
     this.getCart();
   }
 
@@ -327,10 +336,16 @@ export class ProductsComponent implements OnInit {
   }
 
   getCart() {
-    this.cartService.cart.subscribe((cart: any) => {
-      console.log("Cart", cart);
-      this.cart = cart;
-    });
+
+
+    this.cartService.getCart( this.buyerId ).subscribe(
+      cart=> { 
+        console.log("Cart", cart);
+        this.cart = cart;
+      },
+      error=> {
+        console.log( error );
+      })
   }
   getProducts(cant, page) {
     console.log("Page", page);
@@ -771,7 +786,7 @@ smallDesc(str) {
     };
       this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
           // set the new value to cart
-          this.cartService.setCart(result);
+          // this.cartService.setCart(result);
           this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
 
       }, err => {

@@ -52,16 +52,17 @@ body {
     overflow-x: hidden;
 }
 .nav-link{
-    font-family: Roboto;
+  font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: normal;
   font-style: normal;
   font-stretch: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
   text-transform: capitalize;
-  color: #ffffff !important;
+  color: #7484AA !important;
+
 }
 .nav-language{
   align-items:center
@@ -601,7 +602,7 @@ footer{
     list-style: none;
   }
    a {
-    color: white !important;
+    color: white;
     text-decoration: none !important;
     cursor: pointer;
   }
@@ -1082,31 +1083,74 @@ form-wizard{
   z-index: 9 !important;
 }
 
+
+.navbar-dark .navbar-toggler-icon{
+  background-color: #0D1321;
+}
+
 #toast-container > div {
   opacity:1;
 }
-// .select2-container--default .select2-selection--single{
-//   color: black;
-//   border: 0;
-//   background: none !important;
-//   height: 45px !important;
-//   border-bottom: solid 2px #c2c2c2;
-//   border-radius: 0 !important;
-//   padding-left: 0;
-// }
-// .select2-container{
-//   margin-left: -14px !important;
-// }
 
-// .select2-container--default .select2-selection--single .select2-selection__arrow{
-//   display: none !important;
-// }
+.tooltip {
+  z-index: 100000000; 
+}
+.gray-bg{
+  background-color: #F7F8F9;
+}
 
-// .select2-container--open .select2-dropdown--below{
-//   left: 13px !important;
-// }
+.top-nav .nav-link {
+  svg, .a{
+    fill: #7484AA !important;
 
-// .select2-container--default .select2-selection--single .select2-selection__rendered{
-//   text-align: left !important;
-//   line-height: 55px !important;
-// }
+  }
+}
+.top-nav .active-link, .top-nav .nav-link:hover{
+  svg, .a{
+    fill: #3E4E75 !important;
+  }
+}
+
+.single-product-box{
+ 
+  .product-header{   
+    svg{
+      width: 18px;
+      height: 18px;
+    }
+    svg, .a{
+     fill: #7484aa;
+    }
+
+    a:hover{
+      svg, .a{
+        fill: #3E4E75;
+
+      }
+    }
+  }
+}
+
+.orders-tabs{
+  .table td{
+    button{
+      svg{
+        height: 14px;
+        width: 14px;  
+        margin-left: 5px;    
+      }
+      svg, .a{
+        fill: #0D1321;
+      }
+      .calendar-icon{
+        margin: 0;
+    }
+    }
+  
+    button:hover{
+      svg, .a{
+        fill: #3E4E75;
+      }
+    }
+  }
+}

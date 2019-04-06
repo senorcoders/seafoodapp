@@ -2,12 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from 'ngx-toastr';
-import { element } from 'protractor';
-import { CartService } from '../core/cart/cart.service';
 import {Router} from '@angular/router';
-import { OrdersService } from '../core/orders/orders.service';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
+import { TitleService } from '../title.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -46,58 +44,57 @@ export class CartComponent implements OnInit {
   otherFees:number = 0;
   totalWithShipping:any;
   index:any;
+  userinfo:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private Cart: CartService, private router:Router, private orders:OrdersService, private cartService:OrderService) { }
+    private toast:ToastrService, private router:Router, private cartService:OrderService, private titleS: TitleService) {  this.titleS.setTitle('Cart');}
+
 
   ngOnInit() {
-    this.getCart();
+    // this.getCart();
     //this.getItems()
+    this.userinfo = this.auth.getLoginData();
+    this.buyerId = this.userinfo['id'];
+    this.getTotal();
   }
 
-  getCart(){
-    this.Cart.cart.subscribe((cart:any)=>{
-      console.log("Cart", cart)
-      if(cart && cart.hasOwnProperty('items')){
-        console.log("Si existe");
-        if(cart['items'].length > 0){
-          console.log("Si es mayor a cero");
-          this.cart = cart;
-          this.shoppingCartId=cart['id']
-          this.products=cart['items'];
-          this.buyerId=cart['buyer']
-          this.lastMilteCost = cart['lastMileCost'];
-          this.firstMileCost = cart['firstMileCosts'];
-          this.sfsMargin = cart['sfsMargin'];
-          this.uaeTaxes = cart['uaeTaxes'];
-          this.customs = cart['customs'];
-         
-  
-          this.empty=false;
-          this.showLoading=false;
-          
-          this.getTotal();
-        }else{
-          this.empty=true;
-          this.showLoading=false;
-        }
-       
-      }
-      else{
-        this.showLoading=false;
-        this.empty = true;
-      }
-    })
-  }
+
 
 
   getTotal(){
     this.cartService.getCart( this.buyerId )
     .subscribe(
-      res=> {
-        this.total= res['subTotal'];
-        this.shipping = res['shipping'];
-        this.totalOtherFees = res['totalOtherFees']+res['uaeTaxes'];
-        this.totalWithShipping = res['total'];
+
+      cart=> {
+        console.log("Cart", cart);
+        if(cart && cart.hasOwnProperty('items')){
+          console.log("Si existe");
+          if(cart['items'].length > 0){
+            console.log("Si es mayor a cero");
+            this.cart = cart;
+            this.shoppingCartId=cart['id']
+            this.products=cart['items'];
+            this.buyerId=cart['buyer']
+            this.lastMilteCost = cart['lastMileCost'];
+            this.firstMileCost = cart['firstMileCosts'];
+            this.sfsMargin = cart['sfsMargin'];
+            this.uaeTaxes = cart['uaeTaxes'];
+            this.customs = cart['customs'];
+            this.total= cart['subTotal'];
+            this.shipping = cart['shipping'];
+            this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
+            this.totalWithShipping = cart['total'];
+    
+            this.hideLoader();
+            this.empty = false;
+            
+          }else{
+            this.hideLoader();
+          }
+         
+        } else{
+          this.hideLoader();
+        }
+       
       },
       error=> {
         console.log( error );
@@ -106,12 +103,16 @@ export class CartComponent implements OnInit {
     
   }
 
+  hideLoader(){
+    this.showLoading=false;
+          this.empty = true;
+  }
+
   getItems(){
     let cart = {
       "buyer": this.buyerId
     }
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
-      this.Cart.setCart(result)
       console.log(' calcular totales', result );
     },e=>{console.log(e)})
   }
@@ -157,7 +158,7 @@ export class CartComponent implements OnInit {
     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
       // this.getItems()
       console.log( 'result', result );
-      this.getCart();
+      this.getTotal();
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
 

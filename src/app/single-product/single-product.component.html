@@ -110,8 +110,8 @@
           <div class="col-5 product-label">
             <div class="quantity">
               <div class="qty-wrapper" *ngIf="!cooming_soon">
-                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" id="input-text">
-                <input type="text" id="qty-text" class="qty" (click)="showHide('qty-text')" value="{{count}} Kg">
+                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()" id="input-text">
+                <input type="text" id="qty-text" class="qty" (click)="showElements()" value="{{count}} Kg">
                 <!-- <span>kg</span> -->
               </div>
             </div>    
