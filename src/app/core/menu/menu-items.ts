@@ -10,6 +10,7 @@ export interface Menu {
   state: string;
   type: string;
   translate: any;
+  icon?:any;
   children?: ChildrenItems[];
 }
 const menuAdmin = [
@@ -690,7 +691,7 @@ export class MenuItems {
   getMenuFooterNoLogin(): Menu[] {
     return menuFooterNoLogin;
   }
-  addMenuItem(Menu: Menu) {
+  addMenuItem(Menu: any) {
     menuBuyer.push(Menu);
     // menuSeller.push(Menu);
   }

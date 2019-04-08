@@ -1,48 +1,21 @@
+<div class="gray-bg">
 <div class="content single-product" *ngIf="show; else elseBlock">
-  <div class="container">
+  <div class="container-fluid">
     <div class="row">  
       <div class="col-12 text-center" *ngIf="showLoading">
         <img src="../../assets/loader.gif" alt="loading..." class="loading">
       </div>
-      <div class="col-lg-6 product-img">
-        <img src="../../assets/default-img-product.jpg" alt="" class="img-fluid" *ngIf="!images;else slider">
+      <div class="col-lg-6 product-img" *ngIf="!showLoading">
+        <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'" *ngIf="!images;else slider"></div>
+
         <ng-template #slider>
-          <div class="flexslider">
-            <div class="slides">
-              <li *ngIf="mainImg && mainImg!=''"><div class="img-bg" [style.background-image]="mainImg"></div></li>
-              <li *ngFor="let image of images; index as i;">
-                <div class="img-bg" [style.background-image]="image"></div>
-              </li>
-            </div>
-            
-          </div>  
-          <!-- <div class="text-center">
-            <span class="slide-current-slide"></span>
-            <span class="slide-total-slides"></span>
-          </div> -->
+        <div *ngIf="mainImg && mainImg!=''" class="main-featured-img" [style.background-image]="mainImg"></div>
+        <div *ngFor="let image of images; index as i;" class="main-featured-img" [style.background-image]="image"></div>
+      
         </ng-template>    
-        <div class="product-by">Company Name</div>  
-        <div class="Product-Producer-Name"><a routerLink="/store/{{storeId}}">{{storeName}} </a></div>
-        <div class="product-by width-auto" *ngIf="brandname != ''"><span>Brand name</span>  <a>{{brandname}}</a></div>
-        <table class="no-border">
-          <tr *ngIf="country !=''">
-            <td>Country of Origin</td>
-            <td [innerHtml]="findCountries(country)"></td>
-          </tr>
-          <tr *ngIf="processingCountry != ''">
-            <td>Country of Processing</td>
-            <td [innerHtml]="findCountries(processingCountry)"></td>
-          </tr>
-        </table>
-        <div class="product-details2">Product Details</div>
-        <div class="features-single-product" *ngIf="types != ''">
-          {{types?.level0?.name}} - {{types?.level1?.name}} - {{types?.level2?.name}}
-        </div>
-        <div class="features-single-product ">
-          {{raised}} - {{treatment}} -  <span >{{preparation}}</span> <div style="display: initial;" *ngIf="wholeFishWeight != null"> - <span>{{wholeFishWeight}}</span></div>
-        </div>
+    
       </div>
-      <div class="col-lg-6 product-content">
+      <div class="col-lg-6 product-content" *ngIf="!showLoading">
         <h2 class="product-name">
           {{name}}
           <div *ngIf="role == 0" class="edit-admin">
@@ -50,90 +23,56 @@
                 <fa name="pencil" class="pencil"></fa>Edit
               </a>
           </div>
-          <!-- <div class="favorite-content" *ngIf="role==2">
-            <button (click)="submitFavorite()" *ngIf="!isFavorite;else favorite" [disabled]="enabledHeart"><fa name="heart-o"></fa></button>
-            <ng-template #favorite>
-              <button (click)="submitFavorite()" [disabled]="enabledHeart"><fa name="heart" class="isfavorite"></fa>
-              </button>
-            </ng-template>
-          </div> -->
+        
         </h2>
-        <h3 class="product-type">{{category}}</h3>
-        <div class="row first-row">
-          <div class="col-5 product-label">Sellers Price/kg:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(priceValue/currentExchangeRate).toFixed(2)}} </div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row">
-          <div class="col-5 product-label">Product Price:</div>
-          <div class="col-sm-4 col-md-5 product-value" [innerHTML]="getTotal()"></div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row" style="margin-top: 7px" *ngIf="charges && charges.shippingFee">
-          <div class="col-5 product-label">Shipping Fees:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}} </div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row" style="margin-top: 7px" *ngIf="charges && charges.sfsMarginCost">
-          <div class="col-5 product-label">SFS Fee:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(charges.sfsMarginCost/currentExchangeRate).toFixed(2)}} </div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row" style="margin-top: 6px" *ngIf="charges && charges.uaeTaxesFee">
-          <div class="col-5 product-label">Taxes:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}} </div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row" style="margin-top: 6px">
-          <div class="col-5 product-label">Acceptable spoilage rate:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{mortalityRate}} </div>
-          <div class="col-sm-3 col-md-2 currency">%</div>
-        </div>
-        <br>
-        <div class="row last-row">
-          <div class="col-5 product-label">FX Rate Fees:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(FXRateFees/currentExchangeRate).toFixed(2)}} </div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-      
-        <div class="row" *ngIf="charges && charges.finalPrice">
-          <div class="col-5 total-price">Total Price:</div>
-          <div class="col-sm-4 col-md-5 total-price-value">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</div>
-          <div class="col-sm-3 col-md-2 currency" style="padding-top: 6px;">{{currency}}</div>
-        </div>
-        <div class="row" style="margin-top: 10px">
-          <div class="col-5 product-label">Delivered Price/kg:</div>
-          <div class="col-sm-4 col-md-5 product-value">{{(delivered/currentExchangeRate).toFixed(2)}}</div>
-          <div class="col-sm-3 col-md-2 currency">{{currency}}</div>
-        </div>
-        <div class="row actions-form" *ngIf="isLogged; else login">
-          <div class="col-5 product-label">
-            <div class="quantity">
-              <div class="qty-wrapper" *ngIf="!cooming_soon">
-                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()" id="input-text">
-                <input type="text" id="qty-text" class="qty" (click)="showElements()" value="{{count}} Kg">
-                <!-- <span>kg</span> -->
+        <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}} <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
+        <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in {{findCountries(processingCountry)}}. <br> <span>Whole: {{preparation}}.</span></p>
+
+        <div class="tab-content" id="single-tabs">
+            <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
+
+                <div class="convert-row">Converted from USD <span>AED</span></div>
+                <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span> <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span></div>
+                <div class="dashed-row"><span class="name-row">FX Rate Fee</span> <div class="separator-dashed"></div> <span class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row" *ngIf="charges && charges.sfsMarginCost"><span class="name-row">Our Fee</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.sfsMarginCost/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">Taxes</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row"><span class="name-row">Product Price</span> <div class="separator-dashed"></div> <span class="value-row" [innerHTML]="getTotal()"></span></div>
+                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row"><span class="name-row">Delivered Price / kg</span> <div class="separator-dashed"></div> <span class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total Price</span> <div class="separator-dashed"></div> <span class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span></div>
+            </div>
+            <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+                <div class="dashed-row"><span class="name-row">Company</span> <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span></div>
+                <div class="dashed-row"><span class="name-row">Brand</span> <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span></div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Category</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level0?.name}}</span></div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Species</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level1?.name}}</span></div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecies</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level2?.name}}</span></div>
+                <div class="dashed-row"><span class="name-row">Treatment</span> <div class="separator-dashed"></div> <span class="value-row">{{treatment}}</span></div>
+                <div class="dashed-row"><span class="name-row">Raised</span> <div class="separator-dashed"></div> <span class="value-row">{{raised}}</span></div>
+                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total Price</span> <div class="separator-dashed"></div> <span class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span></div>
+            </div>
+          </div>
+
+          <div class="row range-row">
+            <div class="col-md-7">
+                <ng5-slider [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
+
+            </div>
+
+            <div class="col-md-5">
+                <button *ngIf="!cooming_soon"  (click)="addToCart()" type="submit" class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
+            </div>
+          </div>
+        
+          <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-price-tab" data-toggle="tab" href="#nav-price" role="tab" aria-controls="nav-home" aria-selected="true">PRICE DETAILS</a>
+                <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false">PRODUCT DETAILS</a>
               </div>
-            </div>    
-          </div>
-          <div class="col-5 product-value">
-            <button *ngIf="!cooming_soon"  (click)="addToCart()" type="submit" class="btn-blue">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
-            <button *ngIf="showCart" (click)="goToCart()" class="btn-blue btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
-          </div>
-          <div class="col-2 currency"></div>
-        </div>
-        <div class="min-max-row">
-          <table>
-            <tr>
-              <td>{{min}}</td>
-              <td>Min. Order kg</td>
-            </tr>
-            <tr>
-              <td>{{max}}</td>
-              <td>Max. Order kg</td>
-            </tr>
-          </table>
-        </div>
+            </nav>
+
+    
         <ng-template #login>
           <div class="row">
             <div class="col">
@@ -141,61 +80,11 @@
             </div>
           </div>
         </ng-template>
-        <!-- <div class="logo-store"><img src="{{logo}}" alt=""></div> -->
-        <!-- <h5><a routerLink="/store/{{storeId}}">{{storeName}}</a></h5> -->
-        <!-- <hr class="black-line"> -->
-        <!-- <span class="rating">{{'SingleProduct.seller-rating' | translate}}</span> <br>
-        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating> -->
-        <!-- <ul class="product-details">
-          <li>{{'SingleProduct.raised' | translate}}: <span>{{raised}}</span></li>
-          <li>{{'SingleProduct.preparation' | translate}}: <span>{{preparation}}</span></li>
-          <li>{{'SingleProduct.form-type' | translate}}: <span>{{treatment}}</span></li>
-          <li>{{'SingleProduct.country' | translate}}: <span>{{country}}</span></li>
-        </ul> -->
-        <!-- <div class="product-info"> -->
-          <!-- <p>
-           {{description}}
-         </p> -->
-          <!-- <span class="price"><b>$ {{priceValue}} / {{measurement}}</b></span> -->
-         <!--  <form action="#" *ngIf="isLogged; else login" class="actions-form">
-            <div class="row" style="align-items: center;">
-              <div class="col">
-                <div class="quantity">
-                  <div class="qty-wrapper">
-                    <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()">
-                    <span>kg</span>
-                  </div>
-                  <div class="qty-btn">
-                    <button type="button" id="add" class="add" (click)="increaseCount()">+</button>
-                    <button type="button" id="sub" class="sub" (click)="dicreaseCount()">-</button>
-                  </div>
-                  <div class="max-per-order">
-                    <span>Maximum Order Weight {{max}} kg</span>                  
-                  </div>
-                </div>
-              </div>
-            </div>
-            <p class="charges-p" [innerHTML]="getTotal()"></p> 
-            <div *ngIf="showTaxes"> 
-              <p class="charges-p">First Mile Shipping ${{charges.firstMileFee}}</p>
-              <p class="charges-p">Air Cargo Fee ${{charges.shippingFee}}</p>
-              <p class="charges-p">Last Mile Shipping ${{charges.lastMileCost}}</p>
-              <p class="charges-p">SFS Margin ${{charges.sfsMarginCost}}</p>
-              <p class="charges-p">Taxes ${{charges.uaeTaxesFee}}</p>
-              <p class="charges-p">Customs ${{charges.customsFee}}</p>
-              <p class="charges-p">Handling Fess ${{charges.handlingFee}}</p>
-              <p class="total-calc">Total ${{charges.finalPrice}}</p>
-            </div>
-            <button *ngIf="cooming_soon == 'false'" (click)="addToCart()" type="submit" class="btn-red">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
-            <button *ngIf="showCart" (click)="goToCart()" class="btn-red btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button>
-          </form>          
-          <ng-template #login>
-            <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
-          </ng-template> -->
-        <!-- </div> -->
+  
       </div>
     </div>   
   </div>
+</div>
 </div>
 
 <ng-template #elseBlock>
