@@ -117,6 +117,8 @@ import { Select2Module } from 'ng2-select2';
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 import { NonsellerRouterService } from './services/nonseller-router.service';
 import { TitleService } from './title.service';
+import { Ng5SliderModule } from 'ng5-slider';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -302,7 +304,8 @@ const appRoutes: Routes = [
       animationType: ngxLoadingAnimationTypes.wanderingCubes
     }),
     NgProgressModule,
-    Select2Module
+    Select2Module,
+    Ng5SliderModule
 
     ],
   providers: [

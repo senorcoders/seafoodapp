@@ -12,7 +12,12 @@
 		border-right: 2px solid #fafafb;
 		height: 110px;
     	display: flex;
-    	align-items: center;
+		align-items: center;
+		@media screen and (max-width: 768px){
+		    padding: 10px;
+    		height: 70px;
+			 
+		 }
 	
 	}
 
@@ -32,7 +37,11 @@
 
 	.navbar{
 		border-left: 2px solid #fafafb;
-    	height: 100%;
+		height: 100%;
+		@media screen and (max-width: 768px){
+		  border: none;
+			 
+		 }
 	}
 
 	.menu-icon{
