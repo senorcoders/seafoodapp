@@ -305,6 +305,7 @@ const menuBuyer = [
   {
     state: 'products/all/1',
     type: 'link',
+    icon: 'fish-v.svg',
     translate: {
       en: {
         name: 'Shop'
@@ -317,6 +318,7 @@ const menuBuyer = [
   {
     state: 'cart',
     type: 'link',
+    icon: 'cart.svg',
     translate: {
       en: {
         name: 'Cart'
@@ -328,6 +330,7 @@ const menuBuyer = [
   }, {
     state: 'my-orders',
     type: 'sub',
+    icon: 'box.svg',
     children: [
       {
         state: 'orders',
