@@ -96,9 +96,9 @@ export class EditProductComponent implements OnInit {
     private router: Router, private toast: ToastrService,
     private auth: AuthenticationService, private sanitizer: DomSanitizer,
     private countryService: CountriesService, private pricingChargesService: PricingChargesService,
-    public ngProgress: NgProgress,
-    private titleS: TitleService
+    public ngProgress: NgProgress, private titleS: TitleService
   ) { this.titleS.setTitle('Edit Product'); }
+
 
   ngOnInit() {
     // this.createFormControls();

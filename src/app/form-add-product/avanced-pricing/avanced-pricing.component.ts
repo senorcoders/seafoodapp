@@ -58,7 +58,7 @@ export class AvancedPricingComponent implements OnInit {
 
   ngOnInit() {
     this.createFormGroup();
-    this.productService.getData("wholefishweight").subscribe(its => { console.log("wholefishweight", its);
+    this.productService.getData("wholefishweight").subscribe(its => {
       let wholes = its as any[];
       //Agregamos los wholes antes
       for (let i of wholes) {
