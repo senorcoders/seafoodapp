@@ -38,7 +38,7 @@ export class FishFeaturesComponent implements OnInit {
   private identifier = "_arr";
   public treatments = [];
 
-  constructor(private parentForm: FormGroupDirective, private productService: ProductService,
+  constructor(public parentForm: FormGroupDirective, private productService: ProductService,
     private auth: AuthenticationService, private toast: ToastrService) { }
 
   ngOnInit() {

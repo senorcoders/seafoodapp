@@ -57,7 +57,7 @@
       <label>{{'CreateProduct.portLoading' | translate}} <span class="field-status red">*</span> <img
           tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
           placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select class="form-control" formControlName="city" (change)="onCityChange(city.value)">
+      <select class="form-control" formControlName="city" (change)="onCityChange()">
         <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
       </select>
       <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">

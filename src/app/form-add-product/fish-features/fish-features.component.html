@@ -77,7 +77,7 @@
           data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a> <img
           tooltip="This field reflects any post harvest treatment/processing of the product" placement="right"
           show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select class="form-control" formControlName="preparation" (change)="showWhole($event.target.value)">
+      <select class="form-control" formControlName="preparation">
         <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
       </select>
       <div class="form-control-feedback" *ngIf="controls().preparation.errors &&parentForm.submitted">

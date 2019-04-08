@@ -16,7 +16,7 @@ export class AvancedPricingComponent implements OnInit {
   price;
   private await_ = false;
   public headAction = true;
-  public weights = { on: {}, off: {} };
+  public weights:any = { on: { keys : [] }, off: { keys : []  } };
   public kgNames = {
     kg01: '0-1 KG',
     kg12: '1-2 KG',
@@ -54,7 +54,7 @@ export class AvancedPricingComponent implements OnInit {
   private priceEnableChange = true;
   public identifier = "_arr";
 
-  constructor(private parentForm: FormGroupDirective, private productService: ProductService) { }
+  constructor(public parentForm: FormGroupDirective, private productService: ProductService) { }
 
   ngOnInit() {
     this.createFormGroup();

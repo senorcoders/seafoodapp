@@ -41,7 +41,7 @@ export class FishFormComponent implements OnInit {
 
   public images = [];
 
-  constructor(private parentForm: FormGroupDirective, private countryService: CountriesService,
+  constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone
   ) { }
 
@@ -143,9 +143,10 @@ export class FishFormComponent implements OnInit {
     // });
   }
 
-  public onCityChange(city): void {
+  public onCityChange(): void {
 
     this.deliveredPrices.forEach(element => {
+      let city = this.getValue().city;
       this.getDeliveredPrice(city, element);
     });
 
@@ -159,7 +160,7 @@ export class FishFormComponent implements OnInit {
 
       if (val.price != "" && val.city != null) {
 
-        this.onCityChange(val.city);
+        this.onCityChange();
       }
       else if (val.price != "" && val.city == null) {
         this.price25 = val.price;
@@ -185,7 +186,7 @@ export class FishFormComponent implements OnInit {
     );
   }
 
-  getOnChangeLevel(level: number, value) {
+  getOnChangeLevel(level: number, value?) {
     if (this.getValue().parentSelectedType === '') {
       this.typeLevel0 = [];
       this.typeLevel1 = [];
