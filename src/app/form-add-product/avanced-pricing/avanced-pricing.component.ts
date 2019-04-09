@@ -16,7 +16,7 @@ export class AvancedPricingComponent implements OnInit {
   price;
   private await_ = false;
   public headAction = true;
-  public weights:any = { on: { keys : [] }, off: { keys : []  } };
+  public weights: any = { on: { keys: [] }, off: { keys: [] } };
   public kgNames = {
     kg01: '0-1 KG',
     kg12: '1-2 KG',
@@ -42,7 +42,8 @@ export class AvancedPricingComponent implements OnInit {
   public options: Options = {
     floor: 0,
     ceil: 0,
-    step: 1
+    step: 1,
+    noSwitching: true
   };
   public showPricingValue = false;
   public valueExample: number;
@@ -76,9 +77,9 @@ export class AvancedPricingComponent implements OnInit {
 
     this.price = this.parentForm.form;
     this.price.addControl('price', new FormGroup({
-      headAction : new FormControl(this.headAction, Validators.required),
-      weights : new FormControl('', Validators.nullValidator),
-      example : new FormControl('', Validators.nullValidator)
+      headAction: new FormControl(this.headAction, Validators.required),
+      weights: new FormControl('', Validators.nullValidator),
+      example: new FormControl('', Validators.nullValidator)
     }));
 
     //Para conocer el maximo y minimo del product
@@ -97,6 +98,7 @@ export class AvancedPricingComponent implements OnInit {
           min: newOptions.floor,
           max: newOptions.ceil
         };
+        this.setOptionsInAll();
         this.refreshSlider();
       }
     });
@@ -115,7 +117,6 @@ export class AvancedPricingComponent implements OnInit {
         } else {
           this.weights.off = this.proccessWeights(this.weights.off, it);
         }
-        // console.log(this.weights);
         this.refreshSlider();
       }
 
@@ -127,6 +128,26 @@ export class AvancedPricingComponent implements OnInit {
         if (this.showPricingValue === false) this.showPricingValue = true;
       }
     });
+  }
+
+  private setOptionsInAll() {
+    let keys = Object.keys(this.weights.on);
+    for (let key of keys) {
+      this.weights.on[key] = this.weights.on[key]
+        .map(it => {
+          it.options = this.options;
+          return it;
+        });
+    }
+
+    keys = Object.keys(this.weights.off);
+    for (let key of keys) {
+      this.weights.off[key] = this.weights.off[key]
+        .map(it => {
+          it.options = this.options;
+          return it;
+        });
+    }
   }
 
   public getNameWhole(id) {
@@ -155,10 +176,10 @@ export class AvancedPricingComponent implements OnInit {
         else return false;
       }
     });
-    console.log(keys);
+
     for (let k of keys) {
       if (data[k] === undefined) {
-        data[k] = [{ min: 1, max: 2, price: 45 }];
+        data[k] = [{ min: 1, max: 2, price: 45, options: Object.assign({}, this.options) }];
         try {
           (this.parentForm.form.controls.price as FormGroup)
             .addControl(k + this.identifier, new FormGroup(this.controlsArray(data[k])));
@@ -175,7 +196,9 @@ export class AvancedPricingComponent implements OnInit {
 
   public selectKey(k) {
     this.keySelect = k;
-    this.refreshSlider();
+    setTimeout(() => {
+      this.refreshSlider();
+    }, 300);
   }
 
   public deletePrice(on, i) {
@@ -201,7 +224,7 @@ export class AvancedPricingComponent implements OnInit {
     //Para remover los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
-        .removeControl((index - 1).toString());
+        .removeControl((i).toString());
     }
     catch (e) { console.error(e); }
 
@@ -210,7 +233,7 @@ export class AvancedPricingComponent implements OnInit {
 
   public addPricing() {
     let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
-    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price };
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     if (this.headAction === true) {
       this.weights.on[this.keySelect].push(it);
@@ -219,6 +242,7 @@ export class AvancedPricingComponent implements OnInit {
       this.weights.off[this.keySelect].push(it);
       index = this.weights.off[this.keySelect].length;
     }
+    this.refactorizeRanges(index - 1);
 
     //Para agregar los inputs
     try {
@@ -244,11 +268,68 @@ export class AvancedPricingComponent implements OnInit {
     return d;
   }
 
+  public refactorizeRanges(index) {
+    let newOptions: Options = Object.assign({}, this.options);
+    this.options = newOptions;
+    this.exampleValues = {
+      min: newOptions.floor,
+      max: newOptions.ceil
+    };
+    let range = {
+      minLimit: 10,
+      maxLimit: newOptions.ceil
+    }
+    let slides = [];
+    if (this.headAction === true) {
+      slides = this.weights.on[this.keySelect];
+    } else {
+      slides = this.weights.off[this.keySelect];
+    }
+    //Entonces calculamos el valor mas alto, para tomar desde ahi
+    //el inicio de los demas slider
+    let maxValue = 0;
+    for (let i = 0; i < slides.length; i++) {
+      let slide = slides[i];
+      if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+      if (i === index || i > index) continue;
+      if (slide.max > maxValue) maxValue = slide.max;
+    }
+    //ahora asignamos el mayor valor al slide
+    range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+    range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+    let newOptions1 = Object.assign(range, newOptions);
+
+    if (this.headAction === true) {
+      this.weights.on[this.keySelect][index].options = newOptions1;
+      if (this.weights.on[this.keySelect][index].min < range.minLimit)
+        this.weights.on[this.keySelect][index].min = range.minLimit;
+    } else {
+      this.weights.off[this.keySelect][index].options = newOptions1;
+      if (this.weights.off[this.keySelect][index].min < range.minLimit)
+        this.weights.off[this.keySelect][index].min = range.minLimit;
+    }
+    console.log(this.weights);
+    this.refreshSlider();
+  }
+
+  public getOptions(index) {
+    if (this.headAction === true) {
+      return this.weights.on[this.keySelect][index].options;
+    } else {
+      return this.weights.off[this.keySelect][index].options;
+    }
+
+  }
+
   public getIdentifier(key, i) {
     return key + this.identifier;
   }
 
   public getControl(key, i) {
+    if (((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
+      .controls[i] === undefined) {
+      console.log(key, i, (this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier]);
+    }
     return ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
       .controls[i];
   }
@@ -277,6 +358,7 @@ export class AvancedPricingComponent implements OnInit {
       }, 500);
     }
     this.manualRefresh.emit();
+
   }
 
   private setValue(value) {

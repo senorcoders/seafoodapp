@@ -188,7 +188,7 @@ export class CreateProductComponent implements OnInit {
         'status': '5c0866e4a0eda00b94acbdc0',
         'brandname': product.brandName,
         'hsCode': product.hsCode,
-        variations: variationsEnd
+        variations: features.head === 'both' ? variationsEnd : null
       };
       console.log(data);
 
