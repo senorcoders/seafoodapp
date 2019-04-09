@@ -1,6 +1,6 @@
-
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
+import { ToastrModule } from 'ngx-toastr';
 
 import { SellerRouterService } from './services/seller-router.service';
 import { BuyerRouterService } from './services/buyer-router.service';
@@ -10,8 +10,9 @@ import { NonsellerRouterService } from './services/nonseller-router.service';
 
 import { Routes, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
-import { Http, HttpModule } from '@angular/http';
+import { Http } from '@angular/http';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MenuItems } from './core/menu/menu-items';
@@ -111,13 +112,14 @@ import { RegistrationBuyerComponent } from './registration-buyer/registration-bu
 
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 
-
-
 const appRoutes: Routes = [
   {
     path: '',
-    component: HomeComponent,
     children: [
+      {
+        path: '',
+        component: HomeComponent
+      },
       {
         path: 'login',
         loadChildren: './login/login.module#LoginModule'
@@ -125,10 +127,8 @@ const appRoutes: Routes = [
 
     ]
   },
-  { path: 'home', redirectTo: '/' },
   { path: 'register', component: RegistrationBuyerComponent },
   { path: 'register-seller', component: RegistrationSellerComponent },
-  //{ path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
@@ -281,9 +281,10 @@ const appRoutes: Routes = [
     RegistrationSellerComponent,
   ],
   imports: [
+    BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    
+    ToastrModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       provide: TranslateLoader,
@@ -298,6 +299,7 @@ const appRoutes: Routes = [
 
 
   ],
+  exports: [ SharedModule ],
   providers: [
     RouterProtectionService, AdminRouterService, BuyerRouterService, SellerRouterService, NonsellerRouterService,
     CartService,

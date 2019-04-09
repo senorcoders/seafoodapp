@@ -13,17 +13,11 @@ import { Select2Module } from 'ng2-select2';
 import { TitleService } from '../title.service';
 import { Ng5SliderModule } from 'ng5-slider';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
-
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Http, HttpModule } from '@angular/http';
-
-import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+import { Http } from '@angular/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { FooterComponent } from '../core/footer/footer.component';
-
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { IsLoginService } from '../core/login/is-login.service';
@@ -38,19 +32,17 @@ import { NonsellerRouterService } from '../services/nonseller-router.service';
 
 
 @NgModule({
-  declarations: [    
+  declarations: [
     FooterComponent,
     FilternumberPipe,
   ],
-  imports: [
-    
+  imports: [    
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: function (http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json'); },
