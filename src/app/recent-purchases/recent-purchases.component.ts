@@ -63,6 +63,7 @@ export class RecentPurchasesComponent implements OnInit {
   public loading = false;
   doc: any = [];
   API:any = environment.apiURL;
+  tmpFiles:any = [];
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -497,24 +498,24 @@ export class RecentPurchasesComponent implements OnInit {
       console.log("Mostrar items");
    
       if(this.where == 'pending'){
-        if(this.subindex != undefined){
+        if(this.shippingSubindex != undefined){
           console.log("indefinida");
-          this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = ['files'];
+          this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
 
 
         }else{
           console.log("Definida");
-          this.firstNoShipped[this.shippingIndex].items[0].shippingFiles = ['files'];
+          this.firstNoShipped[this.shippingIndex].items[0].shippingFiles = this.tmpFiles;
 
 
         }
       }else{
-        if(this.subindex != undefined){
-          this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = ['files'];
+        if(this.shippingSubindex != undefined){
+          this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
 
 
         }else{
-          this.firstShipped[this.shippingIndex].items[0].shippingFiles = ['files'];
+          this.firstShipped[this.shippingIndex].items[0].shippingFiles = this.tmpFiles;
 
         }
 
@@ -531,7 +532,7 @@ export class RecentPurchasesComponent implements OnInit {
   //Function to prepulate current shiiping docs uploaded to the server
   getShippingDocs(){
     if(this.where == 'pending'){
-      if(this.subindex != undefined){
+      if(this.shippingSubindex != undefined){
        this.doc =  this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
 
 
@@ -542,7 +543,7 @@ export class RecentPurchasesComponent implements OnInit {
 
       }
     }else{
-      if(this.subindex != undefined){
+      if(this.shippingSubindex != undefined){
         this.doc = this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
 
 
@@ -567,6 +568,7 @@ export class RecentPurchasesComponent implements OnInit {
 
     this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
       console.log(res);
+      this.tmpFiles = res;
       resolve();        
       
     }, error => {
@@ -584,6 +586,7 @@ export class RecentPurchasesComponent implements OnInit {
     this.label4 = 'Select a file to attach...';
     this.label5 = 'Select a file to attach...';
     this.label6 = 'Select a file to attach...';
+    this.tmpFiles = [];
   }
   //Get file on input change and change the name before upload it
 
