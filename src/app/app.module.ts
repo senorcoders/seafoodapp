@@ -1,23 +1,25 @@
-import { BrowserModule } from '@angular/platform-browser';
+
 import { NgModule } from '@angular/core';
+import { SharedModule } from './shared/shared.module';
+
+import { SellerRouterService } from './services/seller-router.service';
+import { BuyerRouterService } from './services/buyer-router.service';
+import { RouterProtectionService } from './services/router-protection.service';
+import { AdminRouterService } from './services/admin-router.service';
+import { NonsellerRouterService } from './services/nonseller-router.service';
 
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { AuthenticationService } from './services/authentication.service';
-import { ProductService } from './services/product.service';
+import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+import { Http, HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
-import { RegisterComponent } from './register/register.component';
+
+import { AppComponent } from './app.component';
 import { MenuItems } from './core/menu/menu-items';
 import { MenuNavComponent } from './core/menu/menu-nav.component';
-import { FooterComponent } from './core/footer/footer.component';
+//import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
-import { IsLoginService } from './core/login/is-login.service';
-import { LanguageService } from './core/language/language.service';
+
 import { CartService } from './core/cart/cart.service';
 import { OrdersService } from './core/orders/orders.service';
 import { AddProductComponent } from './add-product/add-product.component';
@@ -28,23 +30,20 @@ import { FishComponent } from './fish/fish.component';
 import { SingleProductComponent } from './single-product/single-product.component';
 import { EditProductComponent } from './edit-product/edit-product.component';
 import { AccountComponent } from './account/account.component';
-import { SellerRouterService } from './services/seller-router.service';
-import { BuyerRouterService } from './services/buyer-router.service';
-import { RouterProtectionService } from './services/router-protection.service';
-import { AdminRouterService } from './services/admin-router.service';
+
 import { MyProductsComponent } from './my-products/my-products.component';
 import { CartComponent } from './cart/cart.component';
-import { Http, HttpModule } from '@angular/http';
+
 import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+
 import { SingleStoreComponent } from './single-store/single-store.component';
-import { NgxSmartModalModule } from 'ngx-smart-modal';
+
 import { FeaturedProductsComponent } from './featured-products/featured-products.component';
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
 import { FavoritesComponent } from './favorites/favorites.component';
-import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment';
 import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
 import { SellerComponent } from './seller/seller.component';
@@ -70,7 +69,6 @@ import { GuidesComponent } from './guides/guides.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { AboutComponent } from './about/about.component';
 import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
-import { Interceptor } from './interceptor/interceptor';
 import { FilterPipePipe } from './filter-pipe.pipe';
 import { ShippingRatesComponent } from './shipping-rates/shipping-rates.component';
 import { ShippingRatesService } from './services/shipping-rates.service';
@@ -78,7 +76,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
-import { OrderService } from './services/orders.service';
+
 import { ThanksComponent } from './thanks/thanks.component';
 import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
@@ -106,30 +104,35 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
-import {TooltipModule} from 'ng2-tooltip-directive';
-import { ngfModule } from 'angular-file';
-import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
-import { FilternumberPipe } from './filternumber.pipe';
-import { NgProgressModule } from 'ngx-progressbar';
+
+
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
-import { Select2Module } from 'ng2-select2';
+
 import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
-import { NonsellerRouterService } from './services/nonseller-router.service';
-import { TitleService } from './title.service';
-import { Ng5SliderModule } from 'ng5-slider';
+
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent },
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      {
+        path: 'login',
+        loadChildren: './login/login.module#LoginModule'
+      },
+
+    ]
+  },
   { path: 'home', redirectTo: '/' },
   { path: 'register', component: RegistrationBuyerComponent },
-  { path: 'register-seller', component:  RegistrationSellerComponent},
-  { path: 'login', component: LoginComponent },
+  { path: 'register-seller', component: RegistrationSellerComponent },
+  //{ path: 'login', component: LoginComponent },
   { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
   { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
   { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
-  { path: 'product/:id', component: SingleProductComponent, canActivate: [NonsellerRouterService]  },
+  { path: 'product/:id', component: SingleProductComponent, canActivate: [NonsellerRouterService] },
   { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
   { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
   { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
@@ -193,15 +196,13 @@ const appRoutes: Routes = [
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
   { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
   { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] },
-  {path: 'forgot-password', component: ForgotPasswordComponent}
+  { path: 'forgot-password', component: ForgotPasswordComponent }
 ];
 
 @NgModule({
   declarations: [
-    AppComponent,
     MenuNavComponent,
-    FooterComponent,
-    LoginComponent,
+    AppComponent,
     RegisterComponent,
     HomeComponent,
     AddProductComponent,
@@ -274,63 +275,39 @@ const appRoutes: Routes = [
     CookiesPolicyComponent,
     CitiManagmentComponent,
     EditAccountComponent,
-    FilternumberPipe,
+
     ForgotPasswordComponent,
     RegistrationBuyerComponent,
     RegistrationSellerComponent,
   ],
   imports: [
-    BrowserModule,
-    RouterModule.forRoot(appRoutes),
-    FormsModule,
-    ReactiveFormsModule,
+    SharedModule,
     HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule.forRoot(),
-    AngularFontAwesomeModule,
-    FileUploadModule,
+    
+    RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       provide: TranslateLoader,
       useFactory: function (http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json'); },
       deps: [Http]
-    }),
-    NgxSmartModalModule.forRoot(),
+    }),    
+    FileUploadModule,
+
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    TooltipModule,
-    ngfModule,
-    NgxLoadingModule.forRoot({
-      animationType: ngxLoadingAnimationTypes.wanderingCubes
-    }),
-    NgProgressModule,
-    Select2Module,
-    Ng5SliderModule
 
-    ],
+
+  ],
   providers: [
-    AuthenticationService,
-    MenuItems,
-    IsLoginService,
-    ProductService,
-    SellerRouterService,
-    BuyerRouterService,
-    NonsellerRouterService,
-    RouterProtectionService,
-    LanguageService,
-    AdminRouterService,
+    RouterProtectionService, AdminRouterService, BuyerRouterService, SellerRouterService, NonsellerRouterService,
     CartService,
     OrdersService,
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
-    TitleService,
-    {provide: OWL_DATE_TIME_LOCALE, useValue: 'en'},
-    OrderService,{
-      provide: HTTP_INTERCEPTORS,
-      useClass: Interceptor,
-      multi: true,
-    }
+    MenuItems,
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en' },
+
   ],
   bootstrap: [AppComponent]
 })
