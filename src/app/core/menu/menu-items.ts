@@ -10,6 +10,7 @@ export interface Menu {
   state: string;
   type: string;
   translate: any;
+  icon?:any;
   children?: ChildrenItems[];
 }
 const menuAdmin = [
@@ -305,6 +306,7 @@ const menuBuyer = [
   {
     state: 'products/all/1',
     type: 'link',
+    icon: 'fish-v.svg',
     translate: {
       en: {
         name: 'Shop'
@@ -317,6 +319,7 @@ const menuBuyer = [
   {
     state: 'cart',
     type: 'link',
+    icon: 'cart.svg',
     translate: {
       en: {
         name: 'Cart'
@@ -328,6 +331,7 @@ const menuBuyer = [
   }, {
     state: 'my-orders',
     type: 'sub',
+    icon: 'box.svg',
     children: [
       {
         state: 'orders',
@@ -687,7 +691,7 @@ export class MenuItems {
   getMenuFooterNoLogin(): Menu[] {
     return menuFooterNoLogin;
   }
-  addMenuItem(Menu: Menu) {
+  addMenuItem(Menu: any) {
     menuBuyer.push(Menu);
     // menuSeller.push(Menu);
   }
