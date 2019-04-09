@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { TitleService } from '../title.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -60,7 +61,8 @@ export class RecentPurchasesComponent implements OnInit {
   shippingIndex:any;
   shippingSubindex:any;
   public loading = false;
-
+  doc: any = [];
+  API:any = environment.apiURL;
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -520,11 +522,46 @@ export class RecentPurchasesComponent implements OnInit {
 
       this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
       jQuery('#shippingDocs').modal('hide');
+      this.doc = [];
       this.cleanLabels();
       this.loading = false;
       this.ngProgress.done();
   }
 
+  //Function to prepulate current shiiping docs uploaded to the server
+  getShippingDocs(){
+    if(this.where == 'pending'){
+      if(this.subindex != undefined){
+       this.doc =  this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
+
+
+      }else{
+        console.log("Definida");
+        this.doc =  this.firstNoShipped[this.shippingIndex].items[0].shippingFiles;
+
+
+      }
+    }else{
+      if(this.subindex != undefined){
+        this.doc = this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
+
+
+      }else{
+        this.doc = this.firstShipped[this.shippingIndex].items[0].shippingFiles;;
+
+      }
+
+    }
+    console.log("Doc", this.doc);
+  }
+
+  public mapDocs(doc, name) {
+    let file = doc.split("/");
+    if (file[3] != undefined && file[3].includes(name)) {
+  
+      return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
+    }
+  }
   async postFile(element){
     await new Promise((resolve) => {
 
@@ -600,9 +637,15 @@ openShippingModal(id, index, where,  subindex?){
   if(subindex != undefined){
     this.shippingSubindex = subindex;
   }
+  this.getShippingDocs();
 
 }
 
+//Close shipping docs modal
+closeShippingModal(){
+  jQuery('#shippingDocs').modal('hide');
+  this.doc = [];
+}
 
 //Get delivered orders
 

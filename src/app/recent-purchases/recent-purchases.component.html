@@ -9,7 +9,7 @@
 				</div>
 			  </ng-template>
 			  <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
-			  
+
 		<div class="row" *ngIf="showLoading; else productshow">
 				<div class="col-12 text-center">
 					<img src="../../assets/loader.gif" alt="" />
@@ -335,7 +335,7 @@
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<button type="button" class="close" (click)="closeShippingModal()">
 									<img src="../../assets/svg/close.svg" alt="">
 								</button>
 						<h5 class="modal-title">ATTACH SHIPPING DOCUMENTS</h5>
@@ -359,9 +359,13 @@
 																(change)="handleFileInput($event, 'invoice')"   
 																[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('invoice').hasError('required')">Invoice {{'Register.required' | translate}}.</div>              
-							
-																		</div>
-																
+																<div *ngIf="doc != ''">
+																<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'invoice')"></div>
+	
+																</div>
+																		</div>	
+														
+
 															</div>
 													</div>
 												</div>
@@ -376,8 +380,11 @@
 																(change)="handleFileInput($event, 'healthCert')" 
 																[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('healthCert').hasError('required')">Healrh Certificate {{'Register.required' | translate}}.</div>              
-							
-																		</div>
+																<div *ngIf="doc != ''">
+																<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'healthCert')"></div>
+			
+																</div>
+															</div>
 															 
 															</div>
 													</div>
@@ -393,8 +400,11 @@
 																(change)="handleFileInput($event, 'packingList')" 
 																[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('packingList').hasError('required')">Packing List {{'Register.required' | translate}}.</div>              
-							
+																<div *ngIf="doc != ''">
+																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'packingList')"></div>
+					
 																		</div>
+															</div>
 															 
 															</div>
 													</div>
@@ -410,8 +420,11 @@
 																(change)="handleFileInput($event, 'awb')" 
 																[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('awb').hasError('required')">AWB {{'Register.required' | translate}}.</div>              
-							
+																<div *ngIf="doc != ''">
+																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'awb')"></div>
+					
 																		</div>
+															</div>
 															 
 															</div>
 													</div>
@@ -428,7 +441,10 @@
 																(change)="handleFileInput($event, 'certificateOrigin')" 
 																[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('certificateOrigin').hasError('required')">Certificate of Origin {{'Register.required' | translate}}.</div>              
-							
+																<div *ngIf="doc != ''">
+																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'certificateOrigin')"></div>
+					
+																		</div>
 																		</div>
 															 
 															</div>
@@ -444,7 +460,10 @@
 																(change)="handleFileInput($event,'creditNote')" 
 																[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
 																<div class="invalid-feedback" *ngIf="trackingForm.get('creditNote').hasError('required')">Credit Note {{'Register.required' | translate}}.</div>              
-							
+																<div *ngIf="doc != ''">
+																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'creditNote')"></div>
+					
+																		</div>
 																		</div>
 																
 															</div>
