@@ -28,36 +28,18 @@ import { HomeComponent } from './home/home.component';
 import { CartService } from './core/cart/cart.service';
 import { OrdersService } from './core/orders/orders.service';
 import { FileUploadModule } from 'ng2-file-upload';
-import { FishComponent } from './fish/fish.component';
 import { AccountComponent } from './account/account.component';
 
-import { MyProductsComponent } from './my-products/my-products.component';
-import { CartComponent } from './cart/cart.component';
 
-import { ConfirmationEmailComponent } from './confirmation-email/confirmation-email.component';
 
-import { SingleStoreComponent } from './single-store/single-store.component';
 
-import { FeaturedProductsComponent } from './featured-products/featured-products.component';
-import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
-import { AdministratorComponent } from './administrator/administrator.component';
 //import { environment } from '../../environments/environment';
-import { TrackingComponent } from './tracking/tracking.component';
-import { ProductsComponent } from './products/products.component';
-import { SellerComponent } from './seller/seller.component';
-import { BuyerComponent } from './buyer/buyer.component';
-import { CommentsComponent } from './comments/comments.component';
-import { OrdersComponent } from './orders/orders.component';
-import { OrdersItemsComponent } from './orders-items/orders-items.component';
-import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { VerifyUserComponent } from './verify-user/verify-user.component';
 import { ChartComponent } from './chart/chart.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
-import { FeaturedTypesComponent } from './featured-types/featured-types.component';
-import { FishTypeMenuComponent } from './fish-type-menu/fish-type-menu.component';
 import { BrowseComponent } from './browse/browse.component';
 import { SfsPayComponent } from './sfs-pay/sfs-pay.component';
 import { HelpComponent } from './help/help.component';
@@ -92,7 +74,6 @@ import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admi
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
-import { EditAccountComponent } from './edit-account/edit-account.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 
@@ -196,27 +177,114 @@ const appRoutes: Routes = [
     loadChildren: './manage-store-trimming/manage-store-trimming.module#ManageStoreTrimmingModule',
     canActivate: [SellerRouterService]
   },
-  { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
-  { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
-  // { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
-  { path: 'verification/:userid/:id', component: ConfirmationEmailComponent },
-  { path: 'store/:id', component: SingleStoreComponent, canActivate: [RouterProtectionService] },
-  { path: 'featured-products', component: FeaturedProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'featured-seller', component: FeaturedSellerComponent, canActivate: [AdminRouterService] },
-  { path: 'featured-types', component: FeaturedTypesComponent, canActivate: [AdminRouterService] },
-  { path: 'fish-types-menu', component: FishTypeMenuComponent, canActivate: [AdminRouterService] },
-  { path: 'admin', component: AdministratorComponent, canActivate: [AdminRouterService] },
-  { path: 'tracking', component: TrackingComponent },
-  { path: 'products/:query/:page', component: ProductsComponent, canActivate: [RouterProtectionService] },
-  { path: 'seller', component: SellerComponent, canActivate: [AdminRouterService] },
-  { path: 'buyer', component: BuyerComponent, canActivate: [AdminRouterService] },
-  { path: 'orders', component: OrdersComponent, canActivate: [RouterProtectionService] },
-  { path: 'orders-items/:id', component: OrdersItemsComponent, canActivate: [RouterProtectionService] },
-  { path: 'comments', component: CommentsComponent, canActivate: [AdminRouterService] },
-  { path: 'recovery-password/:code', component: RecoveryPasswordComponent },
-  { path: 'verify-users', component: VerifyUserComponent, canActivate: [AdminRouterService] },
-  { path: 'chart', component: ChartComponent, canActivate: [AdminRouterService] },
+  {
+    path: 'product-categories',
+    loadChildren: './fish/fish.module#FishModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'account',
+    loadChildren: './edit-account/edit-account.module#EditAccountModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'manage-products',
+    loadChildren: './my-products/my-products.module#MyProductsModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'cart',
+    loadChildren: './cart/cart-routing.module#CartModule',
+    canActivate: []
+  },
+  {
+    path: 'verification/:userid/:id',
+    loadChildren: './confirmation-email/confirmation-email.module#ConfirmationEmailModule',
+    canActivate: []
+  },
+  {
+    path: 'store/:id',
+    loadChildren: './single-store/single-store.module#SingleStoreModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'featured-products',
+    loadChildren: './featured-products/featured-products.module#FeaturedProductsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'featured-seller',
+    loadChildren: './featured-seller/featured-seller.module#FeaturedSellerModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'featured-types',
+    loadChildren: './featured-types/featured-types.module#FeaturedTypesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'fish-types-menu',
+    loadChildren: './fish-type-menu/fish-type-menu.module#FeaturedTypesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'admin',
+    loadChildren: './administrator/administrator.module#FeaturedTypesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'tracking',
+    loadChildren: './tracking/tracking.module#TrackingModule',
+  },
+  {
+    path: 'products/:query/:page',
+    loadChildren: './products/products.module#ProductsModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'seller',
+    loadChildren: './seller/seller.module#SellerModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'buyer',
+    loadChildren: './buyer/buyer.module#BuyerModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'orders',
+    loadChildren: './orders/orders.module#OrdersModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'orders-items/:id',
+    loadChildren: './orders-items/orders-items.module#OrdersItemsModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'comments',
+    loadChildren: './comments/comments.module#CommentsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'recovery-password/:code',
+    loadChildren: './recovery-password/recovery-password.module#RecoveryPasswordModule',
+  },
+  {
+    path: 'verify-users',
+    loadChildren: './verify-user/verify-user.module#VerifyUserModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'chart',
+    loadChildren: './chart/chart.module#ChartModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'documents',
+    loadChildren: './documents/documents.module#DocumentsModule',
+    canActivate: [AdminRouterService]
+  },
   { path: 'documents', component: DocumentsComponent, canActivate: [RouterProtectionService] },
   { path: 'tracking-code/:item', component: TrackingCodeComponent, canActivate: [RouterProtectionService] },
   { path: 'browse', component: BrowseComponent },
@@ -258,29 +326,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     MenuNavComponent,
     AppComponent,
     HomeComponent,
-    FishComponent,
     AccountComponent,
-    CartComponent,
-    ConfirmationEmailComponent,
-    SingleStoreComponent,
-    FeaturedProductsComponent,
-    FeaturedSellerComponent,
     FeaturedStoreComponent,
-    AdministratorComponent,
-    TrackingComponent,
-    ProductsComponent,
-    SellerComponent,
-    BuyerComponent,
-    CommentsComponent,
-    OrdersComponent,
-    OrdersItemsComponent,
-    RecoveryPasswordComponent,
     VerifyUserComponent,
     ChartComponent,
     DocumentsComponent,
     TrackingCodeComponent,
-    FeaturedTypesComponent,
-    FishTypeMenuComponent,
     BrowseComponent,
     SfsPayComponent,
     HelpComponent,
@@ -310,7 +361,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     PrivacyPolicyComponent,
     CookiesPolicyComponent,
     CitiManagmentComponent,
-    EditAccountComponent,
     ForgotPasswordComponent,
   ],
   imports: [
