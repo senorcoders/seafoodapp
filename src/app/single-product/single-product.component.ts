@@ -135,7 +135,13 @@ export class SingleProductComponent implements OnInit {
   verifyQty() {
     if (this.count > this.max) {
       this.count = this.max;
+      this.value = this.count;
+      this.getPricingCharges();
+  
+
+
     } else {
+      this.value = this.count;
       this.getPricingCharges();
     }
   }
@@ -427,5 +433,16 @@ getChangeContextString(changeContext: ChangeContext): string {
   return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
          `value: ${changeContext.value}, ` +
          `highValue: ${changeContext.highValue}}`;
+}
+
+showElements() {
+  document.getElementById('qty-text').style.display = 'none';
+  document.getElementById('input-text').style.display = 'block';
+  jQuery('#input-text').focus();
+}
+
+hideElements() {
+  document.getElementById('input-text').style.display = 'none';
+  document.getElementById('qty-text').style.display = 'block';
 }
 }
