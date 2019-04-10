@@ -13,6 +13,13 @@ export class Interceptor implements HttpInterceptor {
         let event: HttpRequest<any>;
         let data = localStorage.getItem('login');
 
+        //Para cuando se usa el translate
+        if (req.url.includes("/assets/i18n") === true) {
+            return next.handle(req.clone({
+                url: req.url
+            }));
+        }
+
         if (data) {
             let json = JSON.parse(data);
             let token = json['token'];

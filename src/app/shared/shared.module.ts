@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Interceptor } from '../interceptor/interceptor';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
+// import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslateService } from 'ng2-translate';
 import { NgxSmartModalModule } from 'ngx-smart-modal';
 import { TooltipModule } from 'ng2-tooltip-directive';
 import { ngfModule } from 'angular-file';
@@ -29,6 +29,8 @@ import { BuyerRouterService } from '../services/buyer-router.service';
 import { RouterProtectionService } from '../services/router-protection.service';
 import { AdminRouterService } from '../services/admin-router.service';
 import { NonsellerRouterService } from '../services/nonseller-router.service';
+import { TranslateModule } from '@ngx-translate/core';
+import { OwlDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 
 
 @NgModule({
@@ -36,20 +38,15 @@ import { NonsellerRouterService } from '../services/nonseller-router.service';
     FooterComponent,
     FilternumberPipe,
   ],
-  imports: [    
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     HttpClientModule,
-    
-    TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactory: function (http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json'); },
-      deps: [Http]
-    }),
     NgxSmartModalModule.forRoot(),
     TooltipModule,
+    TranslateModule,
     ngfModule,
     NgxLoadingModule.forRoot({
       animationType: ngxLoadingAnimationTypes.wanderingCubes
@@ -66,16 +63,17 @@ import { NonsellerRouterService } from '../services/nonseller-router.service';
     TooltipModule,
     NgProgressModule,
     FilternumberPipe,
-    NgxLoadingModule, 
+    NgxLoadingModule,
     Ng5SliderModule,
     NgxSmartModalModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    TranslateModule,
+    OwlDateTimeModule
   ],
   providers: [
     AuthenticationService,
-   
     IsLoginService,
     ProductService,
     SellerRouterService,
@@ -89,7 +87,25 @@ import { NonsellerRouterService } from '../services/nonseller-router.service';
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
-    }
+    },
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en' },
   ]
 })
-export class SharedModule { }
+export class SharedModule {
+  // static forRoot(): ModuleWithProviders {
+
+  //   function translateLoader(http: Http) {
+  //     return new TranslateStaticLoader(http, './assets/i18n', '.json');
+  //   }
+  //   return {
+  //     ngModule: SharedModule,
+  //     providers: [{
+  //       provide: TranslateLoader,
+  //       useFactory: translateLoader,
+  //       deps: [Http]
+  //     },
+  //       TranslateService],
+  //   };
+  // }
+}
+

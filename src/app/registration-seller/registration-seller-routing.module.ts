@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './login.component';
 import { SharedModule } from '../shared/shared.module';
+import { RegistrationSellerComponent } from './registration-seller.component';
+
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '', component: RegistrationSellerComponent }
 ];
 
 @NgModule({
@@ -13,5 +14,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class LoginRoutingModule { }
- 
+export class RegistrationSellerRoutingModule { }

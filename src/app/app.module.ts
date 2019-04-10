@@ -9,27 +9,26 @@ import { AdminRouterService } from './services/admin-router.service';
 import { NonsellerRouterService } from './services/nonseller-router.service';
 
 import { Routes, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateLoader, TranslateStaticLoader } from 'ng2-translate';
-import { Http } from '@angular/http';
+
+// import { TranslateModule, TranslateLoader, TranslateStaticLoader, TranslatePipe, TranslateService } from 'ng2-translate';
+// import { Http } from '@angular/http';
+
+// import ngx-translate and the http loader
+import { TranslateLoader, TranslateModule, TranslatePipe } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { HttpClientModule, HttpClient, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { MenuItems } from './core/menu/menu-items';
 import { MenuNavComponent } from './core/menu/menu-nav.component';
-//import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
 
 import { CartService } from './core/cart/cart.service';
 import { OrdersService } from './core/orders/orders.service';
-import { AddProductComponent } from './add-product/add-product.component';
-import { ArchiveProductsComponent } from './archive-products/archive-products.component';
-import { SearchComponent } from './search/search.component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { FishComponent } from './fish/fish.component';
-import { SingleProductComponent } from './single-product/single-product.component';
-import { EditProductComponent } from './edit-product/edit-product.component';
 import { AccountComponent } from './account/account.component';
 
 import { MyProductsComponent } from './my-products/my-products.component';
@@ -43,7 +42,6 @@ import { FeaturedProductsComponent } from './featured-products/featured-products
 import { FeaturedSellerComponent } from './featured-seller/featured-seller.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 import { AdministratorComponent } from './administrator/administrator.component';
-import { FavoritesComponent } from './favorites/favorites.component';
 //import { environment } from '../../environments/environment';
 import { TrackingComponent } from './tracking/tracking.component';
 import { ProductsComponent } from './products/products.component';
@@ -55,8 +53,6 @@ import { OrdersItemsComponent } from './orders-items/orders-items.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 import { BarRatingModule } from 'ngx-bar-rating';
 import { VerifyUserComponent } from './verify-user/verify-user.component';
-import { RecentPurchasesComponent } from './recent-purchases/recent-purchases.component';
-import { OrderPurchaseComponent } from './order-purchase/order-purchase.component';
 import { ChartComponent } from './chart/chart.component';
 import { DocumentsComponent } from './documents/documents.component';
 import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
@@ -69,16 +65,12 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
 import { GuidesComponent } from './guides/guides.component';
 import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
 import { AboutComponent } from './about/about.component';
-import { AdvancedSearchComponent } from './advanced-search/advanced-search.component';
 import { FilterPipePipe } from './filter-pipe.pipe';
 import { ShippingRatesComponent } from './shipping-rates/shipping-rates.component';
 import { ShippingRatesService } from './services/shipping-rates.service';
-import { CheckoutComponent } from './checkout/checkout.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
 
-import { ThanksComponent } from './thanks/thanks.component';
 import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
 import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
 import { AdminOrdersShippedComponent } from './admin-orders-shipped/admin-orders-shipped.component';
@@ -92,52 +84,121 @@ import { RepaymentsComponent } from './repayments/repayments.component';
 import { RefundsComponent } from './refunds/refunds.component';
 import { RefundCasesComponent } from './refund-cases/refund-cases.component';
 import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
-import { ItemsByStatusComponent } from './items-by-status/items-by-status.component';
-import { CanceledDeliveredItemsComponent } from './canceled-delivered-items/canceled-delivered-items.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
 import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
-import { ManageStoreTrimmingComponent } from './manage-store-trimming/manage-store-trimming.component';
-import { ReviewcartComponent } from './reviewcart/reviewcart.component';
 import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
 import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
 import { EditAccountComponent } from './edit-account/edit-account.component';
-
-
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { RegistrationBuyerComponent } from './registration-buyer/registration-buyer.component';
 
-import { RegistrationSellerComponent } from './registration-seller/registration-seller.component';
 
 const appRoutes: Routes = [
   {
-    path: '',
-    children: [
-      {
-        path: '',
-        component: HomeComponent
-      },
-      {
-        path: 'login',
-        loadChildren: './login/login.module#LoginModule'
-      },
-
-    ]
+    path: '', component: HomeComponent,
   },
-  { path: 'register', component: RegistrationBuyerComponent },
-  { path: 'register-seller', component: RegistrationSellerComponent },
-  { path: 'add-product', component: AddProductComponent, canActivate: [SellerRouterService] },
-  { path: 'fish-type/:category/:page', component: ArchiveProductsComponent, canActivate: [BuyerRouterService] },
-  { path: 'search/:search/:page', component: SearchComponent, canActivate: [BuyerRouterService] },
-  { path: 'product/:id', component: SingleProductComponent, canActivate: [NonsellerRouterService] },
+  {
+    path: "login",
+    loadChildren: './login/login.module#LoginModule'
+  },
+  {
+    path: 'register',
+    loadChildren: './registration-buyer/registration-buyer.module#RegistrationBuyerModule'
+  },
+  {
+    path: 'register-seller',
+    loadChildren: './registration-seller/registration-seller.module#RegistrationSellerModule'
+  },
+  {
+    path: 'add-product',
+    loadChildren: './add-product/add-product.module#AddProductModule'
+  },
+  {
+    path: 'fish-type/:category/:page',
+    loadChildren: './archive-products/archive-products.module#ArchiveProductsModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'search/:search/:page',
+    loadChildren: './search/search.module#SearchModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'favorites',
+    loadChildren: './favorites/favorites.module#FavoritesModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'advanced-search',
+    loadChildren: './advanced-search/advanced-search.module#AdvancedSearchModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'reviewcart',
+    loadChildren: './reviewcart/reviewcart.module#ReviewcartModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'checkout',
+    loadChildren: './checkout/checkout.module#CheckoutModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'confirmation',
+    loadChildren: './confirmation/confirmation.module#ConfirmationModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'thanks',
+    loadChildren: './thanks/thanks.module#ThanksModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'items-status',
+    loadChildren: './items-by-status/items-by-status.module#ItemsByStatusModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'historical-orders',
+    loadChildren: './canceled-delivered-items/canceled-delivered-items.module#CanceledDeliveredItemsModule',
+    canActivate: [BuyerRouterService]
+  },
+  {
+    path: 'product/:id',
+    loadChildren: './single-product/single-product.module#SingleProductModule',
+    canActivate: [NonsellerRouterService]
+  },
+  {
+    path: 'edit-product/:id',
+    loadChildren: './edit-product/edit-product.module#EditProductModule',
+    canActivate: [SellerRouterService]
+  },
+  {
+    path: 'my-products',
+    loadChildren: './my-products/my-products.module#MyProductsModule',
+    canActivate: [SellerRouterService]
+  },
+  {
+    path: 'recent-purchases',
+    loadChildren: './recent-purchases/recent-purchases.module#RecentPurchasesModule',
+    canActivate: [SellerRouterService]
+  },
+  {
+    path: 'order-purchase/:item',
+    loadChildren: './order-purchase/order-purchase.module#OrderPurchaseModule',
+    canActivate: [SellerRouterService]
+  },
+  {
+    path: 'manage-store-trimming',
+    loadChildren: './manage-store-trimming/manage-store-trimming.module#ManageStoreTrimmingModule',
+    canActivate: [SellerRouterService]
+  },
   { path: 'product-categories', component: FishComponent, canActivate: [AdminRouterService] },
-  { path: 'edit-product/:id', component: EditProductComponent, canActivate: [SellerRouterService] },
   { path: 'account', component: EditAccountComponent, canActivate: [RouterProtectionService] },
-  { path: 'my-products', component: MyProductsComponent, canActivate: [SellerRouterService] },
-  { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
+  // { path: 'manage-products', component: MyProductsComponent, canActivate: [AdminRouterService] },
   { path: 'cart', component: CartComponent, canActivate: [RouterProtectionService] },
   { path: 'verification/:userid/:id', component: ConfirmationEmailComponent },
   { path: 'store/:id', component: SingleStoreComponent, canActivate: [RouterProtectionService] },
@@ -146,7 +207,6 @@ const appRoutes: Routes = [
   { path: 'featured-types', component: FeaturedTypesComponent, canActivate: [AdminRouterService] },
   { path: 'fish-types-menu', component: FishTypeMenuComponent, canActivate: [AdminRouterService] },
   { path: 'admin', component: AdministratorComponent, canActivate: [AdminRouterService] },
-  { path: 'favorites', component: FavoritesComponent, canActivate: [BuyerRouterService] },
   { path: 'tracking', component: TrackingComponent },
   { path: 'products/:query/:page', component: ProductsComponent, canActivate: [RouterProtectionService] },
   { path: 'seller', component: SellerComponent, canActivate: [AdminRouterService] },
@@ -156,8 +216,6 @@ const appRoutes: Routes = [
   { path: 'comments', component: CommentsComponent, canActivate: [AdminRouterService] },
   { path: 'recovery-password/:code', component: RecoveryPasswordComponent },
   { path: 'verify-users', component: VerifyUserComponent, canActivate: [AdminRouterService] },
-  { path: 'recent-purchases', component: RecentPurchasesComponent, canActivate: [SellerRouterService] },
-  { path: 'order-purchase/:item', component: OrderPurchaseComponent, canActivate: [SellerRouterService] },
   { path: 'chart', component: ChartComponent, canActivate: [AdminRouterService] },
   { path: 'documents', component: DocumentsComponent, canActivate: [RouterProtectionService] },
   { path: 'tracking-code/:item', component: TrackingCodeComponent, canActivate: [RouterProtectionService] },
@@ -170,7 +228,6 @@ const appRoutes: Routes = [
   { path: 'privacy-policy', component: PrivacyPolicyComponent },
   { path: 'cookies-policy', component: CookiesPolicyComponent },
   { path: 'about-us', component: AboutComponent },
-  { path: 'advanced-search', component: AdvancedSearchComponent, canActivate: [BuyerRouterService] },
   { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
   { path: 'pricing-charges', component: PricingChargesComponent, canActivate: [AdminRouterService] },
   { path: 'orders-shipped', component: AdminOrdersShippedComponent, canActivate: [AdminRouterService] },
@@ -184,35 +241,25 @@ const appRoutes: Routes = [
   { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
   { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
   { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
-  { path: 'reviewcart', component: ReviewcartComponent, canActivate: [BuyerRouterService] },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [BuyerRouterService] },
-  { path: 'confirmation', component: ConfirmationComponent, canActivate: [BuyerRouterService] },
-  { path: 'thanks', component: ThanksComponent, canActivate: [BuyerRouterService] },
-  { path: 'items-status', component: ItemsByStatusComponent, canActivate: [BuyerRouterService] },
   { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'historical-orders', component: CanceledDeliveredItemsComponent, canActivate: [BuyerRouterService] },
   { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
   { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
   { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-store-trimming', component: ManageStoreTrimmingComponent, canActivate: [SellerRouterService] },
   { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] },
   { path: 'forgot-password', component: ForgotPasswordComponent }
 ];
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
     MenuNavComponent,
     AppComponent,
-    RegisterComponent,
     HomeComponent,
-    AddProductComponent,
-    ArchiveProductsComponent,
-    SearchComponent,
-    EditProductComponent,
     FishComponent,
-    SingleProductComponent,
     AccountComponent,
-    MyProductsComponent,
     CartComponent,
     ConfirmationEmailComponent,
     SingleStoreComponent,
@@ -220,7 +267,6 @@ const appRoutes: Routes = [
     FeaturedSellerComponent,
     FeaturedStoreComponent,
     AdministratorComponent,
-    FavoritesComponent,
     TrackingComponent,
     ProductsComponent,
     SellerComponent,
@@ -230,8 +276,6 @@ const appRoutes: Routes = [
     OrdersItemsComponent,
     RecoveryPasswordComponent,
     VerifyUserComponent,
-    RecentPurchasesComponent,
-    OrderPurchaseComponent,
     ChartComponent,
     DocumentsComponent,
     TrackingCodeComponent,
@@ -244,12 +288,8 @@ const appRoutes: Routes = [
     GuidesComponent,
     TermsConditionsComponent,
     AboutComponent,
-    AdvancedSearchComponent,
     FilterPipePipe,
     ShippingRatesComponent,
-    CheckoutComponent,
-    ConfirmationComponent,
-    ThanksComponent,
     PricingChargesComponent,
     AdminOrdersComponent,
     AdminOrdersShippedComponent,
@@ -263,22 +303,15 @@ const appRoutes: Routes = [
     RefundsComponent,
     RefundCasesComponent,
     ManageOrdersComponent,
-    ItemsByStatusComponent,
-    CanceledDeliveredItemsComponent,
     ProductListComponent,
     AdminCountriesComponent,
     ShippingByCityComponent,
-    ManageStoreTrimmingComponent,
-    ReviewcartComponent,
     AdminLogisticManagmentComponent,
     PrivacyPolicyComponent,
     CookiesPolicyComponent,
     CitiManagmentComponent,
     EditAccountComponent,
-
     ForgotPasswordComponent,
-    RegistrationBuyerComponent,
-    RegistrationSellerComponent,
   ],
   imports: [
     BrowserAnimationsModule,
@@ -287,21 +320,34 @@ const appRoutes: Routes = [
     ToastrModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
-      provide: TranslateLoader,
-      useFactory: function (http: Http) { return new TranslateStaticLoader(http, '/assets/i18n', '.json'); },
-      deps: [Http]
-    }),    
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+    TranslateModule.forChild({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     FileUploadModule,
-
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-
-
   ],
-  exports: [ SharedModule ],
+  exports: [
+    SharedModule,
+    TranslateModule
+  ],
   providers: [
-    RouterProtectionService, AdminRouterService, BuyerRouterService, SellerRouterService, NonsellerRouterService,
+    RouterProtectionService,
+    AdminRouterService,
+    BuyerRouterService,
+    SellerRouterService,
+    NonsellerRouterService,
     CartService,
     OrdersService,
     ShippingRatesService,
@@ -309,7 +355,7 @@ const appRoutes: Routes = [
     PricingChargesService,
     MenuItems,
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'en' },
-
+    // TranslateService
   ],
   bootstrap: [AppComponent]
 })
