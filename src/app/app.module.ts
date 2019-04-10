@@ -118,6 +118,7 @@ import { RegistrationSellerComponent } from './registration-seller/registration-
 import { NonsellerRouterService } from './services/nonseller-router.service';
 import { TitleService } from './title.service';
 import { Ng5SliderModule } from 'ng5-slider';
+import { ShopComponent } from './shop/shop.component';
 
 
 const appRoutes: Routes = [
@@ -145,7 +146,7 @@ const appRoutes: Routes = [
   { path: 'admin', component: AdministratorComponent, canActivate: [AdminRouterService] },
   { path: 'favorites', component: FavoritesComponent, canActivate: [BuyerRouterService] },
   { path: 'tracking', component: TrackingComponent },
-  { path: 'products/:query/:page', component: ProductsComponent, canActivate: [RouterProtectionService] },
+  { path: 'shop', component: ShopComponent, canActivate: [RouterProtectionService] },
   { path: 'seller', component: SellerComponent, canActivate: [AdminRouterService] },
   { path: 'buyer', component: BuyerComponent, canActivate: [AdminRouterService] },
   { path: 'orders', component: OrdersComponent, canActivate: [RouterProtectionService] },
@@ -278,6 +279,7 @@ const appRoutes: Routes = [
     ForgotPasswordComponent,
     RegistrationBuyerComponent,
     RegistrationSellerComponent,
+    ShopComponent,
   ],
   imports: [
     BrowserModule,

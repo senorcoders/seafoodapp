@@ -175,7 +175,7 @@ const menuAdmin = [
     },
     children: [
       {
-        state: 'products/all/1',
+        state: 'shop',
         type: 'link',
         name: 'Browse Products',
         translate: {
@@ -304,7 +304,7 @@ const menuSeller = [
 ];
 const menuBuyer = [
   {
-    state: 'products/all/1',
+    state: 'shop',
     type: 'link',
     icon: 'fish-v.svg',
     translate: {

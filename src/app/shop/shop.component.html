@@ -1,0 +1,45 @@
+<div class="gray-bg">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-12 text-center">
+              <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
+            </div>
+            <div class="col-lg-12" *ngIf="showNotFound">
+              <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
+            </div>
+
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} category-{{removeSpaces(product.type.name)}} {{product.country}} {{i}} {{product.id}} {{product.price.value}}">
+              <div class="single-product-box">
+                  <div class="product-header">
+                   <div class="row">
+                     <div class="col-md-10">
+                        <span id="qty-kg-{{product.id}}" class="qty-kg" (click)="hideMe(product.id)"><span *ngIf="!product.qty">{{product.minimumOrder}}</span> {{product.qty}} kg</span>  
+                        <input placeholder="type kg..."  id="edit-qty-{{product.id}}" class="qty-number" type="number"  (change)="manualInput(product.id, i, product.maximumOrder)" (focusout)="showSpan(product.id)">
+                        <form>
+                            <input id="range-{{product.id}}" name="foo" type="range" class="product-range" [value]="product.minimumOrder" [min]="product.minimumOrder" [max]="product.maximumOrder" (change)="getRange(product.id, i)">
+                            <label id="delivere-price-{{product.id}}">AED 12.99</label>
+                        </form>
+                      </div>
+                     <div class="col-md-2 text-right">
+                       <a id="btn-add-{{product.id}}" (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                     </div>
+                   </div>
+                  </div>
+                  <div class="product-body">
+                    <a routerLink="/product/{{product.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="image[i]">
+                        <div class="product-overlay"></div>
+                        <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                     </div>
+                    </a>
+                  </div>
+                  <div class="product-footer">
+                    <h4>{{product.name}}</h4>
+                    <h5>AED {{product.price.value}} / {{product.weight.type}}</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+       
+    </div>
+</div>
