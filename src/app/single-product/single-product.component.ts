@@ -227,7 +227,6 @@ export class SingleProductComponent implements OnInit {
         this.wholeFishWeight = data['wholeFishWeight'];
       }
       this.getReview();
-      this.getPriceKg(this.count);
       this.getPricingCharges();
       this.showLoading = false;
     }, error => {
@@ -370,8 +369,10 @@ export class SingleProductComponent implements OnInit {
     this.pricingServices.getPricingChargesByWeight(this.productID, this.count)
       .subscribe(
         res => {
+          console.log('Pricing Charges', res);
           this.charges = res;
-          this.getPriceKg(this.count);
+          this.delivered = res['finalPrice'] / this.count;
+
           this.showTaxes = true;
 
         },
@@ -398,15 +399,7 @@ export class SingleProductComponent implements OnInit {
 
     return Number(parseFloat(total).toFixed(2));
   }
-  getPriceKg(weight) {
-    this.productService.getData(`api/fish/${this.productID}/charges/${weight}`).subscribe(result => {
-      this.delivered = result['finalPrice'] / weight;
-    },
-      e => {
-        console.log(e);
-      }
-    );
-  }
+ 
 
   findCountries(code){
     for (var i=0; i < this.countries.length; i++) {
