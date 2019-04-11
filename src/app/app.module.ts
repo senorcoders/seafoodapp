@@ -28,7 +28,6 @@ import { HomeComponent } from './home/home.component';
 import { CartService } from './core/cart/cart.service';
 import { OrdersService } from './core/orders/orders.service';
 import { FileUploadModule } from 'ng2-file-upload';
-import { AccountComponent } from './account/account.component';
 
 
 
@@ -36,45 +35,13 @@ import { AccountComponent } from './account/account.component';
 import { FeaturedStoreComponent } from './featured-store/featured-store.component';
 //import { environment } from '../../environments/environment';
 import { BarRatingModule } from 'ngx-bar-rating';
-import { VerifyUserComponent } from './verify-user/verify-user.component';
-import { ChartComponent } from './chart/chart.component';
-import { DocumentsComponent } from './documents/documents.component';
-import { TrackingCodeComponent } from './tracking-code/tracking-code.component';
-import { BrowseComponent } from './browse/browse.component';
-import { SfsPayComponent } from './sfs-pay/sfs-pay.component';
-import { HelpComponent } from './help/help.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
-import { GuidesComponent } from './guides/guides.component';
-import { TermsConditionsComponent } from './terms-conditions/terms-conditions.component';
-import { AboutComponent } from './about/about.component';
-import { FilterPipePipe } from './filter-pipe.pipe';
-import { ShippingRatesComponent } from './shipping-rates/shipping-rates.component';
 import { ShippingRatesService } from './services/shipping-rates.service';
 import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
 
-import { PricingChargesComponent } from './pricing-charges/pricing-charges.component';
-import { AdminOrdersComponent } from './admin-orders/admin-orders.component';
-import { AdminOrdersShippedComponent } from './admin-orders-shipped/admin-orders-shipped.component';
-import { ProductManagmentComponent } from './product-managment/product-managment.component';
-import { PendingProductsComponent } from './pending-products/pending-products.component';
-import { AdminOrderOutDeliveryComponent } from './admin-order-out-delivery/admin-order-out-delivery.component';
-import { AdminOrderDeliveredComponent } from './admin-order-delivered/admin-order-delivered.component';
-import { AdminOrderArrivedComponent } from './admin-order-arrived/admin-order-arrived.component';
-import { PaymentsComponent } from './payments/payments.component';
-import { RepaymentsComponent } from './repayments/repayments.component';
-import { RefundsComponent } from './refunds/refunds.component';
-import { RefundCasesComponent } from './refund-cases/refund-cases.component';
-import { ManageOrdersComponent } from './manage-orders/manage-orders.component';
-import { ProductListComponent } from './product-list/product-list.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
-import { AdminCountriesComponent } from './admin-countries/admin-countries.component';
-import { ShippingByCityComponent } from './shipping-by-city/shipping-by-city.component';
-import { AdminLogisticManagmentComponent } from './admin-logistic-managment/admin-logistic-managment.component';
-import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
-import { CookiesPolicyComponent } from './cookies-policy/cookies-policy.component';
-import { CitiManagmentComponent } from './citi-managment/citi-managment.component';
-import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ProductManagmentComponent } from './product-managment/product-managment.component';
+import { AccountComponent } from './account/account.component';
 
 
 const appRoutes: Routes = [
@@ -194,7 +161,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: './cart/cart-routing.module#CartModule',
+    loadChildren: './cart/cart.module#CartModule',
     canActivate: []
   },
   {
@@ -224,12 +191,12 @@ const appRoutes: Routes = [
   },
   {
     path: 'fish-types-menu',
-    loadChildren: './fish-type-menu/fish-type-menu.module#FeaturedTypesModule',
+    loadChildren: './fish-type-menu/fish-type-menu.module#FishTypeMenuModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'admin',
-    loadChildren: './administrator/administrator.module#FeaturedTypesModule',
+    loadChildren: './administrator/administrator.module#AdministratorModule',
     canActivate: [AdminRouterService]
   },
   {
@@ -285,36 +252,147 @@ const appRoutes: Routes = [
     loadChildren: './documents/documents.module#DocumentsModule',
     canActivate: [AdminRouterService]
   },
-  { path: 'documents', component: DocumentsComponent, canActivate: [RouterProtectionService] },
-  { path: 'tracking-code/:item', component: TrackingCodeComponent, canActivate: [RouterProtectionService] },
-  { path: 'browse', component: BrowseComponent },
-  { path: 'sfspay', component: SfsPayComponent },
-  { path: 'help', component: HelpComponent },
-  { path: 'contact-us', component: ContactUsComponent },
-  { path: 'guides', component: GuidesComponent },
-  { path: 'terms-conditions', component: TermsConditionsComponent },
-  { path: 'privacy-policy', component: PrivacyPolicyComponent },
-  { path: 'cookies-policy', component: CookiesPolicyComponent },
-  { path: 'about-us', component: AboutComponent },
-  { path: 'shipping-rates', component: ShippingRatesComponent, canActivate: [AdminRouterService] },
-  { path: 'pricing-charges', component: PricingChargesComponent, canActivate: [AdminRouterService] },
-  { path: 'orders-shipped', component: AdminOrdersShippedComponent, canActivate: [AdminRouterService] },
-  { path: 'orders-arrived', component: AdminOrderArrivedComponent, canActivate: [AdminRouterService] },
-  { path: 'seller-fulfills-orders', component: AdminOrdersComponent, canActivate: [AdminRouterService] },
-  { path: 'orders-out-for-delivery', component: AdminOrderOutDeliveryComponent, canActivate: [AdminRouterService] },
-  { path: 'orders-delivered', component: AdminOrderDeliveredComponent, canActivate: [AdminRouterService] },
-  { path: 'payment-management', component: PaymentsComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-orders', component: ManageOrdersComponent, canActivate: [AdminRouterService] },
-  { path: 'logistic-management', component: AdminLogisticManagmentComponent, canActivate: [AdminRouterService] },
-  { path: 'repayments', component: RepaymentsComponent, canActivate: [AdminRouterService] },
-  { path: 'refunds', component: RefundsComponent, canActivate: [AdminRouterService] },
-  { path: 'refund-cases', component: RefundCasesComponent, canActivate: [AdminRouterService] },
-  { path: 'pending-products', component: PendingProductsComponent, canActivate: [AdminRouterService] },
-  { path: 'products-list/page/:number', component: ProductListComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-countries', component: AdminCountriesComponent, canActivate: [AdminRouterService] },
-  { path: 'manage-shipping-cities', component: ShippingByCityComponent, canActivate: [AdminRouterService] },
-  { path: 'port-loading-management', component: CitiManagmentComponent, canActivate: [AdminRouterService] },
-  { path: 'forgot-password', component: ForgotPasswordComponent }
+  {
+    path: 'tracking-code/:item',
+    loadChildren: './tracking-code/tracking-code.module#TrackingCodeModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
+    path: 'browse',
+    loadChildren: './browse/browse.module#BrowseModule',
+  },
+  {
+    path: 'sfspay',
+    loadChildren: './sfs-pay/sfs-pay.module#SfsPayModule',
+  },
+  {
+    path: 'help',
+    loadChildren: './help/help.module#HelpModule',
+  },
+  {
+    path: 'contact-us',
+    loadChildren: './contact-us/contact-us.module#ContactUsModule',
+  },
+  {
+    path: 'guides',
+    loadChildren: './guides/guides.module#GuidesModule',
+  },
+  {
+    path: 'terms-conditions',
+    loadChildren: './terms-conditions/terms-conditions.module#TermsConditionsModule',
+  },
+  {
+    path: 'privacy-policy',
+    loadChildren: './privacy-policy/privacy-policy.module#PrivacyPolicyModule',
+  },
+  {
+    path: 'cookies-policy',
+    loadChildren: './cookies-policy/cookies-policy.module#PrivacyPolicyModule',
+  },
+  {
+    path: 'about-us',
+    loadChildren: './about/about.module#AboutModule',
+  },
+  {
+    path: 'shipping-rates',
+    loadChildren: './shipping-rates/shipping-rates.module#ShippingRatesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'pricing-charges',
+    loadChildren: './pricing-charges/pricing-charges.module#PricingChargesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'orders-shipped',
+    loadChildren: './admin-orders-shipped/admin-orders-shipped.module#AdminOrdersShippedModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'orders-arrived',
+    loadChildren: './admin-order-arrived/admin-order-arrived.module#AdminOrderArrivedModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'seller-fulfills-orders',
+    loadChildren: './admin-orders/admin-orders.module#AdminOrdersModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'orders-out-for-delivery',
+    loadChildren: './admin-order-out-delivery/admin-order-out-delivery.module#AdminOrderOutDeliveryModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'orders-delivered',
+    loadChildren: './admin-order-delivered/admin-order-delivered.module#AdminOrderDeliveredModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'payment-management',
+    loadChildren: './payments/payments.module#PaymentsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'manage-orders',
+    loadChildren: './manage-orders/manage-orders.module#ManageOrdersModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'logistic-management',
+    loadChildren: './admin-logistic-managment/admin-logistic-managment.module#AdminLogisticManagmentModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'repayments',
+    loadChildren: './repayments/repayments.module#RepaymentsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'refunds',
+    loadChildren: './refunds/refunds.module#RefundsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'refund-cases',
+    loadChildren: './refund-cases/refund-cases.module#RefundCasesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'pending-products',
+    loadChildren: './pending-products/pending-products.module#PendingProductsModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'products-list/page/:number',
+    loadChildren: './product-list/product-list.module#ProductListModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'manage-countries',
+    loadChildren: './admin-countries/admin-countries.module#AdminCountriesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'manage-shipping-cities',
+    loadChildren: './shipping-by-city/shipping-by-city.module#ShippingByCityModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'port-loading-management',
+    loadChildren: './citi-managment/citi-managment.module#CitiManagmentModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'forgot-password',
+    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule',
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: '**',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -326,42 +404,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     MenuNavComponent,
     AppComponent,
     HomeComponent,
-    AccountComponent,
     FeaturedStoreComponent,
-    VerifyUserComponent,
-    ChartComponent,
-    DocumentsComponent,
-    TrackingCodeComponent,
-    BrowseComponent,
-    SfsPayComponent,
-    HelpComponent,
-    ContactUsComponent,
-    GuidesComponent,
-    TermsConditionsComponent,
-    AboutComponent,
-    FilterPipePipe,
-    ShippingRatesComponent,
-    PricingChargesComponent,
-    AdminOrdersComponent,
-    AdminOrdersShippedComponent,
     ProductManagmentComponent,
-    PendingProductsComponent,
-    AdminOrderOutDeliveryComponent,
-    AdminOrderDeliveredComponent,
-    AdminOrderArrivedComponent,
-    PaymentsComponent,
-    RepaymentsComponent,
-    RefundsComponent,
-    RefundCasesComponent,
-    ManageOrdersComponent,
-    ProductListComponent,
-    AdminCountriesComponent,
-    ShippingByCityComponent,
-    AdminLogisticManagmentComponent,
-    PrivacyPolicyComponent,
-    CookiesPolicyComponent,
-    CitiManagmentComponent,
-    ForgotPasswordComponent,
+    AccountComponent
   ],
   imports: [
     BrowserAnimationsModule,

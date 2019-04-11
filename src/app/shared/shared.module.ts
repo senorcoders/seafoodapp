@@ -31,12 +31,15 @@ import { AdminRouterService } from '../services/admin-router.service';
 import { NonsellerRouterService } from '../services/nonseller-router.service';
 import { TranslateModule } from '@ngx-translate/core';
 import { OwlDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+import { BarRatingModule } from 'ngx-bar-rating';
+import { FilterPipePipe } from '../filter-pipe.pipe';
 
 
 @NgModule({
   declarations: [
     FooterComponent,
     FilternumberPipe,
+    FilterPipePipe
   ],
   imports: [
     CommonModule,
@@ -54,7 +57,7 @@ import { OwlDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
     NgProgressModule,
     Select2Module,
     Ng5SliderModule,
-    Select2Module
+    Select2Module,
   ],
   exports: [
     CommonModule,
@@ -70,7 +73,9 @@ import { OwlDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
     ReactiveFormsModule,
     AngularFontAwesomeModule,
     TranslateModule,
-    OwlDateTimeModule
+    OwlDateTimeModule,
+    BarRatingModule,
+    FilterPipePipe,
   ],
   providers: [
     AuthenticationService,
