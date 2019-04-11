@@ -5,6 +5,9 @@ import { environment } from '../../environments/environment';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from 'ngx-toastr';
 import { OrderService } from '../services/orders.service';
+import { Options, ChangeContext } from 'ng5-slider';
+import { CountriesService } from '../services/countries.service';
+import { TitleService } from '../title.service';
 declare var jQuery;
 @Component({
   selector: 'app-shop',
@@ -37,22 +40,134 @@ export class ShopComponent implements OnInit {
   buyerId:any;
   userInfo:any;
   showQty:boolean = false;
+  minValue: number = 0;
+  maxValue: number = 35;
+  name:any;
+  hideCat:boolean = false;
+  hideSubcat:boolean = true;
+  hideSpecie:boolean = true;
+  hideVariant:boolean = true;
+  filteredItems:any = [];
+  showClear:boolean = false;
+  options: Options = {
+    floor: 0,
+    ceil: 35,
+    step: 5,
+    translate: (value: number): string => {
+      return '$' + value;
+    }
+  };
 
   constructor(private auth: AuthenticationService,
     private productService: ProductService,
     private sanitizer: DomSanitizer,
     private toast: ToastrService,
-    private cartService: OrderService) { }
+    private cartService: OrderService,
+    private countryservice: CountriesService,
+    private titleS: TitleService) {
+      this.titleS.setTitle('Shop Seafood');
 
-  ngOnInit() {
+     }
+
+  async ngOnInit() {
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();
     this.buyerId = this.userInfo['id'];
     this.getCart();
     this.getProducts(100, 1);
+    await this.getCountries();
+    this.getFishCountries();
+    this.getAllTypesByLevel();
+
+
+    //JAVASCRIPT FOR FILTER
+
+  jQuery('.input-raised:checkbox').on('change', (e) => {
+    this.showClear = true;
+    this.filterProducts();
+  });
+
+  jQuery('.input-treatment:checkbox').on('change', (e) => { 
+    this.showClear = true;  
+    this.filterProducts();
+  });
+
+  jQuery('.input-preparation:checkbox').on('change', (e) => {
+    this.showClear = true;
+    this.filterProducts();
+  });
+
+  
+
+  
 
   }
 
+
+  //CHARGE LATE JS
+
+  chargeJS(){
+    jQuery('input[type=radio][name=country]').on('change', (e) => {
+      this.showClear = true;
+      this.filterProducts();
+    });
+
+    jQuery('input[type=radio][name=cat]').on('change',  (e) => {
+      this.showClear = true;
+
+      const subcategorySelected = e.target.value;
+
+      if ( subcategorySelected === 0 ) {
+        this.getAllTypesByLevel();
+        //jQuery('.subcategory-container').hide();        
+      } else {
+        this.getOnChangeLevel(subcategorySelected );
+        jQuery('.subcategory-container').show();
+      }
+       this.filterProducts();
+      setTimeout(() =>  {
+        this.hideCat = true;
+        this.hideSubcat = false;
+      }, 1000);
+
+    
+    });
+
+    jQuery('input[type=radio][name=subcat]').on('change', async (e) => {
+      this.showClear = true;
+      const specie = e.target.value;
+      await this.filterProducts();
+      this.getOnChangeLevel(specie );
+      setTimeout(() =>  {
+        this.hideCat = true;
+        this.hideSubcat = true;
+        this.hideSpecie = false;
+      }, 1000);
+
+    
+    });
+
+    jQuery('input[type=radio][name=specie]').on('change', (e) => {
+      this.showClear = true;
+      const variant = e.target.value;
+      this.getOnChangeLevel(variant );
+      this.filterProducts();
+      setTimeout(() =>  {
+        this.hideCat = true;
+        this.hideSubcat = true;
+        this.hideSpecie = true;
+        this.hideVariant = false;
+
+      }, 1000);
+
+    
+    });
+
+    jQuery('input[type=radio][name=specie]').on('change', (e) => {
+      this.showClear = true;
+      this.filterProducts();    
+    });
+  }
 
   //GETTING cart info
 
@@ -69,6 +184,59 @@ export class ShopComponent implements OnInit {
       })
   }
 
+
+  //GET THE COUNTRIES LIST
+
+  async getCountries() {
+    this.allCountries = [];
+    this.countries = [];
+    this.filteredItems = [];
+    await new Promise((resolve, reject) => {
+      this.countryservice.getCountries().subscribe(
+        result => {
+          console.log("ALl countries", result);
+          this.allCountries = result;
+          resolve();
+        },
+        error => {
+          console.log(error);
+          reject();
+        }
+      );
+    })
+   
+  }
+
+  //Map only countries with fishes
+
+  getFishCountries() {
+  	this.productService.getFishCountries().subscribe(
+  		result => {
+        console.log("Countries", result);
+        const filterCountries: any = [];
+        this.allCountries.map( country => {
+          const exists = Object.keys(result).some(function(k) {
+            return result[k] === country.code;
+          });
+          if ( exists ) {
+            filterCountries.push( country );
+            return country;
+          }
+        } );
+        console.log(filterCountries);
+        this.countries = filterCountries;
+        this.filteredItems = this.countries;
+        setTimeout(() =>  this.chargeJS(), 1000);
+
+
+  		},
+  		e => {
+  			this.showLoading = true;
+  			this.showError('Something wrong happened, Please Reload the Page');
+  			console.log(e);
+  		}
+  	);
+  }
 
   //GET all of the products
   getProducts(cant, page) {
@@ -214,4 +382,190 @@ export class ShopComponent implements OnInit {
     (input as HTMLElement).style.display = 'none';
     (span as HTMLElement).style.display = 'block';
   }
+
+  onUserChangeEnd(changeContext: ChangeContext): void {
+    console.log("changeContext", changeContext);
+    jQuery('#minPriceValue').val( changeContext.value );
+    jQuery('#maxPriceValue').val( changeContext.highValue );
+    this.filterProducts();
+   }
+
+   //FILTER PRODUCTS WITH PARAMETERS
+   filterProducts(){
+    if ( this.isClearButton ) {
+      return;
+    }
+    const raised:any = [];
+    const preparation:any = [];
+    const treatment:any = [] ;
+    const cat = jQuery('input[type=radio][name=cat]:checked').val();
+    const subcat = jQuery('input[type=radio][name=subcat]:checked').val();
+    const specie = jQuery('input[type=radio][name=specie]:checked').val();
+    const variant = jQuery('input[type=radio][name=variant]:checked').val();
+    const country = jQuery('input[type=radio][name=country]:checked').val();
+    let minPrice = jQuery('#minPriceValue').val();
+    let maxPrice = jQuery('#maxPriceValue').val();
+    let minimumOrder:any = "0";
+    let maximumOrder:any = "0";
+
+    jQuery('.input-treatment:checkbox:checked').each(function(i){
+      treatment[i] = jQuery(this).val();
+    });
+
+    jQuery('.input-raised:checkbox:checked').each(function(i){
+      raised[i] = jQuery(this).val();
+    });
+    jQuery('.input-preparation:checkbox:checked').each(function(i){
+      preparation[i] = jQuery(this).val();
+    });
+
+    if ( (minPrice === '' || minPrice === this.minValue ) && ( maxPrice === '' || maxPrice === this.maxValue ) ) {
+      minPrice = '0';
+      maxPrice = '0';
+    }
+
+   
+
+    if (
+      cat === '0' &&
+      subcat === '0' &&
+      specie === '0' &&
+      variant === '0' &&
+      country === '0' &&
+      Object.keys(raised).length === 0 &&
+      Object.keys(preparation).length  === 0 &&
+      Object.keys(treatment).length === 0 &&
+      minPrice === '0' &&
+      maxPrice === '0'
+    ) {
+      this.getProducts(100, 1);
+    }else{
+      this.showLoading = true;
+      this.products = [];
+      this.image = [];
+      this.productService.filterFish( cat, subcat, specie, variant, country, raised, preparation, treatment,
+        minPrice, maxPrice, minimumOrder, maximumOrder, "0" ).subscribe(
+        result => {
+          console.log("Filter Result", result);
+          this.showLoading = false;
+          this.products = result;
+
+          // working on the images to use like background
+          this.products.forEach((data, index) => {
+            if (data.imagePrimary && data.imagePrimary !== '') {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+            } else if (data.images && data.images.length > 0) {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`);
+            } else {
+              this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+            }
+        });
+          if ( result === undefined ||  Object.keys(result).length === 0  ) {
+            this.showNotFound = true;
+          } else {
+            this.showNotFound = false;
+          }
+        },
+        error => {
+          console.log( error );
+          this.showLoading = false;
+          this.showNotFound = true;
+
+        }
+      );
+    }
+   }
+
+   //FILTER COUNTRIES BY NAME TYPING
+   async filterItem(value){
+    if(!value){
+        await this.getCountries();
+        this.getFishCountries();
+    } // when nothing has typed
+    this.filteredItems = Object.assign([], this.countries).filter(
+       item => item.name.toLowerCase().indexOf(value.toLowerCase()) > -1
+    )
+    setTimeout(() =>  this.chargeJS(), 1000);
+
+ }
+
+
+ //GET CATEGORIES LIST
+
+ 
+
+
+getOnChangeLevel(selectedType: any ) {      
+  
+  console.log( 'selected type id', selectedType );
+  this.productService.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
+    result => {
+      console.log("On change levels", result);
+      setTimeout(() =>  this.chargeJS(), 1000);
+
+      result['childs'].map( item => {
+        switch (item.level) {
+          case 0:
+            this.searchCategories = item.fishTypes;
+            break;
+
+          case 1:
+            this.searchSubcategories = item.fishTypes;
+            break;
+
+          case 2:
+            this.searchSubSpecie = item.fishTypes;
+            break;
+
+          case 3:
+            this.searchDescriptor = item.fishTypes;
+            break;
+
+          default:
+            break;
+        }
+      } );
+    },
+    error => {
+      console.log( error );
+    }
+  );
+}
+
+getAllTypesByLevel() {
+  this.productService.getData(`getTypeLevel`).subscribe(
+    result => {
+      console.log("By level", result);
+      this.searchCategories = result['level0'];
+      this.searchSubcategories = result['level1'];
+      this.searchSubSpecie = result['level2'];
+      this.searchDescriptor = result['level3'];
+    },
+    error => {
+      console.log( error );
+    }
+  );
+}
+
+//CLEAR ALL
+
+  async clear(){
+  this.isClearButton = true;
+  this.showLoading = true;
+  this.hideCat = false;
+  this.hideSubcat = true;
+  this.hideSpecie = true;
+  this.hideVariant = true;
+  this.name = '';
+  await this.getCountries();
+  this.getFishCountries(); 
+   this.products = [];
+  jQuery('input:checkbox').prop('checked', false);
+  jQuery('input[type=radio]').prop('checked', false);
+
+  this.getProducts(100, 1);
+  this.showClear = false;
+
+
+}
 }
