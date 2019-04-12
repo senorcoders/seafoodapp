@@ -34,12 +34,46 @@
           </div>
           <div class="col-md-2 text-right">
             <button *ngIf="showClear" class="clear-btn" (click)="clear()">CLEAR ALL</button>
-            <button class="expandible-link" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+            <button [hidden]="!showIcon" class="expandible-link" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
                 <img  alt="">
             </button>
           </div>
         </div>
       </div>
+  </div>
+
+  <div class="filter-content collapse" id="filterCollapse2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 filter-col">
+          <h4>ORDER AMOUNT (KG)</h4>
+          <div class="form-group">
+            <form class="form-number">
+              <input type="number" placeholder="Min..." id="minAmount">
+              <label>to</label>
+              <input type="number" placeholder="Max..." id="maxAmount">
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3 filter-col">
+          <div class="form-group">
+              <form class="check-form">
+                  <input type="checkbox" id="cooming">
+                  <label for="cooming">UPCOMING</label>
+                </form>
+          </div>
+         
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn-transparent" (click)="showLess()">
+                <img src="../../assets/svg/arrow-up.svg" alt="">
+                SEE LESS
+            </button>
+          </div>
+        </div>
+    </div>
   </div>
   <div class="filter-content collapse show" id="filterCollapse">
     <div class="container">
@@ -159,6 +193,14 @@
               <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
 
             </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn-transparent" (click)="showMore()">
+              <img src="../../assets/svg/arrow-down.svg" alt="">
+              SEE MORE
+          </button>
+        </div>
       </div>
     </div>
   </div>

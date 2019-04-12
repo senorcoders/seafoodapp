@@ -291,7 +291,7 @@
     }
     
   }
-
+ 
   .filter-content{
     background-color: rgba($color: #7484AA, $alpha: 0.9);
     .container{
@@ -347,6 +347,44 @@
           }
         }
         .form-group{
+          .check-form{
+            label{
+              font-family: 'Josefin Sans', sans-serif;
+              font-size: 16px;
+              letter-spacing: 1.75px;
+              line-height: 20px;
+              color: #FFFFFF;
+            }
+          }
+          .form-number{
+            display: inline-flex;
+            flex-wrap: nowrap;
+            margin-top: 20px;
+            input{
+              width: 74px;
+              background: transparent;
+              border: none;
+              border-bottom: 1px solid #fff;
+              font-family: 'Open Sans', sans-serif;
+              font-weight: 100;
+              font-style: italic;
+              font-size: 16px;
+              outline: none !important;
+              color: #FFFFFF;
+              &::placeholder{
+                color: #FFFFFF;
+              }
+            }
+            label{
+              font-family: 'Open Sans', sans-serif;
+              font-weight: 100;
+              font-style: italic;
+              font-size: 14px;
+              color: #fff;
+              margin-left: 15px;
+              margin-right: 15px;
+            }
+          }
           div.custom-list{
             padding-top: 7px;
             padding-bottom: 7px;
@@ -419,6 +457,21 @@
         .type-input::placeholder{
           color: #FFFFFF;
         }
+      }
+    }
+
+    .btn-transparent{
+      border: none;
+      background: none;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+      letter-spacing: 1.5px;
+      line-height: 22px;
+      color: #FFFFFF;
+      img{
+        width: 13px;
+        height: 13px;
+        margin-right: 5px;
       }
     }
   }

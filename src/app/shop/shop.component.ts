@@ -66,7 +66,7 @@ export class ShopComponent implements OnInit {
   productsCart: any = [];
   total: any;
   imageCart:any = [];
-
+showIcon:boolean = true;
 
   constructor(private auth: AuthenticationService,
     private productService: ProductService,
@@ -114,6 +114,20 @@ export class ShopComponent implements OnInit {
 
   });
 
+  jQuery('#minAmount').on('change', (e) => {
+    this.showClear = true;
+    this.filterProducts();
+  });
+
+  jQuery('#maxAmount').on('change', (e) => {
+    this.showClear = true;
+    this.filterProducts();
+  });
+
+  jQuery('#cooming').on('change', (e) => {
+    this.showClear = true;
+    this.filterProducts();
+  });
   
 
   
@@ -514,9 +528,14 @@ export class ShopComponent implements OnInit {
     const country = jQuery('input[type=radio][name=country]:checked').val() || "0";
     let minPrice = jQuery('#minPriceValue').val();
     let maxPrice = jQuery('#maxPriceValue').val();
-    let minimumOrder:any = "0";
-    let maximumOrder:any = "0";
-
+    let minimumOrder = jQuery('#minAmount').val();
+    let maximumOrder = jQuery('#maxAmount').val();
+    let cooming_soon = jQuery('#cooming').prop('checked');
+    if (!cooming_soon) {
+      cooming_soon = '0';
+    } else {
+      cooming_soon = cooming_soon.toString();
+    }
     jQuery('.input-treatment:checkbox:checked').each(function(i){
       treatment[i] = jQuery(this).val();
     });
@@ -533,7 +552,15 @@ export class ShopComponent implements OnInit {
       maxPrice = '0';
     }
 
-   
+    if (minimumOrder === '') {
+      minimumOrder = '0';
+    }
+    if (maximumOrder === '') {
+      maximumOrder = '0';
+    }
+
+    console.log("AMOUNT", minimumOrder, maximumOrder);
+
 
     if (
       cat === '0' &&
@@ -545,7 +572,10 @@ export class ShopComponent implements OnInit {
       Object.keys(preparation).length  === 0 &&
       Object.keys(treatment).length === 0 &&
       minPrice === '0' &&
-      maxPrice === '0'
+      maxPrice === '0' &&
+      minimumOrder === '0' &&
+      maximumOrder === '0' &&
+      cooming_soon === '0'
     ) {
       this.getProducts(100, 1);
     }else{
@@ -553,7 +583,7 @@ export class ShopComponent implements OnInit {
       this.products = [];
       this.image = [];
       this.productService.filterFish( cat, subcat, specie, variant, country, raised, preparation, treatment,
-        minPrice, maxPrice, minimumOrder, maximumOrder, "0" ).subscribe(
+        minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon ).subscribe(
         result => {
           console.log("Filter Result", result);
           this.showLoading = false;
@@ -673,6 +703,8 @@ getAllTypesByLevel() {
   this.getFishCountries(); 
    this.products = [];
   jQuery('input:checkbox').prop('checked', false);
+  jQuery('#minAmount').val('');
+  jQuery('#maxAmount').val('');
   jQuery('input[type=radio]').prop('checked', false);
   jQuery('#pill-category').css('display', 'none');
   jQuery('#pill-subcategory').css('display', 'none');
@@ -831,5 +863,17 @@ getParentsCat(){
   this.productService.getData(`/fishTypes/parents/with-fishes`).subscribe(res =>{
     this.searchCategories = res;
   })
+}
+
+showMore(){
+  jQuery('#filterCollapse').collapse('hide');
+  jQuery('#filterCollapse2').collapse('show');
+  this.showIcon = false;
+}
+
+showLess(){
+  jQuery('#filterCollapse').collapse('show');
+  jQuery('#filterCollapse2').collapse('hide');
+  this.showIcon = true;
 }
 }
