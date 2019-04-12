@@ -40,7 +40,6 @@ import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
-
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { AccountComponent } from './account/account.component';
 
@@ -394,7 +393,6 @@ const appRoutes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   }
-
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {

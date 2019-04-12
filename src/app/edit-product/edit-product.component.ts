@@ -96,9 +96,8 @@ export class EditProductComponent implements OnInit {
     private router: Router, private toast: ToastrService,
     private auth: AuthenticationService, private sanitizer: DomSanitizer,
     private countryService: CountriesService, private pricingChargesService: PricingChargesService,
-    public ngProgress: NgProgress, private titleS: TitleService
-  ) { this.titleS.setTitle('Edit Product'); }
-
+    public ngProgress: NgProgress,
+    private titleS: TitleService) {     this.titleS.setTitle('Edit Product'); }
 
   ngOnInit() {
     // this.createFormControls();
@@ -160,7 +159,7 @@ export class EditProductComponent implements OnInit {
       this.hsCode = data['hsCode'];
       this.acceptableSpoilageRate = data['mortalityRate'];
       if (data['preparation'] != 'Filleted') {
-        this.showWholeOptions = true;
+        this.showWholeOptions = true; 
       }
       if (data['images']) {
         this.imageAPI = data['images'];
@@ -241,7 +240,7 @@ export class EditProductComponent implements OnInit {
       'hsCode': this.hsCode,
       'mortalityRate': this.acceptableSpoilageRate
     };
-
+    
     this.product.updateData('fish/' + this.productID, data).subscribe(result => {
       if (this.fileToUpload.length > 0) {
         this.uploadFileToActivity(this.productID);
@@ -383,10 +382,10 @@ export class EditProductComponent implements OnInit {
   }
 
 
-  getFishCategoryLevel() {
+  getFishCategoryLevel(){
     this.product.getData(`fishType/parents/${this.productID}`).subscribe(res => {
-      console.log("Fish Level", res);
-      this.mainCategory = res['level0'].id;
+        console.log("Fish Level",  res);
+        this.mainCategory = res['level0'].id;
     })
   }
   getAllTypesByLevel() {

@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { TitleService } from '../title.service';
-declare var jQuery: any;
+declare var jQuery:any;
 
 @Component({
   selector: 'app-edit-account',
@@ -15,9 +15,9 @@ declare var jQuery: any;
   styleUrls: ['./edit-account.component.scss']
 })
 export class EditAccountComponent implements OnInit {
-  info: any;
+  info:any;
   buyerForm: FormGroup;
-  buyerFirstName: FormControl;
+  buyerFirstName: FormControl; 
   buyerLastName: FormControl;
   buyerEmail: FormControl;
   buyerPhoneNumber: FormControl;
@@ -26,10 +26,10 @@ export class EditAccountComponent implements OnInit {
   buyerCountry: FormControl;
   buyerAddress: FormControl;
   buyerCity: FormControl;
-  countries = environment.countries;
-  password: any = "";
-  repassword: string;
-  currentPassword: string;
+  countries=environment.countries;
+  password:any = "";
+  repassword:string;
+  currentPassword:string;
   sellerForm: FormGroup;
   sellerFirstName: FormControl;
   sellerLastName: FormControl;
@@ -47,63 +47,62 @@ export class EditAccountComponent implements OnInit {
   SellerProductsIntered: FormControl;
   sellerContactNumber: FormControl;
   sellerCurrencyTrade: FormControl;
-  storeEndpoint: any = "api/store/user/";
-  store: any;
+  storeEndpoint:any = "api/store/user/";
+  store:any;
   sellerStoreDescription: FormControl;
-  base: string = environment.apiURLImg;
-  logo: any;
-  hero: any;
+  base:string=environment.apiURLImg;
+  logo:any;
+  hero:any;
   fileToUpload: any = [];
-  fileHero: any = [];
-  heroEndpoint: any = 'api/store/hero/';
-  logoEndpoint: any = 'api/store/logo/';
+  fileHero:any = [];
+  heroEndpoint:any = 'api/store/hero/';
+  logoEndpoint:any = 'api/store/logo/';
   public loading = false;
 
 
 
 
-  constructor(private auth: AuthenticationService, private rest: ProductService,
-    private toast: ToastrService, public ngProgress: NgProgress, private router: Router,
-    private titleS: TitleService) {
-      this.titleS.setTitle('Settings');
+  constructor(private auth: AuthenticationService, private rest: ProductService, 
+    private toast:ToastrService, public ngProgress: NgProgress, private router:Router,
+    private titleS: TitleService) {     this.titleS.setTitle('Settings');
   }
 
+  
+   async ngOnInit() {
 
-  async ngOnInit() {
-
-    this.createFormControls();
+    this.createFormControls();  
     this.createBuyerForm();
     this.createSellerForm();
-    this.getPersonalData();
+   this.getPersonalData();
     console.log(this.info.role);
-    if (this.info['role'] == 1) {
+    if(this.info['role'] == 1){
       await this.getStoreData();
       this.setSellerValues();
 
     }
     this.setValues();
-
+   
 
   }
-  getPersonalData() {
-    this.info = this.auth.getLoginData();
-    console.log(this.info);
-    return this.info;
+   getPersonalData(){
+      this.info = this.auth.getLoginData();
+      console.log(this.info);
+      return this.info;   
     // this.getStoreData();
   }
 
-  createFormControls() {
+  createFormControls(){
     this.buyerFirstName = new FormControl('', [Validators.required]);
-    this.buyerLastName = new FormControl('', [Validators.required]);
+    this.buyerLastName = new FormControl('',[Validators.required]);
     this.buyerEmail = new FormControl('', [Validators.email, Validators.required]);
     this.buyerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
-    this.buyerCompanyName = new FormControl('', [Validators.required]);
-    this.buyerTypeBusiness = new FormControl('', [Validators.required]);
-    this.buyerCountry = new FormControl('', [Validators.required]);
-    this.buyerAddress = new FormControl('', [Validators.required]);
-    this.buyerCity = new FormControl('', [Validators.required]);
+    this.buyerCompanyName = new FormControl('',[Validators.required]);
+    this.buyerTypeBusiness = new FormControl('',[Validators.required]);
+    this.buyerCountry = new FormControl('',[Validators.required]);
+    this.buyerAddress = new FormControl('',[Validators.required]);
+    this.buyerCity = new FormControl('',[Validators.required]);
     this.sellerFirstName = new FormControl('', [Validators.required]);
-    this.sellerLastName = new FormControl('', [Validators.required]);
+    this.sellerLastName = new FormControl('',[Validators.required]);
     this.sellerEmail = new FormControl('', [Validators.email, Validators.required]);
     this.sellerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
     this.sellerCompanyName = new FormControl('', [Validators.required]);
@@ -118,11 +117,11 @@ export class EditAccountComponent implements OnInit {
     this.SellerProductsIntered = new FormControl('', [Validators.required]);
     this.sellerContactNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
     this.sellerCurrencyTrade = new FormControl('', [Validators.required]);
-    this.sellerStoreDescription = new FormControl('', [Validators.required]);
+    this.sellerStoreDescription= new FormControl('', [Validators.required]);
 
   }
 
-  createBuyerForm() {
+  createBuyerForm(){
     this.buyerForm = new FormGroup({
       firstName: this.buyerFirstName,
       lastName: this.buyerLastName,
@@ -135,12 +134,12 @@ export class EditAccountComponent implements OnInit {
       typeBusiness: this.buyerTypeBusiness
 
 
-    }, {
-        updateOn: 'submit'
-      });
+  }, {
+    updateOn: 'submit'
+  });
   }
 
-  createSellerForm() {
+  createSellerForm(){
     this.sellerForm = new FormGroup({
       firstName: this.sellerFirstName,
       lastName: this.sellerLastName,
@@ -158,13 +157,13 @@ export class EditAccountComponent implements OnInit {
       productsIntered: this.SellerProductsIntered,
       contactNumber: this.sellerContactNumber,
       currencyTrade: this.sellerCurrencyTrade,
-      storeDescription: this.sellerStoreDescription
-    }, {
-        updateOn: 'submit'
-      });
+       storeDescription: this.sellerStoreDescription
+     }, {
+    updateOn: 'submit'
+  });
   }
 
-  setValues() {
+  setValues(){
     this.buyerForm.controls['firstName'].setValue(this.info.firstName);
     this.buyerForm.controls['lastName'].setValue(this.info.lastName);
     this.buyerForm.controls['email'].setValue(this.info.email);
@@ -174,11 +173,11 @@ export class EditAccountComponent implements OnInit {
     this.buyerForm.controls['telephone'].setValue(this.info.dataExtra['tel']);
     this.buyerForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
     this.buyerForm.controls['typeBusiness'].setValue(this.info.dataExtra['typeBusiness']);
-
+   
 
   }
 
-  setSellerValues() {
+  setSellerValues(){
     this.sellerForm.controls['firstName'].setValue(this.info.firstName);
     this.sellerForm.controls['lastName'].setValue(this.info.lastName);
     this.sellerForm.controls['email'].setValue(this.info.email);
@@ -198,8 +197,8 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['storeDescription'].setValue(this.store[0].description);
   }
 
-  updateBuyer() {
-    if (this.buyerForm.valid) {
+  updateBuyer(){
+    if(this.buyerForm.valid){
       console.log("Valido");
       this.info.firstName = this.buyerForm.get('firstName').value;
       this.info.lastName = this.buyerForm.get('lastName').value;
@@ -212,13 +211,13 @@ export class EditAccountComponent implements OnInit {
       this.info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
       console.log(this.info);
       this.updateAccount(this.info);
-    } else {
+    }else{
       this.validateAllFormFields(this.buyerForm);
     }
   }
 
-  updateSeller() {
-    if (this.sellerForm.valid) {
+  updateSeller(){
+    if(this.sellerForm.valid){
       console.log("Valido");
       this.info.firstName = this.sellerForm.get('firstName').value;
       this.info.lastName = this.sellerForm.get('lastName').value;
@@ -239,164 +238,164 @@ export class EditAccountComponent implements OnInit {
       this.loading = true;
       this.ngProgress.start();
       this.updateAccount(this.info);
-    } else {
+    }else{
       this.validateAllFormFields(this.sellerForm);
     }
   }
 
 
-  validateAllFormFields(formGroup: FormGroup) {
-    Object.keys(formGroup.controls).forEach(field => {
-      const control = formGroup.get(field);
-      if (control instanceof FormControl) {
+  validateAllFormFields(formGroup: FormGroup) {         
+    Object.keys(formGroup.controls).forEach(field => { 
+      const control = formGroup.get(field);             
+      if (control instanceof FormControl) {             
         control.markAsTouched({ onlySelf: true });
-      } else if (control instanceof FormGroup) {
-        this.validateAllFormFields(control);
+      } else if (control instanceof FormGroup) {        
+        this.validateAllFormFields(control);            
       }
     });
   }
 
-  updateAccount(data) {
-    this.rest.updateData('user/' + this.info.id, data).subscribe(res => {
+  updateAccount(data){
+    this.rest.updateData('user/'+this.info.id, data).subscribe(res =>{
       console.log(res);
       this.auth.setLoginData(this.info);
-      if (this.info.role == 1) {
+      if(this.info.role == 1){
         this.updateStore();
-      } else {
+      }else{
         this.loading = false;
         this.ngProgress.done();
-        this.toast.success("Your account information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-
+        this.toast.success("Your account information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        
       }
 
-    }, error => {
+    },  error =>{
       this.loading = false;
-      this.ngProgress.done();
-      this.toast.error("An error has occured", "Error", { positionClass: "toast-top-right" });
+        this.ngProgress.done();
+      this.toast.error("An error has occured", "Error",{positionClass:"toast-top-right"} );
     })
   }
 
 
-  updatePassword() {
-
-    if (this.repassword == this.password) {
-      this.rest.updatePassword(this.info.email, this.currentPassword, this.password).subscribe(
-        result => {
-          this.toast.success('Password has been changed successfully!', "Error", { positionClass: "toast-top-right" });
-          this.currentPassword = '';
-          this.password = "";
-          this.repassword = '';
-        }, error => {
+  updatePassword(){
+    
+    if(this.repassword == this.password){
+      this.rest.updatePassword(this.info.email,this.currentPassword,this.password).subscribe(
+        result=>{
+          this.toast.success('Password has been changed successfully!', "Error",{positionClass:"toast-top-right"} );
+          this.currentPassword='';
+          this.password="";
+          this.repassword='';
+        },error=>{
           console.log(error)
-          this.toast.error('Something wrong happened. Maybe your current password is not the correct one', "Error", { positionClass: "toast-top-right" });
+          this.toast.error('Something wrong happened. Maybe your current password is not the correct one', "Error",{positionClass:"toast-top-right"} );
         }
       )
     }
-    else {
-      this.toast.error('Password and Repeat password not matched', "Error", { positionClass: "toast-top-right" });
+    else{
+      this.toast.error('Password and Repeat password not matched', "Error",{positionClass:"toast-top-right"} );
     }
-  }
+}
 
-  async getStoreData() {
-    await new Promise((resolve, reject) => {
-      this.rest.getData(this.storeEndpoint + this.info['id']).subscribe(result => {
-        this.store = result;
-        this.logo = result[0].logo;
-        this.hero = result[0].heroImage;
-        console.log("Store", this.store[0]);
-        resolve();
-
-      }, error => {
-        console.error(error);
-        reject();
-      })
+async getStoreData(){
+  await new Promise((resolve, reject) => {
+    this.rest.getData(this.storeEndpoint+this.info['id']).subscribe(result =>{
+      this.store = result;
+      this.logo = result[0].logo;
+      this.hero = result[0].heroImage;
+      console.log("Store", this.store[0]);
+      resolve();
+     
+    }, error => {
+      console.error(error);
+      reject();
     })
+  })
+ 
+}
 
+
+updateStore(){
+  
+  let storeFullData={
+    "companyName":this.sellerForm.get('companyName').value,
+    "companyType": this.sellerForm.get('companyType').value,
+    "location": this.sellerForm.get('country').value,
+    "Address":this.sellerForm.get('address').value,
+    "City":this.sellerForm.get('city').value,
+    "ContactNumber": this.sellerForm.get('contactNumber').value,
+    "CorporateBankAccountNumber": this.sellerForm.get('iban').value,
+    "CurrencyofTrade": this.sellerForm.get('currencyTrade').value,
+    "FoodSafetyCertificateNumber": this.sellerForm.get('iso').value,
+    "ProductsInterestedSelling": this.sellerForm.get('productsIntered').value,
+    "TradeBrandName": this.sellerForm.get('trade').value,
+    "TradeLicenseNumber": this.sellerForm.get('licenseNumber').value,
+    "description": this.sellerForm.get('storeDescription').value
   }
+  this.rest.updateData('store/'+this.store[0].id, storeFullData).subscribe(
+    async result=>{
 
-
-  updateStore() {
-
-    let storeFullData = {
-      "companyName": this.sellerForm.get('companyName').value,
-      "companyType": this.sellerForm.get('companyType').value,
-      "location": this.sellerForm.get('country').value,
-      "Address": this.sellerForm.get('address').value,
-      "City": this.sellerForm.get('city').value,
-      "ContactNumber": this.sellerForm.get('contactNumber').value,
-      "CorporateBankAccountNumber": this.sellerForm.get('iban').value,
-      "CurrencyofTrade": this.sellerForm.get('currencyTrade').value,
-      "FoodSafetyCertificateNumber": this.sellerForm.get('iso').value,
-      "ProductsInterestedSelling": this.sellerForm.get('productsIntered').value,
-      "TradeBrandName": this.sellerForm.get('trade').value,
-      "TradeLicenseNumber": this.sellerForm.get('licenseNumber').value,
-      "description": this.sellerForm.get('storeDescription').value
-    }
-    this.rest.updateData('store/' + this.store[0].id, storeFullData).subscribe(
-      async result => {
-
-        if (this.fileHero.length > 0 || this.fileToUpload.length > 0) {
-          (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
-          (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
-          this.loading = false;
-          this.ngProgress.done();
-          this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          this.router.navigate(['/recent-purchases']);
-
-        } else {
-          this.loading = false;
-          this.ngProgress.done();
-          this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          this.router.navigate(['/recent-purchases']);
-
-        }
-
-        console.log("Update Store", result);
-
-      },
-      error => {
+      if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+        (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
+        (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
         this.loading = false;
         this.ngProgress.done();
-        console.log(error)
-      }
-    )
-  }
+        this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.router.navigate(['/recent-purchases']);
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files;
-    this.readFile(files, '#logo');
+      }else{
+        this.loading = false;
+        this.ngProgress.done();
+        this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
+        this.router.navigate(['/recent-purchases']);
 
-  }
-  handleFileHero(files: FileList) {
-    this.fileHero = files;
-    this.readFile(files, '#hero');
-
-  }
-
-  async uploadFile(id, endpoint, file, from) {
-
-    await new Promise((resolve, reject) => {
-      this.rest.uploadFile(endpoint + id, from, file).subscribe(result => {
-        console.log("File", result);
-        resolve();
-      }, error => {
-        console.log("File Error", error);
-        reject();
-      })
-    });
-  }
-
-
-  readFile(files, id) {
-    if (files[0]) {
-      var reader = new FileReader();
-
-      reader.onload = (e: Event) => {
-        jQuery(id).attr('src', reader.result);
       }
 
-      reader.readAsDataURL(files[0]);
+      console.log("Update Store", result);
+
+    },
+    error=>{
+      this.loading = false;
+      this.ngProgress.done();
+      console.log(error)
     }
+  )
+}
+
+handleFileInput(files: FileList) {
+  this.fileToUpload = files;
+  this.readFile(files, '#logo');
+  
+}
+handleFileHero(files: FileList){
+  this.fileHero = files;
+  this.readFile(files, '#hero');
+
+}
+
+  async uploadFile(id, endpoint, file, from){
+
+  await new Promise((resolve, reject) => {
+  this.rest.uploadFile(endpoint+id, from, file).subscribe(result => {
+    console.log("File", result);
+    resolve();
+  }, error => {
+    console.log("File Error", error);
+    reject();
+  })
+});
+}
+
+
+readFile(files, id){
+  if (files[0]) {
+    var reader = new FileReader();
+
+    reader.onload = (e: Event) => {
+      jQuery(id).attr('src', reader.result);
+    }
+
+    reader.readAsDataURL(files[0]);
   }
+}
 
 }
