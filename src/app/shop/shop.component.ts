@@ -170,6 +170,7 @@ export class ShopComponent implements OnInit {
   //CHARGE LATE JS
 
   chargeJS(){
+    console.log("Cargando JS");
     jQuery('input[type=radio][name=country]').on('change', (e) => {
       this.showClear = true;
       this.filterProducts();
@@ -464,6 +465,7 @@ export class ShopComponent implements OnInit {
 
    //FILTER PRODUCTS WITH PARAMETERS
    filterProducts(){
+     this.showNotFound = false;
     if ( this.isClearButton ) {
       return;
     }
@@ -573,12 +575,12 @@ getOnChangeLevel(selectedType: any ) {
   this.productService.getData( `fishTypes/${selectedType}/all_levels` ).subscribe(
     result => {
       console.log("On change levels", result);
-      setTimeout(() =>  this.chargeJS(), 1000);
 
       result['childs'].map( item => {
         switch (item.level) {
           case 0:
             this.searchCategories = item.fishTypes;
+            
             break;
 
           case 1:
@@ -597,6 +599,8 @@ getOnChangeLevel(selectedType: any ) {
             break;
         }
       } );
+      setTimeout(() =>  this.chargeJS(), 1000);
+
     },
     error => {
       console.log( error );
@@ -623,6 +627,7 @@ getAllTypesByLevel() {
 
   async clear(){
   this.isClearButton = true;
+  this.showNotFound = false;
   this.showLoading = true;
   this.hideCat = false;
   this.hideSubcat = true;
