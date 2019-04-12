@@ -51,6 +51,7 @@
           left: 0;
           right: 0;
           bottom: 0;
+          border-radius: 2px;
         }
         .product-status{
           background: #9A9EA8;
@@ -124,6 +125,7 @@
         letter-spacing: 1.5px;
         line-height: 25px;
         margin: 0;
+        margin-bottom: 10px;
       }
       h5{
         font-family: 'Josefin Sans', sans-serif;
@@ -160,6 +162,9 @@
       width: 64px;
       height: 64px;
       cursor: pointer;
+      .a{
+        fill: #9A9EA8;
+      }
     }
     h3{
       color: #9A9EA8;

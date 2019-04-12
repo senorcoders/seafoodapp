@@ -16,6 +16,7 @@
     
       </div>
       <div class="col-lg-6 product-content" *ngIf="!showLoading">
+          <div class="sticky-div">
         <h2 class="product-name">
           {{name}}
           <div *ngIf="role == 0" class="edit-admin">
@@ -55,6 +56,8 @@
 
           <div class="row range-row">
             <div class="col-md-7">
+                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()" id="input-text">
+                <input type="text" id="qty-text" class="qty" (click)="showElements()" value="type...">
                 <ng5-slider [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
 
             </div>
@@ -81,6 +84,8 @@
           </div>
         </ng-template>
   
+      
+      </div>
       </div>
     </div>   
   </div>
