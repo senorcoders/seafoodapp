@@ -89,12 +89,15 @@ export class FishFeaturesComponent implements OnInit {
       preparation: new FormControl(this.preparationOptions[0], Validators.required),
       head: new FormControl(this.head, Validators.required),
       wholeFishAction: new FormControl(this.wholeFishAction, Validators.required),
-      price: new FormControl('0', Validators.required)
+      price: new FormControl('0', Validators.required),
+      priceShow: new FormControl(true, Validators.nullValidator)
     }));
 
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
         this.hideTrimModal = false;
+      }else{
+        this.hideTrimModal = true;
       }
 
       // selectedType = it.speciesSelected.value;
@@ -115,30 +118,30 @@ export class FishFeaturesComponent implements OnInit {
       }
     });
 
-    this.checkPriceForm();
+    // this.checkPriceForm();
   }
 
-  private checkPriceForm() {
-    if (this.parentForm.form.controls.price !== undefined) {
-      this.parentForm.form.controls.price.valueChanges.subscribe(ig => {
-        let keys = Object.keys(ig);
-        keys = keys.filter(it => {
-          if (
-            it === 'headAction' ||
-            it === 'weights' ||
-            it === 'example' ||
-            it.includes(this.identifier) === true
-          ) return false;
-          return ig[it] === true;
-        });
-        if (keys.length > 1) {
-          this.head = 'both';
-        }
-      });
-    } else {
-      setTimeout(this.checkPriceForm.bind(this), 3000);
-    }
-  }
+  // private checkPriceForm() {
+  //   if (this.parentForm.form.controls.price !== undefined) {
+  //     this.parentForm.form.controls.price.valueChanges.subscribe(ig => {
+  //       let keys = Object.keys(ig);
+  //       keys = keys.filter(it => {
+  //         if (
+  //           it === 'headAction' ||
+  //           it === 'weights' ||
+  //           it === 'example' ||
+  //           it.includes(this.identifier) === true
+  //         ) return false;
+  //         return ig[it] === true;
+  //       });
+  //       if (keys.length > 1) {
+  //         this.head = 'both';
+  //       }
+  //     });
+  //   } else {
+  //     setTimeout(this.checkPriceForm.bind(this), 3000);
+  //   }
+  // }
 
   private getwholeFishWeight() {
     this.productService.getData("fishpreparation").subscribe(it => {
@@ -189,7 +192,8 @@ export class FishFeaturesComponent implements OnInit {
       if (head === 'off') this.head = 'on';
       else if (head === 'on') this.head = 'off';
     }
-    this.setValue({ head: this.head });
+    let priceShow = this.head !== 'both';
+    this.setValue({ head: this.head, priceShow });
   }
 
   public assingWholeFish(re) {

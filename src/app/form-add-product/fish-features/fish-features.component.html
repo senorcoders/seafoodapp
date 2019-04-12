@@ -73,7 +73,7 @@
   <div class="col-lg-6" [hidden]="wholeFishAction!==false">
     <div class="form-group"
       [ngClass]="{'has-danger': controls().preparation.invalid && (controls().preparation.dirty || controls().preparation.touched),'has-success': controls().preparation.valid && (controls().preparation.dirty || controls().preparation.touched)}">
-      <label>{{'CreateProduct.preparation' | translate}} <span class="field-status red">*</span> <a class="manage-link"
+      <label>{{'CreateProduct.trimming' | translate}} <span class="field-status red">*</span> <a class="manage-link"
           data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a> <img
           tooltip="This field reflects any post harvest treatment/processing of the product" placement="right"
           show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
@@ -87,7 +87,7 @@
     </div>
   </div>
 
-  <div class="col-lg-6" [hidden]="head==='both'">
+  <div class="col-lg-6" [hidden]="controls().priceShow.value===false||(hideTrimModal===false&&wholeFishAction===false)">
     <div class="form-group"
       [ngClass]="{'has-danger': controls().price.invalid && (controls().price.dirty || controls().price.touched),'has-success': controls().price.valid && (controls().price.dirty || controls().price.touched)}">
       <label>{{'CreateProduct.price' | translate}} <span class="field-status red">*</span> <img

@@ -122,36 +122,59 @@ export class CreateProductComponent implements OnInit {
         product = value.product,
         features = value.features,
         pricing = value.price;
-      let variations: any = {}, variationsEnd = [];
+      let variations: any = {}, variationsTrim: any = {}, variationsEnd = [];
       if (pricing.weights !== '') {
         variations = JSON.parse(pricing.weights);
       }
-      //Para los ON
-      let fishPreparation = this.trimmings[0].id;
-      if (variations.on.keys && variations.on.keys.length > 0) {
-        for (let it of variations.on.keys) {
-          let wholeFishWeight = it;
+      if (pricing.weightsTrim !== '') {
+        variationsTrim = JSON.parse(pricing.weightsTrim);
+      }
+
+      //Para quitar las options
+      let itereOptions = it => {
+        delete it.options;
+        return it;
+      };
+      //Para ver si es varations Trimming
+      if (features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+        console.log(Object.keys(variationsTrim));
+        for (let key of Object.keys(variationsTrim)) {
+          let fishPreparation = key;
           let itr = {
             fishPreparation,
-            wholeFishWeight,
-            prices: variations.on[it]
+            prices: variationsTrim[key].map(itereOptions)
           }
           variationsEnd.push(itr);
         }
-      }
-      //Para off
-      fishPreparation = this.trimmings[1].id;
-      if (variations.off.keys && variations.off.keys.length > 0) {
-        for (let it of variations.off.keys) {
-          let wholeFishWeight = it;
-          let itr = {
-            fishPreparation,
-            wholeFishWeight,
-            prices: variations.off[it]
+      } else {
+        //Para los ON
+        let fishPreparation = this.trimmings[0].id;
+        if (variations.on.keys && variations.on.keys.length > 0) {
+          for (let it of variations.on.keys) {
+            let wholeFishWeight = it;
+            let itr = {
+              fishPreparation,
+              wholeFishWeight,
+              prices: variations.on[it].map(itereOptions)
+            }
+            variationsEnd.push(itr);
           }
-          variationsEnd.push(itr);
+        }
+        //Para off
+        fishPreparation = this.trimmings[1].id;
+        if (variations.off.keys && variations.off.keys.length > 0) {
+          for (let it of variations.off.keys) {
+            let wholeFishWeight = it;
+            let itr = {
+              fishPreparation,
+              wholeFishWeight,
+              prices: variations.off[it].map(itereOptions)
+            }
+            variationsEnd.push(itr);
+          }
         }
       }
+
 
       await this.generateSKU();
       // this.ngProgress.start();
@@ -159,7 +182,7 @@ export class CreateProductComponent implements OnInit {
       let priceAED = (value.features.price * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': product.subSpeciesSelected,
-        'descriptor': product.descriptorSelected ===''? null : product.descriptorSelected,
+        'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
         'store': this.store[0].id,
         'quality': 'good',
         'name': product.name,
@@ -188,7 +211,7 @@ export class CreateProductComponent implements OnInit {
         'status': '5c0866e4a0eda00b94acbdc0',
         'brandname': product.brandName,
         'hsCode': product.hsCode,
-        variations: features.head === 'both' ? variationsEnd : null
+        variations: features.priceShow === false || features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4' ? variationsEnd : null
       };
       console.log(data);
 
@@ -206,8 +229,8 @@ export class CreateProductComponent implements OnInit {
         }
 
       });
-      this.loading = false;
-      this.ngProgress.done();
+      // this.loading = false;
+      // this.ngProgress.done();
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;

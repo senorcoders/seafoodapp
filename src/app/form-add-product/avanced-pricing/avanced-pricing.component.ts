@@ -16,6 +16,7 @@ export class AvancedPricingComponent implements OnInit {
   price;
   private await_ = false;
   public headAction = true;
+  public head = 'on';
   public weights: any = { on: { keys: [] }, off: { keys: [] } };
   public kgNames = {
     kg01: '0-1 KG',
@@ -55,6 +56,13 @@ export class AvancedPricingComponent implements OnInit {
   private priceEnableChange = true;
   public identifier = "_arr";
 
+  public hideTrimesSlides = true;
+  public trimmings = [];
+  public keySelectTrim = "";
+  public trimWeights: any = { };
+  public wholeFishAction = true;
+  public identifierTrim = "_trim";
+
   constructor(public parentForm: FormGroupDirective, private productService: ProductService) { }
 
   ngOnInit() {
@@ -69,8 +77,8 @@ export class AvancedPricingComponent implements OnInit {
         (this.parentForm.form.controls.price as FormGroup).addControl(i.id + "_off", new FormControl('', Validators.nullValidator));
       }
       this.wholesFish = its as any;
-    })
-
+    });
+    this.getTrimming();
   }
 
   private createFormGroup() {
@@ -79,27 +87,40 @@ export class AvancedPricingComponent implements OnInit {
     this.price.addControl('price', new FormGroup({
       headAction: new FormControl(this.headAction, Validators.required),
       weights: new FormControl('', Validators.nullValidator),
+      weightsTrim: new FormControl('', Validators.nullValidator),
       example: new FormControl('', Validators.nullValidator)
     }));
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
-      // console.log(it);
-      let min = Number(it.minimunorder);
-      let max = Number(it.maximumorder);
-      if (min > 0 && max > 0) {
-        this.options.floor = min;
-        this.options.ceil = max;
-        const newOptions: Options = Object.assign({}, this.options);
-        newOptions.floor = min;
-        newOptions.ceil = max;
-        this.options = newOptions;
-        this.exampleValues = {
-          min: newOptions.floor,
-          max: newOptions.ceil
-        };
-        this.setOptionsInAll();
-        this.refreshSlider();
+      //Para elegir los slides que se muestran si es salmon o no
+      if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+        this.hideTrimesSlides = false;
+      } else {
+        this.hideTrimesSlides = true;
+      }
+
+      //Para asinar el maximo y minimo de slides
+      try {
+        let min = Number(it.minimunorder);
+        let max = Number(it.maximumorder);
+        if (min > 0 && max > 0) {
+          this.options.floor = min;
+          this.options.ceil = max;
+          const newOptions: Options = Object.assign({}, this.options);
+          newOptions.floor = min;
+          newOptions.ceil = max;
+          this.options = newOptions;
+          this.exampleValues = {
+            min: newOptions.floor,
+            max: newOptions.ceil
+          };
+          this.setOptionsInAll();
+          this.refreshSlider();
+        }
+      }
+      catch (e) {
+        console.error(e);
       }
     });
 
@@ -111,12 +132,24 @@ export class AvancedPricingComponent implements OnInit {
       if (this.priceEnableChange === true) {
         //Para que los controles que se agreguen no probocen el bucle
         this.priceEnableChange = false;
-        //El usuario tiene seleccionado el head on
-        if (this.headAction === true) {
-          this.weights.on = this.proccessWeights(this.weights.on, it);
+
+        //Para ver si son trimmings
+        if (this.hideTrimesSlides === false && this.wholeFishAction === false) {
+          this.proccessWeightsTrim();
         } else {
-          this.weights.off = this.proccessWeights(this.weights.off, it);
+          //El usuario tiene seleccionado el head on
+          if (this.headAction === true) {
+            this.weights.on = this.proccessWeights(this.weights.on, it);
+          } else {
+            this.weights.off = this.proccessWeights(this.weights.off, it);
+          }
+          //si hay mas de un pricing seleccionado
+          if (this.weights.on.keys.length > 1 || this.weights.off.keys.length > 1)
+            this.setValueFeatures({ priceShow: false });
+          else if (this.head !== 'both')
+            this.setValueFeatures({ priceShow: true });
         }
+
         this.refreshSlider();
       }
 
@@ -124,39 +157,79 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para mostrar el advance pricing
     this.parentForm.form.controls.features.valueChanges.subscribe(it => {
+      this.head = it.head;
       if (it.head === 'both') {
         if (this.showPricingValue === false) this.showPricingValue = true;
+      } else if (it.head === 'on') {
+        this.deletePrices(false);
+        this.assingHead(true);
+      } else if (it.head === 'off') {
+        this.deletePrices(true);
+        this.assingHead(false);
       }
+
+      this.wholeFishAction = it.wholeFishAction;
     });
   }
 
+  private getTrimming() {
+    this.productService.getData('trimmingtype').subscribe(
+      res => {
+        this.trimmings = res as any;
+        for (let i of this.trimmings) {
+          (this.parentForm.form.controls.price as FormGroup).addControl(i.id, new FormControl(false, Validators.nullValidator));
+        }
+      },
+      e => {
+        console.log(e);
+      }
+    );
+  }
+
   private setOptionsInAll() {
+    let itereOptions = function (it) {
+      if (Object.prototype.toString.call(it) === '[object Object]')
+        it.options = Object.assign({}, this.options);
+      return it;
+    };
+
     let keys = Object.keys(this.weights.on);
     for (let key of keys) {
       this.weights.on[key] = this.weights.on[key]
-        .map(it => {
-          it.options = this.options;
-          return it;
-        });
+        .map(itereOptions);
     }
 
     keys = Object.keys(this.weights.off);
     for (let key of keys) {
       this.weights.off[key] = this.weights.off[key]
-        .map(it => {
-          it.options = this.options;
-          return it;
-        });
+        .map(itereOptions);
     }
+
+    //Para los trimmings
+    keys = this.trimmings.map(it => { return it.id; });
+    keys = keys.filter(it => {
+      return this.getValue()[it];
+    });
+    for (let key of keys) {
+      this.trimWeights[key] = this.trimWeights[key]
+        .map(itereOptions);
+    }
+
   }
 
   public getNameWhole(id) {
-    if (id.includes("_off") === true) {
-      id = id.replace("_off", "");
+    try {
+      if (id.includes("_off") === true) {
+        id = id.replace("_off", "");
+      }
+      return this.wholesFish.find(it => {
+        return it.id === id;
+      }).name;
     }
-    return this.wholesFish.find(it => {
-      return it.id === id;
-    }).name;
+    catch (e) {
+      console.error(e);
+      return "";
+    }
   }
 
   private proccessWeights(data, weights) {
@@ -166,6 +239,7 @@ export class AvancedPricingComponent implements OnInit {
         it === 'headAction' ||
         it === 'weights' ||
         it === 'example' ||
+        it === "weightsTrim" ||
         it.includes(this.identifier) === true
       ) return false;
       if (this.headAction === true) {
@@ -194,16 +268,57 @@ export class AvancedPricingComponent implements OnInit {
     return data;
   }
 
+  private proccessWeightsTrim() {
+
+    //Para los key que son agregar
+    let keys = this.trimmings.map(it => { return it.id; });
+    keys = keys.filter(it => {
+      return this.getValue()[it];
+    });
+
+    for (let k of keys) {
+      if (this.trimWeights[k] === undefined) {
+        this.trimWeights[k] = [{ min: 1, max: 2, price: 45, options: Object.assign({}, this.options) }];
+        try {
+          (this.parentForm.form.controls.price as FormGroup)
+            .addControl(k + this.identifierTrim, new FormGroup(this.controlsArray(this.trimWeights[k])));
+        }
+        catch (e) { console.error(e); }
+      }
+    }
+
+    //Para los key para remover
+    keys = this.trimmings.map(it => { return it.id; });
+    keys = keys.filter(it => {
+      return !this.getValue()[it];
+    });
+    for (let k of keys) {
+      if (this.trimWeights[k] !== undefined) {
+        this.trimWeights[k] = undefined;
+        try {
+          (this.parentForm.form.controls.price as FormGroup)
+            .removeControl(k + this.identifierTrim);
+        }
+        catch (e) { console.error(e); }
+      }
+    }
+
+    this.refreshSlider();
+    this.priceEnableChange = true;
+  }
+
   public selectKey(k) {
     this.keySelect = k;
+    console.log(this.weights, k);
     setTimeout(() => {
       this.refreshSlider();
+      console.log(this.keySelect);
     }, 300);
   }
 
-  public deletePrice(on, i) {
+  public deletePrice(headAction, i) {
     let index = 0;
-    if (this.headAction === true) {
+    if (headAction === true) {
       if (this.weights.on[this.keySelect].length === 1) {
         this.weights.on[this.keySelect] = [];
         index = 1;
@@ -229,6 +344,28 @@ export class AvancedPricingComponent implements OnInit {
     catch (e) { console.error(e); }
 
     this.refreshSlider();
+  }
+
+  private deletePrices(headAction) {
+    let keys = [];
+    this.priceEnableChange = false;
+    if (headAction === true) {
+      keys = this.weights.on.keys;
+      this.weights.on = { keys: [] };
+    } else {
+      keys = this.weights.off.keys;
+      this.weights.off = { keys: [] };
+    }
+
+    for (let i = 0; i < keys.length; i++) {
+      let keySelect = keys[i];
+      //Para remover los inputs
+      try {
+        (this.parentForm.form.controls.price as FormGroup).removeControl(keySelect + this.identifier);
+      }
+      catch (e) { console.error(e); }
+    }
+    this.priceEnableChange = true;
   }
 
   public addPricing() {
@@ -267,8 +404,21 @@ export class AvancedPricingComponent implements OnInit {
 
     return d;
   }
+  public isSelectTrim(tri) {
+    return this.getValue()[tri + this.identifierTrim];
+  }
+
+  public getSelects() {
+    return this.trimmings.filter(it => {
+      return this.getValue()[it.id + this.identifierTrim];
+    });
+  }
 
   public refactorizeRanges(index) {
+    //Si es para slides trim
+    if (this.hideTrimesSlides === false && this.wholeFishAction === false) {
+      return this.refactorizeRangesTrim(index);
+    }
     let newOptions: Options = Object.assign({}, this.options);
     this.options = newOptions;
     this.exampleValues = {
@@ -308,7 +458,42 @@ export class AvancedPricingComponent implements OnInit {
       if (this.weights.off[this.keySelect][index].min < range.minLimit)
         this.weights.off[this.keySelect][index].min = range.minLimit;
     }
-    console.log(this.weights);
+
+    this.refreshSlider();
+  }
+
+  public refactorizeRangesTrim(index) {
+    let newOptions: Options = Object.assign({}, this.options);
+    this.options = newOptions;
+    this.exampleValues = {
+      min: newOptions.floor,
+      max: newOptions.ceil
+    };
+    let range = {
+      minLimit: 10,
+      maxLimit: newOptions.ceil
+    }
+    let slides = [];
+    slides = this.trimWeights[this.keySelectTrim];
+
+    //Entonces calculamos el valor mas alto, para tomar desde ahi
+    //el inicio de los demas slider
+    let maxValue = 0;
+    for (let i = 0; i < slides.length; i++) {
+      let slide = slides[i];
+      if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+      if (i === index || i > index) continue;
+      if (slide.max > maxValue) maxValue = slide.max;
+    }
+    //ahora asignamos el mayor valor al slide
+    range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+    range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+    let newOptions1 = Object.assign(range, newOptions);
+
+    this.trimWeights[this.keySelectTrim][index].options = newOptions1;
+    if (this.trimWeights[this.keySelectTrim][index].min < range.minLimit)
+      this.trimWeights[this.keySelectTrim][index].min = range.minLimit;
+
     this.refreshSlider();
   }
 
@@ -325,6 +510,10 @@ export class AvancedPricingComponent implements OnInit {
     return key + this.identifier;
   }
 
+  public getIdentifierTrim(key, i) {
+    return key + this.identifierTrim;
+  }
+
   public getControl(key, i) {
     if (((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
       .controls[i] === undefined) {
@@ -334,9 +523,18 @@ export class AvancedPricingComponent implements OnInit {
       .controls[i];
   }
 
+  public getControlTrim(key, i) {
+    if (((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim] as FormGroup)
+      .controls[i] === undefined) {
+      console.log(key, i, (this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim]);
+    }
+    return ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim] as FormGroup)
+      .controls[i];
+  }
+
   public assingHead(r) {
     this.headAction = r;
-    this.keySelect = '';
+    // this.keySelect = '';
     this.refreshSlider();
   }
 
@@ -352,7 +550,7 @@ export class AvancedPricingComponent implements OnInit {
     if (this.await_ === false) {
       this.await_ = true;
       setTimeout(() => {
-        let r = { weights: JSON.stringify(this.weights) };
+        let r = { weights: JSON.stringify(this.weights), weightsTrim: JSON.stringify(this.trimWeights) };
         this.setValue(r);
         this.await_ = false;
       }, 500);
@@ -363,6 +561,47 @@ export class AvancedPricingComponent implements OnInit {
 
   private setValue(value) {
     this.parentForm.form.patchValue({ price: value })
+  }
+
+  private setValueFeatures(value) {
+    this.parentForm.form.patchValue({ features: value })
+  }
+
+  public selectKeyTrim(trim) {
+    let v: any = {};
+    v[trim] = !this.getValue()[trim];
+    this.setValue(v);
+  }
+
+  public selectKeyTrimAdd(trim) {
+    this.keySelectTrim = trim;
+  }
+
+  public addPricingTrim() {
+    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
+    let index = 0;
+    this.trimWeights[this.keySelectTrim].push(it);
+    index = this.trimWeights[this.keySelectTrim].length;
+    this.refactorizeRanges(index - 1);
+
+    //Para agregar los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
+        .addControl((index - 1).toString(), new FormControl('', Validators.required));
+    }
+    catch (e) { console.error(e); }
+
+    this.valueExample = 0;
+    this.exampleValues = {
+      min: this.options.floor,
+      max: this.options.ceil
+    };
+    this.refreshSlider();
+  }
+
+  private getValue() {
+    return this.parentForm.form.value.price;
   }
 
 }

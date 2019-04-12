@@ -210,7 +210,8 @@
 		"raised": "Raised....",
 		"description": "Descriptor",
 		"advancepricing": "advanced pricing",
-		"back": "Back"
+		"back": "Back",
+		"trimming": "Trimming..."
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
