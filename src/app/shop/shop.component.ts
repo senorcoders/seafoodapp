@@ -49,6 +49,10 @@ export class ShopComponent implements OnInit {
   hideVariant:boolean = true;
   filteredItems:any = [];
   showClear:boolean = false;
+  tmpCatName:any;
+  tmpSubcat:any;
+  tmpSpecie:any;
+  tmpVariant:any;
   options: Options = {
     floor: 0,
     ceil: 35,
@@ -75,9 +79,9 @@ export class ShopComponent implements OnInit {
     this.buyerId = this.userInfo['id'];
     this.getCart();
     this.getProducts(100, 1);
+    this.getAllTypesByLevel();
     await this.getCountries();
     this.getFishCountries();
-    this.getAllTypesByLevel();
 
 
     //JAVASCRIPT FOR FILTER
@@ -85,16 +89,21 @@ export class ShopComponent implements OnInit {
   jQuery('.input-raised:checkbox').on('change', (e) => {
     this.showClear = true;
     this.filterProducts();
+    this.createPillCheckbox('pill-raised', '.input-raised:checkbox:checked', 'raised');
   });
 
   jQuery('.input-treatment:checkbox').on('change', (e) => { 
     this.showClear = true;  
     this.filterProducts();
+    this.createPillCheckbox('pill-treatment', '.input-treatment:checkbox:checked', 'treatment');
+
   });
 
   jQuery('.input-preparation:checkbox').on('change', (e) => {
     this.showClear = true;
     this.filterProducts();
+    this.createPillCheckbox('pill-preparation', '.input-preparation:checkbox:checked', 'preparation');
+
   });
 
   
@@ -103,6 +112,60 @@ export class ShopComponent implements OnInit {
 
   }
 
+  //Create pills
+
+  async createPills(id, val, name){
+    console.log(id, val, jQuery('#' + id));
+    let value = jQuery(val).val();
+    await  this.getTypeName(value, name);
+    jQuery('#' + id).css('display', 'inline-block');
+  }
+
+  createPillCheckbox(id, val, name){
+    let value = [];
+    console.log("index", jQuery(val).val());
+    if(jQuery(val).val() != undefined){
+      jQuery(val).each(function(i){
+        value[i] = jQuery(this).val() + " ";
+      });
+      jQuery('#' + id + ' button span').html(value);
+      jQuery('#' + id).css('display', 'inline-block');
+    }else{
+      this.destroyCheckboxPill(name);
+    }
+   
+
+
+  }
+
+  createPillRadio(id, val){
+    let value = jQuery(val).val();
+    jQuery('#' + id + ' button span').html(value);
+    jQuery('#' + id).css('display', 'inline-block');
+
+  }
+
+  //GET FISH TYPE NAME FOR FILTER PILLS
+
+  async getTypeName(id, name){
+    await new Promise((resolve, reject) => {
+      this.productService.getData(`/fishType/${id}`).subscribe(res=>{
+        console.log("Name", res);
+        if(name == 'tmpCatName'){
+          this.tmpCatName = res['name'];
+        } else if(name == 'tmpSubcat'){
+          this.tmpSubcat = res['name'];
+        }else if(name == 'tmpSpecie'){
+          this.tmpSpecie = res['name'];
+        }else{
+          this.tmpVariant = res['name'];
+        }
+        resolve(res);
+      }, error =>{
+        reject();
+      })
+    })
+  }
 
   //CHARGE LATE JS
 
@@ -110,19 +173,21 @@ export class ShopComponent implements OnInit {
     jQuery('input[type=radio][name=country]').on('change', (e) => {
       this.showClear = true;
       this.filterProducts();
+      this.createPillRadio('pill-country', 'input[type=radio][name=country]:checked');
+
     });
 
-    jQuery('input[type=radio][name=cat]').on('change',  (e) => {
+    jQuery('input[type=radio][name=cat]').change((e) => {
+      console.log("Changing cat",  jQuery('input[type=radio][name=cat]:checked').val());
+
       this.showClear = true;
 
       const subcategorySelected = e.target.value;
 
       if ( subcategorySelected === 0 ) {
         this.getAllTypesByLevel();
-        //jQuery('.subcategory-container').hide();        
       } else {
         this.getOnChangeLevel(subcategorySelected );
-        jQuery('.subcategory-container').show();
       }
        this.filterProducts();
       setTimeout(() =>  {
@@ -130,10 +195,12 @@ export class ShopComponent implements OnInit {
         this.hideSubcat = false;
       }, 1000);
 
+      this.createPills('pill-category', 'input[type=radio][name=cat]:checked', 'tmpCatName');
     
     });
 
     jQuery('input[type=radio][name=subcat]').on('change', async (e) => {
+      console.log("Changing subcat");
       this.showClear = true;
       const specie = e.target.value;
       await this.filterProducts();
@@ -143,11 +210,12 @@ export class ShopComponent implements OnInit {
         this.hideSubcat = true;
         this.hideSpecie = false;
       }, 1000);
-
+      this.createPills('pill-subcategory', 'input[type=radio][name=subcat]:checked', 'tmpSubcat');
     
     });
 
     jQuery('input[type=radio][name=specie]').on('change', (e) => {
+      console.log("Changing specie");
       this.showClear = true;
       const variant = e.target.value;
       this.getOnChangeLevel(variant );
@@ -160,12 +228,15 @@ export class ShopComponent implements OnInit {
 
       }, 1000);
 
-    
+      this.createPills('pill-specie', 'input[type=radio][name=specie]:checked', 'tmpSpecie');
     });
 
-    jQuery('input[type=radio][name=specie]').on('change', (e) => {
+    jQuery('input[type=radio][name=variant]').on('change', (e) => {
+      console.log("Changing variant");
+
       this.showClear = true;
       this.filterProducts();    
+      this.createPills('pill-variant', 'input[type=radio][name=variant]:checked', 'tmpVariant');
     });
   }
 
@@ -398,11 +469,11 @@ export class ShopComponent implements OnInit {
     const raised:any = [];
     const preparation:any = [];
     const treatment:any = [] ;
-    const cat = jQuery('input[type=radio][name=cat]:checked').val();
-    const subcat = jQuery('input[type=radio][name=subcat]:checked').val();
-    const specie = jQuery('input[type=radio][name=specie]:checked').val();
-    const variant = jQuery('input[type=radio][name=variant]:checked').val();
-    const country = jQuery('input[type=radio][name=country]:checked').val();
+    const cat = jQuery('input[type=radio][name=cat]:checked').val() || "0";
+    const subcat = jQuery('input[type=radio][name=subcat]:checked').val() || "0";
+    const specie = jQuery('input[type=radio][name=specie]:checked').val() || "0";
+    const variant = jQuery('input[type=radio][name=variant]:checked').val() || "0";
+    const country = jQuery('input[type=radio][name=country]:checked').val() || "0";
     let minPrice = jQuery('#minPriceValue').val();
     let maxPrice = jQuery('#maxPriceValue').val();
     let minimumOrder:any = "0";
@@ -562,10 +633,98 @@ getAllTypesByLevel() {
    this.products = [];
   jQuery('input:checkbox').prop('checked', false);
   jQuery('input[type=radio]').prop('checked', false);
-
+  jQuery('#pill-category').css('display', 'none');
+  jQuery('#pill-subcategory').css('display', 'none');
+  jQuery('#pill-specie').css('display', 'none');
+  jQuery('#pill-variant').css('display', 'none');
+  jQuery('.filter-pills li').css('display', 'none');
   this.getProducts(100, 1);
+  this.tmpCatName = '';
+  this.tmpSubcat= '';
+  this.tmpSpecie= '';
+  this.tmpVariant= ''
   this.showClear = false;
 
+
+}
+
+//CLEAR FILTER WITH PILLS
+
+destroyPillCat(){
+  this.showLoading = true;
+  this.hideCat = false;
+  this.hideSubcat = true;
+  this.hideSpecie = true;
+  this.hideVariant = true;
+  jQuery('input[type=radio][name=cat]').prop('checked', false);
+  jQuery('input[type=radio][name=subcat]').prop('checked', false);
+  jQuery('input[type=radio][name=specie]').prop('checked', false);
+  jQuery('input[type=radio][name=variant]').prop('checked', false);
+  jQuery('#pill-category').css('display', 'none');
+  jQuery('#pill-subcategory').css('display', 'none');
+  jQuery('#pill-specie').css('display', 'none');
+  jQuery('#pill-variant').css('display', 'none');
+  console.log("Destroying...");
+  this.filterProducts();
+
+  
+}
+
+destroyPillSubat(){
+
+  this.showLoading = true;
+  this.hideCat = true;
+  this.hideSubcat = false;
+  this.hideSpecie = true;
+  this.hideVariant = true;
+  jQuery('input[type=radio][name=subcat]').prop('checked', false);
+  jQuery('input[type=radio][name=specie]').prop('checked', false);
+  jQuery('input[type=radio][name=variant]').prop('checked', false);
+  jQuery('#pill-subcategory').css('display', 'none');
+  jQuery('#pill-specie').css('display', 'none');
+  jQuery('#pill-variant').css('display', 'none');
+  console.log("Destroying...");
+  this.filterProducts();
+
+}
+
+destroyPillSpecie(){
+  this.showLoading = true;
+  this.hideCat = true;
+  this.hideSubcat = true;
+  this.hideSpecie = false;
+  this.hideVariant = true;
+  jQuery('input[type=radio][name=specie]').prop('checked', false);
+  jQuery('input[type=radio][name=variant]').prop('checked', false);
+  jQuery('#pill-specie').css('display', 'none');
+  jQuery('#pill-variant').css('display', 'none');
+  console.log("Destroying...");
+  this.filterProducts();
+}
+
+destroyPillVariant(){
+  this.showLoading = true;
+  this.hideCat = true;
+  this.hideSubcat = true;
+  this.hideSpecie = true;
+  this.hideVariant = false;
+  jQuery('input[type=radio][name=variant]').prop('checked', false);
+  jQuery('#pill-variant').css('display', 'none');
+  console.log("Destroying...");
+  this.filterProducts();
+}
+
+destroyCheckboxPill(id){
+  this.showLoading = true;
+  jQuery('.input-' + id + ':checkbox').prop('checked', false);
+  jQuery('#pill-' + id).css('display', 'none');
+  this.filterProducts();
+}
+
+destroyRadioPill(id){
+  jQuery(`input[type=radio][name=${id}]`).prop('checked', false);
+  jQuery('#pill-' + id).css('display', 'none');
+  this.filterProducts();
 
 }
 }

@@ -338,6 +338,47 @@
     }
     }
    
+    .col-md-10{
+      display: inline-flex;
+      @media screen and (max-width: 992px){
+       display: block;
+      }
+      .filter-pills{
+        margin: 0;
+        @media screen and (max-width: 992px){
+          width: 100%;
+          padding: 0;
+        }
+        li{
+          display: none;
+        }
+        button{
+          padding: 0;
+         min-width: 72px;
+         height: 27px;
+          font-family: 'Open Sans', sans-serif;
+          font-size: 16px;
+          line-height: 22px;
+          color: #FFFFFF;
+          font-weight: 300;
+          border: 1px solid #fff;
+          border-radius: 3px;
+          display: flex;
+          align-items: center;
+          justify-content: space-around;
+          text-transform: capitalize;
+          span{
+            padding: 0 5px;
+          }
+          img{
+            width: 11px;
+            height: 11px;
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+    
   }
 
   .filter-content{
@@ -367,6 +408,32 @@
           line-height: 20px;
           letter-spacing: 1.75px;
           color: #FFFFFF;
+        }
+        .scroll-div{
+          max-height: 160px;
+          overflow-y: scroll;
+          &::-webkit-scrollbar {
+            width: 7px;
+            background: transparent;
+          }
+          
+          /* Track */
+          &::-webkit-scrollbar-track {
+            background: transparent; 
+            border-radius: 34px;
+          }
+           
+          /* Handle */
+          &::-webkit-scrollbar-thumb {
+            background: rgba($color: #ffffff, $alpha: 0.8); 
+            border-radius: 34px;
+            height: 20px;
+          }
+          
+          /* Handle on hover */
+          &::-webkit-scrollbar-thumb:hover {
+            background: rgba($color: #ffffff, $alpha: 0.8); 
+          }
         }
         .form-group{
           div.custom-list{

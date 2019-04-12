@@ -3,7 +3,34 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-10">
-            <h2>FILTER SEAFOOD</h2>
+            <h2>FILTER <span *ngIf="!showClear">SEAFOOD</span> </h2>
+            <ul class="list-inlint filter-pills" [hidden]="!showClear">
+              <li class="list-inline-item" id="pill-category">
+                <button (click)="destroyPillCat()"><span>{{tmpCatName}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-subcategory">
+                <button (click)="destroyPillSubat()"><span>{{tmpSubcat}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-specie">
+                <button (click)="destroyPillSpecie()"><span>{{tmpSpecie}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-variant">
+                <button (click)="destroyPillVariant()"><span>{{tmpVariant}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              
+              <li class="list-inline-item" id="pill-country">
+                <button (click)="destroyPillRadio('country')"><span>Country</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-preparation">
+                <button (click)="destroyPill()"><span>preparation</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-treatment">
+                <button (click)="destroyPill()"><span>treatment</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-raised">
+                <button (click)="destroyPill()"><span>raised</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+            </ul>
           </div>
           <div class="col-md-2 text-right">
             <button *ngIf="showClear" class="clear-btn" (click)="clear()">CLEAR ALL</button>
@@ -19,7 +46,7 @@
       <div class="row">
         <div class="col filter-col" [hidden]="hideCat">
             <h4>CATEGORY</h4>
-            <div class="form-group">
+            <div class="form-group scroll-div">
                 <div *ngFor="let category of searchCategories; let i=index" class="custom-list">
                     <input  type="radio"  name="cat" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
@@ -28,16 +55,16 @@
         </div>
         <div class="col filter-col" [hidden]="hideSubcat">
             <h4>SUB CATEGORY</h4>
-            <div class="form-group">
+            <div class="form-group scroll-div">
                 <div *ngFor="let category of searchSubcategories; let i=index" class="custom-list">
                     <input  type="radio"  name="subcat" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
                 </div>
             </div>
         </div>
-        <div class="col filter-col" [hidden]="hideSpecie">
+        <div class="col filter-col " [hidden]="hideSpecie">
             <h4>SUB SPECIE</h4>
-            <div class="form-group">
+            <div class="form-group scroll-div">
                 <div *ngFor="let category of searchSubSpecie; let i=index" class="custom-list">
                     <input  type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
@@ -46,7 +73,7 @@
         </div>
         <div class="col filter-col" [hidden]="hideVariant">
             <h4>VARIANT</h4>
-            <div class="form-group">
+            <div class="form-group scroll-div">
                 <div *ngFor="let category of searchDescriptor; let i=index" class="custom-list">
                     <input  type="radio"  name="variant" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
