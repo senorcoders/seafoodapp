@@ -124,6 +124,8 @@ import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avan
 import { Ng5SliderModule } from 'ng5-slider';
 
 import { TitleService } from './title.service';
+import { Ng5SliderModule } from 'ng5-slider';
+
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },

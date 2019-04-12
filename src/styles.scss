@@ -446,10 +446,6 @@ app-search, app-archive-products, app-cart, app-my-products,app-featured-seller,
   text-transform: uppercase;
   &:hover{
     background-color: #83b0d1;
-    -webkit-transition: background-color 0.5s;
-    -moz-transition: background-color 0.5s;
-    -ms-transition: background-color 0.5s;
-    -o-transition: background-color 0.5s;
     -webkit-user-select: none;
     -webkit-touch-callout: none;
     color:white;
@@ -1153,4 +1149,15 @@ form-wizard{
       }
     }
   }
+}
+.ng5-slider .ng5-slider-bar-wrapper{
+  margin-top: -14px !important;
+}
+.ng5-slider .ng5-slider-bar{
+  height: 2px !important;
+  background: #3E4E75 !important;
+}
+
+.ng5-slider .ng5-slider-pointer, .ng5-slider .ng5-slider-pointer:after{
+  background-color: #3E4E75 !important;
 }

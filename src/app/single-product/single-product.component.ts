@@ -13,6 +13,7 @@ import { CountriesService } from '../services/countries.service';
 import 'rxjs/add/operator/catch';
 import { OrderService } from '../services/orders.service';
 import { TitleService } from '../title.service';
+import { Options, ChangeContext, PointerType } from 'ng5-slider';
 
 @Component({
   selector: 'app-single-product',
@@ -72,6 +73,15 @@ export class SingleProductComponent implements OnInit {
   types:any = '';
   mortalityRate:any;
   wholeFishWeight:any = null;
+  options: Options = {
+    floor: 1,
+    ceil: 1000,
+    translate: (value: number): string => {
+      return  value + ' kg';
+    }
+  };
+  value: any = 1;
+
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -84,7 +94,7 @@ export class SingleProductComponent implements OnInit {
     private countryService: CountriesService,
     private cartService:OrderService,  private titleS: TitleService
   ) {
-    this.titleS.setTitle('Product');
+    this.titleS.setTitle('Shop Seafood');
   }
 
   ngOnInit() {
@@ -148,26 +158,7 @@ export class SingleProductComponent implements OnInit {
       }
     );
   }
-  setFlexslider() {
-    if (this.mainImg || this.images) {
-      setTimeout(() => {
-        jQuery('.flexslider').flexslider({
-          animation: 'slide',
-          controlNav: true
-          //   start:function(slider){
-          //     jQuery(".slide-current-slide").text(slider.currentSlide+1);
-          //     jQuery(".slide-total-slides").text("/"+slider.count)
-          // },
-          // before:function(slider){
-          //     jQuery(".slide-current-slide").text(slider.animatingTo+1)
-          // }
-        });
-        this.showLoading = false;
-      }, 100);
-    } else {
-      this.showLoading = false;
-    }
-  }
+
   getProductDetail() {
     this.productService.getProductDetail(this.productID).subscribe(data => {
       console.log("Producto", data);
@@ -182,6 +173,11 @@ export class SingleProductComponent implements OnInit {
       }
       this.cooming_soon = data['cooming_soon'];
       this.max = data['maximumOrder'];
+      this.value = this.min;
+      const newOptions: Options = Object.assign({}, this.options);
+      newOptions.ceil = this.max;
+      newOptions.floor = this.min;
+      this.options = newOptions;
       this.count = this.min;
       this.getPricingCharges();
       this.name = data['name'];
@@ -231,23 +227,17 @@ export class SingleProductComponent implements OnInit {
         this.wholeFishWeight = data['wholeFishWeight'];
       }
       this.getReview();
-      this.setFlexslider();
       this.getPriceKg(this.count);
       this.getPricingCharges();
+      this.showLoading = false;
     }, error => {
       console.log('Error', error);
       this.show = false;
+      this.showLoading = false;
+
     });
   }
-  showElements() {
-    document.getElementById('qty-text').style.display = 'none';
-    document.getElementById('input-text').style.display = 'block';
-  }
 
-  hideElements() {
-    document.getElementById('input-text').style.display = 'none';
-    document.getElementById('qty-text').style.display = 'block';
-  }
      
 
   getCart() {
@@ -431,5 +421,18 @@ getTypes(){
     console.log("Categorías", res);
     this.types = res;
   })
+}
+
+onUserChangeEnd(changeContext: ChangeContext): void {
+ console.log(`onUserChangeEnd(${this.getChangeContextString(changeContext)})\n`);
+ this.count = changeContext.value;
+ console.log("Count", this.count);
+ this.getPricingCharges();
+}
+
+getChangeContextString(changeContext: ChangeContext): string {
+  return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
+         `value: ${changeContext.value}, ` +
+         `highValue: ${changeContext.highValue}}`;
 }
 }
