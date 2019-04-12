@@ -178,6 +178,7 @@ export class ShopComponent implements OnInit {
     });
 
     jQuery('input[type=radio][name=cat]').change((e) => {
+      e.stopImmediatePropagation();
       console.log("Changing cat",  jQuery('input[type=radio][name=cat]:checked').val());
 
       this.showClear = true;
