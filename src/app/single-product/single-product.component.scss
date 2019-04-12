@@ -207,3 +207,24 @@
         }
     }
 }
+#input-text{
+    display: none;
+}
+
+input.qty{
+    outline: none !important;
+    background: no-repeat;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 21px;
+    line-height: 25px;
+    color: #7484AA;
+    font-weight: 100;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.sticky-div{
+    position: sticky;
+    top: 0;
+}

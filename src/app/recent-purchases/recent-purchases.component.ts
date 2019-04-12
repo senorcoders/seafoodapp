@@ -4,6 +4,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { TitleService } from '../title.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { NgProgress } from 'ngx-progressbar';
+import { environment } from '../../environments/environment';
 declare var jQuery: any;
 
 @Component({
@@ -56,12 +58,16 @@ export class RecentPurchasesComponent implements OnInit {
   label3:any = 'Select a file to attach...';
   label2:any = 'Select a file to attach...';
   label1:any = 'Select a file to attach...';
-
-
+  shippingIndex:any;
+  shippingSubindex:any;
+  public loading = false;
+  doc: any = [];
+  API:any = environment.apiURL;
+  tmpFiles:any = [];
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
-    private titleS: TitleService) {
+    private titleS: TitleService, public ngProgress: NgProgress) {
       this.titleS.setTitle('Orders');
       this.min.setDate(this.today.getDate());
       this.max.setDate(this.today.getDate() + 90);
@@ -385,6 +391,7 @@ export class RecentPurchasesComponent implements OnInit {
             console.log("Definida");
             this.firstNoShipped.splice(this.index, 1);
 
+
           }
         }else{
           if(this.subindex != undefined){
@@ -420,10 +427,10 @@ export class RecentPurchasesComponent implements OnInit {
   //Create form controls and shipping docs form
 
   createFormControl(){
-    this.invoice = new FormControl('', Validators.required);
-    this.healthCert = new FormControl('', Validators.required);
-    this.packingList = new FormControl('', Validators.required);
-    this.awb = new FormControl('', Validators.required);
+    this.invoice = new FormControl('');
+    this.healthCert = new FormControl('');
+    this.packingList = new FormControl('');
+    this.awb = new FormControl('');
     this.certificateOrigin = new FormControl('');
     this.creditNote = new FormControl('');
   }
@@ -458,10 +465,12 @@ export class RecentPurchasesComponent implements OnInit {
 
   //Check if form is valid
   saveTracking(){
-  
+
     if(this.trackingForm.valid){
       console.log("PDFs validos");
       console.log(this.trackingForm.value);
+      this.loading = true;
+      this.ngProgress.start();
       this.sendToAPI();
     }else{
       this.validateAllFormFields(this.trackingForm);
@@ -470,7 +479,7 @@ export class RecentPurchasesComponent implements OnInit {
 
 
     //Save docs in DATABASE
-    sendToAPI(){
+    async sendToAPI(){
       let data = [
           this.trackingForm.get('invoice').value,
           this.trackingForm.get('healthCert').value,
@@ -480,25 +489,94 @@ export class RecentPurchasesComponent implements OnInit {
           this.trackingForm.get('creditNote').value
         ]
   
-      let numItems = data.length; 
-      data.forEach((element, index) => {
-        console.log(index, numItems);
-        
-          this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
-            console.log(res);
-              this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
-              
-              jQuery('#shippingDocs').modal('hide');
-              this.cleanLabels();
-          }, error => {
-            console.log(error);
-            this.cleanLabels();
-          })
-        });
+
+      for (const file of data) {
+        const contents = await this.postFile(file);
+        console.log(contents);     
+      }
+
+      console.log("Mostrar items");
+   
+      if(this.where == 'pending'){
+        if(this.shippingSubindex != undefined){
+          console.log("indefinida");
+          this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
+
+
+        }else{
+          console.log("Definida");
+          this.firstNoShipped[this.shippingIndex].items[0].shippingFiles = this.tmpFiles;
+
+
+        }
+      }else{
+        if(this.shippingSubindex != undefined){
+          this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
+
+
+        }else{
+          this.firstShipped[this.shippingIndex].items[0].shippingFiles = this.tmpFiles;
+
+        }
+
+      }
+
+      this.toast.success("Order marked as document fulfillment!",'Upload Succesfully',{positionClass:"toast-top-right"});
+      jQuery('#shippingDocs').modal('hide');
+      this.doc = [];
+      this.cleanLabels();
+      this.loading = false;
+      this.ngProgress.done();
+  }
+
+  //Function to prepulate current shiiping docs uploaded to the server
+  getShippingDocs(){
+    if(this.where == 'pending'){
+      if(this.shippingSubindex != undefined){
+       this.doc =  this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
+
+
+      }else{
+        console.log("Definida");
+        this.doc =  this.firstNoShipped[this.shippingIndex].items[0].shippingFiles;
+
+
+      }
+    }else{
+      if(this.shippingSubindex != undefined){
+        this.doc = this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
+
+
+      }else{
+        this.doc = this.firstShipped[this.shippingIndex].items[0].shippingFiles;;
+
+      }
+
+    }
+    console.log("Doc", this.doc);
+  }
+
+  public mapDocs(doc, name) {
+    let file = doc.split("/");
+    if (file[3] != undefined && file[3].includes(name)) {
   
-  
-  
-  
+      return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
+    }
+  }
+  async postFile(element){
+    await new Promise((resolve) => {
+
+    this.productS.uploadPDF(element, this.itemId).subscribe(res =>{
+      console.log(res);
+      this.tmpFiles = res;
+      resolve();        
+      
+    }, error => {
+      console.log(error);
+      resolve();
+    })
+
+      })
   }
 
   cleanLabels(){
@@ -508,6 +586,7 @@ export class RecentPurchasesComponent implements OnInit {
     this.label4 = 'Select a file to attach...';
     this.label5 = 'Select a file to attach...';
     this.label6 = 'Select a file to attach...';
+    this.tmpFiles = [];
   }
   //Get file on input change and change the name before upload it
 
@@ -517,6 +596,7 @@ export class RecentPurchasesComponent implements OnInit {
     if(event.target.files.length > 0) {
       let file = event.target.files;
       let ext = file[0].name.split(".");
+      console.log(ext);
       console.log("Nombre", name + '.' + ext[1]);
 
        var blob = file[0].slice(0, file[0].size, file[0].type); 
@@ -528,20 +608,20 @@ export class RecentPurchasesComponent implements OnInit {
 
       this.trackingForm.get(`${name}`).setValue(newFile);
       if(name == 'invoice'){
-        this.label1 =  name + '.' + ext[1];
+        this.label1 =  ext[0] + '.' + ext[1];
       }else if(name == 'healthCert'){
-        this.label2 =  name + '.' + ext[1];
+        this.label2 =  ext[0] + '.' + ext[1];
       }else if(name == 'packingList'){
-        this.label3 =  name + '.' + ext[1];
+        this.label3 =  ext[0] + '.' + ext[1];
 
       }else if(name == 'awb'){
-        this.label4 =  name + '.' + ext[1];
+        this.label4 =  ext[0] + '.' + ext[1];
 
       }else if(name == 'certificateOrigin'){
-        this.label5 =  name + '.' + ext[1];
+        this.label5 =  ext[0] + '.' + ext[1];
 
       }else {
-        this.label6 = name + '.' + ext[1];
+        this.label6 = ext[0] + '.' + ext[1];
       }
     }
   }
@@ -551,12 +631,24 @@ export class RecentPurchasesComponent implements OnInit {
 }
   
 //Open shipping docs modal
-openShippingModal(id, index){
+openShippingModal(id, index, where,  subindex?){
   jQuery('#shippingDocs').modal('show');
+  console.log("index", index, subindex);
   this.itemId = id;
+  this.shippingIndex = index;
+  this.where = where;
+  if(subindex != undefined){
+    this.shippingSubindex = subindex;
+  }
+  this.getShippingDocs();
 
 }
 
+//Close shipping docs modal
+closeShippingModal(){
+  jQuery('#shippingDocs').modal('hide');
+  this.doc = [];
+}
 
 //Get delivered orders
 

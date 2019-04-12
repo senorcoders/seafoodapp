@@ -1,7 +1,7 @@
 import { NgModule, Pipe, Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 // import {BrowserModule} from '@angular/platform-browser';
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+// import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

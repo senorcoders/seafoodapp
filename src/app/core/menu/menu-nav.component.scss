@@ -156,7 +156,9 @@ form{
   		left: -400% !important;
 	}
     .nav-item {
-    	display: inline-block;
+		display: inline-block;
+		position: relative;
+		
     	.nav-link {
 		    color: black;
 		    padding-top: 5px !important;
@@ -399,4 +401,35 @@ form{
 	.address{
 	    text-align: center !important;
 	  }
+}
+
+.icon-menu{
+	.nav-item{
+		position: relative;
+		.nav-link-name{
+			position: absolute;
+			bottom: -33px;
+			text-align: center;
+			width: 100%;
+			color: #3E4E75;
+			font-size: 16px;
+			font-family: 'Open Sans', sans-serif;
+			display: none;
+			.nav-bullet{
+				width: 6px;
+				height: 6px;
+				background: #3E4E75;
+				border-radius: 50%;
+				margin: 3px auto;
+			}
+		}
+	}
+	.nav-item:hover{
+		.nav-link-name{
+			display: block;
+			@media screen and (max-width: 1200px) {
+				display: none;
+			}
+		}
+	}
 }

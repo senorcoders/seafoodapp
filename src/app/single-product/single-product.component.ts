@@ -135,7 +135,13 @@ export class SingleProductComponent implements OnInit {
   verifyQty() {
     if (this.count > this.max) {
       this.count = this.max;
+      this.value = this.count;
+      this.getPricingCharges();
+  
+
+
     } else {
+      this.value = this.count;
       this.getPricingCharges();
     }
   }
@@ -227,7 +233,6 @@ export class SingleProductComponent implements OnInit {
         this.wholeFishWeight = data['wholeFishWeight'];
       }
       this.getReview();
-      this.getPriceKg(this.count);
       this.getPricingCharges();
       this.showLoading = false;
     }, error => {
@@ -370,8 +375,10 @@ export class SingleProductComponent implements OnInit {
     this.pricingServices.getPricingChargesByWeight(this.productID, this.count)
       .subscribe(
         res => {
+          console.log('Pricing Charges', res);
           this.charges = res;
-          this.getPriceKg(this.count);
+          this.delivered = res['finalPrice'] / this.count;
+
           this.showTaxes = true;
 
         },
@@ -398,15 +405,7 @@ export class SingleProductComponent implements OnInit {
 
     return Number(parseFloat(total).toFixed(2));
   }
-  getPriceKg(weight) {
-    this.productService.getData(`api/fish/${this.productID}/charges/${weight}`).subscribe(result => {
-      this.delivered = result['finalPrice'] / weight;
-    },
-      e => {
-        console.log(e);
-      }
-    );
-  }
+ 
 
   findCountries(code){
     for (var i=0; i < this.countries.length; i++) {
@@ -434,5 +433,16 @@ getChangeContextString(changeContext: ChangeContext): string {
   return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
          `value: ${changeContext.value}, ` +
          `highValue: ${changeContext.highValue}}`;
+}
+
+showElements() {
+  document.getElementById('qty-text').style.display = 'none';
+  document.getElementById('input-text').style.display = 'block';
+  jQuery('#input-text').focus();
+}
+
+hideElements() {
+  document.getElementById('input-text').style.display = 'none';
+  document.getElementById('qty-text').style.display = 'block';
 }
 }

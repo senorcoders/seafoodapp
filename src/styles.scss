@@ -1161,3 +1161,13 @@ form-wizard{
 .ng5-slider .ng5-slider-pointer, .ng5-slider .ng5-slider-pointer:after{
   background-color: #3E4E75 !important;
 }
+
+.loader-gif{
+	position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    margin: auto;
+}
