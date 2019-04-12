@@ -23,9 +23,9 @@ export class ManageOrdersComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-  groupOrder = [];
-  orderWithData = [];
-  API: any = environment.apiURL;
+  groupOrder=[];
+  orderWithData=[];
+  API:any = environment.apiURL;
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -170,21 +170,14 @@ export class ManageOrdersComponent implements OnInit {
       console.log(val);
       if (val.shoppingCart && val.shoppingCart.orderNumber) {
         if (index > 0) {
-          if (this.orderWithData[index - 1].shoppingCart !== null && this.orderWithData[index - 1].shoppingCart !== undefined) {
-            if ((val.shoppingCart !== null && val.shoppingCart !== undefined) && val.shoppingCart.orderNumber != this.orderWithData[index - 1].shoppingCart.orderNumber) {
-              this.groupOrder.push({
-                orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-                invoice_pdf: val.shoppingCart.invoice_pdf
-              });
-            }
+          if ((val.shoppingCart !== null && val.shoppingCart !== undefined) && val.shoppingCart.orderNumber != this.orderWithData[index - 1].shoppingCart.orderNumber) {
+            this.groupOrder.push({ orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
+              invoice_pdf: val.shoppingCart.invoice_pdf });
           }
-
         }
         else {
-          this.groupOrder.push({
-            orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-            invoice_pdf: val.shoppingCart.invoice_pdf
-          });
+          this.groupOrder.push({ orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
+            invoice_pdf: val.shoppingCart.invoice_pdf });
         }
       }
     })
