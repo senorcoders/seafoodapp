@@ -8,6 +8,7 @@ import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';
 import { TitleService } from '../title.service';
+import { Router } from '@angular/router';
 declare var jQuery;
 @Component({
   selector: 'app-shop',
@@ -61,6 +62,11 @@ export class ShopComponent implements OnInit {
       return '$' + value;
     }
   };
+  shoppingCartId: any;
+  productsCart: any = [];
+  total: any;
+  imageCart:any = [];
+
 
   constructor(private auth: AuthenticationService,
     private productService: ProductService,
@@ -68,7 +74,8 @@ export class ShopComponent implements OnInit {
     private toast: ToastrService,
     private cartService: OrderService,
     private countryservice: CountriesService,
-    private titleS: TitleService) {
+    private titleS: TitleService,
+    private router:Router) {
       this.titleS.setTitle('Shop Seafood');
 
      }
@@ -79,7 +86,8 @@ export class ShopComponent implements OnInit {
     this.buyerId = this.userInfo['id'];
     this.getCart();
     this.getProducts(100, 1);
-    this.getAllTypesByLevel();
+    // this.getAllTypesByLevel();
+    this.getParentsCat();
     await this.getCountries();
     this.getFishCountries();
 
@@ -245,12 +253,37 @@ export class ShopComponent implements OnInit {
   //GETTING cart info
 
   getCart() {
-
+    this.productsCart = [];
 
     this.cartService.getCart( this.buyerId ).subscribe(
       cart=> { 
         console.log("Cart", cart);
         this.cart = cart;
+
+        if(cart && cart.hasOwnProperty('items')){
+          console.log("Si existe");
+          if(cart['items'].length > 0){
+            console.log("Si es mayor a cero");
+            this.shoppingCartId=cart['id']
+           this.productsCart=cart['items'];     
+            this.total= cart['subTotal'];  
+            this.productsCart.forEach((data, index)=>{
+              if (data.imagePrimary && data.imagePrimary !='') {
+                this.imageCart[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
+              }
+              else if(data.images && data.images.length>0){
+                this.imageCart[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+              }
+              else{
+                this.imageCart[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
+              }
+           });          
+          }
+         
+        }
+      
+        
+
       },
       error=> {
         console.log( error );
@@ -418,7 +451,9 @@ export class ShopComponent implements OnInit {
   };
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
         // set the new value to cart
-        this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
+        // this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
+        this.getCart();
+        this.openCart();
 
     }, err => {
       if ( err.error ) {
@@ -727,10 +762,74 @@ destroyCheckboxPill(id){
   this.filterProducts();
 }
 
-destroyRadioPill(id){
+  async destroyPillRadio(id){
   jQuery(`input[type=radio][name=${id}]`).prop('checked', false);
   jQuery('#pill-' + id).css('display', 'none');
+  this.name = '';
+  await this.getCountries();
+  this.getFishCountries(); 
   this.filterProducts();
 
+}
+
+//FUNCTION TO OPEN AND GET THE CART
+openCart(){
+  jQuery('body').addClass('has-active-menu');
+  jQuery('.c-mask').addClass('is-active');
+  jQuery('.cart-window').addClass('is-active');
+  jQuery('.c-mask').on('click', function(){
+    jQuery('body').removeClass('has-active-menu');
+    jQuery('.c-mask').removeClass('is-active');
+    jQuery('.cart-window').removeClass('is-active');
+  })
+}
+
+closeCart(){
+  jQuery('body').removeClass('has-active-menu');
+    jQuery('.c-mask').removeClass('is-active');
+    jQuery('.cart-window').removeClass('is-active');
+}
+
+
+getTotalxItem(count, price){
+  return count*price;
+}
+
+checkout(){
+  this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
+
+}
+
+deleteItem(i, id){
+  this.productService.deleteData(`itemshopping/${id}`).subscribe(
+    result=>{
+      console.log(result);
+      this.productsCart.splice(i, 1); 
+      this.getItems();
+      this.closeCart();
+      this.toast.success('Item removed from cart!', 'Well Done', {positionClass: 'toast-top-right'});
+    },
+    e=>{
+      this.toast.error("Error deleting item!", "Error",{positionClass:"toast-top-right"} );
+      console.log(e)
+    }
+  )
+}
+
+getItems(){
+  let cart = {
+    "buyer": this.buyerId
+  }
+  this.productService.saveData("shoppingcart", cart).subscribe(result => {
+    console.log(' calcular totales', result );
+  },e=>{console.log(e)})
+}
+
+// GET PARENTS CATEROGIES
+
+getParentsCat(){
+  this.productService.getData(`/fishTypes/parents/with-fishes`).subscribe(res =>{
+    this.searchCategories = res;
+  })
 }
 }

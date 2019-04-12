@@ -208,3 +208,63 @@
        
     </div>
 </div>
+
+<div class="cart-window">
+  <div class="container-fluid">
+   
+      <div class="cart-header">
+          <div class="row">
+            <div class="col-md-8">
+                <h2>MY CART <span *ngIf="productsCart.length > 0">({{productsCart.length}})</span></h2>
+            </div>
+            <div class="col-md-4 text-right">
+                <button (click)="closeCart()"><img src="../../assets/svg/close.svg" alt=""></button>
+            </div>
+            </div>
+      </div>
+      <div class="cart-body">
+        <div class="row cart-item"  *ngFor="let product of productsCart; let i=index">
+            <div class="col-md-4">
+              <div class="bg-img"   [style.background-image]="imageCart[i]"></div>
+            </div>
+            <div class="col-md-6">
+              <h4>{{product?.fish?.name}}</h4>
+              <div class="cart-slide-range">
+                  <span class="qty-kg"> {{product?.quantity?.value}} kg</span>  
+                  <form>
+                      <input disabled  name="foo" type="range" class="product-range">
+                      <label>{{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}</label>
+                  </form>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <button (click)="deleteItem(i, product.id)">
+                  <img src="../../assets/svg/close.svg" alt="">
+              </button>
+            </div>
+        </div>
+       
+      </div>
+
+      <div class="cart-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>SUBTOTAL <span class="cart-price">{{(total) | currency: 'AED'}}</span></h4>
+                <h6>Shipping & taxes calculated at checkout</h6>
+            </div>
+            <div class="col-md-12">
+              <button class="btn-cart" (click)="checkout()">Go to checkout</button>
+            </div>
+            <div class="col-md-6">
+              <button (click)="closeCart()" class="btn-transparent">CONTINUE SHOPPING</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn-transparent" routerLink="/cart">VIEW MY CART</button>
+              </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="c-mask"></div>
