@@ -121,7 +121,6 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
 import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
 import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
-import { Ng5SliderModule } from 'ng5-slider';
 
 import { TitleService } from './title.service';
 import { Ng5SliderModule } from 'ng5-slider';
