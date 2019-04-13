@@ -43,6 +43,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
 
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { AccountComponent } from './account/account.component';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
+import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
+import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
 
 
 const appRoutes: Routes = [
@@ -63,7 +67,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'add-product',
-    loadChildren: './create-product/create-product.module#CreateProductModule'
+    component: CreateProductComponent
   },
   {
     path: 'fish-type/:category/:page',
@@ -409,6 +413,10 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeaturedStoreComponent,
     ProductManagmentComponent,
     AccountComponent,
+    CreateProductComponent,
+    FishFormComponent,
+    AvancedPricingComponent,
+    FishFeaturesComponent
   ],
   imports: [
     BrowserAnimationsModule,
