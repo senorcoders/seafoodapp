@@ -42,6 +42,10 @@ import { PricingChargesService } from './services/pricing-charges.service';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { AccountComponent } from './account/account.component';
+import { CreateProductComponent } from './create-product/create-product.component';
+import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
+import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
+import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
 
 
 const appRoutes: Routes = [
@@ -62,7 +66,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'add-product',
-    loadChildren: './add-product/add-product.module#AddProductModule'
+    component: CreateProductComponent
   },
   {
     path: 'fish-type/:category/:page',
@@ -287,7 +291,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'cookies-policy',
-    loadChildren: './cookies-policy/cookies-policy.module#PrivacyPolicyModule',
+    loadChildren: './cookies-policy/cookies-policy.module#CookiesPolicyModule',
   },
   {
     path: 'about-us',
@@ -406,7 +410,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent
+    AccountComponent,
+    CreateProductComponent,
+    FishFormComponent,
+    AvancedPricingComponent,
+    FishFeaturesComponent
   ],
   imports: [
     BrowserAnimationsModule,
