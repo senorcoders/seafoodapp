@@ -63,7 +63,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'add-product',
-    loadChildren: './add-product/add-product.module#AddProductModule'
+    loadChildren: './create-product/create-product.module#CreateProductModule'
   },
   {
     path: 'fish-type/:category/:page',
@@ -288,7 +288,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'cookies-policy',
-    loadChildren: './cookies-policy/cookies-policy.module#PrivacyPolicyModule',
+    loadChildren: './cookies-policy/cookies-policy.module#CookiesPolicyModule',
   },
   {
     path: 'about-us',
@@ -408,7 +408,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent
+    AccountComponent,
   ],
   imports: [
     BrowserAnimationsModule,
