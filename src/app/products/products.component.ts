@@ -55,7 +55,7 @@ export class ProductsComponent implements OnInit {
   cart: any;
   buyerId:any;
 userInfo:any;
-
+ 
   constructor(
     private islogin: IsLoginService,
     private route: ActivatedRoute,
@@ -221,11 +221,7 @@ userInfo:any;
       this.islogin.role.subscribe((role: number) => {
         this.role = role;
       });
-      // jQuery(document).ready(function() {
-      //   jQuery([document.documentElement, document.body]).animate({
-      //     // scrollTop: jQuery('#search').offset().top
-      //   }, 1000);
-      // });
+     
 
     }); 
   	this.searchForm = this.fb.group({
@@ -756,10 +752,8 @@ smallDesc(str) {
             }
         if (result.hasOwnProperty('message')) {
           deliveredPice.innerHTML = result['message'];
-          // deliveredPiceTotal.innerHTML = '';
         } else {
           deliveredPice.innerHTML = 'AED ' + priceT + ' / kg';
-          // deliveredPiceTotal.innerHTML = '';
         }
 
       });

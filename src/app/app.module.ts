@@ -208,8 +208,8 @@ const appRoutes: Routes = [
     loadChildren: './tracking/tracking.module#TrackingModule',
   },
   {
-    path: 'products/:query/:page',
-    loadChildren: './products/products.module#ProductsModule',
+    path: 'shop',
+    loadChildren: './shop/shop.module#ShopModule',
     canActivate: [RouterProtectionService]
   },
   {

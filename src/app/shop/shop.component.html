@@ -1,0 +1,312 @@
+<div class="filter-container">
+  <div class="filter-header">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-10">
+            <h2>FILTER <span *ngIf="!showClear">SEAFOOD</span> </h2>
+            <ul class="list-inlint filter-pills" [hidden]="!showClear">
+              <li class="list-inline-item" id="pill-category">
+                <button (click)="destroyPillCat()"><span>{{tmpCatName}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-subcategory">
+                <button (click)="destroyPillSubat()"><span>{{tmpSubcat}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-specie">
+                <button (click)="destroyPillSpecie()"><span>{{tmpSpecie}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-variant">
+                <button (click)="destroyPillVariant()"><span>{{tmpVariant}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              
+              <li class="list-inline-item" id="pill-country">
+                <button (click)="destroyPillRadio('country')"><span>Country</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-preparation">
+                <button (click)="destroyPill()"><span>preparation</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-treatment">
+                <button (click)="destroyPill()"><span>treatment</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-raised">
+                <button (click)="destroyPill()"><span>raised</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 text-right">
+            <button *ngIf="showClear" class="clear-btn" (click)="clear()">CLEAR ALL</button>
+            <button [hidden]="!showIcon" class="expandible-link" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                <img  alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="filter-content collapse" id="filterCollapse2">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3 filter-col">
+          <h4>ORDER AMOUNT (KG)</h4>
+          <div class="form-group">
+            <form class="form-number">
+              <input type="number" placeholder="Min..." id="minAmount">
+              <label>to</label>
+              <input type="number" placeholder="Max..." id="maxAmount">
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3 filter-col">
+          <div class="form-group">
+              <form class="check-form">
+                  <input type="checkbox" id="cooming">
+                  <label for="cooming">UPCOMING</label>
+                </form>
+          </div>
+         
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn-transparent" (click)="showLess()">
+                <img src="../../assets/svg/arrow-up.svg" alt="">
+                SEE LESS
+            </button>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="filter-content collapse show" id="filterCollapse">
+    <div class="container">
+      <div class="row">
+        <div class="col filter-col" [hidden]="hideCat">
+            <h4>CATEGORY</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchCategories; let i=index" class="custom-list">
+                    <input  type="radio"  name="cat" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col" [hidden]="hideSubcat">
+            <h4>SUB CATEGORY</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchSubcategories; let i=index" class="custom-list">
+                    <input  type="radio"  name="subcat" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col " [hidden]="hideSpecie">
+            <h4>SUB SPECIE</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchSubSpecie; let i=index" class="custom-list">
+                    <input  type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col" [hidden]="hideVariant">
+            <h4>VARIANT</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchDescriptor; let i=index" class="custom-list">
+                    <input  type="radio"  name="variant" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col">
+            <h4>COUNTRY</h4>
+            <div class="form-group">
+                <input  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
+                <div *ngFor="let country of filteredItems; let i=index" class="custom-list">
+                    <input *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
+                    <label *ngIf="i<5" for="{{country.code}}">{{country.name}}</label>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col filter-col">
+          <h4>PREPARATION</h4>
+          <div class="form-group">
+            <div class="custom-list">
+              <input type="checkbox" id="filleted" class="input-preparation" name="preparation" value="filleted" >
+              <label for="filleted">Filleted</label>
+            </div>
+            <div class="custom-list">
+                <input type="checkbox" id="whole" class="input-preparation" name="preparation" value="whole" >
+                <label for="whole">Whole</label>
+              </div>
+              <div class="custom-list">
+                  <input type="checkbox" class="input-preparation" id="gutted" name="preparation" value="gutted" >
+                  <label for="gutted">Gutted</label>
+                </div>
+          </div>
+        </div>
+        <div class="col filter-col">
+            <h4>TREATMENT</h4>
+            <div class="form-group">
+              <div class="custom-list">
+                <input type="checkbox" class="input-treatment" id="fresh" name="treatment[]" value="fresh" >
+                <label for="fresh">Fresh</label>
+              </div>
+              <div class="custom-list">
+                  <input type="checkbox" class="input-treatment" id="frozen" name="treatment[]" value="frozen" >
+                  <label for="frozen">Frozen</label>
+                </div>
+                <div class="custom-list">
+                    <input type="checkbox" class="input-treatment" id="live" name="treatment[]" value="live" >
+                    <label for="live">Live</label>
+                  </div>
+                  <div class="custom-list">
+                      <input type="checkbox" class="input-treatment" id="smoked" name="treatment[]" value="smoked" >
+                      <label for="smoked">Smoked</label>
+                  </div>
+                  <div class="custom-list">
+                      <input type="checkbox" class="input-treatment" id="canned" name="treatment[]" value="canned" >
+                      <label for="canned">Canned</label>
+                  </div>
+            </div>
+          </div>
+
+          <div class="col filter-col">
+              <h4>RAISED</h4>
+              <div class="form-group">
+                <div class="custom-list">
+                  <input type="checkbox" class="input-raised" id="farmed" name="raised" value="farmed" >
+                  <label for="farmed">Farmed</label>
+                </div>
+                <div class="custom-list">
+                    <input type="checkbox" class="input-raised" id="organic" name="raised" value="organic" >
+                    <label for="organic">Organic</label>
+                  </div>
+                  <div class="custom-list">
+                      <input type="checkbox"  class="input-raised" id="wild" name="raised" value="wild" >
+                      <label for="wild">Wild</label>
+                    </div>
+              </div>
+            </div>
+
+            <div class="col filter-col">
+              <h4>PRICE</h4>
+              <input type="hidden" id="minPriceValue" name="priceValue">
+              <input type="hidden" id="maxPriceValue" name="priceValue">
+              <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
+
+            </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn-transparent" (click)="showMore()">
+              <img src="../../assets/svg/arrow-down.svg" alt="">
+              SEE MORE
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="gray-bg">
+    <div class="container-fluid">
+      <div class="row">
+          <div class="col-12 text-center" style="padding-top: 30px">
+              <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
+            </div>
+            <div class="col-lg-12" *ngIf="showNotFound" style="padding-top: 30px">
+              <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
+            </div>
+
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} category-{{removeSpaces(product.type.name)}} {{product.country}} {{i}} {{product.id}} {{product.price.value}}">
+              <div class="single-product-box">
+                  <div class="product-header">
+                   <div class="row">
+                     <div class="col-md-10">
+                        <span id="qty-kg-{{product.id}}" class="qty-kg" (click)="hideMe(product.id)"><span *ngIf="!product.qty">{{product.minimumOrder}}</span> {{product.qty}} kg</span>  
+                        <input placeholder="type kg..."  id="edit-qty-{{product.id}}" class="qty-number" type="number"  (change)="manualInput(product.id, i, product.maximumOrder)" (focusout)="showSpan(product.id)">
+                        <form>
+                            <input id="range-{{product.id}}" name="foo" type="range" class="product-range" [value]="product.minimumOrder" [min]="product.minimumOrder" [max]="product.maximumOrder" (change)="getRange(product.id, i)">
+                            <label id="delivere-price-{{product.id}}">AED 12.99</label>
+                        </form>
+                      </div>
+                     <div class="col-md-2 text-right">
+                       <a id="btn-add-{{product.id}}" (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                     </div>
+                   </div>
+                  </div>
+                  <div class="product-body">
+                    <a routerLink="/product/{{product.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="image[i]">
+                        <div class="product-overlay"></div>
+                        <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                     </div>
+                    </a>
+                  </div>
+                  <div class="product-footer">
+                    <h4>{{product.name}}</h4>
+                    <h5>AED {{product.price.value}} / {{product.weight.type}}</h5>
+                  </div>
+              </div>
+          </div>
+      </div>
+       
+    </div>
+</div>
+
+<div class="cart-window">
+  <div class="container-fluid">
+   
+      <div class="cart-header">
+          <div class="row">
+            <div class="col-md-8">
+                <h2>MY CART <span *ngIf="productsCart.length > 0">({{productsCart.length}})</span></h2>
+            </div>
+            <div class="col-md-4 text-right">
+                <button (click)="closeCart()"><img src="../../assets/svg/close.svg" alt=""></button>
+            </div>
+            </div>
+      </div>
+      <div class="cart-body">
+        <div class="row cart-item"  *ngFor="let product of productsCart; let i=index">
+            <div class="col-md-4">
+              <div class="bg-img"   [style.background-image]="imageCart[i]"></div>
+            </div>
+            <div class="col-md-6">
+              <h4>{{product?.fish?.name}}</h4>
+              <div class="cart-slide-range">
+                  <span class="qty-kg"> {{product?.quantity?.value}} kg</span>  
+                  <form>
+                      <input disabled  name="foo" type="range" class="product-range">
+                      <label>{{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}</label>
+                  </form>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <button (click)="deleteItem(i, product.id)">
+                  <img src="../../assets/svg/close.svg" alt="">
+              </button>
+            </div>
+        </div>
+       
+      </div>
+
+      <div class="cart-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>SUBTOTAL <span class="cart-price">{{(total) | currency: 'AED'}}</span></h4>
+                <h6>Shipping & taxes calculated at checkout</h6>
+            </div>
+            <div class="col-md-12">
+              <button class="btn-cart" (click)="checkout()">Go to checkout</button>
+            </div>
+            <div class="col-md-6">
+              <button (click)="closeCart()" class="btn-transparent">CONTINUE SHOPPING</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn-transparent" routerLink="/cart">VIEW MY CART</button>
+              </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="c-mask"></div>
