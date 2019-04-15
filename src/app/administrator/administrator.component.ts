@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 declare var jQuery: any;
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';

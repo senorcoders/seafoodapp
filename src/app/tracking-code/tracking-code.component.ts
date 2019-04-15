@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {ProductService} from '../services/product.service';
 import { OrderService } from '../services/orders.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { error } from 'protractor';
 declare var jQuery:any;

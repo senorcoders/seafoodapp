@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../services/product.service';
 import {FormBuilder, Validators, FormGroup} from "@angular/forms";
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 declare var jQuery:any;

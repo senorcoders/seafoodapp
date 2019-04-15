@@ -2,7 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import {AuthenticationService} from '../services/authentication.service';
 import {ProductService} from '../services/product.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { Router,ActivatedRoute } from '@angular/router';
 import {IsLoginService} from '../core/login/is-login.service';
 import { environment } from '../../environments/environment';

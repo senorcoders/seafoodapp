@@ -10,7 +10,7 @@ import { ProductService } from '../services/product.service';
 import {  HttpClient, HttpBackend } from '@angular/common/http';
 import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
 import { Location } from '@angular/common';
 import { OrderService } from '../services/orders.service';

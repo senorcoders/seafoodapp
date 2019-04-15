@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import{ProductService} from '../services/product.service';
 declare var jQuery:any;
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 @Component({
   selector: 'app-featured-products',
   templateUrl: './featured-products.component.html',

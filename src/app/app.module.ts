@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
-import { ToastrModule } from 'ngx-toastr';
 
 import { SellerRouterService } from './services/seller-router.service';
 import { BuyerRouterService } from './services/buyer-router.service';
@@ -46,6 +45,7 @@ import { CreateProductComponent } from './create-product/create-product.componen
 import { FishFormComponent } from './form-add-product/fish-form/fish-form.component';
 import { AvancedPricingComponent } from './form-add-product/avanced-pricing/avanced-pricing.component';
 import { FishFeaturesComponent } from './form-add-product/fish-features/fish-features.component';
+import { ToastrService } from './toast.service';
 
 
 const appRoutes: Routes = [
@@ -414,13 +414,12 @@ export function HttpLoaderFactory(http: HttpClient) {
     CreateProductComponent,
     FishFormComponent,
     AvancedPricingComponent,
-    FishFeaturesComponent
+    FishFeaturesComponent,
   ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule,
-    ToastrModule.forRoot(),
+    HttpClientModule, 
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {
@@ -457,7 +456,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CountriesService,
     PricingChargesService,
     MenuItems,
-    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en' },
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'en', },
+    ToastrService
     // TranslateService
   ],
   bootstrap: [AppComponent]

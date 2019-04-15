@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { environment } from '../../environments/environment';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';

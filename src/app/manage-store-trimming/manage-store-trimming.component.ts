@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ReactiveFormsModule,FormsModule,FormGroup,FormControl, Validators, FormBuilder} from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 
 @Component({
   selector: 'app-manage-store-trimming',
