@@ -306,17 +306,27 @@ p.order-number {
 
 .sub-td{
     padding: 0 !important;
+   
     td{
         border-bottom-style: dashed !important;
-
+        border: none !important;
+        background-image: linear-gradient(to right, #e4e6e9 33%, rgba(255,255,255,0) 0%);
+        background-position: bottom;
+        background-size: 20px 2px;
+        background-repeat: repeat-x;
     }
+
+  
+
     tr:last-child td{
-        border-bottom-style: solid !important;
-        border-bottom-color: #3E4E75 !important;
+        background: none !important;
+        border-bottom: 1px solid #3E4E75 !important;
 
     }
     tbody{
         border-top: 1px solid #3E4E75;
+        position: relative;
+
     }
 }
 .expandible-link img {
