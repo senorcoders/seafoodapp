@@ -27,21 +27,21 @@
         }
         .main-featured-img{
             width: 100%;
-            max-width: 700px;
-            height: 565px;
+            max-width: 545px;
+            height: 440px;
             background-position: center;
             background-repeat: no-repeat;
             background-size: cover;
             margin: 0 auto;
             margin-bottom: 75px;
             @media screen and (max-width: 768px){
-                height: 300px;                 
+                height: 250px;                 
              }
         }
 
         .product-name{
             font-family: 'Josefin Sans', sans-serif;
-            font-size: 50px;
+            font-size: 38px;
             font-weight: 100;
             letter-spacing: 1.5px;
             line-height: 59px;
@@ -55,7 +55,7 @@
         }
         .product-type-price{
             font-family: 'Josefin Sans', sans-serif;
-            font-size: 28px;
+            font-size: 21px;
             font-weight: 300;
             letter-spacing: 1.5px;
             line-height: 34px;
@@ -76,8 +76,8 @@
         .country-desc{
             font-family: 'Open Sans', sans-serif;
             color: #9A9EA8;
-            font-size: 21px;
-            line-height: 28px;
+            font-size: 16px;
+            line-height: 21px;
             font-weight: 300;
             margin-bottom: 70px;
         }
@@ -99,8 +99,8 @@
             font-family: 'Open Sans', sans-serif;
             font-weight: 300;
             color: #0D1321;
-            font-size: 21px;
-            line-height: 28px;
+            font-size: 16px;
+            line-height: 21px;
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
@@ -130,7 +130,7 @@
                 flex: 3 1 33%;
             }
             .big-font{
-                font-size: 38px;
+                font-size: 28px;
                 line-height: 52px;
                 font-weight: 200;
                 color: #3E4E75;
@@ -149,7 +149,7 @@
                 width: 50%;
                 font-family: 'Josefin Sans', sans-serif;
                 color: #7484AA !important;
-                font-size: 21px;
+                font-size: 16px;
                 letter-spacing: 1.75px;
                 line-height: 25px;
                 font-weight: 300;
@@ -185,7 +185,7 @@
                 background: transparent;
                 border: 1px solid #7484AA;
                 border-radius: 2px;
-                font-size: 21px;
+                font-size: 16px;
                 text-transform: uppercase;
                 left: 1.75px;
                 color: #7484AA;
@@ -216,7 +216,7 @@ input.qty{
     background: no-repeat;
     border: none;
     font-family: 'Josefin Sans', sans-serif;
-    font-size: 21px;
+    font-size: 16px;
     line-height: 25px;
     color: #7484AA;
     font-weight: 100;

@@ -37,7 +37,7 @@ p.order-number {
         border-bottom: 1px solid #b5bed1;
         position: relative;
         .nav-item a{
-            width: 300px;
+            width: 225px;
         }
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
@@ -47,7 +47,7 @@ p.order-number {
         color: #3E4E75 !important;
         text-transform: uppercase;
         font-weight: 300;
-        font-size: 28px;
+        font-size: 21px;
         padding: 15px 30px;
         letter-spacing: 1.75px;
         line-height: 34px;
@@ -57,7 +57,7 @@ p.order-number {
         color: #7484AA !important;
         text-transform: uppercase;
         font-weight: 300;
-        font-size: 28px;
+        font-size: 21px;
         padding: 15px 30px;
         letter-spacing: 1.75px;
         border: none;
@@ -75,8 +75,8 @@ p.order-number {
         border-top: none;
         font-weight: 300;
         letter-spacing: 1.5px;
-        font-size: 21px;
-        line-height: 28px;
+        font-size: 18px;
+        line-height: 21px;
     
     }
 
@@ -189,7 +189,7 @@ p.order-number {
                 border: 2px solid #7484AA !important;
                 font-weight: 300;
                 margin-right: 10px !important;
-                font-size: 21px !important;
+                font-size: 18px !important;
                 letter-spacing: 1.5px;
                 line-height: 25px;
                 height: 60px !important;
@@ -223,7 +223,7 @@ p.order-number {
                 text-align: center;
                 width: 100%;
                 font-weight: 300;
-                font-size: 28px;
+                font-size: 21px;
                 line-height: 34px;
                 letter-spacing: 2px;
             }
@@ -259,7 +259,7 @@ p.order-number {
                 text-transform: uppercase;
                 letter-spacing: initial;
                 letter-spacing: initial;
-                font-size: 21px;
+                font-size: 18px;
                 letter-spacing: 1.75px;
                 line-height: 25px;
                 small{
@@ -278,7 +278,7 @@ p.order-number {
                 font-weight: 300;
                 font-style: italic;
                 text-transform: initial;
-                font-size: 21px;
+                font-size: 18px;
                 color: #9A9EA8 !important;
                 line-height: 25px;
                 border-bottom: 1px solid #ccced3 !important;
@@ -306,17 +306,27 @@ p.order-number {
 
 .sub-td{
     padding: 0 !important;
+   
     td{
         border-bottom-style: dashed !important;
-
+        border: none !important;
+        background-image: linear-gradient(to right, #e4e6e9 33%, rgba(255,255,255,0) 0%);
+        background-position: bottom;
+        background-size: 20px 2px;
+        background-repeat: repeat-x;
     }
+
+  
+
     tr:last-child td{
-        border-bottom-style: solid !important;
-        border-bottom-color: #3E4E75 !important;
+        background: none !important;
+        border-bottom: 1px solid #3E4E75 !important;
 
     }
     tbody{
         border-top: 1px solid #3E4E75;
+        position: relative;
+
     }
 }
 .expandible-link img {
