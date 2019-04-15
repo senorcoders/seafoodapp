@@ -229,9 +229,11 @@
           display: none;
       }
       .file-input{
+          max-width: 400px;
+          margin: 0 auto;
           label{
             color: #9A9EA8;
-            font-size: 28px;
+            font-size: 21px;
             line-height: 0;
             font-weight: 300;
             font-family: 'Open Sans', sans-serif;
@@ -246,7 +248,7 @@
     
               }
             img{
-                width: 26px;
+                width: 18px;
                 vertical-align: middle;    
               }
           }
@@ -257,7 +259,7 @@
       }
 
       .btn-save{
-        border: 2px solid #7484AA;
+        border: 1px solid #7484AA;
         text-transform: uppercase;
         color: #7484AA;
         font-family: 'Josefin Sans', sans-serif;
@@ -268,8 +270,12 @@
         padding-top: 20px;
         padding-bottom: 20px;
         outline: none;
+        max-width: 400px;
+        margin: 0 auto;
         margin-top: 30px;
         margin-bottom: 30px;
+        display: block;
+
         @media screen and (max-width: 768px) {
             font-size: 17px;
 
@@ -278,7 +284,7 @@
 
       .btn-save:hover{
         background: #7484AA !important;
-        border: 2px solid #7484AA !important;
+        border: 1px solid #7484AA !important;
         color: #ffffff !important;
     }
       
