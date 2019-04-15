@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 declare var jQuery:any;
 declare var window:any;
 @Component({

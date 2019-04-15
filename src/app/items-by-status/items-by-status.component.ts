@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 declare var jQuery: any;
 @Component({
   selector: 'app-items-by-status',

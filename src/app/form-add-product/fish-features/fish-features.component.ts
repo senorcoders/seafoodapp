@@ -3,7 +3,7 @@ import { FormGroupDirective, ControlContainer, FormControl, Validators, FormGrou
 import { NgIf, NgClass } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { AuthenticationService } from '../../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../../toast.service';
 
 @Component({
   selector: 'fish-features',

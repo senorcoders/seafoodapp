@@ -5,7 +5,7 @@ import { IsLoginService } from '../login/is-login.service';
 import { ProductService } from '../../services/product.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../../toast.service';
 import { LanguageService } from '../language/language.service';
 import { CartService } from '../cart/cart.service';
 import { OrdersService } from '../orders/orders.service';
