@@ -1,22 +1,19 @@
 <div class="row" formGroupName="price">
-  <div class="col-12">
-    <h2 style="text-align: center; text-transform: uppercase;">
-      {{'CreateProduct.advancepricing' | translate}} <i class="fa fa-chevron-up" aria-hidden="true"
-        (click)="showPricing(false)" *ngIf="hideTrimesSlides===true||wholeFishAction===true"
-        [hidden]="!showPricingValue"></i> <i class="fa fa-chevron-down" (click)="showPricing(true)"
-        *ngIf="hideTrimesSlides===true||wholeFishAction===true" [hidden]="showPricingValue" aria-hidden="true"></i>
-    </h2>
-  </div>
 
-  <div class="col-12" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
+    <div class="col-lg-12 text-center">
+        <h1 class="gray-title" ><span>ADVANCED PRICING <i class="fa fa-chevron-up" aria-hidden="true"
+          (click)="showPricing(false)" *ngIf="hideTrimesSlides===true||wholeFishAction===true"
+          [hidden]="!showPricingValue"></i> <i class="fa fa-chevron-down" (click)="showPricing(true)"
+          *ngIf="hideTrimesSlides===true||wholeFishAction===true" [hidden]="showPricingValue" aria-hidden="true"></i></span></h1>
+    </div>
+
+  <div class="col-12 toggle-div" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
     <label style="text-align:center; width:100%;"> <span calss="selectionable" [ngClass]="headAction===true?'select':''"
-        (click)="assingHead(true)" [hidden]="head!=='on'&&head!=='both'">{{'CreateProduct.headOn' | translate}}</span>
+        (click)="assingHead(true)" [hidden]="head!=='on'&&head!=='both'">HEAD ON</span>
       <span [hidden]="head!=='both'">|</span> <span (click)="assingHead(false)" calss="selectionable"
         [ngClass]="headAction===true?'':'select'"
-        [hidden]="head!=='off'&&head!=='both'">{{'CreateProduct.headOff' | translate}}</span>
-      <img
-        tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
-        placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
+        [hidden]="head!=='off'&&head!=='both'">HEAD OFF</span>
+     </label>
   </div>
   <!-- para guardar la head action -->
   <div class="form-group" hidden>
@@ -24,11 +21,11 @@
   </div>
 
   <div class="col-12" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
-    <div class="row" [hidden]="headAction===false">
-      <div class="col form-group" *ngFor="let whole of wholesFish">
+    <div class="row check-row" [hidden]="headAction===false">
+      <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" form id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
+          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" form id="defaultCheck{{whole.id}}">
+          <label class="form-check-label" for="defaultCheck{{whole.id}}">
             {{getNameWhole(whole.id)}}
           </label>
         </div>
@@ -37,11 +34,11 @@
     </div>
 
     <!-- off checkbox -->
-    <div class="row" [hidden]="headAction===true">
-      <div class="col form-group" *ngFor="let whole of wholesFish">
+    <div class="row check-row" [hidden]="headAction===true">
+      <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" form id="defaultCheck1">
-          <label class="form-check-label" for="defaultCheck1">
+          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" form id="defaultCheck{{whole.id}}">
+          <label class="form-check-label" for="defaultCheck{{whole.id}}">
             {{getNameWhole(whole.id)}}
           </label>
         </div>
@@ -53,34 +50,34 @@
   <!-- los slides se itera por controls de formularios  -->
   <!-- slides para kg  -->
   <div class="col-12" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
-    <div class="row" [hidden]="headAction===false">
+    <div class="row tab-row" [hidden]="headAction===false">
       <div *ngFor="let k of weights.on.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
-        class="col selectionable">{{getNameWhole(k)}}</div>
+        class="col-lg-2 selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
-        <div class="row">
-          <div class="col-9" *ngIf="keySelect!==''">quantity range (kg)</div>
-          <div class="col-3" *ngIf="keySelect!==''">price (USD)</div>
+        <div class="row custom-pricing-table">
+          <div class="col-8 text-center table-title" *ngIf="keySelect!==''">quantity range (kg)</div>
+          <div class="col-4 text-center table-title" *ngIf="keySelect!==''">price (USD)</div>
 
           <div class="col-12">
-            <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row">
-              <div class="col-9">
+            <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row slider-price">
+              <div class="col-8">
                 <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.on[keySelect][i].min"
                   [(highValue)]="weights.on[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
                   [options]="weights.on[keySelect][i].options"></ng5-slider>
               </div>
-              <div class="col-3" [formGroupName]="getIdentifier(keySelect)">
+              <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">kg
                 <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
               </div>
             </div>
-            <div class="row" *ngIf="keySelect!==''">
-              <div class="col-9">
+            <div class="row manual-slider" *ngIf="keySelect!==''">
+              <div class="col-8">
                 <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
-              <div class="col-3">
+              <div class="col-4">
                 $<input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
                   [(ngModel)]="valueExample">kg
               </div>
