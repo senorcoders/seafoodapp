@@ -1,0 +1,21 @@
+.select{
+    font-weight: bold !important;
+}
+
+.selectionable{
+    cursor: pointer !important;
+}
+
+.error-price{
+    border: 1px solid red;
+}
+
+.square{
+    width: 1rem;
+    height: 1rem;
+    display: inline-block;
+    border: 1px solid black;
+}
+.select .square{
+    background-color: black;
+}
