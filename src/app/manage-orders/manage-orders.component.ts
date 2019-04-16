@@ -5,6 +5,8 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
 import { TitleService } from '../title.service';
+import * as  moment from 'moment';
+
 declare var jQuery: any;
 
 @Component({
@@ -23,17 +25,23 @@ export class ManageOrdersComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
-  groupOrder=[];
-  orderWithData=[];
-  API:any = environment.apiURL;
+  groupOrder = [];
+  orderWithData = [];
+  API: any = environment.apiURL;
+
+  public date1 = new Date();
+  public date2 = new Date();
+  public useFilterDate = false;
+
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
     private toast: ToastrService,
     private auth: AuthenticationService,
-    private titleS: TitleService) {     this.titleS.setTitle('Manage'); }
+    private titleS: TitleService) { this.titleS.setTitle('Manage'); }
 
   ngOnInit() {
+    this.date2.setMonth(new Date().getMonth() + 1);
     this.user = this.auth.getLoginData();
     this.status = '0';
     this.getStatus();
@@ -171,13 +179,17 @@ export class ManageOrdersComponent implements OnInit {
       if (val.shoppingCart && val.shoppingCart.orderNumber) {
         if (index > 0) {
           if ((val.shoppingCart !== null && val.shoppingCart !== undefined) && val.shoppingCart.orderNumber != this.orderWithData[index - 1].shoppingCart.orderNumber) {
-            this.groupOrder.push({ orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-              invoice_pdf: val.shoppingCart.invoice_pdf });
+            this.groupOrder.push({
+              orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
+              invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id
+            });
           }
         }
         else {
-          this.groupOrder.push({ orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-            invoice_pdf: val.shoppingCart.invoice_pdf });
+          this.groupOrder.push({
+            orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
+            invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id
+          });
         }
       }
     })
@@ -203,5 +215,29 @@ export class ManageOrdersComponent implements OnInit {
 
   public validateUpdateInfo(item, order) {
     return item.shoppingCart !== null && item.shoppingCart !== undefined ? item.shoppingCart.orderNumber === order.orderNumber && item.updateInfo : false;
+  }
+
+  public getFormDate(date) {
+    return moment(date).format('MM/DD/YYYY');
+  }
+
+  public filterDateChange() {
+  }
+
+  public filter(val) {
+    let status = true;
+    let item = this.orderWithData.find(it => {
+      return it.id === val.id;
+    });
+    if (item === undefined || item === null) return true;
+    //Ahora hacemos filtros por date paid
+    if (status === true && this.useFilterDate === true) {
+      if (item.shoppingCart && item.shoppingCart.paidDateTime) {
+        let date = moment(item.shoppingCart.paidDateTime);
+        status = date.isBetween(this.date1, this.date2);
+      }
+    }
+
+    return status;
   }
 }
