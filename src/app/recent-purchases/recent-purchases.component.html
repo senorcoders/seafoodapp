@@ -1,481 +1,611 @@
 <ng-progress></ng-progress>
 
 <div class="container-fluid orders-tabs">
-		<ng-template #customLoadingTemplate>
-				<div class="row">
-				  <div class="col">
-					<div class="col-12 text-center" ><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
-				  </div>
-				</div>
-			  </ng-template>
-			  <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
-
-		<div class="row" *ngIf="showLoading; else productshow">
-				<div class="wave-loader">
-						<div class="wave-loading"></div>
-					</div>
+	<ng-template #customLoadingTemplate>
+		<div class="row">
+			<div class="col">
+				<div class="col-12 text-center"><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
 			</div>
-			
-			<ng-template #productshow>
+		</div>
+	</ng-template>
+	<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+	</ngx-loading>
 
-	<div class="row" >
-		<div class="col-lg-12">
-			<ul class="nav nav-tabs" id="slidinTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab" aria-controls="pending" aria-selected="true">Pending</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab" aria-controls="purchased" aria-selected="false">Shipped</a>
-				</li>
-				<li class="nav-item">
-						<a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab" aria-controls="delivered" aria-selected="false">Delivered</a>
+	<div class="row" *ngIf="showLoading; else productshow">
+		<div class="col-12 text-center">
+			<img src="../../assets/loader.gif" alt="" />
+		</div>
+	</div>
+	<ng-template #productshow>
+
+		<div class="row">
+			<div class="col-lg-12">
+				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
+							aria-controls="pending" aria-selected="true">Pending</a>
 					</li>
 					<li class="nav-item">
-							<a class="nav-link" id="cancelled-tab" data-toggle="tab" href="#cancelled" role="tab" aria-controls="cancelled" aria-selected="false">Cancelled</a>
-						</li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab" >
-					<table class="table" *ngIf="showProduct; else noProduct">
-						<thead>
-							<tr>
-								<th scope="col">Order</th>
-								<th scope="col">Date</th>
-								<th scope="col">Address</th>
-								<th scope="col">QTY</th>
-								<th scope="col">SKU</th>
-								<th scope="col">Product</th>
-								<th scope="col"></th>
-							</tr>
-						</thead>
-						<tbody *ngFor="let item of firstNoShipped; let i=index">
-							<tr >
-								<td><span *ngIf="item.items[0].updateInfo == null" class="new-span">NEW</span>{{item.orderNumber}}</td>
-								<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-								<td>{{item?.buyer?.dataExtra?.Address}}</td>
-								<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
-								<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
-								<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
-								<td *ngIf="item.items.length == 1">
-										<button [owlDateTimeTrigger]="dt1"  *ngIf="item.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null" (click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img  class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null" (click)="openShippingModal(item.items[0].id, i, 'pending' )"><img *ngIf="item.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img   [className]="item.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
-										<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{item.items[0].id}}">
-										<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(item.items[0].id, i)"></owl-date-time>
+						<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
+							aria-controls="purchased" aria-selected="false">Shipped</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab"
+							aria-controls="delivered" aria-selected="false">Delivered</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="cancelled-tab" data-toggle="tab" href="#cancelled" role="tab"
+							aria-controls="cancelled" aria-selected="false">Cancelled</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+						<table class="table" *ngIf="showProduct; else noProduct">
+							<thead>
+								<tr>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstNoShipped')" >Order</th>
+									<th scope="col" class="selectionable" (click)="orderForDate('firstNoShipped')">Date</th>
+									<th scope="col">Address</th>
+									<th scope="col">QTY</th>
+									<th scope="col">SKU</th>
+									<th scope="col">Product</th>
+									<th scope="col"></th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let item of firstNoShipped; let i=index">
+								<tr>
+									<td><span *ngIf="item.items[0].updateInfo == null"
+											class="new-span">NEW</span>{{item.orderNumber}}</td>
+									<td>{{item.updatedAt | date: 'd/M/y'}}</td>
+									<td>{{item?.buyer?.dataExtra?.Address}}</td>
+									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
+									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
+									<td *ngIf="item.items.length == 1">
+										<button [owlDateTimeTrigger]="dt1" *ngIf="item.items[0].updateInfo == null">
+											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
+											<img class="calendar-icon order-icon"
+												src="../../assets/svg/calendar-blank.svg" alt=""></button>
+										<button *ngIf="item.items[0].updateInfo != null"
+											(click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img
+												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+										<button *ngIf="item.items[0].updateInfo != null"
+											(click)="openShippingModal(item.items[0].id, i, 'pending' )"><img
+												*ngIf="item.items[0].shippingFiles == null" class="alert-circle"
+												src="../../assets/svg/alert-circle.svg" alt=""><img
+												[className]="item.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
+												src="../../assets/svg/attachment.svg" alt=""></button>
+										<input class="input-hidden" [min]="min" [max]="max" [owlDateTime]="dt1"
+											id="epa{{item.items[0].id}}">
+										<owl-date-time [pickerType]="'calendar'" #dt1
+											(afterPickerClosed)="selectDate(item.items[0].id, i)"></owl-date-time>
 									</td>
-								<td *ngIf="item.items.length > 1">N/A</td>
-								<td *ngIf="item.items.length > 1">N/A</td>
-								<td *ngIf="item.items.length > 1">{{item.items.length}} items </td>
-								<td *ngIf="item.items.length > 1"><a  class="expandible-link collapsed"  data-toggle="collapse" href="#collapse{{item.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-								</a>
+									<td *ngIf="item.items.length > 1">N/A</td>
+									<td *ngIf="item.items.length > 1">N/A</td>
+									<td *ngIf="item.items.length > 1">{{item.items.length}} items </td>
+									<td *ngIf="item.items.length > 1"><a class="expandible-link collapsed"
+											data-toggle="collapse" href="#collapse{{item.id}}" role="button"
+											aria-expanded="false" aria-controls="collapseExample">
+											<img alt="Open">
+										</a>
 
-								</td> 
-							</tr>
-							<tr *ngIf="item.items.length > 1" class="collapse" id="collapse{{item.id}}">
-								<td colspan="7" class="sub-td">
-									<table class="table sub-table">
-										<tbody>
-											<tr *ngFor="let sub of item.items; let subi=index">
-												<td>{{item.orderNumber}}</td>
-												<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-												<td>{{item?.buyer?.dataExtra?.Address}}</td>
-												<td >{{sub?.quantity?.value}} kg </td>
-												<td >{{sub?.fish?.seafood_sku}}</td>
-												<td >{{sub?.fish?.name}} </td>
-												<td >
-														<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-														<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-														<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i, 'pending', subi)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img  [className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
-														<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{sub.id}}">
-														<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(sub.id, i, subi)"></owl-date-time>
+									</td>
+								</tr>
+								<tr *ngIf="item.items.length > 1" class="collapse" id="collapse{{item.id}}">
+									<td colspan="7" class="sub-td">
+										<table class="table sub-table">
+											<tbody>
+												<tr *ngFor="let sub of item.items; let subi=index">
+													<td>{{item.orderNumber}}</td>
+													<td>{{item.updatedAt | date: 'd/M/y'}}</td>
+													<td>{{item?.buyer?.dataExtra?.Address}}</td>
+													<td>{{sub?.quantity?.value}} kg </td>
+													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.name}} </td>
+													<td>
+														<button [owlDateTimeTrigger]="dt1"
+															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
+																src="../../assets/svg/alert-circle.svg" alt=""> <img
+																class="calendar-icon order-icon"
+																src="../../assets/svg/calendar-blank.svg"
+																alt=""></button>
+														<button *ngIf="sub.updateInfo != null"
+															(click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img
+																class="order-icon" src="../../assets/svg/close.svg"
+																alt=""></button>
+														<button *ngIf="sub.updateInfo != null"
+															(click)="openShippingModal(sub.id, i, 'pending', subi)"><img
+																*ngIf="sub.shippingFiles == null" class="alert-circle"
+																src="../../assets/svg/alert-circle.svg" alt=""><img
+																[className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
+																src="../../assets/svg/attachment.svg" alt=""></button>
+														<input class="input-hidden" [min]="min" [max]="max"
+															[owlDateTime]="dt1" id="epa{{sub.id}}">
+														<owl-date-time [pickerType]="'calendar'" #dt1
+															(afterPickerClosed)="selectDate(sub.id, i, subi)">
+														</owl-date-time>
 													</td>
-											</tr>	
-										</tbody>
-									</table>
-								</td>
-							</tr>
-						
-						</tbody>
-					</table>
-					<ng-template #noProduct>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+
+							</tbody>
+						</table>
+						<ng-template #noProduct>
 							<div class="row">
 								<div class="col-12">
 									<h4 class="black-title">{{'Recent.no-product' | translate}}</h4>
 								</div>
 							</div>
 						</ng-template>
-				</div>
-				<div class="tab-pane fade" id="purchased" role="tabpanel" aria-labelledby="purchased-tab">
+					</div>
+					<div class="tab-pane fade" id="purchased" role="tabpanel" aria-labelledby="purchased-tab">
 						<table class="table" *ngIf="showShipped; else noShipped" id="shipped-table">
-								<thead>
-									<tr>
-										<th scope="col">Order</th>
-										<th scope="col">Date</th>
-										<th scope="col">Address</th>
-										<th scope="col">QTY</th>
-										<th scope="col">SKU</th>
-										<th scope="col">Product</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody *ngFor="let shipped of firstShipped; let i=index">
-									<tr >
-										<td>{{shipped.orderNumber}}</td>
-										<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-										<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg </td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
-										<td *ngIf="shipped.items.length == 1">
-												<button [owlDateTimeTrigger]="dt1"  *ngIf="shipped.items[0].updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-												<button *ngIf="shipped.items[0].updateInfo != null" (click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-												<button *ngIf="shipped.items[0].updateInfo != null" (click)="openShippingModal(shipped.items[0].id, i, 'shipped')"><img *ngIf="shipped.items[0].shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="shipped.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
-												<input (change)="selectDate(shipped.items[0].id)" type="hidden" [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{shipped.items[0].id}}">
-												<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(shipped.items[0].id, i)"></owl-date-time>
-											</td>
-										<td *ngIf="shipped.items.length > 1">N/A</td>
-										<td *ngIf="shipped.items.length > 1">N/A</td>
-										<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
-										
-										<td *ngIf="shipped.items.length > 1">
-											<a class="expandible-link collapsed" data-toggle="collapse" href="#collapse{{shipped.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-												<img alt="Open"></a>
-											</td> 
+							<thead>
+								<tr>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Order</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Date</th>
+									<th scope="col">Address</th>
+									<th scope="col">QTY</th>
+									<th scope="col">SKU</th>
+									<th scope="col">Product</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let shipped of firstShipped; let i=index">
+								<tr>
+									<td>{{shipped.orderNumber}}</td>
+									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
+									</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
+									<td *ngIf="shipped.items.length == 1">
+										<button [owlDateTimeTrigger]="dt1" *ngIf="shipped.items[0].updateInfo == null">
+											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
+											<img class="calendar-icon order-icon"
+												src="../../assets/svg/calendar-blank.svg" alt=""></button>
+										<button *ngIf="shipped.items[0].updateInfo != null"
+											(click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img
+												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+										<button *ngIf="shipped.items[0].updateInfo != null"
+											(click)="openShippingModal(shipped.items[0].id, i, 'shipped')"><img
+												*ngIf="shipped.items[0].shippingFiles == null" class="alert-circle"
+												src="../../assets/svg/alert-circle.svg" alt=""><img
+												[className]="shipped.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
+												src="../../assets/svg/attachment.svg" alt=""></button>
+										<input (change)="selectDate(shipped.items[0].id)" type="hidden" [min]="min"
+											[max]="max" [owlDateTime]="dt1" id="epa{{shipped.items[0].id}}">
+										<owl-date-time [pickerType]="'calendar'" #dt1
+											(afterPickerClosed)="selectDate(shipped.items[0].id, i)"></owl-date-time>
+									</td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
 
-									
-									</tr>
+									<td *ngIf="shipped.items.length > 1">
+										<a class="expandible-link collapsed" data-toggle="collapse"
+											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
+											aria-controls="collapseExample">
+											<img alt="Open"></a>
+									</td>
 
-									<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
-										<td colspan="7" class="sub-td">
-											<table class="table sub-table">
-												<tbody>
-													<tr *ngFor="let sub of shipped.items; let subi=index">
-														<td>{{shipped.orderNumber}}</td>
-														<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-														<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-														<td >{{sub?.quantity?.value}} kg </td>
-														<td >{{sub?.fish?.seafood_sku}}</td>
-														<td >{{sub?.fish?.name}} </td>
-														<td >
-																<button [owlDateTimeTrigger]="dt1"  *ngIf="sub.updateInfo == null"> <img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">	<img class="calendar-icon order-icon" src="../../assets/svg/calendar-blank.svg" alt=""></button>
-																<button *ngIf="sub.updateInfo != null" (click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-																<button *ngIf="sub.updateInfo != null" (click)="openShippingModal(sub.id, i, 'shipped', subi)"><img *ngIf="sub.shippingFiles == null" class="alert-circle" src="../../assets/svg/alert-circle.svg" alt=""><img [className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'" src="../../assets/svg/attachment.svg" alt=""></button>
-																<input class="input-hidden"  [min]="min" [max]="max"  [owlDateTime]="dt1" id="epa{{sub.id}}">
-																<owl-date-time [pickerType]="'calendar'" #dt1 (afterPickerClosed)="selectDate(sub.id, i, subi)"></owl-date-time>
-															</td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
 
-								
-								
-								</tbody>
-							</table>
-						
-							<ng-template #noShipped>
-									<div class="col"><h4 class="black-title">{{'Recent.no-shipped' | translate}}</h4></div>
-						 </ng-template>							
-				</div>
+								</tr>
 
-				<div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab">
+								<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
+									<td colspan="7" class="sub-td">
+										<table class="table sub-table">
+											<tbody>
+												<tr *ngFor="let sub of shipped.items; let subi=index">
+													<td>{{shipped.orderNumber}}</td>
+													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{sub?.quantity?.value}} kg </td>
+													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.name}} </td>
+													<td>
+														<button [owlDateTimeTrigger]="dt1"
+															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
+																src="../../assets/svg/alert-circle.svg" alt=""> <img
+																class="calendar-icon order-icon"
+																src="../../assets/svg/calendar-blank.svg"
+																alt=""></button>
+														<button *ngIf="sub.updateInfo != null"
+															(click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img
+																class="order-icon" src="../../assets/svg/close.svg"
+																alt=""></button>
+														<button *ngIf="sub.updateInfo != null"
+															(click)="openShippingModal(sub.id, i, 'shipped', subi)"><img
+																*ngIf="sub.shippingFiles == null" class="alert-circle"
+																src="../../assets/svg/alert-circle.svg" alt=""><img
+																[className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
+																src="../../assets/svg/attachment.svg" alt=""></button>
+														<input class="input-hidden" [min]="min" [max]="max"
+															[owlDateTime]="dt1" id="epa{{sub.id}}">
+														<owl-date-time [pickerType]="'calendar'" #dt1
+															(afterPickerClosed)="selectDate(sub.id, i, subi)">
+														</owl-date-time>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+
+
+
+							</tbody>
+						</table>
+
+						<ng-template #noShipped>
+							<div class="col">
+								<h4 class="black-title">{{'Recent.no-shipped' | translate}}</h4>
+							</div>
+						</ng-template>
+					</div>
+					<div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab">
 
 						<table class="table" *ngIf="showDelivered; else noDelivered">
-								<thead>
-									<tr>
-										<th scope="col">Order</th>
-										<th scope="col">Date</th>
-										<th scope="col">Address</th>
-										<th scope="col">QTY</th>
-										<th scope="col">SKU</th>
-										<th scope="col">Product</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody *ngFor="let shipped of delivered; let i=index">
-									<tr >
-										<td>{{shipped.orderNumber}}</td>
-										<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-										<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg </td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
-										<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
-										<td *ngIf="shipped.items.length == 1">	</td>
-										<td *ngIf="shipped.items.length > 1">N/A</td>
-										<td *ngIf="shipped.items.length > 1">N/A</td>
-										<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
-										
-										<td *ngIf="shipped.items.length > 1">
-											<a class="expandible-link collapsed" data-toggle="collapse" href="#collapse{{shipped.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-												<img alt="Open"></a>
-											</td> 
+							<thead>
+								<tr>
+									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Order</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Date</th>
+									<th scope="col">Address</th>
+									<th scope="col">QTY</th>
+									<th scope="col">SKU</th>
+									<th scope="col">Product</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let shipped of delivered; let i=index">
+								<tr>
+									<td>{{shipped.orderNumber}}</td>
+									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
+									</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
+									<td *ngIf="shipped.items.length == 1"> </td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
 
-									
-									</tr>
+									<td *ngIf="shipped.items.length > 1">
+										<a class="expandible-link collapsed" data-toggle="collapse"
+											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
+											aria-controls="collapseExample">
+											<img alt="Open"></a>
+									</td>
 
-									<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
-										<td colspan="7" class="sub-td">
-											<table class="table sub-table">
-												<tbody>
-													<tr *ngFor="let sub of shipped.items; let subi=index">
-														<td>{{shipped.orderNumber}}</td>
-														<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-														<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-														<td >{{sub?.quantity?.value}} kg </td>
-														<td >{{sub?.fish?.seafood_sku}}</td>
-														<td >{{sub?.fish?.name}} </td>
-														<td ></td>
-													</tr>
-												</tbody>
-											</table>
-										</td>
-									</tr>
 
-								
-								
-								</tbody>
-							</table>
+								</tr>
+
+								<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
+									<td colspan="7" class="sub-td">
+										<table class="table sub-table">
+											<tbody>
+												<tr *ngFor="let sub of shipped.items; let subi=index">
+													<td>{{shipped.orderNumber}}</td>
+													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{sub?.quantity?.value}} kg </td>
+													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.name}} </td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+
+
+
+							</tbody>
+						</table>
 						<ng-template #noDelivered>
-						<div class="col"><h4 class="black-title">There are not products delivered</h4></div>
-					</ng-template>
-					</div>
-
-					<div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
-							<table class="table" *ngIf="showCancelled; else noCancelled">
-									<thead>
-										<tr>
-											<th scope="col">Order</th>
-											<th scope="col">Date</th>
-											<th scope="col">Address</th>
-											<th scope="col">QTY</th>
-											<th scope="col">SKU</th>
-											<th scope="col">Product</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody *ngFor="let shipped of cancelled; let i=index">
-										<tr >
-											<td>{{shipped.orderNumber}}</td>
-											<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-											<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-											<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg </td>
-											<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
-											<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
-											<td *ngIf="shipped.items.length == 1">	</td>
-											<td *ngIf="shipped.items.length > 1">N/A</td>
-											<td *ngIf="shipped.items.length > 1">N/A</td>
-											<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
-											
-											<td *ngIf="shipped.items.length > 1">
-												<a class="expandible-link collapsed" data-toggle="collapse" href="#collapse{{shipped.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-													<img alt="Open"></a>
-												</td> 
-	
-										
-										</tr>
-	
-										<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
-											<td colspan="7" class="sub-td">
-												<table class="table sub-table">
-													<tbody>
-														<tr *ngFor="let sub of shipped.items; let subi=index">
-															<td>{{shipped.orderNumber}}</td>
-															<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-															<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
-															<td >{{sub?.quantity?.value}} kg </td>
-															<td >{{sub?.fish?.seafood_sku}}</td>
-															<td >{{sub?.fish?.name}} </td>
-															<td ></td>
-														</tr>
-													</tbody>
-												</table>
-											</td>
-										</tr>
-	
-									
-									
-									</tbody>
-								</table>
-							<ng-template #noCancelled>
-							<div class="col"><h4 class="black-title">There are not products cancelled</h4></div>
+							<div class="col">
+								<h4 class="black-title">There are not products delivered</h4>
+							</div>
 						</ng-template>
-						</div>
+					</div>
+					<div class="tab-pane fade" id="cancelled" role="tabpanel" aria-labelledby="cancelled-tab">
+						<table class="table" *ngIf="showCancelled; else noCancelled">
+							<thead>
+								<tr>
+									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Order</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Date</th>
+									<th scope="col">Address</th>
+									<th scope="col">QTY</th>
+									<th scope="col">SKU</th>
+									<th scope="col">Product</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let shipped of cancelled; let i=index">
+								<tr>
+									<td>{{shipped.orderNumber}}</td>
+									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
+									</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
+									<td *ngIf="shipped.items.length == 1"> </td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">N/A</td>
+									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
 
+									<td *ngIf="shipped.items.length > 1">
+										<a class="expandible-link collapsed" data-toggle="collapse"
+											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
+											aria-controls="collapseExample">
+											<img alt="Open"></a>
+									</td>
+
+
+								</tr>
+
+								<tr *ngIf="shipped.items.length > 1" class="collapse" id="collapse{{shipped.id}}">
+									<td colspan="7" class="sub-td">
+										<table class="table sub-table">
+											<tbody>
+												<tr *ngFor="let sub of shipped.items; let subi=index">
+													<td>{{shipped.orderNumber}}</td>
+													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{sub?.quantity?.value}} kg </td>
+													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.name}} </td>
+													<td></td>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+
+
+
+							</tbody>
+						</table>
+						<ng-template #noCancelled>
+							<div class="col">
+								<h4 class="black-title">There are not products cancelled</h4>
+							</div>
+						</ng-template>
+					</div>
+				</div>
 			</div>
 		</div>
-	</div>
 	</ng-template>
 
 </div>
 
-<div class="modal fade modal-confirm" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" style="text-align: center;">Are you sure you want to cancel this order?</h5>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-lg-2"></div>
-						<div class="col-lg-8 text-center">
-							<button (click)="confirm(false,action)" class="blue-btn-light">No</button>
-							<button (click)="confirm(true,action)" class="blue-btn-light">Yes</button>
+<div class="modal fade modal-confirm" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" style="text-align: center;">Are you sure you want to cancel this order?</h5>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-2"></div>
+					<div class="col-lg-8 text-center">
+						<button (click)="confirm(false,action)" class="blue-btn-light">No</button>
+						<button (click)="confirm(true,action)" class="blue-btn-light">Yes</button>
 
-						</div>
-						<div class="col-lg-2"></div>
+					</div>
+					<div class="col-lg-2"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="shippingDocs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" (click)="closeShippingModal()">
+					<img src="../../assets/svg/close.svg" alt="">
+				</button>
+				<h5 class="modal-title">ATTACH SHIPPING DOCUMENTS</h5>
+				<button type="button" class="close" (click)="saveTracking()">
+					<img src="../../assets/svg/check.svg" alt="">
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-lg-12">
+						<form [formGroup]="trackingForm" class="form-design">
+							<div class="row">
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>Invoice <span class="field-status red">*</span> <img
+														tooltip="Lorem Ipsum" placement="right" show-delay="0"
+														z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="1" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label1}}</label>
+
+												<input type="file" class="form-control" id="1"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event, 'invoice')"
+													[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('invoice').hasError('required')">Invoice
+													{{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'invoice')">
+													</div>
+
+												</div>
+											</div>
+
+
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>Health Certificate <span class="field-status red">*</span> <img
+														tooltip="Lorem Ipsum" placement="right" show-delay="0"
+														z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="2" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label2}}</label>
+
+												<input type="file" class="form-control" id="2"
+													accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event, 'healthCert')"
+													[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('healthCert').hasError('required')">Healrh
+													Certificate {{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'healthCert')">
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>Packing List <span class="field-status red">*</span> <img
+														tooltip="Lorem Ipsum" placement="right" show-delay="0"
+														z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="3" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label3}}</label>
+
+												<input type="file" class="form-control" id="3"
+													accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event, 'packingList')"
+													[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('packingList').hasError('required')">Packing
+													List {{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc"
+														[innerHtml]="mapDocs(sf, 'packingList')"></div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>AWB <span class="field-status red">*</span> <img
+														tooltip="Lorem Ipsum" placement="right" show-delay="0"
+														z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="4" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label4}}</label>
+
+												<input type="file" class="form-control" id="4"
+													accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event, 'awb')"
+													[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('awb').hasError('required')">AWB
+													{{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'awb')"></div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>Certificate of Origin <small>(Optional)</small> <img
+														tooltip="Lorem Ipsum" placement="right" show-delay="0"
+														z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="5" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label5}}</label>
+
+												<input type="file" class="form-control" id="5"
+													accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event, 'certificateOrigin')"
+													[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('certificateOrigin').hasError('required')">
+													Certificate of Origin {{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc"
+														[innerHtml]="mapDocs(sf, 'certificateOrigin')"></div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-12">
+									<div class="form-group">
+										<div class="row">
+											<div class="col">
+												<label>Credit Note <small>(Optional)</small> <img tooltip="Lorem Ipsum"
+														placement="right" show-delay="0" z-index="1000000000"
+														src="../../assets/svg/information-outline.svg" alt=""
+														width="20"></label>
+												<label for="6" class="fake-input"> <img
+														src="../../assets/svg/attachment.svg" alt=""> {{label6}}</label>
+												<input type="file" class="form-control" id="6"
+													accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													(change)="handleFileInput($event,'creditNote')"
+													[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
+												<div class="invalid-feedback"
+													*ngIf="trackingForm.get('creditNote').hasError('required')">Credit
+													Note {{'Register.required' | translate}}.</div>
+												<div *ngIf="doc != ''">
+													<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'creditNote')">
+													</div>
+
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
-
-	<div class="modal fade" id="shippingDocs" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-							<button type="button" class="close" (click)="closeShippingModal()">
-									<img src="../../assets/svg/close.svg" alt="">
-								</button>
-						<h5 class="modal-title">ATTACH SHIPPING DOCUMENTS</h5>
-						<button type="button" class="close" (click)="saveTracking()">
-								<img src="../../assets/svg/check.svg" alt="">
-							</button>
-					</div>
-					<div class="modal-body">
-						<div class="row">
-							<div class="col-lg-12">
-									<form [formGroup]="trackingForm"  class="form-design">
-											<div class="row">
-												<div class="col-lg-12">
-													<div class="form-group"> 
-															<div class="row">
-																<div class="col">
-																	<label>Invoice <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0" z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="1" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label1}}</label>
-	
-																	<input type="file" class="form-control" id="1" accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event, 'invoice')"   
-																[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('invoice').hasError('required')">Invoice {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'invoice')"></div>
-	
-																</div>
-																		</div>	
-														
-
-															</div>
-													</div>
-												</div>
-												<div class="col-lg-12">
-													<div class="form-group">
-															<div class="row">
-																<div class="col">
-																	<label>Health Certificate <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0"  z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="2" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label2}}</label>
-	
-																	<input type="file" class="form-control" id="2"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event, 'healthCert')" 
-																[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('healthCert').hasError('required')">Healrh Certificate {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'healthCert')"></div>
-			
-																</div>
-															</div>
-															 
-															</div>
-													</div>
-											</div>
-											<div class="col-lg-12">
-														<div class="form-group">
-															<div class="row">
-																<div class="col">
-																	<label>Packing List <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0"  z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="3" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label3}}</label>
-	
-																	<input type="file" class="form-control" id="3"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event, 'packingList')" 
-																[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('packingList').hasError('required')">Packing List {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'packingList')"></div>
-					
-																		</div>
-															</div>
-															 
-															</div>
-													</div>
-											</div>
-											<div class="col-lg-12">
-														<div class="form-group">
-															<div class="row">
-																<div class="col">
-																	<label>AWB <span class="field-status red">*</span> <img tooltip="Lorem Ipsum" placement="right" show-delay="0"  z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="4" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label4}}</label>
-	
-																	<input type="file" class="form-control" id="4" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event, 'awb')" 
-																[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('awb').hasError('required')">AWB {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'awb')"></div>
-					
-																		</div>
-															</div>
-															 
-															</div>
-													</div>
-											</div>
-							
-											<div class="col-lg-12">
-														<div class="form-group">
-															<div class="row">
-																<div class="col">
-																	<label>Certificate of Origin <small>(Optional)</small> <img tooltip="Lorem Ipsum" placement="right" show-delay="0"  z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="5" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label5}}</label>
-
-																		<input type="file" class="form-control" id="5"  accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event, 'certificateOrigin')" 
-																[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('certificateOrigin').hasError('required')">Certificate of Origin {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'certificateOrigin')"></div>
-					
-																		</div>
-																		</div>
-															 
-															</div>
-													</div>
-											</div>
-												<div class="col-lg-12">
-														<div class="form-group">
-															<div class="row">
-																<div class="col">
-																	<label>Credit Note <small>(Optional)</small> <img tooltip="Lorem Ipsum" placement="right" show-delay="0"  z-index="1000000000" src="../../assets/svg/information-outline.svg" alt="" width="20"></label>
-																	<label for="6" class="fake-input"> <img src="../../assets/svg/attachment.svg" alt=""> {{label6}}</label>
-																		<input type="file" class="form-control" id="6" accept="pplication/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
-																(change)="handleFileInput($event,'creditNote')" 
-																[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
-																<div class="invalid-feedback" *ngIf="trackingForm.get('creditNote').hasError('required')">Credit Note {{'Register.required' | translate}}.</div>              
-																<div *ngIf="doc != ''">
-																		<div *ngFor="let sf of doc" [innerHtml]="mapDocs(sf, 'creditNote')"></div>
-					
-																		</div>
-																		</div>
-																
-															</div>
-														</div>
-													 
-												</div>
-												
-											</div>
-										</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+</div>
