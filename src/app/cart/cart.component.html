@@ -8,9 +8,9 @@
 </div> 
 <div class="container">
   <div class="row">
-    <div class="col text-center">
-      <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
-    </div>
+    <div class="wave-loader" *ngIf="showLoading">
+        <div class="wave-loading"></div>
+      </div>
   </div>
 </div>
 <div class="container" *ngIf="!empty; else elseBlock">

@@ -403,6 +403,8 @@ export class RecentPurchasesComponent implements OnInit {
           }
 
         }
+        this.cancelled = [];
+        this.getCancelled();
 			},
 				e => {
 					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });

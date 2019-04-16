@@ -13,7 +13,9 @@
           <br>
         </div>
       </div>
-      <div *ngIf="loadProduct; else showContent" class="text-center"><img src="../../assets/loader.gif" alt=""></div>
+      <div class="wave-loader" *ngIf="loadProduct; else showContent">
+          <div class="wave-loading"></div>
+        </div>
       <ng-template #showContent>
       <div class="row">
         <ng-container *ngFor="let product of products; let i = index">

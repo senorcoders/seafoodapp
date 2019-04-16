@@ -1,6 +1,9 @@
-<div *ngIf="showLoading; else showContent" style="text-align: center;">
-	<img src="../../assets/loader.gif" alt="" class="loading">
+<div class="container" style="position: relative; min-height: 50vh;" *ngIf="showLoading; else showContent">
+		<div class="wave-loader" >
+				<div class="wave-loading"></div>
+			</div>
 </div>
+
 <ng-template #showContent>
 	<div class="container">
 	  <div class="row" *ngIf="showPending">

@@ -26,7 +26,7 @@ export class ShopComponent implements OnInit {
   searchCategories: any;
   searchSubcategories: any;
   searchSubSpecie: any;
-  searchDescriptor: any;
+  searchDescriptor: any = [];
   countries: any;
   allCountries: any = [];
   minPriceField: number = 0;
@@ -203,13 +203,16 @@ export class ShopComponent implements OnInit {
       const variant = e.target.value;
       this.getOnChangeLevel(variant);
       this.filterProducts();
-      setTimeout(() => {
-        this.hideCat = true;
-        this.hideSubcat = true;
-        this.hideSpecie = true;
-        this.hideVariant = false;
-      }, 1000);
+      if(this.searchDescriptor.length > 0){
+        setTimeout(() => {
+          this.hideCat = true;
+          this.hideSubcat = true;
+          this.hideSpecie = true;
+          this.hideVariant = false;
+        }, 1000);
+      }
       this.createPills('pill-specie', 'input[type=radio][name=specie]:checked', 'tmpSpecie');
+
     });
     jQuery('input[type=radio][name=variant]').on('change', (e) => {
       console.log("Changing variant");
