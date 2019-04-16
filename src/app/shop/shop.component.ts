@@ -67,6 +67,9 @@ export class ShopComponent implements OnInit {
   total: any;
   imageCart: any = [];
   showIcon: boolean = true;
+  preparataion:any = [];
+  treatment:any = [];
+  raised:any = [];
   constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private titleS: TitleService, private router: Router) {
     this.titleS.setTitle('Shop Seafood');
   }
@@ -77,25 +80,15 @@ export class ShopComponent implements OnInit {
     this.getCart();
     this.getProducts(100, 1);
     // this.getAllTypesByLevel();
+    await this.getPreparation();
+    await this.getRaised();
+    await this.getTreatment();
     this.getParentsCat();
     await this.getCountries();
     this.getFishCountries();
     //JAVASCRIPT FOR FILTER
-    jQuery('.input-raised:checkbox').on('change', (e) => {
-      this.showClear = true;
-      this.filterProducts();
-      this.createPillCheckbox('pill-raised', '.input-raised:checkbox:checked', 'raised');
-    });
-    jQuery('.input-treatment:checkbox').on('change', (e) => {
-      this.showClear = true;
-      this.filterProducts();
-      this.createPillCheckbox('pill-treatment', '.input-treatment:checkbox:checked', 'treatment');
-    });
-    jQuery('.input-preparation:checkbox').on('change', (e) => {
-      this.showClear = true;
-      this.filterProducts();
-      this.createPillCheckbox('pill-preparation', '.input-preparation:checkbox:checked', 'preparation');
-    });
+    
+   
     jQuery('#minAmount').on('change', (e) => {
       this.showClear = true;
       this.filterProducts();
@@ -116,13 +109,18 @@ export class ShopComponent implements OnInit {
     await this.getTypeName(value, name);
     jQuery('#' + id).css('display', 'inline-block');
   }
-  createPillCheckbox(id, val, name) {
+  createPillCheckbox(id, val, name, array) {
     let value = [];
     console.log("index", jQuery(val).val());
     if (jQuery(val).val() != undefined) {
       jQuery(val).each(function (i) {
-        value[i] = jQuery(this).val() + " ";
+        let item = array.filter(obj => {
+          return obj.id == jQuery(this).val();
+        })
+        console.log(item);
+        value[i] = item[0]['name'] + " ";
       });
+      console.log("value", value);
       jQuery('#' + id + ' button span').html(value);
       jQuery('#' + id).css('display', 'inline-block');
     }
@@ -161,6 +159,24 @@ export class ShopComponent implements OnInit {
   //CHARGE LATE JS
   chargeJS() {
     console.log("Cargando JS");
+    jQuery('.input-preparation:checkbox').on('change', (e) => {
+      console.log(e);
+      this.showClear = true;
+      this.filterProducts();
+      this.createPillCheckbox('pill-preparation', '.input-preparation:checkbox:checked', 'preparation', this.preparataion);
+    });
+
+    jQuery('.input-raised:checkbox').on('change', (e) => {
+      this.showClear = true;
+      this.filterProducts();
+      this.createPillCheckbox('pill-raised', '.input-raised:checkbox:checked', 'raised', this.raised);
+    });
+    jQuery('.input-treatment:checkbox').on('change', (e) => {
+      this.showClear = true;
+      this.filterProducts();
+      this.createPillCheckbox('pill-treatment', '.input-treatment:checkbox:checked', 'treatment', this.treatment);
+    });
+
     jQuery('input[type=radio][name=country]').on('change', (e) => {
       this.showClear = true;
       this.filterProducts();
@@ -727,5 +743,33 @@ export class ShopComponent implements OnInit {
     jQuery('#filterCollapse').collapse('show');
     jQuery('#filterCollapse2').collapse('hide');
     this.showIcon = true;
+  }
+
+  //GET LIST OF ITEMS FOR EACH FILTER CHECKBOX
+  async getPreparation(){
+    await new Promise((resolve, reject) => {
+      this.productService.getData(`/fishPreparation`).subscribe(res=> {
+        this.preparataion = res;
+        resolve();
+      }, error =>{reject()})
+    })
+  }
+
+  async getTreatment(){
+    await new Promise((resolve, reject) => {
+      this.productService.getData(`/treatment`).subscribe(res=> {
+        this.treatment = res;
+        resolve();
+      }, error =>{reject()})
+    })
+  }
+
+  async getRaised(){
+    await new Promise((resolve, reject) => {
+      this.productService.getData(`/raised`).subscribe(res=> {
+        this.raised = res;
+        resolve();
+      }, error =>{reject()})
+    })
   }
 }

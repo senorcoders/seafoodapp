@@ -127,59 +127,31 @@
         </div>
         <div class="col filter-col">
           <h4>PREPARATION</h4>
-          <div class="form-group">
-            <div class="custom-list">
-              <input type="checkbox" id="filleted" class="input-preparation" name="preparation" value="filleted" >
-              <label for="filleted">Filleted</label>
+          <div class="form-group scroll-div">
+            <div class="custom-list" *ngFor="let item of preparataion">
+              <input type="checkbox" [id]="item.id" class="input-preparation" name="preparation[]" [value]="item.id" >
+              <label for="{{item.id}}">{{item.name}}</label>
             </div>
-            <div class="custom-list">
-                <input type="checkbox" id="whole" class="input-preparation" name="preparation" value="whole" >
-                <label for="whole">Whole</label>
-              </div>
-              <div class="custom-list">
-                  <input type="checkbox" class="input-preparation" id="gutted" name="preparation" value="gutted" >
-                  <label for="gutted">Gutted</label>
-                </div>
           </div>
         </div>
         <div class="col filter-col">
             <h4>TREATMENT</h4>
-            <div class="form-group">
-              <div class="custom-list">
-                <input type="checkbox" class="input-treatment" id="fresh" name="treatment[]" value="5c9d346ee5eb4801ba1fe3e0" >
-                <label for="fresh">Fresh</label>
-              </div>
-              <div class="custom-list">
-                  <input type="checkbox" class="input-treatment" id="frozen" name="treatment[]" value="5c9d3479e5eb4801ba1fe3e1" >
-                  <label for="frozen">Frozen</label>
-                </div>
-                <div class="custom-list">
-                    <input type="checkbox" class="input-treatment" id="live" name="treatment[]" value="5c9d347fe5eb4801ba1fe3e2" >
-                    <label for="live">Live</label>
-                  </div>
-                  <div class="custom-list">
-                      <input type="checkbox" class="input-treatment" id="smoked" name="treatment[]" value="5c9d3486e5eb4801ba1fe3e3" >
-                      <label for="smoked">Smoked</label>
-                  </div>
-                
+            <div class="form-group scroll-div">
+              <div class="custom-list" *ngFor="let item of treatment">
+                <input type="checkbox" class="input-treatment" [id]="item.id" name="treatment[]" [value]="item.id" >
+                <label for="{{item.id}}">{{item.name}}</label>
+              </div>         
             </div>
           </div>
 
           <div class="col filter-col">
               <h4>RAISED</h4>
-              <div class="form-group">
-                <div class="custom-list">
-                  <input type="checkbox" class="input-raised" id="farmed" name="raised" value="5c9d34ebe5eb4801ba1fe3e4" >
-                  <label for="farmed">Farmed</label>
+              <div class="form-group scroll-div">
+                <div class="custom-list" *ngFor="let item of raised">
+                  <input type="checkbox" class="input-raised" [id]="item.id" name="raised[]" [value]="item.id" >
+                  <label for="{{item.id}}">{{item.name}}</label>
                 </div>
-                <div class="custom-list">
-                    <input type="checkbox" class="input-raised" id="organic" name="raised" value="5c9d350be5eb4801ba1fe3e5" >
-                    <label for="organic">Organically Farmed </label>
-                  </div>
-                  <div class="custom-list">
-                      <input type="checkbox"  class="input-raised" id="wild" name="raised" value="5c9d3514e5eb4801ba1fe3e6" >
-                      <label for="wild">Wild</label>
-                    </div>
+               
               </div>
             </div>
 
