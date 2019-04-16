@@ -390,7 +390,7 @@ const appRoutes: Routes = [
   {
     path: 'forgot-password',
     loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule',
-    canActivate: [AdminRouterService]
+    // canActivate: [AdminRouterService]
   },
   {
     path: '**',
