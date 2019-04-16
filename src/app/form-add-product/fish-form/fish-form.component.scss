@@ -30,6 +30,10 @@
         font-weight: 300;
         font-family: 'Open Sans', sans-serif;
         padding: 0 !important;
+        &.ng-invalid.ng-touched{
+            border-bottom: solid 2px #f44848 !important;
+
+        }
         @media screen and (max-width: 768px) {
             font-size: 20px !important;
 
@@ -54,6 +58,10 @@
         outline: none !important;
         background: url('../../../assets/svg/chevron-down.svg') no-repeat 100% 50% !important;
         background-size: 11px 7px;
+        &.ng-invalid.ng-touched{
+            border-bottom: solid 2px #f44848 !important;
+
+        }
         @media screen and (max-width: 768px) {
             font-size: 20px !important;
 
@@ -181,5 +189,25 @@
     .col-3{
         padding: 0;
        
+    }
+}
+
+.form-control-feedback{
+    p{
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px !important;
+        font-weight: 200;
+        font-style: normal;
+        font-stretch: normal;
+        padding-top: 5px;
+        letter-spacing: normal;
+        text-align: left !important;
+        color: #f44848 !important;
+    }
+}
+.has-danger{
+    input.form-control, select.form-control{
+        border-bottom: solid 2px #f44848 !important;
+    
     }
 }
