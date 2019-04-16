@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../services/product.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { ViewChild, ElementRef } from '@angular/core';
 
 declare var jQuery: any;
@@ -353,7 +353,7 @@ export class FishComponent implements OnInit {
       return;
     }
     reader.onloadend = function () {
-      preview.setAttribute('src', reader.result);
+      preview.setAttribute('src', (reader.result as string));
     };
     if (file) {
       reader.onload = this._handleReaderLoaded.bind(this);

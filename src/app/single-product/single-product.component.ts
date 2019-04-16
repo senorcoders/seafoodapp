@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { IsLoginService } from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import { PricingChargesService } from '../services/pricing-charges.service';

@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IsLoginService } from '../core/login/is-login.service';
 import { ProductService } from '../services/product.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
 
 @Component({

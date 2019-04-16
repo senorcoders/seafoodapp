@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CountriesService } from '../services/countries.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { TitleService } from '../title.service';

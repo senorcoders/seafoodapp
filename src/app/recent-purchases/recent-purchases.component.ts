@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { TitleService } from '../title.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';

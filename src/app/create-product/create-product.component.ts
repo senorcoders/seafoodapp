@@ -11,13 +11,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
-import { ToastrService } from 'ngx-toastr';
+// import { ToastrService } from '../toast.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
+import { ToastrService } from '../toast.service';
 declare var jQuery: any;
 @Component({
   selector: 'app-create-product',

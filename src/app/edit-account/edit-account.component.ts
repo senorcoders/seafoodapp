@@ -3,7 +3,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { FormGroup, FormControl, FormControlName, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment';
 import { ProductService } from '../services/product.service';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
 import { TitleService } from '../title.service';

@@ -10,7 +10,7 @@ import { CartService } from '../core/cart/cart.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
 import { TitleService } from '../title.service';
 declare var jQuery:any;

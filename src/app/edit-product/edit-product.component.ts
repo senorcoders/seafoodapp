@@ -4,7 +4,7 @@ import { ReactiveFormsModule, FormsModule, FormGroup, FormControl, Validators, F
 // import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ToastrService } from '../toast.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
