@@ -571,7 +571,9 @@
 <div class="pop-up" *ngIf="showLoading">
   <div class="content">
     <h2>{{'Store.upload' | translate}}</h2>
-    <img src="../../assets/loader.gif">
+    <div class="wave-loader">
+        <div class="wave-loading"></div>
+      </div>
   </div>
 </div>
 <div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

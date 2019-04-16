@@ -11,7 +11,9 @@
                 <div class="bg-img" [style.background-image]="primaryImg" *ngIf="!showLoading"></div>
             </div>
             <div class="bg">
-                <img src="../../assets/loader.gif" alt="loading..." *ngIf="showLoading" class="loading">
+                <div class="wave-loader" *ngIf="showLoading">
+                    <div class="wave-loading"></div>
+                  </div>
                 <span class="primary-label">{{'EditProduct.primary-image' | translate}}</span>
                 <hr class="hr-small">
                 <a class="pink-btn" (click)="showUploadBtn()" *ngIf="showEdit">{{'EditProduct.edit-img' | translate}}</a>

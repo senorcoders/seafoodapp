@@ -2,9 +2,10 @@
 <div class="content single-product" *ngIf="show; else elseBlock">
   <div class="container-fluid">
     <div class="row">  
-      <div class="col-12 text-center" *ngIf="showLoading">
-        <img src="../../assets/loader.gif" alt="loading..." class="loading">
-      </div>
+        <div class="wave-loader" *ngIf="showLoading">
+						<div class="wave-loading"></div>
+					</div>
+     
       <div class="col-lg-6 product-img" *ngIf="!showLoading">
         <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'" *ngIf="!images;else slider"></div>
 

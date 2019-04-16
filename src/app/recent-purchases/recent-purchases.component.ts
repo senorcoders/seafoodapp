@@ -397,10 +397,12 @@ export class RecentPurchasesComponent implements OnInit {
           }
 
         }
-      },
-        e => {
-          this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-        });
+        this.cancelled = [];
+        this.getCancelled();
+			},
+				e => {
+					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+				});
   }
 
   //Function to open calendar to confirm order

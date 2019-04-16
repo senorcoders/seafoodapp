@@ -1,4 +1,6 @@
-<div *ngIf="showLoading; else showContent" style="text-align: center;"><img src="../../assets/loader.gif" alt=""></div>
+<div class="wave-loader" *ngIf="showLoading; else showContent">
+		<div class="wave-loading"></div>
+	</div>
 <ng-template #showContent>
 	<div class="container">
 		<div class="row" *ngIf="hasFavorite; else noFavorite">

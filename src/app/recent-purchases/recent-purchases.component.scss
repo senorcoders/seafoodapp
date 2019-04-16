@@ -332,14 +332,25 @@ p.order-number {
 
     }
 }
-.expandible-link img {
-    content: url('../../assets/svg/minus.svg');
+.expandible-link  {
+    background: url('../../assets/svg/minus.svg');
     display: block;
+    height: 14px;
+    width: 14px;
+    background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
 }
-.expandible-link.collapsed img{
+.expandible-link.collapsed {
     content: url('../../assets/svg/plus.svg');
     display: block;
+    height: 14px;
+    width: 14px;
+    background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
 }
+
 
 #magic-line {
 	position: absolute;
