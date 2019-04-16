@@ -1,6 +1,8 @@
 <div class="container" >
-	<div class="row">
-		<div class="col-12 text-center" *ngIf="showLoading"><img src="../../assets/loader.gif" alt=""></div>
+	<div class="row" style="position: relative; min-height: 50vh;">
+			<div class="wave-loader" *ngIf="showLoading">
+					<div class="wave-loading"></div>
+				</div>
 		<div class="col-12">
 			<h3 class="black-title">{{'Seller.title' | translate}}</h3>
 		</div>

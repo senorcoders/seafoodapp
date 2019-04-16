@@ -11,10 +11,11 @@
 			  <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
 
 		<div class="row" *ngIf="showLoading; else productshow">
-				<div class="col-12 text-center">
-					<img src="../../assets/loader.gif" alt="" />
-				</div>
+				<div class="wave-loader">
+						<div class="wave-loading"></div>
+					</div>
 			</div>
+			
 			<ng-template #productshow>
 
 	<div class="row" >
