@@ -12,6 +12,8 @@
                       </p>
                     </div>
              </span>
+             <button type="button" class="question-btn" tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
+             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
    
   </div>
@@ -21,6 +23,8 @@
             <input id="brandname" placeholder="Brand Name" type="text" class="form-control" formControlName="brandName">
             <label for="brandname">Brand Name</label>
         </span>
+        <button type="button" class="question-btn" tooltip="An optional field in case you are selling a branded product"
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
@@ -36,7 +40,10 @@
                   {{'CreateProduct.required' | translate}}</p>
               </div>
 
-      </span>   
+      </span>  
+      <button type="button" class="question-btn" tooltip="The country where the product was harvested"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+       
     </div>
   </div>
   <div class="col-lg-6">
@@ -52,7 +59,8 @@
                   {{'CreateProduct.required' | translate}}</p>
               </div>
       </span>
-     
+      <button type="button" class="question-btn" tooltip="The country where the product was processed"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
       
     </div>
   </div>
@@ -69,7 +77,8 @@
                 {{'CreateProduct.required' | translate}}</p>
             </div>
       </span>
-     
+      <button type="button" class="question-btn" tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
 
@@ -98,7 +107,8 @@
                 {{'CreateProduct.required' | translate}}</p>
             </div>
       </span>
-     
+      <button type="button" class="question-btn" tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
@@ -116,7 +126,8 @@
           {{'CreateProduct.required' | translate}}</p>
       </div> 
       </span>
-      
+      <button type="button" class="question-btn" tooltip="The species of the product you are selling (Eg: Salmon, cod, lobster, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
 
@@ -135,7 +146,8 @@
           {{'CreateProduct.required' | translate}}</p>
       </div>
       </span>
-      
+      <button type="button" class="question-btn" tooltip="The specific classification of your product within the species (Eg: Atlantic Salmon, Pacific Salmon, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
@@ -146,7 +158,9 @@
                 <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
               </select>
               <label id="variant">Subspecies Variant...</label>
-        </span>   
+        </span>  
+        <button type="button" class="question-btn" tooltip="An optional field in case your product is a specific variant within the subspecies (Eg: King Chinook is a variant of pacific salmon)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
 
@@ -156,6 +170,8 @@
             <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control" formControlName="seller_sku">
             <label id="sellersku">Company Product SKU...</label>
         </span>
+        <button type="button" class="question-btn" tooltip="Optional field for your unique product code"
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
   <div class="col-lg-6">
@@ -164,6 +180,8 @@
             <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
             <label for="hscode">HS Code...</label>
         </span>
+        <button type="button" class="question-btn" tooltip="This is the Harmonized System code for your product as per World Customs Organization."
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
 
@@ -180,6 +198,9 @@
           </div>
 
     </span>
+
+    <button type="button" class="question-btn" tooltip="An optional field for setting your minimum order quantity"
+    placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
    
     </div>
   </div>
@@ -194,6 +215,9 @@
               {{'CreateProduct.required' | translate}}</p>
           </div>
     </span>  
+
+    <button type="button" class="question-btn" tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+    placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
       
     </div>
   </div>
@@ -209,6 +233,8 @@
         <p *ngIf="controls().images.errors.required">Images 
           {{'CreateProduct.required' | translate}}</p>
       </div>
+      <button type="button" class="question-btn" tooltip="Any additional images you have for the product."
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
 

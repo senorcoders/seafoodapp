@@ -128,6 +128,7 @@
     }
     .custom-pricing-table{
         border: 1px solid #7484AA;
+       
         .slider-price{
             .col-8, .col-4{
                 padding: 20px;
@@ -136,11 +137,51 @@
             .col-8{
                 padding: 20px 60px;
             }
+
+            .col-4{
+                color: #0D1321;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                line-height: 22px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                input{
+                    background: no-repeat;
+                    border: none;
+                    width: 50px;
+                }
+                button{
+                    background: no-repeat;
+                    border: none;
+                    position: absolute;
+                    right: 25px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
         }
 
         .manual-slider{
              .col-4{
                 padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input{
+                    background: none;
+                    border: none;
+                    text-align: center;
+                    font-family: 'Open Sans', sans-serif;
+                    color: #9A9EA8;
+                    font-style: italic;
+                    font-size: 16px;
+                    line-height: 22px;
+                    &::placeholder{
+                        color: #9A9EA8;
+                    }
+                }
             }
             .col-8{
                 padding: 20px 60px;
@@ -148,3 +189,4 @@
         }
     }
 }
+

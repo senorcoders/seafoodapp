@@ -40,6 +40,36 @@
         }
     }
 
+    .btn-save{
+        border: 1px solid #7484AA;
+        text-transform: uppercase;
+        color: #7484AA;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        letter-spacing: 1.5px;
+        font-size: 24px;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        outline: none;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        display: block;
+
+        @media screen and (max-width: 768px) {
+            font-size: 17px;
+
+          }
+      }
+
+      .btn-save:hover{
+        background: #7484AA !important;
+        border: 1px solid #7484AA !important;
+        color: #ffffff !important;
+    }
+
     
 
 }

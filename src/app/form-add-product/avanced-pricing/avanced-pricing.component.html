@@ -68,8 +68,8 @@
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">kg
-                <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
+                  placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
+                <button (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelect!==''">
@@ -78,8 +78,8 @@
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-4">
-                $<input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
-                  [(ngModel)]="valueExample">kg
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
+                  [(ngModel)]="valueExample">
               </div>
             </div>
 
@@ -88,35 +88,36 @@
       </div>
     </div>
 
-    <div class="row" [hidden]="headAction===true">
+    <div class="row  tab-row" [hidden]="headAction===true">
       <div *ngFor="let k of weights.off.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col selectionable">{{getNameWhole(k)}}</div>
       <div class="col-12">
-        <div class="row">
-          <div class="col-9">quantity range (kg)</div>
-          <div class="col-3">price (USD)</div>
+        <div class="row  custom-pricing-table">
+          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-4 table-title">price (USD)</div>
 
           <div class="col-12">
-            <div *ngFor="let price of weights.off[keySelect]; let i=index;" class="row">
-              <div class="col-9">
+            <div *ngFor="let price of weights.off[keySelect]; let i=index;" class="row slider-price">
+              <div class="col-8">
                 <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.off[keySelect][i].min"
                   [(highValue)]="weights.off[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
                   [options]="weights.off[keySelect][i].options"></ng5-slider>
               </div>
-              <div class="col-3" [formGroupName]="getIdentifier(keySelect)">
+              <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  type="number" placeholder="Type Price Here" [formControlName]="i">kg
-                <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(off, i)"></i>
+                  type="number" placeholder="Type Price Here" [formControlName]="i">/kg
+                <button (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+
               </div>
             </div>
-            <div class="row" *ngIf="keySelect!==''">
-              <div class="col-9">
+            <div class="row manual-slider" *ngIf="keySelect!==''">
+              <div class="col-8">
                 <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
-              <div class="col-3">
-                $<input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
-                  [(ngModel)]="valueExample">kg
+              <div class="col-4">
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
+                  [(ngModel)]="valueExample">
               </div>
             </div>
 
