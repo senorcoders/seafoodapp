@@ -16,6 +16,7 @@ import { TitleService } from '../title.service';
 export class HomeComponent implements OnInit {
   products:any=[];
   API:string=environment.apiURLImg;
+  cdnURL:string=environment.cdnURL;
   role:any;
   showLoading:boolean=true;
   featuredSellers:any;
