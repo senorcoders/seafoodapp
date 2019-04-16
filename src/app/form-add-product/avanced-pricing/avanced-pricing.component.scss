@@ -1,6 +1,3 @@
-.select{
-    font-weight: bold !important;
-}
 
 .selectionable{
     cursor: pointer !important;
@@ -11,11 +8,206 @@
 }
 
 .square{
-    width: 1rem;
-    height: 1rem;
+ 
     display: inline-block;
-    border: 1px solid black;
 }
 .select .square{
-    background-color: black;
+    background-color: #3E4E75;
 }
+
+.gray-title{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    line-height: 45px;
+    letter-spacing: 1.5px;
+    color: #7484AA;
+    text-transform: uppercase;
+    margin: 100px auto;
+    cursor: pointer;
+    @media screen and (max-width: 768px) {
+        font-size: 28px !important;
+
+      }
+    span{
+        border-bottom: 1px solid #7484AA;
+        padding-bottom: 15px;
+
+    }
+}
+
+.toggle-div{
+    margin-bottom: 70px;
+    label{
+        span{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            letter-spacing: 1.5px;
+            color: #7484AA;
+            font-weight: 300;
+            padding: 0 15px;
+            &.select{
+                font-weight: 400;
+                color: #3E4E75;
+            }
+        }
+    }
+}
+
+.check-row{
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 70px;
+
+    .custom-trim-square{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        span.selectionable{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: #7484AA;
+            font-weight: 300;
+        }
+        .square{
+            width: 22px;
+            height: 22px;
+            border: 1px solid #3E4E75;
+            border-radius: 3px;
+            margin-right: 10px;
+            &.select{
+                background-color: #3E4E75;
+            }
+        }
+    }
+    .form-check{
+        position: relative;
+        padding: 10px 0;
+        label{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: #7484AA;
+            font-weight: 300;
+        }
+        input[type="checkbox"]{
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+          }
+          input[type="checkbox"] + label {
+            display: inline-block;
+            background: url('../../../assets/unchecked-blue.png') no-repeat;
+            background-size: 14px 14px;
+            margin-left: 0px;
+            padding-left: 25px;
+            line-height: 14px;
+            cursor: pointer;
+          }
+              
+          input[type="checkbox"]:checked + label {
+            background: url('../../../assets/checked-blue.png') no-repeat;
+            background-size: 14px 14px;
+          }
+    }
+    
+
+}
+
+.tab-row{
+    max-width: 1000px;
+    margin: 0 auto;
+    .selectionable{
+        color: #7484AA;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 21px;
+        line-height: 28px;
+        letter-spacing: 1.75px;
+        padding-bottom: 5px;
+        &.select{
+            color: #3E4E75;
+            span{
+                border-bottom: 2px solid #3E4E75;
+            }
+        }
+    }
+
+    .table-title{
+        font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: #7484AA;
+            font-weight: 300;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 30px;
+            border-bottom: 1px solid #3E4E75;
+    }
+    .custom-pricing-table{
+        border: 1px solid #7484AA;
+       
+        .slider-price{
+            .col-8, .col-4{
+                padding: 20px;
+                border-bottom: 1px solid #7484AA;
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+
+            .col-4{
+                color: #0D1321;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                line-height: 22px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                input{
+                    background: no-repeat;
+                    border: none;
+                    width: 50px;
+                }
+                button{
+                    background: no-repeat;
+                    border: none;
+                    position: absolute;
+                    right: 25px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+
+        .manual-slider{
+             .col-4{
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input{
+                    background: none;
+                    border: none;
+                    text-align: center;
+                    font-family: 'Open Sans', sans-serif;
+                    color: #9A9EA8;
+                    font-style: italic;
+                    font-size: 16px;
+                    line-height: 22px;
+                    &::placeholder{
+                        color: #9A9EA8;
+                    }
+                }
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+        }
+    }
+}
+

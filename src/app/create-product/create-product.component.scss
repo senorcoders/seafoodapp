@@ -1,48 +1,4 @@
 
-.not-found-grid{
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 30px;
-}
-.form-control-feedback{
-	color:red;
-	font-family: 'Roboto', sans-serif;
-}
-.parts{
-	    columns: 2;
-    font-size: 12px;
-    padding-bottom: 10px;
-}
-
-.types{
-	font-size: 1.5rem;
-}
-.partsModal{
-	font-size: 12px;
-    color: black;
-    letter-spacing: 1px;
-}
-.checkboxes{
-	text-align: center;
-	padding-top: 10px;
-	input{
-		height: 20px;
-		width: 20px;
-	}
-}
-
-.manage-link{
-    color: #007bff !important;
-    cursor: pointer;
-}
-
-.red {
-    color: #f52828;
-    font-size: .8em;
-}
-
 #blah{
 	max-width: 100%;
     padding: 20px;
@@ -60,23 +16,61 @@
 }
 
 
-@media screen and (min-width: 1200px){
-	#trimModal .modal-lg{
-		max-width: 1150px !important;
-	}
+.gray-bg{
+    padding-top: 155px;
+    padding-bottom: 155px;
+    .gray-title{
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 28px;
+        line-height: 45px;
+        letter-spacing: 1.5px;
+        color: #7484AA;
+        text-transform: uppercase;
+        margin: 0 auto;
+        margin-bottom: 100px;
+        @media screen and (max-width: 768px) {
+            font-size: 28px !important;
+
+          }
+        span{
+            border-bottom: 1px solid #7484AA;
+            padding-bottom: 15px;
+
+        }
+    }
+
+    .btn-save{
+        border: 1px solid #7484AA;
+        text-transform: uppercase;
+        color: #7484AA;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        letter-spacing: 1.5px;
+        font-size: 24px;
+        width: 100%;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        outline: none;
+        max-width: 400px;
+        margin: 0 auto;
+        margin-top: 30px;
+        margin-bottom: 30px;
+        display: block;
+
+        @media screen and (max-width: 768px) {
+            font-size: 17px;
+
+          }
+      }
+
+      .btn-save:hover{
+        background: #7484AA !important;
+        border: 1px solid #7484AA !important;
+        color: #ffffff !important;
+    }
+
+    
+
 }
 
-//Para en la seleccion en featured
-.select{
-    font-weight: bold !important;
-}
-
-.selectionable{
-    cursor: pointer;
-}
-.square{
-    width: 1rem;
-    height: 1rem;
-    background-color: black;
-    display: inline-block;
-}

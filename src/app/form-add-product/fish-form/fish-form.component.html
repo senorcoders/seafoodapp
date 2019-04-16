@@ -1,215 +1,259 @@
+
 <div class="row" formGroupName="product">
   <div class="col-lg-6">
-    <div class="form-group"
-      [ngClass]="{'has-danger': controls().name.invalid && (controls().name.dirty || controls().name.touched),'has-success': controls().name.valid && (controls().name.dirty || controls().name.touched)}">
-      <label>{{'CreateProduct.name' | translate}} <span class="field-status red">*</span> <img
-          tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <input type="text" class="form-control" formControlName="name" required>
-      <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
-        <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
-          {{'CreateProduct.required' | translate}}
-        </p>
-      </div>
+            
+          <div class="form-group input-group" [ngClass]="{'has-danger': controls().name.invalid && (controls().name.dirty || controls().name.touched),'has-success': controls().name.valid && (controls().name.dirty || controls().name.touched)}">
+              <span class="has-float-label">  
+                  <input id="pname" type="text" class="form-control" placeholder="Product Name...*" formControlName="name" required>
+                  <label for="pname">Product Name...*</label>           
+                  <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
+                      <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
+                        {{'CreateProduct.required' | translate}}
+                      </p>
+                    </div>
+             </span>
+             <button type="button" class="question-btn" tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
+             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+   
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group input-group">
+        <span class="has-float-label">  
+            <input id="brandname" placeholder="Brand Name" type="text" class="form-control" formControlName="brandName">
+            <label for="brandname">Brand Name</label>
+        </span>
+        <button type="button" class="question-btn" tooltip="An optional field in case you are selling a branded product"
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
-      <label>{{'CreateProduct.brandName' | translate}}<img
-          tooltip="An optional field in case you are selling a branded product" placement="right" show-delay="0"
-          src="../../assets/question.png" alt="" width="20"></label>
-      <input type="text" class="form-control" formControlName="brandName">
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().country.invalid && (controls().country.dirty || controls().country.touched),'has-success': controls().country.valid && (controls().country.dirty || controls().country.touched)}">
-      <label>{{'CreateProduct.country' | translate}} <span class="field-status red">*</span> <img
-          tooltip="The country where the product was harvested" placement="right" show-delay="0"
-          src="../../assets/question.png" alt="" width="20"></label>
-      <select class="form-control" formControlName="country">
-        <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-      </select>
-      <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
-        <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+      <span class="has-float-label">  
+          <select id="country" class="form-control" formControlName="country" placeholder="Country of Origin...*">
+              <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+            </select>
+            <label for="country">Country of Origin...*</label>
+            <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
+                <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+
+      </span>  
+      <button type="button" class="question-btn" tooltip="The country where the product was harvested"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+       
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().processingCountry.invalid && (controls().processingCountry.dirty || controls().processingCountry.touched),'has-success': controls().processingCountry.valid && (controls().processingCountry.dirty || controls().processingCountry.touched)}">
-      <label>{{'CreateProduct.processingCountry' | translate}} <span class="field-status red">*</span> <img
-          tooltip="The country where the product was processed" placement="right" show-delay="0"
-          src="../../assets/question.png" alt="" width="20"></label>
-      <select (change)="getCities();" class="form-control" formControlName="processingCountry">
-        <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-      </select>
-      <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
-        <p *ngIf="controls().processingCountry.errors.required">{{'CreateProduct.processingCountry' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+      <span class="has-float-label">  
+          <select id="processing" (change)="getCities();" class="form-control" formControlName="processingCountry">
+              <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+            </select>
+            <label for="processing">Processing Country...* </label>
+            <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
+                <p *ngIf="controls().processingCountry.errors.required">{{'CreateProduct.processingCountry' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+      </span>
+      <button type="button" class="question-btn" tooltip="The country where the product was processed"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+      
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().city.invalid && (controls().city.dirty || controls().city.touched),'has-success': controls().city.valid && (controls().city.dirty || controls().country.touched)}">
-      <label>{{'CreateProduct.portLoading' | translate}} <span class="field-status red">*</span> <img
-          tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select class="form-control" formControlName="city" (change)="onCityChange()">
-        <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
-      </select>
-      <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
-        <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+      <span class="has-float-label">  
+          <select id="city" class="form-control" formControlName="city" (change)="onCityChange()">
+              <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+            </select>
+            <label id="city">Port of Loading...*</label>
+            <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
+              <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
+                {{'CreateProduct.required' | translate}}</p>
+            </div>
+      </span>
+      <button type="button" class="question-btn" tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
 
   <div class="col-lg-6">
-    <div class="form-group">
-      <label>{{'CreateProduct.Kg' | translate}} </label>
-      <input type="number" class="form-control" formControlName="kg">
+    <div class="form-group input-group">
+        <span class="has-float-label">  
+            <input id="kg" placeholder="kg" type="number" class="form-control" formControlName="kg">
+            <label id="kg">kg</label>
+
+        </span>
     </div>
   </div>
 
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().parentSelectedType.invalid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched),'has-success': controls().parentSelectedType.valid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched)}">
-      <label>{{'CreateProduct.mainCategory' | translate}} <span class="field-status red">*</span> <img
-          tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select formControlName="parentSelectedType" (change)="getOnChangeLevel(0)" class="form-control">
-        <option value="">{{'AddProduct.select' | translate}}</option>
-        <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
-      </select>
-      <div class="form-control-feedback" *ngIf="controls().parentSelectedType.errors&&parentForm.submitted">
-        <p *ngIf="controls().parentSelectedType.errors.required">{{'CreateProduct.mainCategory' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+      <span class="has-float-label">  
+          <select id="cat" placeholder="Sea Life Category...*" formControlName="parentSelectedType" (change)="getOnChangeLevel(0)" class="form-control">
+              <option value="">{{'AddProduct.select' | translate}}</option>
+              <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label id="cat">Sea Life Category...*</label>
+     
+            <div class="form-control-feedback" *ngIf="controls().parentSelectedType.errors&&parentForm.submitted">
+              <p *ngIf="controls().parentSelectedType.errors.required">{{'CreateProduct.mainCategory' | translate}}
+                {{'CreateProduct.required' | translate}}</p>
+            </div>
+      </span>
+      <button type="button" class="question-btn" tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().speciesSelected.invalid && (controls().speciesSelected.dirty || controls().speciesSelected.touched),'has-success': controls().speciesSelected.valid && (controls().speciesSelected.dirty || controls().speciesSelected.touched)}">
-      <label>{{'CreateProduct.species' | translate}} <span class="field-status red">*</span> <img
-          tooltip="The species of the product you are selling (Eg: Salmon, cod, lobster, etc.)" placement="right"
-          show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select (change)="getOnChangeLevel(1, $event.target.value)" class="form-control"
-        formControlName="speciesSelected">
-        <option value="">{{'CreateProduct.select' | translate}}</option>
-        <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
-      </select>
+      <span class="has-float-label"> 
+          <select id="specie" placeholder="Species...*" (change)="getOnChangeLevel(1, $event.target.value)" class="form-control"
+          formControlName="speciesSelected">
+          <option value="">{{'CreateProduct.select' | translate}}</option>
+          <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
+        </select>
+        <label for="specie">Species...*</label>  
       <div class="form-control-feedback" *ngIf="controls().speciesSelected.errors&&parentForm.submitted">
         <p *ngIf="controls().speciesSelected.errors.required">{{'CreateProduct.species' | translate}}
           {{'CreateProduct.required' | translate}}</p>
-      </div>
+      </div> 
+      </span>
+      <button type="button" class="question-btn" tooltip="The species of the product you are selling (Eg: Salmon, cod, lobster, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
 
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().subSpeciesSelected.invalid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched),'has-success': controls().subSpeciesSelected.valid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched)}">
-      <label>{{'CreateProduct.subSpecies' | translate}} <span class="field-status red">*</span> <img
-          tooltip="The specific classification of your product within the species (Eg: Atlantic Salmon, Pacific Salmon, etc.)"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select formControlName="subSpeciesSelected" (change)="getOnChangeLevel(2)" class="form-control" required>
-        <option v alue="">{{'CreateProduct.select' | translate}}</option>
-        <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>
-      </select>
+      <span class="has-float-label"> 
+          <select id="subspecie" placeholder="Subspecies...*" formControlName="subSpeciesSelected" (change)="getOnChangeLevel(2)" class="form-control" required>
+              <option value="">{{'CreateProduct.select' | translate}}</option>
+              <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label id="subspecie">Subspecies...*</label>
+     
       <div class="form-control-feedback" *ngIf="controls().subSpeciesSelected.errors&&parentForm.submitted">
         <p *ngIf="controls().subSpeciesSelected.errors.required">{{'CreateProduct.subSpecies' | translate}}
           {{'CreateProduct.required' | translate}}</p>
       </div>
+      </span>
+      <button type="button" class="question-btn" tooltip="The specific classification of your product within the species (Eg: Atlantic Salmon, Pacific Salmon, etc.)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group">
-      <label>{{'CreateProduct.subSpeciesVariant' | translate}} <img
-          tooltip="An optional field in case your product is a specific variant within the subspecies (Eg: King Chinook is a variant of pacific salmon)"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <select class="form-control" formControlName="descriptorSelected">
-        <option value="">{{'CreateProduct.select' | translate}}</option>
-        <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="col-lg-6">
-    <div class="form-group">
-      <label>{{'CreateProduct.productSku' | translate}} <img tooltip="Optional field for your unique product code"
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <input type="text" class="form-control" formControlName="seller_sku">
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group">
-      <label>{{'CreateProduct.hsCode' | translate}} <a href="https://hts.usitc.gov/" target="_blank">Find
-          Code</a> <img tooltip="This is the Harmonized System code for your product as per World Customs Organization."
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <input class="form-control" formControlName="hsCode" type="text">
+    <div class="form-group input-group">
+        <span class="has-float-label"> 
+            <select id="variant" placholder="Subspecies Variant..." class="form-control" formControlName="descriptorSelected">
+                <option value="">{{'CreateProduct.select' | translate}}</option>
+                <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
+              </select>
+              <label id="variant">Subspecies Variant...</label>
+        </span>  
+        <button type="button" class="question-btn" tooltip="An optional field in case your product is a specific variant within the subspecies (Eg: King Chinook is a variant of pacific salmon)"
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
 
+  <div class="col-lg-6">
+    <div class="form-group input-group">
+        <span class="has-float-label"> 
+            <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control" formControlName="seller_sku">
+            <label id="sellersku">Company Product SKU...</label>
+        </span>
+        <button type="button" class="question-btn" tooltip="Optional field for your unique product code"
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="form-group input-group">
+        <span class="has-float-label"> 
+            <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
+            <label for="hscode">HS Code...</label>
+        </span>
+        <button type="button" class="question-btn" tooltip="This is the Harmonized System code for your product as per World Customs Organization."
+        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
+    </div>
+  </div>
+
 
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
     [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
-      <label>{{'CreateProduct.minimun' | translate}} <span class="field-status red">*</span> <img
-          tooltip="An optional field for setting your minimum order quantity" placement="right" show-delay="0"
-          src="../../assets/question.png" alt="" width="20"></label>
-      <input type="number" class="form-control" formControlName="minimunorder">
-      <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
-        <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+    <span class="has-float-label"> 
+        <input id="min" placeholder="Minimum Order..." type="number" class="form-control" formControlName="minimunorder">
+        <label for="min">Minimum Order...</label>
+        <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
+            <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
+              {{'CreateProduct.required' | translate}}</p>
+          </div>
+
+    </span>
+
+    <button type="button" class="question-btn" tooltip="An optional field for setting your minimum order quantity"
+    placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
+   
     </div>
   </div>
   <div class="col-lg-6">
-    <div class="form-group"
+    <div class="form-group input-group"
     [ngClass]="{'has-danger': controls().maximumorder.invalid && (controls().maximumorder.dirty || controls().maximumorder.touched),'has-success': controls().maximumorder.valid && (controls().maximumorder.dirty || controls().maximumorder.touched)}">
-      <label>{{'CreateProduct.maximum' | translate}} <span class="field-status red">*</span> <img
-          tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
-          placement="right" show-delay="0" src="../../assets/question.png" alt="" width="20"></label>
-      <input type="number" class="form-control" formControlName="maximumorder">
-      <div class="form-control-feedback" *ngIf="controls().maximumorder.errors&&parentForm.submitted">
-        <p *ngIf="controls().maximumorder.errors.required">{{'CreateProduct.maximum' | translate}}
-          {{'CreateProduct.required' | translate}}</p>
-      </div>
+    <span class="has-float-label">
+        <input id="max" placeholder="Maximum Order..." type="number" class="form-control" formControlName="maximumorder">
+        <label for="max">Maximum Order...</label>
+        <div class="form-control-feedback" *ngIf="controls().maximumorder.errors&&parentForm.submitted">
+            <p *ngIf="controls().maximumorder.errors.required">{{'CreateProduct.maximum' | translate}}
+              {{'CreateProduct.required' | translate}}</p>
+          </div>
+    </span>  
+
+    <button type="button" class="question-btn" tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+    placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
+      
     </div>
   </div>
+
+
 
   <div class="col-12">
-    <div class="form-group"
+    <div class="form-group  file-input"
     [ngClass]="{'has-danger': controls().images.invalid && (controls().images.dirty || controls().images.touched),'has-success': controls().images.valid && (controls().images.dirty || controls().images.touched)}">
-      <label>{{'CreateProduct.uploadGallery' | translate}} <img
-          tooltip="Any additional images you have for the product." placement="right" show-delay="0"
-          src="../../assets/question.png" alt="" width="20"></label>
-      <input #myInput type="file" multiple class="form-control" (change)="onFileChange($event)" accept="image/png,image/jpeg,image/jpg" formControlName="images">
+    <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Gallery Images...*</label>
+      <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)" accept="image/png,image/jpeg,image/jpg" formControlName="images">
       <div class="form-control-feedback" *ngIf="controls().images.errors&&parentForm.submitted">
         <p *ngIf="controls().images.errors.required">Images 
           {{'CreateProduct.required' | translate}}</p>
       </div>
+      <button type="button" class="question-btn" tooltip="Any additional images you have for the product."
+      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
     </div>
   </div>
 
-  <div class="row" *ngIf="images.length===0">
+  <div class="row gallery-container" *ngIf="images.length===0" >
     <div class="col-3">
-      <img src="../../assets/default.png" width="100%" height="auto">
+      <img src="../../assets/add-default.png" width="100%" height="auto">
     </div>
     <div class="col-3">
-      <img src="../../assets/default.png" width="100%" height="auto">
+      <img src="../../assets/add-default.png" width="100%" height="auto">
     </div>
     <div class="col-3">
-      <img src="../../assets/default.png" width="100%" height="auto">
+      <img src="../../assets/add-default.png" width="100%" height="auto">
     </div>
     <div class="col-3">
-      <img src="../../assets/default.png" width="100%" height="auto">
+      <img src="../../assets/add-default.png" width="100%" height="auto">
     </div>
   </div>
 
-  <div class="row" *ngIf="images.length>0">
+  <div class="row gallery-container" *ngIf="images.length>0">
     <div class="col-3"  *ngFor="let image of images; let i=index;">
       <img [ngClass]="i===0&&images.length>1?'resaltar':''" [src]="image" width="100%" height="auto">
       <span class="selectionable" (click)="remove(i)">Remove</span>
