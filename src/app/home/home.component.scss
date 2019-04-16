@@ -1,9 +1,10 @@
 $ligth-bg:#ebf1f6;
+$cdnURL:"http://d66z88a3oqo8j.cloudfront.net";
 #hero{
   height: -moz-calc(100vh - (63px));
   height: -webkit-calc(100vh - (63px));
   height: calc(100vh - (63px));
-  background: url(../../assets/bg-homepage-2.jpg);
+  background: url(#{$cdnURL}/assets/bg-homepage-2.jpg);
   background-position: center;
   background-size: cover;
   position: relative;

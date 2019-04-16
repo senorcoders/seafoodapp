@@ -3,6 +3,8 @@ export const environment = {
 	payfort: false,
   apiURL:"https://stagingapi.seafoodsouq.com/",
 	apiURLImg:"https://stagingapi.seafoodsouq.com",
+	cdnURL:"http://d66z88a3oqo8j.cloudfront.net",
+
 	// apiURL:"http://localhost:7000/",
   // apiURLImg:"http://localhost:7000",
   countries:[
