@@ -13,6 +13,10 @@
         width: 22px;
         height: 22px;
         right: -24px;
+        @media screen and (max-width: 500px){
+            display: none;
+            
+        }
     }
 
     input.form-control, textarea.form-control{
@@ -138,6 +142,10 @@
         height: 22px;
         right: -24px;
         top: 30%;
+        @media screen and (max-width: 500px){
+            display: none;
+            
+        }
     }
     label{
       color: #9A9EA8;

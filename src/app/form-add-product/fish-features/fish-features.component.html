@@ -94,8 +94,8 @@
           <select id="preparation" class="form-control" formControlName="preparation">
               <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
             </select>
-            <label for="preparation">Preparation..* <span class="field-status red">*</span> <a class="manage-link"
-              data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming</a> <</label>
+            <label for="preparation">Preparation..* <a class="manage-link"
+              data-toggle="modal" data-target="#trimModal" [hidden]="hideTrimModal">Manage Trimming <img src="../../../assets/svg/arrow-right.svg" alt=""></a></label>
          
           <div class="form-control-feedback" *ngIf="controls().preparation.errors &&parentForm.submitted">
             <p *ngIf="controls().preparation.errors.required">{{'CreateProduct.preparation' | translate}}
@@ -189,28 +189,28 @@
       <div class="modal-header">
         <h5 class="modal-title" id="trimModalTitle">Manage Salmon Trimming</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+            <img src="../../assets/svg/close.svg" alt="">
+          </button>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-2"></div>
-          <div class="col-10">
+        <div class="row body-width">
+          <div class="col-1 border-dark"></div>
+          <div class="col-11 border-dark">
             <div class="row">
-              <div class="col" *ngFor="let part of partsModal">
+              <div class="col text-center" *ngFor="let part of partsModal">
                 <span class="partsModal">{{part.name}}</span>
               </div>
             </div>
           </div>
           <div class="col-12">
-            <div class="row" *ngFor="let type of typesModal; let i=index" style="margin-bottom: 20px">
-              <div class="col-2">
+            <div class="row checkbox-row" *ngFor="let type of typesModal; let i=index" >
+              <div class="col-1">
                 <span class="types">{{type.name}}</span>
               </div>
-              <div class="col-10">
-                <div class="row">
+              <div class="col-11">
+                <div class="row check-item">
                   <div class="col checkboxes" *ngFor="let part of partsModal; let j=index">
-                    <input type="checkbox" class="form-check-input df" [disabled]="isDefault(part.name,type.name)"
+                    <input type="checkbox" class=" df" [disabled]="isDefault(part.name,type.name)"
                       [checked]="isChecked(part.name,type.name)" (click)="checked($event, type.id, part.id)">
                   </div>
                 </div>
@@ -219,9 +219,7 @@
           </div>
         </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
+
     </div>
   </div>
 </div>

@@ -90,7 +90,7 @@
 
     <div class="row  tab-row" [hidden]="headAction===true">
       <div *ngFor="let k of weights.off.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
-        class="col selectionable">{{getNameWhole(k)}}</div>
+        class="col selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row  custom-pricing-table">
           <div class="col-8 table-title">quantity range (kg)</div>
@@ -129,45 +129,48 @@
 
   <!-- slides para trimmings  -->
   <div class="col-12" [hidden]="hideTrimesSlides===true||wholeFishAction===true">
-    <div class="row">
-      <div *ngFor="let tri of trimmings" [ngClass]="isSelectTrim(tri.id)?'select':''" class="col">
+    <div class="row check-row">
+
+      <div *ngFor="let tri of trimmings" [ngClass]="isSelectTrim(tri.id)?'select':''" class="col-lg-2 custom-trim-square">
+        
         <div (click)="selectKeyTrim(tri.id)" class="square selectionable"></div> <span class="selectionable"
           (click)="selectKeyTrim(tri.id)" style="text-transform: uppercase;">{{tri.name}}</span>
       </div>
     </div>
-    <div class="row">
-      <div *ngFor="let tri of getSelects()" class="col">
-        <span class="selectionable" [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
-          style="text-transform: uppercase;">{{tri.name}}</span>
+    <div class="row tab-row">
+      <div *ngFor="let tri of getSelects()" class="col-lg-2">
+
+        <div class="selectionable" [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
+          style="text-transform: uppercase;"><span>{{tri.name}}</span></div>
       </div>
       <div class="col-12">
-        <div class="row">
-          <div class="col-9">quantity range (kg)</div>
-          <div class="col-3">price (USD)</div>
+        <div class="row custom-pricing-table">
+          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-4 table-title">price (USD)</div>
 
           <div class="col-12">
-            <div *ngFor="let price of trimWeights[keySelectTrim]; let i=index;" class="row">
-              <div class="col-9">
+            <div *ngFor="let price of trimWeights[keySelectTrim]; let i=index;" class="row slider-price">
+              <div class="col-8">
                 <ng5-slider [manualRefresh]="manualRefresh" [(value)]="trimWeights[keySelectTrim][i].min"
                   [(highValue)]="trimWeights[keySelectTrim][i].max" (userChangeEnd)="refactorizeRanges(i)"
                   [options]="trimWeights[keySelectTrim][i].options"></ng5-slider>
               </div>
-              <div class="col-3" [formGroupName]="getIdentifierTrim(keySelectTrim)">
+              <div class="col-4" [formGroupName]="getIdentifierTrim(keySelectTrim)">
                 $<input type="number"
                   [ngClass]="getControlTrim(keySelectTrim, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="i"
-                  [(ngModel)]="trimWeights[keySelectTrim][i].price">kg
-                <i class="fa fa-times-circle" aria-hidden="true" (click)="deletePrice(true, i)"></i>
+                  [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
+                  <button (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
-            <div class="row" *ngIf="keySelectTrim!==''">
-              <div class="col-9">
+            <div class="row manual-slider" *ngIf="keySelectTrim!==''">
+              <div class="col-8 ">
                 <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricingTrim()"
                   [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
-              <div class="col-3">
-                $<input type="number" (change)="addPricingTrim()" formControlName="example"
-                  placeholder="Type Price Here" [(ngModel)]="valueExample">kg
+              <div class="col-4">
+                <input type="number" (change)="addPricingTrim()" formControlName="example"
+                  placeholder="Type Price Here" [(ngModel)]="valueExample">
               </div>
             </div>
 

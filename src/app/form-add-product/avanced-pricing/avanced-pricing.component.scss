@@ -8,13 +8,11 @@
 }
 
 .square{
-    width: 1rem;
-    height: 1rem;
+ 
     display: inline-block;
-    border: 1px solid black;
 }
 .select .square{
-    background-color: black;
+    background-color: #3E4E75;
 }
 
 .gray-title{
@@ -61,6 +59,29 @@
     max-width: 1000px;
     margin: 0 auto;
     margin-bottom: 70px;
+
+    .custom-trim-square{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        span.selectionable{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: #7484AA;
+            font-weight: 300;
+        }
+        .square{
+            width: 22px;
+            height: 22px;
+            border: 1px solid #3E4E75;
+            border-radius: 3px;
+            margin-right: 10px;
+            &.select{
+                background-color: #3E4E75;
+            }
+        }
+    }
     .form-check{
         position: relative;
         padding: 10px 0;
