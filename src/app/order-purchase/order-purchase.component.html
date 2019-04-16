@@ -1,9 +1,10 @@
 <div class="container">
   <div class="row" *ngIf="showLoading; else product">
-    <div class="col-12 text-center">
-      <img src="../../assets/loader.gif" alt="">
-    </div>
+      <div class="wave-loader">
+          <div class="wave-loading"></div>
+        </div>
   </div>
+ 
   <ng-template #product>
     <!--*ngIf="showProduct; else noProduct"-->
     <div class="row" style="padding-top: 20px; padding-bottom: 50px;">

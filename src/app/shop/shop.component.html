@@ -97,7 +97,7 @@
             </div>
         </div>
         <div class="col filter-col " [hidden]="hideSpecie">
-            <h4>SUB SPECIE</h4>
+            <h4>SUBSPECIES</h4>
             <div class="form-group scroll-div">
                 <div *ngFor="let category of searchSubSpecie; let i=index" class="custom-list">
                     <input  type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
@@ -207,10 +207,10 @@
 </div>
 <div class="gray-bg">
     <div class="container-fluid">
-      <div class="row">
-          <div class="col-12 text-center" style="padding-top: 30px">
-              <img src="../../assets/loader.gif" alt="" class="loading" *ngIf="showLoading">
-            </div>
+      <div class="row" style="position: relative; min-height: 50vh;">
+              <div class="wave-loader" *ngIf="showLoading">
+                  <div class="wave-loading"></div>
+                </div>
             <div class="col-lg-12" *ngIf="showNotFound" style="padding-top: 30px">
               <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
             </div>

@@ -11,10 +11,11 @@
 			  <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate"></ngx-loading>
 
 		<div class="row" *ngIf="showLoading; else productshow">
-				<div class="col-12 text-center">
-					<img src="../../assets/loader.gif" alt="" />
-				</div>
+				<div class="wave-loader">
+						<div class="wave-loading"></div>
+					</div>
 			</div>
+			
 			<ng-template #productshow>
 
 	<div class="row" >
@@ -66,7 +67,6 @@
 								<td *ngIf="item.items.length > 1">N/A</td>
 								<td *ngIf="item.items.length > 1">{{item.items.length}} items </td>
 								<td *ngIf="item.items.length > 1"><a  class="expandible-link collapsed"  data-toggle="collapse" href="#collapse{{item.id}}" role="button" aria-expanded="false" aria-controls="collapseExample"> 
-									<img   alt="Open">
 								</a>
 
 								</td> 
