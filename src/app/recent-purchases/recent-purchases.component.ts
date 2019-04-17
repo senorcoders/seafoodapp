@@ -168,7 +168,7 @@ export class RecentPurchasesComponent implements OnInit {
         console.log(result);
         if (result && result !== '') {
           this.items = result;
-          this.firstNoShipped = result;
+          this.firstNoShipped = result; console.log(result);
 
           this.showLoading = false;
           this.showProduct = true;
@@ -399,10 +399,10 @@ export class RecentPurchasesComponent implements OnInit {
         }
         this.cancelled = [];
         this.getCancelled();
-			},
-				e => {
-					this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
-				});
+      },
+        e => {
+          this.toast.error('Something wrong happened, please try again', 'Error', { positionClass: 'toast-top-right' });
+        });
   }
 
   //Function to open calendar to confirm order
@@ -681,7 +681,7 @@ export class RecentPurchasesComponent implements OnInit {
         return a.orderNumber - b.orderNumber;
       });
       this[prop + "_sort"] = "asc";
-    }else{
+    } else {
       this[prop] = this[prop].sort((a, b) => {
         return b.orderNumber - a.orderNumber;
       });
@@ -699,13 +699,26 @@ export class RecentPurchasesComponent implements OnInit {
         return a.updatedAt - b.updatedAt;
       });
       this[prop + "_sort_date"] = "asc";
-    }else{
+    } else {
       this[prop] = this[prop].sort((a, b) => {
         return b.updatedAt - a.updatedAt;
       });
       this[prop + "_sort_date"] = "desc";
     }
 
+  }
+
+  public getTotal(order) {
+    let total = 0;
+    if (isNaN(order.currentCharges.exchangeRates) === false)
+      total = order.total / order.currentCharges.exchangeRates;
+    if (
+      Object.prototype.toString.call(order.currentCharges.exchangeRates) === '[object Array]' &&
+      order.currentCharges.exchangeRates.length > 0
+    ) {
+      total = order.total / order.currentCharges.exchangeRates[0].price;
+    }
+    return total.toFixed(2);
   }
 
 
