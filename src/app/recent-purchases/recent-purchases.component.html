@@ -62,13 +62,14 @@
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
 									<td *ngIf="item.items.length == 1">
+											<button *ngIf="item.items[0].updateInfo == null"
+											(click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img
+												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
 										<button [owlDateTimeTrigger]="dt1" *ngIf="item.items[0].updateInfo == null">
 											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
 											<img class="calendar-icon order-icon"
 												src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null"
-											(click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img
-												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+									
 										<button *ngIf="item.items[0].updateInfo != null"
 											(click)="openShippingModal(item.items[0].id, i, 'pending' )"><img
 												*ngIf="item.items[0].shippingFiles == null" class="alert-circle"
@@ -86,7 +87,6 @@
 									<td *ngIf="item.items.length > 1"><a class="expandible-link collapsed"
 											data-toggle="collapse" href="#collapse{{item.id}}" role="button"
 											aria-expanded="false" aria-controls="collapseExample">
-											<img alt="Open">
 										</a>
 
 									</td>
@@ -103,16 +103,17 @@
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td>
+															<button *ngIf="sub.updateInfo == null"
+															(click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img
+																class="order-icon" src="../../assets/svg/close.svg"
+																alt=""></button>
 														<button [owlDateTimeTrigger]="dt1"
 															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
 																src="../../assets/svg/alert-circle.svg" alt=""> <img
 																class="calendar-icon order-icon"
 																src="../../assets/svg/calendar-blank.svg"
 																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img
-																class="order-icon" src="../../assets/svg/close.svg"
-																alt=""></button>
+														
 														<button *ngIf="sub.updateInfo != null"
 															(click)="openShippingModal(sub.id, i, 'pending', subi)"><img
 																*ngIf="sub.shippingFiles == null" class="alert-circle"
@@ -164,13 +165,14 @@
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1">
+											<button *ngIf="shipped.items[0].updateInfo == null"
+											(click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img
+												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
 										<button [owlDateTimeTrigger]="dt1" *ngIf="shipped.items[0].updateInfo == null">
 											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
 											<img class="calendar-icon order-icon"
 												src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="shipped.items[0].updateInfo != null"
-											(click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img
-												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
+										
 										<button *ngIf="shipped.items[0].updateInfo != null"
 											(click)="openShippingModal(shipped.items[0].id, i, 'shipped')"><img
 												*ngIf="shipped.items[0].shippingFiles == null" class="alert-circle"
@@ -190,7 +192,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
@@ -208,16 +210,17 @@
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td>
+															<button *ngIf="sub.updateInfo == null"
+															(click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img
+																class="order-icon" src="../../assets/svg/close.svg"
+																alt=""></button>
 														<button [owlDateTimeTrigger]="dt1"
 															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
 																src="../../assets/svg/alert-circle.svg" alt=""> <img
 																class="calendar-icon order-icon"
 																src="../../assets/svg/calendar-blank.svg"
 																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img
-																class="order-icon" src="../../assets/svg/close.svg"
-																alt=""></button>
+														
 														<button *ngIf="sub.updateInfo != null"
 															(click)="openShippingModal(sub.id, i, 'shipped', subi)"><img
 																*ngIf="sub.shippingFiles == null" class="alert-circle"
@@ -279,7 +282,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
@@ -344,7 +347,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
