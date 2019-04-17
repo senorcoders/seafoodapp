@@ -24,7 +24,7 @@
     <div class="row check-row" [hidden]="headAction===false">
       <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" form id="defaultCheck{{whole.id}}">
+          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" id="defaultCheck{{whole.id}}">
           <label class="form-check-label" for="defaultCheck{{whole.id}}">
             {{getNameWhole(whole.id)}}
           </label>
@@ -37,8 +37,8 @@
     <div class="row check-row" [hidden]="headAction===true">
       <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" form id="defaultCheck{{whole.id}}">
-          <label class="form-check-label" for="defaultCheck{{whole.id}}">
+          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" id="defaultCheck{{whole.id+'_off'}}">
+          <label class="form-check-label" for="defaultCheck{{whole.id+'_off'}}">
             {{getNameWhole(whole.id)}}
           </label>
         </div>
