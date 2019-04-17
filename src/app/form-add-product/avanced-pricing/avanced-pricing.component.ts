@@ -59,11 +59,15 @@ export class AvancedPricingComponent implements OnInit {
   public hideTrimesSlides = true;
   public trimmings = [];
   public keySelectTrim = "";
-  public trimWeights: any = { };
+  public trimWeights: any = {};
   public wholeFishAction = true;
   public identifierTrim = "_trim";
 
-  constructor(public parentForm: FormGroupDirective, private productService: ProductService) { }
+  constructor(
+    public parentForm: FormGroupDirective,
+    private productService: ProductService,
+    public zone: NgZone
+  ) { }
 
   ngOnInit() {
     this.createFormGroup();
@@ -71,10 +75,10 @@ export class AvancedPricingComponent implements OnInit {
       let wholes = its as any[];
       //Agregamos los wholes antes
       for (let i of wholes) {
-        (this.parentForm.form.controls.price as FormGroup).addControl(i.id, new FormControl('', Validators.nullValidator));
+        (this.parentForm.form.controls.price as FormGroup).addControl(i.id, new FormControl(false, Validators.nullValidator));
       }
       for (let i of wholes) {
-        (this.parentForm.form.controls.price as FormGroup).addControl(i.id + "_off", new FormControl('', Validators.nullValidator));
+        (this.parentForm.form.controls.price as FormGroup).addControl(i.id + "_off", new FormControl(false, Validators.nullValidator));
       }
       this.wholesFish = its as any;
     });
@@ -196,13 +200,13 @@ export class AvancedPricingComponent implements OnInit {
     let keys = Object.keys(this.weights.on);
     for (let key of keys) {
       this.weights.on[key] = this.weights.on[key]
-        .map(itereOptions);
+        .map(itereOptions.bind(this));
     }
 
     keys = Object.keys(this.weights.off);
     for (let key of keys) {
       this.weights.off[key] = this.weights.off[key]
-        .map(itereOptions);
+        .map(itereOptions.bind(this));
     }
 
     //Para los trimmings
@@ -212,7 +216,7 @@ export class AvancedPricingComponent implements OnInit {
     });
     for (let key of keys) {
       this.trimWeights[key] = this.trimWeights[key]
-        .map(itereOptions);
+        .map(itereOptions.bind(this));
     }
 
   }
@@ -263,6 +267,7 @@ export class AvancedPricingComponent implements OnInit {
       }
     }
     data.keys = keys;
+    console.log(data);
     this.refreshSlider();
     this.priceEnableChange = true;
     return data;
@@ -369,6 +374,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public addPricing() {
+    console.log(this.headAction, this.keySelect);
     let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
@@ -415,19 +421,8 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public refactorizeRanges(index) {
-    //Si es para slides trim
     if (this.hideTrimesSlides === false && this.wholeFishAction === false) {
       return this.refactorizeRangesTrim(index);
-    }
-    let newOptions: Options = Object.assign({}, this.options);
-    this.options = newOptions;
-    this.exampleValues = {
-      min: newOptions.floor,
-      max: newOptions.ceil
-    };
-    let range = {
-      minLimit: 10,
-      maxLimit: newOptions.ceil
     }
     let slides = [];
     if (this.headAction === true) {
@@ -435,66 +430,107 @@ export class AvancedPricingComponent implements OnInit {
     } else {
       slides = this.weights.off[this.keySelect];
     }
-    //Entonces calculamos el valor mas alto, para tomar desde ahi
-    //el inicio de los demas slider
-    let maxValue = 0;
-    for (let i = 0; i < slides.length; i++) {
-      let slide = slides[i];
-      if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
-      if (i === index || i > index) continue;
-      if (slide.max > maxValue) maxValue = slide.max;
+    for (let i = index; i < slides.length; i++) {
+      this.refactorizeRangesItere(i);
     }
-    //ahora asignamos el mayor valor al slide
-    range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
-    range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
-    let newOptions1 = Object.assign(range, newOptions);
-
-    if (this.headAction === true) {
-      this.weights.on[this.keySelect][index].options = newOptions1;
-      if (this.weights.on[this.keySelect][index].min < range.minLimit)
-        this.weights.on[this.keySelect][index].min = range.minLimit;
-    } else {
-      this.weights.off[this.keySelect][index].options = newOptions1;
-      if (this.weights.off[this.keySelect][index].min < range.minLimit)
-        this.weights.off[this.keySelect][index].min = range.minLimit;
-    }
-
     this.refreshSlider();
   }
 
+  public refactorizeRangesItere(index) {
+    //Si es para slides trim
+    try {
+      let newOptions: Options = Object.assign({}, this.options);
+      this.options = newOptions;
+      this.exampleValues = {
+        min: newOptions.floor,
+        max: newOptions.ceil
+      };
+      let range = {
+        minLimit: 10,
+        maxLimit: newOptions.ceil
+      }
+      let slides = [];
+      if (this.headAction === true) {
+        slides = this.weights.on[this.keySelect];
+      } else {
+        slides = this.weights.off[this.keySelect];
+      }
+      //Entonces calculamos el valor mas alto, para tomar desde ahi
+      //el inicio de los demas slider
+      let maxValue = 0;
+      for (let i = 0; i < slides.length; i++) {
+        let slide = slides[i];
+        // if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+        if (i === index || i > index) continue;
+        if (slide.max > maxValue) maxValue = slide.max;
+      }
+      //ahora asignamos el mayor valor al slide
+      range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+      range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+      let newOptions1 = Object.assign(range, newOptions);
+
+      if (this.headAction === true) {
+        this.weights.on[this.keySelect][index].options = newOptions1;
+        if (this.weights.on[this.keySelect][index].min < range.minLimit)
+          this.weights.on[this.keySelect][index].min = range.minLimit;
+      } else {
+        this.weights.off[this.keySelect][index].options = newOptions1;
+        if (this.weights.off[this.keySelect][index].min < range.minLimit)
+          this.weights.off[this.keySelect][index].min = range.minLimit;
+      }
+
+    }
+    catch (e) {
+      console.error(e);
+    }
+  }
+
   public refactorizeRangesTrim(index) {
-    let newOptions: Options = Object.assign({}, this.options);
-    this.options = newOptions;
-    this.exampleValues = {
-      min: newOptions.floor,
-      max: newOptions.ceil
-    };
-    let range = {
-      minLimit: 10,
-      maxLimit: newOptions.ceil
+    let slides = this.trimWeights[this.keySelectTrim];
+
+    for (let i = index; i < slides.length; i++) {
+      this.refactorizeRangesTrimIterate(i);
     }
-    let slides = [];
-    slides = this.trimWeights[this.keySelectTrim];
-
-    //Entonces calculamos el valor mas alto, para tomar desde ahi
-    //el inicio de los demas slider
-    let maxValue = 0;
-    for (let i = 0; i < slides.length; i++) {
-      let slide = slides[i];
-      if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
-      if (i === index || i > index) continue;
-      if (slide.max > maxValue) maxValue = slide.max;
-    }
-    //ahora asignamos el mayor valor al slide
-    range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
-    range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
-    let newOptions1 = Object.assign(range, newOptions);
-
-    this.trimWeights[this.keySelectTrim][index].options = newOptions1;
-    if (this.trimWeights[this.keySelectTrim][index].min < range.minLimit)
-      this.trimWeights[this.keySelectTrim][index].min = range.minLimit;
-
     this.refreshSlider();
+  }
+
+  private refactorizeRangesTrimIterate(index) {
+    try {
+      let newOptions: Options = Object.assign({}, this.options);
+      this.options = newOptions;
+      this.exampleValues = {
+        min: newOptions.floor,
+        max: newOptions.ceil
+      };
+      let range = {
+        minLimit: 10,
+        maxLimit: newOptions.ceil
+      }
+      let slides = [];
+      slides = this.trimWeights[this.keySelectTrim];
+
+      //Entonces calculamos el valor mas alto, para tomar desde ahi
+      //el inicio de los demas slider
+      let maxValue = 0;
+      for (let i = 0; i < slides.length; i++) {
+        let slide = slides[i];
+        if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+        if (i === index || i > index) continue;
+        if (slide.max > maxValue) maxValue = slide.max;
+      }
+      //ahora asignamos el mayor valor al slide
+      range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+      range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+      let newOptions1 = Object.assign(range, newOptions);
+
+      this.trimWeights[this.keySelectTrim][index].options = newOptions1;
+      if (this.trimWeights[this.keySelectTrim][index].min < range.minLimit)
+        this.trimWeights[this.keySelectTrim][index].min = range.minLimit;
+
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 
   public getOptions(index) {
@@ -533,7 +569,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public assingHead(r) {
-    this.headAction = r;
+    this.headAction = r; console.log(r);
     // this.keySelect = '';
     this.refreshSlider();
   }
@@ -556,7 +592,7 @@ export class AvancedPricingComponent implements OnInit {
       }, 500);
     }
     this.manualRefresh.emit();
-
+    this.zone.run(function(){ console.log("emit"); });
   }
 
   private setValue(value) {
