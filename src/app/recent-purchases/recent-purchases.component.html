@@ -45,7 +45,8 @@
 								<tr>
 									<th scope="col" class="selectionable" (click)="orderForOrder('firstNoShipped')" >Order</th>
 									<th scope="col" class="selectionable" (click)="orderForDate('firstNoShipped')">Date</th>
-									<th scope="col">Address</th>
+									<!-- <th scope="col">Address</th> -->
+									<th scope="col">Price</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -57,7 +58,8 @@
 									<td><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
 									<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{item?.buyer?.dataExtra?.Address}}</td>
+									<td>{{getTotal(item)}} USD</td>
+									<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
@@ -104,6 +106,7 @@
 												<tr *ngFor="let sub of item.items; let subi=index">
 													<td>{{item.orderNumber}}</td>
 													<td>{{item.updatedAt | date: 'd/M/y'}}</td>
+													<td>{{getTotal(item)}} USD</td>
 													<td>{{item?.buyer?.dataExtra?.Address}}</td>
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
@@ -157,7 +160,8 @@
 								<tr>
 									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Order</th>
 									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Date</th>
-									<th scope="col">Address</th>
+									<!-- <th scope="col">Address</th> -->
+									<th scope="col">Price</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -168,7 +172,8 @@
 								<tr>
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
+									<td>{{getTotal(shipped)}} USD</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
@@ -221,7 +226,8 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{getTotal(shipped)}} USD</td>
+													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
@@ -275,7 +281,8 @@
 								<tr>
 									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Order</th>
 									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Date</th>
-									<th scope="col">Address</th>
+									<!-- <th scope="col">Address</th> -->
+									<th scope="col">Price</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -286,7 +293,8 @@
 								<tr>
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<td>{{getTotal(shipped)}} USD</td>
+									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
@@ -313,7 +321,8 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{getTotal(shipped)}} USD</td>
+													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
@@ -340,7 +349,8 @@
 								<tr>
 									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Order</th>
 									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Date</th>
-									<th scope="col">Address</th>
+									<!-- <th scope="col">Address</th> -->
+									<th scope="col">Price</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -351,7 +361,8 @@
 								<tr>
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+									<td>{{getTotal(shipped)}} USD</td>
+									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
@@ -378,7 +389,8 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{shipped?.buyer?.dataExtra?.Address}}</td>
+													<td>{{getTotal(shipped)}} USD</td>
+													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
