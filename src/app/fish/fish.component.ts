@@ -315,10 +315,8 @@ export class FishComponent implements OnInit {
   }
 
   deleteSubCategory(id, parent) {
-    this.product.deleteData('parenttype/' + parent).subscribe(result => {
-      console.log(result);
-      this.deleteCategory(id);
-    });
+    console.info( 'id', id );
+    this.deleteCategory(id);
   }
   deleteCategory(id) {
     this.product.deleteCategory(id).subscribe(
@@ -327,6 +325,7 @@ export class FishComponent implements OnInit {
         this.getCategories();
         this.showSuccess('Product Category was deleted');
         this.removePreviusImg();
+        this.getFishTypeTree();
         this.fileToUpload = null;
         this.showImage = false;
         this.currentImage = '';
@@ -335,7 +334,12 @@ export class FishComponent implements OnInit {
         jQuery('#previewImg').css('display', 'none');
       },
       error => {
-        this.showError('Something wrong happened');
+        if( error['error'].hasOwnProperty('message') ) {
+          this.showError(error['error'].message);
+        } else {
+
+          this.showError('Something wrong happened');
+        }
         console.log(error);
       }
     );
