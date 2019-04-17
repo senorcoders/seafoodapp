@@ -129,7 +129,7 @@ p.order-number {
                 width: 12px;
                 height: 12px;
                 margin: 0 !important;
-                vertical-align: text-top;   
+                vertical-align: middle;   
             }
             .calendar-icon{
                 margin: 0;
@@ -138,12 +138,10 @@ p.order-number {
     }
 
     .table th, .table td{
-        width: 15%;
+        width: 14.28%;
     }
 
-    .table th:last-child, .table td:last-child{
-        width: 10%;
-    }
+    
 
     @media screen and (max-width: 1201px) {
         min-width: 1200px;
@@ -300,6 +298,62 @@ p.order-number {
     
 }
 
+#deliveryModal{
+    .modal-dialog{
+        max-width: 781px;
+        width: 100%;
+    }
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        .modal-header{
+            background: #F7F8F9;
+            padding: 38px 20px;
+            border: none;
+            align-items: center;
+            .modal-title{
+                color: #7484AA;
+                font-family: 'Josefin Sans', sans-serif;
+                text-align: center;
+                width: 100%;
+                font-weight: 300;
+                font-size: 21px;
+                line-height: 34px;
+                letter-spacing: 2px;
+            }
+            img{
+                width: 32px;
+                height: 25px;
+            }
+        }
+        .modal-body{
+            padding: 50px;
+            p{
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                font-weight: 300;
+                font-style: italic;
+                line-height: 22px;
+                color: #9A9EA8;
+                margin-bottom: 50px;
+            }
+            h3{
+                font-family: 'Open Sans', sans-serif;
+                font-size: 21px;
+                font-weight: 300;
+                font-style: italic;
+                line-height: 25px;
+                color: #9A9EA8;
+                margin-bottom: 50px;
+                span{
+                    border-bottom: 1px solid #9A9EA8;
+                    padding-bottom: 10px;
+                }
+            }
+        }
+    }
+}
+
 .table tbody + tbody {
     border-top: 1px solid #dee2e6;
 }
@@ -323,9 +377,9 @@ p.order-number {
 
     tr:last-child td{
         background: none !important;
-        border-bottom: 1px solid #3E4E75 !important;
 
     }
+    tr:last-child{ border-bottom: 1px solid #3E4E75 !important;   }
     tbody{
         border-top: 1px solid #3E4E75;
         position: relative;
@@ -359,4 +413,58 @@ background-position: center;
 	width: 100px;
 	height: 2px;
 	background: #000000;
+}
+
+.flex-td{
+    padding: 0 !important;
+    display: flex;
+    justify-content: flex-end   ;
+    width: 100% !important;
+    align-items: center;
+    flex-wrap: wrap;
+    height: 114px;
+    padding-right: 15px !important;
+    border: none !important;
+    .icon-flex-box{
+        width: 100%;
+        &.attach-box{
+            height: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        &.half-box{
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        button{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 17px;
+           
+            &.red-text-btn{
+                color: #885053; 
+                svg .a{
+                    fill: #885053 !important;
+                }
+            }
+
+            &.gray-text-btn{
+                color: #3E4E75;
+            }
+            &.light-gray-btn-text{
+                color: #7484AA;
+            }
+        }
+    }
+}
+
+.green-row{
+    td{
+        color: #397367 !important;
+    }
 }

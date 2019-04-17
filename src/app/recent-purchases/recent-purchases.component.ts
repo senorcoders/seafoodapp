@@ -64,6 +64,10 @@ export class RecentPurchasesComponent implements OnInit {
   doc: any = [];
   API: any = environment.apiURL;
   tmpFiles: any = [];
+  deliveryID:any;
+  deliveryIndex:any;
+  deliverySunindex:any;
+  public selectedMoment:any = new Date();
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -420,6 +424,14 @@ export class RecentPurchasesComponent implements OnInit {
 
   }
 
+  //Open set delivery date modal
+  openDeliveryModal(id, index, subindex?){
+    jQuery('#deliveryModal').modal('show');
+    this.deliveryID = id;
+    this.deliveryIndex = index;
+    this.deliverySunindex = subindex;
+  }
+
   //Create form controls and shipping docs form
 
   createFormControl() {
@@ -708,5 +720,12 @@ export class RecentPurchasesComponent implements OnInit {
 
   }
 
+  logCalendar(){
+    console.log("Momento", this.selectedMoment);
+    jQuery(`#epa${this.deliveryID}`).val(this.selectedMoment);
+    console.log(jQuery(`#epa${this.deliveryID}`).val());
+    this.selectDate(this.deliveryID, this.deliveryIndex, this.deliverySunindex);
+    jQuery('#deliveryModal').modal('hide');
+    }
 
 }
