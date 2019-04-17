@@ -200,11 +200,13 @@ export class ShopComponent implements OnInit {
       }, 1000);
       this.createPills('pill-category', 'input[type=radio][name=cat]:checked', 'tmpCatName');
     });
-    jQuery('input[type=radio][name=subcat]').on('change', async (e) => {
+    jQuery('input[type=radio][name=subcat]').on('change', (e) => {
+      e.stopImmediatePropagation();
+
       console.log("Changing subcat");
       this.showClear = true;
       const specie = e.target.value;
-      await this.filterProducts();
+       this.filterProducts();
       this.getOnChangeLevel(specie);
       setTimeout(() => {
         this.hideCat = true;
@@ -214,6 +216,8 @@ export class ShopComponent implements OnInit {
       this.createPills('pill-subcategory', 'input[type=radio][name=subcat]:checked', 'tmpSubcat');
     });
     jQuery('input[type=radio][name=specie]').on('change', (e) => {
+      e.stopImmediatePropagation();
+
       console.log("Changing specie");
       this.showClear = true;
       const variant = e.target.value;
@@ -231,6 +235,7 @@ export class ShopComponent implements OnInit {
 
     });
     jQuery('input[type=radio][name=variant]').on('change', (e) => {
+      e.stopImmediatePropagation();
       console.log("Changing variant");
       this.showClear = true;
       this.filterProducts();
