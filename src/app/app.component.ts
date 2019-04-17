@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd   } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -12,6 +13,14 @@ export class AppComponent{
   
   constructor(public _router: Router){
     this.router = _router.url;
+    console.info('mode', environment.production);
+    if (environment.production) {
+      this._router.events.subscribe( event => {
+        if (event instanceof NavigationEnd) {
+          (<any>window).gtag('config', 'GA_TRACKING_ID', {'page_path': event.urlAfterRedirects});        
+        }
+      } )
+    }
   }
   
   
