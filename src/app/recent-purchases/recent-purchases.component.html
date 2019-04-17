@@ -12,9 +12,9 @@
 	</ngx-loading>
 
 	<div class="row" *ngIf="showLoading; else productshow">
-		<div class="col-12 text-center">
-			<img src="../../assets/loader.gif" alt="" />
-		</div>
+			<div class="wave-loader">
+					<div class="wave-loading"></div>
+				  </div>
 	</div>
 	<ng-template #productshow>
 
@@ -23,19 +23,19 @@
 				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
-							aria-controls="pending" aria-selected="true">Pending</a>
+							aria-controls="pending" aria-selected="true">Incomplete <span *ngIf="firstNoShipped.length > 0">({{firstNoShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
-							aria-controls="purchased" aria-selected="false">Shipped</a>
+							aria-controls="purchased" aria-selected="false">Shipped <span *ngIf="firstShipped.length > 0">({{firstShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab"
-							aria-controls="delivered" aria-selected="false">Delivered</a>
+							aria-controls="delivered" aria-selected="false">Delivered <span *ngIf="delivered.length > 0">({{delivered.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="cancelled-tab" data-toggle="tab" href="#cancelled" role="tab"
-							aria-controls="cancelled" aria-selected="false">Cancelled</a>
+							aria-controls="cancelled" aria-selected="false">Cancelled <span *ngIf="cancelled.length > 0">({{cancelled.length}})</span></a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
@@ -53,7 +53,7 @@
 								</tr>
 							</thead>
 							<tbody *ngFor="let item of firstNoShipped; let i=index">
-								<tr>
+								<tr [className]="item.items[0].updateInfo == null ? 'green-row' : 'gray-row'">
 									<td><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
 									<td>{{item.updatedAt | date: 'd/M/y'}}</td>
@@ -61,24 +61,31 @@
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
-									<td *ngIf="item.items.length == 1">
-										<button [owlDateTimeTrigger]="dt1" *ngIf="item.items[0].updateInfo == null">
-											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
-											<img class="calendar-icon order-icon"
-												src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null"
-											(click)="showModal(item.items[0].id,'cancel', i, 'pending')"><img
-												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-										<button *ngIf="item.items[0].updateInfo != null"
-											(click)="openShippingModal(item.items[0].id, i, 'pending' )"><img
-												*ngIf="item.items[0].shippingFiles == null" class="alert-circle"
-												src="../../assets/svg/alert-circle.svg" alt=""><img
-												[className]="item.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
-												src="../../assets/svg/attachment.svg" alt=""></button>
-										<input class="input-hidden" [min]="min" [max]="max" [owlDateTime]="dt1"
-											id="epa{{item.items[0].id}}">
-										<owl-date-time [pickerType]="'calendar'" #dt1
-											(afterPickerClosed)="selectDate(item.items[0].id, i)"></owl-date-time>
+									<td *ngIf="item.items.length == 1" class="flex-td">
+										
+										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
+											<button class="red-text-btn" (click)="openDeliveryModal(item.items[0].id, i)"> 
+											<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
+											SET DELIVERY DATE
+											</button>
+										</div>
+
+										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
+												<button (click)="showModal(item.items[0].id,'cancel', i, 'pending')" class="light-gray-btn-text">
+													<img class="order-icon" src="../../assets/svg/close.svg" alt="">
+													CANCEL ORDER
+												</button>
+										</div>
+									
+										<div class="icon-flex-box attach-box" *ngIf="item.items[0].updateInfo != null">
+										<button *ngIf="item.items[0].updateInfo != null" [className]="item.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
+											(click)="openShippingModal(item.items[0].id, i, 'pending' )">
+											<img  class="alert-circle order-icon"src="../../assets/svg/alert-circle.svg" alt="">
+												ATTACH FILES
+										</button>
+											</div>
+										<input class="input-hidden" id="epa{{item.items[0].id}}">
+										
 									</td>
 									<td *ngIf="item.items.length > 1">N/A</td>
 									<td *ngIf="item.items.length > 1">N/A</td>
@@ -86,7 +93,6 @@
 									<td *ngIf="item.items.length > 1"><a class="expandible-link collapsed"
 											data-toggle="collapse" href="#collapse{{item.id}}" role="button"
 											aria-expanded="false" aria-controls="collapseExample">
-											<img alt="Open">
 										</a>
 
 									</td>
@@ -102,28 +108,32 @@
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
-													<td>
-														<button [owlDateTimeTrigger]="dt1"
-															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
-																src="../../assets/svg/alert-circle.svg" alt=""> <img
-																class="calendar-icon order-icon"
-																src="../../assets/svg/calendar-blank.svg"
-																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="showModal(sub.id,'cancel', i, 'pending', subi)"><img
-																class="order-icon" src="../../assets/svg/close.svg"
-																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="openShippingModal(sub.id, i, 'pending', subi)"><img
-																*ngIf="sub.shippingFiles == null" class="alert-circle"
-																src="../../assets/svg/alert-circle.svg" alt=""><img
-																[className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
-																src="../../assets/svg/attachment.svg" alt=""></button>
-														<input class="input-hidden" [min]="min" [max]="max"
-															[owlDateTime]="dt1" id="epa{{sub.id}}">
-														<owl-date-time [pickerType]="'calendar'" #dt1
-															(afterPickerClosed)="selectDate(sub.id, i, subi)">
-														</owl-date-time>
+													<td class="flex-td">
+															
+													<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
+														<button class="red-text-btn" (click)="openDeliveryModal(sub.id, i, subi)"> 
+															<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
+															SET DELIVERY DATE
+														</button>
+													</div>
+
+														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
+																<button (click)="showModal(sub.id,'cancel', i, 'pending', subi)" class="light-gray-btn-text">
+																	<img class="order-icon" src="../../assets/svg/close.svg" alt="">
+																	CANCEL ORDER
+																</button>
+														</div>
+
+														<div class="icon-flex-box attach-box" *ngIf="sub.updateInfo != null">
+														
+														<button *ngIf="sub.updateInfo != null" [className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
+															(click)="openShippingModal(sub.id, i, 'pending', subi)">
+															<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
+															ATTACH FILES
+														</button>
+														</div>
+														<input class="input-hidden" id="epa{{sub.id}}">
+														
 													</td>
 												</tr>
 											</tbody>
@@ -163,24 +173,32 @@
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
-									<td *ngIf="shipped.items.length == 1">
-										<button [owlDateTimeTrigger]="dt1" *ngIf="shipped.items[0].updateInfo == null">
-											<img class="alert-circle" src="../../assets/svg/alert-circle.svg" alt="">
-											<img class="calendar-icon order-icon"
-												src="../../assets/svg/calendar-blank.svg" alt=""></button>
-										<button *ngIf="shipped.items[0].updateInfo != null"
-											(click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')"><img
-												class="order-icon" src="../../assets/svg/close.svg" alt=""></button>
-										<button *ngIf="shipped.items[0].updateInfo != null"
-											(click)="openShippingModal(shipped.items[0].id, i, 'shipped')"><img
-												*ngIf="shipped.items[0].shippingFiles == null" class="alert-circle"
-												src="../../assets/svg/alert-circle.svg" alt=""><img
-												[className]="shipped.items[0].shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
-												src="../../assets/svg/attachment.svg" alt=""></button>
-										<input (change)="selectDate(shipped.items[0].id)" type="hidden" [min]="min"
-											[max]="max" [owlDateTime]="dt1" id="epa{{shipped.items[0].id}}">
-										<owl-date-time [pickerType]="'calendar'" #dt1
-											(afterPickerClosed)="selectDate(shipped.items[0].id, i)"></owl-date-time>
+									<td *ngIf="shipped.items.length == 1" class="flex-td">
+
+										<div class="icon-flex-box half-box" *ngIf="shipped.items[0].updateInfo == null">
+												<button class="red-text-btn"  (click)="openDeliveryModal(shipped.items[0].id, i)">
+													<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
+													SET DELIVERY DATE
+												</button>
+										</div>
+
+										<div class="icon-flex half-box" *ngIf="shipped.items[0].updateInfo == null">
+											<button (click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')">
+												<img class="order-icon" src="../../assets/svg/close.svg" alt="">
+												CANCEL ORDER
+											</button>
+										</div>
+											
+										<div class="icon-flex-box attach-box" *ngIf="shipped.items[0].updateInfo != null">
+												<button (click)="openShippingModal(shipped.items[0].id, i, 'shipped')" [className]="shipped.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
+													<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
+													ATTACH FILES
+												</button>
+										</div>
+										
+										
+										<input class="input-hidden" id="epa{{shipped.items[0].id}}">
+										
 									</td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
@@ -190,7 +208,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
@@ -207,28 +225,31 @@
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
-													<td>
-														<button [owlDateTimeTrigger]="dt1"
-															*ngIf="sub.updateInfo == null"> <img class="alert-circle"
-																src="../../assets/svg/alert-circle.svg" alt=""> <img
-																class="calendar-icon order-icon"
-																src="../../assets/svg/calendar-blank.svg"
-																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="showModal(sub.id,'cancel', i, 'shipped', subi)"><img
-																class="order-icon" src="../../assets/svg/close.svg"
-																alt=""></button>
-														<button *ngIf="sub.updateInfo != null"
-															(click)="openShippingModal(sub.id, i, 'shipped', subi)"><img
-																*ngIf="sub.shippingFiles == null" class="alert-circle"
-																src="../../assets/svg/alert-circle.svg" alt=""><img
-																[className]="sub.shippingFiles == null ? 'calendar-icon order-icon' : 'order-icon'"
-																src="../../assets/svg/attachment.svg" alt=""></button>
-														<input class="input-hidden" [min]="min" [max]="max"
-															[owlDateTime]="dt1" id="epa{{sub.id}}">
-														<owl-date-time [pickerType]="'calendar'" #dt1
-															(afterPickerClosed)="selectDate(sub.id, i, subi)">
-														</owl-date-time>
+													<td class="flex-td">
+														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
+																<button class="red-text-btn" (click)="openDeliveryModal(sub.id, i, subi)">
+																	 <img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
+																	 SET DELIVERY DATE
+																	</button>
+														</div>
+
+														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
+																<button (click)="showModal(sub.id,'cancel', i, 'shipped', subi)">
+																	<img class="order-icon" src="../../assets/svg/close.svg" alt="">
+																	CANCEL ORDER
+																</button>
+														</div>
+															
+														
+														<div class="icon-flex-box attach-box" *ngIf="sub.updateInfo != null">
+																<button (click)="openShippingModal(sub.id, i, 'shipped', subi)" [className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
+																	<img  class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
+																	ATTACH FILES
+																</button>
+														</div>
+														
+														<input class="input-hidden"  id="epa{{sub.id}}">
+													
 													</td>
 												</tr>
 											</tbody>
@@ -279,7 +300,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
@@ -344,7 +365,7 @@
 										<a class="expandible-link collapsed" data-toggle="collapse"
 											href="#collapse{{shipped.id}}" role="button" aria-expanded="false"
 											aria-controls="collapseExample">
-											<img alt="Open"></a>
+										</a>
 									</td>
 
 
@@ -603,6 +624,37 @@
 
 							</div>
 						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="deliveryModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+		
+			<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<img src="../../assets/svg/close.svg" alt="">
+					</button>
+					<h5 class="modal-title">SET DELIVERY DATE</h5>
+					<button type="button" class="close"  (click)="logCalendar()">
+						<img src="../../assets/svg/check.svg" alt="">
+					</button>
+				</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-12 text-center">
+						<p>This is where you set the estimated delivery date for your order.</p>
+					</div>
+					<div class="col-12 text-center">
+						<h3><span>set delivery date...</span></h3>
+
+						<owl-date-time-inline [(ngModel)]="selectedMoment" [pickerType]="'calendar'"  [min]="min" [max]="max" ></owl-date-time-inline>
 					</div>
 				</div>
 			</div>
