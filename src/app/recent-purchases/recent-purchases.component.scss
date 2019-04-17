@@ -40,7 +40,7 @@ p.order-number {
         border-bottom: 1px solid #b5bed1;
         position: relative;
         .nav-item a{
-            width: 225px;
+            width: 280px;
         }
     }
     .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
@@ -54,6 +54,9 @@ p.order-number {
         padding: 15px 30px;
         letter-spacing: 1.75px;
         line-height: 34px;
+        span{
+            display: none;
+        }
     
     }
     .nav-tabs .nav-link{

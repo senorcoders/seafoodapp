@@ -23,19 +23,19 @@
 				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
-							aria-controls="pending" aria-selected="true">Incomplete</a>
+							aria-controls="pending" aria-selected="true">Incomplete <span *ngIf="firstNoShipped.length > 0">({{firstNoShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
-							aria-controls="purchased" aria-selected="false">Shipped</a>
+							aria-controls="purchased" aria-selected="false">Shipped <span *ngIf="firstShipped.length > 0">({{firstShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab"
-							aria-controls="delivered" aria-selected="false">Delivered</a>
+							aria-controls="delivered" aria-selected="false">Delivered <span *ngIf="delivered.length > 0">({{delivered.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="cancelled-tab" data-toggle="tab" href="#cancelled" role="tab"
-							aria-controls="cancelled" aria-selected="false">Cancelled</a>
+							aria-controls="cancelled" aria-selected="false">Cancelled <span *ngIf="cancelled.length > 0">({{cancelled.length}})</span></a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
