@@ -21,6 +21,7 @@ import { OrderService } from '../services/orders.service';
   styleUrls: ['./confirmation.component.scss']
 })
 export class ConfirmationComponent implements OnInit {
+  loadAPI: Promise<any>;
   shoppingCartId: any;
   accessToken: any = 'Ddx5kJoJWr11sF6Hr6E4';
   merchantID: any = 'aZCWXhqJ';
@@ -69,9 +70,16 @@ export class ConfirmationComponent implements OnInit {
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
       this.httpO = new HttpClient(handler);
+      
+
+      this.loadAPI = new Promise((resolve) => {
+        this.loadScript();
+        resolve(true);
+      });
+
     }
 
-  async ngOnInit() {
+  async ngOnInit() {    
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
@@ -89,7 +97,7 @@ export class ConfirmationComponent implements OnInit {
           
         }
       this.getRealIp();
-      this.addFingerPrintScript();
+      
       this.params.response = params;
       this.token = params.token_name;
       this.shoppingCartId = params.merchant_reference;
@@ -101,16 +109,30 @@ export class ConfirmationComponent implements OnInit {
     this.getPersonalData();
     await this.getCart();
   }
-  addFingerPrintScript() {
-    const s = this.renderer2.createElement('script');
-    s.type = 'text/javascript';
-    s.src = 'https://devapi.seafoodsouq.com/cdn/snare.js';
-    s.text = ``;
-    this.renderer2.appendChild(this._document.body, s);
+  public loadScript() {        
+    var isFound = false;
+    var scripts = document.getElementsByTagName("script")
+    for (var i = 0; i < scripts.length; ++i) {
+        if (scripts[i].getAttribute('src') != null && scripts[i].getAttribute('src').includes("snare")) {
+            isFound = true;
+        }
+    }
 
-  }
+    if (!isFound) {
+        var dynamicScripts = ["https://devapi.seafoodsouq.com/cdn/snare.js"];
 
+        for (var i = 0; i < dynamicScripts .length; i++) {
+            let node = document.createElement('script');
+            node.src = dynamicScripts [i];
+            node.type = 'text/javascript';
+            node.async = false;
+            node.charset = 'utf-8';
+            document.getElementsByTagName('head')[0].appendChild(node);
+        }
 
+    }
+}
+  
   async getCart() {
     await new Promise((resolve, reject) => {
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
