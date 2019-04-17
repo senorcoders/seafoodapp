@@ -127,7 +127,7 @@ export class ProductService {
 
   //Function to de delete a fish category
   deleteCategory(id) {
-    return this.http.delete(`fishtype/${id}`, httpOptions);
+    return this.http.delete(`api/fishType/${id}`, httpOptions);
   }
 
   //Function to delete a image category
