@@ -1393,3 +1393,32 @@ However, delay the fade out process for 2.5 seconds */
   left: 36px;
   animation: wave-before 1.1s infinite alternate ease-in-out;
 }
+
+
+.red-text-btn{
+  svg{
+    margin-right: 5px !important;
+    .a{
+      fill: #885053 !important;
+  }
+  } 
+}
+
+.gray-text-btn{
+  svg{
+    margin-right: 5px !important;
+    .a{
+      fill: #0D1321 !important;
+  }
+  } 
+}
+
+.light-gray-btn-text{
+  svg{
+    margin-right: 5px !important;
+    fill: #7484AA !important;
+    .a{
+      fill: #7484AA !important;
+  }
+  } 
+}
