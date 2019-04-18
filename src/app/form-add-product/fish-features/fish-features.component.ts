@@ -19,11 +19,8 @@ export class FishFeaturesComponent implements OnInit {
   public wholeFishs = [];
   public raised = [];
   public head = "on";
-  public preparationOptions = [
-    'Head On Gutted',
-    'Head Off Gutted',
-    'Filleted'
-  ];
+  public preparationOptions = [];
+  public fishPreparation = [];
   public typesModal = [];
   public defaultTrimming = [];
   public hideTrimModal = true;
@@ -44,11 +41,11 @@ export class FishFeaturesComponent implements OnInit {
   ngOnInit() {
     this.createFormGroup();
     this.getMyData();
+    this.getFishPreparation();
     this.getwholeFishWeight();
     this.reaised();
     this.getParts();
     this.getTrimmingModal();
-    this.getTrimming();
   }
   getMyData() {
     this.info = this.auth.getLoginData();
@@ -64,6 +61,19 @@ export class FishFeaturesComponent implements OnInit {
       if (this.store.length < 1) {
         this.existStore = false;
       }
+    });
+  }
+
+  getFishPreparation() {
+    this.productService.getData('fishpreparation').subscribe(results => {
+      let arr = results as any[];
+      arr = arr.filter(it => {
+        return !it.isTrimming;
+      });
+      this.fishPreparation = arr;
+      this.preparationOptions = arr;
+      this.setValue({ preparation: this.preparationOptions[0].id });
+      this.getTrimming();
     });
   }
 
@@ -86,7 +96,7 @@ export class FishFeaturesComponent implements OnInit {
       acceptableSpoilageRate: new FormControl('', Validators.required),
       raised: new FormControl('', Validators.required),
       treatment: new FormControl('', Validators.required),
-      preparation: new FormControl(this.preparationOptions[0], Validators.required),
+      preparation: new FormControl("", Validators.required),
       head: new FormControl(this.head, Validators.required),
       wholeFishAction: new FormControl(this.wholeFishAction, Validators.required),
       price: new FormControl('0', Validators.required),
@@ -96,7 +106,7 @@ export class FishFeaturesComponent implements OnInit {
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
         this.hideTrimModal = false;
-      }else{
+      } else {
         this.hideTrimModal = true;
       }
 
@@ -106,23 +116,18 @@ export class FishFeaturesComponent implements OnInit {
       if (value === '5bda361c78b3140ef5d31fa4') {
         this.preparationOptions = this.trimmings;
         this.wholeFishAction = true;
-        this.setValue({ preparation: this.preparationOptions[0] });
+        this.setValue({ preparation: this.preparationOptions[0].id });
 
       } else {
-        this.preparationOptions = [
-          'Filleted',
-          'Head On Gutted',
-          'Head Off Gutted '
-        ];
-        this.setValue({ preparation: this.preparationOptions[0] });
-
+        this.preparationOptions = this.fishPreparation;
+        this.setValue({ preparation: this.preparationOptions[0].id });
       }
 
 
-      if(it.parentSelectedType == '5bda35c078b3140ef5d31f9a'){
-        this.preparationOptions = ["Not Applicable"];
+      if (it.parentSelectedType == '5bda35c078b3140ef5d31f9a') {
+        this.preparationOptions = [{ name: "Not Applicable", id: "Not Applicable" }];
         this.parentForm.form.get('preparation').disable();
-    } 
+      }
     });
 
     // this.checkPriceForm();
@@ -162,15 +167,10 @@ export class FishFeaturesComponent implements OnInit {
   }
 
   public getTrimming() {
-    this.trimmings.push('Head On Gutted');
-    this.trimmings.push('Head Off Gutted');
-    this.trimmings.push('Filleted');
     this.productService.getData('trimmingtype').subscribe(
       res => {
-        const data: any = res;
-        data.forEach(result => {
-          this.trimmings.push(result.name);
-        });
+        const data = res as any[];
+        this.trimmings = this.fishPreparation.concat(data);
       },
       e => {
         console.log(e);

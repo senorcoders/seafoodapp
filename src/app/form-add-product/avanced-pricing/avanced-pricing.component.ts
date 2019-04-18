@@ -390,7 +390,7 @@ export class AvancedPricingComponent implements OnInit {
     //Para agregar los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl('', Validators.required));
+        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
     }
     catch (e) { console.error(e); }
 
@@ -624,7 +624,7 @@ export class AvancedPricingComponent implements OnInit {
     //Para agregar los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl('', Validators.required));
+        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
     }
     catch (e) { console.error(e); }
 
