@@ -28,7 +28,7 @@
         
         </h2>
         <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}} <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
-        <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in {{findCountries(processingCountry)}}. <br> <span>Whole: {{preparation}}.</span></p>
+        <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in {{findCountries(processingCountry)}}. <br> <span *ngIf="preparation != 'Not Applicable'">Whole: {{preparation}}.</span></p>
 
         <div class="tab-content" id="single-tabs">
             <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
@@ -49,8 +49,8 @@
                 <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Category</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level0?.name}}</span></div>
                 <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Species</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level1?.name}}</span></div>
                 <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecies</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level2?.name}}</span></div>
-                <div class="dashed-row"><span class="name-row">Treatment</span> <div class="separator-dashed"></div> <span class="value-row">{{treatment}}</span></div>
-                <div class="dashed-row"><span class="name-row">Raised</span> <div class="separator-dashed"></div> <span class="value-row">{{raised}}</span></div>
+                <div class="dashed-row"><span class="name-row">Treatment</span> <div class="separator-dashed"></div> <span class="value-row">{{treatment?.name}}</span></div>
+                <div class="dashed-row"><span class="name-row">Raised</span> <div class="separator-dashed"></div> <span class="value-row">{{raised?.name}}</span></div>
                 <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total Price</span> <div class="separator-dashed"></div> <span class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span></div>
             </div>
           </div>

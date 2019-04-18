@@ -100,6 +100,7 @@ export class FishFeaturesComponent implements OnInit {
         this.hideTrimModal = true;
       }
 
+
       // selectedType = it.speciesSelected.value;
       let value = it.speciesSelected;
       if (value === '5bda361c78b3140ef5d31fa4') {
@@ -116,6 +117,12 @@ export class FishFeaturesComponent implements OnInit {
         this.setValue({ preparation: this.preparationOptions[0] });
 
       }
+
+
+      if(it.parentSelectedType == '5bda35c078b3140ef5d31f9a'){
+        this.preparationOptions = ["Not Applicable"];
+        this.parentForm.form.get('preparation').disable();
+    } 
     });
 
     // this.checkPriceForm();

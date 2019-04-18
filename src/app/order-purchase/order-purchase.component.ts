@@ -5,7 +5,6 @@ import { ToastrService } from '../toast.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { environment } from '../../environments/environment';
-import { TitleService } from '../title.service';
 declare var jQuery: any;
 @Component({
 	selector: 'app-order-purchase',
@@ -39,8 +38,7 @@ export class OrderPurchaseComponent implements OnInit {
 		private route: ActivatedRoute,
 		private productS: ProductService,
 		private toast: ToastrService,
-		private auth: AuthenticationService,
-		private titleS: TitleService) {     this.titleS.setTitle('Order Purchase');
+		private auth: AuthenticationService) {  
 		this.min.setDate(this.today.getDate());
 		this.max.setDate(this.today.getDate() + 90);
 

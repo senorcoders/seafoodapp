@@ -5,7 +5,6 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
-import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-favorites',
@@ -20,8 +19,7 @@ export class FavoritesComponent implements OnInit {
   images:any=[];
   API:string=environment.apiURLImg;
   constructor(public productService: ProductService, private toast:ToastrService, private router: Router, 
-    private auth:AuthenticationService,private sanitizer: DomSanitizer,
-    private titleS: TitleService) {     this.titleS.setTitle('Favorites'); }
+    private auth:AuthenticationService,private sanitizer: DomSanitizer) {}
 
   ngOnInit() {
   	let data=this.auth.getLoginData();

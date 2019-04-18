@@ -91,7 +91,7 @@
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().preparation.invalid && (controls().preparation.dirty || controls().preparation.touched),'has-success': controls().preparation.valid && (controls().preparation.dirty || controls().preparation.touched)}">
       <span class="has-float-label"> 
-          <select id="preparation" class="form-control" formControlName="preparation">
+          <select id="preparation" class="form-control" formControlName="preparation" >
               <option value="{{preparation}}" *ngFor="let preparation of preparationOptions">{{preparation}}</option>
             </select>
             <label for="preparation">Preparation..* <a class="manage-link"

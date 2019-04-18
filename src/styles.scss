@@ -54,14 +54,18 @@ body {
 .nav-link{
   font-family: 'Josefin Sans', sans-serif;
   font-size: 18px;
-  font-weight: normal;
+  font-weight: 300;
   font-style: normal;
   font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
+  line-height: 21px;
+  letter-spacing: 1.5px;
   text-align: center;
   text-transform: capitalize;
   color: #7484AA !important;
+  text-transform: uppercase;
+  .active-fish-icon{
+    display: none;
+  }
 
 }
 .nav-language{
@@ -71,17 +75,17 @@ body {
   padding-left: 0;
   padding-right: 0;
   .nav-link{
-    // padding-bottom: 1rem !important;
-    // padding-top: 1rem !important;
-    // padding-right: 1rem !important;
-    // padding-left: 1rem !important;
+
     cursor: pointer;
     &:hover{
-      color: #2d75f0 !important;
+      color: #3E4E75 !important;
     }
   }
   .active-link{
-    color: #2d75f0 !important;
+    color: #3E4E75 !important;
+    .active-fish-icon{
+      display: initial;
+    }
   }
 }
 .dropdown-toggle{

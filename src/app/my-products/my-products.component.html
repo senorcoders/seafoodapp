@@ -35,7 +35,8 @@
                   <a routerLink="/edit-product/{{product?.id}}" class="image-link-holder">
                     <div class="product-single-img" [style.background-image]="image[i]">
                       <div class="product-overlay"></div>
-                      <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
+                      <div *ngIf="product.status != null">
+                        <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
                           {{product.status.status}}
                       </div>
                       <div class="product-status denied-status" *ngIf="product.status.id == '5c0866f2a0eda00b94acbdc1'">
@@ -44,6 +45,8 @@
                       <div class="product-status" *ngIf="product.status.id == '5c0866e4a0eda00b94acbdc0'">
                           {{product.status.status}}
                       </div>
+                      </div>
+                     
 
                       <h2 class="product-view-details">VIEW DETAILS</h2>
                       

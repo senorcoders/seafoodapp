@@ -18,7 +18,6 @@ import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
-import { TitleService } from '../title.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-add-product',
@@ -131,8 +130,7 @@ export class AddProductComponent implements OnInit {
     private pricingChargesService: PricingChargesService,
     private fb: FormBuilder,
     public ngProgress: NgProgress,
-    private router:Router,
-    private titleS: TitleService) {     this.titleS.setTitle('Add product'); }
+    private router:Router ) {}
   ngOnInit() {
     this.myformModal = this.fb.group({
       trimmingType: ['', Validators.required],
