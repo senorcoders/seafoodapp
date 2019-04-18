@@ -12,9 +12,9 @@
 	</ngx-loading>
 
 	<div class="row" *ngIf="showLoading; else productshow">
-			<div class="wave-loader">
-					<div class="wave-loading"></div>
-				  </div>
+		<div class="wave-loader">
+			<div class="wave-loading"></div>
+		</div>
 	</div>
 	<ng-template #productshow>
 
@@ -23,19 +23,23 @@
 				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
 					<li class="nav-item">
 						<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
-							aria-controls="pending" aria-selected="true">Incomplete <span *ngIf="firstNoShipped.length > 0">({{firstNoShipped.length}})</span></a>
+							aria-controls="pending" aria-selected="true">Incomplete <span
+								*ngIf="firstNoShipped.length > 0">({{firstNoShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
-							aria-controls="purchased" aria-selected="false">Shipped <span *ngIf="firstShipped.length > 0">({{firstShipped.length}})</span></a>
+							aria-controls="purchased" aria-selected="false">Shipped <span
+								*ngIf="firstShipped.length > 0">({{firstShipped.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="delivered-tab" data-toggle="tab" href="#delivered" role="tab"
-							aria-controls="delivered" aria-selected="false">Delivered <span *ngIf="delivered.length > 0">({{delivered.length}})</span></a>
+							aria-controls="delivered" aria-selected="false">Delivered <span
+								*ngIf="delivered.length > 0">({{delivered.length}})</span></a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" id="cancelled-tab" data-toggle="tab" href="#cancelled" role="tab"
-							aria-controls="cancelled" aria-selected="false">Cancelled <span *ngIf="cancelled.length > 0">({{cancelled.length}})</span></a>
+							aria-controls="cancelled" aria-selected="false">Cancelled <span
+								*ngIf="cancelled.length > 0">({{cancelled.length}})</span></a>
 					</li>
 				</ul>
 				<div class="tab-content" id="myTabContent">
@@ -43,10 +47,12 @@
 						<table class="table" *ngIf="showProduct; else noProduct">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('firstNoShipped')" >Order</th>
-									<th scope="col" class="selectionable" (click)="orderForDate('firstNoShipped')">Date</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstNoShipped')">
+										Order</th>
+									<th scope="col" class="selectionable" (click)="orderForDate('firstNoShipped')">Date
+									</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Price</th>
+									<th scope="col">Amount</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -58,36 +64,41 @@
 									<td><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
 									<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(item)}} USD</td>
+									<td>{{getTotal(item)}}</td>
 									<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
 									<td *ngIf="item.items.length == 1" class="flex-td">
-										
+
 										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
-											<button class="red-text-btn" (click)="openDeliveryModal(item.items[0].id, i)"> 
-											<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
-											SET DELIVERY DATE
+											<button class="red-text-btn"
+												(click)="openDeliveryModal(item.items[0].id, i)">
+												<img class="alert-circle order-icon"
+													src="../../assets/svg/alert-circle.svg" alt="">
+												SET DELIVERY DATE
 											</button>
 										</div>
 
 										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
-												<button (click)="showModal(item.items[0].id,'cancel', i, 'pending')" class="light-gray-btn-text">
-													<img class="order-icon" src="../../assets/svg/close.svg" alt="">
-													CANCEL ORDER
-												</button>
+											<button (click)="showModal(item.items[0].id,'cancel', i, 'pending')"
+												class="light-gray-btn-text">
+												<img class="order-icon" src="../../assets/svg/close.svg" alt="">
+												CANCEL ORDER
+											</button>
 										</div>
-									
+
 										<div class="icon-flex-box attach-box" *ngIf="item.items[0].updateInfo != null">
-										<button *ngIf="item.items[0].updateInfo != null" [className]="item.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
-											(click)="openShippingModal(item.items[0].id, i, 'pending' )">
-											<img  class="alert-circle order-icon"src="../../assets/svg/alert-circle.svg" alt="">
+											<button *ngIf="item.items[0].updateInfo != null"
+												[className]="item.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
+												(click)="openShippingModal(item.items[0].id, i, 'pending' )">
+												<img class="alert-circle order-icon"
+													src="../../assets/svg/alert-circle.svg" alt="">
 												ATTACH FILES
-										</button>
-											</div>
+											</button>
+										</div>
 										<input class="input-hidden" id="epa{{item.items[0].id}}">
-										
+
 									</td>
 									<td *ngIf="item.items.length > 1">N/A</td>
 									<td *ngIf="item.items.length > 1">N/A</td>
@@ -106,37 +117,47 @@
 												<tr *ngFor="let sub of item.items; let subi=index">
 													<td>{{item.orderNumber}}</td>
 													<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{getTotal(item)}} USD</td>
-													<td>{{item?.buyer?.dataExtra?.Address}}</td>
+													<td>{{getTotalItem(sub, item)}}</td>
+													<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
-															
-													<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
-														<button class="red-text-btn" (click)="openDeliveryModal(sub.id, i, subi)"> 
-															<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
-															SET DELIVERY DATE
-														</button>
-													</div>
 
-														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
-																<button (click)="showModal(sub.id,'cancel', i, 'pending', subi)" class="light-gray-btn-text">
-																	<img class="order-icon" src="../../assets/svg/close.svg" alt="">
-																	CANCEL ORDER
-																</button>
+														<div class="icon-flex-box half-box"
+															*ngIf="sub.updateInfo == null">
+															<button class="red-text-btn"
+																(click)="openDeliveryModal(sub.id, i, subi)">
+																<img class="alert-circle order-icon"
+																	src="../../assets/svg/alert-circle.svg" alt="">
+																SET DELIVERY DATE
+															</button>
 														</div>
 
-														<div class="icon-flex-box attach-box" *ngIf="sub.updateInfo != null">
-														
-														<button *ngIf="sub.updateInfo != null" [className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
-															(click)="openShippingModal(sub.id, i, 'pending', subi)">
-															<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
-															ATTACH FILES
-														</button>
+														<div class="icon-flex-box half-box"
+															*ngIf="sub.updateInfo == null">
+															<button
+																(click)="showModal(sub.id,'cancel', i, 'pending', subi)"
+																class="light-gray-btn-text">
+																<img class="order-icon" src="../../assets/svg/close.svg"
+																	alt="">
+																CANCEL ORDER
+															</button>
+														</div>
+
+														<div class="icon-flex-box attach-box"
+															*ngIf="sub.updateInfo != null">
+
+															<button *ngIf="sub.updateInfo != null"
+																[className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
+																(click)="openShippingModal(sub.id, i, 'pending', subi)">
+																<img class="alert-circle order-icon"
+																	src="../../assets/svg/alert-circle.svg" alt="">
+																ATTACH FILES
+															</button>
 														</div>
 														<input class="input-hidden" id="epa{{sub.id}}">
-														
+
 													</td>
 												</tr>
 											</tbody>
@@ -158,10 +179,12 @@
 						<table class="table" *ngIf="showShipped; else noShipped" id="shipped-table">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Order</th>
-									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Date</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Order
+									</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Date
+									</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Price</th>
+									<th scope="col">Amount</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -173,7 +196,7 @@
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
-									<td>{{getTotal(shipped)}} USD</td>
+									<td>{{getTotal(shipped)}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
@@ -181,10 +204,12 @@
 									<td *ngIf="shipped.items.length == 1" class="flex-td">
 
 										<div class="icon-flex-box half-box" *ngIf="shipped.items[0].updateInfo == null">
-												<button class="red-text-btn"  (click)="openDeliveryModal(shipped.items[0].id, i)">
-													<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
-													SET DELIVERY DATE
-												</button>
+											<button class="red-text-btn"
+												(click)="openDeliveryModal(shipped.items[0].id, i)">
+												<img class="alert-circle order-icon"
+													src="../../assets/svg/alert-circle.svg" alt="">
+												SET DELIVERY DATE
+											</button>
 										</div>
 
 										<div class="icon-flex half-box" *ngIf="shipped.items[0].updateInfo == null">
@@ -193,17 +218,20 @@
 												CANCEL ORDER
 											</button>
 										</div>
-											
-										<div class="icon-flex-box attach-box" *ngIf="shipped.items[0].updateInfo != null">
-												<button (click)="openShippingModal(shipped.items[0].id, i, 'shipped')" [className]="shipped.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
-													<img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
-													ATTACH FILES
-												</button>
+
+										<div class="icon-flex-box attach-box"
+											*ngIf="shipped.items[0].updateInfo != null">
+											<button (click)="openShippingModal(shipped.items[0].id, i, 'shipped')"
+												[className]="shipped.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
+												<img class="alert-circle order-icon"
+													src="../../assets/svg/alert-circle.svg" alt="">
+												ATTACH FILES
+											</button>
 										</div>
-										
-										
+
+
 										<input class="input-hidden" id="epa{{shipped.items[0].id}}">
-										
+
 									</td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
@@ -226,36 +254,46 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{getTotal(shipped)}} USD</td>
+													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
-														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
-																<button class="red-text-btn" (click)="openDeliveryModal(sub.id, i, subi)">
-																	 <img class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt=""> 
-																	 SET DELIVERY DATE
-																	</button>
+														<div class="icon-flex-box half-box"
+															*ngIf="sub.updateInfo == null">
+															<button class="red-text-btn"
+																(click)="openDeliveryModal(sub.id, i, subi)">
+																<img class="alert-circle order-icon"
+																	src="../../assets/svg/alert-circle.svg" alt="">
+																SET DELIVERY DATE
+															</button>
 														</div>
 
-														<div class="icon-flex-box half-box" *ngIf="sub.updateInfo == null">
-																<button (click)="showModal(sub.id,'cancel', i, 'shipped', subi)">
-																	<img class="order-icon" src="../../assets/svg/close.svg" alt="">
-																	CANCEL ORDER
-																</button>
+														<div class="icon-flex-box half-box"
+															*ngIf="sub.updateInfo == null">
+															<button
+																(click)="showModal(sub.id,'cancel', i, 'shipped', subi)">
+																<img class="order-icon" src="../../assets/svg/close.svg"
+																	alt="">
+																CANCEL ORDER
+															</button>
 														</div>
-															
-														
-														<div class="icon-flex-box attach-box" *ngIf="sub.updateInfo != null">
-																<button (click)="openShippingModal(sub.id, i, 'shipped', subi)" [className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
-																	<img  class="alert-circle order-icon" src="../../assets/svg/alert-circle.svg" alt="">
-																	ATTACH FILES
-																</button>
+
+
+														<div class="icon-flex-box attach-box"
+															*ngIf="sub.updateInfo != null">
+															<button
+																(click)="openShippingModal(sub.id, i, 'shipped', subi)"
+																[className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
+																<img class="alert-circle order-icon"
+																	src="../../assets/svg/alert-circle.svg" alt="">
+																ATTACH FILES
+															</button>
 														</div>
-														
-														<input class="input-hidden"  id="epa{{sub.id}}">
-													
+
+														<input class="input-hidden" id="epa{{sub.id}}">
+
 													</td>
 												</tr>
 											</tbody>
@@ -279,10 +317,11 @@
 						<table class="table" *ngIf="showDelivered; else noDelivered">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Order</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Order
+									</th>
 									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Date</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Price</th>
+									<th scope="col">Amount</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -293,7 +332,7 @@
 								<tr>
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(shipped)}} USD</td>
+									<td>{{getTotal(shipped)}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
@@ -321,7 +360,7 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{getTotal(shipped)}} USD</td>
+													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
@@ -347,10 +386,11 @@
 						<table class="table" *ngIf="showCancelled; else noCancelled">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Order</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Order
+									</th>
 									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Date</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Price</th>
+									<th scope="col">Amount</th>
 									<th scope="col">QTY</th>
 									<th scope="col">SKU</th>
 									<th scope="col">Product</th>
@@ -361,7 +401,7 @@
 								<tr>
 									<td>{{shipped.orderNumber}}</td>
 									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(shipped)}} USD</td>
+									<td>{{getTotal(shipped)}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
@@ -389,7 +429,7 @@
 												<tr *ngFor="let sub of shipped.items; let subi=index">
 													<td>{{shipped.orderNumber}}</td>
 													<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-													<td>{{getTotal(shipped)}} USD</td>
+													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
 													<td>{{sub?.fish?.seafood_sku}}</td>
@@ -648,16 +688,16 @@
 	aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
-		
+
 			<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<img src="../../assets/svg/close.svg" alt="">
-					</button>
-					<h5 class="modal-title">SET DELIVERY DATE</h5>
-					<button type="button" class="close"  (click)="logCalendar()">
-						<img src="../../assets/svg/check.svg" alt="">
-					</button>
-				</div>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<img src="../../assets/svg/close.svg" alt="">
+				</button>
+				<h5 class="modal-title">SET DELIVERY DATE</h5>
+				<button type="button" class="close" (click)="logCalendar()">
+					<img src="../../assets/svg/check.svg" alt="">
+				</button>
+			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-12 text-center">
@@ -666,7 +706,8 @@
 					<div class="col-12 text-center">
 						<h3><span>set delivery date...</span></h3>
 
-						<owl-date-time-inline [(ngModel)]="selectedMoment" [pickerType]="'calendar'"  [min]="min" [max]="max" ></owl-date-time-inline>
+						<owl-date-time-inline [(ngModel)]="selectedMoment" [pickerType]="'calendar'" [min]="min"
+							[max]="max"></owl-date-time-inline>
 					</div>
 				</div>
 			</div>
