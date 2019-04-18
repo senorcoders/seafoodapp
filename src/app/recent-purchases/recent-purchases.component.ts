@@ -606,9 +606,9 @@ export class RecentPurchasesComponent implements OnInit {
 
       var blob = file[0].slice(0, file[0].size, file[0].type);
       console.log(blob);
-      var newFile = new File([blob], name + '.' + ext[1], { type: file[0].type });
+      var newFile = new File([blob], name  + '-' + ext[0] + '.' + ext[1], { type: file[0].type });
 
-      console.log(newFile);
+      console.log("newFile", newFile);
       // file[0].name=name;
 
       this.trackingForm.get(`${name}`).setValue(newFile);
