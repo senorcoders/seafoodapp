@@ -64,10 +64,10 @@ export class RecentPurchasesComponent implements OnInit {
   doc: any = [];
   API: any = environment.apiURL;
   tmpFiles: any = [];
-  deliveryID:any;
-  deliveryIndex:any;
-  deliverySunindex:any;
-  public selectedMoment:any = new Date();
+  deliveryID: any;
+  deliveryIndex: any;
+  deliverySunindex: any;
+  public selectedMoment: any = new Date();
 
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
@@ -425,7 +425,7 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
   //Open set delivery date modal
-  openDeliveryModal(id, index, subindex?){
+  openDeliveryModal(id, index, subindex?) {
     jQuery('#deliveryModal').modal('show');
     this.deliveryID = id;
     this.deliveryIndex = index;
@@ -731,15 +731,40 @@ export class RecentPurchasesComponent implements OnInit {
     ) {
       total = order.total / order.currentCharges.exchangeRates[0].price;
     }
-    return total.toFixed(2);
+    if (isNaN(Number(total)) === true)
+      return 'not available';
+    return total.toFixed(2)+ " USD";
   }
 
-  logCalendar(){
+  public getTotalItem(item, order) {
+    let result;
+    try {
+      let exchangeRates = 0;
+      if (isNaN(order.currentCharges.exchangeRates) === false)
+        exchangeRates = Number(order.currentCharges.exchangeRates);
+      if (
+        Object.prototype.toString.call(order.currentCharges.exchangeRates) === '[object Array]' &&
+        order.currentCharges.exchangeRates.length > 0
+      ) {
+        exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
+      }
+      result = (Number(item.total) / exchangeRates).toFixed(2);
+    }
+    catch (e) {
+      console.error(e);
+    }
+
+    if (isNaN(Number(result)) === true)
+      return 'not available';
+    return result+ " USD";
+  }
+
+  logCalendar() {
     console.log("Momento", this.selectedMoment);
     jQuery(`#epa${this.deliveryID}`).val(this.selectedMoment);
     console.log(jQuery(`#epa${this.deliveryID}`).val());
     this.selectDate(this.deliveryID, this.deliveryIndex, this.deliverySunindex);
     jQuery('#deliveryModal').modal('hide');
-    }
+  }
 
 }
