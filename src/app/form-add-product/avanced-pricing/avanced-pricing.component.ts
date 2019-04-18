@@ -267,7 +267,7 @@ export class AvancedPricingComponent implements OnInit {
       }
     }
     data.keys = keys;
-    console.log(data);
+    // console.log(data);
     this.refreshSlider();
     this.priceEnableChange = true;
     return data;
@@ -569,7 +569,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public assingHead(r) {
-    this.headAction = r; console.log(r);
+    this.headAction = r;
     // this.keySelect = '';
     this.refreshSlider();
   }
