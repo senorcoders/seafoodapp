@@ -227,7 +227,7 @@ export class FishFormComponent implements OnInit {
         selectedType = this.getValue().subSpeciesSelected;
         break;
     }
-    this.productService.getData(`fishTypes/${selectedType}/all_levels`).subscribe(
+    this.productService.getData(`fishTypes/${selectedType}/ori_all_levels`).subscribe(
       result => {
         result['childs'].map(item => {
           switch (item.level) {
