@@ -21,22 +21,9 @@
 	
 	}
 
-	.title-menu{
-		p{
-			margin: 0;
-			padding: 0 25px;
-			text-transform: uppercase;
-			color: #3E4E75;
-			font-family: 'Josefin Sans', sans-serif;
-			font-weight: 300;
-			font-size: 21px;
-			left: 1.75px;
-			line-height: 25px;
-		}
-	}
+
 
 	.navbar{
-		border-left: 2px solid #fafafb;
 		height: 100%;
 		@media screen and (max-width: 768px){
 		  border: none;
@@ -44,33 +31,19 @@
 		 }
 	}
 
-	.menu-icon{
-		height: 32px;
-		width: auto;
-	}
 
-	.nav-link {
-		svg, .a{
-			fill: #7484AA !important;
-
-		}
-	}
-	.active-link, .nav-link:hover{
-		svg, .a{
-			fill: #3E4E75 !important;
-		}
-	}
-
+	
+	
 	.headshot-logo{
-		height: 45px;
-		width: 45px;
+		height: 50px;
+		width: 50px;
 		background-size: cover !important;
 		background-position: center !important;
 		border-radius: 50%;
 		margin: 0 auto;
 	}
 	a:hover{
-			color:#3181f0 !important;
+			color:#3E4E75 !important;
     	}
 	.access{
 		text-align: right;
@@ -403,33 +376,58 @@ form{
 	  }
 }
 
-.icon-menu{
-	.nav-item{
-		position: relative;
-		.nav-link-name{
-			position: absolute;
-			bottom: -33px;
-			text-align: center;
-			width: 100%;
-			color: #3E4E75;
-			font-size: 16px;
-			font-family: 'Open Sans', sans-serif;
-			display: none;
-			.nav-bullet{
-				width: 6px;
-				height: 6px;
-				background: #3E4E75;
-				border-radius: 50%;
-				margin: 3px auto;
-			}
+
+.sliding-nav-item{
+	position: relative;
+	a{
+		vertical-align: middle;
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		@media screen and (max-width: 1200px) {
+			flex-wrap: wrap;
 		}
-	}
-	.nav-item:hover{
-		.nav-link-name{
-			display: block;
+		.arrow-toggle{
+			background-image: url('../../../assets/svg/chevron-down.svg');
+			width: 25px;
+			height: 12.2px;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			display: inline-block;
+			margin-left: 5px;
+		}
+		.dropdown-menu{
+			border: none;
+			border-radius: 0;
+			top: 90%;
+			width: 77px;
+			padding: 0;
+			.dropdown-item{
+				font-family: 'Josefin Sans', sans-serif;
+				text-transform: lowercase;
+				font-size: 16px;
+				letter-spacing: normal;
+				line-height: 19px;
+				color: #7484AA;
+				font-weight: 300;
+				border-bottom: 1px solid #F7F8F9;
+				padding-top: 15px;
+				padding-bottom: 15px;
+			
+			}
 			@media screen and (max-width: 1200px) {
-				display: none;
+				width: 100%;
 			}
 		}
 	}
+
+	&.show{
+		a{
+			.arrow-toggle{			
+				transform: rotate(180deg);
+			}
+		}
+	}
+	
 }
