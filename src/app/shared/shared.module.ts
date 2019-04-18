@@ -10,7 +10,6 @@ import { NgxLoadingModule, ngxLoadingAnimationTypes } from 'ngx-loading';
 import { FilternumberPipe } from '../filternumber.pipe';
 import { NgProgressModule } from 'ngx-progressbar';
 import { Select2Module } from 'ng2-select2';
-import { TitleService } from '../title.service';
 import { Ng5SliderModule } from 'ng5-slider';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -87,7 +86,6 @@ import { FilterPipePipe } from '../filter-pipe.pipe';
     RouterProtectionService,
     LanguageService,
     AdminRouterService,
-    TitleService,
     OrderService, {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

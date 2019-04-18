@@ -4,7 +4,6 @@ import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
-import { TitleService } from '../title.service';
 import * as  moment from 'moment';
 
 declare var jQuery: any;
@@ -37,8 +36,7 @@ export class ManageOrdersComponent implements OnInit {
     private orderService: OrderService,
     private productService: ProductService,
     private toast: ToastrService,
-    private auth: AuthenticationService,
-    private titleS: TitleService) { this.titleS.setTitle('Manage'); }
+    private auth: AuthenticationService) { }
 
   ngOnInit() {
     this.date2.setMonth(new Date().getMonth() + 1);

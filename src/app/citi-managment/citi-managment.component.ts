@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  ReactiveFormsModule,
-  FormsModule,
   FormGroup,
   FormControl,
   Validators,
-  FormBuilder
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ShippingRatesService } from '../services/shipping-rates.service';
@@ -13,9 +10,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from '../toast.service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
-import { environment } from '../../environments/environment';
-import { TitleService } from '../title.service';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var jQuery: any;
 
 @Component({
@@ -39,13 +34,10 @@ export class CitiManagmentComponent implements OnInit {
   tableCountries: any = [];
 
   constructor(
-    private route: ActivatedRoute,
     public shippingService: ShippingRatesService,
     public countryService: CountriesService,
-    private auth: AuthenticationService,
     public ngxSmartModalService: NgxSmartModalService,
-    private toast: ToastrService, private sanitizer: DomSanitizer,
-    private titleS: TitleService) {     this.titleS.setTitle('cities'); }
+    private toast: ToastrService) {  }
 
   ngOnInit() {
     this.createForm();

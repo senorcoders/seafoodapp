@@ -7,7 +7,6 @@ import { ToastrService } from '../toast.service';
 import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';
-import { TitleService } from '../title.service';
 import { Router } from '@angular/router';
 declare var jQuery;
 @Component({
@@ -70,8 +69,7 @@ export class ShopComponent implements OnInit {
   preparataion:any = [];
   treatment:any = [];
   raised:any = [];
-  constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private titleS: TitleService, private router: Router) {
-    this.titleS.setTitle('Shop Seafood');
+  constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private router: Router) {
   }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user

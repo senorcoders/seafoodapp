@@ -6,7 +6,6 @@ import { ProductService } from '../services/product.service';
 import { ToastrService } from '../toast.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
-import { TitleService } from '../title.service';
 declare var jQuery:any;
 
 @Component({
@@ -63,8 +62,7 @@ export class EditAccountComponent implements OnInit {
 
 
   constructor(private auth: AuthenticationService, private rest: ProductService, 
-    private toast:ToastrService, public ngProgress: NgProgress, private router:Router,
-    private titleS: TitleService) {     this.titleS.setTitle('Settings');
+    private toast:ToastrService, public ngProgress: NgProgress, private router:Router) {
   }
 
   

@@ -7,7 +7,6 @@ import { ToastrService } from '../toast.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
-import { TitleService } from '../title.service';
 @Component({
   selector: 'app-orders-items',
   templateUrl: './orders-items.component.html',
@@ -30,8 +29,7 @@ export class OrdersItemsComponent implements OnInit {
   totalShipping: number = 0;
   totalOther: number = 0;
   constructor(private productService: ProductService, private router: ActivatedRoute, private auth: AuthenticationService,
-    private fb: FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer, private orderService: OrderService,
-    private titleS: TitleService) {     this.titleS.setTitle('Items by Order'); }
+    private fb: FormBuilder, private toast: ToastrService, private sanitizer: DomSanitizer, private orderService: OrderService) {  }
 
   ngOnInit() {
     this.user = this.auth.getLoginData();

@@ -5,7 +5,6 @@ import { ToastrService } from '../toast.service';
 declare var jQuery: any;
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
-import { TitleService } from '../title.service';
 
 @Component({
 	selector: 'app-administrator',
@@ -26,8 +25,7 @@ export class AdministratorComponent implements OnInit {
 		private auth: AuthenticationService,
 		private toast: ToastrService,
 		private fb: FormBuilder,
-		private countryService: CountriesService,
-		private titleS: TitleService) {     this.titleS.setTitle('Admin');}
+		private countryService: CountriesService) {}
 
 	ngOnInit() {
 		this.getUsers();

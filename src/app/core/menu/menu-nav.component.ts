@@ -10,7 +10,6 @@ import { LanguageService } from '../language/language.service';
 import { CartService } from '../cart/cart.service';
 import { OrdersService } from '../orders/orders.service';
 import { environment } from '../../../environments/environment';
-import { TitleService } from '../../title.service';
 import { TranslateService } from '@ngx-translate/core';
 declare var jQuery: any;
 const defaultLanguage = "en";
@@ -38,24 +37,16 @@ export class MenuNavComponent {
   logo: any = '../../../assets/logo-placeholder.jpg';
   storeEndpoint: any = "api/store/user/";
   base: string = environment.apiURLImg;
-  title: any;
 
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
     private toast: ToastrService, private translate: TranslateService, private languageService: LanguageService,
-    private cart: CartService, private orders: OrdersService, private titleS: TitleService) {
+    private cart: CartService, private orders: OrdersService) {
 
   }
 
-  ngAfterContentInit() {
-    this.titleS.getTitle().subscribe(appTitle => {
-      this.title = appTitle
-    }, error => {
-      console.log("Title er", error);
-    });
-
-  }
+  
 
 
   ngOnInit() {

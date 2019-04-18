@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
-import { TitleService } from '../title.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
 import { environment } from '../../environments/environment';
@@ -70,9 +69,7 @@ export class RecentPurchasesComponent implements OnInit {
   public selectedMoment:any = new Date();
 
 
-  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService,
-    private titleS: TitleService, public ngProgress: NgProgress) {
-    this.titleS.setTitle('Orders');
+  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress) {
     this.min.setDate(this.today.getDate());
     this.max.setDate(this.today.getDate() + 90);
   }

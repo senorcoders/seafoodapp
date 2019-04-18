@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { ToastrService } from '../toast.service';
-import { FormBuilder } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
-import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-my-products',
@@ -29,9 +27,7 @@ export class MyProductsComponent implements OnInit {
     private productService: ProductService,
     private toast: ToastrService,
     private pricingChargesService: PricingChargesService,
-    private sanitizer: DomSanitizer,
-    private titleS: TitleService) {
-      this.titleS.setTitle('Products');
+    private sanitizer: DomSanitizer) {
 
      }
 

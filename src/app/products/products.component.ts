@@ -10,7 +10,6 @@ import {IsLoginService} from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
-import { TitleService } from '../title.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 
@@ -61,8 +60,7 @@ userInfo:any;
     private route: ActivatedRoute,
     private productService: ProductService, private toast: ToastrService,
     private sanitizer: DomSanitizer, private fb: FormBuilder, private router: Router, private cartService: OrderService,
-    private countryservice: CountriesService, private auth: AuthenticationService,  private titleS: TitleService) { 
-      this.titleS.setTitle('Browse');
+    private countryservice: CountriesService, private auth: AuthenticationService) { 
     }
 
 

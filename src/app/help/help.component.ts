@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from '../title.service';
 
 @Component({
   selector: 'app-help',
@@ -8,7 +7,7 @@ import { TitleService } from '../title.service';
 })
 export class HelpComponent implements OnInit {
 
-  constructor(private titleS: TitleService) {     this.titleS.setTitle('Help'); }
+  constructor() { }
 
   ngOnInit() {
   }
