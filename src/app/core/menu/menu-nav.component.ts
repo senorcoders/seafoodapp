@@ -34,7 +34,7 @@ export class MenuNavComponent {
   lang: any;
   //show:boolean=false;
   showOrders: boolean = false;
-  logo: any = '../../../assets/logo-placeholder.jpg';
+  logo: any = '../../../assets/svg/account-circle.svg';
   storeEndpoint: any = "api/store/user/";
   base: string = environment.apiURLImg;
 

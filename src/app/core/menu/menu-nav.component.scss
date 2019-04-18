@@ -35,8 +35,8 @@
 	
 	
 	.headshot-logo{
-		height: 50px;
-		width: 50px;
+		height: 45px;
+		width: 45px;
 		background-size: cover !important;
 		background-position: center !important;
 		border-radius: 50%;
@@ -403,6 +403,7 @@ form{
 			top: 90%;
 			width: 77px;
 			padding: 0;
+			left: initial;
 			.dropdown-item{
 				font-family: 'Josefin Sans', sans-serif;
 				text-transform: lowercase;
