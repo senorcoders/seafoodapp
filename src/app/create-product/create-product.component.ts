@@ -181,6 +181,14 @@ export class CreateProductComponent implements OnInit {
         ]
       }];
 
+      //Para quitar el _off y _arr
+      for(let i=0; i<variationsEnd.length; i++){
+        variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_off", "");
+        variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_arr", "");
+
+        variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_off", "");
+        variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_arr", "");
+      } 
 
       await this.generateSKU();
       // this.ngProgress.start();
