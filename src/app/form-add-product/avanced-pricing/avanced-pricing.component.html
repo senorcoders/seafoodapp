@@ -69,7 +69,7 @@
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
-                <button (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelect!==''">
@@ -106,7 +106,7 @@
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   type="number" placeholder="Type Price Here" [formControlName]="i">/kg
-                <button (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                <button type="button" (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
 
               </div>
             </div>
@@ -160,7 +160,7 @@
                   [ngClass]="getControlTrim(keySelectTrim, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="i"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
-                  <button (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                  <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelectTrim!==''">
