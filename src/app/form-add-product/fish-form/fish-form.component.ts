@@ -69,7 +69,8 @@ export class FishFormComponent implements OnInit {
       hsCode: new FormControl('', Validators.nullValidator),
       minimunorder: new FormControl('', Validators.required),
       maximumorder: new FormControl('', Validators.required),
-      images: new FormControl('', Validators.required)
+      images: new FormControl('', Validators.required),
+      imagesSend: new FormControl("", Validators.nullValidator)
     }));
   }
 
@@ -319,7 +320,7 @@ export class FishFormComponent implements OnInit {
 
   private reSavedImages() {
     this.setValue({
-      images: this.images.length === 0 ? '' : JSON.stringify(this.images)
+      imagesSend: this.images.length === 0 ? '' : JSON.stringify(this.images)
     });
     if (this.images.length === 0) this.resetFiles();
   }

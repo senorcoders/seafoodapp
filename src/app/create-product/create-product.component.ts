@@ -175,6 +175,11 @@ export class CreateProductComponent implements OnInit {
           }
         }
       }
+      let varationsOne = [{
+        fishPreparation: features.preparation, prices: [
+          { min: product.minimunorder, max: product.maximumorder, price: value.features.price }
+        ]
+      }];
 
 
       await this.generateSKU();
@@ -203,7 +208,7 @@ export class CreateProductComponent implements OnInit {
         'minimumOrder': product.minimunorder,
         'maximumOrder': product.maximumorder,
         'raised': features.raised,
-        'preparation': features.preparation,
+        // 'preparation': features.preparation,
         'treatment': features.treatment,
         'seller_sku': product.seller_sku,
         'seafood_sku': this.seafood_sku,
@@ -212,14 +217,14 @@ export class CreateProductComponent implements OnInit {
         'status': '5c0866e4a0eda00b94acbdc0',
         'brandname': product.brandName,
         'hsCode': product.hsCode,
-        variations: features.priceShow === false || features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4' ? variationsEnd : null
+        variations: variationsEnd.length > 0 ? variationsEnd : varationsOne
       };
       console.log(data);
 
-      this.productService.saveData('fish', data).subscribe(result => {
+      this.productService.saveData('api/variations/add', data).subscribe(result => {
         if (product.images !== undefined && product.images !== '') {
           this.showError = false;
-          this.uploadFileToActivity(result['product']['id'], product.images);
+          this.uploadFileToActivity(result['id'], product.imagesSend);
         } else {
           this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
           this.showError = false;
@@ -230,8 +235,8 @@ export class CreateProductComponent implements OnInit {
         }
 
       });
-      // this.loading = false;
-      // this.ngProgress.done();
+      this.loading = false;
+      this.ngProgress.done();
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
