@@ -69,6 +69,7 @@ export class ShopComponent implements OnInit {
   preparataion:any = [];
   treatment:any = [];
   raised:any = [];
+  isDisabled= false;
   constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private router: Router) {
   }
   async ngOnInit() {
@@ -394,6 +395,7 @@ export class ShopComponent implements OnInit {
   //Save product in current usar cart
   addToCart(product) {
     console.log("Producto", product);
+    this.isDisabled = true;
     const item = {
       'fish': product.id,
       'price': {
@@ -413,6 +415,7 @@ export class ShopComponent implements OnInit {
       this.openCart();
     }, err => {
       if (err.error) {
+        this.isDisabled = false;
         this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
       }
     });
@@ -691,6 +694,7 @@ export class ShopComponent implements OnInit {
   }
   //FUNCTION TO OPEN AND GET THE CART
   openCart() {
+    this.isDisabled = false;
     jQuery('body').addClass('has-active-menu');
     jQuery('.c-mask').addClass('is-active');
     jQuery('.cart-window').addClass('is-active');

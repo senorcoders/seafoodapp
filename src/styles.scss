@@ -1426,3 +1426,8 @@ However, delay the fade out process for 2.5 seconds */
   }
   } 
 }
+
+.btn-add-disable{
+  pointer-events: none !important;
+
+}
