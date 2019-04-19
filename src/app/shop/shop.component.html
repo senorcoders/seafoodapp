@@ -197,7 +197,7 @@
                         </form>
                       </div>
                      <div class="col-md-2 text-right">
-                       <a id="btn-add-{{product.id}}" (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                       <a id="btn-add-{{product.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
                      </div>
                    </div>
                   </div>

@@ -776,3 +776,7 @@ input[type=range]:focus::-ms-fill-upper {
   transition: opacity 0.3s;
 }
 
+.btn-add-disable{
+  pointer-events: none !important;
+
+}
