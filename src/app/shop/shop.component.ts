@@ -82,9 +82,11 @@ export class ShopComponent implements OnInit {
     await this.getPreparation();
     await this.getRaised();
     await this.getTreatment();
-    this.getParentsCat();
     await this.getCountries();
-    this.getFishCountries();
+    await this.getFishCountries();
+    await this.getParentsCat();
+
+
     //JAVASCRIPT FOR FILTER
     
    
@@ -292,7 +294,8 @@ export class ShopComponent implements OnInit {
     });
   }
   //Map only countries with fishes
-  getFishCountries() {
+  async getFishCountries() {
+    await new Promise((resolve, reject) => {
     this.productService.getFishCountries().subscribe(result => {
       console.log("Countries", result);
       const filterCountries: any = [];
@@ -308,12 +311,14 @@ export class ShopComponent implements OnInit {
       console.log(filterCountries);
       this.countries = filterCountries;
       this.filteredItems = this.countries;
-      setTimeout(() => this.chargeJS(), 1000);
+      resolve();
     }, e => {
       this.showLoading = true;
       this.showError('Something wrong happened, Please Reload the Page');
       console.log(e);
+      reject();
     });
+    })
   }
   //GET all of the products
   getProducts(cant, page) {
@@ -737,10 +742,18 @@ export class ShopComponent implements OnInit {
     }, e => { console.log(e); });
   }
   // GET PARENTS CATEROGIES
-  getParentsCat() {
+  async getParentsCat() {
+    await new Promise((resolve, reject) => {
     this.productService.getData(`/fishTypes/parents/with-fishes`).subscribe(res => {
       this.searchCategories = res;
+      setTimeout(() => this.chargeJS(), 100);
+      resolve();
+    }, error => {
+      reject();
+      setTimeout(() => this.chargeJS(), 100);
+
     });
+  })
   }
   showMore() {
     jQuery('#filterCollapse').collapse('hide');
