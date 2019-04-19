@@ -713,6 +713,7 @@ export class ShopComponent implements OnInit {
     return count * price;
   }
   checkout() {
+    this.closeCart();
     this.router.navigate(['/checkout'], { queryParams: { shoppingCartId: this.shoppingCartId } });
   }
   deleteItem(i, id) {
