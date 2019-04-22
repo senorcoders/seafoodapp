@@ -69,6 +69,7 @@ export class LoginComponent implements OnInit {
   }
   login() {
     if (this.loginForm.valid) {
+      this.isValid = true;
       this.sendDataLogin();
     } else {
       this.validateAllFormFields(this.loginForm);
@@ -88,7 +89,6 @@ export class LoginComponent implements OnInit {
   }
 
   sendDataLogin() {
-    this.isValid = true;
     this.loginText = 'Loading...';
     this.auth.login(this.loginForm.value).subscribe(
       data => {
