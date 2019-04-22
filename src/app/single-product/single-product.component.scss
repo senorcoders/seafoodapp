@@ -228,3 +228,20 @@ input.qty{
     position: sticky;
     top: 0;
 }
+
+.variations{
+    margin-bottom: 70px;
+    .item-variations{
+        display: inline;
+        margin-right: 15px;
+        cursor: pointer;
+        color: #9A9EA8;
+        font-family: 'Open Sans', sans-serif;
+    }
+    .item-variations.select{
+        margin-right: 8px;
+        font-weight: bold;
+        border-bottom: 1px solid #504e4e;
+        color: #504e4e;
+    }
+}
