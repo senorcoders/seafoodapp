@@ -110,6 +110,10 @@ export class ProductService {
     return this.http.get(`fish/${id}`);
   }
 
+  getProductDetailVariations(id) {
+    return this.http.get(`api/fish/${id}/variations`);
+  }
+
   //Function to add a fish data
   addCategory(data) {
     return this.http.post(`fishtype`, data, httpOptions);

@@ -1,101 +1,160 @@
 <div class="gray-bg">
-<div class="content single-product" *ngIf="show; else elseBlock">
-  <div class="container-fluid">
-    <div class="row">  
+  <div class="content single-product" *ngIf="show; else elseBlock">
+    <div class="container-fluid">
+      <div class="row">
         <div class="wave-loader" *ngIf="showLoading">
-						<div class="wave-loading"></div>
-					</div>
-     
-      <div class="col-lg-6 product-img" *ngIf="!showLoading">
-        <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'" *ngIf="!images;else slider"></div>
+          <div class="wave-loading"></div>
+        </div>
 
-        <ng-template #slider>
-        <div *ngIf="mainImg && mainImg!=''" class="main-featured-img" [style.background-image]="mainImg"></div>
-        <div *ngFor="let image of images; index as i;" class="main-featured-img" [style.background-image]="image"></div>
-      
-        </ng-template>    
-    
-      </div>
-      <div class="col-lg-6 product-content" *ngIf="!showLoading">
+        <div class="col-lg-6 product-img" *ngIf="!showLoading">
+          <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'"
+            *ngIf="!images;else slider"></div>
+
+          <ng-template #slider>
+            <div *ngIf="mainImg && mainImg!=''" class="main-featured-img" [style.background-image]="mainImg"></div>
+            <div *ngFor="let image of images; index as i;" class="main-featured-img" [style.background-image]="image">
+            </div>
+
+          </ng-template>
+
+        </div>
+        <div class="col-lg-6 product-content" *ngIf="!showLoading">
           <div class="sticky-div">
-        <h2 class="product-name">
-          {{name}}
-          <div *ngIf="role == 0" class="edit-admin">
-              <a routerLink="/edit-product/{{productID}}" class="">
-                <fa name="pencil" class="pencil"></fa>Edit
-              </a>
-          </div>
-        
-        </h2>
-        <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}} <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
-        <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in {{findCountries(processingCountry)}}. <br> <span *ngIf="preparation != 'Not Applicable'">Whole: {{preparation}}.</span></p>
+            <h2 class="product-name">
+              {{name}}
+              <div *ngIf="role == 0" class="edit-admin">
+                <a routerLink="/edit-product/{{productID}}" class="">
+                  <fa name="pencil" class="pencil"></fa>Edit
+                </a>
+              </div>
 
-        <div class="tab-content" id="single-tabs">
-            <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
+            </h2>
+            <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
+              <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
+            <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in
+              {{findCountries(processingCountry)}}. <br> <span *ngIf="preparation != 'Not Applicable'">Whole:
+                {{preparation}}.</span></p>
 
+            <div class="tab-content" id="single-tabs">
+              <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
+                <div class="row variations" *ngIf="withVariations">
+                  <div class="col-12">
+                    <div class="item-variations" (click)="selectTheVariation(variation.fishPreparation.id)"
+                      [ngClass]="selectVariation===variation.fishPreparation.id?'select':''"
+                      *ngFor="let variation of variations">{{variation.fishPreparation.name}}</div>
+                  </div>
+                </div>
                 <div class="convert-row">Converted from USD <span>AED</span></div>
-                <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span> <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span></div>
-                <div class="dashed-row" *ngIf="FXRateFees/currentExchangeRate!==0"><span class="name-row">FX Rate Fee</span> <div class="separator-dashed"></div> <span class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span></div>
-                <div class="dashed-row" *ngIf="charges && charges.sfsMarginCost"><span class="name-row">Our Fee</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.sfsMarginCost/currentExchangeRate).toFixed(2)}}</span></div>
-                <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">Taxes</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span></div>
-                <div class="dashed-row"><span class="name-row">Product Price</span> <div class="separator-dashed"></div> <span class="value-row" [innerHTML]="getTotal()"></span></div>
-                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span> <div class="separator-dashed"></div> <span class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span></div>
-                <div class="dashed-row"><span class="name-row">Delivered Price / kg</span> <div class="separator-dashed"></div> <span class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span></div>
-                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total Price</span> <div class="separator-dashed"></div> <span class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span></div>
+                <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span>
+                </div>
+                <div class="dashed-row" *ngIf="FXRateFees/currentExchangeRate!==0"><span class="name-row">FX Rate
+                    Fee</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="charges && charges.sfsMarginCost"><span class="name-row">Our Fee</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(charges.sfsMarginCost/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">Taxes</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+                <div class="dashed-row"><span class="name-row">Product Price</span>
+                  <div class="separator-dashed"></div> <span class="value-row" [innerHTML]="getTotal()"></span>
+                </div>
+                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+                <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                    Price</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+              </div>
+              <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+                <div class="dashed-row"><span class="name-row">Company</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span>
+                </div>
+                <div class="dashed-row"><span class="name-row">Brand</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Category</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{types?.level0?.name}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Species</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{types?.level1?.name}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecies</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{types?.level2?.name}}</span>
+                </div>
+                <div class="dashed-row"><span class="name-row">Treatment</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{treatment?.name}}</span>
+                </div>
+                <div class="dashed-row"><span class="name-row">Raised</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{raised?.name}}</span>
+                </div>
+                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                    Price</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
+                </div>
+              </div>
             </div>
-            <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
-                <div class="dashed-row"><span class="name-row">Company</span> <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span></div>
-                <div class="dashed-row"><span class="name-row">Brand</span> <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span></div>
-                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Category</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level0?.name}}</span></div>
-                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Species</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level1?.name}}</span></div>
-                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecies</span> <div class="separator-dashed"></div> <span class="value-row">{{types?.level2?.name}}</span></div>
-                <div class="dashed-row"><span class="name-row">Treatment</span> <div class="separator-dashed"></div> <span class="value-row">{{treatment?.name}}</span></div>
-                <div class="dashed-row"><span class="name-row">Raised</span> <div class="separator-dashed"></div> <span class="value-row">{{raised?.name}}</span></div>
-                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total Price</span> <div class="separator-dashed"></div> <span class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span></div>
-            </div>
-          </div>
 
-          <div class="row range-row">
-            <div class="col-md-7">
-                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count"  title="Qty" class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric" (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()" id="input-text">
+            <div class="row range-row">
+              <div class="col-md-7">
+                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count" title="Qty"
+                  class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric"
+                  (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()"
+                  id="input-text">
                 <input type="text" id="qty-text" class="qty" (click)="showElements()" value="type...">
-                <ng5-slider [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
-
+                <ng5-slider [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)">
+                </ng5-slider>
+              </div>
+              <div class="col-md-5">
+                <button *ngIf="!cooming_soon" (click)="addToCart()" type="submit"
+                  class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+                <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
+              </div>
             </div>
 
-            <div class="col-md-5">
-                <button *ngIf="!cooming_soon"  (click)="addToCart()" type="submit" class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
-                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
-            </div>
-          </div>
-        
-          <nav>
+            <nav>
               <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-price-tab" data-toggle="tab" href="#nav-price" role="tab" aria-controls="nav-home" aria-selected="true">PRICE DETAILS</a>
-                <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab" aria-controls="nav-product" aria-selected="false">PRODUCT DETAILS</a>
+                <a class="nav-item nav-link active" id="nav-price-tab" data-toggle="tab" href="#nav-price" role="tab"
+                  aria-controls="nav-home" aria-selected="true">PRICE DETAILS</a>
+                <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab"
+                  aria-controls="nav-product" aria-selected="false">PRODUCT DETAILS</a>
               </div>
             </nav>
 
-    
-        <ng-template #login>
-          <div class="row">
-            <div class="col">
-              <p>{{'SingleProduct.no-login' | translate}} <a routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
-            </div>
+
+            <ng-template #login>
+              <div class="row">
+                <div class="col">
+                  <p>{{'SingleProduct.no-login' | translate}} <a
+                      routerLink="/login">{{'SingleProduct.here' | translate}}</a></p>
+                </div>
+              </div>
+            </ng-template>
+
+
           </div>
-        </ng-template>
-  
-      
+        </div>
       </div>
-      </div>
-    </div>   
+    </div>
   </div>
-</div>
 </div>
 
 <ng-template #elseBlock>
-  
+
   <div class="not-found-grid">
     <p>{{'SingleProduct.no-found' | translate}}</p>
-  </div>  
+  </div>
 </ng-template>
