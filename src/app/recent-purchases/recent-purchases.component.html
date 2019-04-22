@@ -3,16 +3,17 @@
 <div class="container-fluid orders-tabs">
 	<ng-template #customLoadingTemplate>
 		<div class="row">
-			<div class="col">
-				<div class="col-12 text-center"><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
+			<div class="wave-loader" style="background-color: #F7F8F9; z-index: 999999; height: 100px;">
+				<div class="wave-loading"></div>
 			</div>
+			
 		</div>
 	</ng-template>
 	<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
 	</ngx-loading>
 
 	<div class="row" *ngIf="showLoading; else productshow">
-		<div class="wave-loader">
+		<div class="wave-loader" >
 			<div class="wave-loading"></div>
 		</div>
 	</div>
