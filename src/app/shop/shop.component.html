@@ -189,10 +189,15 @@
                   <div class="product-header">
                    <div class="row">
                      <div class="col-md-10">
-                        <span id="qty-kg-{{product.id}}" class="qty-kg" (click)="hideMe(product.id)"><span *ngIf="!product.qty">{{product.minimumOrder}}</span> {{product.qty}} kg</span>  
-                        <input placeholder="type kg..."  id="edit-qty-{{product.id}}" class="qty-number" type="number"  (change)="manualInput(product.id, i, product.maximumOrder)" (focusout)="showSpan(product.id)">
+                       <div>
+                          <span id="qty-kg-{{product.id}}" class="qty-kg" (click)="hideMe(product.id)"><span *ngIf="!product.qty">{{product.minimumOrder}}</span> {{product.qty}} kg</span>  
+                          <input placeholder="type kg..."  id="edit-qty-{{product.id}}" class="qty-number" type="number"  (change)="manualInput(product.id, i, product.maximumOrder)" (focusout)="showSpan(product.id)">
+                       </div>
+                       
                         <form>
+                            <span class="amount-span">{{product.minimumOrder}}</span>
                             <input id="range-{{product.id}}" name="foo" type="range" class="product-range" [value]="product.minimumOrder" [min]="product.minimumOrder" [max]="product.maximumOrder" (change)="getRange(product.id, i)">
+                            <span class="amount-span">{{product.maximumOrder}}</span>
                             <label id="delivere-price-{{product.id}}">AED 12.99</label>
                         </form>
                       </div>
