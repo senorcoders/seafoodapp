@@ -331,6 +331,7 @@ export class ShopComponent implements OnInit {
       this.isClearButton = false;
       this.products = result['productos'];
       console.log('Productos', result);
+
       // add paginations numbers
       this.showLoading = false;
       // working on the images to use like background
@@ -373,6 +374,7 @@ export class ShopComponent implements OnInit {
   getRange(id, i) {
     console.log(id, i);
     let val: any = jQuery('#range-' + id).val();
+    this.moveBubble(id);
     console.log("Range Val", val);
     this.products[i].qty = val;
     this.showQty = true;
@@ -441,6 +443,7 @@ export class ShopComponent implements OnInit {
     }
     this.products[i].qty = val;
     jQuery('#range-' + id).val(val);
+    this.moveBubble(id);
     this.getShippingRates(val, id);
   }
   //Function to hide input and show span
@@ -792,5 +795,44 @@ export class ShopComponent implements OnInit {
         resolve();
       }, error =>{reject()})
     })
+  }
+
+  //JAVASCRIPT FOR SLIDES
+  moveBubble(id){
+    console.log("Move Bubble");
+    var el, newPoint, newPlace, offset;
+ 
+    jQuery('#range-' + id).on('input', function () {
+   console.log("input");
+     jQuery(this).trigger('change');
+ });
+ // Select all range inputs, watch for change
+ jQuery('#range-' + id).change(function() {
+ 
+  // Cache this for efficiency
+  el = jQuery(this);
+  
+  // Measure width of range input
+  var width = el.width();
+  console.log("Width", width);
+  
+  // Figure out placement percentage between left and right of input
+  newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+   
+   offset = -1;
+ 
+  // Prevent bubble from going beyond left or right (unsupported browsers)
+  if (newPoint < 0) { newPlace = 0; }
+  else if (newPoint > 1) { newPlace = width; }
+  else { newPlace = width * newPoint + offset; offset -= newPoint; }
+  
+  // Move bubble
+  console.log("Move Bubble", newPlace, offset);
+  jQuery('#qty-kg-'+id).css('margin-left', newPlace);
+  jQuery('#edit-qty-'+id).css('margin-left', newPlace);
+
+  })
+  // Fake a change to position bubble at page load
+  .trigger('change');
   }
 }

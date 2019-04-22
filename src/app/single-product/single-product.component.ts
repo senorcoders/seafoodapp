@@ -66,20 +66,23 @@ export class SingleProductComponent implements OnInit {
   showTaxes: boolean = false;
   FXRateFees = 0;
   delivered: number = 0;
-  brandname:any;
-  processingCountry:any;
-  countries:any = [];
-  types:any = '';
-  mortalityRate:any;
-  wholeFishWeight:any = null;
+  brandname: any;
+  processingCountry: any;
+  countries: any = [];
+  types: any = '';
+  mortalityRate: any;
+  wholeFishWeight: any = null;
   options: Options = {
     floor: 1,
     ceil: 1000,
     translate: (value: number): string => {
-      return  value + ' kg';
+      return value + ' kg';
     }
   };
   value: any = 1;
+  public withVariations = false;
+  public variations = [];
+  public selectVariation = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -91,7 +94,7 @@ export class SingleProductComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
-    private cartService:OrderService) {
+    private cartService: OrderService) {
   }
 
   ngOnInit() {
@@ -134,9 +137,6 @@ export class SingleProductComponent implements OnInit {
       this.count = this.max;
       this.value = this.count;
       this.getPricingCharges();
-  
-
-
     } else {
       this.value = this.count;
       this.getPricingCharges();
@@ -163,9 +163,9 @@ export class SingleProductComponent implements OnInit {
   }
 
   getProductDetail() {
-    this.productService.getProductDetail(this.productID).subscribe(data => {
+    this.productService.getProductDetailVariations(this.productID).subscribe(data => {
       console.log("Producto", data);
-      if( this.role !== 1 ) {
+      if (this.role !== 1) {
         this.currentExchangeRate = 1;
       }
       if (data['minimumOrder'] < 1) {
@@ -198,7 +198,7 @@ export class SingleProductComponent implements OnInit {
       this.priceValue = data['price'].value;
       this.priceType = this.currency; // data['price'].type;
       this.measurement = data['weight'].type;
-      if(data['imagePrimary'] !== null) { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`)) }else{ this.mainImg = (this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)'))};
+      if (data['imagePrimary'] !== null) { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`)) } else { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')) };
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
@@ -226,9 +226,16 @@ export class SingleProductComponent implements OnInit {
         this.logo = '../../assets/seafood-souq-seller-logo-default.png';
       }
 
-      if(data.hasOwnProperty('wholeFishWeight') && data['wholeFishWeight'] != ''){
+      if (data.hasOwnProperty('wholeFishWeight') && data['wholeFishWeight'] != '') {
         this.wholeFishWeight = data['wholeFishWeight'];
       }
+      //Para saber si es de los nuevos products, que tiene variations
+      if (data["variations"] !== undefined && data["variations"] !== null && data["variations"].length > 0) {
+        this.withVariations = true;
+        this.variations = data["variations"];
+        this.selectVariation = this.variations[0].fishPreparation.id;
+      }
+
       this.getReview();
       this.getPricingCharges();
       this.showLoading = false;
@@ -240,17 +247,19 @@ export class SingleProductComponent implements OnInit {
     });
   }
 
-     
+  public selectTheVariation(idVariation) {
+    this.selectVariation = idVariation;
+  }
 
   getCart() {
-   
-    this.cartService.getCart( this.idUser ).subscribe(
-      cart=> { 
+
+    this.cartService.getCart(this.idUser).subscribe(
+      cart => {
         console.log("Cart", cart);
         this.cart = cart;
       },
-      error=> {
-        console.log( error );
+      error => {
+        console.log(error);
       })
   }
 
@@ -289,8 +298,8 @@ export class SingleProductComponent implements OnInit {
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
     }, err => {
-      if ( err.error ) {
-      this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+      if (err.error) {
+        this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
       }
     });
   }
@@ -351,7 +360,7 @@ export class SingleProductComponent implements OnInit {
     this.averageReview /= this.reviews.length;
   }
   getTotal() {
-    const subtotal = (this.count * this.priceValue / this.currentExchangeRate ).toFixed(2);
+    const subtotal = (this.count * this.priceValue / this.currentExchangeRate).toFixed(2);
     return subtotal;
   }
 
@@ -361,10 +370,10 @@ export class SingleProductComponent implements OnInit {
         this.currentPrincingCharges = result;
         console.log('result', result);
         this.currentExchangeRate = result['exchangeRates'];
-        console.log( this.currentExchangeRate );
+        console.log(this.currentExchangeRate);
         this.getProductDetail();
       }, error => {
-        console.log( error );
+        console.log(error);
       }
     )
   }
@@ -375,9 +384,7 @@ export class SingleProductComponent implements OnInit {
           console.log('Pricing Charges', res);
           this.charges = res;
           this.delivered = res['finalPrice'] / this.count;
-
           this.showTaxes = true;
-
         },
         error => {
           console.log(error);
@@ -397,49 +404,49 @@ export class SingleProductComponent implements OnInit {
       this.charges['uaeTaxesFee'] +
       this.charges['sfsMarginCost'] +
       this.charges['shippingCost']['cost'] +
-      this.charges['customsFee'] ;
-      // this.charges['fishCost'] +
+      this.charges['customsFee'];
+    // this.charges['fishCost'] +
 
     return Number(parseFloat(total).toFixed(2));
   }
- 
 
-  findCountries(code){
-    for (var i=0; i < this.countries.length; i++) {
-        if (this.countries[i].code === code) {
-            return this.countries[i].name;
-        }
+
+  findCountries(code) {
+    for (var i = 0; i < this.countries.length; i++) {
+      if (this.countries[i].code === code) {
+        return this.countries[i].name;
+      }
     }
-} 
+  }
 
-getTypes(){
-  this.productService.getData(`/fishType/parents/${this.productID}`).subscribe(res =>{
-    console.log("Categorías", res);
-    this.types = res;
-  })
-}
+  getTypes() {
+    this.productService.getData(`/fishType/parents/${this.productID}`).subscribe(res => {
+      console.log("Categorías", res);
+      this.types = res;
+    })
+  }
 
-onUserChangeEnd(changeContext: ChangeContext): void {
- console.log(`onUserChangeEnd(${this.getChangeContextString(changeContext)})\n`);
- this.count = changeContext.value;
- console.log("Count", this.count);
- this.getPricingCharges();
-}
+  onUserChangeEnd(changeContext: ChangeContext): void {
+    console.log(`onUserChangeEnd(${this.getChangeContextString(changeContext)})\n`);
+    this.count = changeContext.value;
+    console.log("Count", this.count);
+    this.getPricingCharges();
+  }
 
-getChangeContextString(changeContext: ChangeContext): string {
-  return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
-         `value: ${changeContext.value}, ` +
-         `highValue: ${changeContext.highValue}}`;
-}
+  getChangeContextString(changeContext: ChangeContext): string {
+    return `{pointerType: ${changeContext.pointerType === PointerType.Min ? 'Min' : 'Max'}, ` +
+      `value: ${changeContext.value}, ` +
+      `highValue: ${changeContext.highValue}}`;
+  }
 
-showElements() {
-  document.getElementById('qty-text').style.display = 'none';
-  document.getElementById('input-text').style.display = 'block';
-  jQuery('#input-text').focus();
-}
+  showElements() {
+    document.getElementById('qty-text').style.display = 'none';
+    document.getElementById('input-text').style.display = 'block';
+    jQuery('#input-text').focus();
+  }
 
-hideElements() {
-  document.getElementById('input-text').style.display = 'none';
-  document.getElementById('qty-text').style.display = 'block';
-}
+  hideElements() {
+    document.getElementById('input-text').style.display = 'none';
+    document.getElementById('qty-text').style.display = 'block';
+  }
 }

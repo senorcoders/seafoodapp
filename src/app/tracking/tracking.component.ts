@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {} from '@types/googlemaps';
 
 declare var google: any;
 
