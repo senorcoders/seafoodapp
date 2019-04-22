@@ -15,7 +15,7 @@ export class CartComponent implements OnInit {
   itemToDelete:any;
   buyerId:any;
   products:any = [];
-  empty:boolean;
+  empty:boolean = true;
   showLoading:boolean=true;
   total:any;
   shoppingEnpoint:any = 'shoppingcart/items';

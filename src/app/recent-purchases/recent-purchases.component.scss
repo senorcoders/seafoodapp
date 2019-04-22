@@ -236,6 +236,28 @@ p.order-number {
                 height: 25px;
             }
         }
+        .blue-btn-light{
+            width: auto;
+            background: #ffffff !important;
+            text-transform: uppercase;
+            font-family: 'Josefin Sans', sans-serif;
+            border-radius: 5px;
+            outline: none;
+            color: #7484AA !important;
+            border: 2px solid #7484AA !important;
+            font-weight: 300;
+            margin-right: 10px !important;
+            font-size: 18px !important;
+            letter-spacing: 1.5px;
+            line-height: 25px;
+            height: 60px !important;
+        }
+
+        .blue-btn-light:hover{
+            background: #3E4E75 !important;
+            border: 2px solid #3E4E75 !important;
+            color: #ffffff !important;
+        }
         .form-design{
             padding: 0 50px;
             .col-lg-12{
