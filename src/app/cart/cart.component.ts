@@ -124,8 +124,13 @@ export class CartComponent implements OnInit {
       result=>{
         console.log(result);
         this.products.splice(i, 1); 
-        this.getItems();
+        // this.getItems();
         jQuery('#confirmDelete').modal('hide');
+
+        this.getAllProductsCount();
+        if(this.products.length == 0){
+          this.empty = true;
+        }
 
       },
       e=>{
