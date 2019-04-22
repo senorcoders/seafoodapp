@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { NgProgress } from 'ngx-progressbar';
 import { environment } from '../../environments/environment';
 declare var jQuery: any;
@@ -39,6 +39,7 @@ export class RecentPurchasesComponent implements OnInit {
   action: string;
   where: any;
   trackingForm: FormGroup;
+  extra: FormArray;
   fileToUpload: any = [];
   invoice: FormControl;
   healthCert: FormControl;
@@ -69,7 +70,7 @@ export class RecentPurchasesComponent implements OnInit {
   public selectedMoment: any = new Date();
 
 
-  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress) {
+  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress, private formBuilder: FormBuilder) {
     this.min.setDate(this.today.getDate());
     this.max.setDate(this.today.getDate() + 90);
   }
@@ -441,17 +442,31 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
   createForm() {
-    this.trackingForm = new FormGroup({
+    this.trackingForm = this.formBuilder.group({
       invoice: this.invoice,
       healthCert: this.healthCert,
       packingList: this.packingList,
       awb: this.awb,
       certificateOrigin: this.certificateOrigin,
-      creditNote: this.creditNote
+      creditNote: this.creditNote,
+      extra: this.formBuilder.array([])
 
     }, {
         updateOn: 'submit'
       });
+  }
+
+  createItem(): FormGroup {
+    return this.formBuilder.group({
+      filename: '',
+      fileextra: ''
+    });
+  }
+
+  addItem(): void {
+    this.extra = this.trackingForm.get('extra') as FormArray;
+    this.extra.push(this.createItem());
+    console.log("Extra", this.trackingForm.get('extra').value);
   }
 
   //Validate each input fields of the form
@@ -526,12 +541,37 @@ export class RecentPurchasesComponent implements OnInit {
 
     }
 
+    if(this.extra.length > 0){
+      await this.saveExtraDocs();
+    }
+      
     this.toast.success("Order marked as document fulfillment!", 'Upload Succesfully', { positionClass: "toast-top-right" });
-    jQuery('#shippingDocs').modal('hide');
-    this.doc = [];
-    this.cleanLabels();
-    this.loading = false;
-    this.ngProgress.done();
+      jQuery('#shippingDocs').modal('hide');
+      this.doc = [];
+      this.cleanLabels();
+      this.loading = false;
+      this.ngProgress.done();
+    
+
+  
+  }
+
+  async saveExtraDocs(){
+
+    await new Promise((resolve) => {
+    for(let i = 0; i < this.extra.length; i++) {
+      console.log(this.extra.at(i).value);
+      let item = this.extra.at(i).value;
+
+      this.postFile(item['fileextra'])
+      if((i + 1) == this.extra.length){
+        console.log("Se resolvio");
+        resolve();
+      }
+
+    }
+    })
+  
   }
 
   //Function to prepulate current shiiping docs uploaded to the server
@@ -592,13 +632,15 @@ export class RecentPurchasesComponent implements OnInit {
     this.label5 = 'Select a file to attach...';
     this.label6 = 'Select a file to attach...';
     this.tmpFiles = [];
+    this.trackingForm.reset();
+    jQuery('#shippingDocs input[type=file]').val('');
   }
   //Get file on input change and change the name before upload it
 
   handleFileInput(event, name) {
 
 
-    if (event.target.files.length > 0) {
+    if (event.target.files.length > 0) { 
       let file = event.target.files;
       let ext = file[0].name.split(".");
       console.log(ext);
@@ -764,4 +806,30 @@ export class RecentPurchasesComponent implements OnInit {
     jQuery('#deliveryModal').modal('hide');
   }
 
+  onExtraChange(event, name, index) {
+
+
+    if (event.target.files.length > 0) {
+      let file = event.target.files;
+      let ext = file[0].name.split(".");
+      console.log(ext);
+      console.log("Nombre", name + '.' + ext[1]);
+
+      var blob = file[0].slice(0, file[0].size, file[0].type);
+      console.log(blob);
+      var newFile = new File([blob], name  + '-extra'  + '.' + ext[1], { type: file[0].type });
+
+      console.log("newFile", newFile);
+
+     this.extra.at(index).setValue(
+        {
+          filename: name,
+          fileextra: newFile
+        }
+      );
+      console.log("Extra updated", this.extra.value);
+
+     
+    }
+  }
 }
