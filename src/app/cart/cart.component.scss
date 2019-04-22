@@ -25,14 +25,7 @@ a.link-cart{
     border-top: 3px solid #eb1c24;
 }
 
-.not-found-grid{
-    height: 80vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 50px;
-    color: red;
-}
+
 .product-name a{
     font-family: 'Roboto', sans-serif;
     font-weight: bold;
@@ -85,13 +78,51 @@ a.link-cart{
 }
 
 @media(max-width: 998px){
-    .text-center{
-        text-align: left !important;
-    }
+   
     .sub-total, .table-design .row-bg .pink-btn, .product-name, .product-description{
         margin-top: 20px;
     }
     .box-input{
         margin-bottom: 20px;
     }
+}
+
+// NEW DESIGN SASS
+
+.gray-bg{
+    padding: 155px 0;
+    .empty-container{
+        h4{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 21px;
+            letter-spacing: 1.75px;
+            line-height: 25px;
+            color: #3E4E75;
+            font-weight: 300;
+            margin: 50px 0;
+        }
+        .outline-btn{
+            background: none;
+            border: none;
+            border-radius: 2px;
+            border: 1px solid #7484AA;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: #7484AA;
+            letter-spacing: 1.5px;
+            width: 290px;
+            height: 50px;
+            margin: 0 auto;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+            line-height: 50px;
+            transition: all .2s ease-in-out;
+            &:hover{
+                background: #7484AA;
+                color: #fff;
+            }
+        }
+       
+    }
+    
 }
