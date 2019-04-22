@@ -640,7 +640,7 @@ export class RecentPurchasesComponent implements OnInit {
   handleFileInput(event, name) {
 
 
-    if (event.target.files.length > 0) {
+    if (event.target.files.length > 0) { 
       let file = event.target.files;
       let ext = file[0].name.split(".");
       console.log(ext);
