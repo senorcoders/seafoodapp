@@ -1,55 +1,13 @@
-<div class="container">
-  <div style="height: 100px;"></div>
+<div class="gray-bg">
+  <div class="container-fluid">
+      <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+          <div class="col-md-6">
+              <a routerLink="/cart" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to review</a>
 
-  <div class="row">
-    <div class="col-lg-3">
-      <h1 class="title">Checkout</h1>
-      <h1 class="subtitle">Review Order</h1>
-     
-    </div>
-
-    <div class="col-lg-9">
-      <div class="row table-checkout">
-        <div class="col-lg-12">
-          <h3>Your order</h3>
-          <table>
-            <tr>
-                <th>Product</th>
-                <th>Total</th>
-            </tr>
-            <tr *ngFor="let product of products; index as i;">
-              <td>
-                {{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b>            
-              </td>
-              <td>{{(getTotalxItem(product.quantity.value, product.price.value)) | currency: 'AED'}}</td>
-            </tr>
-            <tr>
-              <td><b>Subtotal</b></td>
-              <td><b>{{(total) | currency: 'AED'}} </b></td>
-            </tr>
-            <tr>
-              <td><b>Shipping</b></td>
-              <td><b>{{(shipping) | currency: 'AED'}}</b></td>
-            </tr>
-            <tr>
-              <td><b>Taxes, Customs and Other Fees</b></td>
-              <td><b>{{(totalOtherFees) | currency: 'AED'}}</b></td> 
-            </tr>
-            <tr>
-              <td><b>Total</b></td>
-              <td><b>{{(totalWithShipping) | currency: 'AED'}}</b></td>
-            </tr>
-            
-          </table>
+          </div>
+          <div class="col-md-6 text-right">
+            <img src="../../assets/dots3.png" alt="">
+          </div>
         </div>
-      </div>
-    
-      <div class="row">
-        <div class="col-lg-6">
-            <button (click)="goToNextPage()" class="btn btn-red">Proceed to Pay</button>
-
-        </div>
-      </div>
-    </div>
   </div>
 </div>
