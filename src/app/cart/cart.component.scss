@@ -5,6 +5,13 @@
 .gray-bg{
     padding: 155px 0;
     .container-fluid{
+        .sub-nav{
+            @media screen  and (max-width: 992px){
+                .col-md-6{
+                    text-align: center !important;
+                }
+            }
+        }
         @media screen  and (min-width: 1450px){
             padding-left: 155px;
             padding-right: 155px;
@@ -74,16 +81,26 @@
             width: 100%;
             max-width: 300px;
             height: 242px;
+            @media screen  and (max-width: 992px){
+               margin: 20px auto;
+            }
         }
         .cart-content-product{
             .col-lg-12{
                 display: flex;
+                @media screen  and (max-width: 992px){
+                   display: block;
+                   text-align: center;
+                 }
             }
             .range-box{
                 display: block;
                 width: 300px;
                 margin-left: 30px;
                 margin-top: -25px;
+                @media screen  and (max-width: 992px){
+                    margin: 20px auto;
+                 }
                 .qty-kg{
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 300;
@@ -189,6 +206,13 @@
             @media screen  and (max-width: 1750px){
                min-height: 142px;
             }
+            @media screen  and (max-width: 992px){
+                margin: 20px 0;
+                display: flex;
+                .col-lg-12{
+                    width: 50%;
+                }
+             }
             h2{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
@@ -231,6 +255,9 @@
                     font-size: 21px;
                     letter-spacing: 1.75px;
                     line-height: 25px;
+                    @media screen  and (max-width: 992px){
+                       font-size: 15px;
+                     }
                     span{
                         float: right;
                     }
@@ -248,6 +275,9 @@
                     font-size: 21px;
                     letter-spacing: 1.75px;
                     line-height: 25px;
+                    @media screen  and (max-width: 992px){
+                        font-size: 15px;
+                      }
                     span{
                         float: right;
                     }
@@ -265,6 +295,9 @@
                 line-height: 25px; 
                 margin-top: 10px;
                 margin-bottom: 10px;
+                @media screen  and (max-width: 992px){
+                    font-size: 15px;
+                  }
             }
 
             h2{ 
@@ -276,6 +309,9 @@
                 line-height: 45px; 
                 margin-top: 10px;
                 margin-bottom: 10px;
+                @media screen  and (max-width: 992px){
+                    font-size: 28px;
+                  }
 
             }
 
@@ -295,6 +331,9 @@
                 margin-top: 10px;
                 margin-bottom: 10px;
                 transition: all .2s ease-in-out;
+                @media screen  and (max-width: 992px){
+                    font-size: 18px;
+                  }
                 &:hover{
                     color: #fff;
                     background: #7484AA;

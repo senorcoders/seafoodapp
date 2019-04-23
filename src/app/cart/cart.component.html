@@ -8,12 +8,13 @@
       </div>
       <div *ngIf="!showLoading">
       <div class="container-fluid" *ngIf="!empty; else elseBlock">
-        <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
           <div class="col-md-6">
               <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">{{'Cart.back' | translate}}</a>
 
           </div>
-          <div class="col-md-3 text-right">
+          <div class="col-md-6 text-right">
+            <img src="../../assets/dots1.png" alt="">
           </div>
         </div>
 
