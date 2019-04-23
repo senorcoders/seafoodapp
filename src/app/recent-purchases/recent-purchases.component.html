@@ -685,7 +685,7 @@
 														src="../../assets/svg/information-outline.svg" alt=""
 														width="20"></label>
 													<div formArrayName="extra"
-													*ngFor="let item of trackingForm.get('extra').controls; let i = index;">
+													*ngFor="let item of trackingForm.get('extra')['controls']; let i = index;">
 													<div [formGroupName]="i">
 													  <input formControlName="filename" placeholder="Document name">
 													  <input [disabled]="trackingForm.controls.extra.controls[i].controls.filename.value == ''" type="file" 
