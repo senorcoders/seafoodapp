@@ -1,3 +1,5 @@
+$marginBottom : '8px';
+
 .gray-bg{
     padding: 110px 0;
     .container-fluid{
@@ -22,7 +24,6 @@
         .product-img{
             @media screen and (max-width: 768px){
                 order: 2;
-                
             }
         }
         .main-featured-img{
@@ -61,7 +62,7 @@
             line-height: 34px;
             color: #7484AA;
             text-transform: uppercase;
-            margin-bottom: 70px;
+            margin-bottom: $marginBottom;
             span{
                 text-transform: lowercase;
                 margin-left: 30%;
@@ -79,7 +80,7 @@
             font-size: 16px;
             line-height: 21px;
             font-weight: 300;
-            margin-bottom: 70px;
+            margin-bottom: $marginBottom;
         }
 
         .convert-row{
@@ -100,11 +101,11 @@
             font-weight: 300;
             color: #0D1321;
             font-size: 16px;
-            line-height: 21px;
+            line-height: 18px;
             display: flex;
             flex-wrap: nowrap;
             align-items: center;
-            padding: 15px 0;
+            padding: 5px 0;
             @media screen and (max-width: 768px){
                 font-size: 15px;
                 line-height: 22px;
@@ -143,7 +144,7 @@
         }
 
         #nav-tab{
-            margin: 60px 0;
+            margin: $marginBottom 0;
              .nav-link{
                  border: none;
                 width: 50%;
@@ -169,7 +170,7 @@
         }
 
         .range-row{
-            margin: 60px 0;
+            margin: $marginBottom 0;
             .col-md-7, .col-md-5{
                 padding: 0;
                 @media screen and (max-width: 768px){
@@ -228,9 +229,15 @@ input.qty{
     position: sticky;
     top: 0;
 }
+.sticky-div.no{
+    position: relative !important;
+    margin-top: 50%;
+    top: auto;
+    bottom: 1px;
+}
 
 .variations{
-    margin-bottom: 70px;
+    margin-bottom: $marginBottom;
     .item-variations{
         display: inline;
         margin-right: 15px;

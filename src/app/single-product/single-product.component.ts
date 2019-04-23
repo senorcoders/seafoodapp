@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
@@ -84,6 +84,11 @@ export class SingleProductComponent implements OnInit {
   public variations = [];
   public selectVariation = '';
 
+  //Para cuando se vaya a otra pagina quitar el css del footer y funciones
+  @HostListener('window:beforeunload') quitFn() {
+    $("app-footer").css({ position: "relative", width: "100%" });
+  }
+
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -95,6 +100,47 @@ export class SingleProductComponent implements OnInit {
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
     private cartService: OrderService) {
+  }
+
+  ngAfterViewInit() {
+    //Agregamos esto al footer para que mantenga posicion
+    $("app-footer").css({ top: 0, position: "absolute", width: "100%" });
+
+    $("#content-fixed").css("height", $(window).height());
+    let i = setInterval(this.loadingImage.bind(this), 5000);
+    setTimeout(() => {
+      clearInterval(i);
+    }, (2 * 60) * 1000);
+
+    //Para checkar cuando el footer es visible
+    $(window).scroll(function () {
+      if (isScrolledIntoView($("app-footer"))) {
+        $("#sticky-div").addClass("no");
+      }
+      else {
+        $("#sticky-div").removeClass("no");
+      }
+    });
+
+    function isScrolledIntoView(elem) {
+      var $elem = $(elem);
+      var $window = $(window);
+
+      var docViewTop = $window.scrollTop();
+      var docViewBottom = docViewTop + $window.height();
+
+      var elemTop = $elem.offset().top;
+      var elemBottom = elemTop + $elem.height();
+
+      // return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+      console.log(elemTop, docViewBottom);
+      return elemTop <= docViewBottom;
+    }
+  }
+
+  loadingImage() {
+    console.log($("#product-images").height());
+    $("app-footer").css("top", $("#product-images").height()+200);
   }
 
   ngOnInit() {
