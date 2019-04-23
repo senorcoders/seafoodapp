@@ -1,103 +1,99 @@
-<div class="container">
-  <div style="height: 100px;"></div>
-
-<div class="row">
-  <div class="col-lg-3">
-    <h1 class="title">Checkout</h1>
-    <h1 class="subtitle">Billing Details</h1>
-    <div class="shipping-details table-checkout">
-        <h5>Shipping Information</h5>
-        <table>
-          <tr>
-            <td><b> Address</b></td>
-            <td>{{info?.dataExtra?.Address}}</td>
-          </tr>
-          <tr>
-              <td><b>City</b></td>
-              <td>{{info?.dataExtra?.City}}</td>
-            </tr>
-            <tr>
-                <td><b>Country</b></td>
-                <td>{{info?.dataExtra?.country}}</td>
-              </tr>
-              <tr>
-                  <td><b>Zipcode</b></td>
-                  <td>{{info?.dataExtra?.zipCode}}</td>
-                </tr>
-        </table>
+<div class="gray-bg">
+    <div class="container-fluid">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to payment</a>
+  
+            </div>
+            <div class="col-md-6 text-right">
+              <img src="../../assets/dots4.png" alt="">
+            </div>
+          </div>
+        <div class="row">
         
-      </div>
-  </div>
-  <div class="col-lg-9">
-<form method="POST"  ngNativeValidate (ngSubmit)="submit()">
- 
-  <div class="row">
-    <div class="col-6">
-      <div class="form-group">
-          <label>Customer Email</label>
+          <div class="col-lg-12">
+              <div class="row">
+                  <div class="col-lg-12 text-center">
+                      <h1 class="gray-title" ><span>ENTER  DETAILS</span></h1>
+                    </div>
+              </div>
+        <form method="POST"  ngNativeValidate (ngSubmit)="submit()">
+         
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group input-group">
+                  <span class="has-float-label"> 
+                  <input placeholder="Customer Email" id="customer_email" type="text"  name="customer_email" [value]="email" class="form-control">
+                  <label for="customer_email">Customer Email</label>
+                  </span>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group input-group">
+                  <span class="has-float-label"> 
+                  <input placeholder="Amount (AED)" type="hidden" id="device_fingerprint" name="device_fingerprint" />
+                  <input type="text" class="form-control" disabled name="customer_amount" [value]="customerTotal" >
+                  <input type="hidden" class="form-control" disabled name="amount" [value]="total" >
+                  <label for="device_fingerprint">Amount (AED)</label>
 
-          <input type="text"  name="customer_email" [value]="email" class="form-control">
-
-      </div>
-    </div>
-    <div class="col-6">
-      <div class="form-group">
-        <label>Amount (AED)</label>
-	   <input type="hidden" id="device_fingerprint" name="device_fingerprint" />
-          <input type="text" class="form-control" disabled name="customer_amount" [value]="customerTotal" >
-          <input type="hidden" class="form-control" disabled name="amount" [value]="total" >
-      </div>
-    </div>
-    <div class="col-12">
-      <div class="form-group">
-          <label>Additional Notes</label>
-
-          <textarea name="order_description" [(ngModel)]="description" class="form-control"    rows="3"></textarea>
-
-      </div>
-
-    </div>
-  </div>
-  <div class="row table-checkout">
-      <div class="col-lg-12">
-        <h3>Your order</h3>
-        <table>
-          <tr>
-              <th>Product</th>
-              <th>Total</th>
-          </tr>
-          <tr *ngFor="let product of products; index as i;">
-            <td>{{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b></td>
-            <td> {{(getTotalxItem(product.quantity.value, product.price.value)) | currency: 'AED'}}</td>
-          </tr>
-          <tr>
-            <td><b>Subtotal</b></td>
-            <td><b> {{totalAPI | currency: 'AED'}}</b></td>
-          </tr>
-          <tr>
-            <td><b>Shipping</b></td>
-            <td><b> {{shipping | currency: 'AED'}}</b></td>
-          </tr>
-          <tr>
-            <td><b>Taxes, Customs and Other Fees</b></td>
-            <td><b> {{totalOtherFees | currency: 'AED'}} </b></td> 
-          </tr>
-          <tr>
-            <td><b>Total</b></td>
-            <td><b> {{totalWithShipping | currency: 'AED'}}</b></td>
-          </tr>
-          
-        </table>
-      </div>
-    </div>
-  <div class="row">
-      <div class="col-lg-6">
-          <button type="submit" class="btn btn-red">Confirm payment</button>
-
-      </div>
-    </div>
-</form>
-
+                </span>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="form-group input-group" style="max-width:1050px;">
+                  <span class="has-float-label"> 
+                  <input placeholder="Additional Notes" id="order_description" type="text" name="order_description" [(ngModel)]="description" class="form-control"    rows="3">
+                  <label for="order_description">Additional Notes</label>
+                    </span>
+              </div>
+        
+            </div>
+          </div>
+          <div class="cart-price-breakdown">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="prices-row">
+                    <div class="col-lg-12 price-title">
+                        <h4>PRICE BREAKDOWN <span>AED</span></h4>
+                    </div>
+                    <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
+                      <h4> {{product?.fish?.name}} ({{product.quantity.value}} kg)  
+                
+                        <span>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
+                    </div>
+                    <div class="col-lg-12 price-item">
+                        <h4>SUBTOTAL <span>{{(total) | currency: 'AED'}}</span></h4>
+                    </div>
+                    <div class="col-lg-12 price-item">
+                        <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
+                    </div>
+                    <div class="col-lg-12 price-item">
+                        <h4>SHIPPING <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                    </div>
+                    
+                  </div>
+                </div>
+                <div class="col-md-6 text-right total-row">
+                  <div class="col-lg-12">
+                    <h4>TOTAL</h4>
+                  </div>
+                  <div class="col-lg-12">
+                      <h2>{{(totalWithShipping) | currency: 'AED'}}</h2>
+                    </div>
+                    <div class="col-lg-12">
+                      <button class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
+                       complete checkout
+                      </button>
+                    </div>
+                </div>
+              </div>
+            </div>
+         
+         
+        </form>
+        
+        </div>
+        </div>
+        </div>
 </div>
-</div>
-</div>
+
