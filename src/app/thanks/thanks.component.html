@@ -1,40 +1,26 @@
-<div class="thanks-section container">
+<div class="gray-bg">
+    <div class="thanks-section container-fluid">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to shopping</a>
+  
+            </div>
+           
+          </div>
 
-  <h2>Thank you for your Order! </h2>
-  <p>Your order has been placed and a confirmation email with the receipt has been sent to you email address.</p>
-  <p class="left"> To track your Order please <a routerLink="/orders">click here</a>. </p>
-
-
-  <div class="content-products">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12">
-          <h3>Coming Soon on Seafood Souq: </h3>
-          <br>
-        </div>
-      </div>
-      <div class="wave-loader" *ngIf="loadProduct; else showContent">
-          <div class="wave-loading"></div>
-        </div>
-      <ng-template #showContent>
-      <div class="row">
-        <ng-container *ngFor="let product of products; let i = index">
-          <div class="col-lg-4 products">
-            <div class="bg">
-              <div class="img-container">
-                  <div class="product-img" [style.background-image]="'url(' + API + product.imagePrimary + ')'"></div>
-                  <!-- <img src="{{images[i]}}" class="product-img"></a> -->
-              </div>
-            <h3 class="product-name">{{product.name}}</h3>
-              <span class="product-type">{{product.type.name}}</span>
-              <hr class="black-line">
-              <div class="desc">{{getShortDesc(product.description)}}</div>
-              <span class="price">{{product.price.type}} {{product.price.value}} {{product.weight.type}}</span>
+          <div class="row thanks-content">
+            <div class="col-lg-12 text-center">
+                <h2>Thank you for your Order! </h2>
+                <img src="../../assets/svg/shrimp-facing-right.svg" alt="">
+                <p>Yay! Your order has been placed successfully. We've sent you an email. We've received your payment and you'll be swimming with the fish in no time.</p>
+                <button  routerLink="/orders" class="btn-transparent">track order</button>
             </div>
           </div>
-        </ng-container>
+
+      
+      
+      
+       
       </div>
-      </ng-template>
-    </div>
-  </div>
 </div>
+

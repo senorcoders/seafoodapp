@@ -1,124 +1,159 @@
-<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
-  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
-  <div class="content">
-    <h1 class="big-title">{{'Search.big-title-banner'| translate}}</h1>
-    <h3 class="small-title">{{'Search.small-title-banner'| translate}}</h3>
-    <a href="" class="btn-red-a">{{'Search.banner-button'| translate}}</a>
-  </div>
-</div> 
-<div class="container">
-  <div class="row">
-    <div class="wave-loader" *ngIf="showLoading">
-        <div class="wave-loading"></div>
+<div class="gray-bg">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="wave-loader" *ngIf="showLoading">
+              <div class="wave-loading"></div>
+            </div>
+        </div>
       </div>
-  </div>
-</div>
-<div class="container" *ngIf="!empty; else elseBlock">
-  <div class="row" style="padding-top: 50px; padding-bottom: 50px;">
-    <div class="col-md-9"></div>
-    <div class="col-md-3 text-right">
-      <a routerLink="/home" class="btn-red-a">{{'Cart.back' | translate}}</a>
+      <div *ngIf="!showLoading">
+      <div class="container-fluid" *ngIf="!empty; else elseBlock">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+          <div class="col-md-6">
+              <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">{{'Cart.back' | translate}}</a>
+
+          </div>
+          <div class="col-md-6 text-right">
+            <img src="../../assets/dots1.png" alt="">
+          </div>
+        </div>
+
+        <div class="product-cart-row" *ngFor="let product of products; index as i;">
+          <div class="row align-center row-eq-height">
+            <div class="col-md-3">
+              <div class="single-cart-product-img"   [style.background-image]="imageCart[i]"></div>
+            </div>
+            <div class="col-md-7">
+              <div class="row cart-content-product">
+                <div class="col-lg-12">
+                    <h2>{{product.fish.name}}</h2>
+                    <div class="range-box">
+                        <div>
+                            <span id="qty-kg-{{product.fish.id}}" class="qty-kg" (click)="hideMe(product.fish.id)"> {{product.quantity.value}} kg</span>  
+                            <input placeholder="type kg..."  id="edit-qty-{{product.fish.id}}" class="qty-number" type="number"  (change)="manualInput(product.fish.id, i, product.fish.maximumOrder)" (focusout)="showSpan(product.fish.id)">
+                         </div>
+                         
+                          <form>
+                              <span class="amount-span">{{product.fish.minimumOrder}}</span>
+                              <input id="range-{{product.fish.id}}"  type="range" class="product-range" value="{{product.quantity.value}}" [min]="product.fish.minimumOrder" [max]="product.fish.maximumOrder" (change)="getRange(product.fish.id, i)">
+                              <span class="amount-span">{{product.fish.maximumOrder}}</span>
+                          </form>
+                    </div>
+                   
+                </div>
+                <div class="col-lg-12">
+                  <ul class="list-inline">
+                    <li class="list-inline-item store-item">
+                      <a routerLink="/store/{{product.fish.store.id}}" target="_blank"> <div *ngIf="product.fish.store.logo != ''" class="store-logo"  [style.background-image]="'url(' + API + product.fish.store.logo +')'"></div> {{product?.fish?.store?.name}}</a>
+                    </li>
+                    <li class="list-inline-item info-item">
+                      <img src="../../assets/svg/fish.svg" alt="" width="26px" height="26px">
+                      {{product?.fish?.type?.name}}
+                    </li>
+                    <li class="list-inline-item info-item">
+                      <img src="../../assets/svg/airplane-takeoff.svg" alt="" width="20px" height="20px">
+                      {{findCountryName(product?.fish?.country)}}
+                    </li>
+                    <li class="list-inline-item info-item">
+                      <img src="../../assets/svg/tag.svg" alt="" width="18px" height="18px">
+                      {{product.price.value | currency: 'AED'}} / kg
+                    </li>
+                    <li class="list-inline-item info-item" *ngIf="product.minDeliveryDate != ''">
+                        ETA: {{product?.minDeliveryDate | date: 'dd/MM/yyyy'}}
+                      </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="row price-content">
+                <div class="col-lg-12 text-right">
+                    <h2> {{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}</h2>
+                </div>
+                <div class="col-lg-12 text-right">
+                  <button class="transparent-btn"  (click)="showConfirmModal(product.id)">
+                    <img src="../../assets/svg/close-geay.svg" alt="">
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="cart-price-breakdown">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="prices-row">
+                <div class="col-lg-12 price-title">
+                    <h4>PRICE BREAKDOWN <span>AED</span></h4>
+                </div>
+                <div class="col-lg-12 price-item">
+                    <h4>SUBTOTAL <span>{{(total) | currency: 'AED'}}</span></h4>
+                </div>
+                <div class="col-lg-12 price-item">
+                    <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
+                </div>
+                <div class="col-lg-12 price-item">
+                    <h4>SHIPPING <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                </div>
+                
+              </div>
+            </div>
+            <div class="col-md-7 text-right total-row">
+              <div class="col-lg-12">
+                <h4>TOTAL</h4>
+              </div>
+              <div class="col-lg-12">
+                  <h2>{{(totalWithShipping) | currency: 'AED'}}</h2>
+                </div>
+                <div class="col-lg-12">
+                  <button class="transparent-btn"  (click)="checkout()">
+                    continue to shipping
+                  </button>
+                </div>
+            </div>
+          </div>
+        </div>
+
+     
+      
+      
+      </div>
     </div>
-  </div>
-  <div class="table-design">
-    <div class="row row-bg" *ngFor="let product of products; index as i;">
-      <div class="col">
-        <div class="box-input">
-          <input type="number" [value]="product.quantity.value" [(ngModel)]="product.quantity.value"(change)="validateMax(i)">
+      
+      <div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col">											
+                    <h4>Are you sure you would like to delete?</h4>
+                    <button type="button" (click)="deleteItem( index, itemToDelete )" class="btn-red-a btn-yes">Yes</button>						
+                </div>					
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col text-center" *ngIf="product.fish.type">
-          {{product?.fish?.type?.name}}
-      </div>
-      <div class="col">
-        @ {{product.price.value | currency: 'AED'}} / kg
-      </div>
-      <div class="col">
-        <div class="product-name">
-          <a routerLink="/product/{{product.fish.id}}">{{product.fish.name}}</a>
-          <hr class="black-line">
-        </div>
-        <div class="product-description">
-          {{product.fish.description}}
-        </div>
-        <div class="store-details">
-          <p> <a style="color: #585656;" routerLink="/store/{{product.fish.store.id}}" target="_blank"> <img *ngIf="product.fish.store.logo != ''" width="100px" src="{{API}}{{product?.fish?.store?.logo}}" alt="">{{product?.fish?.store?.name}}</a></p>
-        </div>
-      </div>
-      <div class="col" *ngIf="product.fish.country != ''">
-        Shipping from {{findCountryName(product?.fish?.country)}}
-      </div>
-      <div class="col text-center">
-        {{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}
-      </div> 
-      <div class="col">
-        <button class="pink-btn btn-rm" (click)="showConfirmModal(product.id)"> {{'Cart.delete' | translate}}</button>
-      </div>
-    </div>
-  </div>
-  <div class="row" >
-      <div class="col-md-12" style="padding-bottom: 20px;">
-        <hr class="cart-divider">
-      </div>
-      <div class="col-md-3">
-        <button class="pink-btn" (click)="getAllProductsCount()">{{'Cart.update' | translate}}</button>
-      </div>
-      <div class="col-md-7 text-right">
-      </div>
-      <div class="col-md-6"></div>
-      <div class="col-md-6" style="padding-bottom: 20px; padding-top: 20px;">
-        <div class="cart-totals">
-          <h3>Cart Totals</h3>
-          <table>
-            <tr>
-              <td><b>Subtotal</b></td>
-              <td>{{(total) | currency: 'AED'}} </td>
-            </tr>
-            <tr>
-              <td><b>Taxes, Customs and Other Fees</b></td>
-              <td>{{(totalOtherFees) | currency: 'AED'}}</td>
-            </tr>
-            <tr>
-              <td><b>Shipping</b></td>
-              <td>{{(shipping) | currency: 'AED'}}</td>
-            </tr>
-            <tr>
-              <td><b>Total</b></td>
-              <td><b>{{(totalWithShipping) | currency: 'AED'}} </b></td>
-            </tr>
-          </table>
-          
-        </div>
-        <button class="btn-red" (click)="checkout()">Proceed to checkout</button>
-      </div>
-  </div>
-
+      
+      <ng-template #elseBlock>
+        
+          <div class="container-fluid empty-container">
+            <div class="row">
+              <div class="col-lg-12 text-center">
+                <img src="../../assets/svg/undraw_empty_xct9.svg" alt="">
+                <h4>YOUR CART IS EMPTY</h4>
+                <button class="outline-btn" routerLink="/shop">
+                  continue shopping
+                </button>
+              </div>
+            </div>
+          </div>  
+        </ng-template>
 </div>
-
-<div class="modal fade" id="confirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Delete Product</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-				  <span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col">											
-              <h4>Are you sure you would like to delete?</h4>
-							<button type="button" (click)="deleteItem( index, itemToDelete )" class="btn-red-a btn-yes">Yes</button>						
-					</div>					
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<ng-template #elseBlock>
-  
-    <div class="not-found-grid">
-      <p>{{'Cart.empty' | translate}} :(</p>
-    </div>  
-  </ng-template>
