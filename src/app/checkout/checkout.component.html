@@ -1,226 +1,173 @@
-<div class="container">
-    <div style="height: 100px;"></div>
-
-  <div class="row">
-    <div class="col-lg-3">
-      <h1 class="title">Checkout</h1>      
-      <h1 class="subtitle">Billing Details</h1>
-      <div class="shipping-details table-checkout">
-        <h5>Shipping Information</h5>
-        <table>
-          <tr>
-            <td><b> Address</b></td>
-            <td>{{info?.dataExtra?.Address}}</td>
-          </tr>
-          <tr>
-              <td><b>City</b></td>
-              <td>{{info?.dataExtra?.City}}</td>
-            </tr>
-            <tr>
-                <td><b>Country</b></td>
-                <td>{{info?.dataExtra?.country}}</td>
-              </tr>
-              <tr>
-                  <td><b>Zipcode</b></td>
-                  <td>{{info?.dataExtra?.zipCode}}</td>
-                </tr>
-        </table>
-        
-      </div>
-    </div>
-    <div class="col-lg-9">
-        <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
-        <div class="row">
-          <div class="col-lg-12" *ngIf="error">
-            <p class="red">We had an error processing your credit card, please try again</p>
+<div class="gray-bg">
+    <div class="container-fluid">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to shipping</a>
+  
+            </div>
+            <div class="col-md-6 text-right">
+              <img src="../../assets/dots3.png" alt="">
+            </div>
           </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Cardholder Name </label>
-                    <input type="text" class="form-control" name="card_holder_name" required [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" (change)="saveArray()">
-                    
+
+        <div class="row">
+        
+          <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="gray-title" ><span>ENTER PAYMENT</span></h1>
                   </div>
             </div>
-          <div class="col-lg-6">
-              <div class="form-group" [ngClass]="{
-                'bg-red': error
-              }">
-                  <label>Card Number <img height="30px" src="../../assets/cards.png" alt=""></label>
-                  <input (keypress)="validateLength($event, 16, 'card_number')" id="card_number" type="number" class="form-control" name="card_number" required>
-
+              <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
+              <div class="row">
+                <div class="col-lg-12" *ngIf="error">
+                  <p class="red">We had an error processing your credit card, please try again</p>
                 </div>
-          </div>
-          <div class="col-lg-12">
-              <div class="form-group">
-                  <label>Billing Address</label>
-                  <textarea (change)="saveArray()" [(ngModel)]="address"  [ngModelOptions]="{standalone: true}" class="form-control" required placeholder="Fill with your Address, City & State" rows="3"></textarea>
 
-                </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group" [ngClass]="{
-                'bg-red': error
-              }">
-                  <label>Card Security Code</label>
-                  <input (keypress)="validateLength($event, 4, 'card_security_code')" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
+              
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Cardholder Name...*" class="form-control" id="card_holder_name" name="card_holder_name" required [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" (change)="saveArray()">
+                              <label for="card_holder_name">Cardholder Name...*</label>
 
+
+                          </span>
+                          
+                        </div>
+                  </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group" [ngClass]="{
+                      'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <input placeholder="Card Number...*"(keypress)="validateLength($event, 16, 'card_number')" id="card_number" type="number" class="form-control" name="card_number" required>
+
+                        <label for="card_number">Card Number...*</label>
+                      </span>
+                      </div>
                 </div>
-          </div>
-          <div class="col-lg-6">
-              <div class="form-group" [ngClass]="{
-                'bg-red': error
-              }">
-                  <label>Expiration</label>
+               
+                <div class="col-lg-6">
+                    <div class="form-group input-group" [ngClass]="{
+                      'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <input placeholder="Security Code...*"(keypress)="validateLength($event, 4, 'card_security_code')" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
+                        <label for="card_security_code">Security Code...*</label>
+
+                      </span>
+                      </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group" [ngClass]="{
+                      'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <div class="row">
+                          <div class="col-md-6">
+                              <select required placeholder="Month" class="form-control" [(ngModel)]="selectMonth"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                                  <option value="01">01</option>
+                                  <option value="02">02</option>
+                                  <option value="03">03</option>
+                                  <option value="04">04</option>
+                                  <option value="05">05</option>
+                                  <option value="06">06</option>
+                                  <option value="07">07</option>
+                                  <option value="08">08</option>
+                                  <option value="09">09</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                </select>
+                          </div>
+                          <div class="col-md-6">
+                              <select required class="form-control" [(ngModel)]="selectYear"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                                  <option value="" selected>Year</option>
+                                  <option value="19">2019</option>
+                                  <option value="20">2020</option>
+                                  <option value="21">2021</option>
+                                  <option value="22">2022</option>
+                                  <option value="23">2023</option>
+                                  <option value="24">2024</option>
+                                  <option value="25">2025</option>
+                                  <option value="26">2027</option>
+                                  <option value="27">2027</option>
+                                  <option value="28">2028</option>
+                          
+                                </select>
+                          </div>
+                        </div>
+                        <label>Expiration Date...*</label>
+
+                       </span>
+                        <!-- <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()"> -->
+                        <input type="hidden" class="form-control" name="expiry_date" required [(ngModel)]="expiryDate">
+                        <input type="hidden" name="access_code" [(ngModel)]="accessToken">
+                        <input type="hidden" name="language" value="en">
+                        <input type="hidden" name="merchant_identifier" [(ngModel)]="merchantID">
+                        <input type="hidden" name="merchant_reference" [(ngModel)]="randomID">
+                        <input type="hidden" name="service_command" value="TOKENIZATION">
+                        <input type="hidden" name="signature" [(ngModel)]="signatureCode">
+                      </div>
+                </div>
+                
+              </div>
+
+           
+              <div class="cart-price-breakdown">
                   <div class="row">
                     <div class="col-md-6">
-                        <select required placeholder="Month" class="form-control" [(ngModel)]="selectMonth"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
-                            <option value="01">01</option>
-                            <option value="02">02</option>
-                            <option value="03">03</option>
-                            <option value="04">04</option>
-                            <option value="05">05</option>
-                            <option value="06">06</option>
-                            <option value="07">07</option>
-                            <option value="08">08</option>
-                            <option value="09">09</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                          </select>
+                      <div class="prices-row">
+                        <div class="col-lg-12 price-title">
+                            <h4>PRICE BREAKDOWN <span>AED</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
+                          <h4> {{product?.fish?.type?.name}} ({{product.quantity.value}} kg)  
+                              <i class="fa fa-circle" aria-hidden="true"></i>
+                              <input placeholder="ETA" [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd" id="medd{{product.id}}" >
+                            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                            <span>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>SUBTOTAL <span>{{(total) | currency: 'AED'}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>SHIPPING <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                        </div>
+                        
+                      </div>
                     </div>
-                    <div class="col-md-6">
-                        <select required class="form-control" [(ngModel)]="selectYear"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
-                            <option value="" selected>Year</option>
-                            <option value="19">2019</option>
-                            <option value="20">2020</option>
-                            <option value="21">2021</option>
-                            <option value="22">2022</option>
-                            <option value="23">2023</option>
-                            <option value="24">2024</option>
-                            <option value="25">2025</option>
-                            <option value="26">2027</option>
-                            <option value="27">2027</option>
-                            <option value="28">2028</option>
-                    
-                          </select>
+                    <div class="col-md-6 text-right total-row">
+                      <div class="col-lg-12">
+                        <h4>TOTAL</h4>
+                      </div>
+                      <div class="col-lg-12">
+                          <h2>{{(totalWithShipping) | currency: 'AED'}}</h2>
+                        </div>
+                        <div class="col-lg-12">
+                          <button class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
+                            confirm your order
+                          </button>
+                        </div>
                     </div>
                   </div>
-                 
-                  <!-- <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()"> -->
-                  <input type="hidden" class="form-control" name="expiry_date" required [(ngModel)]="expiryDate">
-                  <input type="hidden" name="access_code" [(ngModel)]="accessToken">
-                  <input type="hidden" name="language" value="en">
-                  <input type="hidden" name="merchant_identifier" [(ngModel)]="merchantID">
-                  <input type="hidden" name="merchant_reference" [(ngModel)]="randomID">
-                  <input type="hidden" name="service_command" value="TOKENIZATION">
-                  <input type="hidden" name="signature" [(ngModel)]="signatureCode">
                 </div>
-          </div>
-          
-        </div>
-        <div class="row">
-          <div class="col-lg-12">
-            <input type="checkbox" [(ngModel)]="check" [ngModelOptions]="{standalone: true}"  (change)="onInputChange($event)"> <b>Ship to a different address?</b>
-            <div style="height: 30px;"></div>
-          </div>
-        </div>
-        <div class="row" [hidden]="!showShippingFields">
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>First Name</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Last Name</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Company Name</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-6">
-                <div class="form-group">
-                    <label>Country</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label>Street address</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label>Town / City</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label>State</label>
-                    <input type="text" class="form-control">
-                  </div>
-            </div>
-            <div class="col-lg-12">
-                <div class="form-group">
-                    <label>ZIP</label>
-                    <input type="number" class="form-control">
-                  </div>
-            </div>
-        </div>
-        <div class="row table-checkout">
-          <div class="col-lg-12">
-            <h3>Your order</h3>
-            <table>
-              <tr>
-                  <th>Product</th>
-                  <th>Total</th>
-              </tr>
-              <tr *ngFor="let product of products; index as i;">
-                <td>
-                  {{product?.fish?.type?.name}} <b> × {{product.quantity.value}} kg</b>
-                  <br>
-                  <label>Max Expected Delivery Date: </label>
-                  <input [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd" id="medd{{product.id}}" >
-                  <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
-                </td>
-                <td>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}} </td>
-              </tr>
-              <tr *ngIf="total != ''">
-                <td><b>Subtotal</b></td>
-                <td><b>{{(total) | currency: 'AED'}}</b></td>
-              </tr>
-              <tr *ngIf="shipping !=''"> 
-                <td><b>Shipping</b></td>
-                <td><b>{{(shipping) | currency: 'AED'}}</b></td>
-              </tr>
-              <tr *ngIf="totalOtherFees != ''">
-                <td><b>Taxes, Customs and Other Fees</b></td>
-                <td><b>{{(totalOtherFees) | currency: 'AED'}} </b></td> 
-              </tr>
-              <tr *ngIf="totalWithShipping != ''">
-                <td><b>Total</b></td>
-                <td><b>{{(totalWithShipping) | currency: 'AED'}} </b></td>
-              </tr>
-              
-            </table>
-          </div>
-        </div>
-      
-        <div class="row">
-          <div class="col-lg-6">
-              <button [disabled]="all_medd_ok == false" type="submit" class="btn btn-red">Proceed to Pay</button>
 
+            
+             
+            
+           
+              
+            </form>
           </div>
         </div>
-        
-      </form>
-    </div>
-  </div>
+
+
+       
+      </div>
 </div>
+
