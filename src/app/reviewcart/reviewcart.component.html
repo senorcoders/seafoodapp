@@ -6,7 +6,192 @@
 
           </div>
           <div class="col-md-6 text-right">
-            <img src="../../assets/dots3.png" alt="">
+            <img src="../../assets/dots2-png" alt="">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+              <div class="row">
+                  <div class="col-lg-12 text-center">
+                      <h1 class="gray-title" ><span>SHIPPING ADDRESS</span></h1>
+                    </div>
+              </div>
+            <form ngNativeValidate (ngSubmit)="goToNextPage()">
+              <div class="row">
+                  
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="First Name...*" class="form-control" id="first" name="first_name" required >
+                              <label for="first">First Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Last Name...*" class="form-control" id="last" name="last_name" required >
+                              <label for="last">Last Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Company Name...*" class="form-control" id="company" name="company" required >
+                              <label for="company">Company Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Street Address...*" class="form-control" id="street" name="street" required >
+                              <label for="street">Street Address...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Town/City...*" class="form-control" id="city" name="city" required >
+                              <label for="city">Town/City...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="State...*" class="form-control" id="state" name="state" required >
+                              <label for="city">State...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Zipcode...*" class="form-control" id="zip" name="zip" required >
+                              <label for="zip">Zipcode...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Country...*" class="form-control" id="ct" name="ct" required >
+                              <label for="ct">Country...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                 
+              </div>
+              <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" [(ngModel)]="checked"
+                        [ngModelOptions]="{standalone: true}">
+                        <label class="form-check-label" for="exampleCheck1">Billing address is the same as shipping address</label>
+                      </div>
+                </div>
+                   
+              </div>
+
+              <div class="row" *ngIf="!checked">
+                  <div class="col-lg-12 text-center">
+                      <h1 class="gray-title" ><span>BILLING ADDRESS</span></h1>
+                    </div>
+                  
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="First Name...*" class="form-control" id="first" name="first_name" required >
+                              <label for="first">First Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Last Name...*" class="form-control" id="last" name="last_name" required >
+                              <label for="last">Last Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Company Name...*" class="form-control" id="company" name="company" required >
+                              <label for="company">Company Name...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Street Address...*" class="form-control" id="street" name="street" required >
+                              <label for="street">Street Address...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Town/City...*" class="form-control" id="city" name="city" required >
+                              <label for="city">Town/City...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="State...*" class="form-control" id="state" name="state" required >
+                              <label for="city">State...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Zipcode...*" class="form-control" id="zip" name="zip" required >
+                              <label for="zip">Zipcode...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Country...*" class="form-control" id="ct" name="ct" required >
+                              <label for="ct">Country...*</label>
+                          </span>
+                          
+                        </div>
+                  </div>
+                 
+              </div>
+              <div class="row">
+                  <div class="col-lg-12">
+                      <div class="form-group text-center">
+                        <button class="transparent-btn">proceed to payment</button>
+                      </div>
+                    </div>
+              </div>
+               
+            </form>
           </div>
         </div>
   </div>
