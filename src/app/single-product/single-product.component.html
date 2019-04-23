@@ -32,16 +32,16 @@
             <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
               <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
             <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in
-              {{findCountries(processingCountry)}}. <br> <span *ngIf="preparation != 'Not Applicable'">Whole:
-                {{preparation}}.</span></p>
+              {{findCountries(processingCountry)}}. <br> <span *ngIf="variations[0].wholeFishWeight!==null&&variations[0].wholeFishWeight!==undefined">Whole:
+                {{getPreparation()}}.</span></p>
 
             <div class="tab-content" id="single-tabs">
               <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
                 <div class="row variations" *ngIf="withVariations">
                   <div class="col-12">
-                    <div class="item-variations" (click)="selectTheVariation(variation.fishPreparation.id)"
-                      [ngClass]="selectVariation===variation.fishPreparation.id?'select':''"
-                      *ngFor="let variation of variations">{{variation.fishPreparation.name}}</div>
+                    <div class="item-variations" (click)="selectTheVariation(variation.wholeFishWeight?.id)"
+                      [ngClass]="selectVariation===variation.wholeFishWeight?.id?'select':''"
+                      *ngFor="let variation of variations">{{variation.wholeFishWeight?.name}}</div>
                   </div>
                 </div>
                 <div class="convert-row">Converted from USD <span>AED</span></div>

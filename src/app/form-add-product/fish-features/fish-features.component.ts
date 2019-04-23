@@ -47,9 +47,16 @@ export class FishFeaturesComponent implements OnInit {
     this.getParts();
     this.getTrimmingModal();
   }
+
   getMyData() {
     this.info = this.auth.getLoginData();
     this.getStore();
+  }
+
+  getWholes() {
+    this.productService.getData("wholefishweight").subscribe(it => {
+
+    });
   }
 
   getStore() {
@@ -156,9 +163,10 @@ export class FishFeaturesComponent implements OnInit {
   // }
 
   private getwholeFishWeight() {
-    this.productService.getData("fishpreparation").subscribe(it => {
+    this.productService.getData("wholefishweight").subscribe(it => {
       this.wholeFishs = it as any;
-      console.log(it);
+      this.setValue({ headOffWeight: this.wholeFishs[0].id, headOnWeight: this.wholeFishs[0].id })
+      console.log("wholefishweight", it);
     });
     this.productService.getData("treatment").subscribe(it => {
       this.treatments = it as any;

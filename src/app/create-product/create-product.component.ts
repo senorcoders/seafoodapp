@@ -149,7 +149,7 @@ export class CreateProductComponent implements OnInit {
         }
       } else {
         //Para los ON
-        let fishPreparation = this.trimmings[0].id;
+        let fishPreparation = features.preparation;
         if (variations.on.keys && variations.on.keys.length > 0) {
           for (let it of variations.on.keys) {
             let wholeFishWeight = it;
@@ -176,7 +176,9 @@ export class CreateProductComponent implements OnInit {
         }
       }
       let varationsOne = [{
-        fishPreparation: features.preparation, prices: [
+        fishPreparation: features.preparation,
+        wholeFishWeight: features.head !== 'both' ? features.head === 'off' ? features.headOffWeight : features.headOnWeight : undefined,
+        prices: [
           { min: product.minimunorder, max: product.maximumorder, price: value.features.price }
         ]
       }];
@@ -241,10 +243,9 @@ export class CreateProductComponent implements OnInit {
           this.myform.reset();
           this.router.navigate(['/my-products']);
         }
-
       });
-      this.loading = false;
-      this.ngProgress.done();
+      // this.loading = false;
+      // this.ngProgress.done();
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
