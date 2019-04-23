@@ -5,6 +5,7 @@ import { ToastrService } from '../toast.service';
 import {Router} from '@angular/router';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -15,7 +16,7 @@ export class CartComponent implements OnInit {
   itemToDelete:any;
   buyerId:any;
   products:any = [];
-  empty:boolean = true;
+  empty:boolean;
   showLoading:boolean=true;
   total:any;
   shoppingEnpoint:any = 'shoppingcart/items';
@@ -44,8 +45,10 @@ export class CartComponent implements OnInit {
   totalWithShipping:any;
   index:any;
   userinfo:any;
+  imageCart: any = [];
   constructor(private auth: AuthenticationService, private productService: ProductService,
-    private toast:ToastrService, private router:Router, private cartService:OrderService) { }
+    private toast:ToastrService, private router:Router, private cartService:OrderService, 
+    private sanitizer: DomSanitizer) { }
 
 
   ngOnInit() {
@@ -68,7 +71,7 @@ export class CartComponent implements OnInit {
         if(cart && cart.hasOwnProperty('items')){
           console.log("Si existe");
           if(cart['items'].length > 0){
-            console.log("Si es mayor a cero");
+            console.log("Si es mayor a cero"); 
             this.cart = cart;
             this.shoppingCartId=cart['id']
             this.products=cart['items'];
@@ -82,6 +85,25 @@ export class CartComponent implements OnInit {
             this.shipping = cart['shipping'];
             this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
             this.totalWithShipping = cart['total'];
+            this.products.forEach((data, index) => {
+              setTimeout(() => {
+                console.log( jQuery('#range-' + data.fish.id), data.quantity.value);
+                jQuery('#range-' + data.fish.id).val(data.quantity.value);
+                this.moveBubble(data.fish.id);
+
+              }, 1000);
+
+              jQuery('#range-' + data.fish.id).trigger('change');
+              if (data.fish.imagePrimary && data.fish.imagePrimary != '') {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`);
+              }
+              else if (data.images && data.images.length > 0) {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`);
+              }
+              else {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+              }
+            });
     
             this.hideLoader();
             this.empty = false;
@@ -159,9 +181,10 @@ export class CartComponent implements OnInit {
   }
 
   updatecart(items){
+  
     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
-      // this.getItems()
       console.log( 'result', result );
+    
       this.getTotal();
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
@@ -202,6 +225,91 @@ export class CartComponent implements OnInit {
     }else{
       this.getAllProductsCount();
     }
+  }
+
+
+    //Function to hide span 
+    hideMe(id) {
+      const span = document.getElementById('qty-kg-' + id);
+      const input = document.getElementById('edit-qty-' + id);
+      (span as HTMLElement).style.display = 'none';
+      (input as HTMLElement).style.display = 'inline-block';
+      input.focus();
+    }
+
+     //Functino to enter manual kg
+  manualInput(id, i, max) {
+    let val: any = jQuery('#edit-qty-' + id).val();
+    if (val > max) {
+      val = max;
+    }
+    this.products[i].quantity.value  = val;
+    jQuery('#range-' + id).val(val);
+    this.moveBubble(id);
+    this.getAllProductsCount();
+
+  }
+  //Function to hide input and show span
+  showSpan(id) {
+    const span = document.getElementById('qty-kg-' + id);
+    const input = document.getElementById('edit-qty-' + id);
+    (input as HTMLElement).style.display = 'none';
+    (span as HTMLElement).style.display = 'block';
+  }
+
+
+
+  //JAVASCRIPT FOR SLIDES
+  moveBubble(id){
+    console.log("Id", id);
+    var el, newPoint, newPlace, offset;
+ 
+    jQuery('#range-' + id).on('input', function () {
+   console.log("input");
+     jQuery(this).trigger('change');
+ });
+ // Select all range inputs, watch for change
+ jQuery('#range-' + id).change(function() {
+  console.log("Changing");
+  // Cache this for efficiency
+  el = jQuery(this);
+  
+  // Measure width of range input
+  var width = el.width();
+  console.log("Width", width);
+
+  
+  // Figure out placement percentage between left and right of input
+  newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+  console.log("Move Bubble", parseInt(el.val()), el.attr("max"), el.attr("min"));
+
+   offset = -1;
+ 
+  // Prevent bubble from going beyond left or right (unsupported browsers)
+  if (newPoint < 0) { newPlace = 0; }
+  else if (newPoint > 1) { newPlace = width; }
+  else { newPlace = width * newPoint + offset; offset -= newPoint; }
+  
+  // Move bubble
+  console.log("Move Bubble", newPlace, offset);
+  jQuery('#qty-kg-'+id).css('margin-left', newPlace);
+  jQuery('#edit-qty-'+id).css('margin-left', newPlace);
+
+  })
+  // Fake a change to position bubble at page load
+  .trigger('change');
+  }
+
+   //GET RANGE VALUE ON CHANGE FOR EACH PRODUCT
+   getRange(id, i) {
+    console.log(id, i);
+    let val: any = jQuery('#range-' + id).val();
+    console.log("Range Val", val);
+    this.products[i].quantity.value  = val;
+    this.moveBubble(id);
+
+    console.log("Product in array", this.products[i]);
+    this.getAllProductsCount();
   }
 }
   
