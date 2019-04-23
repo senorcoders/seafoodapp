@@ -233,9 +233,9 @@ export class SingleProductComponent implements OnInit {
       if (data["variations"] !== undefined && data["variations"] !== null && data["variations"].length > 0) {
         this.withVariations = true;
         this.variations = data["variations"];
-        this.selectVariation = this.variations[0].fishPreparation.id;
+        if (this.variations[0].wholeFishWeight !== null && this.variations[0].wholeFishWeight !== undefined)
+          this.selectVariation = this.variations[0].wholeFishWeight.id;
       }
-
       this.getReview();
       this.getPricingCharges();
       this.showLoading = false;
@@ -245,6 +245,16 @@ export class SingleProductComponent implements OnInit {
       this.showLoading = false;
 
     });
+  }
+
+  public getPreparation() {
+    let variation = this.variations.find(it => {
+      if (it.wholeFishWeight !== null && it.wholeFishWeight !== undefined)
+        return it.wholeFishWeight.id === this.selectVariation;
+      return false;
+    });
+    if (variation !== undefined) return variation.fishPreparation.name;
+    return "";
   }
 
   public selectTheVariation(idVariation) {

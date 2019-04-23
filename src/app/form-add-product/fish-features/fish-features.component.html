@@ -47,14 +47,7 @@
       [ngClass]="{'has-danger': controls().headOffWeight.invalid && (controls().headOffWeight.dirty || controls().headOffWeight.touched),'has-success': controls().headOffWeight.valid && (controls().headOffWeight.dirty || controls().headOffWeight.touched)}">
       <span class="has-float-label"> 
           <select id="headoff" class="form-control" formControlName="headOffWeight" required>
-              <!-- <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option> -->
-              <option value="0-1kg">0-1 KG</option>
-              <option value="1-2kg">1-2 KG</option>
-              <option value="2-3kg">2-3 KG</option>
-              <option value="4-5kg">4-5 KG</option>
-              <option value="5-6kg">5-6 KG</option>
-              <option value="6-7kg">6-7 KG</option>
-              <option value="8+kg">8+ KG</option>
+              <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
             </select>
             <label for="headoff">Head Off Weight...</label>
 
@@ -67,14 +60,7 @@
       [ngClass]="{'has-danger': controls().headOnWeight.invalid && (controls().headOnWeight.dirty || controls().headOnWeight.touched),'has-success': controls().headOnWeight.valid && (controls().headOnWeight.dirty || controls().headOnWeight.touched)}">
       <span class="has-float-label"> 
           <select id="headon" class="form-control" formControlName="headOnWeight" required>
-              <!-- <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option> -->
-              <option value="0-1kg">0-1 KG</option>
-              <option value="1-2kg">1-2 KG</option>
-              <option value="2-3kg">2-3 KG</option>
-              <option value="4-5kg">4-5 KG</option>
-              <option value="5-6kg">5-6 KG</option>
-              <option value="6-7kg">6-7 KG</option>
-              <option value="8+kg">8+ KG</option>
+              <option *ngFor="let f of wholeFishs" value="{{f.id}}" selected>{{f.name}}</option>
             </select>
             <label for="headon">Head On Weight...</label>
      
