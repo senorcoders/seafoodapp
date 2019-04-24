@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { OrderService } from '../services/orders.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from '../services/authentication.service';
+import {Location} from '@angular/common';
 
 @Component({
   selector: 'app-reviewcart',
@@ -16,7 +15,7 @@ export class ReviewcartComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-   
+    private _location: Location
 
 
   ) { }
@@ -33,6 +32,10 @@ export class ReviewcartComponent implements OnInit {
   goToNextPage(){
         this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.shoppingCartId}});
 
+  }
+
+  back(){
+    this._location.back();
   }
 
 }
