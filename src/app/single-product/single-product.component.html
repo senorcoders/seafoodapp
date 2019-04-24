@@ -1,12 +1,13 @@
+<div id="bg"></div>
 <div class="gray-bg">
   <div class="content single-product" *ngIf="show; else elseBlock">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" id="content-fixed">
         <div class="wave-loader" *ngIf="showLoading">
           <div class="wave-loading"></div>
         </div>
 
-        <div class="col-lg-6 product-img" *ngIf="!showLoading">
+        <div class="col-lg-6 product-img" id="product-images" *ngIf="!showLoading">
           <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'"
             *ngIf="!images;else slider"></div>
 
@@ -14,12 +15,10 @@
             <div *ngIf="mainImg && mainImg!=''" class="main-featured-img" [style.background-image]="mainImg"></div>
             <div *ngFor="let image of images; index as i;" class="main-featured-img" [style.background-image]="image">
             </div>
-
           </ng-template>
-
         </div>
-        <div class="col-lg-6 product-content" *ngIf="!showLoading">
-          <div class="sticky-div">
+        <div class="col-lg-6 product-content" id="product-content" [hidden]="showLoading">
+          <div id="sticky-div" class="sticky-div">
             <h2 class="product-name">
               {{name}}
               <div *ngIf="role == 0" class="edit-admin">
@@ -27,7 +26,6 @@
                   <fa name="pencil" class="pencil"></fa>Edit
                 </a>
               </div>
-
             </h2>
             <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
               <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
