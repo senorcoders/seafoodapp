@@ -196,7 +196,7 @@
                        
                         <form>
                             <span class="amount-span">{{product.minimumOrder}}</span>
-                            <input id="range-{{product.id}}" name="foo" type="range" class="product-range" [value]="product.minimumOrder" [min]="product.minimumOrder" [max]="product.maximumOrder" (change)="getRange(product.id, i)">
+                            <input id="range-{{product.id}}" name="foo" type="range" class="product-range" [value]="product.minimumOrder" [min]="product.minimumOrder" [max]="product.maximumOrder"  (input)="showRangeVal(product.id, i)" (change)="getRange(product.id, i)">
                             <span class="amount-span">{{product.maximumOrder}}</span>
                             <label id="delivere-price-{{product.id}}">AED 12.99</label>
                         </form>

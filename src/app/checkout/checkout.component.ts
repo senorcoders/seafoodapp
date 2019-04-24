@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Renderer2, Inject } from '@angular/core';
+import { Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import {  ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
-import { CartService } from '../core/cart/cart.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
-import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
+import {Location} from '@angular/common';
+
 declare var jQuery:any;
 
 @Component({
@@ -61,15 +61,12 @@ export class CheckoutComponent implements OnInit {
   formAction: string = '';
   formMethod: string = 'POST';
   constructor(
-    private router: Router,
-    private renderer2: Renderer2,
     @Inject(DOCUMENT) private _document,
     private route: ActivatedRoute,
     private http: HttpClient,
-    private Cart: CartService,
     private auth: AuthenticationService,
     private orders: OrderService,
-    private toast: ToastrService,
+    private _location: Location,
     dateAdapter: DateTimeAdapter<any>) {  
     this.min.setDate( this.today.getDate() + 3 );
     this.max.setDate( this.today.getDate() + 120 );
@@ -326,4 +323,7 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
+  back(){
+    this._location.back();
+  }
 }

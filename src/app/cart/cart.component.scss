@@ -345,6 +345,68 @@
     
 }
 
+.modal-confirm{
+    border-radius: 10px;
+    .modal-dialog{
+        max-width: 900px !important;
+        width: 100%;
+    }
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        height: 350px;
+        .modal-header{
+            border: none;
+            padding: 50px 1rem;
+            .modal-title{
+                text-align: center;
+                font-family: 'Josefin Sans', sans-serif;
+                width: 100%;
+                color: #7484AA;
+                font-weight: 300;
+                padding: 20px;
+                font-size: 38px;
+                letter-spacing: 1.15px;
+                line-height: 45px;
+            }
+        }
+
+        .modal-body{
+            padding-bottom: 30px;
+        }
+
+        .text-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .blue-btn-light{
+                width: 175px;
+                background: #ffffff !important;
+                text-transform: uppercase;
+                font-family: 'Josefin Sans', sans-serif;
+                border-radius: 5px;
+                outline: none;
+                color: #7484AA !important;
+                border: 2px solid #7484AA !important;
+                font-weight: 300;
+                margin-right: 10px !important;
+                font-size: 18px !important;
+                letter-spacing: 1.5px;
+                line-height: 25px;
+                height: 60px !important;
+            }
+
+            .blue-btn-light:hover{
+                background: #3E4E75 !important;
+                border: 2px solid #3E4E75 !important;
+                color: #ffffff !important;
+            }
+        
+    }
+}
+
 //GENERAL INPUT RANGE CSS FOR ALL SHOP COMPONENT
 
 input[type=range] {

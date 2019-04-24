@@ -2,7 +2,7 @@
     <div class="container-fluid">
         <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
             <div class="col-md-6">
-                <a routerLink="/shop" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to payment</a>
+                <a (click)="back()" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to payment</a>
   
             </div>
             <div class="col-md-6 text-right">
@@ -81,7 +81,7 @@
                       <h2>{{(totalWithShipping) | currency: 'AED'}}</h2>
                     </div>
                     <div class="col-lg-12">
-                      <button class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
+                      <button class="transparent-btn" type="submit">
                        complete checkout
                       </button>
                     </div>

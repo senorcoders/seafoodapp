@@ -124,6 +124,39 @@ export class CartComponent implements OnInit {
     
   }
 
+  //FUNCTION TO GET ONLY THE TOTALS WHEN CHANGING QTY OF A PRODUCT
+  getTotalPricing(){
+      this.cartService.getCart( this.buyerId )
+      .subscribe(
+  
+        cart=> {
+          if(cart && cart.hasOwnProperty('items')){
+            if(cart['items'].length > 0){
+             
+              this.lastMilteCost = cart['lastMileCost'];
+              this.firstMileCost = cart['firstMileCosts'];
+              this.sfsMargin = cart['sfsMargin'];
+              this.uaeTaxes = cart['uaeTaxes'];
+              this.customs = cart['customs'];
+              this.total= cart['subTotal'];
+              this.shipping = cart['shipping'];
+              this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
+              this.totalWithShipping = cart['total'];
+            
+      
+             
+              
+            }
+          } 
+         
+        },
+        error=> {
+          console.log( error );
+        }
+      )
+      
+    
+  }
   hideLoader(){
     this.showLoading=false;
           this.empty = true;
@@ -185,7 +218,7 @@ export class CartComponent implements OnInit {
     this.productService.updateData(this.shoppingEnpoint, items).subscribe(result => {
       console.log( 'result', result );
     
-      this.getTotal();
+      this.getTotalPricing();
     }, error => {
       this.toast.error("Error updating cart!", "Error",{positionClass:"toast-top-right"} );
 
@@ -310,6 +343,11 @@ export class CartComponent implements OnInit {
 
     console.log("Product in array", this.products[i]);
     this.getAllProductsCount();
+  }
+
+  showRangeVal(id, i){
+    let val: any = jQuery('#range-' + id).val();
+    this.products[i].quantity.value  = val;
   }
 }
   

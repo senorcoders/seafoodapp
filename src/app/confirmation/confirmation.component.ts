@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { Renderer2, Inject } from '@angular/core';
+import {  Inject } from '@angular/core';
 import { DOCUMENT } from '@angular/platform-browser';
 
 import * as shajs from 'sha.js';
@@ -66,7 +66,7 @@ export class ConfirmationComponent implements OnInit {
     private router: Router,
     private toast: ToastrService,
     private Cart: CartService,
-    private renderer2: Renderer2,
+    private _location:Location,
     @Inject(DOCUMENT) private _document,
     handler: HttpBackend) { 
       this.httpO = new HttpClient(handler);
@@ -313,6 +313,10 @@ export class ConfirmationComponent implements OnInit {
 
     getTotalxItem(count, price) {
       return (count * price);
+    }
+
+    back(){
+      this._location.back();
     }
 
 }
