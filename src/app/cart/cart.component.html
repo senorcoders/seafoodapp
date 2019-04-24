@@ -35,7 +35,7 @@
                          
                           <form>
                               <span class="amount-span">{{product.fish.minimumOrder}}</span>
-                              <input id="range-{{product.fish.id}}"  type="range" class="product-range" value="{{product.quantity.value}}" [min]="product.fish.minimumOrder" [max]="product.fish.maximumOrder" (change)="getRange(product.fish.id, i)">
+                              <input id="range-{{product.fish.id}}"  type="range" class="product-range"  [value]="product.quantity.value" [min]="product.fish.minimumOrder" [max]="product.fish.maximumOrder" (input)="showRangeVal(product.fish.id, i)" (change)="getRange(product.fish.id, i)">
                               <span class="amount-span">{{product.fish.maximumOrder}}</span>
                           </form>
                     </div>

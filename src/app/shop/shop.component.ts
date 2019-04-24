@@ -381,6 +381,13 @@ export class ShopComponent implements OnInit {
     console.log("Product in array", this.products[i]);
     this.getShippingRates(val, id);
   }
+
+  showRangeVal(id, i){
+    let val: any = jQuery('#range-' + id).val();
+    this.moveBubble(id);
+    this.products[i].qty = val;
+
+  }
   //GET the shipping rates
   getShippingRates(weight, id) {
     this.productService.getData(`api/fish/${id}/charges/${weight}`).subscribe(result => {

@@ -311,5 +311,10 @@ export class CartComponent implements OnInit {
     console.log("Product in array", this.products[i]);
     this.getAllProductsCount();
   }
+
+  showRangeVal(id, i){
+    let val: any = jQuery('#range-' + id).val();
+    this.products[i].quantity.value  = val;
+  }
 }
   
