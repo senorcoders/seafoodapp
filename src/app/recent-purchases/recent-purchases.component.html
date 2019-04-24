@@ -93,7 +93,7 @@
 											<button *ngIf="item.items[0].updateInfo != null"
 												[className]="item.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
 												(click)="openShippingModal(item.items[0].id, i, 'pending' )">
-												<img class="alert-circle order-icon"
+												<img class="alert-circle order-icon" *ngIf="item.items[0].shippingFiles == null"
 													src="../../assets/svg/alert-circle.svg" alt="">
 												ATTACH FILES
 											</button>
@@ -152,7 +152,7 @@
 															<button *ngIf="sub.updateInfo != null"
 																[className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'"
 																(click)="openShippingModal(sub.id, i, 'pending', subi)">
-																<img class="alert-circle order-icon"
+																<img class="alert-circle order-icon" *ngIf="sub.shippingFiles == null"
 																	src="../../assets/svg/alert-circle.svg" alt="">
 																ATTACH FILES
 															</button>
@@ -224,7 +224,7 @@
 											*ngIf="shipped.items[0].updateInfo != null">
 											<button (click)="openShippingModal(shipped.items[0].id, i, 'shipped')"
 												[className]="shipped.items[0].shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
-												<img class="alert-circle order-icon"
+												<img class="alert-circle order-icon" *ngIf="shipped.items[0].shippingFiles == null"
 													src="../../assets/svg/alert-circle.svg" alt="">
 												ATTACH FILES
 											</button>
@@ -287,7 +287,7 @@
 															<button
 																(click)="openShippingModal(sub.id, i, 'shipped', subi)"
 																[className]="sub.shippingFiles == null ? 'red-text-btn' : 'gray-text-btn'">
-																<img class="alert-circle order-icon"
+																<img class="alert-circle order-icon" *ngIf="sub.shippingFiles == null"
 																	src="../../assets/svg/alert-circle.svg" alt="">
 																ATTACH FILES
 															</button>
