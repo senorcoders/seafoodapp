@@ -329,32 +329,15 @@ const menuBuyer = [
       }
     }
   }, {
-    state: 'my-orders',
-    type: 'sub',
+    state: 'orders',
+    type: 'link',
     icon: 'box.svg',
-    children: [
-      {
-        state: 'orders',
-        name: 'My Orders',
-        translate: { en: { name: 'My Orders' }, ar: { name: 'My Orders' } }
-      },
-      /*{
-        state: 'items-status',
-        name: 'Items Status',
-        translate: { en: { name: 'Items Status' }, ar: { name: 'Items Status' } }
-      },*/
-      {
-        state: 'historical-orders',
-        name: 'Historical Orders',
-        translate: { en: { name: 'Historical Orders' }, ar: { name: 'Historical Orders' } }
-      }
-    ],
     translate: {
       en: {
-        name: 'My Orders'
+        name: 'Orders'
       },
       ar: {
-        name: 'My Orders'
+        name: 'Orders'
       }
     }
   }

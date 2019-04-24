@@ -1,53 +1,101 @@
-<div class="bg">
-<div class="container">
+<div class="gray-bg">
+<div class="container-fluid orders-tabs">
+	<div class="row" *ngIf="showLoading; else productshow">
+		<div class="wave-loader" >
+			<div class="wave-loading"></div>
+		</div>
+	</div>
+	<ng-template #productshow>
+
+
 	<div class="row">
-		<div class="col-12">
-			<h2 class="black-title">{{'Orders.title' | translate}}</h2>
-		</div>
-	</div>
-	<div class="row" style="position:relative; min-height: 50vh;" *ngIf="showLoading">
-		<div class="col">
-				<div class="wave-loader" >
-						<div class="wave-loading"></div>
-					</div>
-		</div>
-	</div>
-	<div *ngIf="showData">
-		<div class="row">
 			<div class="col-12">
-				<input type="text" placeholder="Filter by order number" class="filter-field" [(ngModel)]="searchText">
-			</div>
-			<div class="col-12">
-					<div class="col-12 table-design">
-						<div  *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
-								<div class="row row-bg" *ngIf="shoppingCart.items.length > 0">
-										<div class="col">
-												<img [src]="getImage(shoppingCart)" alt="" class="shoppingcart">
-										</div>
-										<div class="col">
-											<p class="order-number">Order #{{shoppingCart.orderNumber}}</p>
-											<h5 [innerHtml]="getLength(shoppingCart) ? shoppingCart?.items.length + ' Products' : shoppingCart?.items[0]?.fish.name "></h5>
-										</div>
-										<div class="col date-span">
-											<span >Purchased on:<br> {{shoppingCart.updatedAt | date: 'EEEE, MMMM d, y, HH:mm'}}</span>
-											</div>
-										<div class="col">
-											<span *ngIf="shoppingCart.orderStatus" >{{shoppingCart.orderStatus.status | uppercase}}</span>
-										</div>
-										<div class="col">
-												<span class="price">{{shoppingCart.total | currency: 'AED'}}</span>
-										</div>
-										<div class="col">
-												<a routerLink="/orders-items/{{shoppingCart.id}}" class="btn-red-a">{{'Orders.see-button' | translate}}</a>
-			
-										</div>
-									</div>
-						</div>
-						
-					</div>
+					<input type="text" placeholder="Filter by order number" class="filter-field" [(ngModel)]="searchText">
 				</div>
-			</div>
-		
+		<div class="col-lg-12">
+				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
+								aria-controls="pending" aria-selected="true">open <span
+									*ngIf="shoppingCarts.length > 0">({{shoppingCarts.length}})</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
+								aria-controls="purchased" aria-selected="false">complete <span
+									*ngIf="orders.length > 0">({{orders.length}})</span></a>
+						</li>
+						
+					</ul>
+	
+		<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+						<table class="table" *ngIf="showData; else noProduct">
+							<thead>
+								<tr>
+									<th scope="col">Order</th>
+									<th scope="col">Date</th>
+									<th scope="col">status</th>
+									<th scope="col">product</th>
+									<th scope="col">total (aed)</th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
+								<tr>
+									<td><button class="clear-btn" style="float:left;"><img src="../../assets/svg/printer.svg" alt=""></button>{{shoppingCart?.orderNumber}}</td>
+									<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
+									<td>{{shoppingCart.orderStatus.status}}</td>
+									<td >{{shoppingCart?.items.length}} items</td>
+									<td >{{shoppingCart.total | currency: 'AED'}} <button class="clear-btn"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
+	
+								</tr>
+							</tbody>
+						</table>
+						<ng-template #noProduct>
+							<div class="row">
+								<div class="col-12">
+									<h4 class="black-title">There are no orders yet</h4>
+								</div>
+							</div>
+						</ng-template>
+				</div>
+				<div class="tab-pane" id="purchased" role="tabpanel" aria-labelledby="purchased-tab">
+						<table class="table" *ngIf="!showNoData; else noProductH">
+								<thead>
+									<tr>
+										<th scope="col">Order</th>
+										<th scope="col">product</th>
+										<th scope="col">seller</th>
+										<th scope="col">status</th>
+										<th scope="col">qty</th>
+										<th scope="col">total (aed)</th>
+									</tr>
+								</thead>
+								<tbody *ngFor="let item of orders  ;let i=index ">
+									<tr>
+										<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;"><img src="../../assets/svg/printer.svg" alt=""></button>{{item.shoppingCart.orderNumber}}</td>
+										<td>{{item.fish.name}}</td>
+										<td *ngIf="item.store">{{item.store.name}}</td>
+										<td *ngIf="item.status">{{item.status.status}}</td>
+										<td >{{item.quantity.value}} kg </td>
+										<td>{{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED '}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<ng-template #noProductH>
+								<div class="row">
+									<div class="col-12">
+										<h4 class="black-title">There are no orders yet</h4>
+									</div>
+								</div>
+							</ng-template>
+				</div>
+		</div>
 	</div>
+	</div>
+		
+	
+		
+	
+	</ng-template>
 </div>
 </div>
