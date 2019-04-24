@@ -9,9 +9,7 @@
 
 
 	<div class="row">
-			<div class="col-12">
-					<input type="text" placeholder="Filter by order number" class="filter-field" [(ngModel)]="searchText">
-				</div>
+			
 		<div class="col-lg-12">
 				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
 						<li class="nav-item">
@@ -24,12 +22,79 @@
 								aria-controls="purchased" aria-selected="false">complete <span
 									*ngIf="orders.length > 0">({{orders.length}})</span></a>
 						</li>
+						<div class="filter-field">
+							<input type="text" placeholder="Search by order number..."  [(ngModel)]="searchText">
+							<img src="../../assets/svg/magnify.svg" alt="">
+						</div>
+
 						
 					</ul>
 	
 		<div class="tab-content" id="myTabContent">
 				<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
-						<table class="table" *ngIf="showData; else noProduct">
+					<div class="col-lg-12" id="child-table" >
+							<table class="table">
+									<thead>
+											<tr>
+												<th scope="col">product</th>
+												<th scope="col">seller</th>
+												<th scope="col">status</th>
+												<th scope="col">qty</th>
+												<th scope="col">price / kg</th>
+												<th scope="col">total (aed)</th>
+											</tr>
+										</thead>
+										<tbody *ngFor="let item of items ;let i=index ">
+											<tr >
+													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/left-arrow.svg" alt=""></button>name</td>
+													<td>seller name</td>
+													<td>status</td>
+													<td>{{item.quantity.value}} kg</td>
+													<td>{{item.price.value | currency: 'AED'}}</td>
+													<td>{{item.total | currency: 'AED'}} <button *ngIf="item.status == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
+											</tr>
+											
+										</tbody>
+										
+							</table>
+							<div class="row pricing-row">
+									<div class="col-lg-6"></div>
+									<div class="col-lg-6">
+										<div class="row">
+											<div class="col-lg-12">
+												<h4 class="pricing-title">
+														PRICE BREAKDOWN <span>AED</span>
+												</h4>
+											</div>
+											<div class="col-lg-12">
+													<h4 class="pricing-item">
+															SUBTOTAL <span>{{subtotal | currency: 'AED'}}</span>
+													</h4>
+												</div>
+												<div class="col-lg-12">
+														<h4 class="pricing-item">
+																TAXES, CUSTOMS, & FEES <span>{{fees | currency: 'AED'}}</span>
+														</h4>
+													</div>
+													<div class="col-lg-12">
+															<h4 class="pricing-item">
+																	SHIPPING <span>{{shipping | currency: 'AED'}}</span>
+															</h4>
+														</div>
+														<div class="col-lg-12">
+																<h4 class="pricing-total">
+																		TOTAL <span>{{total | currency: 'AED'}}</span>
+																</h4>
+															</div>
+												
+											
+										</div>
+									</div>
+								</div>
+
+					</div>
+						
+						<table id="open-table" class="table" *ngIf="showData; else noProduct">
 							<thead>
 								<tr>
 									<th scope="col">Order</th>
@@ -45,7 +110,7 @@
 									<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
 									<td>{{shoppingCart.orderStatus.status}}</td>
 									<td >{{shoppingCart?.items.length}} items</td>
-									<td >{{shoppingCart.total | currency: 'AED'}} <button class="clear-btn"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
+									<td >{{shoppingCart.total | currency: 'AED'}} <button class="clear-btn" (click)="openChild(shoppingCart.items, shoppingCart.subTotal, shoppingCart.shipping, shoppingCart.totalOtherFees, shoppingCart.total)"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
 	
 								</tr>
 							</tbody>

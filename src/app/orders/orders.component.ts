@@ -28,6 +28,11 @@ export class OrdersComponent implements OnInit {
   selectedStatus: string;
   selectedItemID: string;
   showNoData: boolean = false;
+  items:any = [];
+  subtotal: any;
+  shipping: any;
+  fees: any;
+  total: any;
   constructor(private productService: ProductService, private Cart: CartService, private auth: AuthenticationService,
     private orderService: OrderService,
     private toast: ToastrService,) { }
@@ -240,5 +245,35 @@ export class OrdersComponent implements OnInit {
         }
       );
     }
+  }
+
+  //OPEN ITEMS OF AN ORDER
+
+  openChild(items, subtotal, shipping, fees, total){
+    this.items = items;
+    this.subtotal = subtotal;
+    this.shipping = shipping;
+    this.fees = fees;
+    this.total = total;
+    jQuery('#open-table').hide(); 
+    jQuery('#child-table').show();
+
+  }
+  hideChild(){
+    jQuery('#child-table').hide(); 
+    jQuery('#open-table').show();
+  }
+
+  //CANCELING A SINGLE ORDER ITEM
+  cancelOrder( itemID: string ) {
+    this.orderService.updateStatus ( '5c017b5a47fb07027943a40c', itemID, this.userData ).subscribe(
+      res => {
+        this.toast.success('The item was cancelled', 'Well Done', { positionClass: 'toast-top-right' });
+      },
+      error => {
+        this.toast.error( 'Something wrong happened, Please try again', 'Error', { positionClass: 'toast-top-right' } );
+        console.log( error );
+      }
+    );
   }
 }
