@@ -84,10 +84,7 @@ export class SingleProductComponent implements OnInit {
   public variations = [];
   public selectVariation = '';
 
-  //Para cuando se vaya a otra pagina quitar el css del footer y funciones
-  @HostListener('window:beforeunload') quitFn() {
-    $("app-footer").css({ position: "relative", width: "100%" });
-  }
+  public inter:any;
 
   constructor(
     private route: ActivatedRoute,
@@ -100,25 +97,29 @@ export class SingleProductComponent implements OnInit {
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
     private cartService: OrderService) {
+    //Para cuando se vaya a otra pagina quitar el css del footer y funciones
+    this.router.events.subscribe(it => {
+      $("app-footer").css({ position: "relative", top: "auto" });
+      clearInterval(this.inter);
+    });
   }
 
   ngAfterViewInit() {
-    //Agregamos esto al footer para que mantenga posicion
-    $("app-footer").css({ top: 0, position: "absolute", width: "100%" });
+
 
     $("#content-fixed").css("height", $(window).height());
-    let i = setInterval(this.loadingImage.bind(this), 5000);
-    setTimeout(() => {
-      clearInterval(i);
-    }, (2 * 60) * 1000);
+    $("#sticky-div").css("height", $(window).height());
+    this.inter = setInterval(this.loadingImage.bind(this), 500);
 
     //Para checkar cuando el footer es visible
     $(window).scroll(function () {
-      if (isScrolledIntoView($("app-footer"))) {
-        $("#sticky-div").addClass("no");
-      }
-      else {
-        $("#sticky-div").removeClass("no");
+      if($(window).width() > 991){
+        if (isScrolledIntoView($("app-footer"))) {
+          $("#sticky-div").addClass("no");
+        }
+        else {
+          $("#sticky-div").removeClass("no");
+        }
       }
     });
 
@@ -133,14 +134,28 @@ export class SingleProductComponent implements OnInit {
       var elemBottom = elemTop + $elem.height();
 
       // return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-      console.log(elemTop, docViewBottom);
+      // console.log(elemTop, docViewBottom);
       return elemTop <= docViewBottom;
     }
+
   }
 
   loadingImage() {
-    console.log($("#product-images").height());
-    $("app-footer").css("top", $("#product-images").height()+200);
+    if ($(window).width() <= 991) {
+      $("app-footer").css({
+        top: $("#product-content").height()+ $("#product-images").height() + 200,
+        position: "absolute",
+        width: "100%"
+      });
+    } else {
+      //Agregamos esto al footer para que mantenga posicion
+      $("app-footer").css({
+        top: $("#product-images").height() + 200,
+        position: "absolute",
+        width: "100%"
+      });
+    }
+
   }
 
   ngOnInit() {

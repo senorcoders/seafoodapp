@@ -1,3 +1,4 @@
+<div id="bg"></div>
 <div class="gray-bg">
   <div class="content single-product" *ngIf="show; else elseBlock">
     <div class="container-fluid">
@@ -16,7 +17,7 @@
             </div>
           </ng-template>
         </div>
-        <div class="col-lg-6 product-content" *ngIf="!showLoading">
+        <div class="col-lg-6 product-content" id="product-content" [hidden]="showLoading">
           <div id="sticky-div" class="sticky-div">
             <h2 class="product-name">
               {{name}}
@@ -25,7 +26,6 @@
                   <fa name="pencil" class="pencil"></fa>Edit
                 </a>
               </div>
-
             </h2>
             <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
               <span>{{(priceValue/currentExchangeRate).toFixed(2)}} / kg</span></h5>
