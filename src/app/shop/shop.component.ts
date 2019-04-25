@@ -8,7 +8,6 @@ import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';
 import { Router } from '@angular/router';
-import { NgProgress } from 'ngx-progressbar';
 
 declare var jQuery;
 @Component({
@@ -76,12 +75,10 @@ export class ShopComponent implements OnInit {
   public loading:boolean = true;
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
-    private countryservice: CountriesService, private router: Router,
-    public ngProgress: NgProgress) {
+    private countryservice: CountriesService, private router: Router) {
   }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
-    this.ngProgress.start();
     this.userInfo = this.auth.getLoginData();
     this.buyerId = this.userInfo['id'];
     this.getCart();
@@ -96,7 +93,6 @@ export class ShopComponent implements OnInit {
     console.log("Aqui deberia carga el JS");
     setTimeout(() => this.chargeJS(), 1000);
     this.loading = false;
-    this.ngProgress.done();
 
     //JAVASCRIPT FOR FILTER
     
