@@ -192,8 +192,18 @@ export class AvancedPricingComponent implements OnInit {
 
   private setOptionsInAll() {
     let itereOptions = function (it) {
-      if (Object.prototype.toString.call(it) === '[object Object]')
-        it.options = Object.assign({}, this.options);
+      if (Object.prototype.toString.call(it) === '[object Object]'){
+        if(it.min < this.options.floor){
+          it.min = this.options.floor;
+          if(it.max < it.min){
+            it.max = it.min+ 1;
+          }
+        }
+        let op = Object.assign({}, this.options);
+        // console.log(op);
+        it.options = op;
+      }
+      console.log(it);
       return it;
     };
 
@@ -257,7 +267,7 @@ export class AvancedPricingComponent implements OnInit {
 
     for (let k of keys) {
       if (data[k] === undefined) {
-        data[k] = [{ min: 1, max: 2, price: 45, options: Object.assign({}, this.options) }];
+        data[k] = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
         try {
           (this.parentForm.form.controls.price as FormGroup)
             .addControl(k + this.identifier, new FormGroup(this.controlsArray(data[k])));
@@ -283,7 +293,7 @@ export class AvancedPricingComponent implements OnInit {
 
     for (let k of keys) {
       if (this.trimWeights[k] === undefined) {
-        this.trimWeights[k] = [{ min: 1, max: 2, price: 45, options: Object.assign({}, this.options) }];
+        this.trimWeights[k] = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
         try {
           (this.parentForm.form.controls.price as FormGroup)
             .addControl(k + this.identifierTrim, new FormGroup(this.controlsArray(this.trimWeights[k])));
@@ -592,7 +602,7 @@ export class AvancedPricingComponent implements OnInit {
       }, 500);
     }
     this.manualRefresh.emit();
-    this.zone.run(function(){ console.log("emit"); });
+    this.zone.run(function(){ /*console.log("emit");*/ });
   }
 
   private setValue(value) {

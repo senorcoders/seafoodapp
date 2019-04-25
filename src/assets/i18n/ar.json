@@ -197,7 +197,9 @@
 		"description": "Descriptor",
 		"advancepricing": "advanced pricing",
 		"back": "Back",
-		"trimming": "Trimming..."
+		"trimming": "Trimming...",
+		"unitOfSale": "Unit of Sale...",
+		"averageUnitWeight": "Average Unit Weight (kg)..."
 	},
 	"SingleProduct":{
 		"add":"Add to cart",
