@@ -8,6 +8,7 @@ import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';
 import { Router } from '@angular/router';
+
 declare var jQuery;
 @Component({
   selector: 'app-shop',
@@ -16,7 +17,7 @@ declare var jQuery;
 })
 export class ShopComponent implements OnInit {
   products: any;
-  showLoading: boolean = true;
+  showLoading: boolean;
   showNotFound: boolean = false;
   image: SafeStyle = [];
   searchPage = 1;
@@ -71,7 +72,10 @@ export class ShopComponent implements OnInit {
   raised:any = [];
   isDisabled= false;
   tmpPrice: any;
-  constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private router: Router) {
+  public loading:boolean = true;
+  constructor(private auth: AuthenticationService, private productService: ProductService, 
+    private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
+    private countryservice: CountriesService, private router: Router) {
   }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
@@ -86,7 +90,9 @@ export class ShopComponent implements OnInit {
     await this.getCountries();
     await this.getFishCountries();
     await this.getParentsCat();
-
+    console.log("Aqui deberia carga el JS");
+    setTimeout(() => this.chargeJS(), 1000);
+    this.loading = false;
 
     //JAVASCRIPT FOR FILTER
     
@@ -106,23 +112,19 @@ export class ShopComponent implements OnInit {
   }
   //Create pills
   async createPills(id, val, name) {
-    console.log(id, val, jQuery('#' + id));
     let value = jQuery(val).val();
     await this.getTypeName(value, name);
     jQuery('#' + id).css('display', 'inline-block');
   }
   createPillCheckbox(id, val, name, array) {
     let value = [];
-    console.log("index", jQuery(val).val());
     if (jQuery(val).val() != undefined) {
       jQuery(val).each(function (i) {
         let item = array.filter(obj => {
           return obj.id == jQuery(this).val();
         })
-        console.log(item);
         value[i] = item[0]['name'] + " ";
       });
-      console.log("value", value);
       jQuery('#' + id + ' button span').html(value);
       jQuery('#' + id).css('display', 'inline-block');
     }
@@ -139,7 +141,6 @@ export class ShopComponent implements OnInit {
   async getTypeName(id, name) {
     await new Promise((resolve, reject) => {
       this.productService.getData(`/fishType/${id}`).subscribe(res => {
-        console.log("Name", res);
         if (name == 'tmpCatName') {
           this.tmpCatName = res['name'];
         }
@@ -160,9 +161,7 @@ export class ShopComponent implements OnInit {
   }
   //CHARGE LATE JS
   chargeJS() {
-    console.log("Cargando JS");
     jQuery('.input-preparation:checkbox').on('change', (e) => {
-      console.log(e);
       this.showClear = true;
       this.filterProducts();
       this.createPillCheckbox('pill-preparation', '.input-preparation:checkbox:checked', 'preparation', this.preparataion);
@@ -185,8 +184,8 @@ export class ShopComponent implements OnInit {
       this.createPillRadio('pill-country', 'input[type=radio][name=country]:checked');
     });
     jQuery('input[type=radio][name=cat]').change((e) => {
+      console.log("Changing cat");
       e.stopImmediatePropagation();
-      console.log("Changing cat", jQuery('input[type=radio][name=cat]:checked').val());
       this.showClear = true;
       const subcategorySelected = e.target.value;
       if (subcategorySelected === 0) {
@@ -205,7 +204,6 @@ export class ShopComponent implements OnInit {
     jQuery('input[type=radio][name=subcat]').on('change', (e) => {
       e.stopImmediatePropagation();
 
-      console.log("Changing subcat");
       this.showClear = true;
       const specie = e.target.value;
        this.filterProducts();
@@ -220,7 +218,6 @@ export class ShopComponent implements OnInit {
     jQuery('input[type=radio][name=specie]').on('change', (e) => {
       e.stopImmediatePropagation();
 
-      console.log("Changing specie");
       this.showClear = true;
       const variant = e.target.value;
       this.getOnChangeLevel(variant);
@@ -238,7 +235,6 @@ export class ShopComponent implements OnInit {
     });
     jQuery('input[type=radio][name=variant]').on('change', (e) => {
       e.stopImmediatePropagation();
-      console.log("Changing variant");
       this.showClear = true;
       this.filterProducts();
       this.createPills('pill-variant', 'input[type=radio][name=variant]:checked', 'tmpVariant');
@@ -252,9 +248,7 @@ export class ShopComponent implements OnInit {
       console.log("Cart", cart);
       this.cart = cart;
       if (cart && cart.hasOwnProperty('items')) {
-        console.log("Si existe");
         if (cart['items'].length > 0) {
-          console.log("Si es mayor a cero");
           this.shoppingCartId = cart['id'];
           this.productsCart = cart['items'];
           this.total = cart['subTotal'];
@@ -285,7 +279,6 @@ export class ShopComponent implements OnInit {
     this.filteredItems = [];
     await new Promise((resolve, reject) => {
       this.countryservice.getCountries().subscribe(result => {
-        console.log("ALl countries", result);
         this.allCountries = result;
         resolve();
       }, error => {
@@ -298,7 +291,6 @@ export class ShopComponent implements OnInit {
   async getFishCountries() {
     await new Promise((resolve, reject) => {
     this.productService.getFishCountries().subscribe(result => {
-      console.log("Countries", result);
       const filterCountries: any = [];
       this.allCountries.map(country => {
         const exists = Object.keys(result).some(function (k) {
@@ -309,7 +301,6 @@ export class ShopComponent implements OnInit {
           return country;
         }
       });
-      console.log(filterCountries);
       this.countries = filterCountries;
       this.filteredItems = this.countries;
       resolve();
@@ -323,7 +314,6 @@ export class ShopComponent implements OnInit {
   }
   //GET all of the products
   getProducts(cant, page) {
-    console.log("Page", page);
     const data = {
       pageNumber: page,
       numberProduct: cant
@@ -351,7 +341,6 @@ export class ShopComponent implements OnInit {
           else {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
           }
-          console.log(this.image);
         });
       }
     }, e => {
@@ -373,14 +362,11 @@ export class ShopComponent implements OnInit {
   }
   //GET RANGE VALUE ON CHANGE FOR EACH PRODUCT
   getRange(id, i, variation) {
-    console.log(id, i);
     let val: any = jQuery('#range-' + variation).val();
    
     this.moveBubble(variation);
-    console.log("Range Val", val);
     this.products[i].qty = val;
     this.showQty = true;
-    console.log("Product in array", this.products[i]);
     this.getShippingRates(val, id, variation, i);
   }
 
@@ -395,14 +381,12 @@ export class ShopComponent implements OnInit {
   //GET the shipping rates
   getShippingRates(weight, id, variation, i) {
     this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}`).subscribe(result => {
-      console.log("Shipping rates", result);
       this.tmpPrice = result['price'];
       const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
       const priceT: any = Number(priceTByWeight.toFixed(2)).toString();
       const finalPrice:any = Number(result['finalPrice'].toFixed(2)).toString();;
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
-      console.log("finalprice", finalPrice);
       jQuery('#product-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
@@ -418,7 +402,6 @@ export class ShopComponent implements OnInit {
   }
   //Save product in current usar cart
   addToCart(product) {
-    console.log("Producto", product);
     this.isDisabled = true;
     const item = {
       'fish': product.id,
@@ -471,7 +454,6 @@ export class ShopComponent implements OnInit {
     (span as HTMLElement).style.display = 'block';
   }
   onUserChangeEnd(changeContext: ChangeContext): void {
-    console.log("changeContext", changeContext);
     jQuery('#minPriceValue').val(changeContext.value);
     jQuery('#maxPriceValue').val(changeContext.highValue);
     this.filterProducts();
@@ -520,7 +502,6 @@ export class ShopComponent implements OnInit {
     if (maximumOrder === '') {
       maximumOrder = '0';
     }
-    console.log("AMOUNT", minimumOrder, maximumOrder);
     if (cat === '0' &&
       subcat === '0' &&
       specie === '0' &&
@@ -541,7 +522,6 @@ export class ShopComponent implements OnInit {
       this.products = [];
       this.image = [];
       this.productService.filterFish(cat, subcat, specie, variant, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon).subscribe(result => {
-        console.log("Filter Result", result);
         this.showLoading = false;
         this.products = result;
         // working on the images to use like background
@@ -580,9 +560,7 @@ export class ShopComponent implements OnInit {
   }
   //GET CATEGORIES LIST
   getOnChangeLevel(selectedType: any) {
-    console.log('selected type id', selectedType);
     this.productService.getData(`fishTypes/${selectedType}/all_levels`).subscribe(result => {
-      console.log("On change levels", result);
       result['childs'].map(item => {
         switch (item.level) {
           case 0:
@@ -608,7 +586,6 @@ export class ShopComponent implements OnInit {
   }
   getAllTypesByLevel() {
     this.productService.getData(`getTypeLevel`).subscribe(result => {
-      console.log("By level", result);
       this.searchCategories = result['level0'];
       this.searchSubcategories = result['level1'];
       this.searchSubSpecie = result['level2'];
@@ -620,6 +597,7 @@ export class ShopComponent implements OnInit {
   //CLEAR ALL
   async clear() {
     this.isClearButton = true;
+    this.loading = true;
     this.showNotFound = false;
     this.showLoading = true;
     this.hideCat = false;
@@ -645,6 +623,8 @@ export class ShopComponent implements OnInit {
     this.tmpSpecie = '';
     this.tmpVariant = '';
     this.showClear = false;
+    setTimeout(() => this.chargeJS(), 1000);
+    this.loading = false;
   }
   //CLEAR FILTER WITH PILLS
   destroyPillCat() {
@@ -661,7 +641,6 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-subcategory').css('display', 'none');
     jQuery('#pill-specie').css('display', 'none');
     jQuery('#pill-variant').css('display', 'none');
-    console.log("Destroying...");
     this.filterProducts();
   }
   destroyPillSubat() {
@@ -676,7 +655,6 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-subcategory').css('display', 'none');
     jQuery('#pill-specie').css('display', 'none');
     jQuery('#pill-variant').css('display', 'none');
-    console.log("Destroying...");
     this.filterProducts();
   }
   destroyPillSpecie() {
@@ -689,7 +667,6 @@ export class ShopComponent implements OnInit {
     jQuery('input[type=radio][name=variant]').prop('checked', false);
     jQuery('#pill-specie').css('display', 'none');
     jQuery('#pill-variant').css('display', 'none');
-    console.log("Destroying...");
     this.filterProducts();
   }
   destroyPillVariant() {
@@ -700,7 +677,6 @@ export class ShopComponent implements OnInit {
     this.hideVariant = false;
     jQuery('input[type=radio][name=variant]').prop('checked', false);
     jQuery('#pill-variant').css('display', 'none');
-    console.log("Destroying...");
     this.filterProducts();
   }
   destroyCheckboxPill(id) {
@@ -743,7 +719,6 @@ export class ShopComponent implements OnInit {
   }
   deleteItem(i, id) {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(result => {
-      console.log(result);
       this.productsCart.splice(i, 1);
       this.getItems();
       this.closeCart();
@@ -766,11 +741,10 @@ export class ShopComponent implements OnInit {
     await new Promise((resolve, reject) => {
     this.productService.getData(`/fishTypes/parents/with-fishes`).subscribe(res => {
       this.searchCategories = res;
-      setTimeout(() => this.chargeJS(), 100);
+      console.log("search cat", jQuery('input[type=radio][name=cat]'));
       resolve();
     }, error => {
       reject();
-      setTimeout(() => this.chargeJS(), 100);
 
     });
   })
@@ -816,11 +790,9 @@ export class ShopComponent implements OnInit {
 
   //JAVASCRIPT FOR SLIDES
   moveBubble(id){
-    console.log("Move Bubble");
     var el, newPoint, newPlace, offset;
  
     jQuery('#range-' + id).on('input', function () {
-   console.log("input");
      jQuery(this).trigger('change');
  });
  // Select all range inputs, watch for change
@@ -831,7 +803,6 @@ export class ShopComponent implements OnInit {
   
   // Measure width of range input
   var width = el.width();
-  console.log("Width", width);
   
   // Figure out placement percentage between left and right of input
   newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
@@ -844,7 +815,6 @@ export class ShopComponent implements OnInit {
   else { newPlace = width * newPoint + offset; offset -= newPoint; }
   
   // Move bubble
-  console.log("Move Bubble", newPlace, offset);
   jQuery('#qty-kg-'+id).css('margin-left', newPlace);
   jQuery('#edit-qty-'+id).css('margin-left', newPlace);
 

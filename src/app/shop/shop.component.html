@@ -1,6 +1,17 @@
+
 <div class="filter-container">
   <div class="filter-header">
       <div class="container-fluid">
+          <ng-template #customLoadingTemplate>
+              <div class="row">
+                <div class="wave-loader" style="background-color: #F7F8F9; z-index: 999999; height: 100px; position:fixed;">
+                  <div class="wave-loading"></div>
+                </div>
+                
+              </div>
+            </ng-template>
+            <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+            </ngx-loading>
         <div class="row">
           <div class="col-md-10">
             <h2>FILTER <span *ngIf="!showClear">SEAFOOD</span> </h2>
@@ -195,9 +206,9 @@
                        </div>
                        
                         <form>
-                            <span class="amount-span">{{product.variation.min}}</span>
+                            <span class="amount-span"style="margin-right: 5px;">{{product.variation.min}}</span>
                             <input id="range-{{product.variation.id}}" name="foo" type="range" class="product-range" [value]="product.variation.min" [min]="product.variation.min" [max]="product.variation.max"  (input)="showRangeVal(product.variation.id, i)" (change)="getRange(product.id, i, product.variation.id)">
-                            <span class="amount-span">{{product.variation.max}}</span>
+                            <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
                       </div>

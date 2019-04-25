@@ -135,7 +135,7 @@
 										<th scope="col">total (aed)</th>
 									</tr>
 								</thead>
-								<tbody *ngFor="let item of orders  ;let i=index ">
+								<tbody *ngFor="let item of orders | filternumber : searchText ;let i=index ">
 									<tr>
 										<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;"><img src="../../assets/svg/printer.svg" alt=""></button>{{item.shoppingCart.orderNumber}}</td>
 										<td>{{item.fish.name}}</td>
