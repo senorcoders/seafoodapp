@@ -324,6 +324,14 @@ export class SingleProductComponent implements OnInit {
     return "";
   }
 
+  public getBon(){
+    let variation = this.variations.find(it => {
+      return it.fishPreparation.id === this.selectVariation;;
+    });
+    if (variation !== undefined) return variation.fishPreparation.defaultProccessingParts.join(", ");
+    return "";
+  }
+
   public selectTheVariation(idVariation) {
     this.selectVariation = idVariation;
   }
