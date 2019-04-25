@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { environment } from '../../environments/environment';
@@ -361,13 +361,28 @@ export class ShopComponent implements OnInit {
     return text.replace(" ", '-');
   }
   //GET RANGE VALUE ON CHANGE FOR EACH PRODUCT
-  getRange(id, i, variation) {
+  getRange(id, i, variation, type) {
     let val: any = jQuery('#range-' + variation).val();
+
+    console.log("Type", type);
+    if (type !== '') {
+      const row = document.getElementById('products-container');
+      const cards = row.querySelectorAll('.category-' + type);
+      for (let index = 0; index < cards.length; index++) {
+          const classes = cards[index].className.split(' ');
+          console.log("Classes", classes);
+          console.log("Index", classes[6]);
+          jQuery('#range-' + classes[7]).val(val);
+          this.moveBubble(classes[7]);
+          jQuery('#edit-qty-' + classes[7]).css('display', 'none');
+          jQuery('#qty-kg-' + classes[7]).css('display', 'block');
+          this.products[classes[6]].qty = val;
+          this.showQty = true;
+          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        }
+
+    }
    
-    this.moveBubble(variation);
-    this.products[i].qty = val;
-    this.showQty = true;
-    this.getShippingRates(val, id, variation, i);
   }
 
   showRangeVal(id, i){
@@ -436,15 +451,34 @@ export class ShopComponent implements OnInit {
     input.focus();
   }
   //Functino to enter manual kg
-  manualInput(id, i, max, variation) {
+  manualInput(id, i, max, variation, type) {
     let val: any = jQuery('#edit-qty-' + variation).val();
+  
+
     if (val > max) {
       val = max;
     }
-    this.products[i].qty = val;
-    jQuery('#range-' + variation).val(val);
-    this.moveBubble(variation);
-    this.getShippingRates(val, id, variation, i);
+
+    if (type !== '') {
+      const row = document.getElementById('products-container');
+      const cards = row.querySelectorAll('.category-' + type);
+      for (let index = 0; index < cards.length; index++) {
+          const classes = cards[index].className.split(' ');
+          console.log("Classes", classes);
+          jQuery('#range-' + classes[7]).val(val);   
+          this.moveBubble(classes[7]);
+          jQuery('#edit-qty-' + classes[7]).css('display', 'none');
+          jQuery('#qty-kg-' + classes[7]).css('display', 'block');
+          this.products[classes[6]].qty = val;
+          this.showQty = true;
+          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        }
+
+    }
+    // this.products[i].qty = val;
+    // jQuery('#range-' + variation).val(val);
+    // this.moveBubble(variation);
+    // this.getShippingRates(val, id, variation, i);
   }
   //Function to hide input and show span
   showSpan(id) {
@@ -790,6 +824,7 @@ export class ShopComponent implements OnInit {
 
   //JAVASCRIPT FOR SLIDES
   moveBubble(id){
+    console.log("Moving...", id);
     var el, newPoint, newPlace, offset;
  
     jQuery('#range-' + id).on('input', function () {
@@ -821,5 +856,9 @@ export class ShopComponent implements OnInit {
   })
   // Fake a change to position bubble at page load
   .trigger('change');
+  }
+
+  removeSpaces(text){
+    return text.replace(" ", '-')
   }
 }
