@@ -70,6 +70,7 @@ export class ShopComponent implements OnInit {
   treatment:any = [];
   raised:any = [];
   isDisabled= false;
+  tmpPrice: any;
   constructor(private auth: AuthenticationService, private productService: ProductService, private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, private countryservice: CountriesService, private router: Router) {
   }
   async ngOnInit() {
@@ -371,38 +372,47 @@ export class ShopComponent implements OnInit {
     return text.replace(" ", '-');
   }
   //GET RANGE VALUE ON CHANGE FOR EACH PRODUCT
-  getRange(id, i) {
+  getRange(id, i, variation) {
     console.log(id, i);
-    let val: any = jQuery('#range-' + id).val();
-    this.moveBubble(id);
+    let val: any = jQuery('#range-' + variation).val();
+   
+    this.moveBubble(variation);
     console.log("Range Val", val);
     this.products[i].qty = val;
     this.showQty = true;
     console.log("Product in array", this.products[i]);
-    this.getShippingRates(val, id);
+    this.getShippingRates(val, id, variation, i);
   }
 
   showRangeVal(id, i){
     let val: any = jQuery('#range-' + id).val();
+    jQuery('#edit-qty-' + id).css('display', 'none');
+    jQuery('#qty-kg-' + id).css('display', 'block');
     this.moveBubble(id);
     this.products[i].qty = val;
 
   }
   //GET the shipping rates
-  getShippingRates(weight, id) {
-    this.productService.getData(`api/fish/${id}/charges/${weight}`).subscribe(result => {
+  getShippingRates(weight, id, variation, i) {
+    this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}`).subscribe(result => {
       console.log("Shipping rates", result);
+      this.tmpPrice = result['price'];
       const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
       const priceT: any = Number(priceTByWeight.toFixed(2)).toString();
-      const label = document.getElementById('delivere-price-' + id);
-      const btn = document.getElementById('btn-add-' + id);
+      const finalPrice:any = Number(result['finalPrice'].toFixed(2)).toString();;
+      const label = document.getElementById('delivere-price-' + variation);
+      const btn = document.getElementById('btn-add-' + variation);
+      console.log("finalprice", finalPrice);
+      jQuery('#product-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
       }
       else {
-        label.innerHTML = 'AED ' + priceT;
+        label.innerHTML = '<span class="delivered-small-span">(delivered/kg)</span> <br> AED ' + priceT;
       }
       (label as HTMLElement).style.display = 'inline-block';
+      (label as HTMLElement).style.marginTop = '-34px';
+      (label as HTMLElement).style.textAlign = 'center';
       (btn as HTMLElement).style.display = 'block';
     });
   }
@@ -413,11 +423,11 @@ export class ShopComponent implements OnInit {
     const item = {
       'fish': product.id,
       'price': {
-        'type': product.price.type,
-        'value': product.price.value
+        'type': '$',
+        'value': (this.tmpPrice).toString()
       },
       'quantity': {
-        'type': product.price.type,
+        'type': 'kg',
         'value': product.qty
       },
       'shippingStatus': 'pending'
@@ -443,15 +453,15 @@ export class ShopComponent implements OnInit {
     input.focus();
   }
   //Functino to enter manual kg
-  manualInput(id, i, max) {
-    let val: any = jQuery('#edit-qty-' + id).val();
+  manualInput(id, i, max, variation) {
+    let val: any = jQuery('#edit-qty-' + variation).val();
     if (val > max) {
       val = max;
     }
     this.products[i].qty = val;
-    jQuery('#range-' + id).val(val);
-    this.moveBubble(id);
-    this.getShippingRates(val, id);
+    jQuery('#range-' + variation).val(val);
+    this.moveBubble(variation);
+    this.getShippingRates(val, id, variation, i);
   }
   //Function to hide input and show span
   showSpan(id) {

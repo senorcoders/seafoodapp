@@ -31,6 +31,8 @@
                     line-height: 19px;
                     color: #7484AA;
                     cursor: pointer;
+                    display: none;
+
                 }
 
                 .qty-number{
@@ -40,14 +42,20 @@
                     padding: 0;
                     font-family: 'Josefin Sans', sans-serif;
                     font-size: 16px;
-                    color: #3E4E75;
+                    color: #7484AA;
                     line-height: 19px;
                     width: auto;
                     height: auto;
                     font-weight: 300;
-                    display: none;
+                    font-style: italic;
+                    &::placeholder{
+                      color: #7484AA;
+                    }
                 }
                form{
+                display: inline-flex;
+                flex-wrap: nowrap;
+                width: 100%;
                    label{
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 400;
