@@ -511,8 +511,11 @@ export class RecentPurchasesComponent implements OnInit {
 
 
     for (const file of data) {
-      const contents = await this.postFile(file);
-      console.log(contents);
+      console.log("File", file);
+      if(file != '' && file != null){
+        const contents = await this.postFile(file);
+        }
+   
     }
 
     console.log("Mostrar items");
@@ -540,10 +543,13 @@ export class RecentPurchasesComponent implements OnInit {
       }
 
     }
-
-    if(this.extra.length > 0){
-      await this.saveExtraDocs();
-    }
+    console.log("Extra vacio", this.extra);
+    if(this.extra != undefined){
+      if(this.extra.length > 0){
+        await this.saveExtraDocs();
+      }
+    } 
+  
       
     this.toast.success("Order marked as document fulfillment!", 'Upload Succesfully', { positionClass: "toast-top-right" });
       jQuery('#shippingDocs').modal('hide');
