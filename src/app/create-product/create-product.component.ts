@@ -123,6 +123,20 @@ export class CreateProductComponent implements OnInit {
         product = value.product,
         features = value.features,
         pricing = value.price;
+
+      //Para checkar si hay imagen default
+      if (product.images !== undefined && product.images !== '') {
+        let images = JSON.parse(product.imagesSend);
+        let index = images.findIndex(it => {
+          return it.type === "primary";
+        });
+        if (index === -1) {
+          this.loading = false;
+          this.ngProgress.done();
+          return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
+        }
+      }
+
       let variations: any = {}, variationsTrim: any = {}, variationsEnd = [];
       if (pricing.weights !== '') {
         variations = JSON.parse(pricing.weights);
@@ -184,13 +198,13 @@ export class CreateProductComponent implements OnInit {
       }];
 
       //Para quitar el _off y _arr
-      for(let i=0; i<variationsEnd.length; i++){
+      for (let i = 0; i < variationsEnd.length; i++) {
         variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_off", "");
         variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_arr", "");
 
         variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_off", "");
         variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_arr", "");
-      } 
+      }
 
       await this.generateSKU();
       // this.ngProgress.start();
@@ -215,6 +229,8 @@ export class CreateProductComponent implements OnInit {
           'type': "kg",
           'value': 5
         },
+        perBox: product.unitOfSale === "boxes",
+        boxWeight: product.averageUnitWeight,
         'minimumOrder': product.minimunorder,
         'maximumOrder': product.maximumorder,
         'raised': features.raised,
@@ -256,14 +272,12 @@ export class CreateProductComponent implements OnInit {
 
   private async uploadFileToActivity(productID, images) {
     images = JSON.parse(images);
-    let i = 0;
     for (let image of images) {
       try {
-        let file = this.blobToFile(this.b64toBlob(image, "image/jpg"), new Date().getTime().toString() + "-" + productID);
+        let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + productID);
         let files = [file];
-        if (i === 0) {
+        if (image.type === "primary") {
           await this.productService.postFile(files, productID, 'primary').toPromise();
-          i += 1;
           continue;
         }
         await this.saveImages(productID, 'secundary', files);

@@ -41,6 +41,10 @@ export class FishFormComponent implements OnInit {
 
   public images = [];
 
+  public showAverageUnit = false;
+
+  private levels: any;
+
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone
   ) { }
@@ -70,8 +74,18 @@ export class FishFormComponent implements OnInit {
       minimunorder: new FormControl('', Validators.required),
       maximumorder: new FormControl('', Validators.required),
       images: new FormControl('', Validators.required),
-      imagesSend: new FormControl("", Validators.nullValidator)
+      imagesSend: new FormControl("", Validators.nullValidator),
+      unitOfSale: new FormControl("", Validators.required),
+      averageUnitWeight: new FormControl(10, Validators.required)
     }));
+    (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
+      console.log(it);
+      if (it.unitOfSale === "boxes") {
+        this.showAverageUnit = true;
+      } else {
+        this.showAverageUnit = false;
+      }
+    });
   }
 
   public controls() {
@@ -176,10 +190,11 @@ export class FishFormComponent implements OnInit {
     this.productService.getData(`getTypeLevel`).subscribe(
       result => {
         console.log(result, "variant");
+        this.levels = result;
         this.typeLevel0 = result['level0'];
-        this.typeLevel1 = result['level1'];
-        this.typeLevel2 = result['level2'];
-        this.typeLevel3 = result['level3'];
+        // this.typeLevel1 = result['level1'];
+        // this.typeLevel2 = result['level2'];
+        // this.typeLevel3 = result['level3'];
       },
       error => {
 
@@ -189,7 +204,7 @@ export class FishFormComponent implements OnInit {
 
   getOnChangeLevel(level: number, value?) {
     if (this.getValue().parentSelectedType === '') {
-      this.typeLevel0 = [];
+      // this.typeLevel0 = [];
       this.typeLevel1 = [];
       this.typeLevel2 = [];
       this.typeLevel3 = [];
@@ -240,11 +255,13 @@ export class FishFormComponent implements OnInit {
               break;
 
             case 2:
-              this.typeLevel2 = item.fishTypes;
+              if (level > 0)
+                this.typeLevel2 = item.fishTypes;
               break;
 
             case 3:
-              this.typeLevel3 = item.fishTypes;
+              if (level > 1)
+                this.typeLevel3 = item.fishTypes;
               break;
 
             default:
@@ -280,7 +297,7 @@ export class FishFormComponent implements OnInit {
         reader.readAsDataURL(file);
 
         reader.onload = () => {
-          this.images[i] = reader.result;
+          this.images[i] = { src: reader.result, type: this.images[i].type };
           this.reSavedImages();
         };
       } else {
@@ -289,7 +306,7 @@ export class FishFormComponent implements OnInit {
           reader.readAsDataURL(file);
 
           reader.onload = () => {
-            this.images.push(reader.result);
+            this.images.push({ src: reader.result, type: "secundary" });
             this.reSavedImages();
           };
         }
@@ -323,6 +340,14 @@ export class FishFormComponent implements OnInit {
       imagesSend: this.images.length === 0 ? '' : JSON.stringify(this.images)
     });
     if (this.images.length === 0) this.resetFiles();
+  }
+
+  public setDefaultImage(i) {
+    for (let i = 0; i < this.images.length; i++) {
+      this.images[i].type = "secundary";
+    }
+    this.images[i].type = "primary";
+    this.reSavedImages();
   }
 
   private resetFiles() {
