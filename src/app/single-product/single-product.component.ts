@@ -84,7 +84,8 @@ export class SingleProductComponent implements OnInit {
   public variations = [];
   public selectVariation = '';
 
-  public inter:any;
+  public inter: any;
+  public noWholeFish = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -113,7 +114,7 @@ export class SingleProductComponent implements OnInit {
 
     //Para checkar cuando el footer es visible
     $(window).scroll(function () {
-      if($(window).width() > 991){
+      if ($(window).width() > 991) {
         if (isScrolledIntoView($("app-footer"))) {
           $("#sticky-div").addClass("no");
         }
@@ -143,7 +144,7 @@ export class SingleProductComponent implements OnInit {
   loadingImage() {
     if ($(window).width() <= 991) {
       $("app-footer").css({
-        top: $("#product-content").height()+ $("#product-images").height() + 200,
+        top: $("#product-content").height() + $("#product-images").height() + 200,
         position: "absolute",
         width: "100%"
       });
@@ -252,11 +253,10 @@ export class SingleProductComponent implements OnInit {
         });
       }
       console.log(data["images"]);
-      this.price = data['price'].description;
-      this.category = data['type'].name;
+      this.price = data['price'] ? data['price'].description : "";
+      this.category = data['type'] ? data['type'].name : '';
       this.show = true;
-      this.priceValue = data['price'].value;
-      this.priceValue = data['price'].value;
+      this.priceValue = data['price'] ? data['price'].value : 0;
       this.priceType = this.currency; // data['price'].type;
       this.measurement = data['weight'].type;
       if (data['imagePrimary'] !== null) { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data['imagePrimary']})`)) } else { this.mainImg = (this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')) };
@@ -296,7 +296,13 @@ export class SingleProductComponent implements OnInit {
         this.variations = data["variations"];
         if (this.variations[0].wholeFishWeight !== null && this.variations[0].wholeFishWeight !== undefined)
           this.selectVariation = this.variations[0].wholeFishWeight.id;
+        else{
+          this.selectVariation = this.variations[0].fishPreparation.id;
+          this.noWholeFish = true;
+        }
+          
       }
+      console.log(this.withVariations, this.variations);
       this.getReview();
       this.getPricingCharges();
       this.showLoading = false;
@@ -491,7 +497,7 @@ export class SingleProductComponent implements OnInit {
   }
 
   getTypes() {
-    this.productService.getData(`/fishType/parents/${this.productID}`).subscribe(res => {
+    this.productService.getData(`fishType/parents/${this.productID}`).subscribe(res => {
       console.log("Categorías", res);
       this.types = res;
     })
