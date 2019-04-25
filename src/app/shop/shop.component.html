@@ -1,6 +1,18 @@
+<ng-progress></ng-progress>
+
 <div class="filter-container">
   <div class="filter-header">
       <div class="container-fluid">
+          <ng-template #customLoadingTemplate>
+              <div class="row">
+                <div class="wave-loader" style="background-color: #F7F8F9; z-index: 999999; height: 100px; position:fixed;">
+                  <div class="wave-loading"></div>
+                </div>
+                
+              </div>
+            </ng-template>
+            <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+            </ngx-loading>
         <div class="row">
           <div class="col-md-10">
             <h2>FILTER <span *ngIf="!showClear">SEAFOOD</span> </h2>
