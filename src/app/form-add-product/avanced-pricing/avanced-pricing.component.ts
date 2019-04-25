@@ -192,11 +192,11 @@ export class AvancedPricingComponent implements OnInit {
 
   private setOptionsInAll() {
     let itereOptions = function (it) {
-      if (Object.prototype.toString.call(it) === '[object Object]'){
-        if(it.min < this.options.floor){
+      if (Object.prototype.toString.call(it) === '[object Object]') {
+        if (it.min < this.options.floor) {
           it.min = this.options.floor;
-          if(it.max < it.min){
-            it.max = it.min+ 1;
+          if (it.max < it.min) {
+            it.max = it.min + 1;
           }
         }
         let op = Object.assign({}, this.options);
@@ -355,6 +355,23 @@ export class AvancedPricingComponent implements OnInit {
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
         .removeControl((i).toString());
+    }
+    catch (e) { console.error(e); }
+
+    this.refreshSlider();
+  }
+
+  public deletePriceTrims(i) {
+    if (this.trimWeights[this.keySelectTrim].length === 1) {
+      this.trimWeights[this.keySelectTrim] = [];
+    } else {
+      this.trimWeights[this.keySelectTrim].splice(i, 1);
+    }
+
+    //Para remover los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
+        .removeControl((i - 1).toString());
     }
     catch (e) { console.error(e); }
 
@@ -602,7 +619,7 @@ export class AvancedPricingComponent implements OnInit {
       }, 500);
     }
     this.manualRefresh.emit();
-    this.zone.run(function(){ /*console.log("emit");*/ });
+    this.zone.run(function () { /*console.log("emit");*/ });
   }
 
   private setValue(value) {

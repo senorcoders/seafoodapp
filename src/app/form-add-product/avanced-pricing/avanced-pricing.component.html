@@ -160,7 +160,7 @@
                   [ngClass]="getControlTrim(keySelectTrim, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="i"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
-                  <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                  <button type="button" (click)="deletePriceTrims(i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelectTrim!==''">
