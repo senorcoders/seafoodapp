@@ -597,6 +597,7 @@ export class ShopComponent implements OnInit {
   //CLEAR ALL
   async clear() {
     this.isClearButton = true;
+    this.loading = true;
     this.showNotFound = false;
     this.showLoading = true;
     this.hideCat = false;
@@ -622,6 +623,8 @@ export class ShopComponent implements OnInit {
     this.tmpSpecie = '';
     this.tmpVariant = '';
     this.showClear = false;
+    setTimeout(() => this.chargeJS(), 1000);
+    this.loading = false;
   }
   //CLEAR FILTER WITH PILLS
   destroyPillCat() {
