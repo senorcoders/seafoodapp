@@ -177,8 +177,9 @@ export class CartComponent implements OnInit {
   deleteItem(i, id){
     this.productService.deleteData(`itemshopping/${id}`).subscribe(
       result=>{
-        console.log(result);
-        this.products.splice(i, 1); 
+        this.products.splice(i, 1);
+        console.log("Borrando item..", result, this.products);
+
         // this.getItems();
         jQuery('#confirmDelete').modal('hide');
 
@@ -245,6 +246,7 @@ export class CartComponent implements OnInit {
   }
 
   showConfirmModal(itemID:string, index){
+    console.log("Product modal ID", itemID, index);
     this.itemToDelete = itemID;
     this.index = index;
     jQuery('#confirmDelete').modal('show');

@@ -10,8 +10,7 @@ export class FilternumberPipe implements PipeTransform {
     if(!searchText) return res;
 searchText = searchText.toLowerCase();
 return res.filter((item:any) => { 
-  console.log("Filter", item);
-  if(item.hasOwnProperty('orderNumber')){
+   if(item.hasOwnProperty('orderNumber')){
     return item.orderNumber == searchText
 
   }else{
