@@ -858,7 +858,5 @@ export class ShopComponent implements OnInit {
   .trigger('change');
   }
 
-  removeSpaces(text){
-    return text.replace(" ", '-')
-  }
+ 
 }
