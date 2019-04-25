@@ -46,12 +46,12 @@
 										</thead>
 										<tbody *ngFor="let item of items ;let i=index ">
 											<tr >
-													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/left-arrow.svg" alt=""></button>name</td>
-													<td>seller name</td>
-													<td>status</td>
+													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/left-arrow.svg" alt=""></button>{{item?.fish?.name}}</td>
+													<td>{{item?.seller.name}}</td>
+													<td>{{item?.status?.name}}</td>
 													<td>{{item.quantity.value}} kg</td>
 													<td>{{item.price.value | currency: 'AED'}}</td>
-													<td>{{item.total | currency: 'AED'}} <button *ngIf="item.status == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
+													<td>{{item.total | currency: 'AED'}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
 											
 										</tbody>
