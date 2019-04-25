@@ -296,11 +296,11 @@ export class SingleProductComponent implements OnInit {
         this.variations = data["variations"];
         if (this.variations[0].wholeFishWeight !== null && this.variations[0].wholeFishWeight !== undefined)
           this.selectVariation = this.variations[0].wholeFishWeight.id;
-        else{
+        else {
           this.selectVariation = this.variations[0].fishPreparation.id;
           this.noWholeFish = true;
         }
-          
+
       }
       console.log(this.withVariations, this.variations);
       this.getReview();
@@ -324,12 +324,17 @@ export class SingleProductComponent implements OnInit {
     return "";
   }
 
-  public getBon(){
+  public getBon() {
     let variation = this.variations.find(it => {
       return it.fishPreparation.id === this.selectVariation;;
     });
-    if (variation !== undefined) return variation.fishPreparation.defaultProccessingParts.join(", ");
-    return "";
+    try {
+      if (variation !== undefined) return variation.fishPreparation.defaultProccessingParts.join(", ");
+    } catch (e) {
+      console.error(e);
+      return "";
+    }
+
   }
 
   public selectTheVariation(idVariation) {
