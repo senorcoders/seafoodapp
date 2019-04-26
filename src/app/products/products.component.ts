@@ -680,7 +680,7 @@ smallDesc(str) {
 
             }
 
-        } else {
+        } else { 
           this.products[i].minimumOrder = weight;
           this.getShippingRates(weight, country, id, price);
         }

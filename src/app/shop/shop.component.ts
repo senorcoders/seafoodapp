@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Type } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
 import { environment } from '../../environments/environment';
@@ -361,15 +361,45 @@ export class ShopComponent implements OnInit {
     return text.replace(" ", '-');
   }
   //GET RANGE VALUE ON CHANGE FOR EACH PRODUCT
-  getRange(id, i, variation) {
+  getRange(variation, type) {
     let val: any = jQuery('#range-' + variation).val();
+
+    this.comparePrices(type, val);
+    
    
-    this.moveBubble(variation);
-    this.products[i].qty = val;
-    this.showQty = true;
-    this.getShippingRates(val, id, variation, i);
   }
 
+  comparePrices(type, val){
+    console.log("Type", type);
+    if (type !== '') {
+      const row = document.getElementById('products-container');
+      const cards = row.querySelectorAll('.category-' + type);
+      for (let index = 0; index < cards.length; index++) {
+          const classes = cards[index].className.split(' ');
+          console.log("Classes", classes);
+          console.log("Max", parseInt(classes[10]));
+          if(val > parseInt(classes[10])){
+            console.log("es mayor al max", parseInt(classes[10]));
+            jQuery('#range-' + classes[7]).val(parseInt(classes[10]));
+            this.products[classes[6]].qty = classes[10];
+
+          }else{
+            console.log("es menor al max");
+
+            jQuery('#range-' + classes[7]).val(val);
+            this.products[classes[6]].qty = val;
+
+
+          }
+          this.moveBubble(classes[7]);
+          jQuery('#edit-qty-' + classes[7]).css('display', 'none');
+          jQuery('#qty-kg-' + classes[7]).css('display', 'block');
+          this.showQty = true;
+          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        }
+
+    }
+  }
   showRangeVal(id, i){
     let val: any = jQuery('#range-' + id).val();
     jQuery('#edit-qty-' + id).css('display', 'none');
@@ -436,15 +466,15 @@ export class ShopComponent implements OnInit {
     input.focus();
   }
   //Functino to enter manual kg
-  manualInput(id, i, max, variation) {
+  manualInput(max, variation, type) {
     let val: any = jQuery('#edit-qty-' + variation).val();
+  
+
     if (val > max) {
       val = max;
     }
-    this.products[i].qty = val;
-    jQuery('#range-' + variation).val(val);
-    this.moveBubble(variation);
-    this.getShippingRates(val, id, variation, i);
+    this.comparePrices(type, val);
+    
   }
   //Function to hide input and show span
   showSpan(id) {
@@ -790,6 +820,7 @@ export class ShopComponent implements OnInit {
 
   //JAVASCRIPT FOR SLIDES
   moveBubble(id){
+    console.log("Moving...", id);
     var el, newPoint, newPlace, offset;
  
     jQuery('#range-' + id).on('input', function () {
@@ -822,4 +853,6 @@ export class ShopComponent implements OnInit {
   // Fake a change to position bubble at page load
   .trigger('change');
   }
+
+ 
 }
