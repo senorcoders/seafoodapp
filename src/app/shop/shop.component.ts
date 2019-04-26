@@ -72,6 +72,7 @@ export class ShopComponent implements OnInit {
   raised:any = [];
   isDisabled= false;
   tmpPrice: any;
+  disabledInputs:boolean = false;
   public loading:boolean = true;
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
@@ -91,21 +92,24 @@ export class ShopComponent implements OnInit {
     await this.getFishCountries();
     await this.getParentsCat();
     console.log("Aqui deberia carga el JS");
-    setTimeout(() => this.chargeJS(), 1000);
+    setTimeout(() => this.chargeJS(), 500);
     this.loading = false;
 
     //JAVASCRIPT FOR FILTER
     
    
     jQuery('#minAmount').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
     });
     jQuery('#maxAmount').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
     });
     jQuery('#cooming').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
     });
@@ -162,23 +166,27 @@ export class ShopComponent implements OnInit {
   //CHARGE LATE JS
   chargeJS() {
     jQuery('.input-preparation:checkbox').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
       this.createPillCheckbox('pill-preparation', '.input-preparation:checkbox:checked', 'preparation', this.preparataion);
     });
 
     jQuery('.input-raised:checkbox').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
       this.createPillCheckbox('pill-raised', '.input-raised:checkbox:checked', 'raised', this.raised);
     });
     jQuery('.input-treatment:checkbox').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
       this.createPillCheckbox('pill-treatment', '.input-treatment:checkbox:checked', 'treatment', this.treatment);
     });
 
     jQuery('input[type=radio][name=country]').on('change', (e) => {
+      this.disabledInputs = true;
       this.showClear = true;
       this.filterProducts();
       this.createPillRadio('pill-country', 'input[type=radio][name=country]:checked');
@@ -186,6 +194,7 @@ export class ShopComponent implements OnInit {
     jQuery('input[type=radio][name=cat]').change((e) => {
       console.log("Changing cat");
       e.stopImmediatePropagation();
+      this.disabledInputs = true;
       this.showClear = true;
       const subcategorySelected = e.target.value;
       if (subcategorySelected === 0) {
@@ -203,7 +212,7 @@ export class ShopComponent implements OnInit {
     });
     jQuery('input[type=radio][name=subcat]').on('change', (e) => {
       e.stopImmediatePropagation();
-
+      this.disabledInputs = true;
       this.showClear = true;
       const specie = e.target.value;
        this.filterProducts();
@@ -217,7 +226,7 @@ export class ShopComponent implements OnInit {
     });
     jQuery('input[type=radio][name=specie]').on('change', (e) => {
       e.stopImmediatePropagation();
-
+      this.disabledInputs = true;
       this.showClear = true;
       const variant = e.target.value;
       this.getOnChangeLevel(variant);
@@ -234,6 +243,7 @@ export class ShopComponent implements OnInit {
 
     });
     jQuery('input[type=radio][name=variant]').on('change', (e) => {
+      this.disabledInputs = true;
       e.stopImmediatePropagation();
       this.showClear = true;
       this.filterProducts();
@@ -325,6 +335,7 @@ export class ShopComponent implements OnInit {
 
       // add paginations numbers
       this.showLoading = false;
+      this.disabledInputs = false;
       // working on the images to use like background
       if (this.products.length === 0) {
         this.showNotFound = true;
@@ -554,6 +565,7 @@ export class ShopComponent implements OnInit {
       this.productService.filterFish(cat, subcat, specie, variant, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon).subscribe(result => {
         this.showLoading = false;
         this.products = result;
+        this.disabledInputs = false;
         // working on the images to use like background
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
