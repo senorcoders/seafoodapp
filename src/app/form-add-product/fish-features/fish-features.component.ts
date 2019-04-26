@@ -79,7 +79,7 @@ export class FishFeaturesComponent implements OnInit {
       });
       this.fishPreparation = arr;
       this.preparationOptions = arr;
-      this.setValue({ preparation: this.preparationOptions[0].id });
+      // this.setValue({ preparation: this.preparationOptions[0].id });
       this.getTrimming();
     });
   }
@@ -103,10 +103,10 @@ export class FishFeaturesComponent implements OnInit {
       acceptableSpoilageRate: new FormControl('', Validators.required),
       raised: new FormControl('', Validators.required),
       treatment: new FormControl('', Validators.required),
-      preparation: new FormControl("", Validators.required),
+      // preparation: new FormControl("", Validators.required),
       head: new FormControl(this.head, Validators.required),
       wholeFishAction: new FormControl(this.wholeFishAction, Validators.required),
-      price: new FormControl('0', Validators.required),
+      // price: new FormControl('0', Validators.required),
       priceShow: new FormControl(true, Validators.nullValidator)
     }));
 
@@ -119,22 +119,22 @@ export class FishFeaturesComponent implements OnInit {
 
 
       // selectedType = it.speciesSelected.value;
-      let value = it.speciesSelected;
-      if (value === '5bda361c78b3140ef5d31fa4') {
-        this.preparationOptions = this.trimmings;
-        this.wholeFishAction = true;
-        this.setValue({ preparation: this.preparationOptions[0].id });
+      // let value = it.speciesSelected;
+      // if (value === '5bda361c78b3140ef5d31fa4') {
+      //   this.preparationOptions = this.trimmings;
+      //   this.wholeFishAction = true;
+      //   this.setValue({ preparation: this.preparationOptions[0].id });
 
-      } else {
-        this.preparationOptions = this.fishPreparation;
-        this.setValue({ preparation: this.preparationOptions[0].id });
-      }
+      // } else {
+      //   this.preparationOptions = this.fishPreparation;
+      //   this.setValue({ preparation: this.preparationOptions[0].id });
+      // }
 
 
-      if (it.parentSelectedType == '5bda35c078b3140ef5d31f9a') {
-        this.preparationOptions = [{ name: "Not Applicable", id: "Not Applicable" }];
-        this.parentForm.form.get('preparation').disable();
-      }
+      // if (it.parentSelectedType == '5bda35c078b3140ef5d31f9a') {
+      //   this.preparationOptions = [{ name: "Not Applicable", id: "Not Applicable" }];
+      //   this.parentForm.form.get('preparation').disable();
+      // }
     });
 
     // this.checkPriceForm();

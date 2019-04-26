@@ -1,8 +1,11 @@
-import { Component, OnInit, NgZone, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, EventEmitter, Output, Input } from '@angular/core';
 import { ControlContainer, FormGroupDirective, FormControl, Validators, FormGroup, FormArray, RequiredValidator } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Options } from 'ng5-slider';
 import { ProductService } from '../../services/product.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'avanced-pricing',
@@ -62,14 +65,28 @@ export class AvancedPricingComponent implements OnInit {
   public trimWeights: any = {};
   public wholeFishAction = true;
   public identifierTrim = "_trim";
+  public productID = "";
+  private firsTest = true;
+
+  @Output() messageEvent = new EventEmitter<string>();
+  @Input() events: Observable<void>;
+  private eventsSubscription: Subscription;
 
   constructor(
     public parentForm: FormGroupDirective,
     private productService: ProductService,
-    public zone: NgZone
-  ) { }
+    public zone: NgZone,
+    public route: ActivatedRoute
+  ) {
+    let productID = this.route.snapshot.params['id'];
+    if (productID !== null && productID !== undefined) this.productID = productID;
+
+  }
+
+
 
   ngOnInit() {
+    this.eventsSubscription = this.events.subscribe(this.agregarVariations.bind(this))
     this.createFormGroup();
     this.productService.getData("wholefishweight").subscribe(its => {
       let wholes = its as any[];
@@ -85,6 +102,52 @@ export class AvancedPricingComponent implements OnInit {
     this.getTrimming();
   }
 
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe()
+  }
+
+  private agregarVariations(str: string) {
+    let it = JSON.parse(str);
+    //Si es para editar un producto
+    if (this.productID === '') return;
+    this.priceEnableChange = false;
+    try {
+      if (it.trimms === true) {
+        console.log(it.weightsTrim);
+        let weightsTrim = Object.keys(it.weightsTrim);
+        if (weightsTrim.length > Object.keys(this.trimWeights).length) {
+          this.trimWeights = it.weightsTrim;
+        }
+      } else {
+        let weights = it.weights;
+        console.log("weights", weights, this.weights);
+        if (weights.on.keys.length > this.weights.on.keys.length || weights.off.keys.length > this.weights.off.keys.length) {
+          this.weights = weights;
+          for (let key of this.weights.on.keys) {
+            let v = {};
+            v[key] = true;
+            this.setValue(v);
+          }
+          for (let key of this.weights.off.keys) {
+            let v = {};
+            v[key + "_off"] = true;
+            this.weights.off[key + "_off"] = this.weights.off[key];
+            delete this.weights.off[key];
+            this.setValue(v);
+          }
+          this.weights.off = this.proccessWeights(this.weights.off, it);
+          this.setValue({ weights: this.weights });
+          console.log("val", this.getValue());
+        }
+      }
+      this.priceEnableChange = true;
+      this.setOptionsInAll();
+    }
+    catch (e) {
+      console.error(e);
+    }
+  }
+
   private createFormGroup() {
 
     this.price = this.parentForm.form;
@@ -94,6 +157,7 @@ export class AvancedPricingComponent implements OnInit {
       weightsTrim: new FormControl('', Validators.nullValidator),
       example: new FormControl('', Validators.nullValidator)
     }));
+    this.messageEvent.emit("hey listo.");
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
@@ -131,6 +195,7 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para detectar los cambios en los checkboxs
     this.parentForm.form.controls.price.valueChanges.subscribe(it => {
+
       //cuando se agregan contoles de slide al formuario
       //Crea un bucle sin fin de cambios
       if (this.priceEnableChange === true) {
@@ -623,7 +688,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   private setValue(value) {
-    this.parentForm.form.patchValue({ price: value })
+    this.parentForm.form.patchValue({ price: value });
   }
 
   private setValueFeatures(value) {

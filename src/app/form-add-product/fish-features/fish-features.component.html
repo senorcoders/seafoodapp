@@ -73,7 +73,7 @@
     </div>
   </div>
 
-  <div class="col-lg-6" [hidden]="wholeFishAction!==false">
+  <!-- <div class="col-lg-6" [hidden]="wholeFishAction!==false">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().preparation.invalid && (controls().preparation.dirty || controls().preparation.touched),'has-success': controls().preparation.valid && (controls().preparation.dirty || controls().preparation.touched)}">
       <span class="has-float-label"> 
@@ -88,14 +88,12 @@
               {{'CreateProduct.required' | translate}}</p>
           </div>
       </span>
-
       <button type="button" class="question-btn" tabIndex="-1" tooltip="This field reflects any post harvest treatment/processing of the product"
              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-     
     </div>
-  </div>
+  </div> -->
 
-  <div class="col-lg-6" [hidden]="controls().priceShow.value===false||(hideTrimModal===false&&wholeFishAction===false)">
+  <!-- <div class="col-lg-6" [hidden]="controls().priceShow.value===false||(hideTrimModal===false&&wholeFishAction===false)">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().price.invalid && (controls().price.dirty || controls().price.touched),'has-success': controls().price.valid && (controls().price.dirty || controls().price.touched)}">
       <span class="has-float-label"> 
@@ -106,10 +104,8 @@
               {{'CreateProduct.required' | translate}}</p>
           </div>
       </span>
-      
-      
     </div>
-  </div>
+  </div> -->
   <div class="col-lg-6">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().acceptableSpoilageRate.invalid && (controls().acceptableSpoilageRate.dirty || controls().acceptableSpoilageRate.touched),'has-success': controls().acceptableSpoilageRate.valid && (controls().acceptableSpoilageRate.dirty || controls().acceptableSpoilageRate.touched)}">

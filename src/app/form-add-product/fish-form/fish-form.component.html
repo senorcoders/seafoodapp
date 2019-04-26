@@ -90,8 +90,7 @@
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().unitOfSale.invalid && (controls().unitOfSale.dirty || controls().unitOfSale.touched),'has-success': controls().unitOfSale.valid && (controls().unitOfSale.dirty || controls().unitOfSale.touched)}">
       <span class="has-float-label">
-        <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfSale"
-          class="form-control">
+        <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfSale" class="form-control">
           <option value="">{{'AddProduct.select' | translate}}</option>
           <option value="kg">Kg</option>
           <!-- <option value="lb">lb</option> -->
@@ -142,8 +141,8 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="subtitle-form">
-            <span>product type</span>
-            </h1>
+          <span>product type</span>
+        </h1>
       </div>
 
       <div class="col-lg-6">
@@ -335,15 +334,25 @@
         </div>
       </div>
 
-      <div class="row gallery-container" *ngIf="images.length>0">
-        <div class="col-3 img-select" [ngClass]="image.type!=='primary'?'changeable':''" *ngFor="let image of images; let i=index;">
-          <div class="remove-image" (click)="remove(i)" >x</div>
-          <img [src]="image.src" width="100%" height="auto">
-          <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
-          <div class="default" *ngIf="image.type==='primary'">default image</div>
-          <!-- <span class="selectionable" (click)="remove(i)">Remove</span>
-          &nbsp;&nbsp;&nbsp;&nbsp;
-          <span class="selectionable" (click)="change(i)">Change</span> -->
+      <div class="col-12" *ngIf="images.length>0">
+        <div class="row align-items-center text-center">
+          <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+            <i class="fa fa-chevron-left" aria-hidden="true" (click)="toSl(-1)"></i>
+          </div>
+          <div class="col-10" [ngClass]="images.length<=4?'offset-1':''">
+            <div class="row gallery-container">
+              <div class="col-3 img-select" [style.left.px]="calcLeft(i)" [ngClass]="image.type!=='primary'?'changeable':''"
+                *ngFor="let image of images; let i=index;">
+                <div class="remove-image" (click)="remove(i)">x</div>
+                <img [src]="byPassImageUrl(image.src)" width="100%" height="auto">
+                <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
+                <div class="default" *ngIf="image.type==='primary'">default image</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+            <i class="fa fa-chevron-right" aria-hidden="true" (click)="toSl(1)"></i>
+          </div>
         </div>
       </div>
 
