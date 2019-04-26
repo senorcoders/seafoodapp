@@ -106,7 +106,7 @@
 							</thead>
 							<tbody *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
 								<tr>
-									<td><button class="clear-btn" style="float:left;"><img src="../../assets/svg/printer.svg" alt=""></button>{{shoppingCart?.orderNumber}}</td>
+									<td><button class="clear-btn" style="float:left;" (click)="print(shoppingCart.invoice_pdf)"><img src="../../assets/svg/printer.svg" alt=""></button>{{shoppingCart?.orderNumber}}</td>
 									<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
 									<td>{{shoppingCart.orderStatus.status}}</td>
 									<td >{{shoppingCart?.items.length}} items</td>
@@ -137,7 +137,7 @@
 								</thead>
 								<tbody *ngFor="let item of orders | filternumber : searchText ;let i=index ">
 									<tr>
-										<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;"><img src="../../assets/svg/printer.svg" alt=""></button>{{item.shoppingCart.orderNumber}}</td>
+										<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;" (click)="print('invoice-order-' + item.orderInvoice + '.pdf')"><img src="../../assets/svg/printer.svg" alt=""></button>{{item.shoppingCart.orderNumber}}</td>
 										<td>{{item.fish.name}}</td>
 										<td *ngIf="item.store">{{item.store.name}}</td>
 										<td *ngIf="item.status">{{item.status.status}}</td>
