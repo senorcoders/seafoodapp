@@ -262,8 +262,8 @@
 	},
 	"Login":{
 		"title":"Login",
-		"email":"Email",
-		"password":"Password",
+		"email":"Email...",
+		"password":"Password...",
 		"required":"is required",
 		"invalid":"is invalid",
 		"account":"Create Account",

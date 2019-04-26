@@ -107,103 +107,184 @@ form{
 }
 
 .seafoodFormContainer{
-    background: #fff;
     .content{
         max-width: 600px;
-        background: white;
         padding: 0;
         border-radius: 0;
         box-shadow: none;
+        background: #F7F8F9;
     }
 }
 
-.logo {
-    width: 68px;
-    height: 48px;
-    object-fit: contain;
-  }
+
 
   .introductory-title{
-    font-family: Roboto;
-    font-size: 40px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.18;
-    letter-spacing: normal;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: 1.5px;
+    line-height: 34px;
+    color: #7484AA;
+    text-transform: uppercase;
     text-align: center;
-    color: #000000;
-    padding-bottom: 60px;
+    span{
+        border-bottom: 1px solid #7484AA;
+        padding-bottom: 10px;
+    }
+    padding-bottom: 50px;
   }
 
   .login-nav-logo{
       padding: 20px 0px;
+      height: 110px;
+      align-items: center;
+      flex-wrap: nowrap;
+      a{
+        padding: 20px 50px;
+        img.logo{
+            max-width: 100%;
+            width: 52px;
+            height: auto;
+        }
+      }
   }
 
   .input-group{
-    max-width: 368px;
+    max-width: 350px;
     margin: 0 auto;
-    margin-bottom: 60px;
+    width: 100%;
+    margin-bottom: 50px;
+    background: none !important;
 
-    input.form-control{
+    input.form-control, textarea.form-control{
         background: none !important;
-        height: auto !important;
-        border-bottom: solid 2px #c2c2c2;
+        border: 0;
+        border-bottom: solid 2px #9A9EA8 !important;
         border-radius: 0 !important;
-        padding-left: 0;
+        color: #3E4E75 !important;
+        font-size: 21px;
+        line-height: 0;
+        font-weight: 300;
+        font-family: 'Open Sans', sans-serif;
+        padding: 0 !important;
+        @media screen and (max-width: 768px) {
+            font-size: 20px !important;
+
+          }
+
 
     }
+    
+
+    select.form-control{
+        background: none !important;
+        border-radius: 0 !important;
+        border: 0;
+        border-bottom: solid 2px #9A9EA8 !important;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+        color: #3E4E75 !important;
+        font-size: 21px;
+        font-weight: 300;
+        font-family: 'Open Sans', sans-serif;
+        padding: 0 !important;
+        @media screen and (max-width: 768px) {
+            font-size: 20px !important;
+
+          }
+    }
     input.form-control.is-invalid{
-        border-bottom: solid 2px #f44848;
+        border-bottom: solid 2px #f44848 !important;
 
     }
     input:focus{
         outline: none !important;
         box-shadow: none !important;
-        border-bottom: solid 2px #3181f0 !important;
+        border-bottom: solid 2px #3E4E75 !important;
 
+    }
+    input.form-control:disabled, select.form-control:disabled{
+        color: #9A9EA8 !important;
+        border-bottom: solid 2px #9A9EA8 !important;
+
+    }
+  
+    .has-float-label .form-control:placeholder-shown:not(:focus)+*{
+        
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300 !important;
+        font-style: italic !important;
+        font-size: 16px !important;
+        line-height: 28px;
+        letter-spacing: normal;
+        text-align: left;
+        color: #9A9EA8 !important;
+        padding-left: 0 !important;
+        font-weight: 300 !important;
+        top: .3em !important;
+        @media screen and (max-width: 768px) {
+            font-size: 20px !important;
+
+          }
+        .red{
+            color: #9A9EA8;
+            font-size: 0.8em;
+        
+        }
     }
 
     .has-float-label label{
-        font-size: 12px;
+        font-size: 16px !important;
         left: 0 !important;
+        color: #3E4E75 !important;
+        line-height: 28px !important;
+        font-style: normal !important;
+        font-weight: 300 !important;
+        top: -1em !important;
+        @media screen and (max-width: 768px) {
+            font-size: 15px !important;
 
+          }
+        .red{
+            color: #3E4E75;
+            font-size: 0.8em;
+        
+        }
     }
-    label{
-        width: 40px;
-        height: 19px;
-        font-family: Roboto;
-        font-size: 16px;
-        font-weight: normal;
-        font-style: normal;
-        font-stretch: normal;
-        line-height: 1.19;
-        letter-spacing: normal;
-        text-align: left;
-        color: #000000;
+
+    .has-float-label label.disabled-label{
+        color: #9A9EA8 !important;
     }
     .form-control:placeholder-shown:not(:focus)+*{
      font-size: inherit; 
     opacity: 1; 
     }
   }
+  .has-float-label label::after, .has-float-label>span::after{
+      display: none;
+  }
 
 
 .btn-blue{
-    width: 256px;
-    height: 56px;
-    border-radius: 100px !important;
-    background-color: #3181f0;
-    font-family: Roboto;
-    font-size: 24px;
-    font-weight: 300;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 1.33;
-    letter-spacing: normal;
-    text-align: center;
-    color: #ffffff;
     cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 1.25px;
+    text-transform: uppercase;
+    line-height: 50px;
+    color: #7484AA;
+    border-radius: 2px;
+    border: 1px solid #7484AA;
+    background: none;
+    width: 200px;
+    height: 50px;
+    vertical-align: middle;
+    transition: all .2s ease-in-out;
+    &:hover{
+        background: #7484AA;
+        color: #F7F8F9;
+    }
 }
 
 .btn-blue:focus{
@@ -212,18 +293,15 @@ form{
 }
 
 .recovery{
-    width: 128px;
-  height: 19px;
-  font-family: Roboto;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.56;
-  letter-spacing: normal;
-  text-align: left;
-  color: #3181f0 !important;
-  text-decoration: underline !important;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 14px;
+    color: #7484AA;
+    line-height: 19px;
+    letter-spacing: initial;
+    padding-bottom: 20px;
+    display: block;
 }
 
 @media screen and (max-width: 768px){

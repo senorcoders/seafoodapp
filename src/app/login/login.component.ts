@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   isValid: boolean = false;
-  loginText: any = 'Login';
+  loginText: any = 'LOGIN & SWIM';
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -61,7 +61,7 @@ export class LoginComponent implements OnInit {
     if (this.auth.isLogged()) {
       this.router.navigate(["/"]);
       this.isValid = false;
-      this.loginText = 'Login';
+      this.loginText = 'LOGIN & SWIM';
     }
   }
   setHeight(h) {
@@ -126,7 +126,7 @@ export class LoginComponent implements OnInit {
         console.log(error);
         this.showError(error.error);
         this.isValid = false;
-        this.loginText = 'Login';
+        this.loginText = 'Login & swim';
       }
     )
   }
