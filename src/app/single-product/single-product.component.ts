@@ -80,6 +80,7 @@ export class SingleProductComponent implements OnInit {
     }
   };
   value: any = 1;
+  currentVaritionID: string = '';
   public withVariations = false;
   public variations = [];
   public selectVariation = '';
@@ -294,6 +295,7 @@ export class SingleProductComponent implements OnInit {
       if (data["variations"] !== undefined && data["variations"] !== null && data["variations"].length > 0) {
         this.withVariations = true;
         this.variations = data["variations"];
+        this.currentVaritionID = data['variations'][0].id;
         if (this.variations[0].wholeFishWeight !== null && this.variations[0].wholeFishWeight !== undefined)
           this.selectVariation = this.variations[0].wholeFishWeight.id;
         else {
@@ -337,8 +339,10 @@ export class SingleProductComponent implements OnInit {
 
   }
 
-  public selectTheVariation(idVariation) {
+  public selectTheVariation(idVariation, id) {
     this.selectVariation = idVariation;
+    this.currentVaritionID = id;
+    this.getPricingCharges();
   }
 
   getCart() {
@@ -468,7 +472,7 @@ export class SingleProductComponent implements OnInit {
     )
   }
   getPricingCharges() {
-    this.pricingServices.getPricingChargesByWeight(this.productID, this.count)
+    this.pricingServices.getPricingChargesByWeight(this.productID, this.currentVaritionID, this.count)
       .subscribe(
         res => {
           console.log('Pricing Charges', res);

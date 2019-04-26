@@ -22,8 +22,8 @@ export class PricingChargesService {
 
   }
 
-  getPricingChargesByWeight( itemID:string, weight:number ){
-    return this.http.get(`api/fish/${itemID}/charges/${weight}`)
+  getPricingChargesByWeight( itemID: string, variationID: string, weight: number ){
+    return this.http.get(`api/fish/${itemID}/variation/${variationID}/charges/${weight}`)
   }
 
   deletePricingCharges(id){

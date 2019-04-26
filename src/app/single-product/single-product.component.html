@@ -44,11 +44,11 @@
                 <div class="row variations" *ngIf="withVariations">
                   <div class="col-12">
                     <div class="item-variations" [hidden]="noWholeFish"
-                      (click)="selectTheVariation(variation.wholeFishWeight?.id)"
+                      (click)="selectTheVariation(variation.wholeFishWeight?.id, variation.id )"
                       [ngClass]="selectVariation===variation.wholeFishWeight?.id?'select':''"
                       *ngFor="let variation of variations">{{variation.wholeFishWeight?.name}}</div>
                     <div class="item-variations" [hidden]="!noWholeFish"
-                      (click)="selectTheVariation(variation.fishPreparation?.id)"
+                      (click)="selectTheVariation(variation.fishPreparation?.id, variation.id)"
                       [ngClass]="selectVariation===variation.fishPreparation?.id?'select':''"
                       *ngFor="let variation of variations">{{variation.fishPreparation?.name}}</div>
                   </div>
@@ -91,7 +91,7 @@
                 <div class="dashed-row"><span class="name-row">Company</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Brand</span>
+                <div class="dashed-row" *ngIf="brandname != ''"><span class="name-row">Brand</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span>
                 </div>
                 <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Category</span>

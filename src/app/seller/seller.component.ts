@@ -23,6 +23,7 @@ export class SellerComponent implements OnInit {
     'dataExtra': ''
 
   };
+  incoterms: any = [];
   countries: any = [];
   allCities: any = [];
   cities: any = [];
@@ -58,6 +59,7 @@ export class SellerComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.getIncoterms();
     this.getAllCities();
     this.getCountries();
     this.sellerForm = this.fb.group({
@@ -70,6 +72,7 @@ export class SellerComponent implements OnInit {
       fullBakingInfo: [''],
       sfsAgreementForm: [''],
       ifLocal: [''],
+      incoterms: ['']
     });
   }
   getPersonalData() {
@@ -106,9 +109,20 @@ export class SellerComponent implements OnInit {
       uploadTradeLicense: [this.user.dataExtra.uploadTradeLicense],
       fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
       sfsAgreementForm: [''],
-      ifLocal: [this.user.dataExtra.ifLocal], 
+      ifLocal: [this.user.dataExtra.ifLocal],
+      incoterms: [this.user.incoterms.name]
     });
   }
+  getIncoterms() {
+    this.auth.getData('incoterms').subscribe(
+      result => {
+        this.incoterms = result;
+      }, error => {
+        console.log( error );
+      }
+    )
+  }
+
   getUsers() {
     this.auth.getData('user?where={"role":1}').subscribe(
       result => {
@@ -162,9 +176,9 @@ export class SellerComponent implements OnInit {
       "iso": this.user.dataExtra['iso'],
       "productsIntered": this.user.dataExtra['productsIntered'],
       "licenseNumber": this.user.dataExtra['licenseNumber'],
-      "trade": this.user.dataExtra['trade']
-
+      "trade": this.user.dataExtra['trade']      
     };
+    data['incoterms'] = this.user.incoterms;
     data.dataExtra = dataExtra;
     // this.sellerForm.controls['firstMileCost'].setValue(5);
     console.log(data);
@@ -295,16 +309,4 @@ export class SellerComponent implements OnInit {
 		);
 	  }
 
-	  /*getCities() {
-		this.countryService.getCities( this.country.value ).subscribe(
-		  result => {
-			this.cities = result[0].cities;
-			this.myform.controls['city'].setValue(this.cities[0]['code']);
-
-		  },
-		  error => {
-
-		  }
-		);
-	  }*/
 }

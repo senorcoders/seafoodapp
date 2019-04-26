@@ -448,7 +448,8 @@
 		"required": "is required",
 		"invalid": "is invalid",
 		"licence": "License",
-		"firstMileCost": "First Mile Cost ( AED / KG )"
+		"firstMileCost": "First Mile Cost ( AED / KG )",
+		"incoterm": "Incoterm to use"
 	},
 	"Buyer": {
 		"title": "Buyer List",

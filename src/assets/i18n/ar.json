@@ -428,7 +428,9 @@
 		"sfs":"SFS Agreement Form",
 		"required":"is required",
 		"invalid":"is invalid",
-		"licence":"License"
+		"licence":"License",
+		"firstMileCost": "First Mile Cost ( AED / KG )",
+		"incoterm": "Incoterm to use"
 	},
 	"Buyer":{
 		"title":"Buyer List",
