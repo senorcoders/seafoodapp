@@ -7,7 +7,7 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
@@ -17,8 +17,11 @@ import { PricingChargesService } from '../services/pricing-charges.service';
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 import { NgProgress } from 'ngx-progressbar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from '../toast.service';
+import { HttpClient } from '@angular/common/http';
+import { reject } from 'q';
+import { Subject } from 'rxjs/Subject';
 declare var jQuery: any;
 @Component({
   selector: 'app-create-product',
@@ -46,7 +49,15 @@ export class CreateProductComponent implements OnInit {
   public showError = false;
   private trimmings = [];
   private seafood_sku = "";
+  private productID = "";
+  private user: any = {};
+  private ready = false;
 
+  private eventsSubject: Subject<string> = new Subject<string>();
+
+  public currentExchangeRate:any;
+  public currentPrincingCharges:any;
+  
   constructor(
     private productService: ProductService,
     private toast: ToastrService,
@@ -55,12 +66,26 @@ export class CreateProductComponent implements OnInit {
     private pricingChargesService: PricingChargesService,
     private fb: FormBuilder,
     public ngProgress: NgProgress,
-    private router: Router
-  ) { }
+    private router: Router,
+    private route: ActivatedRoute,
+    private http: HttpClient,
+    private sanitizer: DomSanitizer
+  ) {
+    this.user = this.auth.getLoginData();
+    let productID = this.route.snapshot.params['id'];
+    if (productID !== null && productID !== undefined) this.productID = productID;
+  }
+
+  private emitEventToChild(str) {
+    this.eventsSubject.next(str)
+  }
+
   ngOnInit() {
     this.myform = new FormGroup({
     });
     
+
+    this.getCurrentPricingCharges();
     this.getMyData();
     this.productService.getData('fishpreparation').subscribe(
       res => {
@@ -71,6 +96,161 @@ export class CreateProductComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  receiveMessage($event) {
+    console.log($event);
+    //Si tenemos productID es para editar producto
+    this.ready = true;
+    if (this.productID !== '' && this.currentExchangeRate !== 0) {
+      this.getDetails();
+    }
+  }
+
+  private async getDetails() {
+    this.loading = true;
+    let parent = await this.getParent();
+    console.log("parent", parent);
+    this.productService.getProductDetailVariations(this.productID).subscribe(async data => {
+      let images = await this.getImages(data);
+
+      let product = {
+        name: data["name"],
+        brandName: data["brandname"] || "",
+        country: data["country"],
+        processingCountry: data["processingCountry"],
+        city: data["city"],
+        unitOfSale: data["perBox"] === false ? 'kg' : 'boxes',
+        averageUnitWeight: data["boxWeight"],
+        parentSelectedType: parent["level0"] ? parent["level0"].id : "",
+        speciesSelected: parent["level1"] ? parent["level1"].id : '',
+        subSpeciesSelected: data["type"].id,
+        descriptorSelected: data["descriptor"] ? data["descriptor"].id : '',
+        seller_sku: data["seller_sku"] || '',
+        minimunorder: data["minimumOrder"],
+        maximumorder: data["maximumOrder"],
+        imagesSend: images.forForm
+      };
+
+      let features = {
+        price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
+        acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
+        raised: data["raised"] || "",
+        treatment: data["treatment"] || "",
+        head: data["head"] || "on",
+        wholeFishAction: data["wholeFishAction"]
+      };
+
+      let price = {
+        headAction: data["headAction"],
+      };
+
+      // let varit = this.reingenieriaVariations(data, data["variations"]);
+      // features = Object.assign(features, varit.features);
+
+      this.setValue({ product, features, price });
+      let we:any = {};
+      we.trimms = data["weightsTrim"] !== undefined && data["weightsTrim"] !== null;
+      we.weights = data["weights"],
+      we.weightsTrim = data["weightsTrim"];
+      this.emitEventToChild(JSON.stringify(we));
+
+      this.loading = false;
+      this.ngProgress.done();
+    }, error => {
+      console.log(error);
+      this.toast.error('Error when getting product', 'Error', { positionClass: 'toast-top-right' });
+      this.loading = false;
+      this.ngProgress.done();
+    });
+  }
+
+  private getParent() {
+    return this.productService.getData(`fishType/parents/${this.productID}`).toPromise() as any;
+  }
+
+  private async getImages(product) {
+    let baseUrl = environment.apiURLImg;
+    let rt: any = { responseType: "blob" };
+    let imagePrimary = await this.http.get(baseUrl + product["imagePrimary"], rt).toPromise() as any;
+    let imagePrimary64 = await this.blobToBase64(imagePrimary);
+    let imagePrimaryForForm = {
+      src: imagePrimary64,
+      type: "primary"
+    };
+
+    let forForm = [];
+    forForm.push(imagePrimaryForForm);
+    let forInput = [this.blobToFile(imagePrimary, "primary.jpg")];
+
+    //Para agregar las imagenes secundarias
+    if (product["images"] && product["images"].length > 0) {
+      for (let image of product["images"]) {
+        let imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
+        let imageSecond64 = await this.blobToBase64(imageSecond);
+        let imageSecondForForm = {
+          src: imageSecond64,
+          type: "secundary"
+        };
+        forForm.push(imageSecondForForm);
+        forInput.push(this.blobToFile(imageSecond, "second.jpg"));
+      }
+    }
+
+    return {
+      forForm: JSON.stringify(forForm),
+      forInput: forInput
+    };
+  }
+
+  public byPassImageUrl(image) {
+    return this.sanitizer.bypassSecurityTrustStyle(image);
+  }
+
+  private reingenieriaVariations(product, variations) { console.log(variations);
+    let variationsEnd: any = {}, variationsTrim = {}, features: any = {};
+    //Si es variations trimms salmon
+    if (product.speciesSelected === '5bda361c78b3140ef5d31fa4' && (variations[0].wholeFishWeight === null || variations[0].wholeFishWeight === undefined)) {
+      features.wholeFishAction = false;
+      for (let vart of variations) {
+        variationsTrim[vart.fishPreparation.id] = vart.prices;
+      }
+      variationsEnd = variationsTrim;
+    } else {
+      let variations_ = { on: { keys: [] }, off: { keys: [] } };
+      features.wholeFishAction = true;
+      for (let vart of variations) {
+        //si es igual es de head off
+        if (vart.fishPreparation.id === this.trimmings[1].id) {
+          let key = vart.wholeFishWeight.id + "_off";
+          variations_.off.keys.push(key);
+          variations_.off[key] = vart.prices;
+        } else {
+          let key = vart.wholeFishWeight.id;
+          variations_.on.keys.push(key);
+          variations_.on[key] = vart.prices;
+        }
+      }
+
+      variationsEnd = variations_;
+    }
+
+    return { price: { weightsTrim: JSON.stringify(variationsTrim), weights: JSON.stringify(variationsEnd) }, features };
+  }
+
+  private blobToBase64(blob: Blob) {
+    return new Promise((resolve, reject) => {
+      var reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = function () {
+        let base64data = reader.result;
+        resolve(base64data);
+      }
+    });
+  }
+
+  private setValue(value) {
+    this.myform.patchValue(value);
   }
 
   getMyData() {
@@ -187,13 +367,13 @@ export class CreateProductComponent implements OnInit {
           }
         }
       }
-      let varationsOne = [{
-        fishPreparation: features.preparation,
-        wholeFishWeight: features.head !== 'both' ? features.head === 'off' ? features.headOffWeight : features.headOnWeight : undefined,
-        prices: [
-          { min: product.minimunorder, max: product.maximumorder, price: value.features.price }
-        ]
-      }];
+      // let varationsOne = [{
+      //   fishPreparation: features.preparation,
+      //   wholeFishWeight: features.head !== 'both' ? features.head === 'off' ? features.headOffWeight : features.headOnWeight : undefined,
+      //   prices: [
+      //     { min: product.minimunorder, max: product.maximumorder, price: value.features.price }
+      //   ]
+      // }];
 
       //Para quitar el _off y _arr
       for (let i = 0; i < variationsEnd.length; i++) {
@@ -207,7 +387,8 @@ export class CreateProductComponent implements OnInit {
 
       await this.generateSKU();
       // this.ngProgress.start();
-      let priceAED = Number(value.features.price).toFixed(2);
+      // console.log(value.features.price, this.currentExchangeRate);
+      // let priceAED = (value.features.price * this.currentExchangeRate).toFixed(2);
       const data = {
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
@@ -218,11 +399,11 @@ export class CreateProductComponent implements OnInit {
         'country': product.country,
         'processingCountry': product.processingCountry,
         'city': product.city,
-        'price': {
-          'type': '$',
-          'value': priceAED,
-          'description': priceAED + ' for pack'
-        },
+        // 'price': {
+        //   'type': '$',
+        //   'value': priceAED,
+        //   'description': priceAED + ' for pack'
+        // },
         'weight': {
           'type': "kg",
           'value': 5
@@ -231,6 +412,7 @@ export class CreateProductComponent implements OnInit {
         boxWeight: product.averageUnitWeight,
         'minimumOrder': product.minimunorder,
         'maximumOrder': product.maximumorder,
+        "acceptableSpoilageRate": features.acceptableSpoilageRate,
         'raised': features.raised,
         // 'preparation': features.preparation,
         'treatment': features.treatment,
@@ -241,7 +423,12 @@ export class CreateProductComponent implements OnInit {
         'status': '5c0866e4a0eda00b94acbdc0',
         'brandname': product.brandName,
         'hsCode': product.hsCode,
-        variations: variationsEnd.length > 0 ? variationsEnd : varationsOne
+        variations: variationsEnd,
+        // headAction: pricing.headAction,
+        // wholeFishAction: features.wholeFishAction,
+        // head: features.head,
+        // varationsOne: varationsOne,
+        // weights: 
       };
       console.log(data);
 
@@ -295,7 +482,19 @@ export class CreateProductComponent implements OnInit {
 
   saveImages(productID, status, files) {
     return this.productService.postFile(files, productID, status).toPromise();
-  }  
+  }
+
+  public getCurrentPricingCharges() {
+    this.pricingChargesService.getCurrentPricingCharges().subscribe(
+      result => {
+        this.currentPrincingCharges = result;
+        this.currentExchangeRate = result['exchangeRates'];
+        if (this.ready === true && this.productID !== '') this.getDetails();
+      }, error => {
+        console.log(error);
+      }
+    )
+  }
 
 
   public blobToFile = (theBlob: Blob, fileName: string): File => {
