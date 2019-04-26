@@ -170,6 +170,7 @@ export class OrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
+            console.log("Completed", this.orders);
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -185,6 +186,8 @@ export class OrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
+            console.log("Completed", this.orders);
+
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -201,6 +204,8 @@ export class OrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
+            console.log("Completed", this.orders);
+
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -217,6 +222,8 @@ export class OrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
+            console.log("Completed", this.orders);
+
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -233,6 +240,8 @@ export class OrdersComponent implements OnInit {
         res => {
           if (res['length'] > 0) {
             this.orders = res;
+            console.log("Completed", this.orders);
+
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -245,6 +254,7 @@ export class OrdersComponent implements OnInit {
         }
       );
     }
+
   }
 
   //OPEN ITEMS OF AN ORDER
@@ -275,5 +285,12 @@ export class OrdersComponent implements OnInit {
         console.log( error );
       }
     );
+  }
+
+  //PRINT ORDER
+  print(invoice_pdf){
+    const pdf_url:any = `${this.API}/api/shoppingcart/PDF/${invoice_pdf}/pdf_invoices`;
+    window.open(pdf_url, '_blank');
+
   }
 }

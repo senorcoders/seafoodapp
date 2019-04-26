@@ -60,16 +60,16 @@
           <h4>ORDER AMOUNT (KG)</h4>
           <div class="form-group">
             <form class="form-number">
-              <input type="number" placeholder="Min..." id="minAmount">
+              <input [disabled]="disabledInputs" type="number" placeholder="Min..." id="minAmount">
               <label>to</label>
-              <input type="number" placeholder="Max..." id="maxAmount">
+              <input [disabled]="disabledInputs" type="number" placeholder="Max..." id="maxAmount">
             </form>
           </div>
         </div>
         <div class="col-md-3 filter-col">
           <div class="form-group">
               <form class="check-form">
-                  <input type="checkbox" id="cooming">
+                  <input [disabled]="disabledInputs" type="checkbox" id="cooming">
                   <label for="cooming">UPCOMING</label>
                 </form>
           </div>
@@ -93,7 +93,7 @@
             <h4>CATEGORY</h4>
             <div class="form-group scroll-div">
                 <div *ngFor="let category of searchCategories; let i=index" class="custom-list">
-                    <input  type="radio"  name="cat" id="{{category.id}}" [value]="category.id">
+                    <input [disabled]="disabledInputs"  type="radio"  name="cat" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <h4>SUB CATEGORY</h4>
             <div class="form-group scroll-div">
                 <div *ngFor="let category of searchSubcategories; let i=index" class="custom-list">
-                    <input  type="radio"  name="subcat" id="{{category.id}}" [value]="category.id">
+                    <input [disabled]="disabledInputs"  type="radio"  name="subcat" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
                 </div>
             </div>
@@ -111,7 +111,7 @@
             <h4>SUBSPECIES</h4>
             <div class="form-group scroll-div">
                 <div *ngFor="let category of searchSubSpecie; let i=index" class="custom-list">
-                    <input  type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
+                    <input  [disabled]="disabledInputs" type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
                 </div>
             </div>
@@ -120,7 +120,7 @@
             <h4>VARIANT</h4>
             <div class="form-group scroll-div">
                 <div *ngFor="let category of searchDescriptor; let i=index" class="custom-list">
-                    <input  type="radio"  name="variant" id="{{category.id}}" [value]="category.id">
+                    <input [disabled]="disabledInputs" type="radio"  name="variant" id="{{category.id}}" [value]="category.id">
                     <label  for="{{category.id}}">{{category.name}}</label>
                 </div>
             </div>
@@ -130,7 +130,7 @@
             <div class="form-group">
                 <input  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
                 <div *ngFor="let country of filteredItems; let i=index" class="custom-list">
-                    <input *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
+                    <input [disabled]="disabledInputs" *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
                     <label *ngIf="i<5" for="{{country.code}}">{{country.name}}</label>
                 </div>
             </div>
@@ -140,7 +140,7 @@
           <h4>PREPARATION</h4>
           <div class="form-group scroll-div">
             <div class="custom-list" *ngFor="let item of preparataion">
-              <input type="checkbox" [id]="item.id" class="input-preparation" name="preparation[]" [value]="item.id" >
+              <input [disabled]="disabledInputs" type="checkbox" [id]="item.id" class="input-preparation" name="preparation[]" [value]="item.id" >
               <label for="{{item.id}}">{{item.name}}</label>
             </div>
           </div>
@@ -149,7 +149,7 @@
             <h4>TREATMENT</h4>
             <div class="form-group scroll-div">
               <div class="custom-list" *ngFor="let item of treatment">
-                <input type="checkbox" class="input-treatment" [id]="item.id" name="treatment[]" [value]="item.id" >
+                <input [disabled]="disabledInputs" type="checkbox" class="input-treatment" [id]="item.id" name="treatment[]" [value]="item.id" >
                 <label for="{{item.id}}">{{item.name}}</label>
               </div>         
             </div>
@@ -159,7 +159,7 @@
               <h4>RAISED</h4>
               <div class="form-group scroll-div">
                 <div class="custom-list" *ngFor="let item of raised">
-                  <input type="checkbox" class="input-raised" [id]="item.id" name="raised[]" [value]="item.id" >
+                  <input [disabled]="disabledInputs" type="checkbox" class="input-raised" [id]="item.id" name="raised[]" [value]="item.id" >
                   <label for="{{item.id}}">{{item.name}}</label>
                 </div>
                
