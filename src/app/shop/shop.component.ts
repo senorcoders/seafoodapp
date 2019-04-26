@@ -73,6 +73,9 @@ export class ShopComponent implements OnInit {
   isDisabled= false;
   tmpPrice: any;
   public loading:boolean = true;
+
+  public isChange:any = {};
+
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
     private countryservice: CountriesService, private router: Router) {
@@ -332,6 +335,7 @@ export class ShopComponent implements OnInit {
       else {
         this.showNotFound = false;
         this.products.forEach((data, index) => {
+          this.isChange[data.id] = {status: false, kg: 0};
           if (data.imagePrimary && data.imagePrimary !== '') {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
           }
@@ -428,6 +432,7 @@ export class ShopComponent implements OnInit {
       (label as HTMLElement).style.marginTop = '-34px';
       (label as HTMLElement).style.textAlign = 'center';
       (btn as HTMLElement).style.display = 'block';
+      this.isChange[id] = {status: true, kg: weight};
     });
   }
   //Save product in current usar cart
@@ -854,5 +859,8 @@ export class ShopComponent implements OnInit {
   .trigger('change');
   }
 
+  public getIdVarian(product){
+    return product.variation.fishPreparation!=null? product.variation.fishPreparation.id : product.variation.wholeFishWeight.id;
+  }
  
 }
