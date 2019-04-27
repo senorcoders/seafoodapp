@@ -33,9 +33,17 @@
             <option *ngFor="let cat of categories" [value]=cat.id [innerHtml]="cat.name"></option>
           </select>
         </div>
+        <!--<div class="form-group">
+          <label>SFS Margin (%)</label>-->
+          <input type="hidden" formControlName="sfsMargin" />            
+        <!--</div>-->
         <div class="form-group">
-          <label>SFS Margin (%)</label>
-          <input type="number" class="form-control" formControlName="sfsMargin" />            
+          <label>Ex Works Margin (%)</label>
+          <input type="number" class="form-control" formControlName="exworks" />            
+        </div>
+        <div class="form-group">
+          <label>CPI Margin (%)</label>
+          <input type="number" class="form-control" formControlName="cpi" />            
         </div>
         <div class="form-group">
          <button type="submit" class="btn-red" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
@@ -48,30 +56,61 @@
       <h2 class="title">{{'FishType.types' | translate}}</h2>
       <div class="row">
         <div class="col table-design">
+          
+            
+                <div class="row" >
+                    <div class="col text-left">
+                        <label class="level-1" > Category</label>
+                      </div>
+                      <div class="col-md-1 text-right"><small>Ex-works</small>
+                      </div>
+                      
+                        
+                      <div class="col-md-1 text-right"><small >CPI</small></div>
+                      <div class="col-md-1 text-right"><small >&nbsp;</small></div>
+                        <div class="col-md-1 text-right"><small >&nbsp;</small>
+                      </div>
+                  
+                </div>
+
           <div class="row row-bg" *ngFor="let category of orgCats; let i=index">
             <div class="col text-left">
-              <label>{{category.name}}</label>
+              <label class="level-0">{{category.name}}</label>
               
             </div>
-            <div class="col">
+            <div class="col-md-1 text-right"><small *ngIf="category.exworks" >({{category.exworks}} %)</small>
+            </div>
+            
+              
+            <div class="col-md-1 text-right"><small *ngIf="category.cpi">({{category.cpi}} %)</small>
+            </div>
+            <div class="col-md-1">
               <span (click)="edit(i,category.id)" class="edit"><fa name="pencil"></fa></span>
             </div>
-            <div class="col">
+            <div class="col-md-1">
               <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(category.id)" class="delete">
             </div>
             <div class="col-12">
               <!--Childs level 1-->
                 <ul>
+                    
+                    
                   <div *ngFor="let sub0 of category.childs; let i = index">
                     <li>
                       <div class="row" >
-                        <div class="col text-left">
-                          <label [innerHtml]="sub0?.name "></label><small  *ngIf="sub0.sfsMargin">({{sub0.sfsMargin}} %)</small>
+                          <div class="col text-left">
+                              <label class="level-1" [innerHtml]="sub0?.name "></label>
+                            </div>
+                            <div class="col-md-1 text-right"><small *ngIf="sub0.exworks">({{sub0.exworks}} %)</small>
+                            </div>
+                            
+                              
+                            <div class="col-md-1 text-right"><small *ngIf="sub0.cpi">({{sub0.cpi}} %)</small>
+                            </div>
+                        <div class="col-md-1">
+                            <span (click)="editSub(sub0.id, sub0, sub0.parent, sub0, sub0.exworks, sub0.cpi)" class="edit"><fa name="pencil"></fa></span>
                         </div>
-                        <div class="col">
-                            <span (click)="editSub(sub0.id, sub0, sub0.parent, sub0, sub0.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
-                        </div>
-                        <div class="col">
+                        <div class="col-md-1">
                             <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub0.id, sub0.id)" class="delete">
                         </div>
                       </div>
@@ -82,13 +121,18 @@
                               <div *ngFor="let sub1 of sub0.childs; let i = index">
                                 <li>
                                   <div class="row" >
-                                    <div class="col text-left">
-                                      <label [innerHtml]="sub1?.name "></label><small  *ngIf="sub1.sfsMargin">({{sub1.sfsMargin}} %)</small>
+                                      <div class="col text-left">
+                                          <label class="level-2" [innerHtml]="sub1?.name "></label>
+                                        </div>
+                                          <div class="col-md-1 text-right"><small *ngIf="sub1.exworks">({{sub1.exworks}} %)</small>
+                                        </div>
+                                        <div class="col-md-1 text-right">
+                                          <small *ngIf="sub1.cpi">({{sub1.cpi}} %)</small>
+                                        </div>
+                                    <div class="col-md-1">
+                                        <span (click)="editSub(sub1.id, sub1, sub1.parent, sub1, sub1.exworks, sub1.cpi)" class="edit"><fa name="pencil"></fa></span>
                                     </div>
-                                    <div class="col">
-                                        <span (click)="editSub(sub1.id, sub1, sub1.parent, sub1, sub1.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
-                                    </div>
-                                    <div class="col">
+                                    <div class="col-md-1">
                                         <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub1.id, sub1.id)" class="delete">
                                     </div>
                                   </div>
@@ -98,12 +142,18 @@
                                         <li>
                                           <div class="row" >
                                             <div class="col text-left">
-                                              <label [innerHtml]="sub2?.name "></label><small  *ngIf="sub2.sfsMargin">({{sub2.sfsMargin}} %)</small>
+                                              <label class="level-3" [innerHtml]="sub2?.name "></label>
                                             </div>
-                                            <div class="col">
-                                                <span (click)="editSub(sub2.id, sub2, sub2.parent, sub2, sub2.sfsMargin)" class="edit"><fa name="pencil"></fa></span>
+                                              <div class="col-md-1 text-right"><small *ngIf="sub2.exworks" >({{sub2.exworks}} %)</small>
                                             </div>
-                                            <div class="col">
+                                            <div class="col-md-1 text-right">
+                                             <small *ngIf="sub2.cpi">({{sub2.cpi}} %)</small>
+                                            </div>
+                                            
+                                            <div class="col-md-1 text-right">
+                                                <span (click)="editSub(sub2.id, sub2, sub2.parent, sub2, sub2.exworks, sub2.cpi)" class="edit"><fa name="pencil"></fa></span>
+                                            </div>
+                                            <div class="col-md-1">
                                                 <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub2.id, sub2.id)" class="delete">
                                             </div>
                                           </div>

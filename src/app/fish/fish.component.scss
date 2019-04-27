@@ -22,6 +22,19 @@ form, table{
     max-width: 60%;
     margin: 0 auto;
 }
+ul {
+	margin-left: 0px !important;
+	padding-left: 0px !important;
+}
+.level-1 {
+	padding-left: 15px;
+}
+.level-2 {
+	padding-left: 30px;
+}
+.level-3 {
+	padding-left: 45px;
+}
 @media(max-width: 768px){
 	form, table{
 		width: 100%;
