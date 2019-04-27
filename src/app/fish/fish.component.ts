@@ -35,7 +35,9 @@ export class FishComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
       parent: [''],
-      sfsMargin: ['']
+      sfsMargin: [''],
+      exworks: [''],
+      cpi: ['']
     });
     this.categoryForm.controls['parent'].setValue('none');
   }
@@ -198,6 +200,8 @@ export class FishComponent implements OnInit {
       description: [this.orgCats[index].description, Validators.required],
       parent: ['none'],
       sfsMargin: [this.orgCats[index].sfsMargin],
+      exworks: [this.orgCats[index].exworks],
+      cpi:[this.orgCats[index].cpi]
     });
     this.buttonLabel = 'Edit Fish';
     if (this.orgCats[index].images != null) {
@@ -206,7 +210,7 @@ export class FishComponent implements OnInit {
     }
   }
 
-  editSub(id, child, parent, sub, sfsMargin) {
+  editSub(id, child, parent, sub, cpi, exworks) {
     console.log(sub);
     this.tmpParentID = sub['id'];
     this.id = id;
@@ -214,7 +218,9 @@ export class FishComponent implements OnInit {
       name: [child.name, Validators.required],
       description: [child.description, Validators.required],
       parent: [parent],
-      sfsMargin: [sfsMargin]
+      sfsMargin: [0],
+      cpi: [cpi],
+      exworks: [exworks]
     });
     this.buttonLabel = 'Edit Product Category';
     if (child.images != null) {
@@ -378,6 +384,8 @@ export class FishComponent implements OnInit {
       this.product.getData(`fishType/${parentType}`).subscribe(
         result => {
           this.categoryForm.controls['sfsMargin'].setValue(result['sfsMargin']);
+          this.categoryForm.controls['cpi'].setValue(result['cpi']);
+          this.categoryForm.controls['exwork'].setValue(result['exwork']);
         },
         error => {
 
