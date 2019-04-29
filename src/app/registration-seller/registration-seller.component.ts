@@ -25,31 +25,24 @@ export class RegistrationSellerComponent implements OnInit {
   countries:any = [];
   buyerSellerValid: boolean = false;
   showEmailVerification:boolean=false;
-  step1:boolean = true;
-  step2:boolean = false;
-  step3:boolean = false;
-  step4:boolean = false;
   companyName: FormControl;
   TradeBrandName: FormControl;
   companyType: FormControl;
   Address: FormControl;
   City: FormControl;
   ProductsInterestedSelling: FormControl;
-  companyForm:FormGroup;
   ContactNumber: FormControl;
-  bankForm: FormGroup;
   TradeLicenseNumber: FormControl;
   FoodSafetyCertificateNumber: FormControl;
   CorporateBankAccountNumber: FormControl;
   swiftCode: FormControl;
   CurrencyofTrade: FormControl;
-  legalForm: FormGroup;
   email: any;
   userID: any;
   showConfirmation=true;
   storeID:any;
   isValid:boolean = false;
-btnText:any = 'Finish';
+btnText:any = 'REGISTER TO SELL';
 
 
 
@@ -62,9 +55,6 @@ btnText:any = 'Finish';
   ngOnInit() {
     this.createFormControls();
     this.RegisterSellerForm();
-    this.registerCompanyForm();
-    this.registerBankForm();
-    this.registerlegalForm();
     this.getCountries();
     this.setValues();
     var that = this;
@@ -134,15 +124,7 @@ btnText:any = 'Finish';
       password:this.password,
       rePassword:this.rePassword,
       tel:this.tel,
-      tcs:this.tcs
-
-    },{
-      updateOn: 'submit'
-    });
-  }
-
-  registerCompanyForm(){
-    this.companyForm = new FormGroup({
+      tcs:this.tcs,
       location:this.location,
       Address:this.Address,
       City:this.City,
@@ -150,8 +132,12 @@ btnText:any = 'Finish';
       TradeBrandName:this.TradeBrandName,
       companyType: this.companyType,
       ContactNumber:this.ContactNumber,
-      ProductsInterestedSelling: this.ProductsInterestedSelling
-
+      ProductsInterestedSelling: this.ProductsInterestedSelling,
+      FoodSafetyCertificateNumber:this.FoodSafetyCertificateNumber,
+      TradeLicenseNumber:this.TradeLicenseNumber,
+      CorporateBankAccountNumber:this.CorporateBankAccountNumber,
+      swiftCode:this.swiftCode,
+      CurrencyofTrade:this.CurrencyofTrade
 
     },{
       updateOn: 'submit'
@@ -159,29 +145,9 @@ btnText:any = 'Finish';
   }
 
 
-
-  registerBankForm(){
-    this.bankForm = new FormGroup({
-      FoodSafetyCertificateNumber:this.FoodSafetyCertificateNumber,
-      TradeLicenseNumber:this.TradeLicenseNumber
-    },{
-      updateOn: 'submit'
-    })
-  }
-
-  registerlegalForm(){
-    this.legalForm = new FormGroup({
-      CorporateBankAccountNumber:this.CorporateBankAccountNumber,
-      swiftCode:this.swiftCode,
-      CurrencyofTrade:this.CurrencyofTrade
-    },{
-      updateOn: 'submit'
-    })
-  }
-
   //PREset USD option
   setValues(){
-    this.legalForm.controls['CurrencyofTrade'].setValue('USD');
+    this.sellerForm.controls['CurrencyofTrade'].setValue('USD');
 
   }
     //Get list of countries from the API
@@ -242,79 +208,46 @@ btnText:any = 'Finish';
   submitStep1(){
     console.log(this.sellerForm.value);
     if(this.sellerForm.valid){
-      (this.sellerForm.get('password').value != this.sellerForm.get('rePassword').value ) ? this.sellerForm.get('rePassword').setErrors( {MatchPassword: true} ) : this.next();
+      (this.sellerForm.get('password').value != this.sellerForm.get('rePassword').value ) ? this.sellerForm.get('rePassword').setErrors( {MatchPassword: true} ) : this.register();
     }else{
       console.log("Invalid");
       this.validateAllFormFields(this.sellerForm);
     }
   }
 
-  next(){
-    this.step1 = false;
-    this.step2 = true;
-  }
 
 
-    //Validate step 2 FORM
-  submitStep2(){
-    console.log(this.companyForm.value);
-    if(this.companyForm.valid){
-      console.log("Valido");
-      this.step1 = false;
-      this.step2 = false;
-      this.step3 = true;
-    }else{
-      console.log("Invalid");
-      this.validateAllFormFields(this.companyForm);
-    }
-  }
 
-    //Validate step 3 FORM
-  submitStep3(){
-    console.log(this.bankForm.value);
-    if(this.bankForm.valid){
-      console.log("Valido");
-      this.step1 = false;
-      this.step2 = false;
-      this.step3 = false;
-      this.step4 = true;
-    }else{
-      console.log("Invalid");
-      this.validateAllFormFields(this.bankForm);
-    }
-  }
+
+
+  
+ 
     //Validate step 4 FORM
   register(){
-    console.log(this.legalForm.value);
-    if(this.legalForm.valid){
+   
       console.log("Valido");
       this.isValid = true;
       this.btnText = 'Loading...'
       this.submitRegistrationSeller();
-      
-    }else{
-      console.log("Invalid");
-      this.validateAllFormFields(this.legalForm);
-    }
   }
 
   //Send User data to API
   submitRegistrationSeller(){
     let dataExtra={
     "tel": this.sellerForm.get('tel').value,
-    'country' : this.companyForm.get('location').value,
-    'Address' : this.companyForm.get('Address').value,
-    'City' : this.companyForm.get('City').value,
-    'companyName' : this.companyForm.get('companyName').value,
-    'companyType' : this.companyForm.get('companyType').value,
-    'licenseNumber' : this.bankForm.get('TradeLicenseNumber').value,
-    'iso' : this.bankForm.get('FoodSafetyCertificateNumber').value,
-    'iban' : this.legalForm.get('CorporateBankAccountNumber').value,
-    'swiftCode' : this.legalForm.get('swiftCode').value,
-    'productsIntered' : this.companyForm.get('ProductsInterestedSelling').value,
-    'contactNumber' : this.companyForm.get('ContactNumber').value,
-    'currencyTrade' : this.legalForm.get('CurrencyofTrade').value,
-    'trade' : this.companyForm.get('TradeBrandName').value 
+    'country' : this.sellerForm.get('location').value,
+    'Address' : this.sellerForm.get('Address').value,
+    'City' : this.sellerForm.get('City').value,
+    'companyName' : this.sellerForm.get('companyName').value,
+    'companyType' : this.sellerForm.get('companyType').value,
+    'licenseNumber' : this.sellerForm.get('TradeLicenseNumber').value,
+    'iso' : this.sellerForm.get('FoodSafetyCertificateNumber').value,
+    'iban' : this.sellerForm.get('CorporateBankAccountNumber').value,
+    'swiftCode' : this.sellerForm.get('swiftCode').value,
+    'productsIntered' : this.sellerForm.get('ProductsInterestedSelling').value,
+    'contactNumber' : this.sellerForm.get('ContactNumber').value,
+    'currencyTrade' : this.sellerForm.get('CurrencyofTrade').value,
+    'trade' : this.sellerForm.get('TradeBrandName').value 
     }
 
       this.auth.register(this.sellerForm.value, 1, dataExtra).subscribe(res => {
@@ -326,7 +259,7 @@ btnText:any = 'Finish';
 
       }, error =>{
         this.isValid = false;
-        this.btnText = 'Finish'
+        this.btnText = 'REGISTER TO SELL'
         this.showError(error.error)
 
       })
@@ -341,7 +274,7 @@ showError(e){
 //Create store on the Database
 createStore(){
   let store={
-    "name": this.companyForm.get('companyName').value,
+    "name": this.sellerForm.get('companyName').value,
     "owner":this.userID,
     "description":""
   }
@@ -350,18 +283,18 @@ createStore(){
       this.storeID=result[0].id;
       //update store with full data, api is working in this way
       let storeFullData={
-        "companyName":this.companyForm.get('companyName').value,
-        "companyType": this.companyForm.get('companyType').value,
-        "location": this.companyForm.get('location').value,
-        "Address":this.companyForm.get('Address').value,
-        "City":this.companyForm.get('City').value,
-        "ContactNumber": this.companyForm.get('ContactNumber').value,
-        "CorporateBankAccountNumber": this.legalForm.get('CorporateBankAccountNumber').value,
-        "CurrencyofTrade": this.legalForm.get('CurrencyofTrade').value,
-        "FoodSafetyCertificateNumber": this.bankForm.get('FoodSafetyCertificateNumber').value,
-        "ProductsInterestedSelling": this.companyForm.get('ProductsInterestedSelling').value,
-        "TradeBrandName": this.companyForm.get('TradeBrandName').value,
-        "TradeLicenseNumber": this.bankForm.get('TradeLicenseNumber').value
+        "companyName":this.sellerForm.get('companyName').value,
+        "companyType": this.sellerForm.get('companyType').value,
+        "location": this.sellerForm.get('location').value,
+        "Address":this.sellerForm.get('Address').value,
+        "City":this.sellerForm.get('City').value,
+        "ContactNumber": this.sellerForm.get('ContactNumber').value,
+        "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
+        "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
+        "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+        "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
+        "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
+        "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
       }
       console.log(this.storeID)
       this.product.updateData('store/'+this.storeID, storeFullData).subscribe(
@@ -369,11 +302,11 @@ createStore(){
           console.log("REesult", result);
           this.showConfirmation=false;
           this.isValid = false;
-          this.btnText = 'Finish'
+          this.btnText = 'REGISTER TO SELL'
         },
         error=>{
           this.isValid = false;
-          this.btnText = 'Finish'
+          this.btnText = 'REGISTER TO SELL'
           this.showError(error.error)
           //if store has error. delete user and store
           this.product.deleteData('user/'+this.userID).subscribe(
@@ -388,7 +321,7 @@ createStore(){
       this.showError(error.error)
       console.log(error)
       this.isValid = false;
-      this.btnText = 'Finish'
+      this.btnText = 'REGISTER TO SELL'
     }
   )
 }
