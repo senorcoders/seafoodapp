@@ -147,7 +147,7 @@ export class ShopComponent implements OnInit {
   //GET FISH TYPE NAME FOR FILTER PILLS
   async getTypeName(id, name) {
     await new Promise((resolve, reject) => {
-      this.productService.getData(`/fishType/${id}`).subscribe(res => {
+      this.productService.getData(`fishType/${id}`).subscribe(res => {
         if (name == 'tmpCatName') {
           this.tmpCatName = res['name'];
         }
@@ -425,7 +425,7 @@ export class ShopComponent implements OnInit {
   }
   //GET the shipping rates
   getShippingRates(weight, id, variation, i) { 
-    this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}`).subscribe(result => {
+    this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}/true`).subscribe(result => {
      this.tmpPrice = result['price'];
       const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
       const priceT: any = Number(priceTByWeight.toFixed(2)).toString();
@@ -433,7 +433,7 @@ export class ShopComponent implements OnInit {
       const finalPrice:any = Number(calcFinalPrice.toFixed(2)).toString();
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
-      jQuery('#product-price-' + variation).html("AED " + finalPrice);
+      jQuery('#product-price-' + variation).html("AED " + Number(parseFloat(result['variation']['price'])));
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
       }
@@ -787,7 +787,7 @@ export class ShopComponent implements OnInit {
   // GET PARENTS CATEROGIES
   async getParentsCat() {
     await new Promise((resolve, reject) => {
-    this.productService.getData(`/fishTypes/parents/with-fishes`).subscribe(res => {
+    this.productService.getData(`fishTypes/parents/with-fishes`).subscribe(res => {
       this.searchCategories = res;
       console.log("search cat", jQuery('input[type=radio][name=cat]'));
       resolve();
@@ -811,7 +811,7 @@ export class ShopComponent implements OnInit {
   //GET LIST OF ITEMS FOR EACH FILTER CHECKBOX
   async getPreparation(){
     await new Promise((resolve, reject) => {
-      this.productService.getData(`/fishPreparation`).subscribe(res=> {
+      this.productService.getData(`fishPreparation`).subscribe(res=> {
         this.preparataion = res;
         resolve();
       }, error =>{reject()})
@@ -820,7 +820,7 @@ export class ShopComponent implements OnInit {
 
   async getTreatment(){
     await new Promise((resolve, reject) => {
-      this.productService.getData(`/treatment`).subscribe(res=> {
+      this.productService.getData(`treatment`).subscribe(res=> {
         this.treatment = res;
         resolve();
       }, error =>{reject()})
@@ -829,7 +829,7 @@ export class ShopComponent implements OnInit {
 
   async getRaised(){
     await new Promise((resolve, reject) => {
-      this.productService.getData(`/raised`).subscribe(res=> {
+      this.productService.getData(`raised`).subscribe(res=> {
         this.raised = res;
         resolve();
       }, error =>{reject()})

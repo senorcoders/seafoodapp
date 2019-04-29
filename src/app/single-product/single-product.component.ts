@@ -20,6 +20,7 @@ import { Options, ChangeContext, PointerType } from 'ng5-slider';
   styleUrls: ['./single-product.component.scss']
 })
 export class SingleProductComponent implements OnInit {
+  in_AED: string;
   productID: any;
   name: any;
   currentPrincingCharges: any = [];
@@ -168,8 +169,10 @@ export class SingleProductComponent implements OnInit {
       this.role = role;
       if (role === 1) {
         this.currency = 'USD';
+        this.in_AED = 'false';
       } else {
         this.currency = 'AED(USD)';
+        this.in_AED = 'true';
       }
 
     });
@@ -485,7 +488,7 @@ export class SingleProductComponent implements OnInit {
     )
   }
   getPricingCharges() {
-    this.pricingServices.getPricingChargesByWeight(this.productID, this.currentVaritionID, this.count)
+    this.pricingServices.getPricingChargesByWeight(this.productID, this.currentVaritionID, this.count, this.in_AED)
       .subscribe(
         res => {
           console.log('Pricing Charges', res);
