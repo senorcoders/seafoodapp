@@ -83,6 +83,8 @@ export class CartComponent implements OnInit {
             this.customs = cart['customs'];
             this.total= cart['subTotal'];
             this.shipping = cart['shipping'];
+            
+
             this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
             this.totalWithShipping = cart['total'];
             this.products.forEach((data, index) => {
