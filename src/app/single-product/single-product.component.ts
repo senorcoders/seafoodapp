@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
@@ -87,7 +87,10 @@ export class SingleProductComponent implements OnInit {
 
   public inter: any;
   public noWholeFish = false;
-
+  public kg = 0;
+  public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+  public variationId = "";
+  public fishOption = "";
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -171,6 +174,13 @@ export class SingleProductComponent implements OnInit {
 
     });
     this.productID = this.route.snapshot.params['id'];
+    let kg = this.route.snapshot.params['kg'];
+    let fishOption = this.route.snapshot.params["fishOption"];
+    let variationId = this.route.snapshot.params["variationId"];
+    if (kg !== undefined && kg !== null) this.kg = Number(kg);
+    if (variationId !== undefined && variationId !== null) this.variationId = variationId;
+    if (fishOption !== undefined && fishOption !== null) this.fishOption = fishOption;
+
     this.getCurrentPricingCharges();
     this.isLoggedSr.isLogged.subscribe((val: boolean) => {
       this.isLogged = val;
@@ -239,12 +249,12 @@ export class SingleProductComponent implements OnInit {
       }
       this.cooming_soon = data['cooming_soon'];
       this.max = data['maximumOrder'];
-      this.value = this.min;
+      this.value = this.kg !== 0 ? this.kg : this.min;
       const newOptions: Options = Object.assign({}, this.options);
       newOptions.ceil = this.max;
       newOptions.floor = this.min;
       this.options = newOptions;
-      this.count = this.min;
+      this.count = this.kg !== 0 ? this.kg : this.min;
       this.getPricingCharges();
       this.name = data['name'];
       this.description = data['description'];
@@ -295,11 +305,12 @@ export class SingleProductComponent implements OnInit {
       if (data["variations"] !== undefined && data["variations"] !== null && data["variations"].length > 0) {
         this.withVariations = true;
         this.variations = data["variations"];
-        this.currentVaritionID = data['variations'][0].id;
+        this.currentVaritionID = this.variationId !== "" ? this.variationId : data['variations'][0].id;
+        console.log("currentVariations", this.currentVaritionID);
         if (this.variations[0].wholeFishWeight !== null && this.variations[0].wholeFishWeight !== undefined)
-          this.selectVariation = this.variations[0].wholeFishWeight.id;
+          this.selectVariation = this.fishOption !== "" ? this.fishOption : this.variations[0].wholeFishWeight.id;
         else {
-          this.selectVariation = this.variations[0].fishPreparation.id;
+          this.selectVariation = this.fishOption !== "" ? this.fishOption : this.variations[0].fishPreparation.id;
           this.noWholeFish = true;
         }
 
@@ -307,7 +318,9 @@ export class SingleProductComponent implements OnInit {
       console.log(this.withVariations, this.variations);
       this.getReview();
       this.getPricingCharges();
+      this.manualRefresh.emit();
       this.showLoading = false;
+
     }, error => {
       console.log('Error', error);
       this.show = false;

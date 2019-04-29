@@ -124,7 +124,7 @@
                   (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()"
                   id="input-text">
                 <input type="text" id="qty-text" class="qty" (click)="showElements()" value="type...">
-                <ng5-slider [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)">
                 </ng5-slider>
               </div>
               <div class="col-md-5">

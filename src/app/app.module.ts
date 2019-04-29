@@ -120,6 +120,11 @@ const appRoutes: Routes = [
     canActivate: [NonsellerRouterService]
   },
   {
+    path: 'product/:id/:kg/:fishOption/:variationId',
+    loadChildren: './single-product/single-product.module#SingleProductModule',
+    canActivate: [NonsellerRouterService]
+  },
+  {
     path: 'edit-product/:id',
     loadChildren: './edit-product/edit-product.module#EditProductModule',
     canActivate: [SellerRouterService]

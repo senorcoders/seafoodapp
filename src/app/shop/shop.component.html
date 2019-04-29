@@ -218,7 +218,13 @@
                    </div>
                   </div>
                   <div class="product-body">
-                    <a routerLink="/product/{{product.id}}" class="image-link-holder">
+                    <a *ngIf="!isChange[product.id].status" routerLink="/product/{{product.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="image[i]">
+                        <div class="product-overlay"></div>
+                        <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                     </div>
+                    </a>
+                    <a *ngIf="isChange[product.id].status" routerLink="/product/{{product.id}}/{{isChange[product.id].kg}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
                       <div class="product-single-img" [style.background-image]="image[i]">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      
