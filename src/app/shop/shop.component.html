@@ -266,7 +266,7 @@
                   <span class="qty-kg"> {{product?.quantity?.value}} kg</span>  
                   <form>
                       <input disabled  name="foo" type="range" class="product-range">
-                      <label>{{getTotalxItem(product.quantity.value, product.price.value) | currency: 'AED'}}</label>
+                      <label>{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
                   </form>
               </div>
             </div>
