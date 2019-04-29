@@ -42,7 +42,7 @@
 form{
     padding-top: 40px;
     label{
-        font-family: 'Roboto', sans-serif Medium;
+        font-family: 'Open Sans', sans-serif;
         color: black;
         font-size: 1.2rem;
         letter-spacing: 2px;
@@ -135,10 +135,7 @@ form{
         font-weight: 300;
         font-family: 'Open Sans', sans-serif;
         padding: 0 !important;
-        @media screen and (max-width: 768px) {
-            font-size: 20px !important;
-
-          }
+      
 
 
     }
@@ -156,10 +153,9 @@ form{
         font-weight: 300;
         font-family: 'Open Sans', sans-serif;
         padding: 0 !important;
-        @media screen and (max-width: 768px) {
-            font-size: 20px !important;
-
-          }
+        background: url('../../assets/svg/chevron-down.svg') no-repeat 100% 50% !important;
+        background-size: 11px 7px;
+       
     }
     input.form-control.is-invalid{
         border-bottom: solid 1px #885053 !important;
@@ -190,10 +186,7 @@ form{
         padding-left: 0 !important;
         font-weight: 300 !important;
         top: .3em !important;
-        @media screen and (max-width: 768px) {
-            font-size: 20px !important;
-
-          }
+      
         .red{
             color: #9A9EA8;
             font-size: 0.8em;
@@ -209,6 +202,7 @@ form{
         font-style: normal !important;
         font-weight: 300 !important;
         top: -1em !important;
+        white-space: nowrap;
         @media screen and (max-width: 768px) {
             font-size: 15px !important;
 
@@ -292,6 +286,7 @@ form{
     width: auto;
     height: auto;
     cursor: pointer;
+ 
 }
 
 .login-btn:focus{
@@ -320,38 +315,7 @@ form{
 }
 
 
-.fill-company{
-    font-size: 16px;
-    margin-bottom: 0;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: 0.48;
-    letter-spacing: normal;
-    text-align: center;
-    color: #000000;
-    margin-bottom: 60px;
-}
 
-.ellipsis-wizard{
-    margin-top: 30px;
-    margin-bottom: 20px;
-    ul{
-        margin: 0;
-        .ellipsis-dark{
-            width: 8px;
-          height: 8px;
-          background-color: #000000;
-          border-radius: 4px;
-        }
-        .ellipsis-light{
-            width: 8px;
-          height: 8px;
-          background-color: #c2c2c2;
-          border-radius: 4px;
-        }
-    }
-}
 
 .invalid-feedback, .invalid-phone, .EmailNotification{
     font-family: 'Open Sans', sans-serif;
