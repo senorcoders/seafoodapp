@@ -84,7 +84,8 @@ export class FishFormComponent implements OnInit {
       images: new FormControl('', Validators.nullValidator),
       imagesSend: new FormControl("", Validators.required),
       unitOfSale: new FormControl("", Validators.required),
-      averageUnitWeight: new FormControl(10, Validators.required)
+      averageUnitWeight: new FormControl(10, Validators.required),
+      deletedImages: new FormControl("[]", Validators.nullValidator)
     }));
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       console.log(it);
@@ -333,6 +334,11 @@ export class FishFormComponent implements OnInit {
   }
 
   public remove(i) {
+    if (this.images[i].url !== undefined && this.images[i].url !== null) {
+      let arr = JSON.parse(this.getValue().deletedImages);
+      arr.push(this.images[i].url);
+      this.setValue({ deletedImages: JSON.stringify(arr) });
+    }
     if (this.images.length === 1) {
       this.images = [];
     } else {
@@ -391,7 +397,7 @@ export class FishFormComponent implements OnInit {
     if (this.indexImage === 0) return 0;
     let width = $(".col-3.img-select").width();
     if (this.indexImage < 0) {
-      let minus = (this.indexImage) * width; console.log(minus);
+      let minus = (this.indexImage) * width;
       return minus;
     }
 

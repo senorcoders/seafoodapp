@@ -79,7 +79,7 @@ export class FishFeaturesComponent implements OnInit {
       });
       this.fishPreparation = arr;
       this.preparationOptions = arr;
-      // this.setValue({ preparation: this.preparationOptions[0].id });
+      this.setValue({ preparation: this.preparationOptions[0].id });
       this.getTrimming();
     });
   }
@@ -117,8 +117,6 @@ export class FishFeaturesComponent implements OnInit {
         this.hideTrimModal = true;
       }
 
-
-      // selectedType = it.speciesSelected.value;
       // let value = it.speciesSelected;
       // if (value === '5bda361c78b3140ef5d31fa4') {
       //   this.preparationOptions = this.trimmings;
@@ -130,11 +128,14 @@ export class FishFeaturesComponent implements OnInit {
       //   this.setValue({ preparation: this.preparationOptions[0].id });
       // }
 
-
       // if (it.parentSelectedType == '5bda35c078b3140ef5d31f9a') {
       //   this.preparationOptions = [{ name: "Not Applicable", id: "Not Applicable" }];
       //   this.parentForm.form.get('preparation').disable();
       // }
+    });
+
+    this.parentForm.form.controls.features.valueChanges.subscribe(it => {
+      this.wholeFishAction = it.wholeFishAction;
     });
 
     // this.checkPriceForm();
