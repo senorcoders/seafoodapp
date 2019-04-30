@@ -79,13 +79,13 @@ export class CartComponent implements OnInit {
             this.lastMilteCost = cart['lastMileCost'];
             this.firstMileCost = cart['firstMileCosts'];
             this.sfsMargin = cart['sfsMargin'];
-            this.uaeTaxes = cart['uaeTaxes'];
+            this.uaeTaxes = cart['totalUAETaxes'];
             this.customs = cart['customs'];
             this.total= cart['subTotal'];
             this.shipping = cart['shipping'];
             
 
-            this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
+            this.totalOtherFees = cart['totalOtherFees']+cart['totalUAETaxes'];
             this.totalWithShipping = cart['total'];
             this.products.forEach((data, index) => {
               setTimeout(() => {
@@ -138,11 +138,11 @@ export class CartComponent implements OnInit {
               this.lastMilteCost = cart['lastMileCost'];
               this.firstMileCost = cart['firstMileCosts'];
               this.sfsMargin = cart['sfsMargin'];
-              this.uaeTaxes = cart['uaeTaxes'];
+              this.uaeTaxes = cart['totalUAETaxes'];
               this.customs = cart['customs'];
               this.total= cart['subTotal'];
               this.shipping = cart['shipping'];
-              this.totalOtherFees = cart['totalOtherFees']+cart['uaeTaxes'];
+              this.totalOtherFees = cart['totalOtherFees']+cart['totalUAETaxes'];
               this.totalWithShipping = cart['total'];
             
       
