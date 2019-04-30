@@ -50,347 +50,347 @@ const appRoutes: Routes = [
   },
   {
     path: "login",
-    loadChildren: './login/login.module#LoginModule'
+    loadChildren: 'app/login/login.module#LoginModule'
   },
   {
     path: 'register',
-    loadChildren: './registration-buyer/registration-buyer.module#RegistrationBuyerModule'
+    loadChildren: 'app/registration-buyer/registration-buyer.module#RegistrationBuyerModule'
   },
   {
     path: 'register-seller',
-    loadChildren: './registration-seller/registration-seller.module#RegistrationSellerModule'
+    loadChildren: 'app/registration-seller/registration-seller.module#RegistrationSellerModule'
   },
   {
     path: 'add-product',
-    loadChildren: './create-product/create-product.module#CreateProductModule'
+    loadChildren: 'app/create-product/create-product.module#CreateProductModule'
   },
   {
     path: 'fish-type/:category/:page',
-    loadChildren: './archive-products/archive-products.module#ArchiveProductsModule',
+    loadChildren: 'app/archive-products/archive-products.module#ArchiveProductsModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'search/:search/:page',
-    loadChildren: './search/search.module#SearchModule',
+    loadChildren: 'app/search/search.module#SearchModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'favorites',
-    loadChildren: './favorites/favorites.module#FavoritesModule',
+    loadChildren: 'app/favorites/favorites.module#FavoritesModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'advanced-search',
-    loadChildren: './advanced-search/advanced-search.module#AdvancedSearchModule',
+    loadChildren: 'app/advanced-search/advanced-search.module#AdvancedSearchModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'reviewcart',
-    loadChildren: './reviewcart/reviewcart.module#ReviewcartModule',
+    loadChildren: 'app/reviewcart/reviewcart.module#ReviewcartModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'checkout',
-    loadChildren: './checkout/checkout.module#CheckoutModule',
+    loadChildren: 'app/checkout/checkout.module#CheckoutModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'confirmation',
-    loadChildren: './confirmation/confirmation.module#ConfirmationModule',
+    loadChildren: 'app/confirmation/confirmation.module#ConfirmationModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'thanks',
-    loadChildren: './thanks/thanks.module#ThanksModule',
+    loadChildren: 'app/thanks/thanks.module#ThanksModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'items-status',
-    loadChildren: './items-by-status/items-by-status.module#ItemsByStatusModule',
+    loadChildren: 'app/items-by-status/items-by-status.module#ItemsByStatusModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'historical-orders',
-    loadChildren: './canceled-delivered-items/canceled-delivered-items.module#CanceledDeliveredItemsModule',
+    loadChildren: 'app/canceled-delivered-items/canceled-delivered-items.module#CanceledDeliveredItemsModule',
     canActivate: [BuyerRouterService]
   },
   {
     path: 'product/:id',
-    loadChildren: './single-product/single-product.module#SingleProductModule',
+    loadChildren: 'app/single-product/single-product.module#SingleProductModule',
     canActivate: [NonsellerRouterService]
   },
   {
     path: 'product/:id/:kg/:fishOption/:variationId',
-    loadChildren: './single-product/single-product.module#SingleProductModule',
+    loadChildren: 'app/single-product/single-product.module#SingleProductModule',
     canActivate: [NonsellerRouterService]
   },
   {
     path: 'edit-product/:id',
-    loadChildren: './edit-product/edit-product.module#EditProductModule',
+    loadChildren: 'app/edit-product/edit-product.module#EditProductModule',
     canActivate: [SellerRouterService]
   },
   {
     path: 'my-products',
-    loadChildren: './my-products/my-products.module#MyProductsModule',
+    loadChildren: 'app/my-products/my-products.module#MyProductsModule',
     canActivate: [SellerRouterService]
   },
   {
     path: 'recent-purchases',
-    loadChildren: './recent-purchases/recent-purchases.module#RecentPurchasesModule',
+    loadChildren: 'app/recent-purchases/recent-purchases.module#RecentPurchasesModule',
     canActivate: [SellerRouterService]
   },
   {
     path: 'order-purchase/:item',
-    loadChildren: './order-purchase/order-purchase.module#OrderPurchaseModule',
+    loadChildren: 'app/order-purchase/order-purchase.module#OrderPurchaseModule',
     canActivate: [SellerRouterService]
   },
   {
     path: 'manage-store-trimming',
-    loadChildren: './manage-store-trimming/manage-store-trimming.module#ManageStoreTrimmingModule',
+    loadChildren: 'app/manage-store-trimming/manage-store-trimming.module#ManageStoreTrimmingModule',
     canActivate: [SellerRouterService]
   },
   {
     path: 'product-categories',
-    loadChildren: './fish/fish.module#FishModule',
+    loadChildren: 'app/fish/fish.module#FishModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'account',
-    loadChildren: './edit-account/edit-account.module#EditAccountModule',
+    loadChildren: 'app/edit-account/edit-account.module#EditAccountModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'manage-products',
-    loadChildren: './my-products/my-products.module#MyProductsModule',
+    loadChildren: 'app/my-products/my-products.module#MyProductsModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'cart',
-    loadChildren: './cart/cart.module#CartModule',
+    loadChildren: 'app/cart/cart.module#CartModule',
     canActivate: []
   },
   {
-    path: 'verification/:userid/:id',
-    loadChildren: './confirmation-email/confirmation-email.module#ConfirmationEmailModule',
+    path: 'verification/:userid/:code',
+    loadChildren: 'app/confirmation-email/confirmation-email.module#ConfirmationEmailModule',
     canActivate: []
   },
   {
     path: 'store/:id',
-    loadChildren: './single-store/single-store.module#SingleStoreModule',
+    loadChildren: 'app/single-store/single-store.module#SingleStoreModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'featured-products',
-    loadChildren: './featured-products/featured-products.module#FeaturedProductsModule',
+    loadChildren: 'app/featured-products/featured-products.module#FeaturedProductsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'featured-seller',
-    loadChildren: './featured-seller/featured-seller.module#FeaturedSellerModule',
+    loadChildren: 'app/featured-seller/featured-seller.module#FeaturedSellerModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'featured-types',
-    loadChildren: './featured-types/featured-types.module#FeaturedTypesModule',
+    loadChildren: 'app/featured-types/featured-types.module#FeaturedTypesModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'fish-types-menu',
-    loadChildren: './fish-type-menu/fish-type-menu.module#FishTypeMenuModule',
+    loadChildren: 'app/fish-type-menu/fish-type-menu.module#FishTypeMenuModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'admin',
-    loadChildren: './administrator/administrator.module#AdministratorModule',
+    loadChildren: 'app/administrator/administrator.module#AdministratorModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'tracking',
-    loadChildren: './tracking/tracking.module#TrackingModule',
+    loadChildren: 'app/tracking/tracking.module#TrackingModule',
   },
   {
     path: 'shop',
-    loadChildren: './shop/shop.module#ShopModule',
+    loadChildren: 'app/shop/shop.module#ShopModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'seller',
-    loadChildren: './seller/seller.module#SellerModule',
+    loadChildren: 'app/seller/seller.module#SellerModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'buyer',
-    loadChildren: './buyer/buyer.module#BuyerModule',
+    loadChildren: 'app/buyer/buyer.module#BuyerModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'orders',
-    loadChildren: './orders/orders.module#OrdersModule',
+    loadChildren: 'app/orders/orders.module#OrdersModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'orders-items/:id',
-    loadChildren: './orders-items/orders-items.module#OrdersItemsModule',
+    loadChildren: 'app/orders-items/orders-items.module#OrdersItemsModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'comments',
-    loadChildren: './comments/comments.module#CommentsModule',
+    loadChildren: 'app/comments/comments.module#CommentsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'recovery-password/:code',
-    loadChildren: './recovery-password/recovery-password.module#RecoveryPasswordModule',
+    loadChildren: 'app/recovery-password/recovery-password.module#RecoveryPasswordModule',
   },
   {
     path: 'verify-users',
-    loadChildren: './verify-user/verify-user.module#VerifyUserModule',
+    loadChildren: 'app/verify-user/verify-user.module#VerifyUserModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'chart',
-    loadChildren: './chart/chart.module#ChartModule',
+    loadChildren: 'app/chart/chart.module#ChartModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'documents',
-    loadChildren: './documents/documents.module#DocumentsModule',
+    loadChildren: 'app/documents/documents.module#DocumentsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'tracking-code/:item',
-    loadChildren: './tracking-code/tracking-code.module#TrackingCodeModule',
+    loadChildren: 'app/tracking-code/tracking-code.module#TrackingCodeModule',
     canActivate: [RouterProtectionService]
   },
   {
     path: 'browse',
-    loadChildren: './browse/browse.module#BrowseModule',
+    loadChildren: 'app/browse/browse.module#BrowseModule',
   },
   {
     path: 'sfspay',
-    loadChildren: './sfs-pay/sfs-pay.module#SfsPayModule',
+    loadChildren: 'app/sfs-pay/sfs-pay.module#SfsPayModule',
   },
   {
     path: 'help',
-    loadChildren: './help/help.module#HelpModule',
+    loadChildren: 'app/help/help.module#HelpModule',
   },
   {
     path: 'contact-us',
-    loadChildren: './contact-us/contact-us.module#ContactUsModule',
+    loadChildren: 'app/contact-us/contact-us.module#ContactUsModule',
   },
   {
     path: 'guides',
-    loadChildren: './guides/guides.module#GuidesModule',
+    loadChildren: 'app/guides/guides.module#GuidesModule',
   },
   {
     path: 'terms-conditions',
-    loadChildren: './terms-conditions/terms-conditions.module#TermsConditionsModule',
+    loadChildren: 'app/terms-conditions/terms-conditions.module#TermsConditionsModule',
   },
   {
     path: 'privacy-policy',
-    loadChildren: './privacy-policy/privacy-policy.module#PrivacyPolicyModule',
+    loadChildren: 'app/privacy-policy/privacy-policy.module#PrivacyPolicyModule',
   },
   {
     path: 'cookies-policy',
-    loadChildren: './cookies-policy/cookies-policy.module#CookiesPolicyModule',
+    loadChildren: 'app/cookies-policy/cookies-policy.module#CookiesPolicyModule',
   },
   {
     path: 'about-us',
-    loadChildren: './about/about.module#AboutModule',
+    loadChildren: 'app/about/about.module#AboutModule',
   },
   {
     path: 'shipping-rates',
-    loadChildren: './shipping-rates/shipping-rates.module#ShippingRatesModule',
+    loadChildren: 'app/shipping-rates/shipping-rates.module#ShippingRatesModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'pricing-charges',
-    loadChildren: './pricing-charges/pricing-charges.module#PricingChargesModule',
+    loadChildren: 'app/pricing-charges/pricing-charges.module#PricingChargesModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'orders-shipped',
-    loadChildren: './admin-orders-shipped/admin-orders-shipped.module#AdminOrdersShippedModule',
+    loadChildren: 'app/admin-orders-shipped/admin-orders-shipped.module#AdminOrdersShippedModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'orders-arrived',
-    loadChildren: './admin-order-arrived/admin-order-arrived.module#AdminOrderArrivedModule',
+    loadChildren: 'app/admin-order-arrived/admin-order-arrived.module#AdminOrderArrivedModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'seller-fulfills-orders',
-    loadChildren: './admin-orders/admin-orders.module#AdminOrdersModule',
+    loadChildren: 'app/admin-orders/admin-orders.module#AdminOrdersModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'orders-out-for-delivery',
-    loadChildren: './admin-order-out-delivery/admin-order-out-delivery.module#AdminOrderOutDeliveryModule',
+    loadChildren: 'app/admin-order-out-delivery/admin-order-out-delivery.module#AdminOrderOutDeliveryModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'orders-delivered',
-    loadChildren: './admin-order-delivered/admin-order-delivered.module#AdminOrderDeliveredModule',
+    loadChildren: 'app/admin-order-delivered/admin-order-delivered.module#AdminOrderDeliveredModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'payment-management',
-    loadChildren: './payments/payments.module#PaymentsModule',
+    loadChildren: 'app/payments/payments.module#PaymentsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'manage-orders',
-    loadChildren: './manage-orders/manage-orders.module#ManageOrdersModule',
+    loadChildren: 'app/manage-orders/manage-orders.module#ManageOrdersModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'logistic-management',
-    loadChildren: './admin-logistic-managment/admin-logistic-managment.module#AdminLogisticManagmentModule',
+    loadChildren: 'app/admin-logistic-managment/admin-logistic-managment.module#AdminLogisticManagmentModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'repayments',
-    loadChildren: './repayments/repayments.module#RepaymentsModule',
+    loadChildren: 'app/repayments/repayments.module#RepaymentsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'refunds',
-    loadChildren: './refunds/refunds.module#RefundsModule',
+    loadChildren: 'app/refunds/refunds.module#RefundsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'refund-cases',
-    loadChildren: './refund-cases/refund-cases.module#RefundCasesModule',
+    loadChildren: 'app/refund-cases/refund-cases.module#RefundCasesModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'pending-products',
-    loadChildren: './pending-products/pending-products.module#PendingProductsModule',
+    loadChildren: 'app/pending-products/pending-products.module#PendingProductsModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'products-list/page/:number',
-    loadChildren: './product-list/product-list.module#ProductListModule',
+    loadChildren: 'app/product-list/product-list.module#ProductListModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'manage-countries',
-    loadChildren: './admin-countries/admin-countries.module#AdminCountriesModule',
+    loadChildren: 'app/admin-countries/admin-countries.module#AdminCountriesModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'manage-shipping-cities',
-    loadChildren: './shipping-by-city/shipping-by-city.module#ShippingByCityModule',
+    loadChildren: 'app/shipping-by-city/shipping-by-city.module#ShippingByCityModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'port-loading-management',
-    loadChildren: './citi-managment/citi-managment.module#CitiManagmentModule',
+    loadChildren: 'app/citi-managment/citi-managment.module#CitiManagmentModule',
     canActivate: [AdminRouterService]
   },
   {
     path: 'forgot-password',
-    loadChildren: './forgot-password/forgot-password.module#ForgotPasswordModule',
+    loadChildren: 'app/forgot-password/forgot-password.module#ForgotPasswordModule',
     // canActivate: [AdminRouterService]
   },
   {

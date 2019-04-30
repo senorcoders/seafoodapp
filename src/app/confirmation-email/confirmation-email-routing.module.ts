@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
 import { SharedModule } from '../shared/shared.module';
+import { ConfirmationEmailComponent } from './confirmation-email.component';
 
 const routes: Routes = [
-  { path: "", component: ConfirmationComponent }
+  { path: "", component: ConfirmationEmailComponent }
 ];
 
 @NgModule({
