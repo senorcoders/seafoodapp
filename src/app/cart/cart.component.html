@@ -82,7 +82,7 @@
 
         <div class="cart-price-breakdown">
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-md-6" style="margin: 0 auto;">
               <div class="prices-row">
                 <div class="col-lg-12 price-title">
                     <h4>PRICE BREAKDOWN <span>AED</span></h4>
@@ -96,22 +96,18 @@
                 <div class="col-lg-12 price-item">
                     <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
                 </div>
+                <div class="col-lg-12 price-total">
+                  <h4>TOTAL <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+              </div>
+              <div class="col-lg-12 total-row text-center">
+                <button class="transparent-btn" (click)="checkout()">
+                  go to shipping &amp; delivery
+                </button>
+              </div>
                 
               </div>
             </div>
-            <div class="col-md-7 text-right total-row">
-              <div class="col-lg-12">
-                <h4>TOTAL</h4>
-              </div>
-              <div class="col-lg-12">
-                  <h2>{{(totalWithShipping) | currency: 'AED'}}</h2>
-                </div>
-                <div class="col-lg-12">
-                  <button class="transparent-btn"  (click)="checkout()">
-                    continue to shipping
-                  </button>
-                </div>
-            </div>
+           
           </div>
         </div>
 

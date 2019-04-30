@@ -286,6 +286,7 @@ form{
     width: auto;
     height: auto;
     cursor: pointer;
+    z-index: 100;
     img{
         max-width: 100%;
         width: 52px;
@@ -428,6 +429,8 @@ form{
             display: flex;
             align-items: center;
             text-align: center;
+            position: sticky;
+            top: 0;
             h1{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;

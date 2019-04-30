@@ -30,7 +30,7 @@ export class ConfirmationComponent implements OnInit {
   signature: any;
   email: any;
   amount: any;
-  total: any;
+  total: any = '';
   ip: string;
   customerTotal: any;
   params: any = {
