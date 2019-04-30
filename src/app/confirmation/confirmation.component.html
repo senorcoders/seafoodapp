@@ -59,16 +59,16 @@
                     <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
                       <h4> {{product?.fish?.name}} ({{product.quantity.value}} kg)  
                 
-                        <span>{{(getTotalxItem(product.quantity.value, product.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
+                        <span>{{(getTotalxItem(product.quantity.value, product.fish.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                        <h4>SUBTOTAL <span>{{(total) | currency: 'AED'}}</span></h4>
+                        <h4>SUBTOTAL <span>{{(totalAPI) | currency: 'AED'}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
                         <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                        <h4>SHIPPING <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                        <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
                     </div>
                     
                   </div>
