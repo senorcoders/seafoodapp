@@ -428,6 +428,8 @@ form{
             display: flex;
             align-items: center;
             text-align: center;
+            position: sticky;
+            top: 0;
             h1{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;

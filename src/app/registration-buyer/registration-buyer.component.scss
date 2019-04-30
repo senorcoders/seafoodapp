@@ -420,6 +420,8 @@ form{
     .side-dark-gray{
         background-color: #7484AA;
         .content-side{
+            position: sticky;
+            top: 0;
             height: 100vh;
             display: flex;
             align-items: center;
