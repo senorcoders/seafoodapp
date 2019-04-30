@@ -117,9 +117,8 @@
                       <div class="col-lg-6">
                           <div class="form-group input-group">
                               <span class="has-float-label">    
-                                  <select id="country" class="form-control n" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
-                                      <option value="">{{'Register.country' | translate}}</option>
-                                      <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+                                  <select disabled id="country" class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
+                                      <option value="AE">United Arab Emirates</option>
                                     </select>                    
                                    <label for="country">{{'Register.country' | translate}}</label> 
                             <div class="invalid-feedback" *ngIf="buyerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
@@ -129,9 +128,18 @@
                       <div class="col-lg-6">
                           <div class="form-group input-group">
                               <span class="has-float-label">    
-                                  <input id="city" type="text" class="form-control" placeholder="{{'Register.City' | translate}}" formControlName="City"  [ngClass]="{'is-invalid':buyerForm.get('City').invalid && buyerForm.get('City').touched}">
-                                  <label for="city">{{'Register.City' | translate}}</label> 
-                                  <div class="invalid-feedback" *ngIf="buyerForm.get('City').hasError('required')"> {{'Register.City' | translate}} {{'Register.required' | translate}}.</div>
+                                  <select id="city" class="form-control" formControlName="City" [ngClass]="{'is-invalid':buyerForm.get('City').invalid && buyerForm.get('City').touched}">
+                                    <option value="">Select an Emirate...</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Abu Dhabi">Abu Dhabi</option>
+                                    <option value="Ajman">Ajman</option>
+                                    <option value="Fujairah">Fujairah</option>
+                                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                                    <option value="Sharjah">Sharjah</option>
+                                    <option value="Umm Al Quwain">Umm Al Quwain</option>
+                                  </select> 
+                                  <label for="city">Emirate</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('City').hasError('required')"> Emirate {{'Register.required' | translate}}.</div>
       
                             </span>         
                           </div>

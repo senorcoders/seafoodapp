@@ -117,6 +117,9 @@ btnText:any = 'register to buy';
       updateOn: 'submit'
     });
 
+    this.buyerForm.controls['location'].setValue('AE');
+
+
 
   }
 
