@@ -27,7 +27,7 @@
                 </a>
               </div>
               <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                <span>{{(charges.variation.price/currentExchangeRate).toFixed(2)}} / kg</span></h5>
+                <span>{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}} / kg</span></h5>
             </h2>
 
             <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in
@@ -71,7 +71,7 @@
                     class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
                 </div>
                 <div class="dashed-row"><span class="name-row">Product Price</span>
-                  <div class="separator-dashed"></div> <span class="value-row" >{{(charges.variation.price/currentExchangeRate).toFixed(2)}}</span>
+                  <div class="separator-dashed"></div> <span class="value-row" >{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
                 </div>
                 <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span>
                   <div class="separator-dashed"></div> <span

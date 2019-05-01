@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CountriesService } from '../services/countries.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -22,7 +23,7 @@ export class CartComponent implements OnInit {
   shoppingEnpoint:any = 'shoppingcart/items';
   shoppingCartId:string;
   API:any = environment.apiURLImg;
-  countries:any = environment.countries;
+  countries:any = [];
   shipping:any =  0;
   cart:any;
   /******** Other fees ***********/
@@ -46,16 +47,19 @@ export class CartComponent implements OnInit {
   index:any;
   userinfo:any;
   imageCart: any = [];
+  preparataion:any =[];
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
-    private sanitizer: DomSanitizer) { }
+    private sanitizer: DomSanitizer, private countriesService: CountriesService) { }
 
 
-  ngOnInit() {
+  async ngOnInit() {
     // this.getCart();
     //this.getItems()
     this.userinfo = this.auth.getLoginData();
     this.buyerId = this.userinfo['id'];
+    await this.getCountries();
+    await this.getPreparation();
     this.getTotal();
   }
 
@@ -124,6 +128,22 @@ export class CartComponent implements OnInit {
       }
     )
     
+  }
+
+  //GET COUNTRIES
+  async getCountries() {
+    await new Promise((resolve, reject) => {
+    this.countriesService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+        resolve();
+      },
+      error => {
+        console.log( error );
+        reject();
+      }
+     );
+    })
   }
 
   //FUNCTION TO GET ONLY THE TOTALS WHEN CHANGING QTY OF A PRODUCT
@@ -247,6 +267,17 @@ export class CartComponent implements OnInit {
     return null;
   }
 
+  //FIND NAME OF PREPARATION
+
+  findPreparationName(id){
+    console.log("Prep ID", id);
+    for (var i = 0; i < this.preparataion.length; i++) {
+      if (this.preparataion[i]['id'] === id) {
+          return this.preparataion[i].name;
+      }
+  } 
+  return null;
+  }
   showConfirmModal(itemID:string, index){
     console.log("Product modal ID", itemID, index);
     this.itemToDelete = itemID;
@@ -328,7 +359,6 @@ export class CartComponent implements OnInit {
   else { newPlace = width * newPoint + offset; offset -= newPoint; }
   
   // Move bubble
-  console.log("Move Bubble", newPlace, offset);
   jQuery('#qty-kg-'+id).css('margin-left', newPlace);
   jQuery('#edit-qty-'+id).css('margin-left', newPlace);
 
@@ -352,6 +382,18 @@ export class CartComponent implements OnInit {
   showRangeVal(id, i){
     let val: any = jQuery('#range-' + id).val();
     this.products[i].quantity.value  = val;
+  }
+
+  //get preparation
+
+  async getPreparation(){
+    await new Promise((resolve, reject) => {
+      this.productService.getData(`fishPreparation`).subscribe(res=> {
+        console.log("Prep", res);
+        this.preparataion = res;
+        resolve();
+      }, error =>{reject()})
+    })
   }
 }
   
