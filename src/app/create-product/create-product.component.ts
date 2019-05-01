@@ -135,6 +135,7 @@ export class CreateProductComponent implements OnInit {
             subSpeciesSelected: data["type"].id,
             descriptorSelected: data["descriptor"] ? data["descriptor"].id : '',
             seller_sku: data["seller_sku"] || '',
+            hsCode: data["hsCode"],
             minimunorder: data["minimumOrder"],
             maximumorder: data["maximumOrder"],
             imagesSend: images.forForm
@@ -160,6 +161,8 @@ export class CreateProductComponent implements OnInit {
           we.isTrimms = data["isTrimms"];
           we.weights = data["weights"];
           we.weightsTrim = data["weightsTrim"];
+          we.weightsFilleted = data["weightsFilleted"];
+          we.wholeFishAction = data["wholeFishAction"];
           console.log(we);
           this.emitEventToChild(we);
         }
@@ -309,12 +312,17 @@ export class CreateProductComponent implements OnInit {
       //si es actualizando un producto para saber los que se eliminan
       let variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
-      let variations: any = {}, variationsTrim: any = {}, variationsEnd = [];
+      let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
+      weightsFilleted = [];
       if (pricing.weights !== '') {
         variations = JSON.parse(pricing.weights);
       }
       if (pricing.weightsTrim !== '') {
         variationsTrim = JSON.parse(pricing.weightsTrim);
+      }
+
+      if (pricing.weightsFilleted !== '') {
+        weightsFilleted = JSON.parse(pricing.weightsFilleted);
       }
 
       //Para quitar las options
@@ -333,7 +341,20 @@ export class CreateProductComponent implements OnInit {
           }
           variationsEnd.push(itr);
         }
-      } else {
+      } else if(features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4'){
+        //para los fillete
+        let fishPreparation = "5c93c01465e25a011eefbcc4";
+
+        let itr = {
+          fishPreparation,
+          prices: weightsFilleted.map((it, i)=>{
+            let price = pricing["weightsFillete_arr"][i];
+            it.price = price;
+            return itereOptions(it);
+          })
+        }
+        variationsEnd.push(itr);
+      }else {
         //Para los ON
         let fishPreparation = "5c93bff065e25a011eefbcc2";
         if (variations.on.keys && variations.on.keys.length > 0) {
