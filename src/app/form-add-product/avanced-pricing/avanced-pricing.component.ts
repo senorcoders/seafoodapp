@@ -86,7 +86,7 @@ export class AvancedPricingComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   @Input() events: Observable<void>;
   private eventsSubscription: Subscription;
-
+  private speciesSelected = "";
   constructor(
     public parentForm: FormGroupDirective,
     private productService: ProductService,
@@ -214,7 +214,8 @@ export class AvancedPricingComponent implements OnInit {
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       //Para elegir los slides que se muestran si es salmon o no
-      if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+      this.speciesSelected = it.speciesSelected
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
         this.hideTrimesSlides = false;
       } else {
         this.hideTrimesSlides = true;
@@ -289,7 +290,12 @@ export class AvancedPricingComponent implements OnInit {
         this.assingHead(false);
       }
 
-      this.wholeFishAction = it.wholeFishAction;
+      this.wholeFishAction = it.wholeFishAction; console.log();
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
+        this.hideTrimesSlides = false;
+      } else {
+        this.hideTrimesSlides = true;
+      }
     });
   }
 

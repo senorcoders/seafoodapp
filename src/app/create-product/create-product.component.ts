@@ -59,6 +59,8 @@ export class CreateProductComponent implements OnInit {
   public currentExchangeRate:any;
   public currentPrincingCharges:any;
   
+  public createProduct = true;
+
   constructor(
     private productService: ProductService,
     private toast: ToastrService,
@@ -74,7 +76,10 @@ export class CreateProductComponent implements OnInit {
   ) {
     this.user = this.auth.getLoginData();
     let productID = this.route.snapshot.params['id'];
-    if (productID !== null && productID !== undefined) this.productID = productID;
+    if (productID !== null && productID !== undefined) {
+      this.productID = productID;
+      this.createProduct = false;
+    }
   }
 
   private emitEventToChild(str) {
@@ -330,7 +335,7 @@ export class CreateProductComponent implements OnInit {
         }
       } else {
         //Para los ON
-        let fishPreparation = this.trimmings[5].id;
+        let fishPreparation = "5c93bff065e25a011eefbcc2";
         if (variations.on.keys && variations.on.keys.length > 0) {
           for (let it of variations.on.keys) {
             let wholeFishWeight = it;
@@ -343,7 +348,7 @@ export class CreateProductComponent implements OnInit {
           }
         }
         //Para off
-        fishPreparation = this.trimmings[7].id;
+        fishPreparation = "5c93c00465e25a011eefbcc3";
         if (variations.off.keys && variations.off.keys.length > 0) {
           for (let it of variations.off.keys) {
             let wholeFishWeight = it;
@@ -380,6 +385,12 @@ export class CreateProductComponent implements OnInit {
           variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_off", "");
           variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_arr", "");
         }
+      }
+
+      if (variationsEnd.length === 0) {
+        this.loading = false;
+        this.ngProgress.done();
+        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
       }
 
       await this.generateSKU();
@@ -476,7 +487,7 @@ export class CreateProductComponent implements OnInit {
         }
         this.finish();
       } else {
-        this.uploadFileToActivity(result['id'], product.imagesSend);
+        this.uploadFileToActivity(result['id'], images);
       }
 
     } else {
