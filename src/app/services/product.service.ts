@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json;charset=UTF-8' })
 };
 
 @Injectable()
@@ -22,7 +22,7 @@ export class ProductService {
 
   // Function to get the Tree Categories
   getTreeCategory() {
-    return this.http.get( `fishTypes/Tree` );
+    return this.http.get(`fishTypes/Tree`);
   }
 
   // General function to post data to the API
@@ -50,13 +50,13 @@ export class ProductService {
 
   //Function to upload Shipping documents 
   uploadPDF(fileToUpload, itemId) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
 
     const formData: FormData = new FormData();
-   
-      formData.append('shippingDocs', fileToUpload);
-    
+
+    formData.append('shippingDocs', fileToUpload);
+
     console.log(fileToUpload);
     return this.http
       .post(`api/itemshopping/${itemId}/shipping-documents`, formData, httpOptionsForm);
@@ -64,11 +64,11 @@ export class ProductService {
 
   // Funtion to get the pending products
   getPendingProducts() {
-    return this.http.get( `api/fish/pending` );
+    return this.http.get(`api/fish/pending`);
   }
 
   //Function to get the Seafood SKU required to upload a new product
-  generateSKU( store: string, category: string, subcategory: string, country_code: string ) {
+  generateSKU(store: string, category: string, subcategory: string, country_code: string) {
     const data = {
       store_code: store,
       category_code: category,
@@ -78,22 +78,22 @@ export class ProductService {
     return this.http.post(`api/fish/fish/sku`, data, httpOptions);
   }
 
- 
-// General function to patch data
+
+  // General function to patch data
   patchData(endpoint, data) {
     return this.http.patch(`${endpoint}`, data, httpOptions);
   }
 
   // Function to patch fish status
-  patchStatus(id, status, message ) {
-    return this.http.put( `api/fish/${id}/status/${status}/`, message, httpOptions );
+  patchStatus(id, status, message) {
+    return this.http.put(`api/fish/${id}/status/${status}/`, message, httpOptions);
   }
 
   //Function to set shipped product
   setShippedProduct(endpoint) {
     return this.http.put(`${endpoint}`, httpOptions);
   }
- 
+
   // Function to get product by category
   getProdutsByCategory(category, page) {
     return this.http.get(`api/fish-type/${category}/${page}/12`);
@@ -101,7 +101,7 @@ export class ProductService {
 
   //Function to search product by name
   searchProductByName(name, page) {
-    const body = {'search': name};
+    const body = { 'search': name };
     return this.http.post(`api/fish/search/${page}/12`, body, httpOptions);
   }
 
@@ -141,7 +141,7 @@ export class ProductService {
 
   //Function to add image category
   AddCategoryImage(file, id) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();
     for (let i = 0; i < file.length; i++) {
@@ -152,7 +152,7 @@ export class ProductService {
 
   //Function to post a file to the API
   postFile(fileToUpload, id, opt) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     console.log(id, fileToUpload);
     const formData: FormData = new FormData();
@@ -169,22 +169,33 @@ export class ProductService {
     }
   }
 
-//Function to upload a file to the database
-uploadFile(endpoint, field, fileToUpload) {
-  const httpOptionsForm: any = {headers: new HttpHeaders() };
-  httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
-  const formData: FormData = new FormData();
-  for (let i = 0; i < fileToUpload.length; i++) {
-    formData.append(field, fileToUpload[i]);
-}
-  return this.http
-    .post(`${endpoint}`, formData, httpOptionsForm);
-}
+  updateImages(images:File[], deletedImages:string, id) {
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for (let i = 0; i < images.length; i++) {
+      formData.append('images', images[i]);
+    }
+    formData.append("deletedImages", deletedImages);
+    return this.http.put(`api/fish/images/${id}`, formData, httpOptionsForm);
+  }
+
+  //Function to upload a file to the database
+  uploadFile(endpoint, field, fileToUpload) {
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    for (let i = 0; i < fileToUpload.length; i++) {
+      formData.append(field, fileToUpload[i]);
+    }
+    return this.http
+      .post(`${endpoint}`, formData, httpOptionsForm);
+  }
 
 
-//Function to post a store form to the API
+  //Function to post a store form to the API
   postStoreForm(data, fileToUpload) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const description = data.description;
     const location = data.location;
@@ -219,7 +230,7 @@ uploadFile(endpoint, field, fileToUpload) {
 
   //Function to update primary image
   updatePrimaryImage(fileToUpload, link) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();
     for (let i = 0; i < fileToUpload.length; i++) {
@@ -240,7 +251,7 @@ uploadFile(endpoint, field, fileToUpload) {
 
   //Function to add sfsFiles
   sfsFiles(endpoint, field, fileToUpload) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();
     for (let i = 0; i < fileToUpload.length; i++) {
@@ -251,12 +262,12 @@ uploadFile(endpoint, field, fileToUpload) {
 
   //Function to update a file
   updateFile(endpoint, fileToUpload) {
-    const httpOptionsForm: any = {headers: new HttpHeaders() };
+    const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();
     for (let i = 0; i < fileToUpload.length; i++) {
       formData.append('sfs', fileToUpload[i]);
-  }
+    }
     return this.http.put(`${endpoint}`, formData, httpOptionsForm);
   }
   /************Filter Store*************/
@@ -273,7 +284,7 @@ uploadFile(endpoint, field, fileToUpload) {
     maxPrice: string,
     min: string,
     max: string,
-    cooming_soon: string ) {
+    cooming_soon: string) {
     const data = {
       'category': category,
       'subcategory': subcategory,
@@ -299,7 +310,7 @@ uploadFile(endpoint, field, fileToUpload) {
 
   //Function to get subcategories
   getSubCategories(parent_id: string) {
-    if ( parent_id === '' ) {
+    if (parent_id === '') {
       return this.http.get(`fishTypes/childs`);
     } else {
       return this.http.get(`fishTypes/${parent_id}/childs`);

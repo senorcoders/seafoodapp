@@ -56,7 +56,7 @@
   <!-- slides para kg  -->
   <div class="col-12" *ngIf="hideTrimesSlides===true">
     <div class="row tab-row" *ngIf="headAction===true">
-      <div *ngFor="let k of weights.on.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
+      <div *ngFor="let k of weights.on.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col-lg-2 selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row custom-pricing-table">
@@ -73,7 +73,7 @@
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
+                  placeholder="Type Price Here" [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
                 <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
@@ -94,7 +94,7 @@
     </div>
 
     <div class="row  tab-row" *ngIf="headAction===false">
-      <div *ngFor="let k of weights.off.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
+      <div *ngFor="let k of weights.off.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row  custom-pricing-table">
@@ -110,7 +110,7 @@
               </div>
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  type="number" placeholder="Type Price Here" [formControlName]="i">/kg
+                  type="number" placeholder="Type Price Here" [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted" [formControlName]="i">/kg
                 <button type="button" (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
 
               </div>
@@ -136,7 +136,7 @@
   <div class="col-12" [hidden]="hideTrimesSlides===true||wholeFishAction===true">
     <div class="row check-row">
 
-      <div *ngFor="let tri of trimmings" [ngClass]="isSelectTrim(tri.id)?'select':''" class="col-lg-2 custom-trim-square">
+      <div *ngFor="let tri of trimmings"  [ngClass]="isSelectTrim(tri.id)?'select':''" class="col-lg-2 custom-trim-square">
         
         <div (click)="selectKeyTrim(tri.id)" class="square selectionable"></div> <span class="selectionable"
           (click)="selectKeyTrim(tri.id)" style="text-transform: uppercase;">{{tri.name}}</span>
@@ -145,7 +145,7 @@
     <div class="row tab-row">
       <div *ngFor="let tri of getSelects()" class="col-lg-2">
 
-        <div class="selectionable" [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
+        <div class="selectionable" [class.errorname]="controls()[tri.id+ '_trim'].invalid&&parentForm.submitted" [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
           style="text-transform: uppercase;"><span>{{tri.name}}</span></div>
       </div>
       <div class="col-12">
@@ -164,6 +164,7 @@
                 $<input type="number"
                   [ngClass]="getControlTrim(keySelectTrim, price).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Type Price Here" [formControlName]="getNameTrim(price)"
+                  [class.errorname]="controls()[keySelectTrim+ '_trim'].controls[i].invalid&&parentForm.submitted"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
                   <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>

@@ -179,19 +179,24 @@ export class CreateProductComponent implements OnInit {
   }
 
   private async getImages(product) {
-    let baseUrl = environment.apiURLImg;
-    let rt: any = { responseType: "blob" };
-    let imagePrimary = await this.http.get(baseUrl + product["imagePrimary"], rt).toPromise() as any;
-    let imagePrimary64 = await this.blobToBase64(imagePrimary);
-    let imagePrimaryForForm = {
-      src: imagePrimary64,
-      url: product["imagePrimary"],
-      type: "primary"
-    };
-
-    let forForm = [];
-    forForm.push(imagePrimaryForForm);
-    let forInput = [this.blobToFile(imagePrimary, "primary.jpg")];
+    let forForm = [], forInput = [];
+    let imagePrimary, imagePrimaryForForm,
+      baseUrl = environment.apiURLImg, imagePrimary64,
+      rt: any = { responseType: "blob" };
+    try {
+      imagePrimary = await this.http.get(baseUrl + product["imagePrimary"], rt).toPromise() as any;
+      imagePrimary64 = await this.blobToBase64(imagePrimary);
+      imagePrimaryForForm = {
+        src: imagePrimary64,
+        url: product["imagePrimary"],
+        type: "primary"
+      };
+      forForm.push(imagePrimaryForForm);
+      forInput = [this.blobToFile(imagePrimary, "primary.jpg")];
+    }
+    catch (e) {
+      console.error(e);
+    }
 
     //Para agregar las imagenes secundarias
     if (product["images"] && product["images"].length > 0) {
@@ -393,11 +398,6 @@ export class CreateProductComponent implements OnInit {
         'country': product.country,
         'processingCountry': product.processingCountry,
         'city': product.city,
-        // 'price': {
-        //   'type': '$',
-        //   'value': priceAED,
-        //   'description': priceAED + ' for pack'
-        // },
         'weight': {
           'type': "kg",
           'value': 5
@@ -408,53 +408,33 @@ export class CreateProductComponent implements OnInit {
         'maximumOrder': product.maximumorder,
         "acceptableSpoilageRate": features.acceptableSpoilageRate,
         'raised': features.raised,
-        // 'preparation': features.preparation,
         'treatment': features.treatment,
         'seller_sku': product.seller_sku,
         'seafood_sku': this.seafood_sku,
         'mortalityRate': 1,
         'waterLostRate': '0',
         'status': '5c0866e4a0eda00b94acbdc0',
-        'brandname': product.brandName,
+        'brandName': product.brandName,
         'hsCode': product.hsCode,
         variations: variationsEnd,
-        // headAction: pricing.headAction,
-        // wholeFishAction: features.wholeFishAction,
-        // head: features.head,
-        // varationsOne: varationsOne,
-        // weights: 
       };
       if (this.productID !== "") {
         data.idProduct = this.product.id;
         data.variationsDeleted = variationsDeleted;
+        data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
       }
       console.log(data);
-
-      // this.productService.saveData('api/variations/add', data).subscribe(result => {
-      //   if (product.images !== undefined && product.images !== '') {
-      let images = JSON.parse(product.imagesSend),
-      deletedImages = product.deletedImages;
-      //Si se hasta actualizando un producto
-      // se filtra las imagenes, las que tiene url son
-      //las nuevas imagenes
       if (this.productID !== "") {
-        images = images.filter(it => {
-          return it.url === undefined || it.url === null || it.type === "primary";
+        this.productService.updateData('api/variations', data).subscribe(result => {
+          this.uploadImagesAction(product, result);
         });
-        console.log(images.length, deletedImages);
+      } else {
+        this.productService.saveData('api/variations/add', data).subscribe(result => {
+          this.uploadImagesAction(product, result);
+        });
       }
-      // this.uploadFileToActivity(result['id'], product.imagesSend);
-      //   } else {
-      //     this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-      //     this.showError = false;
-      //     this.loading = false;
-      //     this.ngProgress.done();
-      //     this.myform.reset();
-      //     this.router.navigate(['/my-products']);
-      //   }
-      // });
-      this.loading = false;
-      this.ngProgress.done();
+      // this.loading = false;
+      // this.ngProgress.done();
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
@@ -462,6 +442,53 @@ export class CreateProductComponent implements OnInit {
     }
   }
 
+  private async uploadImagesAction(product, result) {
+    if (product.imagesSend !== undefined && product.imagesSend !== '') {
+      let images = JSON.parse(product.imagesSend),
+        deletedImages = product.deletedImages;
+      //Si se esta actualizando un producto
+      //se filtra las imagenes, las que tiene url son
+      //las nuevas imagenes
+      if (this.productID !== "") {
+        images = images.filter(it => {
+          return it.url === undefined || it.url === null || it.type === "primary" || it.change === true;
+        });
+        console.log(images.length, deletedImages);
+        try {
+          //La imagen primary siempre se vuelve a subir
+          let files: File[] = [];
+          for (let image of images) {
+            let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + this.productID);
+            if (image.type === "primary") {
+              await this.productService.postFile([file], this.productID, 'primary').toPromise();
+              continue;
+            } else {
+              files.push(file);
+            }
+          }
+          await this.productService.updateImages(files, deletedImages, this.productID).toPromise();
+        }
+        catch (e) {
+          console.error(e);
+        }
+        this.finish();
+      } else {
+        this.uploadFileToActivity(result['id'], product.imagesSend);
+      }
+
+    } else {
+      this.finish();
+    }
+  }
+
+  private finish() {
+    this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+    this.showError = false;
+    this.loading = false;
+    this.ngProgress.done();
+    this.myform.reset();
+    this.router.navigate(['/my-products']);
+  }
 
   private async uploadFileToActivity(productID, images) {
     let files = [];
@@ -480,12 +507,7 @@ export class CreateProductComponent implements OnInit {
     catch (e) {
       console.error(e);
     }
-
-    this.myform.reset();
-    this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
-    this.loading = false;
-    this.ngProgress.done();
-    this.router.navigate(['/my-products']);
+    this.finish();
 
   }
 
@@ -519,7 +541,7 @@ export class CreateProductComponent implements OnInit {
   public b64toBlob(b64Data, contentType) {
     contentType = contentType || '';
     var sliceSize = 512;
-    var byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg);base64,/, ''));
+    var byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg|blob|blob[0-9]{1,50});base64,/, ''));
     var byteArrays = [];
 
     for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
