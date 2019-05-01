@@ -135,6 +135,9 @@ form{
         font-weight: 300;
         font-family: 'Open Sans', sans-serif;
         padding: 0 !important;
+        &#phone{
+            padding-left: 52px !important;
+        }
       
 
 
@@ -286,6 +289,7 @@ form{
     width: auto;
     height: auto;
     cursor: pointer;
+    z-index: 100;
  
 }
 
@@ -420,6 +424,8 @@ form{
     .side-dark-gray{
         background-color: #7484AA;
         .content-side{
+            position: sticky;
+            top: 0;
             height: 100vh;
             display: flex;
             align-items: center;

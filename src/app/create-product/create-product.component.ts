@@ -53,10 +53,9 @@ export class CreateProductComponent implements OnInit {
   private user: any = {};
   private ready = false;
 
-  private eventsSubject: Subject<any> = new Subject<any>();
+  public eventsSubject: Subject<any> = new Subject<any>();
 
   private product: any = {};
-
   public currentExchangeRate:any;
   public currentPrincingCharges:any;
   
@@ -86,7 +85,6 @@ export class CreateProductComponent implements OnInit {
     this.myform = new FormGroup({
     });
     
-
     this.getCurrentPricingCharges();
     this.getMyData();
     this.productService.getData('fishpreparation').subscribe(
@@ -386,9 +384,9 @@ export class CreateProductComponent implements OnInit {
 
       await this.generateSKU();
       // this.ngProgress.start();
-      // console.log(value.features.price, this.currentExchangeRate);
-      // let priceAED = (value.features.price * this.currentExchangeRate).toFixed(2);
-      const data: any = {
+      let priceAED = Number(value.features.price).toFixed(2);
+      const data:any = {
+
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
         'store': this.store[0].id,
@@ -398,6 +396,11 @@ export class CreateProductComponent implements OnInit {
         'country': product.country,
         'processingCountry': product.processingCountry,
         'city': product.city,
+        // 'price': {
+        //   'type': '$',
+        //   'value': priceAED,
+        //   'description': priceAED + ' for pack'
+        // },
         'weight': {
           'type': "kg",
           'value': 5

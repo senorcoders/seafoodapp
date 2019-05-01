@@ -135,6 +135,9 @@ form{
         font-weight: 300;
         font-family: 'Open Sans', sans-serif;
         padding: 0 !important;
+        &#phone{
+            padding-left: 52px !important;
+        }
       
 
 
@@ -286,6 +289,7 @@ form{
     width: auto;
     height: auto;
     cursor: pointer;
+    z-index: 100;
     img{
         max-width: 100%;
         width: 52px;
@@ -428,6 +432,8 @@ form{
             display: flex;
             align-items: center;
             text-align: center;
+            position: sticky;
+            top: 0;
             h1{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;

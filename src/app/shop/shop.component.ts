@@ -763,7 +763,7 @@ export class ShopComponent implements OnInit {
   }
   checkout() {
     this.closeCart();
-    this.router.navigate(['/checkout'], { queryParams: { shoppingCartId: this.shoppingCartId } });
+    this.router.navigate(['/reviewcart'], { queryParams: { shoppingCartId: this.shoppingCartId } });
   }
   deleteItem(i, id) {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(result => {

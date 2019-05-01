@@ -24,6 +24,7 @@ export class RegistrationBuyerComponent implements OnInit {
   TypeBusiness:FormControl;
   companyName:FormControl;
   tcs:FormControl;
+  vat:FormControl;
   regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   showEmailVerification:boolean=false;
   buyerPhoneValid: boolean = false;
@@ -51,7 +52,8 @@ btnText:any = 'register to buy';
     jQuery(document).ready(function(){
 
       var input = document.querySelector("#phone");
-      var iti = window.intlTelInput(input);
+      var iti = window.intlTelInput(input, {
+        initialCountry: "AE"});
 
       var handleChange = function() {
         var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
@@ -92,6 +94,7 @@ btnText:any = 'register to buy';
     this.TypeBusiness = new FormControl('',[Validators.required]);
     this.companyName = new FormControl('',[Validators.required]);
     this.tcs = new FormControl('', [Validators.requiredTrue]);
+    this.vat = new FormControl('', [Validators.required]);
   }
 
   //Initializar for group for first step wizard form
@@ -108,11 +111,15 @@ btnText:any = 'register to buy';
       City:this.City,
       TypeBusiness:this.TypeBusiness,
       companyName:this.companyName,
-      location:this.location
+      location:this.location,
+      vat: this.vat
 
     },{
       updateOn: 'submit'
     });
+
+    this.buyerForm.controls['location'].setValue('AE');
+
 
 
   }
@@ -201,7 +208,8 @@ btnText:any = 'register to buy';
     "Address":this.buyerForm.get('Address').value,
     "City":this.buyerForm.get('City').value,
     "companyName": this.buyerForm.get('companyName').value,
-    "typeBusiness":this.buyerForm.get('TypeBusiness').value
+    "typeBusiness":this.buyerForm.get('TypeBusiness').value,
+    "vat": this.buyerForm.get('vat').value
     }
     this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
       result=>{

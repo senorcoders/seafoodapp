@@ -211,6 +211,26 @@
                     }
                    
                 }
+                .price-total{
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    padding-left: 0;
+                    h4{
+                        color: #0D1321;
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-weight: 300;
+                        font-size: 28px;
+                        letter-spacing: 1.75px;
+                        line-height: 34px;
+                        @media screen  and (max-width: 992px){
+                           font-size: 20px;
+                         }
+                        span{
+                            float: right;
+                        }
+                    }
+                   
+                }
                 .price-item{
                     margin-top: 20px;
                     margin-bottom: 20px;
@@ -307,6 +327,39 @@
     
                 }
             }
+        }
+    }
+}
+
+.delivery-form{
+    .form-group{
+        max-width: 525px;
+        margin: 20px auto;
+    }
+    label{
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 21px;
+        letter-spacing: 1.75px;
+        line-height: 25px;
+        color: #7484AA;
+        text-transform: uppercase;
+        font-weight: 300;
+    }
+    input{
+        width: 200px;
+        border:none;
+        background: none;
+        border-bottom: 1px solid #9A9EA8;
+        color: #9A9EA8;
+        font-style: italic;
+        font-size: 21px;
+        line-height: 28px;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
+        border-radius: 0;
+        padding: 0;
+        &::placeholder{
+            color: #9A9EA8;
         }
     }
 }
