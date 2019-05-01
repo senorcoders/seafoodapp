@@ -1,31 +1,34 @@
 <div class="row" formGroupName="price">
 
-    <div class="col-lg-12 text-center">
-        <h1 class="gray-title" ><span>ADVANCED PRICING 
-          <!-- <i class="fa fa-chevron-up" aria-hidden="true"
+  <div class="col-lg-12 text-center">
+    <h1 class="gray-title"><span>ADVANCED PRICING
+        <!-- <i class="fa fa-chevron-up" aria-hidden="true"
           *ngIf="hideTrimesSlides===true||wholeFishAction===true"></i> <i class="fa fa-chevron-down"
           *ngIf="hideTrimesSlides===true||wholeFishAction===true" aria-hidden="true"></i> -->
-        </span>
-        </h1>
-    </div>
+      </span>
+    </h1>
+  </div>
 
   <div class="col-12 toggle-div" [hidden]="hideTrimesSlides===false&&wholeFishAction===false">
-    <label style="text-align:center; width:100%;"> <span calss="selectionable" [ngClass]="headAction===true?'select':''"
-        (click)="assingHead(true)" [hidden]="head!=='on'&&head!=='both'">Head On Gutted</span>
-      <span [hidden]="head!=='both'">|</span> <span (click)="assingHead(false)" calss="selectionable"
+    <label style="text-align:center; width:100%;">
+      <span calss="selectionable select" [hidden]="wholeFishAction===false">Head On Gutted</span>
+
+      <span calss="selectionable select" [hidden]="wholeFishAction==true">Fillete</span>
+
+      <!-- <span [hidden]="head!=='both'">|</span> <span (click)="assingHead(false)" calss="selectionable"
         [ngClass]="headAction===true?'':'select'"
-        [hidden]="head!=='off'&&head!=='both'">HEAD OFF</span>
-     </label>
+        [hidden]="head!=='off'&&head!=='both'">HEAD OFF</span> -->
+    </label>
   </div>
   <!-- para guardar la head action -->
   <div class="form-group" hidden>
     <input type="text" class="form-control" formControlName="headAction">
   </div>
   <div class="form-group" hidden>
-      <input type="text" class="form-control" formControlName="variationsDeleted">
-    </div>
+    <input type="text" class="form-control" formControlName="variationsDeleted">
+  </div>
 
-  <div class="col-12" [hidden]="hideTrimesSlides===false&&wholeFishAction===false">
+  <div class="col-12" [hidden]="hideTrimesSlides===false||wholeFishAction===false">
     <div class="row check-row" [hidden]="headAction===false">
       <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
@@ -39,25 +42,27 @@
     </div>
 
     <!-- off checkbox -->
-    <div class="row check-row" [hidden]="headAction===true">
+    <!-- <div class="row check-row" [hidden]="headAction===true">
       <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
-          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox" id="defaultCheck{{whole.id+'_off'}}">
+          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox"
+            id="defaultCheck{{whole.id+'_off'}}">
           <label class="form-check-label" for="defaultCheck{{whole.id+'_off'}}">
             {{getNameWhole(whole.id)}}
           </label>
         </div>
       </div>
 
-    </div>
+    </div> -->
   </div>
 
   <!-- los slides se itera por controls de formularios  -->
   <!-- slides para kg  -->
   <div class="col-12" *ngIf="hideTrimesSlides===true">
-    <div class="row tab-row" *ngIf="headAction===true">
-      <div *ngFor="let k of weights.on.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
-        class="col-lg-2 selectionable"><span>{{getNameWhole(k)}}</span></div>
+    <div class="row tab-row" *ngIf="wholeFishAction===true">
+      <div *ngFor="let k of weights.on.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted"
+        [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col-lg-2 selectionable">
+        <span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row custom-pricing-table">
           <div class="col-8 text-center table-title" *ngIf="keySelect!==''">quantity range (kg)</div>
@@ -73,8 +78,11 @@
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here" [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted" [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
-                <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                  placeholder="Type Price Here"
+                  [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted"
+                  [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
+                <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelect!==''">
@@ -93,7 +101,7 @@
       </div>
     </div>
 
-    <div class="row  tab-row" *ngIf="headAction===false">
+    <!-- <div class="row  tab-row" *ngIf="headAction===false">
       <div *ngFor="let k of weights.off.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
@@ -129,6 +137,44 @@
           </div>
         </div>
       </div>
+    </div> -->
+    <div class="row  tab-row" *ngIf="wholeFishAction===false">
+      <div class="col selectionable select"><span>Fillete</span></div>
+      <div class="col-12">
+        <div class="row  custom-pricing-table">
+          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-4 table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weightsFilleted; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weightsFilleted[i].min"
+                  [(highValue)]="weightsFilleted[i].max" (userChangeEnd)="refactorizeRangesFilleted(i)"
+                  [options]="weightsFilleted[i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="nameFilleted">
+                $<input [ngClass]="getControlFilleted(i, price).valid===false&&parentForm.submitted===true?'error-price':''"
+                  type="number" placeholder="Type Price Here"
+                  [class.errorname]="controls()[nameFilleted].controls[i].invalid&&parentForm.submitted" [formControlName]="i">/kg
+                <button type="button" (click)="deletePriceFilleted(price)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
+
+              </div>
+            </div>
+            <div class="row manual-slider">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricingFilleted()"
+                  [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricingFilleted()" formControlName="example"
+                  placeholder="Type Price Here" [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -136,8 +182,9 @@
   <div class="col-12" [hidden]="hideTrimesSlides===true||wholeFishAction===true">
     <div class="row check-row">
 
-      <div *ngFor="let tri of trimmings"  [ngClass]="isSelectTrim(tri.id)?'select':''" class="col-lg-2 custom-trim-square">
-        
+      <div *ngFor="let tri of trimmings" [ngClass]="isSelectTrim(tri.id)?'select':''"
+        class="col-lg-2 custom-trim-square">
+
         <div (click)="selectKeyTrim(tri.id)" class="square selectionable"></div> <span class="selectionable"
           (click)="selectKeyTrim(tri.id)" style="text-transform: uppercase;">{{tri.name}}</span>
       </div>
@@ -145,7 +192,8 @@
     <div class="row tab-row">
       <div *ngFor="let tri of getSelects()" class="col-lg-2">
 
-        <div class="selectionable" [class.errorname]="controls()[tri.id+ '_trim'].invalid&&parentForm.submitted" [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
+        <div class="selectionable" [class.errorname]="controls()[tri.id+ '_trim'].invalid&&parentForm.submitted"
+          [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
           style="text-transform: uppercase;"><span>{{tri.name}}</span></div>
       </div>
       <div class="col-12">
@@ -166,7 +214,8 @@
                   placeholder="Type Price Here" [formControlName]="getNameTrim(price)"
                   [class.errorname]="controls()[keySelectTrim+ '_trim'].controls[i].invalid&&parentForm.submitted"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
-                  <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelectTrim!==''">
@@ -175,8 +224,8 @@
                   [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-4">
-                <input type="number" (change)="addPricingTrim()" formControlName="example"
-                  placeholder="Type Price Here" [(ngModel)]="valueExample">
+                <input type="number" (change)="addPricingTrim()" formControlName="example" placeholder="Type Price Here"
+                  [(ngModel)]="valueExample">
               </div>
             </div>
 
