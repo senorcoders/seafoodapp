@@ -126,7 +126,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'edit-product/:id',
-    loadChildren: 'app/edit-product/edit-product.module#EditProductModule',
+    loadChildren: 'app/create-product/create-product.module#CreateProductModule',
     canActivate: [SellerRouterService]
   },
   {
