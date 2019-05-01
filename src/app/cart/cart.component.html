@@ -51,15 +51,19 @@
                       {{product?.fish?.type?.name}}
                     </li>
                     <li class="list-inline-item info-item">
-                      <img src="../../assets/svg/airplane-takeoff.svg" alt="" width="20px" height="20px">
-                      {{findCountryName(product?.fish?.country)}}
+                      <img src="../../assets/svg/earth.svg" alt="" width="18px" height="18px">
+                      {{findCountryName(product?.fish?.processingCountry)}}
                     </li>
                     <li class="list-inline-item info-item">
                       <img src="../../assets/svg/tag.svg" alt="" width="18px" height="18px">
-                      {{product.price.value | currency: 'AED'}} / kg
+                      {{product?.fish?.price?.value | currency: 'AED'}} / kg
                     </li>
+                    <li class="list-inline-item info-item">
+                      <img src="../../assets/svg/knife-military.svg" alt="" width="18px" height="18px">
+                      {{findPreparationName(product?.fishCharges?.variation?.variation?.fishPreparation)}}
+                      </li>
                     <li class="list-inline-item info-item" *ngIf="product.minDeliveryDate != ''">
-                        ETA: {{product?.minDeliveryDate | date: 'dd/MM/yyyy'}}
+                        Lead Time: {{product?.adminNumberOfDaysForDelivery}} Days
                       </li>
                   </ul>
                 </div>
@@ -96,6 +100,9 @@
                 <div class="col-lg-12 price-item">
                     <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
                 </div>
+                <div class="col-lg-12 price-item">
+                  <h4>VAT (5%) <span>{{(customs) | currency: 'AED'}}</span></h4>
+              </div>
                 <div class="col-lg-12 price-total">
                   <h4>TOTAL <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
               </div>
