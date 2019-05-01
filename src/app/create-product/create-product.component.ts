@@ -53,9 +53,11 @@ export class CreateProductComponent implements OnInit {
   private user: any = {};
   private ready = false;
 
-  private eventsSubject: Subject<any> = new Subject<any>();
+  public eventsSubject: Subject<any> = new Subject<any>();
 
   private product: any = {};
+  public currentExchangeRate:any;
+  public currentPrincingCharges:any;
 
   constructor(
     private productService: ProductService,
@@ -378,7 +380,7 @@ export class CreateProductComponent implements OnInit {
       await this.generateSKU();
       // this.ngProgress.start();
       let priceAED = Number(value.features.price).toFixed(2);
-      const data = {
+      const data:any = {
 
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
