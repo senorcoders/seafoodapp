@@ -3,6 +3,8 @@ import { FormGroupDirective, ControlContainer, FormGroup, FormControl, Validator
 import { CountriesService } from '../../services/countries.service';
 import { ProductService } from '../../services/product.service';
 import { NgClass, NgIf } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'fish-form',
@@ -42,12 +44,18 @@ export class FishFormComponent implements OnInit {
   public images = [];
 
   public showAverageUnit = false;
-
   private levels: any;
+  private productID = "";
+  private indexImage = 0;
 
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
-    private productService: ProductService, private zone: NgZone
-  ) { }
+    private productService: ProductService, private zone: NgZone,
+    private route: ActivatedRoute,
+    private sanitizer: DomSanitizer
+  ) {
+    let productID = this.route.snapshot.params['id'];
+    if (productID !== null && productID !== undefined) this.productID = productID;
+  }
 
   ngOnInit() {
     this.createFormGroup();
@@ -73,10 +81,11 @@ export class FishFormComponent implements OnInit {
       hsCode: new FormControl('', Validators.nullValidator),
       minimunorder: new FormControl('', Validators.required),
       maximumorder: new FormControl('', Validators.required),
-      images: new FormControl('', Validators.required),
-      imagesSend: new FormControl("", Validators.nullValidator),
+      images: new FormControl('', Validators.nullValidator),
+      imagesSend: new FormControl("", Validators.required),
       unitOfSale: new FormControl("", Validators.required),
-      averageUnitWeight: new FormControl(10, Validators.required)
+      averageUnitWeight: new FormControl(10, Validators.required),
+      deletedImages: new FormControl("[]", Validators.nullValidator)
     }));
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       console.log(it);
@@ -85,7 +94,13 @@ export class FishFormComponent implements OnInit {
       } else {
         this.showAverageUnit = false;
       }
+      if (it.imagesSend !== '' && this.images.length === 0)
+        this.images = JSON.parse(it.imagesSend);
     });
+  }
+
+  public byPassImageUrl(image) {
+    return this.sanitizer.bypassSecurityTrustUrl(image);
   }
 
   public controls() {
@@ -192,9 +207,11 @@ export class FishFormComponent implements OnInit {
         console.log(result, "variant");
         this.levels = result;
         this.typeLevel0 = result['level0'];
-        // this.typeLevel1 = result['level1'];
-        // this.typeLevel2 = result['level2'];
-        // this.typeLevel3 = result['level3'];
+        if (this.productID !== "") {
+          this.typeLevel1 = result['level1'];
+          this.typeLevel2 = result['level2'];
+          this.typeLevel3 = result['level3'];
+        }
       },
       error => {
 
@@ -306,7 +323,8 @@ export class FishFormComponent implements OnInit {
           reader.readAsDataURL(file);
 
           reader.onload = () => {
-            this.images.push({ src: reader.result, type: "secundary" });
+            let type = this.images.length === 0 ? "primary" : "secundary";
+            this.images.push({ src: reader.result, type });
             this.reSavedImages();
           };
         }
@@ -316,11 +334,17 @@ export class FishFormComponent implements OnInit {
   }
 
   public remove(i) {
+    if (this.images[i].url !== undefined && this.images[i].url !== null) {
+      let arr = JSON.parse(this.getValue().deletedImages);
+      arr.push(this.images[i].url);
+      this.setValue({ deletedImages: JSON.stringify(arr) });
+    }
     if (this.images.length === 1) {
       this.images = [];
     } else {
       this.images.splice(i, 1);
     }
+    this.indexImage = this.images.length === 0 ? 0 : (this.images.length - 4) * -1;
     this.reSavedImages();
   }
 
@@ -354,6 +378,34 @@ export class FishFormComponent implements OnInit {
     console.log(this.myInputVariable.nativeElement.files);
     this.myInputVariable.nativeElement.value = "";
     console.log(this.myInputVariable.nativeElement.files);
+  }
+
+  public toSl(to) {
+    let limit = { min: (this.images.length - 4) * -1, max: 0 };
+    let index = JSON.parse(JSON.stringify({ ind: this.indexImage })).ind;
+    if (to < 0) {
+      index -= 1;
+    } else {
+      index += 1;
+    }
+    //verificamos que este entre los limites
+    if (limit.min > index || limit.max < index) return;
+    this.indexImage = index;
+  }
+
+  public calcLeft(i) {
+    if (this.indexImage === 0) return 0;
+    let width = $(".col-3.img-select").width();
+    if (this.indexImage < 0) {
+      let minus = (this.indexImage) * width;
+      return minus;
+    }
+
+    if (this.indexImage > 0) {
+      let maxis = (this.indexImage) * width;
+      return maxis;
+    }
+
   }
 
 }

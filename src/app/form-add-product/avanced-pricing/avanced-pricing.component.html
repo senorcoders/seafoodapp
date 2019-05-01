@@ -1,15 +1,17 @@
 <div class="row" formGroupName="price">
 
     <div class="col-lg-12 text-center">
-        <h1 class="gray-title" ><span>ADVANCED PRICING <i class="fa fa-chevron-up" aria-hidden="true"
-          (click)="showPricing(false)" *ngIf="hideTrimesSlides===true||wholeFishAction===true"
-          [hidden]="!showPricingValue"></i> <i class="fa fa-chevron-down" (click)="showPricing(true)"
-          *ngIf="hideTrimesSlides===true||wholeFishAction===true" [hidden]="showPricingValue" aria-hidden="true"></i></span></h1>
+        <h1 class="gray-title" ><span>ADVANCED PRICING 
+          <!-- <i class="fa fa-chevron-up" aria-hidden="true"
+          *ngIf="hideTrimesSlides===true||wholeFishAction===true"></i> <i class="fa fa-chevron-down"
+          *ngIf="hideTrimesSlides===true||wholeFishAction===true" aria-hidden="true"></i> -->
+        </span>
+        </h1>
     </div>
 
-  <div class="col-12 toggle-div" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
+  <div class="col-12 toggle-div" [hidden]="hideTrimesSlides===false&&wholeFishAction===false">
     <label style="text-align:center; width:100%;"> <span calss="selectionable" [ngClass]="headAction===true?'select':''"
-        (click)="assingHead(true)" [hidden]="head!=='on'&&head!=='both'">HEAD ON</span>
+        (click)="assingHead(true)" [hidden]="head!=='on'&&head!=='both'">Head On Gutted</span>
       <span [hidden]="head!=='both'">|</span> <span (click)="assingHead(false)" calss="selectionable"
         [ngClass]="headAction===true?'':'select'"
         [hidden]="head!=='off'&&head!=='both'">HEAD OFF</span>
@@ -19,8 +21,11 @@
   <div class="form-group" hidden>
     <input type="text" class="form-control" formControlName="headAction">
   </div>
+  <div class="form-group" hidden>
+      <input type="text" class="form-control" formControlName="variationsDeleted">
+    </div>
 
-  <div class="col-12" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
+  <div class="col-12" [hidden]="hideTrimesSlides===false&&wholeFishAction===false">
     <div class="row check-row" [hidden]="headAction===false">
       <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
@@ -49,8 +54,8 @@
 
   <!-- los slides se itera por controls de formularios  -->
   <!-- slides para kg  -->
-  <div class="col-12" [hidden]="showPricingValue==false||(hideTrimesSlides===false&&wholeFishAction===false)">
-    <div class="row tab-row" [hidden]="headAction===false">
+  <div class="col-12" *ngIf="hideTrimesSlides===true">
+    <div class="row tab-row" *ngIf="headAction===true">
       <div *ngFor="let k of weights.on.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col-lg-2 selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
@@ -88,7 +93,7 @@
       </div>
     </div>
 
-    <div class="row  tab-row" [hidden]="headAction===true">
+    <div class="row  tab-row" *ngIf="headAction===false">
       <div *ngFor="let k of weights.off.keys" [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)"
         class="col selectionable"><span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
@@ -157,10 +162,10 @@
               </div>
               <div class="col-4" [formGroupName]="getIdentifierTrim(keySelectTrim)">
                 $<input type="number"
-                  [ngClass]="getControlTrim(keySelectTrim, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here" [formControlName]="i"
+                  [ngClass]="getControlTrim(keySelectTrim, price).valid===false&&parentForm.submitted===true?'error-price':''"
+                  placeholder="Type Price Here" [formControlName]="getNameTrim(price)"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
-                  <button type="button" (click)="deletePriceTrims(i)"><img src="../../../assets/svg/close.svg" alt=""></button>
+                  <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg" alt=""></button>
               </div>
             </div>
             <div class="row manual-slider" *ngIf="keySelectTrim!==''">
