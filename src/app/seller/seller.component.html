@@ -79,9 +79,9 @@
 
 					<div class="form-group">
 						<label>{{'Seller.incoterm' | translate}}</label>
-						<select class="form-control"  [(ngModel)]="user.incoterms" [ngModelOptions]="{standalone: true}">
-							<option *ngFor="let incoterm of incoterms; let i=index" value="{{incoterm.id}}" ng-selected="incoterm.id == user.incoterms.id" >
-								{{incoterm.name}}
+						<select class="form-control" [(ngModel)]="selectedIncoterm" [ngModelOptions]="{standalone: true}">
+							<option  *ngFor="let incoterm of incoterms; let i=index" value="{{incoterm.id}}" >
+								{{incoterm.name}} 
 							</option>
 						</select>
 					</div>

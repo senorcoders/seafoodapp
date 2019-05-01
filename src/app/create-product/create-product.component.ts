@@ -47,8 +47,6 @@ export class CreateProductComponent implements OnInit {
   public store: any;
   public myform: FormGroup;
   public showError = false;
-  public currentExchangeRate = 0;
-  public currentPrincingCharges: any;
   private trimmings = [];
   private seafood_sku = "";
   private productID = "";
@@ -84,8 +82,8 @@ export class CreateProductComponent implements OnInit {
   ngOnInit() {
     this.myform = new FormGroup({
     });
-
     this.getCurrentPricingCharges();
+
     this.getMyData();
     this.productService.getData('fishpreparation').subscribe(
       res => {
@@ -379,9 +377,9 @@ export class CreateProductComponent implements OnInit {
 
       await this.generateSKU();
       // this.ngProgress.start();
-      // console.log(value.features.price, this.currentExchangeRate);
-      // let priceAED = (value.features.price * this.currentExchangeRate).toFixed(2);
-      const data: any = {
+      let priceAED = Number(value.features.price).toFixed(2);
+      const data = {
+
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
         'store': this.store[0].id,
@@ -502,6 +500,7 @@ export class CreateProductComponent implements OnInit {
       }
     )
   }
+
 
 
   public blobToFile = (theBlob: Blob, fileName: string): File => {

@@ -24,18 +24,16 @@ export class RegistrationBuyerComponent implements OnInit {
   TypeBusiness:FormControl;
   companyName:FormControl;
   tcs:FormControl;
+  vat:FormControl;
   regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   showEmailVerification:boolean=false;
   buyerPhoneValid: boolean = false;
 isvalid:boolean = false;
-companyForm: FormGroup;
 countries:any = [];
 showConfirmation=true;
 email:string;
-step1:boolean = true;
-step2:boolean = false;
 isValid:boolean = false;
-btnText:any = 'Finish';
+btnText:any = 'register to buy';
 
 
   constructor(private auth: AuthenticationService, 
@@ -44,7 +42,6 @@ btnText:any = 'Finish';
   ngOnInit() {
     this.createFormControls();
     this.RegisterBuyerForm();
-    this.registerCompanyForm();
     this.getCountries();
 
     var that = this;
@@ -55,7 +52,8 @@ btnText:any = 'Finish';
     jQuery(document).ready(function(){
 
       var input = document.querySelector("#phone");
-      var iti = window.intlTelInput(input);
+      var iti = window.intlTelInput(input, {
+        initialCountry: "AE"});
 
       var handleChange = function() {
         var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
@@ -96,6 +94,7 @@ btnText:any = 'Finish';
     this.TypeBusiness = new FormControl('',[Validators.required]);
     this.companyName = new FormControl('',[Validators.required]);
     this.tcs = new FormControl('', [Validators.requiredTrue]);
+    this.vat = new FormControl('', [Validators.required]);
   }
 
   //Initializar for group for first step wizard form
@@ -107,29 +106,24 @@ btnText:any = 'Finish';
       password:this.password,
       rePassword:this.rePassword,
       tel:this.tel,
-      tcs:this.tcs
-
-    },{
-      updateOn: 'submit'
-    });
-
-
-  }
-
-  //initialize form group for company step
-  registerCompanyForm(){
-    this.companyForm = new FormGroup({
+      tcs:this.tcs,
       Address:this.Address,
       City:this.City,
       TypeBusiness:this.TypeBusiness,
       companyName:this.companyName,
-      location:this.location
+      location:this.location,
+      vat: this.vat
+
     },{
       updateOn: 'submit'
     });
 
+    this.buyerForm.controls['location'].setValue('AE');
+
+
 
   }
+
 
  
 
@@ -168,8 +162,7 @@ btnText:any = 'Finish';
               // console.log('false');
               this.buyerForm.get('rePassword').setErrors( {MatchPassword: true} )
           } else{
-            this.step1 = false;
-            this.step2 = true;
+           this.registerBuyer();
           }
   }
 
@@ -187,17 +180,10 @@ btnText:any = 'Finish';
 
   //Handle validation to check if all fields are valid
   registerBuyer(){
-    console.log(this.buyerForm.value, this.companyForm.value);
-      if(this.companyForm.valid){
-        console.log("Valid");
+    
         this.isValid = true;
         this.btnText = 'Loading...'
-        this.submitRegistrationBuyer()
-      }else{
-        console.log("Invalid");
-        this.validateAllFormFields(this.companyForm);
-      }
-     
+        this.submitRegistrationBuyer();
     
   }
 
@@ -217,12 +203,13 @@ btnText:any = 'Finish';
   //Send Data to API
   submitRegistrationBuyer(){
     let dataExtra={
-    "country": this.companyForm.get('location').value,
+    "country": this.buyerForm.get('location').value,
     "tel": this.buyerForm.get('tel').value,
-    "Address":this.companyForm.get('Address').value,
-    "City":this.companyForm.get('City').value,
-    "companyName": this.companyForm.get('companyName').value,
-    "typeBusiness":this.companyForm.get('TypeBusiness').value
+    "Address":this.buyerForm.get('Address').value,
+    "City":this.buyerForm.get('City').value,
+    "companyName": this.buyerForm.get('companyName').value,
+    "typeBusiness":this.buyerForm.get('TypeBusiness').value,
+    "vat": this.buyerForm.get('vat').value
     }
     this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
       result=>{
@@ -230,13 +217,13 @@ btnText:any = 'Finish';
         this.email=this.buyerForm.get('email').value;
         this.showConfirmation=false;
         this.isValid = false;
-        this.btnText = 'Finish'
+        this.btnText = 'register to buy'
       },
       error=>{
         console.log(error);
         this.showError(error.error);
         this.isValid = false;
-        this.btnText = 'Finish'
+        this.btnText = 'register to buy'
       }
     )
   

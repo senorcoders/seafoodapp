@@ -7,18 +7,18 @@ import {
   Validators,
   FormBuilder
 } from '@angular/forms';
-//import { BrowserModule } from '@angular/platform-browser';
+
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { ProductService } from '../services/product.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from '../toast.service';
 import { AuthenticationService } from '../services/authentication.service';
-import { PricingChargesService } from '../services/pricing-charges.service';
+
 import { environment } from '../../environments/environment';
 import * as XLSX from 'ts-xlsx';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
-declare var jQuery:any;
+declare var jQuery: any;
 @Component({
   selector: 'app-add-product',
   templateUrl: './add-product.component.html',
@@ -51,7 +51,7 @@ export class AddProductComponent implements OnInit {
   pTypes: any = [];
   parentTypes: any = [];
   currentPrincingCharges: any = [];
-  currentExchangeRate: number;
+
   country: FormControl;
   processingCountry: FormControl;
   city: FormControl;
@@ -69,14 +69,14 @@ export class AddProductComponent implements OnInit {
   info: any;
   store: any = [];
   storeEndpoint: any = 'api/store/user/';
-  existStore: boolean = true;
+  existStore = true;
   primaryImg: any = [];
   countries: any = [];
   arrayBuffer: any;
   file: File;
   products: any = [];
   productsToUpload: any = [];
-  showError: boolean = false;
+  showError = false;
   allCities: any = [];
   cities: any = [];
   preparationOptions = [
@@ -98,8 +98,8 @@ export class AddProductComponent implements OnInit {
   trimmings = [];
   parts = [];
   ProcessingParts: any;
-  showWholeOptions: boolean = false;
-  showProcessingParts: boolean = false;
+  showWholeOptions = false;
+  showProcessingParts = false;
   hsCode: FormControl;
   price25: any = 0;
   price100: any = 0;
@@ -113,11 +113,11 @@ export class AddProductComponent implements OnInit {
   myformModal: FormGroup;
   trimmingsModal: any = [];
   groupOrder = [];
-  showNoData: boolean = false;
+  showNoData = false;
   default = [2, 3, 4, 3, 5];
   defaultTrimming = [];
   pd = [];
-  hideTrimModal: boolean = true;
+  hideTrimModal = true;
   public loading = false;
 
 
@@ -127,16 +127,15 @@ export class AddProductComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthenticationService,
     private countryService: CountriesService,
-    private pricingChargesService: PricingChargesService,
+
     private fb: FormBuilder,
     public ngProgress: NgProgress,
-    private router:Router ) {}
+    private router: Router ) {}
   ngOnInit() {
     this.myformModal = this.fb.group({
       trimmingType: ['', Validators.required],
       processingParts: ['', Validators.required]
     });
-    this.getCurrentPricingCharges();
     this.getAllTypesByLevel();
     this.createFormControls();
     this.createForm();
@@ -162,18 +161,6 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-
-
-  getCurrentPricingCharges() {
-    this.pricingChargesService.getCurrentPricingCharges().subscribe(
-      result => {
-        this.currentPrincingCharges = result;
-        this.currentExchangeRate = result['exchangeRates'];
-      }, error => {
-        console.log(error);
-      }
-    )
-  }
 
   getMyData() {
     this.info = this.auth.getLoginData();
@@ -249,7 +236,7 @@ export class AddProductComponent implements OnInit {
     });
     this.myform.controls['measurement'].setValue('kg');
     this.onChanges();
-    //this.onCityChange();
+    // this.onCityChange();
   }
 
   onCityChange(city): void {
@@ -267,11 +254,10 @@ export class AddProductComponent implements OnInit {
         this.hideTrimModal = false;
       }
 
-      if(val.price != "" && val.city != null){
+      if (val.price !== '' && val.city != null) {
 
         this.onCityChange(val.city);
-      }
-      else if (val.price != "" && val.city == null) {
+      } else if (val.price !== '' && val.city == null) {
         this.price25 = val.price;
         this.price100 = val.price;
         this.price500 = val.price;
@@ -288,13 +274,13 @@ export class AddProductComponent implements OnInit {
     this.product.saveData('shippingRates/bycity', data).subscribe(res => {
       if (qty === 25) {
 
-        (res == 0) ? this.price25 = this.price.value : this.price25 = res;
+        (res === 0) ? this.price25 = this.price.value : this.price25 = res;
       } else if (qty === 100) {
-        (res == 0) ? this.price100 = this.price.value : this.price100 = res;
+        (res === 0) ? this.price100 = this.price.value : this.price100 = res;
       } else if (qty === 500) {
-        (res == 0) ? this.price500 = this.price.value : this.price500 = res;
+        (res === 0) ? this.price500 = this.price.value : this.price500 = res;
       } else if (qty === 1000) {
-        (res == 0) ? this.price1000 = this.price.value : this.price1000 = res;
+        (res === 0) ? this.price1000 = this.price.value : this.price1000 = res;
       }
     });
   }
@@ -310,8 +296,8 @@ export class AddProductComponent implements OnInit {
       this.product.generateSKU(this.store[0].id, parentType, this.parentSelectedType.value, this.processingCountry.value).subscribe(
         result => {
           // this.seafood_sku.setValue(result);
-          console.log("sku", result);
-          this.myform.controls["seafood_sku"].setValue(result);
+          console.log('sku', result);
+          this.myform.controls['seafood_sku'].setValue(result);
           resolve();
         },
         error => {
@@ -328,7 +314,7 @@ export class AddProductComponent implements OnInit {
     if (this.myform.valid) {
       await this.generateSKU();
       this.ngProgress.start();
-      let priceAED = (this.price.value * this.currentExchangeRate).toFixed(2);
+      const priceAED = (this.price.value).toFixed(2);
       const data = {
         'type': this.subSpeciesSelected.value,
         'descriptor': this.descriptorSelected.value,
@@ -366,7 +352,7 @@ export class AddProductComponent implements OnInit {
       };
 
       this.product.saveData('fish', data).subscribe(result => {
-        console.log("Lenght de las imagenes", this.fileToUpload, this.primaryImg);
+        console.log('Lenght de las imagenes', this.fileToUpload, this.primaryImg);
         if (this.fileToUpload.length > 0 || this.primaryImg.length > 0) {
         this.showError = false;
         this.uploadFileToActivity(result['product']['id']);
@@ -385,7 +371,7 @@ export class AddProductComponent implements OnInit {
       });
     } else {
       this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
-      this.loading = false; 
+      this.loading = false;
       this.ngProgress.done();
 
 
@@ -397,7 +383,7 @@ export class AddProductComponent implements OnInit {
     if (opt !== 'primary') {
       this.fileToUpload = files;
       this.imagesPreview(files);
-      
+
     } else {
       this.primaryImg = files;
       this.readURL(files);
@@ -419,18 +405,18 @@ export class AddProductComponent implements OnInit {
 
 
         });
-    }else if(this.fileToUpload.length > 0 && this.primaryImg.length == 0){
+    } else if (this.fileToUpload.length > 0 && this.primaryImg.length === 0) {
       this.saveImages(productID, 'secundary', this.fileToUpload);
-    }else if(this.primaryImg.length > 0 && this.fileToUpload.length == 0){
+    } else if (this.primaryImg.length > 0 && this.fileToUpload.length === 0) {
       this.saveImages(productID, 'primary', this.primaryImg);
 
     }
-   
+
 
 
   }
 
-  saveImages(productID, status, files){
+  saveImages(productID, status, files) {
       this.product.postFile(files, productID, status).subscribe(data => {
         // do something, if upload success
         this.myform.reset();
@@ -448,7 +434,7 @@ export class AddProductComponent implements OnInit {
 
 
       });
-    
+
   }
 
   incomingfile(event) {
@@ -692,135 +678,132 @@ export class AddProductComponent implements OnInit {
 
 
 
-  getTrimmingByStore(){
-    this.product.getData('storeTrimming/store/'+this.store[0].id).subscribe(
-          result=>{
-            this.trimmingsModal=result;
+  getTrimmingByStore() {
+    this.product.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+          result => {
+            this.trimmingsModal = result;
           },
-          e=>{
-            console.log(e)
+          e => {
+            console.log(e);
           }
-        )
+        );
   }
-  getTrimmingModal(){
+  getTrimmingModal() {
   	this.product.getData('trimmingtype').subscribe(
-  		result=>{
-  			this.typesModal=result;
-        let data:any=result;
+  		result => {
+  			this.typesModal = result;
+        const data: any = result;
 
-        console.log("Trimming Types", result);
-        data.forEach(result=>{
-          if(result.defaultProccessingParts.length>1){
-            result.defaultProccessingParts.forEach(res2=>{
-              this.defaultTrimming.push({trim:result.name,name:res2})
-            })
+        console.log('Trimming Types', result);
+        data.forEach(result => {
+          if (result.defaultProccessingParts.length > 1) {
+            result.defaultProccessingParts.forEach(res2 => {
+              this.defaultTrimming.push({trim: result.name, name: res2});
+            });
+          } else {
+            this.defaultTrimming.push({trim: result.name, name: result.defaultProccessingParts});
           }
-          else{
-            this.defaultTrimming.push({trim:result.name,name:result.defaultProccessingParts})
-          }
-        })
+        });
   		},
-  		e=>{
-  			console.log(e)
+  		e => {
+  			console.log(e);
   		}
-  	)
+  	);
   }
-  getParts(){
+  getParts() {
   	this.product.getData('processingParts').subscribe(
-  		result=>{
-  			this.partsModal=result;
+  		result => {
+  			this.partsModal = result;
   		},
-  		e=>{
-  			console.log(e)
+  		e => {
+  			console.log(e);
   		}
-  	)
+  	);
   }
-  saveData(types,parts){
-  	let data={
-  		"processingParts": parts,
-	    "store": this.store[0].id,
-	    "trimmingType": types
-	}
-  	this.product.saveData('storeTrimming',data).subscribe(
-  		res=>{
-  			this.toast.success("Trimmings Saved!",'Well Done',{positionClass:"toast-top-right"})
-      
+  saveData(types, parts) {
+  	const data = {
+  		'processingParts': parts,
+	    'store': this.store[0].id,
+	    'trimmingType': types
+	};
+  	this.product.saveData('storeTrimming', data).subscribe(
+  		res => {
+  			this.toast.success('Trimmings Saved!', 'Well Done', {positionClass: 'toast-top-right'});
+
         this.getTrimmingByStore();
   		},
-  		e=>{
-  			this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
-  			console.log(e)
+  		e => {
+  			this.toast.error('Please try again', 'Error', {positionClass: 'toast-top-right'});
+  			console.log(e);
   		}
-	)
+	);
   }
-  delete(id){
-    this.product.deleteData('storeTrimming/'+id).subscribe(
-      res=>{
-        this.toast.success("Trimmings Deleted!",'Well Done',{positionClass:"toast-top-right"})
+  delete(id) {
+    this.product.deleteData('storeTrimming/' + id).subscribe(
+      res => {
+        this.toast.success('Trimmings Deleted!', 'Well Done', {positionClass: 'toast-top-right'});
         this.getTrimmingByStore();
       },
-      e=>{
-        this.toast.error("Please try again",'Error',{positionClass:"toast-top-right"})
-        console.log(e)
+      e => {
+        this.toast.error('Please try again', 'Error', {positionClass: 'toast-top-right'});
+        console.log(e);
       }
-    )
+    );
   }
-  checked(event,type,part){
+  checked(event, type, part) {
     let id;
-    this.trimmingsModal.forEach(res=>{
-      if(type==res.trimmingType){
-        if(part==res.processingParts.id){
-          id=res.id
+    this.trimmingsModal.forEach(res => {
+      if (type === res.trimmingType) {
+        if (part === res.processingParts.id) {
+          id = res.id;
         }
       }
-    })
-    if(event.target.checked){
-      this.saveData(type,part);
-    }
-    else{
-      this.delete(id)
+    });
+    if (event.target.checked) {
+      this.saveData(type, part);
+    } else {
+      this.delete(id);
     }
   }
-  isDefault(part,trim){
+  isDefault(part, trim) {
     let data;
-    this.trimmingsModal.forEach(res=>{
-      if(res.type.length > 0){
-        if(trim==res.type[0].name){
-        if(res.type[0].defaultProccessingParts.includes(part)){
-          data=true
-        }
-        else{
-          data=false
+    this.trimmingsModal.forEach(res => {
+      if (res.type.length > 0) {
+        if (trim === res.type[0].name) {
+        if (res.type[0].defaultProccessingParts.includes(part)) {
+          data = true;
+        } else {
+          data = false;
         }
       }
     }
-    })
-    return data
+    });
+    return data;
   }
-  
 
-isChecked(part,trim){
-  let data
-  this.trimmingsModal.forEach(res=>{
-    if(res.type.length > 0){
 
-    if(trim==res.type[0].name){
-      if(res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name==part){
-        data=true
+isChecked(part, trim) {
+  let data;
+  this.trimmingsModal.forEach(res => {
+    if (res.type.length > 0) {
+
+    if (trim === res.type[0].name) {
+      if (res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name === part) {
+        data = true;
       }
     }
   }
-  })
-  return data
+  });
+  return data;
 }
 
 readURL(files) {
   if (files[0]) {
-    var reader = new FileReader();
+    const reader = new FileReader();
 
     reader.onload = (e: Event) => {
       jQuery('#blah').attr('src', reader.result);
-    }
+    };
 
     reader.readAsDataURL(files[0]);
   }
@@ -830,19 +813,19 @@ readURL(files) {
  imagesPreview(files) {
 
   if (files) {
-      var filesAmount = files.length;
+      const filesAmount = files.length;
 
       for (let i = 0; i < filesAmount; i++) {
-          var reader = new FileReader();
+          const reader = new FileReader();
 
           reader.onload = (event: Event) => {
               jQuery(jQuery.parseHTML('<img style="width: 50%; padding: 10px;">')).attr('src', event.target['result']).appendTo('div.gallery');
-          }
+          };
 
           reader.readAsDataURL(files[i]);
       }
   }
 
-};
-  
+}
+
 }

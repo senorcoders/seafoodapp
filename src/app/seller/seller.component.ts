@@ -23,6 +23,7 @@ export class SellerComponent implements OnInit {
     'dataExtra': ''
 
   };
+  selectedIncoterm: string = '';
   incoterms: any = [];
   countries: any = [];
   allCities: any = [];
@@ -110,7 +111,7 @@ export class SellerComponent implements OnInit {
       fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
       sfsAgreementForm: [''],
       ifLocal: [this.user.dataExtra.ifLocal],
-      incoterms: [this.user.incoterms.name]
+      incoterms: [this.user.incoterms]
     });
   }
   getIncoterms() {
@@ -151,6 +152,11 @@ export class SellerComponent implements OnInit {
     this.auth.getData('user/' + id).subscribe(
       result => {
         this.user = result;
+        if( this.user.hasOwnProperty('incoterms') && this.user['incoterms']  !== null ) {
+          this.selectedIncoterm = this.user.incoterms.id;
+        } else {
+          this.selectedIncoterm = '';
+        }
         this.getStoreData(id);
         this.userForm();
       },
@@ -178,7 +184,9 @@ export class SellerComponent implements OnInit {
       "licenseNumber": this.user.dataExtra['licenseNumber'],
       "trade": this.user.dataExtra['trade']      
     };
-    data['incoterms'] = this.user.incoterms;
+      data['incoterms'] = this.selectedIncoterm;
+        
+
     data.dataExtra = dataExtra;
     // this.sellerForm.controls['firstMileCost'].setValue(5);
     console.log(data);

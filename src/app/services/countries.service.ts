@@ -8,7 +8,7 @@ export class CountriesService {
   constructor( private http: HttpClient ) { }
 
   getCountries(){
-    return this.http.get(`countries?limit=300`)
+    return this.http.get(`countries?limit=300&sort=name%20ASC`)
   }
   getCountriesWithCities() {
     return this.http.get(`api/countries/withCities`)
