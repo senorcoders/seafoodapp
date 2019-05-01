@@ -15,6 +15,16 @@
     background-color: #3E4E75;
 }
 
+.selectionable.errorname{
+    span{
+        border-bottom: 2px solid red !important;
+    }
+    color: red !important;
+}
+input.errorname{
+    border: 2px solid red !important;
+}
+
 .gray-title{
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 300;

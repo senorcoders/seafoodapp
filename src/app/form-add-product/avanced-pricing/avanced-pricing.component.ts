@@ -7,6 +7,21 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 
+// create your class that extends the angular validator class
+export class CustomValidators extends Validators {
+
+  // create a static method for your validation
+  static validateInputRange(control: FormControl) {
+
+    // first check if the control has a value
+    if (control.value && Number(control.value) > 0) {
+      return null;
+    } else {
+      return { value: true };
+    }
+  }
+}
+
 @Component({
   selector: 'avanced-pricing',
   templateUrl: './avanced-pricing.component.html',
@@ -71,7 +86,7 @@ export class AvancedPricingComponent implements OnInit {
   @Output() messageEvent = new EventEmitter<string>();
   @Input() events: Observable<void>;
   private eventsSubscription: Subscription;
-
+  private speciesSelected = "";
   constructor(
     public parentForm: FormGroupDirective,
     private productService: ProductService,
@@ -191,14 +206,16 @@ export class AvancedPricingComponent implements OnInit {
       weights: new FormControl('', Validators.nullValidator),
       weightsTrim: new FormControl('', Validators.nullValidator),
       example: new FormControl('', Validators.nullValidator),
-      variationsDeleted: new FormControl('[]', Validators.nullValidator)
+      variationsDeleted: new FormControl('[]', Validators.nullValidator),
+      pricesDeleted: new FormControl("[]", Validators.nullValidator)
     }));
     this.messageEvent.emit("hey listo.");
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       //Para elegir los slides que se muestran si es salmon o no
-      if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+      this.speciesSelected = it.speciesSelected
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
         this.hideTrimesSlides = false;
       } else {
         this.hideTrimesSlides = true;
@@ -273,7 +290,12 @@ export class AvancedPricingComponent implements OnInit {
         this.assingHead(false);
       }
 
-      this.wholeFishAction = it.wholeFishAction;
+      this.wholeFishAction = it.wholeFishAction; console.log();
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
+        this.hideTrimesSlides = false;
+      } else {
+        this.hideTrimesSlides = true;
+      }
     });
   }
 
@@ -351,6 +373,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   private proccessWeights(data, weights) {
+    //Vamos aponer de los id que se eliminan
     let keys = Object.keys(weights);
     keys = keys.filter(it => {
       if (
@@ -359,6 +382,61 @@ export class AvancedPricingComponent implements OnInit {
         it === 'example' ||
         it === "weightsTrim" ||
         it === "variationsDeleted" ||
+        it === "pricesDeleted" ||
+        it.includes(this.identifier) === true
+      ) return false;
+      if (this.headAction === true) {
+        if (it.includes('_off') === true) return false;
+        else return !weights[it];
+      } else {
+        if (it.includes('_off') === true) return !weights[it];
+        else return false;
+      }
+    });
+    for (let k of keys) {
+      if (this.headAction === true) {
+        if (this.productID !== "" &&
+          this.weights.on[k] !== undefined &&
+          this.weights.on[k].length > 0 &&
+          this.weights.on[k][0].idVariation !== null &&
+          this.weights.on[k][0].idVariation !== undefined
+        ) {
+          let arr = JSON.parse(this.getValue().variationsDeleted);
+          let indexLeft = arr.findIndex(it => {
+            return it === this.weights.on[k][0].idVariation;
+          });
+          if (indexLeft == -1)
+            arr.push(this.weights.on[k][0].idVariation);
+          this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        }
+      } else {
+        if (this.productID !== "" &&
+          this.weights.off[k] !== undefined &&
+          this.weights.off[k].length > 0 &&
+          this.weights.off[k][0].idVariation !== null &&
+          this.weights.off[k][0].idVariation !== undefined
+        ) {
+          let arr = JSON.parse(this.getValue().variationsDeleted);
+          let indexLeft = arr.findIndex(it => {
+            return it === this.weights.off[k][0].idVariation;
+          });
+          if (indexLeft == -1)
+            arr.push(this.weights.off[k][0].idVariation);
+          this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        }
+      }
+
+    }
+
+    keys = Object.keys(weights);
+    keys = keys.filter(it => {
+      if (
+        it === 'headAction' ||
+        it === 'weights' ||
+        it === 'example' ||
+        it === "weightsTrim" ||
+        it === "variationsDeleted" ||
+        it === "pricesDeleted" ||
         it.includes(this.identifier) === true
       ) return false;
       if (this.headAction === true) {
@@ -382,7 +460,7 @@ export class AvancedPricingComponent implements OnInit {
       }
     }
     data.keys = keys;
-    // console.log(data);
+
     this.refreshSlider();
     this.priceEnableChange = true;
     return data;
@@ -413,6 +491,17 @@ export class AvancedPricingComponent implements OnInit {
       return !this.getValue()[it];
     });
     for (let k of keys) {
+      //Para poner el id y eliminarlo
+      if (this.productID !== "" &&
+        this.trimWeights[k] !== undefined &&
+        this.trimWeights[k].length > 0 &&
+        this.trimWeights[k][0].idVariation !== null &&
+        this.trimWeights[k][0].idVariation !== undefined
+      ) {
+        let arr = JSON.parse(this.getValue().variationsDeleted);
+        arr.push(this.trimWeights[k][0].idVariation);
+        this.setValue({ variationsDeleted: JSON.stringify(arr) });
+      }
       if (this.trimWeights[k] !== undefined) {
         this.trimWeights[k] = undefined;
         try {
@@ -456,12 +545,12 @@ export class AvancedPricingComponent implements OnInit {
   public deletePrice(headAction, i) {
     if (headAction === true) {
       if (this.productID !== "" &&
-        this.weights.on[this.keySelect][i].idVariation !== null &&
-        this.weights.on[this.keySelect][i].idVariation !== undefined
+        this.weights.on[this.keySelect][i].id !== null &&
+        this.weights.on[this.keySelect][i].id !== undefined
       ) {
-        let arr = JSON.parse(this.getValue().variationsDeleted);
-        arr.push(this.weights.on[this.keySelect][i].idVariation);
-        this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        let arr = JSON.parse(this.getValue().pricesDeleted);
+        arr.push(this.weights.on[this.keySelect][i].id);
+        this.setValue({ pricesDeleted: JSON.stringify(arr) });
       }
       if (this.weights.on[this.keySelect].length === 1) {
         this.weights.on[this.keySelect] = [];
@@ -476,12 +565,12 @@ export class AvancedPricingComponent implements OnInit {
       catch (e) { console.error(e); }
     } else {
       if (this.productID !== "" &&
-        this.weights.off[this.keySelect][i].idVariation !== null &&
-        this.weights.off[this.keySelect][i].idVariation !== undefined
+        this.weights.off[this.keySelect][i].id !== null &&
+        this.weights.off[this.keySelect][i].id !== undefined
       ) {
-        let arr = JSON.parse(this.getValue().variationsDeleted);
-        arr.push(this.weights.off[this.keySelect][i].idVariation);
-        this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        let arr = JSON.parse(this.getValue().pricesDeleted);
+        arr.push(this.weights.off[this.keySelect][i].id);
+        this.setValue({ pricesDeleted: JSON.stringify(arr) });
       }
       if (this.weights.off[this.keySelect].length === 1) {
         this.weights.off[this.keySelect] = [];
@@ -504,13 +593,13 @@ export class AvancedPricingComponent implements OnInit {
     let i = this.getNameTrim(price);
     //Para guardar el id por si es para actualizar
     if (this.productID !== "" &&
-    this.trimWeights[this.keySelectTrim][i].idVariation !== null &&
-    this.trimWeights[this.keySelectTrim][i].idVariation !== undefined
-      ) {
-        let arr = JSON.parse(this.getValue().variationsDeleted);
-        arr.push(this.trimWeights[this.keySelectTrim][i].idVariation);
-        this.setValue({ variationsDeleted: JSON.stringify(arr) });
-      }
+      this.trimWeights[this.keySelectTrim][i].id !== null &&
+      this.trimWeights[this.keySelectTrim][i].id !== undefined
+    ) {
+      let arr = JSON.parse(this.getValue().pricesDeleted);
+      arr.push(this.trimWeights[this.keySelectTrim][i].id);
+      this.setValue({ pricesDeleted: JSON.stringify(arr) });
+    }
     if (this.trimWeights[this.keySelectTrim].length === 1) {
       this.trimWeights[this.keySelectTrim] = [];
     } else {
@@ -552,7 +641,7 @@ export class AvancedPricingComponent implements OnInit {
 
   public addPricing() {
     console.log(this.headAction, this.keySelect);
-    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
+    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : "";
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     if (this.headAction === true) {
@@ -567,7 +656,7 @@ export class AvancedPricingComponent implements OnInit {
     //Para agregar los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
+        .addControl((index - 1).toString(), new FormControl(price, CustomValidators.validateInputRange));
     }
     catch (e) { console.error(e); }
 
@@ -581,8 +670,11 @@ export class AvancedPricingComponent implements OnInit {
 
   private controlsArray(arr) {
     let d = {};
+
     for (let i in arr) {
-      d[i] = new FormControl(arr[i].price, Validators.required);
+      let value = "";
+      if (arr[i].price && Number(arr[i].price) > 0) value = arr[i].price;
+      d[i] = new FormControl(value, CustomValidators.validateInputRange);
     }
 
     return d;
@@ -792,7 +884,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public addPricingTrim() {
-    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
+    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : 0;
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     this.trimWeights[this.keySelectTrim].push(it);
@@ -802,7 +894,7 @@ export class AvancedPricingComponent implements OnInit {
     //Para agregar los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
+        .addControl((index - 1).toString(), new FormControl(price, CustomValidators.validateInputRange));
     }
     catch (e) { console.error(e); }
 

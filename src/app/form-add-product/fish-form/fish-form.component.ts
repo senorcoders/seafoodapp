@@ -344,7 +344,7 @@ export class FishFormComponent implements OnInit {
     } else {
       this.images.splice(i, 1);
     }
-    this.indexImage = this.images.length === 0 ? 0 : (this.images.length - 4) * -1;
+    this.indexImage = 0;
     this.reSavedImages();
   }
 
@@ -367,10 +367,16 @@ export class FishFormComponent implements OnInit {
   }
 
   public setDefaultImage(i) {
-    for (let i = 0; i < this.images.length; i++) {
-      this.images[i].type = "secundary";
+    let indexPrimary = this.images.findIndex(it=>{
+      return it.type === "primary";
+    });
+    for (let k = 0; k < this.images.length; k++) {
+      this.images[k].type = "secundary";
     }
     this.images[i].type = "primary";
+    if(indexPrimary !== -1){
+      this.images[indexPrimary].change = true;
+    }
     this.reSavedImages();
   }
 
