@@ -171,6 +171,11 @@ const appRoutes: Routes = [
     canActivate: []
   },
   {
+    path: 'register-verification',
+    loadChildren: 'app/confirmation-register/confirmation-register.module#ConfirmationRegisterModule',
+    canActivate: []
+  },
+  {
     path: 'store/:id',
     loadChildren: 'app/single-store/single-store.module#SingleStoreModule',
     canActivate: [RouterProtectionService]
@@ -408,7 +413,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeaturedStoreComponent,
     ProductManagmentComponent,
     AccountComponent
-    ],
+      ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
