@@ -247,6 +247,7 @@ submitStep1(){
   }else{
     console.log("Invalido");
     this.validateAllFormFields(this.buyerForm);
+    this.showError("Please fix all required fields");
   }
 }
 }
