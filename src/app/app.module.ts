@@ -54,11 +54,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: 'app/registration-buyer/registration-buyer.module#RegistrationBuyerModule'
-  },
-  {
-    path: 'register-seller',
-    loadChildren: 'app/registration-seller/registration-seller.module#RegistrationSellerModule'
+    loadChildren: 'app/registration-form/registration-form.module#RegistrationFormModule'
   },
   {
     path: 'add-product',
@@ -172,6 +168,11 @@ const appRoutes: Routes = [
   {
     path: 'verification/:userid/:code',
     loadChildren: 'app/confirmation-email/confirmation-email.module#ConfirmationEmailModule',
+    canActivate: []
+  },
+  {
+    path: 'register-verification',
+    loadChildren: 'app/confirmation-register/confirmation-register.module#ConfirmationRegisterModule',
     canActivate: []
   },
   {
@@ -411,8 +412,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent,
-  ],
+    AccountComponent
+      ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,

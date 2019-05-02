@@ -17,7 +17,7 @@ export class FishFormComponent implements OnInit {
 
   @ViewChild('myInput')
   myInputVariable: ElementRef;
-  public product: FormGroup;
+  public product: FormGroup; 
   public countries = [];
   public cities = [];
   public allCities = [];

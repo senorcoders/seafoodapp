@@ -4,6 +4,7 @@ import { CountriesService } from '../services/countries.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
 declare var jQuery:any;
 declare var window:any;
 @Component({
@@ -50,7 +51,8 @@ btnText:any = 'REGISTER TO SELL';
   constructor(private countryService: CountriesService,
               private auth: AuthenticationService,
               private toast:ToastrService,
-              private product:ProductService) { }
+              private product:ProductService,
+              private router:Router) { }
 
   ngOnInit() {
     this.createFormControls();
@@ -301,6 +303,7 @@ createStore(){
         result=>{
           console.log("REesult", result);
           this.showConfirmation=false;
+          this.router.navigate(['/register-verification']);
           this.isValid = false;
           this.btnText = 'REGISTER TO SELL'
         },

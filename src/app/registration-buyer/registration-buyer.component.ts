@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from '../toast.service';
+import { Router } from '@angular/router';
 declare var jQuery:any;
 declare var window:any;
 @Component({
@@ -37,7 +38,8 @@ btnText:any = 'register to buy';
 
 
   constructor(private auth: AuthenticationService, 
-    private countryService: CountriesService, private toast:ToastrService) { }
+    private countryService: CountriesService, private toast:ToastrService,
+    private router:Router) { }
  
   ngOnInit() {
     this.createFormControls();
@@ -216,6 +218,8 @@ btnText:any = 'register to buy';
         console.log("Resgistro", result);
         this.email=this.buyerForm.get('email').value;
         this.showConfirmation=false;
+        this.router.navigate(['/register-verification']);
+
         this.isValid = false;
         this.btnText = 'register to buy'
       },
