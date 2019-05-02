@@ -261,7 +261,7 @@
               <div class="bg-img"   [style.background-image]="imageCart[i]"></div>
             </div>
             <div class="col-md-6">
-              <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product.wholeFishWeight[0] != null">-</span> {{product?.wholeFishWeight[0]?.name}} </h4>
+              <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
               <div class="cart-slide-range">
                   <span class="qty-kg"> {{product?.quantity?.value}} kg</span>  
                   <form>
