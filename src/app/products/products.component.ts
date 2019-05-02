@@ -774,7 +774,8 @@ smallDesc(str) {
             'type': product.price.type,
             'value': product.minimumOrder
         },
-        'shippingStatus': 'pending'
+        'shippingStatus': 'pending',
+        'variation_id': product.variation.id
     };
       this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
           // set the new value to cart

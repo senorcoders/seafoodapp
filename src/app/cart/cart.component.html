@@ -26,7 +26,8 @@
             <div class="col-md-7">
               <div class="row cart-content-product">
                 <div class="col-lg-12">
-                    <h2>{{product.fish.name}}</h2>
+                  {{variationId}}
+                    <h2>{{product.fish.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product.wholeFishWeight[0] != null">-</span> {{product?.wholeFishWeight[0]?.name}}</h2>
                     <div class="range-box">
                         <div>
                             <span id="qty-kg-{{product.fish.id}}" class="qty-kg" (click)="hideMe(product.fish.id)"> {{product.quantity.value}} kg</span>  
