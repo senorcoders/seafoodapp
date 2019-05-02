@@ -267,6 +267,12 @@ export class AvancedPricingComponent implements OnInit {
         //Para ver si son trimmings
         if (this.hideTrimesSlides === false && this.wholeFishAction === false) {
           this.proccessWeightsTrim();
+          if (this.keySelectTrim === '') {
+            let trims = this.getSelects();
+            if (trims.length > 0)
+              this.selectKeyTrimAdd(trims[0].id);
+          }
+
         } else {
           //El usuario tiene seleccionado el head on
           if (this.headAction === true) {
@@ -275,10 +281,28 @@ export class AvancedPricingComponent implements OnInit {
             this.weights.off = this.proccessWeights(this.weights.off, it);
           }
           //si hay mas de un pricing seleccionado
-          if (this.weights.on.keys.length > 1 || this.weights.off.keys.length > 1)
+          if (this.weights.on.keys.length > 1 || this.weights.off.keys.length > 1) {
             this.setValueFeatures({ priceShow: false });
-          else if (this.head !== 'both')
+            if (this.keySelect === '') {
+              if (this.headAction === true) {
+                this.selectKey(this.weights.on.keys[0]);
+              } else {
+                this.selectKey(this.weights.off.keys[0]);
+              }
+            }
+          } else if (this.head !== 'both')
             this.setValueFeatures({ priceShow: true });
+
+          if (this.weights.on.keys.length > 0 || this.weights.off.keys.length > 0) {
+            if (this.keySelect === '') {
+              if (this.headAction === true) {
+                this.selectKey(this.weights.on.keys[0]);
+              } else {
+                this.selectKey(this.weights.off.keys[0]);
+              }
+            }
+          }
+
         }
 
         this.refreshSlider();

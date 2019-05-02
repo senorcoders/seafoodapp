@@ -366,15 +366,44 @@ export class FishFormComponent implements OnInit {
     if (this.images.length === 0) this.resetFiles();
   }
 
-  public setDefaultImage(i) {
-    let indexPrimary = this.images.findIndex(it=>{
+  public async setDefaultImage(i) {
+    //Buscamos la imagen primary anterior para ponerle un change y la guarde
+    let indexPrimary = this.images.findIndex(it => {
       return it.type === "primary";
     });
     for (let k = 0; k < this.images.length; k++) {
       this.images[k].type = "secundary";
     }
     this.images[i].type = "primary";
-    if(indexPrimary !== -1){
+
+    //agrego la imagen a deletedImages
+    //pero solo cuando se esta actualizando un producto y tiene url
+    let indexRepeat = 0, arr = JSON.parse(this.getValue().deletedImages);
+    if (this.productID !== "" &&
+      this.images[i].url !== undefined && this.images[i].url !== null &&
+      this.images[i].defaultInial !== true) {
+      indexRepeat = arr.findIndex(it => {
+        return it === this.images[i].url;
+      });
+      if(indexRepeat === -1) arr.push(this.images[i].url);
+      
+    }
+
+    //buscamos si la imagen default anterior estaba en lista de borrar
+    //si esta la sacamos porque ahora sera secundary como antes
+    indexRepeat = arr.findIndex(it => {
+      return it === this.images[indexPrimary].url;
+    });
+    if (indexRepeat !== -1) {
+      if (arr.length > 1)
+        arr.splice(1, 1);
+      else
+        arr = [];
+    }
+    this.setValue({ deletedImages: JSON.stringify(arr) });
+
+    if (indexPrimary !== -1) {
+      delete this.images[indexPrimary].url;
       this.images[indexPrimary].change = true;
     }
     this.reSavedImages();

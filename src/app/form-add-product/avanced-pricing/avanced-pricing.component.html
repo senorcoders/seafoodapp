@@ -65,8 +65,8 @@
         <span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row custom-pricing-table">
-          <div class="col-8 text-center table-title" *ngIf="keySelect!==''">quantity range (kg)</div>
-          <div class="col-4 text-center table-title" *ngIf="keySelect!==''">price (USD)</div>
+          <div class="col-8 text-center table-title">quantity range (kg)</div>
+          <div class="col-4 text-center table-title">price (USD)</div>
 
           <div class="col-12">
             <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row slider-price">
@@ -78,7 +78,7 @@
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input type="number"
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here"
+                  placeholder="Price"
                   [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted"
                   [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
                 <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
@@ -91,7 +91,7 @@
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-4">
-                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Price"
                   [(ngModel)]="valueExample">
               </div>
             </div>
@@ -118,7 +118,7 @@
               </div>
               <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
                 $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
-                  type="number" placeholder="Type Price Here" [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted" [formControlName]="i">/kg
+                  type="number" placeholder="Price" [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted" [formControlName]="i">/kg
                 <button type="button" (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg" alt=""></button>
 
               </div>
@@ -129,7 +129,7 @@
                   [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-4">
-                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Type Price Here"
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Price"
                   [(ngModel)]="valueExample">
               </div>
             </div>
@@ -154,7 +154,7 @@
               </div>
               <div class="col-4" [formGroupName]="nameFilleted">
                 $<input [ngClass]="getControlFilleted(i, price).valid===false&&parentForm.submitted===true?'error-price':''"
-                  type="number" placeholder="Type Price Here"
+                  type="number" placeholder="Price"
                   [class.errorname]="controls()[nameFilleted].controls[i].invalid&&parentForm.submitted" [formControlName]="i">/kg
                 <button type="button" (click)="deletePriceFilleted(price)"><img src="../../../assets/svg/close.svg"
                     alt=""></button>
@@ -168,7 +168,7 @@
               </div>
               <div class="col-4">
                 <input type="number" (change)="addPricingFilleted()" formControlName="example"
-                  placeholder="Type Price Here" [(ngModel)]="valueExample">
+                  placeholder="Price" [(ngModel)]="valueExample">
               </div>
             </div>
 
@@ -211,7 +211,7 @@
               <div class="col-4" [formGroupName]="getIdentifierTrim(keySelectTrim)">
                 $<input type="number"
                   [ngClass]="getControlTrim(keySelectTrim, price).valid===false&&parentForm.submitted===true?'error-price':''"
-                  placeholder="Type Price Here" [formControlName]="getNameTrim(price)"
+                  placeholder="Price" [formControlName]="getNameTrim(price)"
                   [class.errorname]="controls()[keySelectTrim+ '_trim'].controls[i].invalid&&parentForm.submitted"
                   [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
                 <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg"
@@ -224,7 +224,7 @@
                   [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
               </div>
               <div class="col-4">
-                <input type="number" (change)="addPricingTrim()" formControlName="example" placeholder="Type Price Here"
+                <input type="number" (change)="addPricingTrim()" formControlName="example" placeholder="Price"
                   [(ngModel)]="valueExample">
               </div>
             </div>
