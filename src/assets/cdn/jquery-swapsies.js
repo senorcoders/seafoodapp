@@ -60,7 +60,6 @@ var swapping = false;
 					var current_primary_left = current_primary_position.left;
 					var current_secondary_position = $("#"+options.target).offset();
 					var current_secondary_left = current_secondary_position.left;
-					console.log("Secondary", current_secondary_position, current_secondary_left);
 					var direction_primary_x = '-';
 					var direction_secondary_x = '-';
 					if (current_primary_left<=current_secondary_left) { // if primary left of secondary 

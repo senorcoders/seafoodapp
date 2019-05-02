@@ -8,6 +8,8 @@ declare var jQuery;
 export class RegistrationFormComponent implements OnInit {
 buyer:boolean = true;
 class:any = '';
+showConfirmation=true;
+
   constructor() { }
 
   ngOnInit() {
@@ -18,35 +20,77 @@ class:any = '';
   
     console.log(this.buyer);
     console.log("Switching");
-    
+      var obj = jQuery("#content_dark");
+      var sec = jQuery("#content_light");
+
     if(this.buyer == true){
       this.buyer = false;  
-      jQuery("#content_dark").swap({  
-        target: "content_light", // Mandatory. The ID of the element we want to swap with  
-        opacity: "0.8", // Optional. If set will give the swapping elements a translucent effect while in motion  
-        speed: 1200, // Optional. The time taken in milliseconds for the animation to occur  
-        callback: function() { // Optional. Callback function once the swap is complete  
-            console.log("Swap Complete");  
-                jQuery('#dark-side-title').html('WANTO TO BUY?');
-                jQuery('#dark-side-p').html('Want to get the best seafood for the lowest price? Register below!');
-                jQuery('#dark-side-btn').html("I'm a buyer");
-        }  
-    });
+
+      	// do swapping
+					obj.animate({
+						opacity: "0,8"
+					}, 100, function() {
+						obj.animate({
+							top: "0px",
+							left: "-" + (sec.width() + 30) + "px"
+						}, 700, function() {
+							obj.animate({
+								opacity: "1"
+							}, 100);
+						});
+					});
+					sec.animate({
+						opacity: "0.8"
+					}, 100, function() {
+						sec.animate({
+							top:"0px",
+							left: (obj.width() + 30) +"px"
+						}, 700, function() {
+							sec.animate({
+								opacity: "1"
+							}, 100, function() { 
+              console.log("listo");
+              jQuery('#dark-side-title').html('WANTO TO BUY?');
+               jQuery('#dark-side-p').html('Want to get the best seafood for the lowest price? Register below!');
+              jQuery('#dark-side-btn').html("I'm a buyer");
+ 							});
+						});
+					});
+   
       
     }else{
       this.buyer = true;
-       jQuery("#content_dark").swap({  
-         target: "content_light", // Mandatory. The ID of the element we want to swap with  
-         opacity: "0.8", // Optional. If set will give the swapping elements a translucent effect while in motion  
-         speed: 1200, // Optional. The time taken in milliseconds for the animation to occur  
-         callback: function() { // Optional. Callback function once the swap is complete  
-             console.log("Swap Complete");  
-                    jQuery(this).insertBefore(jQuery(this).prev('.side-dark-gray'));
-                   jQuery('#dark-side-title').html('WANTO TO sell?');
-                  jQuery('#dark-side-p').html("Well, what are you waiting for? That fish isn't going to sell itself...");
-                  jQuery('#dark-side-btn').html("I'm a seller");
-         }  
-     });
+	// do swapping
+          sec.animate({
+            opacity: "0,8"
+          }, 100, function() {
+            sec.animate({
+              top: "0px",
+              left: "0px"
+            }, 700, function() {
+              sec.animate({
+                opacity: "1"
+              }, 100);
+            });
+          });
+          obj.animate({
+            opacity: "0.8"
+          }, 100, function() {
+            obj.animate({
+              top:"0px",
+              left: "0px"
+            }, 700, function() {
+              obj.animate({
+                opacity: "1"
+              }, 100, function() { 
+              console.log("listo");
+              jQuery('#dark-side-title').html('WANTO TO sell?');
+              jQuery('#dark-side-p').html("Well, what are you waiting for? That fish isn't going to sell itself...");
+              jQuery('#dark-side-btn').html("I'm a seller");
+            });
+          });
+        });
+      
    
     }
  
