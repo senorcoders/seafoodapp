@@ -449,6 +449,7 @@ export class ShopComponent implements OnInit {
   }
   //Save product in current usar cart
   addToCart(product) {
+    console.log( 'product', product );
     this.isDisabled = true;
     const item = {
       'fish': product.id,
@@ -460,7 +461,8 @@ export class ShopComponent implements OnInit {
         'type': 'kg',
         'value': product.qty
       },
-      'shippingStatus': 'pending'
+      'shippingStatus': 'pending',
+      'variation_id': product.variation.id
     };
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(async result => {
       // set the new value to cart
