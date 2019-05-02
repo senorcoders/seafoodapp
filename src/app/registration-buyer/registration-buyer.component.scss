@@ -1,121 +1,4 @@
-.login-option{
-    font-family: 'Roboto', sans-serif Medium;
-    display: block;
-    margin-bottom: 20px;
-    letter-spacing: 2px;
-    a{
-        text-decoration: none;
-    }
-}
-.account{
-    color: #1c1d1d !important;
-    font-size: 1.1rem;
-    text-transform: uppercase;
-}
 
-.login-option a{
-	cursor: pointer;
-}
-.logo{
-    max-width: 100%;
-}
-.black-title {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1.5rem;
-    color: #1c1d1d;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 30px;
-    text-align: right;
-}
-.return{
-    font-family: 'Roboto', sans-serif Medium;
-    color: #8c8c8c;
-    display: block;
-    text-decoration: none !important;
-    font-size: 1.3rem;
-    letter-spacing: 2px;
-}
-.right-side{
-    text-align: right;
-}
-form{
-    padding-top: 40px;
-    label{
-        font-family: 'Open Sans', sans-serif;
-        color: black;
-        font-size: 1.2rem;
-        letter-spacing: 2px;
-    }
-}
-.form-control{
-    background: #ebf1f6 !important;
-    border-radius: 0;
-    height: 40px;
-    color: black;
-    border: 0;
-}
-.btn-red{
-    border-radius: 0 !important;
-}
-.popup-form{
-    position: fixed;
-    background: rgba(0, 0, 0, 0.7);
-    width: 100%;
-    height: 100%;
-    z-index: 9;
-    top: 0;
-    .outside{
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        z-index: 8;
-    }
-    .black-title{
-        text-align: center;
-    }
-    
-}
-@media(max-width: 998px){
-    .black-title{
-        margin-top: 10px;
-        text-align: center;
-    }
-    .return{
-        margin-top: 10px;
-    }
-    .right-side{
-        text-align: center;
-    }
-    .login-option{
-        text-align: center;
-    }
-    .left-side{
-        text-align: center;
-    }
-}
-
-.seafoodFormContainer{
-    background: #F7F8F9;
-   
-}
-
-
-
-  .login-nav-logo{
-    padding: 20px 0px;
-    height: 110px;
-    align-items: center;
-    flex-wrap: nowrap;
-    a{
-      padding: 20px 50px;
-      img.logo{
-          max-width: 100%;
-          width: 52px;
-          height: auto;
-      }
-    }
-}
 
   .input-group{
     max-width: 300px;
@@ -364,20 +247,7 @@ form{
 }
 
 
-@media screen and (max-width: 768px){
-    .introductory-title{
-        font-size: 30px;
-        padding: 10px;
-    }
 
-    .login-nav-logo{
-        .text-right, .text-left{
-            text-align: center !important;
-            margin-top: 20px;
-        }
-    }
-   
-}
 
 @media screen and (min-width: 769px){
     .max-800{
@@ -387,7 +257,7 @@ form{
 }
 
 //NEW SASS
-.gray-bg{
+
     .gray-title{
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
@@ -411,72 +281,8 @@ form{
             line-height: 19px;
         }
     }
-    @media screen and (min-width: 992px) and (max-width: 1500px){
-        .gray-light-side{
-         flex: 0 0 66.666667%;
-         max-width: 66.666667%;
-        } 
-        .side-dark-gray{
-         flex: 0 0 33.333333%;
-         max-width: 33.333333%;
-        }
-     }
-    .side-dark-gray{
-        background-color: #7484AA;
-        .content-side{
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            text-align: center;
-            h1{
-                font-family: 'Josefin Sans', sans-serif;
-                font-weight: 300;
-                font-size: 28px;
-                letter-spacing: 1.5px;
-                line-height: 34px;
-                color: #F7F8F9;
-                text-transform: uppercase;
-                margin-bottom: 20px;
-            }
-            p{
-                max-width: 244px;
-                width: 100%;
-                margin: 0 auto;
-                font-family: 'Josefin Sans', sans-serif;
-                font-weight: 300;
-                font-style: italic;
-                font-size: 16px;
-                letter-spacing: 1.15px;
-                line-height: 19px;
-                color: #F7F8F9;
-                margin-bottom: 20px;
-            }
-            button{
-                border-radius: 2px;
-                background: none;
-                border: 1px solid #F7F8F9;
-                text-transform: uppercase;
-                color: #F7F8F9;
-                text-transform: uppercase;
-                font-family: 'Josefin Sans', sans-serif;
-                font-weight: 300;
-                font-size: 16px;
-                letter-spacing: 1.25px;
-                line-height: 50px;
-                width: 200px;
-                margin: 10px auto;
-                height: 50px;
-                transition: all .2s ease-in-out;
-                &:hover{
-                    background: #F7F8F9;
-                    color: #7484AA;
-                }
-            }
-        }
-    }
-}
+   
+
 .padding-0{
     padding: 0;
 }
