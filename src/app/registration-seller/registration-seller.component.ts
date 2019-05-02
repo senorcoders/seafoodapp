@@ -214,6 +214,8 @@ btnText:any = 'REGISTER TO SELL';
     }else{
       console.log("Invalid");
       this.validateAllFormFields(this.sellerForm);
+      this.showError("Please fix all required fields");
+
     }
   }
 
