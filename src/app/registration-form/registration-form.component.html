@@ -1,24 +1,24 @@
 <div class="gray-bg">
-  <div class="page-header seafoodFormContainer" id="hero" (window:resize)="onResize($event)">
+  <div class="page-header seafoodFormContainer" id="hero" >
     <div class="container-fluid">
-      <div class="row login-nav-logo" >
-        <div  [className]="buyer ? 'text-left col-lg-9 gray-light-side' : 'text-right col-lg-9 gray-light-side'">
+      <!-- <div class="row login-nav-logo" >
+        <div  [className]="buyer ? 'text-left col-lg-9 gray-light-side' : 'text-right col-lg-9 gray-light-side'" id="nav_content_light">
           <a *ngIf="buyer" routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo"></a> 
           <a *ngIf="!buyer" class="nav-link" routerLink="/login" style="display: initial;">Login</a>
 
         </div>
-        <div  [className]="buyer ? 'text-right col-lg-3 side-dark-gray' : 'text-left col-lg-3 side-dark-gray'">
+        <div  [className]="buyer ? 'text-right col-lg-3 side-dark-gray ' + class  : 'text-left col-lg-3 side-dark-gray ' + class " id="nav_content_dark">
             <a  *ngIf="!buyer" routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
           <a  *ngIf="buyer"class="nav-link" routerLink="/login" style="display: initial;">Login</a>
         </div>
-      </div>
+      </div> -->
       <div class="row" id="content-form">
-        <div class="col-lg-9 gray-light-side padding-0">
+        <div class="col-lg-9 gray-light-side padding-0" id="content_light">
           <app-registration-buyer *ngIf="buyer"></app-registration-buyer>
           <app-registration-seller *ngIf="!buyer"></app-registration-seller>
         </div>
 
-        <div class="col-lg-3  side-dark-gray ">
+        <div class="col-lg-3  side-dark-gray " id="content_dark">
         <div class="content-side">
             <div class="row">
                 <div class="col lg-12">
