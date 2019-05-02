@@ -66,6 +66,7 @@
         background-color: #7484AA;
         .nav-link{
             color: #f7f8f9 !important;
+            display: initial;
         }
         .content-side{
             position: sticky;
@@ -124,8 +125,8 @@
 
 .sliding{
     transform: scaleX(1.5);
-    h1, p, button{
-        display: none;
+    h1, p, button, img{
+        display: none !important;
     }
 }
 
@@ -142,7 +143,7 @@
             display: initial;
         }
     }
-    a.nav-link{
+    a.custom-nav-link{
         display: none !important;
         @media screen and (max-width: 992px){
             display: initial !important;

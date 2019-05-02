@@ -8,7 +8,7 @@
           <a *ngIf="buyer" routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo"></a> 
           <a *ngIf="!buyer" class="nav-link" routerLink="/login" style="display: initial;">Login</a>
           <p>SWIPE RIGHT FOR SELLER</p>
-          <a  class="nav-link" routerLink="/login" style="display: initial;">Login</a>
+          <a  class="nav-link custom-nav-link" routerLink="/login" style="display: initial;">Login</a>
         </div>
        
       </div>
@@ -18,9 +18,9 @@
 
         <div class="col-lg-3  side-dark-gray " id="content_dark">
             <div class="row login-nav-logo" >
-        <div  [className]="buyer ? 'text-right col-lg-12 ' + class  : 'text-left col-lg-12 ' + class " id="nav_content_dark">
+        <div  [className]="buyer ? 'text-right col-lg-12 '  : 'text-left col-lg-12 ' " id="nav_content_dark">
             <a  *ngIf="!buyer" routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
-          <a  *ngIf="buyer"class="nav-link" routerLink="/login" style="display: initial;">Login</a>
+          <a  *ngIf="buyer"class="nav-link" routerLink="/login">Login</a>
         </div>
       </div>
         <div class="content-side">

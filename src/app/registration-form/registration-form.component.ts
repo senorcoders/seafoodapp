@@ -25,7 +25,7 @@ showConfirmation=true;
 
     if(this.buyer == true){
       this.buyer = false;  
-
+        obj.addClass('sliding');
       	// do swapping
 					obj.animate({
 						opacity: "0,8"
@@ -33,7 +33,7 @@ showConfirmation=true;
 						obj.animate({
 							top: "0px",
 							left: "-" + (sec.width() + 30) + "px"
-						}, 700, function() {
+						}, 500, function() {
 							obj.animate({
 								opacity: "1"
 							}, 100);
@@ -45,11 +45,12 @@ showConfirmation=true;
 						sec.animate({
 							top:"0px",
 							left: (obj.width() + 30) +"px"
-						}, 700, function() {
+						}, 500, function() {
 							sec.animate({
 								opacity: "1"
 							}, 100, function() { 
               console.log("listo");
+              obj.removeClass('sliding');
               jQuery('#dark-side-title').html('WANTO TO BUY?');
                jQuery('#dark-side-p').html('Want to get the best seafood for the lowest price? Register below!');
               jQuery('#dark-side-btn').html("I'm a buyer");
@@ -60,6 +61,7 @@ showConfirmation=true;
       
     }else{
       this.buyer = true;
+      obj.addClass('sliding');
 	// do swapping
           sec.animate({
             opacity: "0,8"
@@ -67,7 +69,7 @@ showConfirmation=true;
             sec.animate({
               top: "0px",
               left: "0px"
-            }, 700, function() {
+            }, 500, function() {
               sec.animate({
                 opacity: "1"
               }, 100);
@@ -79,11 +81,12 @@ showConfirmation=true;
             obj.animate({
               top:"0px",
               left: "0px"
-            }, 700, function() {
+            }, 500, function() {
               obj.animate({
                 opacity: "1"
               }, 100, function() { 
               console.log("listo");
+              obj.removeClass('sliding');
               jQuery('#dark-side-title').html('WANTO TO sell?');
               jQuery('#dark-side-p').html("Well, what are you waiting for? That fish isn't going to sell itself...");
               jQuery('#dark-side-btn').html("I'm a seller");
