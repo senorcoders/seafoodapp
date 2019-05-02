@@ -88,7 +88,6 @@ export class FishFormComponent implements OnInit {
       deletedImages: new FormControl("[]", Validators.nullValidator)
     }));
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
-      console.log(it);
       if (it.unitOfSale === "boxes") {
         this.showAverageUnit = true;
       } else {
@@ -325,6 +324,13 @@ export class FishFormComponent implements OnInit {
           reader.onload = () => {
             let type = this.images.length === 0 ? "primary" : "secundary";
             this.images.push({ src: reader.result, type });
+            let arr = JSON.parse(this.getValue().deletedImages);
+            console.log(arr, this.images.map((it, i)=>{
+              it = JSON.parse( JSON.stringify(it) );
+              delete it.src;
+              it.i = i;
+              return it;
+            }));
             this.reSavedImages();
           };
         }
@@ -378,13 +384,16 @@ export class FishFormComponent implements OnInit {
 
     //agrego la imagen a deletedImages
     //pero solo cuando se esta actualizando un producto y tiene url
+    //y no es la imagen default initial
     let indexRepeat = 0, arr = JSON.parse(this.getValue().deletedImages);
+    console.log(this.images[i].url !== undefined, this.images[i].url !== null, this.images[i].defaultInial !== true, this.images[i]);
     if (this.productID !== "" &&
       this.images[i].url !== undefined && this.images[i].url !== null &&
       this.images[i].defaultInial !== true) {
       indexRepeat = arr.findIndex(it => {
         return it === this.images[i].url;
       });
+      console.log("indexRepeat", indexRepeat);
       if(indexRepeat === -1) arr.push(this.images[i].url);
       
     }
@@ -396,16 +405,22 @@ export class FishFormComponent implements OnInit {
     });
     if (indexRepeat !== -1) {
       if (arr.length > 1)
-        arr.splice(1, 1);
+        arr.splice(indexRepeat, 1);
       else
         arr = [];
     }
     this.setValue({ deletedImages: JSON.stringify(arr) });
 
-    if (indexPrimary !== -1) {
+    if (indexPrimary !== -1 && this.images[indexPrimary].defaultInial === true) {
       delete this.images[indexPrimary].url;
       this.images[indexPrimary].change = true;
     }
+    console.log(arr, this.images.map((it, i)=>{
+      it = JSON.parse( JSON.stringify(it) );
+      delete it.src;
+      it.i = i;
+      return it;
+    }));
     this.reSavedImages();
   }
 

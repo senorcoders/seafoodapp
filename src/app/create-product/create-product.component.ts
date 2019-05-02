@@ -208,17 +208,20 @@ export class CreateProductComponent implements OnInit {
     //Para agregar las imagenes secundarias
     if (product["images"] && product["images"].length > 0) {
       for (let image of product["images"]) {
-        if (image && image.src !== undefined) {
-          let imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
-          let imageSecond64 = await this.blobToBase64(imageSecond);
-          let imageSecondForForm = {
-            src: imageSecond64,
-            url: image.src,
-            type: "secundary"
-          };
-          forForm.push(imageSecondForForm);
-          forInput.push(this.blobToFile(imageSecond, "second.jpg"));
+        try {
+          if (image && image.src !== undefined) {
+            let imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
+            let imageSecond64 = await this.blobToBase64(imageSecond);
+            let imageSecondForForm = {
+              src: imageSecond64,
+              url: image.src,
+              type: "secundary"
+            };
+            forForm.push(imageSecondForForm);
+            forInput.push(this.blobToFile(imageSecond, "second.jpg"));
+          }
         }
+        catch (e) { console.error(e); }
       }
     }
 
@@ -462,7 +465,7 @@ export class CreateProductComponent implements OnInit {
       console.log(data);
       if (this.productID !== "") {
         this.productService.updateData('api/variations', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
+        this.uploadImagesAction(product, result);
         });
       } else {
         this.productService.saveData('api/variations/add', data).subscribe(result => {
@@ -502,7 +505,8 @@ export class CreateProductComponent implements OnInit {
               files.push(file);
             }
           }
-          await this.productService.updateImages(files, deletedImages, this.productID).toPromise();
+          await this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
+          await this.productService.updateImages(files, this.productID).toPromise();
         }
         catch (e) {
           console.error(e);

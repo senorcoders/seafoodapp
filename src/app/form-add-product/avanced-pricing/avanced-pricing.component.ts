@@ -367,7 +367,7 @@ export class AvancedPricingComponent implements OnInit {
         // console.log(op);
         it.options = op;
       }
-      console.log(it);
+      // console.log(it);
       return it;
     };
 
@@ -393,7 +393,7 @@ export class AvancedPricingComponent implements OnInit {
       return this.getValue()[it];
     });
     for (let key of keys) {
-      console.log(key, this.trimWeights[key]);
+      // console.log(key, this.trimWeights[key]);
       this.trimWeights[key] = this.trimWeights[key]
         .map(itereOptions.bind(this));
     }
