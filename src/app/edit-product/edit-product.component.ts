@@ -184,10 +184,6 @@ export class EditProductComponent implements OnInit {
     this.getAllTypesByLevel();
   }
 
-  public byPassImageUrl(image) {
-    return this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${image.src})`);
-  }
-
   getTypes() {
     this.product.getAllCategoriesProducts().subscribe(result => {
       this.pTypes = result;

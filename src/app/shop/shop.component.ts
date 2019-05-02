@@ -875,7 +875,7 @@ export class ShopComponent implements OnInit {
   }
 
   public getIdVarian(product){
-    return product.variation.fishPreparation!=null? product.variation.fishPreparation.id : product.variation.wholeFishWeight.id;
+    return product.variation.wholeFishWeight!=null? product.variation.wholeFishWeight.id : product.variation.fishPreparation.id;
   }
  
 }

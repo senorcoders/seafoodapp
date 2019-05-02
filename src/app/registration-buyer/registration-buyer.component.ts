@@ -52,7 +52,8 @@ btnText:any = 'register to buy';
     jQuery(document).ready(function(){
 
       var input = document.querySelector("#phone");
-      var iti = window.intlTelInput(input);
+      var iti = window.intlTelInput(input, {
+        initialCountry: "AE"});
 
       var handleChange = function() {
         var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
@@ -116,6 +117,9 @@ btnText:any = 'register to buy';
     },{
       updateOn: 'submit'
     });
+
+    this.buyerForm.controls['location'].setValue('AE');
+
 
 
   }

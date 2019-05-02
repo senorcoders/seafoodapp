@@ -14,7 +14,7 @@ export class Interceptor implements HttpInterceptor {
         let data = localStorage.getItem('login');
 
         //Para cuando se usa el translate
-        if (req.url.includes("/assets/i18n") === true) {
+        if (req.url.includes("/assets/i18n") === true || req.url.includes("https://") === true || req.url.includes("http://") === true) {
             return next.handle(req.clone({
                 url: req.url
             }));

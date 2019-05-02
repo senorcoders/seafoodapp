@@ -1,8 +1,26 @@
-import { Component, OnInit, NgZone, EventEmitter } from '@angular/core';
+import { Component, OnInit, NgZone, EventEmitter, Output, Input } from '@angular/core';
 import { ControlContainer, FormGroupDirective, FormControl, Validators, FormGroup, FormArray, RequiredValidator } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { Options } from 'ng5-slider';
 import { ProductService } from '../../services/product.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+
+// create your class that extends the angular validator class
+export class CustomValidators extends Validators {
+
+  // create a static method for your validation
+  static validateInputRange(control: FormControl) {
+
+    // first check if the control has a value
+    if (control.value && Number(control.value) > 0) {
+      return null;
+    } else {
+      return { value: true };
+    }
+  }
+}
 
 @Component({
   selector: 'avanced-pricing',
@@ -46,7 +64,7 @@ export class AvancedPricingComponent implements OnInit {
     step: 1,
     noSwitching: true
   };
-  public showPricingValue = false;
+  // public showPricingValue = false;
   public valueExample: number;
   public exampleValues = {
     min: 0,
@@ -62,14 +80,29 @@ export class AvancedPricingComponent implements OnInit {
   public trimWeights: any = {};
   public wholeFishAction = true;
   public identifierTrim = "_trim";
+  public productID = "";
+  private firsTest = true;
+  public weightsFilleted = [];
+  public nameFilleted = "weightsFillete_arr";
 
+  @Output() messageEvent = new EventEmitter<string>();
+  @Input() events: Observable<void>;
+  private eventsSubscription: Subscription;
+  private speciesSelected = "";
   constructor(
     public parentForm: FormGroupDirective,
     private productService: ProductService,
-    public zone: NgZone
-  ) { }
+    public zone: NgZone,
+    public route: ActivatedRoute
+  ) {
+    let productID = this.route.snapshot.params['id'];
+    if (productID !== null && productID !== undefined) this.productID = productID;
+  }
+
+
 
   ngOnInit() {
+    this.eventsSubscription = this.events.subscribe(this.agregarVariations.bind(this))
     this.createFormGroup();
     this.productService.getData("wholefishweight").subscribe(its => {
       let wholes = its as any[];
@@ -81,8 +114,96 @@ export class AvancedPricingComponent implements OnInit {
         (this.parentForm.form.controls.price as FormGroup).addControl(i.id + "_off", new FormControl(false, Validators.nullValidator));
       }
       this.wholesFish = its as any;
+      console.log("whole", this.wholesFish);
     });
     this.getTrimming();
+  }
+
+  ngOnDestroy() {
+    this.eventsSubscription.unsubscribe()
+  }
+
+  private agregarVariations(it) {
+    //Si es para editar un producto
+    if (this.productID === '') return;
+    this.priceEnableChange = false;
+    try {
+
+      if (it.isTrimms == false && it.wholeFishAction === false) {
+        this.weightsFilleted = it.weightsFilleted.sort((a, b) => {
+          return a.min - b.min;
+        });
+        (this.parentForm.form.controls.price as FormGroup)
+          .setControl(this.nameFilleted, new FormGroup(this.controlsArray(this.weightsFilleted)));
+      } else if (it.isTrimms === true) {
+        this.trimWeights = it.weightsTrim;
+        console.log(this.trimWeights);
+        //Establecemos true los keys
+        let keys = Object.keys(this.trimWeights);
+        for (let k of keys) {
+          this.trimWeights[k] = this.trimWeights[k].sort((a, b) => {
+            return a.min - b.min;
+          });
+          let v = {};
+          v[k] = true;
+          this.setValue(v);
+          try {
+            (this.parentForm.form.controls.price as FormGroup)
+              .addControl(k + this.identifierTrim, new FormGroup(this.controlsArray(this.trimWeights[k])));
+          }
+          catch (e) { console.error(e); }
+        }
+      } else {
+
+        let weights = it.weights;
+        this.weights = weights;
+        for (let key of this.weights.on.keys) {
+          this.weights.on[key] = this.weights.on[key].sort((a, b) => {
+            return a.min - b.min;
+          });
+          let v = {};
+          v[key] = true;
+          this.setValue(v);
+        }
+        let keys = this.weights.on.keys
+        for (let k of keys) {
+          try {
+            (this.parentForm.form.controls.price as FormGroup)
+              .addControl(k + this.identifier, new FormGroup(this.controlsArray(this.weights.on[k])));
+            console.log((this.parentForm.form.controls.price as FormGroup).controls[k + this.identifier]);
+          }
+          catch (e) { console.error(e); }
+        }
+
+        this.weights.off.keys = this.weights.off.keys.map(it => { return it.includes("_off") === true ? it : it + "_off"; })
+        for (let key of this.weights.off.keys) {
+          this.weights.off[key] = this.weights.off[key].sort((a, b) => {
+            return a.min - b.min;
+          });
+          let v = {};
+          v[key + "_off"] = true;
+          this.weights.off[key + "_off"] = this.weights.off[key];
+          delete this.weights.off[key];
+          this.setValue(v);
+        }
+        keys = this.weights.off.keys
+        for (let k of keys) {
+          try {
+            (this.parentForm.form.controls.price as FormGroup)
+              .addControl(k + this.identifier, new FormGroup(this.controlsArray(this.weights.off[k + "_off"])));
+            console.log((this.parentForm.form.controls.price as FormGroup).controls[k + this.identifier]);
+          }
+          catch (e) { console.error(e); }
+        }
+        this.setValue({ weights: this.weights });
+        console.log("val", this.getValue());
+      }
+      this.priceEnableChange = true;
+      this.setOptionsInAll();
+    }
+    catch (e) {
+      console.error(e);
+    }
   }
 
   private createFormGroup() {
@@ -92,13 +213,18 @@ export class AvancedPricingComponent implements OnInit {
       headAction: new FormControl(this.headAction, Validators.required),
       weights: new FormControl('', Validators.nullValidator),
       weightsTrim: new FormControl('', Validators.nullValidator),
-      example: new FormControl('', Validators.nullValidator)
+      weightsFilleted: new FormControl('[]', Validators.nullValidator),
+      example: new FormControl('', Validators.nullValidator),
+      variationsDeleted: new FormControl('[]', Validators.nullValidator),
+      pricesDeleted: new FormControl("[]", Validators.nullValidator)
     }));
+    this.messageEvent.emit("hey listo.");
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       //Para elegir los slides que se muestran si es salmon o no
-      if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+      this.speciesSelected = it.speciesSelected
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
         this.hideTrimesSlides = false;
       } else {
         this.hideTrimesSlides = true;
@@ -131,6 +257,7 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para detectar los cambios en los checkboxs
     this.parentForm.form.controls.price.valueChanges.subscribe(it => {
+
       //cuando se agregan contoles de slide al formuario
       //Crea un bucle sin fin de cambios
       if (this.priceEnableChange === true) {
@@ -163,7 +290,7 @@ export class AvancedPricingComponent implements OnInit {
     this.parentForm.form.controls.features.valueChanges.subscribe(it => {
       this.head = it.head;
       if (it.head === 'both') {
-        if (this.showPricingValue === false) this.showPricingValue = true;
+        // if (this.showPricingValue === false) this.showPricingValue = true;
       } else if (it.head === 'on') {
         this.deletePrices(false);
         this.assingHead(true);
@@ -173,6 +300,19 @@ export class AvancedPricingComponent implements OnInit {
       }
 
       this.wholeFishAction = it.wholeFishAction;
+      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
+        this.hideTrimesSlides = false;
+      } else {
+        this.hideTrimesSlides = true;
+      }
+      if (this.wholeFishAction === false && this.priceEnableChange === true) {
+        this.priceEnableChange = false;
+        this.proccessWeightsFilleted();
+        console.log("agregue filleted");
+        setTimeout(() => {
+          this.priceEnableChange = true;
+        }, 500);
+      }
     });
   }
 
@@ -219,12 +359,17 @@ export class AvancedPricingComponent implements OnInit {
         .map(itereOptions.bind(this));
     }
 
+    //Para los filleted
+    this.weightsFilleted = this.weightsFilleted
+      .map(itereOptions.bind(this));
+
     //Para los trimmings
     keys = this.trimmings.map(it => { return it.id; });
     keys = keys.filter(it => {
       return this.getValue()[it];
     });
     for (let key of keys) {
+      console.log(key, this.trimWeights[key]);
       this.trimWeights[key] = this.trimWeights[key]
         .map(itereOptions.bind(this));
     }
@@ -236,9 +381,11 @@ export class AvancedPricingComponent implements OnInit {
       if (id.includes("_off") === true) {
         id = id.replace("_off", "");
       }
-      return this.wholesFish.find(it => {
+      let it = this.wholesFish.find(it => {
         return it.id === id;
-      }).name;
+      });
+      if (it !== undefined && it !== null) return it.name;
+      else return "";
     }
     catch (e) {
       console.error(e);
@@ -247,6 +394,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   private proccessWeights(data, weights) {
+    //Vamos aponer de los id que se eliminan
     let keys = Object.keys(weights);
     keys = keys.filter(it => {
       if (
@@ -254,6 +402,66 @@ export class AvancedPricingComponent implements OnInit {
         it === 'weights' ||
         it === 'example' ||
         it === "weightsTrim" ||
+        it === "variationsDeleted" ||
+        it === "pricesDeleted" ||
+        it === this.nameFilleted ||
+        it === "weightsFilleted" ||
+        it.includes(this.identifier) === true
+      ) return false;
+      if (this.headAction === true) {
+        if (it.includes('_off') === true) return false;
+        else return !weights[it];
+      } else {
+        if (it.includes('_off') === true) return !weights[it];
+        else return false;
+      }
+    });
+    for (let k of keys) {
+      if (this.headAction === true) {
+        if (this.productID !== "" &&
+          this.weights.on[k] !== undefined &&
+          this.weights.on[k].length > 0 &&
+          this.weights.on[k][0].idVariation !== null &&
+          this.weights.on[k][0].idVariation !== undefined
+        ) {
+          let arr = JSON.parse(this.getValue().variationsDeleted);
+          let indexLeft = arr.findIndex(it => {
+            return it === this.weights.on[k][0].idVariation;
+          });
+          if (indexLeft == -1)
+            arr.push(this.weights.on[k][0].idVariation);
+          this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        }
+      } else {
+        if (this.productID !== "" &&
+          this.weights.off[k] !== undefined &&
+          this.weights.off[k].length > 0 &&
+          this.weights.off[k][0].idVariation !== null &&
+          this.weights.off[k][0].idVariation !== undefined
+        ) {
+          let arr = JSON.parse(this.getValue().variationsDeleted);
+          let indexLeft = arr.findIndex(it => {
+            return it === this.weights.off[k][0].idVariation;
+          });
+          if (indexLeft == -1)
+            arr.push(this.weights.off[k][0].idVariation);
+          this.setValue({ variationsDeleted: JSON.stringify(arr) });
+        }
+      }
+
+    }
+
+    keys = Object.keys(weights);
+    keys = keys.filter(it => {
+      if (
+        it === 'headAction' ||
+        it === 'weights' ||
+        it === 'example' ||
+        it === "weightsTrim" ||
+        it === "variationsDeleted" ||
+        it === "pricesDeleted" ||
+        it === this.nameFilleted ||
+        it === "weightsFilleted" ||
         it.includes(this.identifier) === true
       ) return false;
       if (this.headAction === true) {
@@ -277,7 +485,7 @@ export class AvancedPricingComponent implements OnInit {
       }
     }
     data.keys = keys;
-    // console.log(data);
+
     this.refreshSlider();
     this.priceEnableChange = true;
     return data;
@@ -308,6 +516,17 @@ export class AvancedPricingComponent implements OnInit {
       return !this.getValue()[it];
     });
     for (let k of keys) {
+      //Para poner el id y eliminarlo
+      if (this.productID !== "" &&
+        this.trimWeights[k] !== undefined &&
+        this.trimWeights[k].length > 0 &&
+        this.trimWeights[k][0].idVariation !== null &&
+        this.trimWeights[k][0].idVariation !== undefined
+      ) {
+        let arr = JSON.parse(this.getValue().variationsDeleted);
+        arr.push(this.trimWeights[k][0].idVariation);
+        this.setValue({ variationsDeleted: JSON.stringify(arr) });
+      }
       if (this.trimWeights[k] !== undefined) {
         this.trimWeights[k] = undefined;
         try {
@@ -322,6 +541,44 @@ export class AvancedPricingComponent implements OnInit {
     this.priceEnableChange = true;
   }
 
+  private proccessWeightsFilleted() {
+
+    //Fileted fish no tiene key
+    //asi que simplemente se rrecorre el arry asigna 
+    //los slides
+    if (this.weightsFilleted.length === 0) {
+      this.weightsFilleted = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
+    }
+    try {
+      (this.parentForm.form.controls.price as FormGroup)
+        .addControl(this.nameFilleted, new FormGroup(this.controlsArray(this.weightsFilleted)));
+    }
+    catch (e) { console.error(e); }
+
+    //Para poner el id y eliminarlo
+    // if (this.productID !== "" &&
+    //   this.trimWeights[k] !== undefined &&
+    //   this.trimWeights[k].length > 0 &&
+    //   this.trimWeights[k][0].idVariation !== null &&
+    //   this.trimWeights[k][0].idVariation !== undefined
+    // ) {
+    //   let arr = JSON.parse(this.getValue().variationsDeleted);
+    //   arr.push(this.trimWeights[k][0].idVariation);
+    //   this.setValue({ variationsDeleted: JSON.stringify(arr) });
+    // }
+    // if (this.trimWeights[k] !== undefined) {
+    //   this.trimWeights[k] = undefined;
+    //   try {
+    //     (this.parentForm.form.controls.price as FormGroup)
+    //       .removeControl(k + this.identifierTrim);
+    //   }
+    //   catch (e) { console.error(e); }
+    // }
+
+    this.refreshSlider();
+    this.priceEnableChange = true;
+  }
+
   public selectKey(k) {
     this.keySelect = k;
     console.log(this.weights, k);
@@ -331,37 +588,98 @@ export class AvancedPricingComponent implements OnInit {
     }, 300);
   }
 
-  public deletePrice(headAction, i) {
-    let index = 0;
-    if (headAction === true) {
-      if (this.weights.on[this.keySelect].length === 1) {
-        this.weights.on[this.keySelect] = [];
-        index = 1;
-      } else {
-        this.weights.on[this.keySelect].splice(i, 1);
-        index = this.weights.on[this.keySelect].length;
-      }
-    } else {
-      if (this.weights.off[this.keySelect].length === 1) {
-        this.weights.off[this.keySelect] = [];
-        index = 1;
-      } else {
-        this.weights.off[this.keySelect].splice(i, 1);
-        index = this.weights.off[this.keySelect].length;
+  public getNameTrim(price) {
+    let i: any = 0;
+    for (let t in this.trimWeights[this.keySelectTrim]) {
+      let it = this.trimWeights[this.keySelectTrim][t];
+      if (
+        it.min === price.min &&
+        it.max === price.max &&
+        it.price === price.price
+      ) {
+        i = t;
+        break;
       }
     }
 
-    //Para remover los inputs
-    try {
-      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
-        .removeControl((i).toString());
+    return i;
+  }
+
+  public getNameFilleted(price) {
+    let i: any = 0;
+    for (let t in this.weightsFilleted) {
+      let it = this.weightsFilleted[t];
+      if (
+        it.min === price.min &&
+        it.max === price.max &&
+        it.price === price.price
+      ) {
+        i = t;
+        break;
+      }
     }
-    catch (e) { console.error(e); }
+
+    return i;
+  }
+
+  public deletePrice(headAction, i) {
+    if (headAction === true) {
+      if (this.productID !== "" &&
+        this.weights.on[this.keySelect][i].id !== null &&
+        this.weights.on[this.keySelect][i].id !== undefined
+      ) {
+        let arr = JSON.parse(this.getValue().pricesDeleted);
+        arr.push(this.weights.on[this.keySelect][i].id);
+        this.setValue({ pricesDeleted: JSON.stringify(arr) });
+      }
+      if (this.weights.on[this.keySelect].length === 1) {
+        this.weights.on[this.keySelect] = [];
+      } else {
+        this.weights.on[this.keySelect].splice(i, 1);
+      }
+      try {
+        (this.parentForm.form.controls.price as FormGroup)
+          .setControl(this.keySelect + this.identifier, new FormGroup(this.controlsArray(this.weights.on[this.keySelect])));
+        console.log((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier]);
+      }
+      catch (e) { console.error(e); }
+    } else {
+      if (this.productID !== "" &&
+        this.weights.off[this.keySelect][i].id !== null &&
+        this.weights.off[this.keySelect][i].id !== undefined
+      ) {
+        let arr = JSON.parse(this.getValue().pricesDeleted);
+        arr.push(this.weights.off[this.keySelect][i].id);
+        this.setValue({ pricesDeleted: JSON.stringify(arr) });
+      }
+      if (this.weights.off[this.keySelect].length === 1) {
+        this.weights.off[this.keySelect] = [];
+      } else {
+        this.weights.off[this.keySelect].splice(i, 1);
+      }
+
+      try {
+        (this.parentForm.form.controls.price as FormGroup)
+          .setControl(this.keySelect + this.identifier, new FormGroup(this.controlsArray(this.weights.off[this.keySelect])));
+        console.log((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier]);
+      }
+      catch (e) { console.error(e); }
+    }
 
     this.refreshSlider();
   }
 
-  public deletePriceTrims(i) {
+  public deletePriceTrims(price) {
+    let i = this.getNameTrim(price);
+    //Para guardar el id por si es para actualizar
+    if (this.productID !== "" &&
+      this.trimWeights[this.keySelectTrim][i].id !== null &&
+      this.trimWeights[this.keySelectTrim][i].id !== undefined
+    ) {
+      let arr = JSON.parse(this.getValue().pricesDeleted);
+      arr.push(this.trimWeights[this.keySelectTrim][i].id);
+      this.setValue({ pricesDeleted: JSON.stringify(arr) });
+    }
     if (this.trimWeights[this.keySelectTrim].length === 1) {
       this.trimWeights[this.keySelectTrim] = [];
     } else {
@@ -370,8 +688,36 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para remover los inputs
     try {
-      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
-        .removeControl((i - 1).toString());
+      ((this.parentForm.form.controls.price as FormGroup)
+        .controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
+        .setControl(this.keySelectTrim + this.identifierTrim, new FormGroup(this.controlsArray(this.trimWeights[this.keySelectTrim])));
+    }
+    catch (e) { console.error(e); }
+
+    this.refreshSlider();
+  }
+
+  public deletePriceFilleted(price) {
+    let i = this.getNameFilleted(price);
+    //Para guardar el id por si es para actualizar
+    if (this.productID !== "" &&
+      this.weightsFilleted[i].id !== null &&
+      this.weightsFilleted[i].id !== undefined
+    ) {
+      let arr = JSON.parse(this.getValue().pricesDeleted);
+      arr.push(this.weightsFilleted[i].id);
+      this.setValue({ pricesDeleted: JSON.stringify(arr) });
+    }
+    if (this.weightsFilleted.length === 1) {
+      this.weightsFilleted = [];
+    } else {
+      this.weightsFilleted.splice(i, 1);
+    }
+
+    //Para remover los inputs
+    try {
+      (this.parentForm.form.controls.price as FormGroup)
+        .setControl(this.nameFilleted, new FormGroup(this.controlsArray(this.weightsFilleted)));
     }
     catch (e) { console.error(e); }
 
@@ -402,7 +748,7 @@ export class AvancedPricingComponent implements OnInit {
 
   public addPricing() {
     console.log(this.headAction, this.keySelect);
-    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
+    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : "";
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     if (this.headAction === true) {
@@ -417,7 +763,53 @@ export class AvancedPricingComponent implements OnInit {
     //Para agregar los inputs
     try {
       ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelect + this.identifier] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
+        .addControl((index - 1).toString(), new FormControl(price, CustomValidators.validateInputRange));
+    }
+    catch (e) { console.error(e); }
+
+    this.valueExample = 0;
+    this.exampleValues = {
+      min: this.options.floor,
+      max: this.options.ceil
+    };
+    this.refreshSlider();
+  }
+
+  public addPricingTrim() {
+    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : 0;
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
+    let index = 0;
+    this.trimWeights[this.keySelectTrim].push(it);
+    index = this.trimWeights[this.keySelectTrim].length;
+    this.refactorizeRanges(index - 1);
+
+    //Para agregar los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
+        .addControl((index - 1).toString(), new FormControl(price, CustomValidators.validateInputRange));
+    }
+    catch (e) { console.error(e); }
+
+    this.valueExample = 0;
+    this.exampleValues = {
+      min: this.options.floor,
+      max: this.options.ceil
+    };
+    this.refreshSlider();
+  }
+
+  public addPricingFilleted() {
+    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : 0;
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
+    let index = 0;
+    this.weightsFilleted.push(it);
+    index = this.weightsFilleted.length;
+    this.refactorizeRangesFilleted(index - 1);
+
+    //Para agregar los inputs
+    try {
+      ((this.parentForm.form.controls.price as FormGroup).controls[this.nameFilleted] as FormGroup)
+        .addControl((index - 1).toString(), new FormControl(price, CustomValidators.validateInputRange));
     }
     catch (e) { console.error(e); }
 
@@ -431,12 +823,15 @@ export class AvancedPricingComponent implements OnInit {
 
   private controlsArray(arr) {
     let d = {};
-    for (let i in arr) {
-      d[i] = new FormControl('', Validators.required);
-    }
 
+    for (let i in arr) {
+      let value = "";
+      if (arr[i].price && Number(arr[i].price) > 0) value = arr[i].price;
+      d[i] = new FormControl(value, CustomValidators.validateInputRange);
+    }
     return d;
   }
+
   public isSelectTrim(tri) {
     return this.getValue()[tri + this.identifierTrim];
   }
@@ -560,6 +955,54 @@ export class AvancedPricingComponent implements OnInit {
     }
   }
 
+  public refactorizeRangesFilleted(index) {
+    let slides = this.weightsFilleted;
+
+    for (let i = index; i < slides.length; i++) {
+      this.refactorizeRangesFilletedIterate(i);
+    }
+    this.refreshSlider();
+  }
+
+  private refactorizeRangesFilletedIterate(index) {
+    try {
+      let newOptions: Options = Object.assign({}, this.options);
+      this.options = newOptions;
+      this.exampleValues = {
+        min: newOptions.floor,
+        max: newOptions.ceil
+      };
+      let range = {
+        minLimit: 10,
+        maxLimit: newOptions.ceil
+      }
+      let slides = [];
+      slides = this.weightsFilleted;
+
+      //Entonces calculamos el valor mas alto, para tomar desde ahi
+      //el inicio de los demas slider
+      let maxValue = 0;
+      for (let i = 0; i < slides.length; i++) {
+        let slide = slides[i];
+        if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+        if (i === index || i > index) continue;
+        if (slide.max > maxValue) maxValue = slide.max;
+      }
+      //ahora asignamos el mayor valor al slide
+      range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+      range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+      let newOptions1 = Object.assign(range, newOptions);
+
+      this.weightsFilleted[index].options = newOptions1;
+      if (this.weightsFilleted[index].min < range.minLimit)
+        this.weightsFilleted[index].min = range.minLimit;
+
+    }
+    catch (e) {
+      console.error(e);
+    }
+  }
+
   public getOptions(index) {
     if (this.headAction === true) {
       return this.weights.on[this.keySelect][index].options;
@@ -586,12 +1029,23 @@ export class AvancedPricingComponent implements OnInit {
       .controls[i];
   }
 
-  public getControlTrim(key, i) {
+  public getControlTrim(key, price) {
+    let i = this.getNameTrim(price);
     if (((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim] as FormGroup)
       .controls[i] === undefined) {
       console.log(key, i, (this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim]);
     }
     return ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifierTrim] as FormGroup)
+      .controls[i];
+  }
+
+  public getControlFilleted(key, price) {
+    let i = this.getNameFilleted(price);
+    if (((this.parentForm.form.controls.price as FormGroup).controls[this.nameFilleted] as FormGroup)
+      .controls[i] === undefined) {
+      console.log(key, i, (this.parentForm.form.controls.price as FormGroup).controls[this.nameFilleted]);
+    }
+    return ((this.parentForm.form.controls.price as FormGroup).controls[this.nameFilleted] as FormGroup)
       .controls[i];
   }
 
@@ -605,15 +1059,19 @@ export class AvancedPricingComponent implements OnInit {
     return (this.parentForm.form.controls.price as FormGroup).controls;
   }
 
-  public showPricing(res) {
-    this.showPricingValue = res;
-  }
+  // public showPricing(res) {
+  //   this.showPricingValue = res;
+  // }
 
   private refreshSlider() {
     if (this.await_ === false) {
       this.await_ = true;
       setTimeout(() => {
-        let r = { weights: JSON.stringify(this.weights), weightsTrim: JSON.stringify(this.trimWeights) };
+        let r = {
+          weights: JSON.stringify(this.weights),
+          weightsTrim: JSON.stringify(this.trimWeights),
+          weightsFilleted: JSON.stringify(this.weightsFilleted)
+        };
         this.setValue(r);
         this.await_ = false;
       }, 500);
@@ -623,7 +1081,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   private setValue(value) {
-    this.parentForm.form.patchValue({ price: value })
+    this.parentForm.form.patchValue({ price: value });
   }
 
   private setValueFeatures(value) {
@@ -638,29 +1096,6 @@ export class AvancedPricingComponent implements OnInit {
 
   public selectKeyTrimAdd(trim) {
     this.keySelectTrim = trim;
-  }
-
-  public addPricingTrim() {
-    let price = isNaN(this.valueExample) == false ? this.valueExample : 0;
-    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
-    let index = 0;
-    this.trimWeights[this.keySelectTrim].push(it);
-    index = this.trimWeights[this.keySelectTrim].length;
-    this.refactorizeRanges(index - 1);
-
-    //Para agregar los inputs
-    try {
-      ((this.parentForm.form.controls.price as FormGroup).controls[this.keySelectTrim + this.identifierTrim] as FormGroup)
-        .addControl((index - 1).toString(), new FormControl(0, Validators.required));
-    }
-    catch (e) { console.error(e); }
-
-    this.valueExample = 0;
-    this.exampleValues = {
-      min: this.options.floor,
-      max: this.options.ceil
-    };
-    this.refreshSlider();
   }
 
   private getValue() {

@@ -180,9 +180,11 @@ export class SingleProductComponent implements OnInit {
     let kg = this.route.snapshot.params['kg'];
     let fishOption = this.route.snapshot.params["fishOption"];
     let variationId = this.route.snapshot.params["variationId"];
+    console.log("snapshots", kg, fishOption, variationId);
     if (kg !== undefined && kg !== null) this.kg = Number(kg);
     if (variationId !== undefined && variationId !== null) this.variationId = variationId;
     if (fishOption !== undefined && fishOption !== null) this.fishOption = fishOption;
+    this.selectTheVariation(fishOption, variationId);
 
     this.getCurrentPricingCharges();
     this.isLoggedSr.isLogged.subscribe((val: boolean) => {
@@ -356,6 +358,7 @@ export class SingleProductComponent implements OnInit {
   }
 
   public selectTheVariation(idVariation, id) {
+    console.log("variacion", idVariation);
     this.selectVariation = idVariation;
     this.currentVaritionID = id;
     this.getPricingCharges();
@@ -489,10 +492,11 @@ export class SingleProductComponent implements OnInit {
     )
   }
   getPricingCharges() {
+    console.log("current vairation ID", this.currentVaritionID);
     this.pricingServices.getPricingChargesByWeight(this.productID, this.currentVaritionID, this.count, this.in_AED)
       .subscribe(
         res => {
-          console.log('Pricing Charges', res);
+          console.log('Pricing Charges', res, this.count);
           this.charges = res;
           this.delivered = res['finalPrice'] / this.count;
           this.showTaxes = true;

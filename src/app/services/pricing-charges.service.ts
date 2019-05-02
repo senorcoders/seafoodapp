@@ -23,6 +23,7 @@ export class PricingChargesService {
   }
 
   getPricingChargesByWeight( itemID: string, variationID: string, weight: number, for_seller: string ){
+    console.log("receving var", variationID);
     return this.http.get(`api/fish/${itemID}/variation/${variationID}/charges/${weight}/${for_seller}`)
   }
 
