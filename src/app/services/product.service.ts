@@ -169,14 +169,13 @@ export class ProductService {
     }
   }
 
-  updateImages(images:File[], deletedImages:string, id) {
+  updateImages(images:File[], id) {
     const httpOptionsForm: any = { headers: new HttpHeaders() };
     httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
     const formData: FormData = new FormData();
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
     }
-    formData.append("deletedImages", deletedImages);
     return this.http.put(`api/fish/images/${id}`, formData, httpOptionsForm);
   }
 
