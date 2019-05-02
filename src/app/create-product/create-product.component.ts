@@ -56,9 +56,9 @@ export class CreateProductComponent implements OnInit {
   public eventsSubject: Subject<any> = new Subject<any>();
 
   private product: any = {};
-  public currentExchangeRate:any;
-  public currentPrincingCharges:any;
-  
+  public currentExchangeRate: any;
+  public currentPrincingCharges: any;
+
   public createProduct = true;
 
   constructor(
@@ -89,7 +89,7 @@ export class CreateProductComponent implements OnInit {
   ngOnInit() {
     this.myform = new FormGroup({
     });
-    
+
     this.getCurrentPricingCharges();
     this.getMyData();
     this.productService.getData('fishpreparation').subscribe(
@@ -195,7 +195,8 @@ export class CreateProductComponent implements OnInit {
       imagePrimaryForForm = {
         src: imagePrimary64,
         url: product["imagePrimary"],
-        type: "primary"
+        type: "primary",
+        defaultInial: true
       };
       forForm.push(imagePrimaryForForm);
       forInput = [this.blobToFile(imagePrimary, "primary.jpg")];
@@ -313,7 +314,7 @@ export class CreateProductComponent implements OnInit {
       let variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
       let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
-      weightsFilleted = [];
+        weightsFilleted = [];
       if (pricing.weights !== '') {
         variations = JSON.parse(pricing.weights);
       }
@@ -341,20 +342,20 @@ export class CreateProductComponent implements OnInit {
           }
           variationsEnd.push(itr);
         }
-      } else if(features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4'){
+      } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
         //para los fillete
         let fishPreparation = "5c93c01465e25a011eefbcc4";
 
         let itr = {
           fishPreparation,
-          prices: weightsFilleted.map((it, i)=>{
+          prices: weightsFilleted.map((it, i) => {
             let price = pricing["weightsFillete_arr"][i];
             it.price = price;
             return itereOptions(it);
           })
         }
         variationsEnd.push(itr);
-      }else {
+      } else {
         //Para los ON
         let fishPreparation = "5c93bff065e25a011eefbcc2";
         if (variations.on.keys && variations.on.keys.length > 0) {
@@ -417,7 +418,7 @@ export class CreateProductComponent implements OnInit {
       await this.generateSKU();
       // this.ngProgress.start();
       let priceAED = Number(value.features.price).toFixed(2);
-      const data:any = {
+      const data: any = {
 
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
@@ -517,7 +518,11 @@ export class CreateProductComponent implements OnInit {
   }
 
   private finish() {
-    this.toast.success('Product added succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+    if (this.productID === "") {
+      this.toast.success('Product added successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+    } else {
+      this.toast.success('Product updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+    }
     this.showError = false;
     this.loading = false;
     this.ngProgress.done();
