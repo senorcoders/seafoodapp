@@ -55,7 +55,7 @@
                 </div>
                 <div class="product-footer">
                   <h4>{{product.name}}</h4>
-                  <h5 *ngIf="product.variations[0] !== undefined"> {{product.variations[0].prices[0].price}} / {{product.weight.type}}</h5>
+                  <h5 *ngIf="product.variations[0] !== undefined">  {{product.variations[0].prices[0].price | currency: '$'}} / {{product.weight.type}}</h5>
                 </div>
             </div>
         </div>
