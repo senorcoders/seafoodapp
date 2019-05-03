@@ -213,8 +213,9 @@ export class FishFeaturesComponent implements OnInit {
   }
 
   public assingWholeFish(re) {
-    let disable = this.controls().wholeFishAction.disabled;
-    if (disable !== false) {
+    let disable = this.controls().acceptableSpoilageRate.disabled;
+    console.log("disable", disable);
+    if (disable !== true) {
       this.wholeFishAction = re;
       this.setValue({ wholeFishAction: this.wholeFishAction });
     }
