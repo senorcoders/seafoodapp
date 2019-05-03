@@ -110,6 +110,39 @@ export class CreateProductComponent implements OnInit {
     if (this.productID !== '' && this.currentExchangeRate !== 0) {
       this.getDetails();
     }
+    if(this.productID!==""){
+      this.getUser();
+    }
+  }
+
+  private getUser() {
+    let loginData = this.auth.getLoginData();
+    this.productService.getData("user/" + loginData["id"]).subscribe(it => {
+      console.log("user", it);
+      this.user = it;
+      if(this.user["role"]!==0){
+        this.disableInputs();
+      }
+    });
+  }
+
+  private disableInputs(){
+    let product = (this.myform.controls.product as FormGroup).controls;
+    let features = (this.myform.controls.features as FormGroup).controls;
+    product.name.disable();
+    product.country.disable();
+    product.processingCountry.disable();
+    product.city.disable();
+    product.unitOfSale.disable();
+    product.averageUnitWeight.disable();
+    product.parentSelectedType.disable();
+    product.speciesSelected.disable();
+    product.subSpeciesSelected.disable();
+    product.descriptorSelected.disable();
+    features.acceptableSpoilageRate.disable();
+    features.raised.disable();
+    features.treatment.disable();
+    // features.wholeFishAction.disable();
   }
 
   private async getDetails() {

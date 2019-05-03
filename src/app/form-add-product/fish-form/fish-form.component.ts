@@ -17,7 +17,7 @@ export class FishFormComponent implements OnInit {
 
   @ViewChild('myInput')
   myInputVariable: ElementRef;
-  public product: FormGroup; 
+  public product: FormGroup;
   public countries = [];
   public cities = [];
   public allCities = [];
@@ -47,6 +47,7 @@ export class FishFormComponent implements OnInit {
   private levels: any;
   private productID = "";
   private indexImage = 0;
+  public user: any = { role: 0 };
 
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
@@ -54,7 +55,9 @@ export class FishFormComponent implements OnInit {
     private sanitizer: DomSanitizer
   ) {
     let productID = this.route.snapshot.params['id'];
-    if (productID !== null && productID !== undefined) this.productID = productID;
+    if (productID !== null && productID !== undefined) {
+      this.productID = productID;
+    }
   }
 
   ngOnInit() {
@@ -63,6 +66,7 @@ export class FishFormComponent implements OnInit {
     this.getAllCities();
     this.getAllTypesByLevel();
   }
+
 
   private createFormGroup() {
     this.product = this.parentForm.form;
@@ -96,7 +100,10 @@ export class FishFormComponent implements OnInit {
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
     });
+    
   }
+
+  
 
   public byPassImageUrl(image) {
     return this.sanitizer.bypassSecurityTrustUrl(image);
@@ -325,8 +332,8 @@ export class FishFormComponent implements OnInit {
             let type = this.images.length === 0 ? "primary" : "secundary";
             this.images.push({ src: reader.result, type });
             let arr = JSON.parse(this.getValue().deletedImages);
-            console.log(arr, this.images.map((it, i)=>{
-              it = JSON.parse( JSON.stringify(it) );
+            console.log(arr, this.images.map((it, i) => {
+              it = JSON.parse(JSON.stringify(it));
               delete it.src;
               it.i = i;
               return it;
@@ -394,8 +401,8 @@ export class FishFormComponent implements OnInit {
         return it === this.images[i].url;
       });
       console.log("indexRepeat", indexRepeat);
-      if(indexRepeat === -1) arr.push(this.images[i].url);
-      
+      if (indexRepeat === -1) arr.push(this.images[i].url);
+
     }
 
     //buscamos si la imagen default anterior estaba en lista de borrar
@@ -415,8 +422,8 @@ export class FishFormComponent implements OnInit {
       delete this.images[indexPrimary].url;
       this.images[indexPrimary].change = true;
     }
-    console.log(arr, this.images.map((it, i)=>{
-      it = JSON.parse( JSON.stringify(it) );
+    console.log(arr, this.images.map((it, i) => {
+      it = JSON.parse(JSON.stringify(it));
       delete it.src;
       it.i = i;
       return it;
