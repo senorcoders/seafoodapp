@@ -1,115 +1,131 @@
-<div id="hero">
-  <div class="overlay-bn"></div>
-  <div class="page-header homepage container">
-    <div class="buyer-content">
-      <h2 class="buyer-title">Buyers</h2>
-      <h3 class="means">Seafood Souq means</h3>
-      <h4 class="buyer-value">more choice</h4>
-      <a *ngIf="!isLoggedIn" class="blue-btn" routerLink="register">Register to Buy</a>
-    </div>
-    <div class="seller-content">
-      <h2 class="buyer-title">Seller</h2>
-      <h3 class="means">Seafood Souq means</h3>
-      <h4 class="buyer-value">access to an interational market</h4>
-      <a *ngIf="!isLoggedIn" class="blue-btn" routerLink="register-seller">Register to Sell</a>
-    </div>
-    <div class="content">
-      <h1 class="welcome-title">Welcome to Seafood Souq</h1>
-      <h2 class="subtitle">The fully digital seafood marketplace.</h2>
-      <!-- <h3 class="small-title">{{ "Home.small-title-banner" | translate }}</h3>
-      <a href="" class="buy-btn">{{ "Home.banner-button" | translate }}</a> -->
-    </div>
-    <!-- <img src="{{ cdnURL }}/assets/banner.png" class="banner-img" alt=""> -->
-  </div>
-</div> 
-
-<div class="gray-bg">
-    <div class="container-fluid">
-        <div class="row bordered-row">
-          <div class="col-lg-12 text-center custom-section">
-              <img src="{{ cdnURL }}/assets/fishing.png" alt="" class="img-fluid">
-              <h3 class="title-bold">We believe in a connected world and it’s industries, where size and distance doesn't matter.</h3>
-              <h3 class="title-light">Welcome to an e-commerce platform that facilitates direct buyer to seller interaction. We're also completely transparent!</h3>
-          </div>
-        </div>
-
-        <div class="row bordered-row">
-          <div class="col-lg-12">
-              <ul class="nav nav-tabs" id="myTab" role="tablist">
-                  <li class="nav-item">
-                    <a class="nav-link active" id="buy-tab" data-toggle="tab" href="#buy" role="tab" aria-controls="buy" aria-selected="true">Buy with us</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" id="sell-tab" data-toggle="tab" href="#sell" role="tab" aria-controls="sell" aria-selected="false">Sell with us</a>
-                  </li>
-                
-                </ul>
-          </div>
-
-          <div class="col-lg-12 custom-section">
-              <div class="tab-content" id="myTabContent">
-                  <div class="tab-pane fade show active" id="buy" role="tabpanel" aria-labelledby="buy-tab">
-                      <div class="row">
-                          
-                          <div class="col-lg-6 box-content">
-                            <h4>BETTER PRICE</h4>
-                            <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
-                            <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
-                          </div>
-                          <div class="col-lg-6">
-                              <img src="{{ cdnURL }}/assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
-                          </div>
-                      </div>
-                  </div>
-                  <div class="tab-pane fade" id="sell" role="tabpanel" aria-labelledby="sell-tab">
-                      <div class="row">
-                          
-                          <div class="col-lg-6 box-content">
-                            <h4>BETTER PRICE</h4>
-                            <p>Buying direct from source reduces overheads and eliminates distributor costs giving you the best price for the freshest products.</p>
-                            <a *ngIf="!isLoggedIn" routerLink="/register-seller">REGISTER TO BUY</a>
-                          </div>
-                          <div class="col-lg-6">
-                              <img src="{{ cdnURL }}/assets/svg/piggy-bank.svg" alt="" class="img-fluid" width="280px">
-                          </div>
-                      </div>
-                  </div>
-                </div>
-          </div>
-            
-              
-        </div>
-        <div class="row bordered-row">
-          <div class="col-lg-12 custom-section">
-            <div class="row">
-                <div class="col-lg-6">
-                    <img src="{{ cdnURL }}/assets/svg/parcel.svg" alt="" class="img-fluid" width="280px">
-                </div>
-                <div class="col-lg-6 box-content">
-                  <h4>FULL TRACEABILITY</h4>
-                  <p>Get what you paid for with the knowledge of where your fish is really coming from with a fully trackable order journey.</p>
-                  <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
-                </div>
+<div id="carouselExampleIndicators" class="carousel slide vertical" data-ride="carousel" >
+  <div class="carousel-nav-sfs">
+      <div class="container-fluid">
+          <div class="row login-nav-logo" >
+            <div class="col-lg-4 text-left">
+              <a routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
+            </div>
+            <div class="col-lg-8 text-right">
+              <a class="nav-link" routerLink="/login" style="display: initial;">Login</a>
+              <a class="nav-link" routerLink="/register" style="display: initial;">Register</a>
+              <button class="plus-btn" (click)="showMenu()"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
             </div>
           </div>
-            
         </div>
-
-        <div class="row bordered-row">
-            <div class="col-lg-12 custom-section">
-              <div class="row">
-                  <div class="col-lg-6 box-content">
-                      <h4>COMPLETE TRANSPARENCY</h4>
-                      <p>Seafood Souq is an unbiased marketplace that promotes full transparency and complete understanding of price for all with visible cost breakdowns</p>
-                      <a *ngIf="!isLoggedIn" routerLink="/register">REGISTER TO BUY</a>
-                    </div>
-                  <div class="col-lg-6">
-                      <img src="{{ cdnURL }}/assets/svg/handshake.svg" alt="" class="img-fluid" width="280px">
-                  </div>
-                  
+  </div>
+  <div class="mobile-full-menu" style="display: none;">
+    <ul>
+      <li>
+          <a class="nav-link" routerLink="/login" style="display: initial;">Login</a>
+      </li>
+      <li>
+          <a class="nav-link" routerLink="/register" style="display: initial;">Register</a>
+      </li>
+    </ul>
+  </div>
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active slide-1">
+      <div class="slide-custom-caption">
+        <h4>WELCOME TO SEAFOOD SOUQ...</h4>
+        <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
+        <p>Buy directly from sellers from all over the world. We handle the complicated stuff <br> and ensure your order always arrives on time.</p>
+        <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+      </div>
+    </div>
+    <div class="carousel-item slide-2">
+        <div class="slide-custom-caption">
+            <h4>FRESH SEAFOOD IS EXPENSIVE...</h4>
+            <h1>SAVE MONEY BY BUYING DIRECT <br> FROM SOURCE.</h1>
+            <p>Cut out warehousing costs by using our online <br> marketplace.</p>
+            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+          </div>
+      <div class="container-fluid padding-0">
+        <div class="row">
+          <div class="col-md-4 light-gray-section"></div>
+          <div class="col-md-8 slide-2-bg background-rules"></div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item slide-3">
+        <div class="slide-custom-caption">
+            <h4>IT LACKS TRACEABILITY...</h4>
+            <h1>GAIN THE ABILITY TO LEARN <br> EVERYTHING ABOUT YOUR FISH.</h1>
+            <p>Get what you paid for with the knowledge of where your <br> fish is really coming from.</p>
+            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 light-gray-section"></div>
+              <div class="col-md-8 slide-3-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-4">
+        <div class="slide-custom-caption">
+            <h4>TYPICAL MARKETS LACK CHOICE...</h4>
+            <h1>DISCOVER NEW PRODUCTS & ORIGINS <br> WITH AN OPEN MARKETPLACE.</h1>
+            <p>Where all sellers and buyers can trade.</p>
+            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 dark-gray-section"></div>
+              <div class="col-md-8 slide-4-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-5">
+        <div class="slide-custom-caption">
+            <h4>BUYING IS A DIFFICULT PROCESS...</h4>
+            <h1>HAVE THE ABILITY TO ORDER <br> SEAFOOD FROM ANYWHERE.</h1>
+            <p>Order all your products in one place through our online <br> catalogue of global producers.</p>
+            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 light-gray-section"></div>
+              <div class="col-md-8 slide-5-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-6">
+        <div class="slide-custom-caption">
+            <h4>DELIVERIES ARE UNREALIABLE...</h4>
+            <h1>GET YOUR ORDER WHEN YOU <br> NEED IT, EVERY TIME.</h1>
+            <p>Our last mile processes mean you always receive your <br> order within your chosen time slot.</p>
+            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 dark-gray-section"></div>
+              <div class="col-md-8 slide-6-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-7" style="height: auto;">
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-6 buyer-section background-rules flex-div">
+                <a routerLink="/register" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
+              </div>
+              <div class="col-md-6 seller-section background-rules flex-div">
+                <a routerLink="/register" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
               </div>
             </div>
-              
           </div>
-      </div>
+          <app-footer></app-footer>
+    </div>
+  </div>
+  <button class="mobile-next-btn" (click)="next()">
+    <img src="../../assets/svg/download-down.svg" alt="">
+  </button>
 </div>

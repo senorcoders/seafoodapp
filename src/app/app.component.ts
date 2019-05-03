@@ -13,6 +13,7 @@ export class AppComponent{
   
   constructor(public _router: Router){
     this.router = _router.url;
+    console.log(_router);
     console.info('mode', environment.production);
     if (environment.production) {
       this._router.events.subscribe( event => {

@@ -3,7 +3,7 @@ import {ProductService} from'../services/product.service';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { CartService } from '../core/cart/cart.service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
 import {IsLoginService} from '../core/login/is-login.service';
@@ -40,6 +40,44 @@ export class HomeComponent implements OnInit {
   
   ngOnInit() {
 
+    //FIREFOX
+    jQuery('#carouselExampleIndicators').bind('DOMMouseScroll', function(e){
+      console.log("Doing", e);
+      e.stopImmediatePropagation();
+
+      if(e.originalEvent.detail > 0) {
+        //scroll down
+        console.log('Down');
+        jQuery(this).carousel('next');
+    }else {
+        //scroll up
+        console.log('Up');
+        jQuery(this).carousel('prev');
+
+    }
+
+    //prevent page fom scrolling
+    return false;
+     
+    });
+
+     //IE, Opera, Safari
+ jQuery('#carouselExampleIndicators').bind('mousewheel', function(e){
+   e.stopImmediatePropagation();
+  if(e.originalEvent.wheelDelta < 0) {
+      //scroll down
+      console.log('Down');
+      jQuery(this).carousel('next');
+  }else {
+      //scroll up
+      console.log('Up');
+      jQuery(this).carousel('prev');
+
+  }
+
+  //prevent page fom scrolling
+  return false;
+});
     console.log("Probando Home");
 
     this.getLoginStatus();
@@ -50,6 +88,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
+ 
   getLoginStatus(){
     let login = this.auth.getLoginData();
     console.log( 'login status', login );
@@ -195,5 +234,13 @@ export class HomeComponent implements OnInit {
   }
   register(page){
     this.router.navigate(['/register'],{ queryParams: { register: page } })
+  }
+
+  next(){
+    jQuery('#carouselExampleIndicators').carousel('next');
+  }
+  showMenu(){
+    jQuery('.plus-btn img').toggleClass('open');
+    jQuery('.mobile-full-menu').slideToggle('slow');
   }
 }
