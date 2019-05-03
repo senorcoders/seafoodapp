@@ -44,8 +44,8 @@
           <div class="col-lg-6">
             <div class="form-group">
               <label>{{'CreateProduct.name' | translate}} <span class="field-status red">*</span></label>
-              <input [disabled]="user['role'] != 0" type="text" class="form-control" required [(ngModel)]="name"
-                [ngModelOptions]="{standalone: true}">
+              <input [disabled]="user['role']!==0" type="text" class="form-control" required [(ngModel)]="name"
+                [ngModelOptions]="{standalone: true}"> 
             </div>
           </div>
           <div class="col-lg-6">

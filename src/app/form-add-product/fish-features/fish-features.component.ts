@@ -213,8 +213,11 @@ export class FishFeaturesComponent implements OnInit {
   }
 
   public assingWholeFish(re) {
-    this.wholeFishAction = re;
-    this.setValue({ wholeFishAction: this.wholeFishAction })
+    let disable = this.controls().wholeFishAction.disabled;
+    if (disable !== false) {
+      this.wholeFishAction = re;
+      this.setValue({ wholeFishAction: this.wholeFishAction });
+    }
   }
 
   private setValue(value) {

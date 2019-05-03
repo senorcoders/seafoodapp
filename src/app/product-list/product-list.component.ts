@@ -109,7 +109,10 @@ export class ProductListComponent implements OnInit {
 		this.product.saveData(`api/fish/search/1/100`, { search: search }).subscribe(
 			res => {
 				console.log(res);
-				this.products = res['fish']
+				this.products = res['fish'].map(it => {
+					it.id = it._id;
+					return it;
+				});
 				this.showLoading = false
 				this.showPagination = false
 				this.showData = true
