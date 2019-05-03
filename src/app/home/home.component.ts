@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkWithHref } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { CartService } from '../core/cart/cart.service';
 import { DomSanitizer} from '@angular/platform-browser';
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
 import {IsLoginService} from '../core/login/is-login.service';
+import { MenuItems } from '../core/menu/menu-items';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,14 +32,18 @@ export class HomeComponent implements OnInit {
   fishTypeMenuImages=[];
   fishTypeMenuImagesChild=[];
   isLoggedIn:boolean = false;
+  menu:any = [];
+  lang: any = "en";
+
+
   constructor(private isLoggedSr: IsLoginService, private product:ProductService, 
     private auth: AuthenticationService, private sanitizer:DomSanitizer, 
-    private cart:CartService,private router:Router) {
+    private cart:CartService,private router:Router, private menuItems: MenuItems) {
 
   }
 
   
-  ngOnInit() {
+  async ngOnInit() {
 
     //FIREFOX
     jQuery('#carouselExampleIndicators').bind('DOMMouseScroll', function(e){
@@ -47,11 +52,9 @@ export class HomeComponent implements OnInit {
 
       if(e.originalEvent.detail > 0) {
         //scroll down
-        console.log('Down');
         jQuery(this).carousel('next');
     }else {
         //scroll up
-        console.log('Up');
         jQuery(this).carousel('prev');
 
     }
@@ -66,11 +69,9 @@ export class HomeComponent implements OnInit {
    e.stopImmediatePropagation();
   if(e.originalEvent.wheelDelta < 0) {
       //scroll down
-      console.log('Down');
       jQuery(this).carousel('next');
   }else {
       //scroll up
-      console.log('Up');
       jQuery(this).carousel('prev');
 
   }
@@ -80,15 +81,29 @@ export class HomeComponent implements OnInit {
 });
     console.log("Probando Home");
 
-    this.getLoginStatus();
-   this.isLoggedSr.role.subscribe((role:number)=>{
-      this.role=role
-      if( this.role === -1 )
-        this.isLoggedIn = false;
-    })
+    await this.getLoginStatus();
+    if(this.auth.isLogged()){
+      this.isLoggedSr.setLogin(true, this.role)
+
+    }else{
+      this.isLoggedSr.setLogin(false, -1)
+
+    }
+   
   }
 
- 
+  getMenu(role){
+    console.log("Role", role);
+    if(role == 2){
+      this.menu = this.menuItems.getbuyerMenu();
+    }else if(role == 1){
+      this.menu = this.menuItems.getSellerMenu();
+    }else if(role == null){
+      this.menu = this.menuItems.getMenu();
+
+    }
+
+  }
   getLoginStatus(){
     let login = this.auth.getLoginData();
     console.log( 'login status', login );
@@ -96,6 +111,13 @@ export class HomeComponent implements OnInit {
      this.isLoggedIn = true;
    } else {
      this.isLoggedIn = false;
+   }
+   if(login != null){
+    console.log("Role or", login.role);
+    this.role = login.role;
+    this.getMenu(login.role);
+   }else{
+    this.getMenu(null);
    }
   }
   getFeaturedProducts(){ 

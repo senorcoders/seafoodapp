@@ -176,7 +176,7 @@ export class MenuNavComponent {
   async logOut() {
     await this.isLoggedSr.setLogin(false, -1);
     await this.auth.logOut();
-    this.router.navigate(["/home"]);
+    this.router.navigate(["/"]);
   }
   // openSearch(){
   //   if(this.show){
@@ -197,6 +197,8 @@ export class MenuNavComponent {
     //   }
     // )
   }
+
+ 
   search() {
     this.showSuggestion = false;
     //this.show=false;

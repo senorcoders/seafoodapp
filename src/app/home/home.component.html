@@ -5,21 +5,26 @@
             <div class="col-lg-4 text-left">
               <a routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
             </div>
-            <div class="col-lg-8 text-right">
-              <a class="nav-link" routerLink="/login" style="display: initial;">Login</a>
-              <a class="nav-link" routerLink="/register" style="display: initial;">Register</a>
+            <div class="col-lg-8 text-right" >
+              <a   *ngFor="let menuitem of menu" class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
+              <a *ngIf="role == 0 && isLoggedIn" routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
+              <a  *ngIf="isLoggedIn" routerLink="/account" class="nav-link" style="display: initial;">settings</a>
               <button class="plus-btn" (click)="showMenu()"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
             </div>
+          
           </div>
         </div>
   </div>
   <div class="mobile-full-menu" style="display: none;">
     <ul>
-      <li>
-          <a class="nav-link" routerLink="/login" style="display: initial;">Login</a>
+      <li *ngFor="let menuitem of menu">
+          <a class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
       </li>
-      <li>
-          <a class="nav-link" routerLink="/register" style="display: initial;">Register</a>
+      <li *ngIf="role == 0 && isLoggedIn">
+        <a  routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
+      </li>
+      <li *ngIf="isLoggedIn">
+        <a   routerLink="/account" class="nav-link" style="display: initial;">settings</a>
       </li>
     </ul>
   </div>
@@ -39,7 +44,7 @@
             <h4>WELCOME TO SEAFOOD SOUQ...</h4>
             <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
             <p>Buy directly from sellers from all over the world. We handle the complicated stuff <br> and ensure your order always arrives on time.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
       <div class="video-container">
           <video width="100%" height="auto" autoplay muted loop style="background:transparent no-repeat 0 0; background-size:cover;">
@@ -52,7 +57,7 @@
         <h4>WELCOME TO SEAFOOD SOUQ...</h4>
         <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
         <p>Buy directly from sellers from all over the world. We handle the complicated stuff <br> and ensure your order always arrives on time.</p>
-        <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+        <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
       </div>
     </div>
     <div class="carousel-item slide-2">
@@ -60,7 +65,7 @@
             <h4>FRESH SEAFOOD IS EXPENSIVE...</h4>
             <h1>SAVE MONEY BY BUYING DIRECT <br> FROM SOURCE.</h1>
             <p>Cut out warehousing costs by using our online <br> marketplace.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
       <div class="container-fluid padding-0">
         <div class="row">
@@ -74,7 +79,7 @@
             <h4>IT LACKS TRACEABILITY...</h4>
             <h1>GAIN THE ABILITY TO LEARN <br> EVERYTHING ABOUT YOUR FISH.</h1>
             <p>Get what you paid for with the knowledge of where your <br> fish is really coming from.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
             <div class="row">
@@ -88,7 +93,7 @@
             <h4>TYPICAL MARKETS LACK CHOICE...</h4>
             <h1>DISCOVER NEW PRODUCTS & ORIGINS <br> WITH AN OPEN MARKETPLACE.</h1>
             <p>Where all sellers and buyers can trade.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
             <div class="row">
@@ -102,7 +107,7 @@
             <h4>BUYING IS A DIFFICULT PROCESS...</h4>
             <h1>HAVE THE ABILITY TO ORDER <br> SEAFOOD FROM ANYWHERE.</h1>
             <p>Order all your products in one place through our online <br> catalogue of global producers.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
             <div class="row">
@@ -116,7 +121,7 @@
             <h4>DELIVERIES ARE UNREALIABLE...</h4>
             <h1>GET YOUR ORDER WHEN YOU <br> NEED IT, EVERY TIME.</h1>
             <p>Our last mile processes mean you always receive your <br> order within your chosen time slot.</p>
-            <button class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
             <div class="row">
@@ -129,10 +134,12 @@
         <div class="container-fluid padding-0">
             <div class="row">
               <div class="col-md-6 buyer-section background-rules flex-div">
-                <a routerLink="/register" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
               </div>
               <div class="col-md-6 seller-section background-rules flex-div">
-                <a routerLink="/register" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
               </div>
             </div>
           </div>
