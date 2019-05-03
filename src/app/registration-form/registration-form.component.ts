@@ -51,7 +51,7 @@ showConfirmation=true;
 							}, 100, function() { 
               console.log("listo");
               obj.removeClass('sliding');
-              jQuery('#dark-side-title').html('WANTO TO BUY?');
+              jQuery('#dark-side-title').html('WANT TO BUY?');
                jQuery('#dark-side-p').html('Want to get the best seafood for the lowest price? Register below!');
               jQuery('#dark-side-btn').html("I'm a buyer");
  							});
@@ -87,7 +87,7 @@ showConfirmation=true;
               }, 100, function() { 
               console.log("listo");
               obj.removeClass('sliding');
-              jQuery('#dark-side-title').html('WANTO TO sell?');
+              jQuery('#dark-side-title').html('WANT TO sell?');
               jQuery('#dark-side-p').html("Well, what are you waiting for? That fish isn't going to sell itself...");
               jQuery('#dark-side-btn').html("I'm a seller");
             });
