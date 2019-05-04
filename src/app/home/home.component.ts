@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from'../services/product.service';
-import { Router } from '@angular/router';
+import { Router, RouterLinkWithHref } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { CartService } from '../core/cart/cart.service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl,SafeStyle } from '@angular/platform-browser';
+import { DomSanitizer} from '@angular/platform-browser';
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
 import {IsLoginService} from '../core/login/is-login.service';
+import { MenuItems } from '../core/menu/menu-items';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -31,25 +32,78 @@ export class HomeComponent implements OnInit {
   fishTypeMenuImages=[];
   fishTypeMenuImagesChild=[];
   isLoggedIn:boolean = false;
+  menu:any = [];
+  lang: any = "en";
+
+
   constructor(private isLoggedSr: IsLoginService, private product:ProductService, 
     private auth: AuthenticationService, private sanitizer:DomSanitizer, 
-    private cart:CartService,private router:Router) {
+    private cart:CartService,private router:Router, private menuItems: MenuItems) {
 
   }
 
   
-  ngOnInit() {
+  async ngOnInit() {
 
-    console.log("Probando Home");
+    //FIREFOX
+    jQuery('#carouselExampleIndicators').bind('DOMMouseScroll', function(e){
+      console.log("Doing", e);
+      e.stopImmediatePropagation();
 
-    this.getLoginStatus();
-   this.isLoggedSr.role.subscribe((role:number)=>{
-      this.role=role
-      if( this.role === -1 )
-        this.isLoggedIn = false;
-    })
+      if(e.originalEvent.detail > 0) {
+        //scroll down
+        jQuery(this).carousel('next');
+    }else {
+        //scroll up
+        jQuery(this).carousel('prev');
+
+    }
+
+    //prevent page fom scrolling
+    return false;
+     
+    });
+
+     //IE, Opera, Safari
+ jQuery('#carouselExampleIndicators').bind('mousewheel', function(e){
+   e.stopImmediatePropagation();
+  if(e.originalEvent.wheelDelta < 0) {
+      //scroll down
+      jQuery(this).carousel('next');
+  }else {
+      //scroll up
+      jQuery(this).carousel('prev');
+
   }
 
+  //prevent page fom scrolling
+  return false;
+});
+    console.log("Probando Home");
+
+    await this.getLoginStatus();
+    if(this.auth.isLogged()){
+      this.isLoggedSr.setLogin(true, this.role)
+
+    }else{
+      this.isLoggedSr.setLogin(false, -1)
+
+    }
+   
+  }
+
+  getMenu(role){
+    console.log("Role", role);
+    if(role == 2){
+      this.menu = this.menuItems.getbuyerMenu();
+    }else if(role == 1){
+      this.menu = this.menuItems.getSellerMenu();
+    }else if(role == null){
+      this.menu = this.menuItems.getMenu();
+
+    }
+
+  }
   getLoginStatus(){
     let login = this.auth.getLoginData();
     console.log( 'login status', login );
@@ -57,6 +111,13 @@ export class HomeComponent implements OnInit {
      this.isLoggedIn = true;
    } else {
      this.isLoggedIn = false;
+   }
+   if(login != null){
+    console.log("Role or", login.role);
+    this.role = login.role;
+    this.getMenu(login.role);
+   }else{
+    this.getMenu(null);
    }
   }
   getFeaturedProducts(){ 
@@ -195,5 +256,13 @@ export class HomeComponent implements OnInit {
   }
   register(page){
     this.router.navigate(['/register'],{ queryParams: { register: page } })
+  }
+
+  next(){
+    jQuery('#carouselExampleIndicators').carousel('next');
+  }
+  showMenu(){
+    jQuery('.plus-btn img').toggleClass('open');
+    jQuery('.mobile-full-menu').slideToggle('slow');
   }
 }
