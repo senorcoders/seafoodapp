@@ -301,6 +301,7 @@
 		"last-name": "Last Name",
 		"email": "Email",
 		"password": "Password",
+		"rePassword": "Confirm Password",
 		"repeat": "Repeat Password",
 		"tel": "Phone Number",
 		"banking": "Full Banking Info",

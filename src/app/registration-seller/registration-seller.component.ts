@@ -208,7 +208,7 @@ btnText:any = 'REGISTER TO SELL';
 
   //Validate step 1 FORM
   submitStep1(){
-    console.log(this.sellerForm.value);
+    console.log('form',this.sellerForm.value);
     if(this.sellerForm.valid){
       (this.sellerForm.get('password').value != this.sellerForm.get('rePassword').value ) ? this.sellerForm.get('rePassword').setErrors( {MatchPassword: true} ) : this.register();
     }else{
@@ -228,11 +228,41 @@ btnText:any = 'REGISTER TO SELL';
  
     //Validate step 4 FORM
   register(){
-   
-      console.log("Valido");
+    console.log('email',this.sellerForm.get('email').value);
+    if( this.showEmailVerification ) {
+      
+      this.auth.getData(`api/user/email/${this.sellerForm.get('email').value}/`).subscribe(
+        result=>{
+          console.log("Email", result['message']);
+          //if return data it means that email is already used
+          if(result['message']==true){
+            this.showEmailVerification=true;
+            this.sellerForm.get('email').setErrors( {'incorrect': true} )
+            this.showError("This email is already taken");
+          }
+          else{
+            this.showEmailVerification=false
+            console.log("Validos");
+            this.isValid = true;
+            this.btnText = 'Loading...'
+            this.submitRegistrationSeller();
+          }
+        },e=>{
+          this.showEmailVerification=false
+          console.log("Validos");
+          this.isValid = true;
+          this.btnText = 'Loading...'
+          this.submitRegistrationSeller();
+        }
+      )
+
+    } else {
+      console.log("Validos");
       this.isValid = true;
       this.btnText = 'Loading...'
       this.submitRegistrationSeller();
+    }
+      
   }
 
   //Send User data to API
