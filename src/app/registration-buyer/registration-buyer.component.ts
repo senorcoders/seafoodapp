@@ -204,7 +204,36 @@ btnText:any = 'register to buy';
 
   //Send Data to API
   submitRegistrationBuyer(){
-    let dataExtra={
+
+      this.auth.getData(`api/user/email/${this.buyerForm.get('email').value}/`).subscribe(
+        result=>{
+          //if return data it means that email is already used
+          if(result['message']==true){
+            this.showEmailVerification=true;
+            this.buyerForm.get('email').setErrors( {'incorrect': true} )
+            this.showError( 'This email is already taken' );
+            this.isValid = false;
+            this.btnText = 'register to buy'
+          }
+          else{
+            this.showEmailVerification=false
+            this.regiterBuyer()
+          }
+        },e=>{
+          this.showEmailVerification=false
+          this.regiterBuyer();
+        }
+      )
+
+      
+       
+  
+    
+  
+}
+
+regiterBuyer() {
+  let dataExtra={
     "country": this.buyerForm.get('location').value,
     "tel": this.buyerForm.get('tel').value,
     "Address":this.buyerForm.get('Address').value,
@@ -213,24 +242,24 @@ btnText:any = 'register to buy';
     "typeBusiness":this.buyerForm.get('TypeBusiness').value,
     "vat": this.buyerForm.get('vat').value
     }
-    this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
-      result=>{
-        console.log("Resgistro", result);
-        this.email=this.buyerForm.get('email').value;
-        this.showConfirmation=false;
-        this.router.navigate(['/register-verification']);
+    
+  this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
+    result=>{
+      console.log("Resgistro", result);
+      this.email=this.buyerForm.get('email').value;
+      this.showConfirmation=false;
+      this.router.navigate(['/register-verification']);
 
-        this.isValid = false;
-        this.btnText = 'register to buy'
-      },
-      error=>{
-        console.log(error);
-        this.showError(error.error);
-        this.isValid = false;
-        this.btnText = 'register to buy'
-      }
-    )
-  
+      this.isValid = false;
+      this.btnText = 'register to buy'
+    },
+    error=>{
+      console.log(error);
+      this.showError(error.error);
+      this.isValid = false;
+      this.btnText = 'register to buy'
+    }
+  )
 }
 
 
