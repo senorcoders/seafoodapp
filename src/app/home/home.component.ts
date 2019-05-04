@@ -45,19 +45,32 @@ export class HomeComponent implements OnInit {
   
   async ngOnInit() {
 
+	var canScroll = 1;
+	function pauseScroll(){
+		console.log("GOT HERE");
+		console.log("CUrrent Scroll: ", canScroll);
+		canScroll = 1;
+	}
+
     //FIREFOX
     jQuery('#carouselExampleIndicators').bind('DOMMouseScroll', function(e){
-      console.log("Doing", e);
       e.stopImmediatePropagation();
 
+console.log("CanScroll: ", canScroll);
+	if (canScroll == 1) {
+	canScroll = 0;
+      console.log("Doing", e);
       if(e.originalEvent.detail > 0) {
         //scroll down
         jQuery(this).carousel('next');
+	setTimeout(pauseScroll, 1300);
     }else {
         //scroll up
         jQuery(this).carousel('prev');
+	setTimeout(pauseScroll, 1300);
 
     }
+	}
 
     //prevent page fom scrolling
     return false;
@@ -66,11 +79,12 @@ export class HomeComponent implements OnInit {
 
      //IE, Opera, Safari
  jQuery('#carouselExampleIndicators').bind('mousewheel', function(e){
+	console.log("Wheel Data: ", e.originalEvent.wheelDelta);
    e.stopImmediatePropagation();
-  if(e.originalEvent.wheelDelta < 0) {
+  if(e.originalEvent.wheelDelta < -25) {
       //scroll down
       jQuery(this).carousel('next');
-  }else {
+  }else if (e.originalEvent.wheelDelta > 25){
       //scroll up
       jQuery(this).carousel('prev');
 
