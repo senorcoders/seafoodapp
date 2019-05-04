@@ -68,7 +68,7 @@
 									<td>{{getTotal(item)}}</td>
 									<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
-									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
 									<td *ngIf="item.items.length == 1" class="flex-td">
 
@@ -121,7 +121,7 @@
 													<td>{{getTotalItem(sub, item)}}</td>
 													<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
-													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.seller_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
 
@@ -200,7 +200,7 @@
 									<td>{{getTotal(shipped)}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
-									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1" class="flex-td">
 
@@ -258,7 +258,7 @@
 													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
-													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.seller_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
 														<div class="icon-flex-box half-box"
@@ -337,7 +337,7 @@
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
-									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1"> </td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
@@ -364,7 +364,7 @@
 													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
-													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.seller_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td></td>
 												</tr>
@@ -406,7 +406,7 @@
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
-									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seafood_sku}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1"> </td>
 									<td *ngIf="shipped.items.length > 1">N/A</td>
@@ -433,7 +433,7 @@
 													<td>{{getTotalItem(sub, shipped)}}</td>
 													<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 													<td>{{sub?.quantity?.value}} kg </td>
-													<td>{{sub?.fish?.seafood_sku}}</td>
+													<td>{{sub?.fish?.seller_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td></td>
 												</tr>
