@@ -642,13 +642,20 @@ export class RecentPurchasesComponent implements OnInit {
     jQuery('#shippingDocs input[type=file]').val('');
   }
   //Get file on input change and change the name before upload it
-
+  removeAllButLast(string, token) {
+    /* Requires STRING not contain TOKEN */
+    var parts = string.split(token);
+    return parts.slice(0,-1).join('') + token + parts.slice(-1)
+}
   handleFileInput(event, name) {
 
 
     if (event.target.files.length > 0) { 
       let file = event.target.files;
-      let ext = file[0].name.split(".");
+      let tmpNameFile = this.removeAllButLast(file[0].name, "."); 
+      console.log("File", tmpNameFile);
+
+      let ext = tmpNameFile.split(".");
       console.log(ext);
       console.log("Nombre", name + '.' + ext[1]);
 
