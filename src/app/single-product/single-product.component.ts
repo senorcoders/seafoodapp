@@ -405,7 +405,7 @@ export class SingleProductComponent implements OnInit {
       'shippingStatus': 'pending',
       'variation_id': this.currentVaritionID
     };
-    this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
+    this.productService.saveData(this.cartEndpoint + this.cart['id'] , item).subscribe(result => {
       this.showCart = true;
       // set the new value to cart
       // this.cartService.setCart(result);
