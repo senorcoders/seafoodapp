@@ -7,7 +7,6 @@ import { DomSanitizer} from '@angular/platform-browser';
 declare var jQuery:any;
 import { environment } from '../../environments/environment';
 import {IsLoginService} from '../core/login/is-login.service';
-import { MenuItems } from '../core/menu/menu-items';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -38,13 +37,13 @@ export class HomeComponent implements OnInit {
 
   constructor(private isLoggedSr: IsLoginService, private product:ProductService, 
     private auth: AuthenticationService, private sanitizer:DomSanitizer, 
-    private cart:CartService,private router:Router, private menuItems: MenuItems) {
+    private cart:CartService,private router:Router) {
 
   }
 
   
   async ngOnInit() {
-
+  jQuery('body').addClass('home-header');
 	var canScroll = 1;
 	function pauseScroll(){
 		console.log("GOT HERE");
@@ -95,29 +94,19 @@ console.log("CanScroll: ", canScroll);
 });
     console.log("Probando Home");
 
-    await this.getLoginStatus();
-    if(this.auth.isLogged()){
-      this.isLoggedSr.setLogin(true, this.role)
-
-    }else{
-      this.isLoggedSr.setLogin(false, -1)
-
-    }
+   this.getLoginStatus();
+   this.isLoggedSr.role.subscribe((role:number)=>{
+    this.role=role
+    if( this.role === -1 )
+      this.isLoggedIn = false;
+  })
    
   }
 
-  getMenu(role){
-    console.log("Role", role);
-    if(role == 2){
-      this.menu = this.menuItems.getbuyerMenu();
-    }else if(role == 1){
-      this.menu = this.menuItems.getSellerMenu();
-    }else if(role == null){
-      this.menu = this.menuItems.getMenu();
-
-    }
-
+  public ngOnDestroy() {
+    jQuery('body').removeClass('home-header');
   }
+ 
   getLoginStatus(){
     let login = this.auth.getLoginData();
     console.log( 'login status', login );
@@ -125,13 +114,6 @@ console.log("CanScroll: ", canScroll);
      this.isLoggedIn = true;
    } else {
      this.isLoggedIn = false;
-   }
-   if(login != null){
-    console.log("Role or", login.role);
-    this.role = login.role;
-    this.getMenu(login.role);
-   }else{
-    this.getMenu(null);
    }
   }
   getFeaturedProducts(){ 
@@ -275,8 +257,5 @@ console.log("CanScroll: ", canScroll);
   next(){
     jQuery('#carouselExampleIndicators').carousel('next');
   }
-  showMenu(){
-    jQuery('.plus-btn img').toggleClass('open');
-    jQuery('.mobile-full-menu').slideToggle('slow');
-  }
+  
 }

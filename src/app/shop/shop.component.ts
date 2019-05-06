@@ -59,7 +59,7 @@ export class ShopComponent implements OnInit {
     ceil: 35,
     step: 5,
     translate: (value: number): string => {
-      return '$' + value;
+      return 'AED ' + value;
     }
   };
   shoppingCartId: any;

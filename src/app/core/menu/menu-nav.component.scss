@@ -43,7 +43,7 @@
 		margin: 0 auto;
 	}
 	a:hover{
-			color:#3E4E75 !important;
+			color:#3E4E75;
     	}
 	.access{
 		text-align: right;
@@ -229,7 +229,7 @@ form{
     padding-right: 1rem !important;
 }
 .img-logo{
-	img{
+	svg{
 	    max-width: 100%;
 	    width: 52px;
 	    height: auto;
@@ -432,3 +432,81 @@ form{
 	}
 	
 }
+
+.plus-btn{
+	display: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+	transition: all .4s ease-in-out;
+	img{
+	  vertical-align: baseline;
+	  
+	}
+	&.navbar-toggler:not(.collapsed){
+		img{
+			transform: rotate(45deg);
+			filter: brightness(0) invert(1); 
+
+		}
+	  }
+	   @media screen and (max-width: 1200px) {
+	  display: initial;
+   }
+  }
+
+  @media screen and (max-width: 1200px){
+	  .headshot-logo{
+		filter: brightness(0) invert(1);  
+	  }
+	  .address{
+		  z-index: 1001;
+		  border: none !important;
+	  }
+	  nav{
+		z-index: 100;
+		.plus-btn{
+			z-index: 10000001;
+		}
+	  }
+	.mobile-full-menu{
+		display: none !important;
+		position: fixed !important;
+		width: 100% !important;
+		height: 100% !important;
+		background: rgba(116,132,170, 0.9) !important;
+		z-index: 100000 !important;
+		justify-content: center !important;
+		align-items: center !important;
+		top: 0 !important;
+		ul{
+		  margin: 0;
+		  padding: 0;
+		  list-style: none;
+		  width: 100%;
+		  text-align: center;
+		  height: 100%;
+		  display: flex !important;
+		  justify-content: space-around;
+		  align-items: center;
+		  flex-wrap: wrap;
+		  li{
+			width: 100%;
+			display: flex !important;
+			align-items: center;
+			justify-content: center;
+			a.nav-link{
+			  display: initial;
+			  color: #F7F8F9 !important;
+			  padding: 0 !important;
+			  margin: 0;
+			  text-transform: uppercase !important;
+			}
+		  }
+		 
+		}
+		&.show{
+			display: flex !important;
+		}
+	  }
+  }

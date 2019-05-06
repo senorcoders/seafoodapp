@@ -1,33 +1,8 @@
 <div id="carouselExampleIndicators" class="carousel slide vertical" data-ride="carousel" data-interval="5000">
   <div class="carousel-nav-sfs">
-      <div class="container-fluid">
-          <div class="row login-nav-logo" >
-            <div class="col-lg-4 text-left">
-              <a routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
-            </div>
-            <div class="col-lg-8 text-right" >
-              <a   *ngFor="let menuitem of menu" class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
-              <a *ngIf="role == 0 && isLoggedIn" routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
-              <a  *ngIf="isLoggedIn" routerLink="/account" class="nav-link" style="display: initial;">settings</a>
-              <button class="plus-btn" (click)="showMenu()"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
-            </div>
-          
-          </div>
-        </div>
+      <app-menu-nav ></app-menu-nav>
   </div>
-  <div class="mobile-full-menu" style="display: none;">
-    <ul>
-      <li *ngFor="let menuitem of menu">
-          <a class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
-      </li>
-      <li *ngIf="role == 0 && isLoggedIn">
-        <a  routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
-      </li>
-      <li *ngIf="isLoggedIn">
-        <a   routerLink="/account" class="nav-link" style="display: initial;">settings</a>
-      </li>
-    </ul>
-  </div>
+
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -36,14 +11,13 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
   </ol>
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active slide-video" poster="../../assets/slides/slide1.jpg">
         <div class="slide-custom-caption">
             <h4>WELCOME TO SEAFOOD SOUQ...</h4>
             <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
-            <p>Buy directly from sellers from all over the world. We handle the complicated stuff <br> and ensure your order always arrives on time.</p>
+            <p>Connecting buyers and sellers direct</p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
       <div class="video-container">
@@ -53,22 +27,11 @@
       </video>
       </div>
     </div>
-<!--
-DUPLICATED CONTENT
-    <div class="carousel-item slide-1">
-      <div class="slide-custom-caption">
-        <h4>WELCOME TO SEAFOOD SOUQ...</h4>
-        <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
-        <p>Buy directly from sellers from all over the world. We handle the complicated stuff <br> and ensure your order always arrives on time.</p>
-        <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
-      </div>
-    </div>
--->
     <div class="carousel-item slide-2">
         <div class="slide-custom-caption">
-            <h4>FRESH SEAFOOD IS EXPENSIVE...</h4>
-            <h1>SAVE MONEY BY BUYING DIRECT <br> FROM SOURCE.</h1>
-            <p>Cut out warehousing costs by using our online <br> marketplace.</p>
+            <h4>Get better prices</h4>
+            <h1>Cut costs by buying direct <br> from source through <br> our online marketplace</h1>
+            <p>with a transparent cost breakdown </p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
       <div class="container-fluid padding-0">
@@ -80,9 +43,9 @@ DUPLICATED CONTENT
     </div>
     <div class="carousel-item slide-3">
         <div class="slide-custom-caption">
-            <h4>IT LACKS TRACEABILITY...</h4>
-            <h1>GAIN THE ABILITY TO LEARN <br> EVERYTHING ABOUT YOUR FISH.</h1>
-            <p>Get what you paid for with the knowledge of where your <br> fish is really coming from.</p>
+            <h4>Streamline your ordering</h4>
+            <h1>Order all your Seafood <br> products in one place</h1>
+            <p>make your procurement process easier </p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
@@ -94,9 +57,9 @@ DUPLICATED CONTENT
     </div>
     <div class="carousel-item slide-4">
         <div class="slide-custom-caption">
-            <h4>TYPICAL MARKETS LACK CHOICE...</h4>
-            <h1>DISCOVER NEW PRODUCTS & ORIGINS <br> WITH AN OPEN MARKETPLACE.</h1>
-            <p>Where all sellers and buyers can trade.</p>
+            <h4>Rely on our last mile</h4>
+            <h1>Always receive your order <br> when you need it</h1>
+            <p>we work with Emirates SkyCargo to create a more  <br>  efficient supply chain </p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
@@ -108,9 +71,9 @@ DUPLICATED CONTENT
     </div>
     <div class="carousel-item slide-5">
         <div class="slide-custom-caption">
-            <h4>BUYING IS A DIFFICULT PROCESS...</h4>
-            <h1>HAVE THE ABILITY TO ORDER <br> SEAFOOD FROM ANYWHERE.</h1>
-            <p>Order all your products in one place through our online <br> catalogue of global producers.</p>
+            <h4>Discover more choices</h4>
+            <h1>Find new products and origins <br> through an open marketplace</h1>
+            <p>we don’t do exclusivity, all buyers and sellers can trade</p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
@@ -122,9 +85,9 @@ DUPLICATED CONTENT
     </div>
     <div class="carousel-item slide-6">
         <div class="slide-custom-caption">
-            <h4>DELIVERIES ARE UNREALIABLE...</h4>
-            <h1>GET YOUR ORDER WHEN YOU <br> NEED IT, EVERY TIME.</h1>
-            <p>Our last mile processes mean you always receive your <br> order within your chosen time slot.</p>
+            <h4>Trace your order from Sea to B</h4>
+            <h1>Get what you paid for <br> with the knowledge of where your <br> fish is really coming from</h1>
+            <p>1 in every 5 samples of seafood tested worldwide <br> in 2018 were mislabelled</p>
             <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
         <div class="container-fluid padding-0">
@@ -138,12 +101,12 @@ DUPLICATED CONTENT
         <div class="container-fluid padding-0">
             <div class="row">
               <div class="col-md-6 buyer-section background-rules flex-div">
-                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
-                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">I'm a buyer <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">Buy now<img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">Buy now <img src="../../assets/svg/download.svg" alt=""></a>
               </div>
               <div class="col-md-6 seller-section background-rules flex-div">
-                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
-                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">I'm a seller <img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="!isLoggedIn" routerLink="/register" class="effect-1">Sell now<img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">Sell now<img src="../../assets/svg/download.svg" alt=""></a>
               </div>
             </div>
           </div>
