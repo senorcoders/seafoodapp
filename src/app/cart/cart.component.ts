@@ -163,6 +163,7 @@ export class CartComponent implements OnInit {
                   this.moveBubble(data.fish.id);
   
               }, 100);
+              });
               this.lastMilteCost = cart['lastMileCost'];
               this.firstMileCost = cart['firstMileCosts'];
               this.sfsMargin = cart['sfsMargin'];
@@ -177,7 +178,7 @@ export class CartComponent implements OnInit {
              
               
             }
-          } 
+          }
          
         },
         error=> {
