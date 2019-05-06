@@ -32,6 +32,14 @@
         top: 0;
       }
     }
+    &.slide-video{
+      @media screen and (max-width: 1200px){
+        background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
+        video{
+          display: none;
+        }
+      }
+    }
     &.slide-1{
       background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
     }
