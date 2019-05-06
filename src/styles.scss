@@ -1481,5 +1481,12 @@ button:focus {
       filter: none;
     }
   }
+
+  .plus-btn{
+    img{
+      filter: brightness(0) invert(1); 
+    }
+  }
+
   }
 }

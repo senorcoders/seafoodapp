@@ -64,10 +64,13 @@
       </div>
       
       <nav class="navbar navbar-expand-xl navbar-dark ml-auto" >
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        </button> -->
+        <button class="plus-btn navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
+
+        <div class="collapse navbar-collapse mobile-full-menu" id="navbarSupportedContent">
           <!-- star menu buyer -->
           <ul class="navbar-nav ml-auto menuitem-buyer access-buyer icon-menu" *ngIf="isLogged && role==2">
 
