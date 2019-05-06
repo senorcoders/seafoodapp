@@ -281,9 +281,8 @@ export class MenuNavComponent {
       if (result[0].hasOwnProperty('logo') && result[0]['logo'] != '') {
         this.logo = this.base + result[0].logo;
       } else {
-        this.logo = '../../../assets/logo-placeholder.jpg'
+        this.logo = '../../../assets/svg/account-circle.svg'
       }
-
     }, error => {
       console.error(error);
     })

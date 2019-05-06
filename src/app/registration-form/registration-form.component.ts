@@ -51,9 +51,9 @@ showConfirmation=true;
 							}, 100, function() { 
               console.log("listo");
               obj.removeClass('sliding');
-              jQuery('#dark-side-title').html('WANT TO BUY?');
-               jQuery('#dark-side-p').html('Want to get the best seafood for the lowest price? Register below!');
-              jQuery('#dark-side-btn').html("I'm a buyer");
+              jQuery('#dark-side-title').html('I WANT TO BUY');
+               jQuery('#dark-side-p').html('Register today to start browsing our online catalogue of global sellers');
+              jQuery('#dark-side-btn').html("Buy now");
  							});
 						});
 					});

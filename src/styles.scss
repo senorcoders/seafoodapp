@@ -1477,6 +1477,9 @@ button:focus {
   }
   .headshot-logo{
     filter: brightness(0) invert(1);
+    &.original-logo{
+      filter: none;
+    }
   }
   }
 }
