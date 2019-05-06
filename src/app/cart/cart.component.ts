@@ -148,13 +148,21 @@ export class CartComponent implements OnInit {
 
   //FUNCTION TO GET ONLY THE TOTALS WHEN CHANGING QTY OF A PRODUCT
   getTotalPricing(){
+      //this.showLoading=true;
       this.cartService.getCart( this.buyerId )
-      .subscribe(
-  
+      .subscribe(        
         cart=> {
+          this.showLoading = false;
           if(cart && cart.hasOwnProperty('items')){
             if(cart['items'].length > 0){
-             
+              this.products=cart['items'];
+              this.products.forEach((data, index) => {
+                setTimeout(() => {
+                  console.log( jQuery('#range-' + data.fish.id), data.quantity.value);
+                  jQuery('#range-' + data.fish.id).val(data.quantity.value);
+                  this.moveBubble(data.fish.id);
+  
+              }, 100);
               this.lastMilteCost = cart['lastMileCost'];
               this.firstMileCost = cart['firstMileCosts'];
               this.sfsMargin = cart['sfsMargin'];
@@ -173,6 +181,7 @@ export class CartComponent implements OnInit {
          
         },
         error=> {
+          //this.showLoading = false;
           console.log( error );
         }
       )
