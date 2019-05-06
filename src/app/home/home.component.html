@@ -1,19 +1,6 @@
 <div id="carouselExampleIndicators" class="carousel slide vertical" data-ride="carousel" data-interval="5000">
   <div class="carousel-nav-sfs">
-      <div class="container-fluid">
-          <div class="row login-nav-logo" >
-            <div class="col-lg-4 text-left">
-              <a routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
-            </div>
-            <div class="col-lg-8 text-right" >
-              <a   *ngFor="let menuitem of menu" class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
-              <a *ngIf="role == 0 && isLoggedIn" routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
-              <a  *ngIf="isLoggedIn" routerLink="/account" class="nav-link" style="display: initial;">settings</a>
-              <button class="plus-btn" (click)="showMenu()"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
-            </div>
-          
-          </div>
-        </div>
+      <app-menu-nav ></app-menu-nav>
   </div>
   <div class="mobile-full-menu" style="display: none;">
     <ul>
@@ -36,7 +23,6 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
-    <li data-target="#carouselExampleIndicators" data-slide-to="7"></li>
   </ol>
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active slide-video" poster="../../assets/slides/slide1.jpg">

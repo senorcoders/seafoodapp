@@ -43,7 +43,7 @@
 		margin: 0 auto;
 	}
 	a:hover{
-			color:#3E4E75 !important;
+			color:#3E4E75;
     	}
 	.access{
 		text-align: right;
@@ -229,7 +229,7 @@ form{
     padding-right: 1rem !important;
 }
 .img-logo{
-	img{
+	svg{
 	    max-width: 100%;
 	    width: 52px;
 	    height: auto;

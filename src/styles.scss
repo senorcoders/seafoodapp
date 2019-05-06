@@ -1446,3 +1446,37 @@ button:focus {
     color: #3E4E75;
     line-height: 33px;
 }
+
+.carousel-nav-sfs{
+  .top-nav{
+    background: transparent !important;
+    border: none !important;
+    .address{
+      border: none !important;
+    }
+    a:hover{
+      color: #F7F8F9 !important;
+
+    }
+    a.nav-link{
+      color: #F7F8F9 !important;
+      &:hover{
+        color: #F7F8F9 !important;
+            }
+    }
+    .img-logo svg{
+      max-width: 100% !important;
+      width: 71px !important; 
+      height: 50px !important;
+      .st0{fill:#F7F8F9;}
+	    .st1{fill:#7484AA;}
+      @media screen and (max-width: 992px) {
+        width: 42px !important;
+        height: 30px !important;
+      }
+  }
+  .headshot-logo{
+    filter: brightness(0) invert(1);
+  }
+  }
+}
