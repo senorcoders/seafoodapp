@@ -87,6 +87,8 @@ export class CheckoutComponent implements OnInit {
       this.formMethod = 'GET';
     }
 
+    console.log(this.formAction, this.formMethod);
+
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
       this.error = params['creditIssue'];
