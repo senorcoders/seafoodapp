@@ -52,7 +52,7 @@ p.order-number {
         font-weight: 300;
         font-size: 21px;
         padding: 15px 30px;
-        letter-spacing: 1.75px;
+        letter-spacing: 0.75px;
         line-height: 34px;
         span{
             display: none;
@@ -65,7 +65,7 @@ p.order-number {
         font-weight: 300;
         font-size: 21px;
         padding: 15px 30px;
-        letter-spacing: 1.75px;
+        letter-spacing: 0.75px;
         border: none;
         border-bottom: 2px solid transparent;
         line-height: 34px;
@@ -80,7 +80,7 @@ p.order-number {
         padding: 35px 15px;
         border-top: none;
         font-weight: 300;
-        letter-spacing: 1.5px;
+        letter-spacing: 0.5px;
         font-size: 18px;
         line-height: 21px;
     
@@ -104,7 +104,7 @@ p.order-number {
     color: #397367;
     font-size: 12px;
     font-weight: 600;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.5px;
     line-height: 19px;
     position: absolute;
     left: 10px;
@@ -173,7 +173,7 @@ p.order-number {
                 font-weight: 300;
                 padding: 20px;
                 font-size: 38px;
-                letter-spacing: 1.15px;
+                letter-spacing: 0.15px;
                 line-height: 45px;
             }
         }
@@ -194,7 +194,7 @@ p.order-number {
                 font-weight: 300;
                 margin-right: 10px !important;
                 font-size: 18px !important;
-                letter-spacing: 1.5px;
+                letter-spacing: 0.5px;
                 line-height: 25px;
                 height: 60px !important;
             }
@@ -229,7 +229,7 @@ p.order-number {
                 font-weight: 300;
                 font-size: 21px;
                 line-height: 34px;
-                letter-spacing: 2px;
+                letter-spacing: 1px;
             }
             img{
                 width: 32px;
@@ -248,7 +248,7 @@ p.order-number {
             font-weight: 300;
             margin-right: 10px !important;
             font-size: 18px !important;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.5px;
             line-height: 25px;
             height: 60px !important;
         }
@@ -284,9 +284,8 @@ p.order-number {
                 font-weight: 300;
                 text-transform: uppercase;
                 letter-spacing: initial;
-                letter-spacing: initial;
                 font-size: 18px;
-                letter-spacing: 1.75px;
+                letter-spacing: 0.75px;
                 line-height: 25px;
                 small{
                     font-weight: 300;
@@ -344,7 +343,7 @@ p.order-number {
                 font-weight: 300;
                 font-size: 21px;
                 line-height: 34px;
-                letter-spacing: 2px;
+                letter-spacing: 1px;
             }
             img{
                 width: 32px;
@@ -468,7 +467,7 @@ background-position: center;
             font-family: 'Open Sans', sans-serif;
             font-size: 12px;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
+            letter-spacing: 0.5px;
             line-height: 17px;
            
             &.red-text-btn{
