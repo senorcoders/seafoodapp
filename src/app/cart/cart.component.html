@@ -61,7 +61,7 @@
                     </li>
                     <li class="list-inline-item info-item">
                       <img src="../../assets/svg/knife-military.svg" alt="" width="18px" height="18px">
-                      {{findPreparationName(product?.fishCharges?.variation?.variation?.fishPreparation)}}
+                      {{product?.fishPreparation[0]?.name}}
                       </li>
                     <li class="list-inline-item info-item" *ngIf="product.minDeliveryDate != ''">
                         Lead Time: {{product?.adminNumberOfDaysForDelivery}} Days
