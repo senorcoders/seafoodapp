@@ -272,7 +272,8 @@ export class FishFeaturesComponent implements OnInit {
   }
 
   public isDefault(part, trim) {
-    let data;
+    let data; 
+    // console.log("isDefault", part, trim, this.trimmingsModal);
     this.trimmingsModal.forEach(res => {
       if (res.type.length > 0) {
         if (trim == res.type[0].name) {
@@ -294,7 +295,7 @@ export class FishFeaturesComponent implements OnInit {
       if (res.type.length > 0) {
 
         if (trim == res.type[0].name) {
-          if (res.type[0].defaultProccessingParts && res.type[0].defaultProccessingParts.includes(part) || res.processingParts.name == part) {
+          if (res.type[0].defaultProccessingParts && res.type[0].defaultProccessingParts.includes(part) || (res.processingParts && res.processingParts.name == part) ) {
             data = true
           }
         }
