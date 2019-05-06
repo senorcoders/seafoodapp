@@ -180,7 +180,7 @@
 }
   .slide-custom-caption{
     position: absolute;
-    top: 38%;
+    top: 41%;
     left: 100px;
     z-index: 9999;
     h4{
@@ -313,21 +313,21 @@
 
 }
 
-.carousel-item-next.carousel-item-left,
-    .carousel-item-prev.carousel-item-right {
-    -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-     }
-     .carousel-item-prev,
-     .active.carousel-item-left {
-       -webkit-transform: translate3d(0, -100%, 0);
-            transform: translate3d(0, -100%, 0);
-     }
-     .carousel-item-next,
-     .active.carousel-item-right{
-     -webkit-transform: translate3d(0, +100%, 0);
-            transform: translate3d(0, +100, 0);
-     }
+// .carousel-item-next.carousel-item-left,
+//     .carousel-item-prev.carousel-item-right {
+//     -webkit-transform: translate3d(0, 0, 0);
+//             transform: translate3d(0, 0, 0);
+//      }
+//      .carousel-item-prev,
+//      .active.carousel-item-left {
+//        -webkit-transform: translate3d(0, -100%, 0);
+//             transform: translate3d(0, -100%, 0);
+//      }
+//      .carousel-item-next,
+//      .active.carousel-item-right{
+//      -webkit-transform: translate3d(0, +100%, 0);
+//             transform: translate3d(0, +100, 0);
+//      }
 
 .mobile-full-menu.collapse.show{
   position: fixed;
