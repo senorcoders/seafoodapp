@@ -67,7 +67,8 @@ export class CheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private orders: OrderService,
     private _location: Location,
-    dateAdapter: DateTimeAdapter<any>) {  
+    dateAdapter: DateTimeAdapter<any>)
+    {  
     this.min.setDate( this.today.getDate() + 3 );
     this.max.setDate( this.today.getDate() + 120 );
 
@@ -209,6 +210,7 @@ export class CheckoutComponent implements OnInit {
                 this.all_medd_ok = true;
               } else {
                 this.all_medd_ok = false;
+                
               }
             }
           }, error => {

@@ -270,7 +270,6 @@ export class CartComponent implements OnInit {
   //FIND NAME OF PREPARATION
 
   findPreparationName(id){
-    console.log("Prep ID", id);
     for (var i = 0; i < this.preparataion.length; i++) {
       if (this.preparataion[i]['id'] === id) {
           return this.preparataion[i].name;

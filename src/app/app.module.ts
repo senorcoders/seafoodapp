@@ -163,7 +163,7 @@ const appRoutes: Routes = [
   {
     path: 'cart',
     loadChildren: 'app/cart/cart.module#CartModule',
-    canActivate: [RouterProtectionService]
+    canActivate: []
   },
   {
     path: 'verification/:userid/:code',

@@ -2,19 +2,7 @@
   <div class="carousel-nav-sfs">
       <app-menu-nav ></app-menu-nav>
   </div>
-  <div class="mobile-full-menu" style="display: none;">
-    <ul>
-      <li *ngFor="let menuitem of menu">
-          <a class="nav-link" routerLink="{{menuitem.state}}" style="display: initial;">{{ menuitem.translate[lang].name}}</a>
-      </li>
-      <li *ngIf="role == 0 && isLoggedIn">
-        <a  routerLink="manage-orders"  class="nav-link" style="display: initial;" >Manage orders</a>
-      </li>
-      <li *ngIf="isLoggedIn">
-        <a   routerLink="/account" class="nav-link" style="display: initial;">settings</a>
-      </li>
-    </ul>
-  </div>
+
   <ol class="carousel-indicators">
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
