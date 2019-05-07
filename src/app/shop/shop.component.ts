@@ -133,9 +133,10 @@ export class ShopComponent implements OnInit {
         let item = array.filter(obj => {
           return obj.id == jQuery(this).val();
         })
-        value[i] = item[0]['name'] + " ";
+        value[i] = item[0]['name'];
       });
-      jQuery('#' + id + ' button span').html(value);
+      let string = value.join(", ");
+      jQuery('#' + id + ' button span').html(string);
       jQuery('#' + id).css('display', 'inline-block');
     }
     else {
