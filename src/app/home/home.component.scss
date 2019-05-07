@@ -99,6 +99,9 @@
           background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url('../../assets/slides/buyer-slide.jpg');
           height: 70vh;
           background-position: center top !important;
+          @media screen and(max-width: 1200px) {
+            height: 100vh;
+          }
 
 
         }
@@ -106,7 +109,9 @@
           background:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),  url('../../assets/slides/seller-slide.jpg');
           height: 70vh;
           background-position: center top !important;
-
+          @media screen and(max-width: 1200px) {
+            height: 100vh;
+          }
 
         }
       }

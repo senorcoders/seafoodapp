@@ -396,6 +396,12 @@ form{
 			background-repeat: no-repeat;
 			display: inline-block;
 			margin-left: 5px;
+			@media screen and (max-width: 1200px) {
+				margin-left: 0;
+				filter: brightness(0) invert(1); 
+
+
+			}
 		}
 		.dropdown-menu{
 			border: none;
@@ -427,6 +433,7 @@ form{
 		a{
 			.arrow-toggle{			
 				transform: rotate(180deg);
+				
 			}
 		}
 	}
