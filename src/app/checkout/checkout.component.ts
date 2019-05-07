@@ -21,8 +21,8 @@ declare var jQuery:any;
 })
 export class CheckoutComponent implements OnInit {
   shoppingCartId: any;
-  accessToken: any = 'Ddx5kJoJWr11sF6Hr6E4';
-  merchantID: any = 'aZCWXhqJ';
+  accessToken: any = 'chArgcTLiDtoP5wO1hFh';//'Ddx5kJoJWr11sF6Hr6E4';
+  merchantID: any = 'xqNrOYgH';//'aZCWXhqJ';
   apiPass: any = 'bafgiwugfiwgfyyf';
   signatureCode: any;
   access_code: FormControl;
@@ -35,7 +35,7 @@ export class CheckoutComponent implements OnInit {
   service_command: FormControl;
   signature: FormControl;
   checkoutForm: FormGroup;
-  payForAPI: any = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+  payForAPI: any = 'https://checkout.PayFort.com/FortAPI/paymentPage';
   randomID: any;
   products: any = [];
   total: any;
@@ -80,7 +80,7 @@ export class CheckoutComponent implements OnInit {
     //this.addFingerPrintScript();
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {
-      this.formAction = 'https://sbcheckout.PayFort.com/FortAPI/paymentPage';
+      this.formAction = 'https://checkout.PayFort.com/FortAPI/paymentPage';
 
      
     } else {
