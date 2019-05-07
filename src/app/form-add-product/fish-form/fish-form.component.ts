@@ -332,12 +332,6 @@ export class FishFormComponent implements OnInit {
             let type = this.images.length === 0 ? "primary" : "secundary";
             this.images.push({ src: reader.result, type });
             let arr = JSON.parse(this.getValue().deletedImages);
-            console.log(arr, this.images.map((it, i) => {
-              it = JSON.parse(JSON.stringify(it));
-              delete it.src;
-              it.i = i;
-              return it;
-            }));
             this.reSavedImages();
           };
         }
@@ -448,6 +442,20 @@ export class FishFormComponent implements OnInit {
     //verificamos que este entre los limites
     if (limit.min > index || limit.max < index) return;
     this.indexImage = index;
+  }
+
+  public inLimit(to){
+    let limit = { min: (this.images.length - 4) * -1, max: 0 };
+    let index = JSON.parse(JSON.stringify({ ind: this.indexImage })).ind;
+    if (to < 0) {
+      // index -= 1;
+      console.log("-1", limit.min < index, limit.min, index);
+      return limit.min < index;
+    } else {
+      // index += 1;
+      console.log("1", limit.max > index, limit.max, index);
+      return limit.max > index;
+    }
   }
 
   public calcLeft(i) {
