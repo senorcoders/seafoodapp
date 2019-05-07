@@ -261,5 +261,9 @@ console.log("CanScroll: ", canScroll);
   next(){
     jQuery('#carouselExampleIndicators').carousel('next');
   }
+
+  prev(){
+    jQuery('#carouselExampleIndicators').carousel('prev');
+  }
   
 }
