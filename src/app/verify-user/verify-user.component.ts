@@ -150,7 +150,7 @@ export class VerifyUserComponent implements OnInit {
         result => {
           this.id = '';
           jQuery('#confirm').modal('hide')
-          this.toast.success('User has been accepted', 'Well Done', { positionClass: "toast-top-right" })
+          this.toast.success('The user has been accepted', 'Well Done', { positionClass: "toast-top-right" })
           this.getPendingUsers();
         },
         e => {
@@ -167,7 +167,7 @@ export class VerifyUserComponent implements OnInit {
 
     this.auth.deniedUser(`user/status/${this.selectedUser}/denied`, this.deniedUser.value).subscribe(
       result => {
-        this.toast.success('User has been refuse', 'Well Done', { positionClass: "toast-top-right" })
+        this.toast.success('The user has been refuse', 'Well Done', { positionClass: "toast-top-right" })
         this.getPendingUsers();
         jQuery("#deniedUser").modal('hide');
       },
