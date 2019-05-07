@@ -36,7 +36,9 @@
       @media screen and (max-width: 1200px){
         background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
         video{
-          display: none;
+          display: none !important;
+          height: 0;
+          width: 0
         }
       }
     }
