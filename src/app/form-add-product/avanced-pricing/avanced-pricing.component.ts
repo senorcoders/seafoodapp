@@ -223,11 +223,14 @@ export class AvancedPricingComponent implements OnInit {
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       //Para elegir los slides que se muestran si es salmon o no
-      this.speciesSelected = it.speciesSelected
-      if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
-        this.hideTrimesSlides = false;
-      } else {
-        this.hideTrimesSlides = true;
+      if (it.speciesSelected) {
+        this.speciesSelected = it.speciesSelected;
+        console.log(this.speciesSelected === '5bda361c78b3140ef5d31fa4', it);
+        if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
+          this.hideTrimesSlides = false;
+        } else {
+          this.hideTrimesSlides = true;
+        }
       }
 
       //Para asinar el maximo y minimo de slides
@@ -329,7 +332,7 @@ export class AvancedPricingComponent implements OnInit {
       } else {
         this.hideTrimesSlides = true;
       }
-      if (this.wholeFishAction === false && this.priceEnableChange === true) {
+      if (this.wholeFishAction === false && this.priceEnableChange === true && this.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
         this.priceEnableChange = false;
         this.proccessWeightsFilleted();
         console.log("agregue filleted");
