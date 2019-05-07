@@ -798,3 +798,10 @@ input[type=range]:focus::-ms-fill-upper {
   pointer-events: none !important;
 
 }
+
+.second-collapse-container{
+  min-height: 299px;
+  .row:first-child{
+    min-height: 200px;
+  }
+}

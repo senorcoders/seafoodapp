@@ -36,7 +36,9 @@
       @media screen and (max-width: 1200px){
         background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
         video{
-          display: none;
+          display: none !important;
+          height: 0;
+          width: 0
         }
       }
     }
@@ -379,3 +381,34 @@
   }
 }
 
+.desktop-next-btn{
+  display: none;
+  position: absolute;
+  right: -12px;
+  bottom: -35px;
+  background: no-repeat;
+  border: none;
+  transition: all .2s ease-in-out;
+
+}
+
+.desktop-prev-btn{
+  display: none;
+  position: absolute;
+  top: -35px;
+  right: -12px;
+  background: no-repeat;
+  border: none;
+  transition: all .2s ease-in-out;
+
+  img{
+    transform: rotateX(180deg);
+  }
+}
+
+.carousel-indicators:hover{
+  .desktop-next-btn, .desktop-prev-btn{
+    display: initial;
+  }
+
+}

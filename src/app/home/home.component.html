@@ -4,6 +4,7 @@
   </div>
 
   <ol class="carousel-indicators">
+    
     <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
@@ -11,6 +12,12 @@
     <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="5"></li>
     <li data-target="#carouselExampleIndicators" data-slide-to="6"></li>
+        <button class="desktop-prev-btn" (click)="prev()">
+          <img src="../../assets/svg/download-down.svg" alt="">
+        </button>
+      <button class="desktop-next-btn" (click)="next()">
+        <img src="../../assets/svg/download-down.svg" alt="">
+      </button>
   </ol>
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active slide-video" poster="../../assets/slides/slide1.jpg">
@@ -18,11 +25,11 @@
             <h4>WELCOME TO SEAFOOD SOUQ...</h4>
             <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
             <p>Connecting buyers and sellers direct</p>
-            <button *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
+            <button  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register">GRANT ME ACCESS!</button>
           </div>
       <div class="video-container">
         <div class="filter"></div>
-          <video width="100%" height="auto" autoplay muted loop style="background:transparent no-repeat 0 0; background-size:cover;" poster="../../assets/slides/slide1.jpg">
+          <video width="100%" height="auto" autoplay muted loop style="background:transparent no-repeat 0 0; background-size:cover; display: block;" poster="../../assets/slides/slide1.jpg">
               <source src="../../assets/videos/sushi.mp4" type="video/mp4"> 
       </video>
       </div>

@@ -153,6 +153,8 @@
             font-weight: 300;
             font-family: 'Open Sans', sans-serif;
             padding: 0 !important;
+            background: url('../../assets/svg/chevron-down.svg') no-repeat 100% 50% !important;
+            background-size: 11px 7px;    
             @media screen and (max-width: 768px) {
                 font-size: 20px !important;
     

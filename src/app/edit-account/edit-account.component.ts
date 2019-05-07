@@ -6,6 +6,7 @@ import { ProductService } from '../services/product.service';
 import { ToastrService } from '../toast.service';
 import { NgProgress } from 'ngx-progressbar';
 import { Router } from '@angular/router';
+import { CountriesService } from '../services/countries.service';
 declare var jQuery:any;
 
 @Component({
@@ -25,7 +26,7 @@ export class EditAccountComponent implements OnInit {
   buyerCountry: FormControl;
   buyerAddress: FormControl;
   buyerCity: FormControl;
-  countries=environment.countries;
+  countries:any =[];
   password:any = "";
   repassword:string;
   currentPassword:string;
@@ -62,7 +63,8 @@ export class EditAccountComponent implements OnInit {
 
 
   constructor(private auth: AuthenticationService, private rest: ProductService, 
-    private toast:ToastrService, public ngProgress: NgProgress, private router:Router) {
+    private toast:ToastrService, public ngProgress: NgProgress, private router:Router,
+    private countryService: CountriesService) {
   }
 
   
@@ -71,6 +73,7 @@ export class EditAccountComponent implements OnInit {
     this.createFormControls();  
     this.createBuyerForm();
     this.createSellerForm();
+    this.getCountries();
    this.getPersonalData();
     console.log(this.info.role);
     if(this.info['role'] == 1){
@@ -135,6 +138,7 @@ export class EditAccountComponent implements OnInit {
   }, {
     updateOn: 'submit'
   });
+
   }
 
   createSellerForm(){
@@ -165,13 +169,12 @@ export class EditAccountComponent implements OnInit {
     this.buyerForm.controls['firstName'].setValue(this.info.firstName);
     this.buyerForm.controls['lastName'].setValue(this.info.lastName);
     this.buyerForm.controls['email'].setValue(this.info.email);
-    this.buyerForm.controls['country'].setValue(this.info.dataExtra['country']);
     this.buyerForm.controls['address'].setValue(this.info.dataExtra['Address']);
     this.buyerForm.controls['city'].setValue(this.info.dataExtra['City']);
     this.buyerForm.controls['telephone'].setValue(this.info.dataExtra['tel']);
     this.buyerForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
-    this.buyerForm.controls['typeBusiness'].setValue(this.info.dataExtra['typeBusiness']);
-   
+    this.buyerForm.controls['typeBusiness'].setValue(this.info.dataExtra['typeBusiness']); 
+    this.buyerForm.controls['country'].setValue('AE');
 
   }
 
@@ -396,4 +399,14 @@ readFile(files, id){
   }
 }
 
+getCountries() {
+  this.countryService.getCountries().subscribe(
+    result => {
+      this.countries = result;
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
 }
