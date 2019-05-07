@@ -5,6 +5,7 @@ import { ToastrService } from '../toast.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { PricingChargesService } from '../services/pricing-charges.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-products',
@@ -27,7 +28,8 @@ export class MyProductsComponent implements OnInit {
     private productService: ProductService,
     private toast: ToastrService,
     private pricingChargesService: PricingChargesService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private router: Router) {
 
      }
 
@@ -35,6 +37,10 @@ export class MyProductsComponent implements OnInit {
     
 
     this.user = this.auth.getLoginData();
+    console.log("user", this.user);
+    if(this.user == null || this.user['role'] != 1){
+      this.router.navigate(["/"]);
+    }
     this.getCurrentPricingCharges();
     this.getMyData();
   }

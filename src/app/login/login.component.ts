@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { HostListener } from '@angular/core'
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   password: FormControl;
   isValid: boolean = false;
   loginText: any = 'LOGIN & SWIM';
+  role
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
   constructor(private auth: AuthenticationService, private router: Router,
     private isLoginService: IsLoginService, private cart: CartService,
     private product: ProductService, private orders: OrdersService,
-    private translate: TranslateService) {
+    private translate: TranslateService, private zone:NgZone) {
     console.log(this.translate.currentLang, this.translate)
     this.redirectHome();
   }
@@ -59,7 +60,13 @@ export class LoginComponent implements OnInit {
   }
   redirectHome() {
     if (this.auth.isLogged()) {
-      this.router.navigate(["/"]);
+      if(this.role == 1){
+        this.zone.run(() => this.router.navigate(["/my-products"]));
+      }else if(this.role == 2){
+        this.zone.run(() => this.router.navigate(["/shop"]));
+      }else{
+        this.router.navigate(["/"]);
+      }
       this.isValid = false;
       this.loginText = 'LOGIN & SWIM';
     }
@@ -94,6 +101,7 @@ export class LoginComponent implements OnInit {
       data => {
         console.log("Login Res", data);
         this.auth.setLoginData(data);
+        this.role = data['role'];
         this.isLoginService.setLogin(true, data['role'])
         //get login data
         let login = this.auth.getLoginData();

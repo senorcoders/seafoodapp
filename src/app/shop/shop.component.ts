@@ -84,6 +84,9 @@ export class ShopComponent implements OnInit {
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();
+    if(this.userInfo == null){
+      this.router.navigate(["/"]);
+    }
     this.buyerId = this.userInfo['id'];
     this.getCart();
     this.getProducts(100, 1);
