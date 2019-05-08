@@ -9,7 +9,7 @@
 			
 		</div>
 	</ng-template>
-	<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+	<ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
 	</ngx-loading>
 
 	<div class="row" *ngIf="showLoading; else productshow">
@@ -61,7 +61,7 @@
 								</tr>
 							</thead>
 							<tbody *ngFor="let item of firstNoShipped; let i=index">
-								<tr [className]="item.items[0].updateInfo == null ? 'green-row' : 'gray-row'">
+								<tr [className]="item.items[0].updateInfo == null ? 'green-row' : 'gray-row'" >
 									<td><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
 									<td>{{item.updatedAt | date: 'd/M/y'}}</td>

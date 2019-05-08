@@ -80,7 +80,7 @@ export class ShopComponent implements OnInit {
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
     private countryservice: CountriesService, private router: Router) {
-  }
+    }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();
@@ -474,9 +474,10 @@ export class ShopComponent implements OnInit {
       await this.getCart();
       this.openCart();
     }, err => {
+      console.log("error",err);
       if (err.error) {
         this.isDisabled = false;
-        this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+        this.toast.error( err.error.message, 'An error has occurred', { positionClass: 'toast-top-right' });
       }
     });
   }
@@ -767,9 +768,14 @@ export class ShopComponent implements OnInit {
   getTotalxItem(count, price) {
     return count * price;
   }
-  checkout() {
+  checkout() { 
     this.closeCart();
     this.router.navigate(['/reviewcart'], { queryParams: { shoppingCartId: this.shoppingCartId } });
+  }
+
+  goToCart(){
+    this.closeCart();
+    this.router.navigate(['/cart']);
   }
   deleteItem(i, id) {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(result => {
