@@ -277,7 +277,8 @@
 	},
 	"ConfirmationEmail": {
 		"text": "Your email has been verified successfully. ",
-		"login": "If you have received our approval email you can login from here. Otherwise, we will get back to you within 24 hours from registration."
+		"login": "If you have received our approval email you can login from here. Otherwise, we will get back to you within 24 hours from registration.",
+		"Errortext": "Verification code is not valid."
 	},
 	"Login": {
 		"title": "Login",
