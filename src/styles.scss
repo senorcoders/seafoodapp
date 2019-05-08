@@ -1508,3 +1508,12 @@ button:focus {
 #snackbar.error{
   background-color: #885053 !important;
 }
+.tooltip-right{
+  background-color:#3E4E75 !important;
+  border-radius: 10px !important;
+}
+
+.tooltip-right::after{
+  border-color: transparent #3E4E75 transparent transparent !important;
+}
+
