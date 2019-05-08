@@ -767,9 +767,14 @@ export class ShopComponent implements OnInit {
   getTotalxItem(count, price) {
     return count * price;
   }
-  checkout() {
+  checkout() { 
     this.closeCart();
     this.router.navigate(['/reviewcart'], { queryParams: { shoppingCartId: this.shoppingCartId } });
+  }
+
+  goToCart(){
+    this.closeCart();
+    this.router.navigate(['/cart']);
   }
   deleteItem(i, id) {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(result => {
