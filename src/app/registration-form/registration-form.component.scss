@@ -155,6 +155,10 @@
         align-items: center;
         justify-content: space-around;
         flex-wrap: nowrap;
+        padding: 0;
+        a{
+            padding: 10px;
+        }
     }
    
 }
