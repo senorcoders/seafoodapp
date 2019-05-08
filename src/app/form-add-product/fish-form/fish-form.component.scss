@@ -209,9 +209,10 @@
     margin: 0 auto;
     width: 100%;
     max-width: 1000px;
-    overflow:hidden;
+    overflow: hidden;
     flex-wrap: nowrap;
     transition: 300ms ease all;
+
     .col-3 {
         padding: 0;
         position: relative;
@@ -306,4 +307,20 @@
     position: relative;
     padding: 5px;
     cursor: pointer;
+}
+
+.hs-code-contant {
+    margin-top: 26px;
+    margin-bottom: 74px;
+}
+
+.hs-code-link{
+    display: block;
+    width: 100%;
+    text-align: right;
+    color: #9A9EA8;
+}
+
+.question-btn-hs-code {
+    margin-top: 26px;
 }
