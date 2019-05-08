@@ -80,7 +80,7 @@ export class ShopComponent implements OnInit {
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
     private countryservice: CountriesService, private router: Router) {
-  }
+    }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();

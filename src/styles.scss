@@ -1500,3 +1500,11 @@ button:focus {
 .home-header > app-root > app-menu-nav{
   display: none;
 }
+
+#snackbar.success{
+  background-color: #397367 !important;
+}
+
+#snackbar.error{
+  background-color: #885053 !important;
+}
