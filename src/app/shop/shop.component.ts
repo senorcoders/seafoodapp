@@ -474,9 +474,10 @@ export class ShopComponent implements OnInit {
       await this.getCart();
       this.openCart();
     }, err => {
+      console.log("error",err);
       if (err.error) {
         this.isDisabled = false;
-        this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+        this.toast.error( err.error.message, 'An error has occurred', { positionClass: 'toast-top-right' });
       }
     });
   }
