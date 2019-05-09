@@ -162,7 +162,7 @@ export class MyProductsComponent implements OnInit {
   deleteProduct(id, index) {
     this.productService.deleteData('api/fish/' + id).subscribe(result => {
       this.deleteNode(index);
-      this.toast.success('Product deleted succesfully!', 'Well Done', { positionClass: 'toast-top-right' });
+      this.toast.success('Product deleted successfully!', 'Well Done', { positionClass: 'toast-top-right' });
 
     });
   }
