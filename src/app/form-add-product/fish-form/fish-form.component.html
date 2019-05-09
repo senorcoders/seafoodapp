@@ -247,12 +247,13 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="form-group input-group">
+        <div class="form-group input-group hs-code-contant" >
+            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Code <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
           <span class="has-float-label">
             <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
             <label for="hscode">HS Code...</label>
           </span>
-          <button type="button" class="question-btn" tabIndex="-1"
+          <button type="button" class="question-btn question-btn-hs-code" tabIndex="-1"
             tooltip="This is the Harmonized System code for your product as per World Customs Organization."
             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
@@ -311,6 +312,8 @@
             <p *ngIf="controls().images.errors.required">Images
               {{'CreateProduct.required' | translate}}</p>
           </div>
+          <button type="button" class="question-btn upload-svg"><img
+              src="../../../assets/svg/upload.svg" alt=""></button>
           <button type="button" class="question-btn" tabIndex="-1"
             tooltip="Any additional images you have for the product." placement="right" show-delay="0"><img
               src="../../../assets/svg/question.svg" alt=""></button>
@@ -345,7 +348,7 @@
               <div class="col-3 img-select" [style.left.px]="calcLeft(i)" [ngClass]="image.type!=='primary'?'changeable':''"
                 *ngFor="let image of images; let i=index;">
                 <div class="remove-image" (click)="remove(i)">x</div>
-                <img [src]="byPassImageUrl(image.src)" width="100%" height="auto">
+                <img [src]="byPassImageUrl(image.src)">
                 <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
                 <div class="default" *ngIf="image.type==='primary'">default image</div>
               </div>

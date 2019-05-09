@@ -10,7 +10,7 @@
                 
               </div>
             </ng-template>
-            <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true}" [template]="customLoadingTemplate">
+            <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
             </ngx-loading>
         <div class="row">
           <div class="col-md-10">
@@ -128,7 +128,7 @@
         <div class="col filter-col">
             <h4>COUNTRY</h4>
             <div class="form-group">
-                <input  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
+                <input *ngIf="filteredItems.lenght > 5"  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
                 <div *ngFor="let country of filteredItems; let i=index" class="custom-list">
                     <input [disabled]="disabledInputs" *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
                     <label *ngIf="i<5" for="{{country.code}}">{{country.name}}</label>
@@ -292,7 +292,7 @@
               <button (click)="closeCart()" class="btn-transparent">CONTINUE SHOPPING</button>
             </div>
             <div class="col-md-6 text-right">
-                <button class="btn-transparent" routerLink="/cart">VIEW MY CART</button>
+                <button class="btn-transparent" (click)="goToCart()">VIEW MY CART</button>
               </div>
         </div>
       </div>

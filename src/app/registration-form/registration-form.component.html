@@ -1,13 +1,16 @@
-<div class="gray-bg">
+<div class="gray-bg"  (swipeleft)="swipe($event)" (swiperight)="swipe($event)"> 
   <div class="page-header seafoodFormContainer" id="hero" >
     <div class="container-fluid">
       <div class="row" id="content-form">
         <div class="col-lg-9 gray-light-side padding-0" id="content_light">
            <div class="row login-nav-logo" >
         <div  [className]="buyer ? 'text-left col-lg-12 ' : 'text-right col-lg-12 '" id="nav_content_light">
-          <a *ngIf="buyer" routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo"></a> 
-          <a *ngIf="!buyer" class="nav-link" routerLink="/login" style="display: initial;">Login</a>
-          <p>SWIPE RIGHT FOR SELLER</p>
+          <a *ngIf="buyer" routerLink="/" class="logo-link"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo"></a> 
+          <a routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo-mobile"></a> 
+
+          <a *ngIf="!buyer" class="nav-link link-desktop" routerLink="/login" style="display: initial;">Login</a>
+          <p *ngIf="buyer">SWIPE RIGHT FOR SELLER</p>
+          <p *ngIf="!buyer">SWIPE RIGHT FOR BUYER</p>
           <a  class="nav-link custom-nav-link" routerLink="/login" style="display: initial;">Login</a>
         </div>
        

@@ -1464,12 +1464,18 @@ button:focus {
         color: #F7F8F9 !important;
             }
     }
+    #Layer_1{
+      display: none;
+    }
+    #Layer_1_mobile{
+      display: initial;
+    }
     .img-logo svg{
       max-width: 100% !important;
       width: 71px !important; 
       height: 50px !important;
       .st0{fill:#F7F8F9;}
-	    .st1{fill:#7484AA;}
+	    .st1{fill:none !important;}
       @media screen and (max-width: 992px) {
         width: 42px !important;
         height: 30px !important;
@@ -1494,3 +1500,20 @@ button:focus {
 .home-header > app-root > app-menu-nav{
   display: none;
 }
+
+#snackbar.success{
+  background-color: #397367 !important;
+}
+
+#snackbar.error{
+  background-color: #885053 !important;
+}
+.tooltip-right{
+  background-color:#3E4E75 !important;
+  border-radius: 10px !important;
+}
+
+.tooltip-right::after{
+  border-color: transparent #3E4E75 transparent transparent !important;
+}
+
