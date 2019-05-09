@@ -35,6 +35,14 @@
   <script>
    
     jQuery(document).ready(function () {
+      jQuery(document).scroll(function(){
+      if (jQuery(document).scrollTop()>300) {
+    		jQuery('.top-nav').addClass("menu-scroll");
+    	}
+    	else{
+    		jQuery('.top-nav').removeClass("menu-scroll");
+      }
+    });
       jQuery(document).on('click', 'footer a', function () {
         jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
       });

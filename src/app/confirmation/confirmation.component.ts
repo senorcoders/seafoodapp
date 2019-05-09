@@ -23,8 +23,8 @@ import { OrderService } from '../services/orders.service';
 export class ConfirmationComponent implements OnInit {
   loadAPI: Promise<any>;
   shoppingCartId: any;
-  accessToken: any = 'Ddx5kJoJWr11sF6Hr6E4';
-  merchantID: any = 'aZCWXhqJ';
+  accessToken: any = 'chArgcTLiDtoP5wO1hFh';//'Ddx5kJoJWr11sF6Hr6E4';
+  merchantID: any = 'xqNrOYgH';//'aZCWXhqJ';
   apiPass: any = 'bafgiwugfiwgfyyf';
   command: string = 'PURCHASE';
   signature: any;
@@ -273,7 +273,7 @@ export class ConfirmationComponent implements OnInit {
 
       // bypass payfort, payfort only works in main domain
       if ( this.env.payfort ) {
-      this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=Ddx5kJoJWr11sF6Hr6E4&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
+      this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=chArgcTLiDtoP5wO1hFh&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
       //this.http.post( `${API}payfort/authorization`, body )
       .subscribe(res => {
         console.log(res);
