@@ -17,7 +17,7 @@
     }
     a{
       padding: 20px 50px;
-      img.logo{
+      img.logo, img.logo-mobile{
           max-width: 100%;
           width: 52px;
           height: auto;
@@ -150,6 +150,12 @@
             padding: 20px 10px !important;
         }
     }
+    .logo-mobile{
+        display: none;
+        @media screen and (max-width: 992px){
+            display: initial ;
+        }
+    }
     @media screen and (max-width: 992px) {
         display: flex;
         align-items: center;
@@ -158,6 +164,10 @@
         padding: 0;
         a{
             padding: 10px;
+        }
+
+        .logo, .logo-link, .link-desktop{
+            display: none !important;
         }
     }
    
