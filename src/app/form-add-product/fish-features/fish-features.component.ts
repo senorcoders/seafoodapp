@@ -111,10 +111,12 @@ export class FishFeaturesComponent implements OnInit {
     }));
 
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
-      if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
-        this.hideTrimModal = false;
-      } else {
-        this.hideTrimModal = true;
+      if (it.speciesSelected !== undefined && it.speciesSelected !== null) {
+        if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+          this.hideTrimModal = false;
+        } else {
+          this.hideTrimModal = true;
+        }
       }
 
       // let value = it.speciesSelected;
@@ -272,7 +274,7 @@ export class FishFeaturesComponent implements OnInit {
   }
 
   public isDefault(part, trim) {
-    let data; 
+    let data;
     // console.log("isDefault", part, trim, this.trimmingsModal);
     this.trimmingsModal.forEach(res => {
       if (res.type.length > 0) {
@@ -295,7 +297,7 @@ export class FishFeaturesComponent implements OnInit {
       if (res.type.length > 0) {
 
         if (trim == res.type[0].name) {
-          if (res.type[0].defaultProccessingParts && res.type[0].defaultProccessingParts.includes(part) || (res.processingParts && res.processingParts.name == part) ) {
+          if (res.type[0].defaultProccessingParts && res.type[0].defaultProccessingParts.includes(part) || (res.processingParts && res.processingParts.name == part)) {
             data = true
           }
         }

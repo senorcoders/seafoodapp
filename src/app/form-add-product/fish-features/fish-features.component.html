@@ -149,7 +149,7 @@
     </div>
   </div>
 
-  <div class="col-lg-12">
+  <div [ngClass]="wholeFishAction===false&&hideTrimModal==false?'col-lg-6':'col-lg-12' ">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().treatment.invalid && (controls().treatment.dirty || controls().treatment.touched),'has-success': controls().treatment.valid && (controls().treatment.dirty || controls().treatment.touched)}">
       <span class="has-float-label">

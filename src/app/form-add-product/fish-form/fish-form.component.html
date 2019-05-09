@@ -348,7 +348,7 @@
               <div class="col-3 img-select" [style.left.px]="calcLeft(i)" [ngClass]="image.type!=='primary'?'changeable':''"
                 *ngFor="let image of images; let i=index;">
                 <div class="remove-image" (click)="remove(i)">x</div>
-                <img [src]="byPassImageUrl(image.src)" width="100%" height="auto">
+                <img [src]="byPassImageUrl(image.src)">
                 <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
                 <div class="default" *ngIf="image.type==='primary'">default image</div>
               </div>
