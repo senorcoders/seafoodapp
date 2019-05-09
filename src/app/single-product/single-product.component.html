@@ -19,41 +19,53 @@
         </div>
         <div class="col-lg-6 product-content" id="product-content" [hidden]="showLoading">
           <div id="sticky-div" class="sticky-div">
-            <h2 class="product-name">
-              {{name}}
-              <div *ngIf="role == 0" class="edit-admin">
-                <a routerLink="/edit-product/{{productID}}" class="">
-                  <fa name="pencil" class="pencil"></fa>Edit
-                </a>
-              </div>
-              <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                <span>{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}} / kg</span></h5>
+            <div class="title-name-product">
+              <h2 class="product-name">
+                {{name}}
+                <div *ngIf="role == 0" class="edit-admin">
+                  <a routerLink="/edit-product/{{productID}}" class="">
+                    <fa name="pencil" class="pencil"></fa>Edit
+                  </a>
+                </div>
+                <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
+                  <span>{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}} / kg</span></h5>
 
-            </h2>
+              </h2>
+            </div>
 
             <p class="country-desc">Country of Origin: {{findCountries(country)}}. Processed in
               {{findCountries(processingCountry)}}. <br> <span
                 *ngIf="variations[0]&&variations[0].wholeFishWeight!==null&&variations[0].wholeFishWeight!==undefined">Whole:
                 {{getPreparation()}}.</span>
-                <span
-                *ngIf="noWholeFish">Filleted:
+              <span *ngIf="noWholeFish">Filleted:
                 {{getBon()}}.</span>
-              </p>
+            </p>
+
+            <div class="row variations" *ngIf="withVariations">
+              <div class="col-12">
+                <div class="item-variations" [hidden]="noWholeFish"
+                  (click)="selectTheVariation(variation.wholeFishWeight?.id, variation.id )"
+                  [ngClass]="selectVariation===variation.wholeFishWeight?.id?'select':''"
+                  *ngFor="let variation of variations">{{variation.wholeFishWeight?.name}}</div>
+                <div class="item-variations" [hidden]="!noWholeFish"
+                  (click)="selectTheVariation(variation.fishPreparation?.id, variation.id)"
+                  [ngClass]="selectVariation===variation.fishPreparation?.id?'select':''"
+                  *ngFor="let variation of variations">{{variation.fishPreparation?.name}}</div>
+              </div>
+            </div>
+
+            <nav>
+              <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <a class="nav-item nav-link active" id="nav-price-tab" data-toggle="tab" href="#nav-price" role="tab"
+                  aria-controls="nav-home" aria-selected="true">PRICE DETAILS</a>
+                <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab"
+                  aria-controls="nav-product" aria-selected="false">PRODUCT DETAILS</a>
+              </div>
+            </nav>
 
             <div class="tab-content" id="single-tabs">
               <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
-                <div class="row variations" *ngIf="withVariations">
-                  <div class="col-12">
-                    <div class="item-variations" [hidden]="noWholeFish"
-                      (click)="selectTheVariation(variation.wholeFishWeight?.id, variation.id )"
-                      [ngClass]="selectVariation===variation.wholeFishWeight?.id?'select':''"
-                      *ngFor="let variation of variations">{{variation.wholeFishWeight?.name}}</div>
-                    <div class="item-variations" [hidden]="!noWholeFish"
-                      (click)="selectTheVariation(variation.fishPreparation?.id, variation.id)"
-                      [ngClass]="selectVariation===variation.fishPreparation?.id?'select':''"
-                      *ngFor="let variation of variations">{{variation.fishPreparation?.name}}</div>
-                  </div>
-                </div>
+
                 <div class="convert-row">Converted from USD <span>AED</span></div>
                 <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span>
@@ -72,7 +84,8 @@
                     class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
                 </div>
                 <div class="dashed-row"><span class="name-row">Product Price</span>
-                  <div class="separator-dashed"></div> <span class="value-row" >{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
                 </div>
                 <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span>
                   <div class="separator-dashed"></div> <span
@@ -89,6 +102,7 @@
                 </div>
               </div>
               <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+
                 <div class="dashed-row"><span class="name-row">Company</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span>
                 </div>
@@ -125,7 +139,8 @@
                   (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()"
                   id="input-text">
                 <input type="text" id="qty-text" class="qty" (click)="showElements()" value="type...">
-                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="value" [options]="options" (userChangeEnd)="onUserChangeEnd($event)">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="value" [options]="options"
+                  (userChangeEnd)="onUserChangeEnd($event)">
                 </ng5-slider>
               </div>
               <div class="col-md-5">
@@ -134,16 +149,6 @@
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>
             </div>
-
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-price-tab" data-toggle="tab" href="#nav-price" role="tab"
-                  aria-controls="nav-home" aria-selected="true">PRICE DETAILS</a>
-                <a class="nav-item nav-link" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab"
-                  aria-controls="nav-product" aria-selected="false">PRODUCT DETAILS</a>
-              </div>
-            </nav>
-
 
             <ng-template #login>
               <div class="row">
