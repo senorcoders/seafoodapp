@@ -82,7 +82,9 @@
 
     }
 }
-
+.selectionable{
+    cursor: pointer !important;
+}
 .fish-group{
     label{
         display: flex;
