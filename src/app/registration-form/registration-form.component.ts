@@ -9,6 +9,8 @@ export class RegistrationFormComponent implements OnInit {
 buyer:boolean = true;
 class:any = '';
 showConfirmation=true;
+    // constant for swipe action: left or right
+SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
   constructor() { }
 
@@ -101,6 +103,14 @@ showConfirmation=true;
 
   }
 
+    // action triggered when user swipes
+    swipe(action) {
+      if (action.pointerType === 'touch') {
+      console.log("Action", action);
+      this.buyer = !this.buyer;
+      }
+
+  }
 
 
 }
