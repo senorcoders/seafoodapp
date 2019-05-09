@@ -38,6 +38,14 @@ export class HomeComponent implements OnInit {
   constructor(private isLoggedSr: IsLoginService, private product:ProductService, 
     private auth: AuthenticationService, private sanitizer:DomSanitizer, 
     private cart:CartService,private router:Router) {
+      jQuery(document).ready(function () {
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+        console.log("Es movil");
+        jQuery('video source').each(function(num,val){
+            jQuery(this).attr('src', '')
+        });
+      }
+      });    
 
   }
 
