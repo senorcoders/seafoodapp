@@ -85,10 +85,10 @@ export class ConfirmationComponent implements OnInit {
     if ( this.env.payfort ) {
       this.route.queryParams.subscribe(params => {
         this.responseCode = params.response_code;
-        if(params.response_code !== '18000' && params.response_code !== '02000' && params.response_code !== '14000'){
+        if(params.response_code !== '18000' && params.response_code !== '02000' && params.response_code !== '14000' && params.response_code !== '15777'){
           console.log(params.response_message);
           this.toast.error(params.response_message + ' , You will be redirected and please fill your billing information again!', params.response_message, {positionClass: 'toast-top-right'} );
-          
+          //this.saveinApi();
           setTimeout(() => {
             this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});
             
@@ -150,7 +150,7 @@ export class ConfirmationComponent implements OnInit {
         resolve();
 	// if we came from 3d secure url and its successfull, let's go to thankyou page and set the cart paid
 	console.log( 'clear cart', this.total );
-      	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) ) {
+      	if ( ( this.responseCode == '02000' && this.total > 0 ) || ( this.responseCode == '14000' && this.total > 0 ) || ( this.responseCode == '15777' && this.total > 0 )  ) {
 		console.log( 'clear cart', this.total );
         	this.saveinApi(); // save payfort reponse
         	this.clearCart(); // set cart paid
@@ -292,6 +292,13 @@ export class ConfirmationComponent implements OnInit {
           //this.clearCart();
           }
        } else {
+	   this.toast.error(res['response_message'] + ' , You will be redirected and please fill your billing information again!', '', {positionClass: 'toast-top-right'} );
+          this.saveinApi(); // save payfort reponse
+          setTimeout(() => {
+            this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});
+            
+            
+          }, 5000)
           //this.saveinApi();
           //this.clearCart();
           }
