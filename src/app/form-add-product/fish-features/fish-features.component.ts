@@ -101,7 +101,7 @@ export class FishFeaturesComponent implements OnInit {
     this.features.addControl('features', new FormGroup({
       headOffWeight: new FormControl('0-1kg', Validators.required),
       headOnWeight: new FormControl('0-1kg', Validators.required),
-      acceptableSpoilageRate: new FormControl('', Validators.required),
+      acceptableSpoilageRate: new FormControl('', Validators.nullValidator),
       raised: new FormControl('', Validators.required),
       treatment: new FormControl('', Validators.required),
       // preparation: new FormControl("", Validators.required),

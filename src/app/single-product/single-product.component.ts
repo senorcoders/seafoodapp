@@ -71,7 +71,7 @@ export class SingleProductComponent implements OnInit {
   processingCountry: any;
   countries: any = [];
   types: any = '';
-  mortalityRate: any;
+  // mortalityRate: any;
   wholeFishWeight: any = null;
   options: Options = {
     floor: 1,
@@ -279,7 +279,7 @@ export class SingleProductComponent implements OnInit {
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
-      this.mortalityRate = data['acceptableSpoilageRate'] || 0; //Para mantener compatibilidad con productos nuevos
+      // this.mortalityRate = data['acceptableSpoilageRate'] || 0; //Para mantener compatibilidad con productos nuevos
       if (data['raised'] && data['raised'] !== '') {
         this.raised = data['raised'];
       } else {
