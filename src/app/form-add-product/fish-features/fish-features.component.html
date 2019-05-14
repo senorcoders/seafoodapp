@@ -130,8 +130,8 @@
   <div class="col-lg-6">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().raised.invalid && (controls().raised.dirty || controls().raised.touched),'has-success': controls().raised.valid && (controls().raised.dirty || controls().raised.touched)}">
-      <span class="has-float-label">
-        <select id="raised" class="form-control" formControlName="raised" required>
+      <span class="has-float-label select-float-label">
+        <select id="raised" class="form-control js-example-basic-single" style="width: 100%"  formControlName="raised" required>
           <option *ngFor="let r of raised" value="{{r.id}}" selected>{{r.name}}</option>
         </select>
         <label for="raised">Raised...* </label>
@@ -152,8 +152,8 @@
   <div [ngClass]="wholeFishAction===false&&hideTrimModal==false?'col-lg-6':'col-lg-12' ">
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().treatment.invalid && (controls().treatment.dirty || controls().treatment.touched),'has-success': controls().treatment.valid && (controls().treatment.dirty || controls().treatment.touched)}">
-      <span class="has-float-label">
-        <select id="treatment" aria-placeholder="Treatment...*" class="form-control" formControlName="treatment">
+      <span class="has-float-label select-float-label">
+        <select id="treatment" aria-placeholder="Treatment...*" class="form-control js-example-basic-single" style="width: 100%"  formControlName="treatment">
           <option [value]="tr.id" *ngFor="let tr of treatments">{{tr.name}}</option>
         </select>
         <label for="treatment">Treatment...*</label>

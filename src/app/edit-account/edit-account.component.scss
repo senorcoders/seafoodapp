@@ -207,6 +207,7 @@
             font-style: normal !important;
             font-weight: 300 !important;
             top: -0.8em !important;
+            
             @media screen and (max-width: 768px) {
                 font-size: 15px !important;
     
@@ -216,6 +217,11 @@
                 font-size: 0.8em;
             
             }
+        }
+
+        .select-float-label label{
+            top: -1.8em !important;
+
         }
 
         .has-float-label label.disabled-label{

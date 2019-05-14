@@ -52,7 +52,11 @@ btnText:any = 'REGISTER TO SELL';
               private auth: AuthenticationService,
               private toast:ToastrService,
               private product:ProductService,
-              private router:Router) { }
+              private router:Router) {
+                jQuery(document).ready(function () {
+                  jQuery('.js-example-basic-single').select2();
+                });
+               }
 
   ngOnInit() {
     this.createFormControls();

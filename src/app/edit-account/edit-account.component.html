@@ -114,8 +114,8 @@
 
         <div class="col-lg-12">
           <div class="form-group input-group" style="max-width:975px;">
-            <span class="has-float-label">    
-              <select id="city" class="form-control" formControlName="city" [ngClass]="{'is-invalid':buyerForm.get('city').invalid && buyerForm.get('city').touched}">
+            <span class="has-float-label select-float-label">    
+              <select id="city" class="form-control js-example-basic-single" style="width: 100%" formControlName="city" [ngClass]="{'is-invalid':buyerForm.get('city').invalid && buyerForm.get('city').touched}">
                 <option value="">Select an Emirate...</option>
                 <option value="Dubai">Dubai</option>
                 <option value="Abu Dhabi">Abu Dhabi</option>
@@ -236,7 +236,7 @@
         <div class="col-md-6">
           <div class="form-group input-group">
               <span class="has-float-label">
-            <select id="type" disabled class="form-control" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
+            <select id="type" disabled class="form-control"  formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
               <option value="Producer">Producer</option>
               <option value="Processor">Processor </option>
               <option value="Trader">Trader</option>
@@ -250,7 +250,7 @@
         <div class="col-md-6">
           <div class="form-group input-group">
               <span class="has-float-label">
-            <select id="country" disabled class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
+            <select id="country" disabled class="form-control"  formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
               <option value="">{{'Register.country' | translate}}</option>
                <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
             </select>

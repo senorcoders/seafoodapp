@@ -65,6 +65,10 @@ export class EditAccountComponent implements OnInit {
   constructor(private auth: AuthenticationService, private rest: ProductService, 
     private toast:ToastrService, public ngProgress: NgProgress, private router:Router,
     private countryService: CountriesService) {
+      jQuery(document).ready(function () {
+      jQuery('.js-example-basic-single').select2();
+    });
+
   }
 
   
