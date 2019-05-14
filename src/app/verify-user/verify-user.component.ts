@@ -85,7 +85,7 @@ export class VerifyUserComponent implements OnInit {
     
   }
 
-  getPendingUsersWithPagination(index) {
+  public getPendingUsersWithPagination(index) {
 
     this.buyers = [];
     this.sellers = [];
@@ -133,6 +133,20 @@ export class VerifyUserComponent implements OnInit {
     for (let i = 0; i < length; i++) {
       this.paginationNumbers.push(i);
     }
+  }
+
+  public nextPage() {
+    this.paginationNumbers = [];
+    this.page++;
+    this.getPendingUsersWithPagination(this.page);
+  }
+
+  public previousPage() {
+    this.paginationNumbers = [];
+      if (this.page > 1) {
+        this.page--;
+      }
+      this.getPendingUsersWithPagination(this.page);
   }
 
   splitUsers() {
