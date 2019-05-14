@@ -345,38 +345,6 @@ export class CheckoutComponent implements OnInit {
     this.all_medd_ok = true;
   }
 
-
-
-  /* let cardNumberInput = <HTMLInputElement>document.getElementById("card_number");
-   let cardNumberGroup = <HTMLElement>document.getElementById("card_number_group");
-   let cardNumber = cardNumberInput.value;
-   console.log('cardNumber', cardNumber);
-  let visaPattern = /^(?:4[0-9]{12}(?:[0-9]{3})?)$/;
-  let mastPattern = /^(?:5[1-5][0-9]{14})$/;
-  let amexPattern = /^(?:3[47][0-9]{13})$/;
-  let discPattern = /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/; 
-
-    let ccNum  = cardNumber;
-    let isVisa = visaPattern.test( ccNum ) === true;
-    let isMast = mastPattern.test( ccNum ) === true;
-    let isAmex = amexPattern.test( ccNum ) === true;
-    let isDisc = discPattern.test( ccNum ) === true;
-
-    if( isVisa || isMast || isAmex || isDisc ) {
-        // at least one regex matches, so the card number is valid.
-        this.all_medd_ok = true;
-        if (!cardNumberGroup.className.contains('error')) {
-          cardNumberGroup.classList.remove('error');
-        }
-    }
-    else {
-      this.all_medd_ok = false;
-      if (!cardNumberGroup.classList.contains('error')) {        
-        cardNumberGroup.classList.add('error');
-      }
-      this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
-    }
-    console.log( this.all_medd_ok );*/
 }
 
 }
