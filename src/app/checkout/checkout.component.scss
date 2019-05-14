@@ -1,3 +1,6 @@
+.error {
+    background-color: red;
+}
 .gray-bg{
     padding: 155px 0;
     .container-fluid{
@@ -77,6 +80,22 @@
                         
                     }
                 }
+
+            /* Start Hide arrows in credit card number  */
+            input#card_number::-webkit-outer-spin-button,
+            input#card_number::-webkit-inner-spin-button,
+            #card_security_code::-webkit-outer-spin-button,
+            #card_security_code::-webkit-inner-spin-button {
+                /* display: none; <- Crashes Chrome on hover */
+                -webkit-appearance: none;
+                margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+            }
+
+            input[type=number]#card_number, input[type=number]#card_security_code {
+                -moz-appearance:textfield; /* Firefox */
+            }
+            /* End Hide arrows in credit card number  */
+
             input.form-control, textarea.form-control{
                 background: none !important;
                 border: 0;
