@@ -41,7 +41,7 @@
                       'bg-red': error
                     }">
                     <span class="has-float-label"> 
-                        <input placeholder="Card Number...*"(keypress)="validateLength($event, 16, 'card_number')" (change)="validateCreditCardNumber()" id="card_number" type="number" class="form-control" name="card_number" required>
+                        <input placeholder="Card Number...*"(keypress)="validateLength($event, 13,16, 'card_number')" (change)="validateCreditCardNumber()" id="card_number" type="number" class="form-control" name="card_number" required>
 
                         <label for="card_number">Card Number...*</label>
                       </span>
@@ -54,7 +54,7 @@
                       'bg-red': error
                     }">
                     <span class="has-float-label"> 
-                        <input placeholder="Security Code...*"(keypress)="validateLength($event, 4, 'card_security_code')" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
+                        <input placeholder="Security Code...*"(keypress)="validateLength($event, 4,4, 'card_security_code')" (change)="validateccvNumber()" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
                         <label for="card_security_code">Security Code...*</label>
 
                       </span>

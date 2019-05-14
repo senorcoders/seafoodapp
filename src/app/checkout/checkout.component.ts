@@ -294,7 +294,7 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('billingInformationAddress', this.address)
 
   }
-  validateLength(event: any, length: number, id: string) {
+  validateLength(event: any, min:number, max: number, id: string) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     const icard_number = <HTMLInputElement> document.getElementById(id);
@@ -303,9 +303,14 @@ export class CheckoutComponent implements OnInit {
       // invalid character, prevent input
       event.preventDefault();
     }
-    console.log( icard_number.value.length, length );
-    if ( icard_number.value.length >= length ) {
+    console.log( icard_number.value.length, max );
+    if ( icard_number.value.length >= max ) {
+      this.all_medd_ok = false;
       event.preventDefault();
+    } else if ( icard_number.value.length < min ) {
+      this.all_medd_ok = false;
+    } else {
+      this.all_medd_ok = true;
     }
   }
 
@@ -313,8 +318,36 @@ export class CheckoutComponent implements OnInit {
     this._location.back();
   }
 
+  validateccvNumber() { 
+ 
+    const ccv = <HTMLInputElement> document.getElementById('card_security_code');
+   
+    if ( ccv.value.length > 4 ) {
+      this.all_medd_ok = false;    
+      this.toast.error('Please enter a valid ccv number.', 'Error', { positionClass: 'toast-top-right' });
+    } else if ( ccv.value.length < 3 ) {
+      this.all_medd_ok = false;
+      this.toast.error('Please enter a valid ccv number.', 'Error', { positionClass: 'toast-top-right' });
+    } else {
+      this.all_medd_ok = true;
+    }
+  }
+
  validateCreditCardNumber() {
-   let cardNumberInput = <HTMLInputElement>document.getElementById("card_number");
+  const icard_number = <HTMLInputElement> document.getElementById('card_number');
+  if ( icard_number.value.length > 16 ) {
+    this.all_medd_ok = false;
+    this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
+  } else if ( icard_number.value.length < 13 ) {
+    this.all_medd_ok = false;
+    this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
+  } else {
+    this.all_medd_ok = true;
+  }
+
+
+
+  /* let cardNumberInput = <HTMLInputElement>document.getElementById("card_number");
    let cardNumberGroup = <HTMLElement>document.getElementById("card_number_group");
    let cardNumber = cardNumberInput.value;
    console.log('cardNumber', cardNumber);
@@ -343,7 +376,7 @@ export class CheckoutComponent implements OnInit {
       }
       this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
     }
-    console.log( this.all_medd_ok );    
+    console.log( this.all_medd_ok );*/
 }
 
 }
