@@ -35,14 +35,17 @@
   <script>
    
     jQuery(document).ready(function () {
-      jQuery(document).scroll(function(){
-      if (jQuery(document).scrollTop()>300) {
-    		jQuery('.top-nav').addClass("menu-scroll");
-    	}
-    	else{
-    		jQuery('.top-nav').removeClass("menu-scroll");
-      }
-    });
+      jQuery('.top-nav').addClass("fixed-top");
+
+    //   jQuery(document).scroll(function(){
+    //     console.log("Scroll", jQuery(document).scrollTop());
+    //   if (jQuery(document).scrollTop()>1) {
+    // 		jQuery('.top-nav').addClass("fixed-top"); 
+    // 	}
+    // 	else{
+    // 		jQuery('.top-nav').removeClass("fixed-top");
+    //   }
+    // });
       jQuery(document).on('click', 'footer a', function () {
         jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
       });
