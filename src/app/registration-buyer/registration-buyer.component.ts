@@ -39,7 +39,11 @@ btnText:any = 'register to buy';
 
   constructor(private auth: AuthenticationService, 
     private countryService: CountriesService, private toast:ToastrService,
-    private router:Router) { }
+    private router:Router) {
+      jQuery(document).ready(function () {
+        jQuery('.js-example-basic-single').select2();
+      });
+     }
  
   ngOnInit() {
     this.createFormControls();

@@ -98,7 +98,10 @@
         
         }
     }
+    .select-float-label label{
+        top: -1.8em !important;
 
+    }
     .has-float-label label.disabled-label{
         color: #9A9EA8 !important;
     }
@@ -257,3 +260,4 @@
 .padding-0{
     padding: 0;
 }
+

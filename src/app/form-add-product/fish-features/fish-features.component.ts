@@ -4,7 +4,7 @@ import { NgIf, NgClass } from '@angular/common';
 import { ProductService } from '../../services/product.service';
 import { AuthenticationService } from '../../services/authentication.service';
 import { ToastrService } from '../../toast.service';
-
+declare var jQuery;
 @Component({
   selector: 'fish-features',
   templateUrl: './fish-features.component.html',
@@ -36,7 +36,8 @@ export class FishFeaturesComponent implements OnInit {
   public treatments = [];
 
   constructor(public parentForm: FormGroupDirective, private productService: ProductService,
-    private auth: AuthenticationService, private toast: ToastrService) { }
+    private auth: AuthenticationService, private toast: ToastrService) { 
+    }
 
   ngOnInit() {
     this.createFormGroup();

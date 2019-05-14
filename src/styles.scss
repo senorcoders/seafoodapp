@@ -1534,3 +1534,42 @@ button:focus {
 a:hover{
   color: #3E4E75;
 }
+.select2-container--default .select2-selection--single{
+  background: no-repeat;
+  border: none;
+  border-radius: 0;
+  width: 100% !important;
+  border-bottom: solid 1px #9A9EA8 !important;
+  color: #3E4E75 !important;
+  font-size: 21px;
+  font-weight: 300;
+  font-family: 'Open Sans', sans-serif;
+
+}
+
+
+.gray-bg{
+  .input-group{
+    .has-float-label.select-float-label label{
+      top: -1.8em !important;
+    }
+  } 
+}
+
+.has-float-label label::after, .has-float-label>span::after{
+  display: none;
+}
+
+app-registration-form{
+  .select2-container--default .select2-selection--single{
+    height: 45.5px !important;
+    text-align: left;
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+    line-height: 45.5px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow{
+    height: 45.5px !important;
+}
+}
