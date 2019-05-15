@@ -37,6 +37,7 @@ export class MenuNavComponent {
   logo: any = '../../../assets/svg/account-circle.svg';
   storeEndpoint: any = "api/store/user/";
   base: string = environment.apiURLImg;
+  storeID:any;
 
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
@@ -278,6 +279,8 @@ export class MenuNavComponent {
   //Get store for seller
   getStore() {
     this.productService.getData(this.storeEndpoint + this.userData['id']).subscribe(result => {
+      console.log("Resultado store", result);
+      this.storeID = result[0].id;
       if (result[0].hasOwnProperty('logo') && result[0]['logo'] != '') {
         this.logo = this.base + result[0].logo;
       } else {
