@@ -15,7 +15,7 @@
           <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h1 class="gray-title" ><span>ENTER PAYMENT</span></h1>
+                    <h1 class="gray-title" ><span>PAYMENT</span></h1>
                   </div>
             </div>
               <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
@@ -154,7 +154,7 @@
                       </div>
                       <div class="col-lg-12 total-row text-center">
                         <button (click)="validateCreditCardNumber()" class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
-                          confirm your order
+                          Place your order
                         </button>
                       </div>
                         

@@ -281,10 +281,10 @@ const menuSeller = [
     icon: 'box.svg',
     translate: {
       en: {
-        name: 'Orders'
+        name: 'My Orders'
       },
       ar: {
-        name: 'Orders'
+        name: 'My Orders'
       }
     }
   },
@@ -322,10 +322,10 @@ const menuBuyer = [
     icon: 'cart.svg',
     translate: {
       en: {
-        name: 'Cart'
+        name: 'My Cart'
       },
       ar: {
-        name: 'Cart'
+        name: 'My Cart'
       }
     }
   }, {
@@ -334,10 +334,10 @@ const menuBuyer = [
     icon: 'box.svg',
     translate: {
       en: {
-        name: 'Orders'
+        name: 'My Orders'
       },
       ar: {
-        name: 'Orders'
+        name: 'My Orders'
       }
     }
   }
