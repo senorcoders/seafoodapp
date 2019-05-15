@@ -1,142 +1,5 @@
 <div class="row" formGroupName="product">
-  <div class="col-lg-6">
 
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().name.invalid && (controls().name.dirty || controls().name.touched),'has-success': controls().name.valid && (controls().name.dirty || controls().name.touched)}">
-      <span class="has-float-label">
-        <input id="pname" type="text" class="form-control" placeholder="Product Name...*" formControlName="name"
-          required>
-        <label for="pname">Product Name...*</label>
-        <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
-          <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
-            {{'CreateProduct.required' | translate}}
-          </p>
-        </div>
-      </span>
-      <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
-        tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-    </div>
-
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group input-group">
-      <span class="has-float-label">
-        <input id="brandname" placeholder="Brand Name" type="text" class="form-control" formControlName="brandName">
-        <label for="brandname">Brand Name</label>
-      </span>
-      <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
-        tooltip="An optional field in case you are selling a branded product" placement="right" show-delay="0"><img
-          src="../../../assets/svg/question.svg" alt=""></button>
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().country.invalid && (controls().country.dirty || controls().country.touched),'has-success': controls().country.valid && (controls().country.dirty || controls().country.touched)}">
-      <span class="has-float-label">
-        <select id="country" class="form-control" formControlName="country" placeholder="Country of Origin...*">
-          <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-        </select>
-        <label for="country">Country of Origin...*</label>
-        <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
-          <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
-            {{'CreateProduct.required' | translate}}</p>
-        </div>
-
-      </span>
-      <button type="button" class="question-btn" tabIndex="-1" tooltip="The country where the product was harvested"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().processingCountry.invalid && (controls().processingCountry.dirty || controls().processingCountry.touched),'has-success': controls().processingCountry.valid && (controls().processingCountry.dirty || controls().processingCountry.touched)}">
-      <span class="has-float-label">
-        <select id="processing" (change)="getCities();" class="form-control" formControlName="processingCountry">
-          <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
-        </select>
-        <label for="processing">Processing Country...* </label>
-        <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
-          <p *ngIf="controls().processingCountry.errors.required">{{'CreateProduct.processingCountry' | translate}}
-            {{'CreateProduct.required' | translate}}</p>
-        </div>
-      </span>
-      <button type="button" class="question-btn" tabIndex="-1" tooltip="The country where the product was processed"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-
-    </div>
-  </div>
-  <div class="col-lg-6">
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().city.invalid && (controls().city.dirty || controls().city.touched),'has-success': controls().city.valid && (controls().city.dirty || controls().country.touched)}">
-      <span class="has-float-label">
-        <select id="city" class="form-control" formControlName="city" (change)="onCityChange()">
-          <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
-        </select>
-        <label id="city">Port of Loading...*</label>
-        <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
-          <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
-            {{'CreateProduct.required' | translate}}</p>
-        </div>
-      </span>
-      <button type="button" class="question-btn" tabIndex="-1"
-        tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-    </div>
-  </div>
-
-  <div class="col-lg-6">
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().unitOfSale.invalid && (controls().unitOfSale.dirty || controls().unitOfSale.touched),'has-success': controls().unitOfSale.valid && (controls().unitOfSale.dirty || controls().unitOfSale.touched)}">
-      <span class="has-float-label">
-        <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfSale" class="form-control">
-          <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
-          <option value="kg">Kg</option>
-          <!-- <option value="lb">lb</option> -->
-          <option value="boxes">Boxes</option>
-        </select>
-        <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
-        <div class="form-control-feedback" *ngIf="controls().unitOfSale.errors&&parentForm.submitted">
-          <p *ngIf="controls().unitOfSale.errors.required">{{'CreateProduct.unitOfSale' | translate}}
-            {{'CreateProduct.required' | translate}}</p>
-        </div>
-      </span>
-      <button type="button" class="question-btn" tabIndex="-1"
-        tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-    </div>
-  </div>
-
-  <div class="offset-lg-3 col-lg-6" [hidden]="!showAverageUnit">
-
-    <div class="form-group input-group"
-      [ngClass]="{'has-danger': controls().averageUnitWeight.invalid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched),'has-success': controls().averageUnitWeight.valid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched)}">
-      <span class="has-float-label">
-        <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight (kg)...*"
-          formControlName="averageUnitWeight" required>
-        <label for="averageunit">{{'CreateProduct.averageUnitWeight' | translate}}...*</label>
-        <div class="form-control-feedback" *ngIf="controls().averageUnitWeight.errors&&parentForm.submitted">
-          <p *ngIf="controls().averageUnitWeight.errors.required">{{'CreateProduct.averageUnitWeight' | translate}}
-            {{'CreateProduct.required' | translate}}
-          </p>
-        </div>
-      </span>
-      <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
-        tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
-        placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-    </div>
-
-  </div>
-
-  <!-- <div class="col-lg-6">
-    <div class="form-group input-group">
-        <span class="has-float-label">  
-            <input id="kg" placeholder="kg" type="number" class="form-control" formControlName="kg">
-            <label id="kg">kg</label>
-        </span>
-    </div>
-  </div> -->
   <div class="col-12">
     <div class="row">
       <div class="col-lg-12 text-center">
@@ -145,6 +8,37 @@
         </h1>
       </div>
 
+      <div class="col-lg-6">
+
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().name.invalid && (controls().name.dirty || controls().name.touched),'has-success': controls().name.valid && (controls().name.dirty || controls().name.touched)}">
+          <span class="has-float-label">
+            <input id="pname" type="text" class="form-control" placeholder="Product Name...*" formControlName="name"
+              required>
+            <label for="pname">Product Name...*</label>
+            <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
+              <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
+                {{'CreateProduct.required' | translate}}
+              </p>
+            </div>
+          </span>
+          <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
+            tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
+            placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+        </div>
+
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group input-group">
+          <span class="has-float-label">
+            <input id="brandname" placeholder="Brand Name" type="text" class="form-control" formControlName="brandName">
+            <label for="brandname">Brand Name</label>
+          </span>
+          <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
+            tooltip="An optional field in case you are selling a branded product" placement="right" show-delay="0"><img
+              src="../../../assets/svg/question.svg" alt=""></button>
+        </div>
+      </div>
       <div class="col-lg-6">
         <div class="form-group input-group"
           [ngClass]="{'has-danger': controls().parentSelectedType.invalid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched),'has-success': controls().parentSelectedType.valid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched)}">
@@ -186,7 +80,6 @@
             show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
       </div>
-
       <div class="col-lg-6">
         <div class="form-group input-group"
           [ngClass]="{'has-danger': controls().subSpeciesSelected.invalid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched),'has-success': controls().subSpeciesSelected.valid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched)}">
@@ -225,142 +118,399 @@
       </div>
 
     </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="subtitle-form">
+            <span>product features</span>
+          </h1>
+        </div>
+
+        <div class="col-lg-6 fish-group">
+          <label> <span class="selectionable" [ngClass]="wholeFishAction===true?'select':''"
+              (click)="assingWholeFish(true)">WHOLE FISH</span> | <span (click)="assingWholeFish(false)"
+              class="selectionable" [ngClass]="wholeFishAction===true?'':'select'">FILLETED FISH</span> <img
+              tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+              placement="right" show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22"></label>
+        </div>
+        <!-- para guardar si esta selecionado wholeFishAction -->
+        <div class="form-group" hidden>
+          <input type="text" class="form-control" formControlName="wholeFishAction">
+        </div>
+
+        <!-- para tener guardado si es head on o head off o ambos -->
+        <div class="form-group" hidden>
+          <input type="text" class="form-control" formControlName="head">
+        </div>
+
+        <div class="col-lg-6" [hidden]="wholeFishAction!==false||hideTrimModal==true">
+          <label for="preparation" style="margin-top: 50px;
+          margin-left: 70px;">
+            <a class="manage-link" data-toggle="modal" data-target="#trimModal">Manage Trimming <img
+                src="../../../assets/svg/arrow-right.svg" alt=""></a>
+          </label>
+        </div>
+        <!-- para tener guardado si es head on o head off o ambos -->
+        <div class="form-group" hidden>
+          <input type="text" class="form-control" formControlName="head">
+        </div>
+
+        <div class="col-lg-6" [hidden]="wholeFishAction!==false||hideTrimModal==true">
+          <label for="preparation" style="margin-top: 50px;
+          margin-left: 70px;">
+            <a class="manage-link" data-toggle="modal" data-target="#trimModal">Manage Trimming <img
+                src="../../../assets/svg/arrow-right.svg" alt=""></a>
+          </label>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().raised.invalid && (controls().raised.dirty || controls().raised.touched),'has-success': controls().raised.valid && (controls().raised.dirty || controls().raised.touched)}">
+            <span class="has-float-label select-float-label">
+              <select id="raised" class="form-control js-example-basic-single" style="width: 100%"
+                formControlName="raised" required>
+                <option *ngFor="let r of raised" value="{{r.id}}" selected>{{r.name}}</option>
+              </select>
+              <label for="raised">Raised...* </label>
+
+              <div class="form-control-feedback" *ngIf="controls().raised.errors &&parentForm.submitted">
+                <p *ngIf="controls().raised.errors.required">{{'CreateProduct.raised' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="This field reflects the environment in which the product was raised" placement="right"
+              show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+
+          </div>
+        </div>
+
+        <div [ngClass]="wholeFishAction===false&&hideTrimModal==false?'col-lg-12':'col-lg-6'">
+          <!-- <div class="col-lg-6"> -->
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().treatment.invalid && (controls().treatment.dirty || controls().treatment.touched),'has-success': controls().treatment.valid && (controls().treatment.dirty || controls().treatment.touched)}">
+            <span class="has-float-label select-float-label">
+              <select id="treatment" aria-placeholder="Treatment...*" class="form-control js-example-basic-single"
+                style="width: 100%" formControlName="treatment">
+                <option [value]="tr.id" *ngFor="let tr of treatments">{{tr.name}}</option>
+              </select>
+              <label for="treatment">Treatment...*</label>
+
+              <div class="form-control-feedback" *ngIf="controls().treatment.errors &&parentForm.submitted">
+                <p *ngIf="controls().treatment.errors.required">{{'CreateProduct.treatment' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="This field reflects any post harvest treatment/processing of the product" placement="right"
+              show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="subtitle-form">
+            <span>product images</span>
+          </h1>
+        </div>
+
+        <div class="col-12">
+          <div class="form-group  file-input"
+            [ngClass]="{'has-danger': controls().images.invalid && (controls().images.dirty || controls().images.touched),'has-success': controls().images.valid && (controls().images.dirty || controls().images.touched)}">
+            <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Gallery Images...*</label>
+            <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
+              accept="image/png,image/jpeg,image/jpg" formControlName="images">
+            <div class="form-control-feedback" *ngIf="controls().images.errors&&parentForm.submitted">
+              <p *ngIf="controls().images.errors.required">Images
+                {{'CreateProduct.required' | translate}}</p>
+            </div>
+            <button type="button" class="question-btn upload-svg"><img src="../../../assets/svg/upload.svg"
+                alt=""></button>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="Any additional images you have for the product." placement="right" show-delay="0"><img
+                src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+
+        <input type="text" hidden formControlName="imagesSend">
+        <input type="text" hidden formControlName="deletedImages">
+
+        <div class="row gallery-container" *ngIf="images.length===0">
+          <div class="col-3">
+            <img src="../../assets/add-default.png" width="100%" height="auto">
+          </div>
+          <div class="col-3">
+            <img src="../../assets/add-default.png" width="100%" height="auto">
+          </div>
+          <div class="col-3">
+            <img src="../../assets/add-default.png" width="100%" height="auto">
+          </div>
+          <div class="col-3">
+            <img src="../../assets/add-default.png" width="100%" height="auto">
+          </div>
+        </div>
+
+        <div class="col-12" *ngIf="images.length>0">
+          <div class="row align-items-center text-center">
+            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+              <i class="fa fa-chevron-left" [hidden]="!inLimit(1)" aria-hidden="true" (click)="toSl(1)"></i>
+            </div>
+            <div class="col-10" [ngClass]="images.length<=4?'offset-1':''">
+              <div class="row gallery-container">
+                <div class="col-3 img-select" [style.left.px]="calcLeft(i)"
+                  [ngClass]="image.type!=='primary'?'changeable':''" *ngFor="let image of images; let i=index;">
+                  <div class="remove-image" (click)="remove(i)">x</div>
+                  <img [src]="byPassImageUrl(image.src)">
+                  <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
+                  <div class="default" *ngIf="image.type==='primary'">default image</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+              <i class="fa fa-chevron-right" [hidden]="!inLimit(-1)" aria-hidden="true" (click)="toSl(-1)"></i>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="subtitle-form">
+            <span>product Details</span>
+          </h1>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group input-group">
+            <span class="has-float-label">
+              <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control"
+                formControlName="seller_sku">
+              <label id="sellersku">Company Product SKU...</label>
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="Optional field for your unique product code" placement="right" show-delay="0"><img
+                src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().country.invalid && (controls().country.dirty || controls().country.touched),'has-success': controls().country.valid && (controls().country.dirty || controls().country.touched)}">
+            <span class="has-float-label">
+              <select id="country" class="form-control" formControlName="country" placeholder="Country of Origin...*">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+              <label for="country">Country of Origin...*</label>
+              <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
+                <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="The country where the product was harvested" placement="right" show-delay="0"><img
+                src="../../../assets/svg/question.svg" alt=""></button>
+
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().processingCountry.invalid && (controls().processingCountry.dirty || controls().processingCountry.touched),'has-success': controls().processingCountry.valid && (controls().processingCountry.dirty || controls().processingCountry.touched)}">
+            <span class="has-float-label">
+              <select id="processing" (change)="getCities();" class="form-control" formControlName="processingCountry">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+              <label for="processing">Processing of Country...* </label>
+              <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
+                <p *ngIf="controls().processingCountry.errors.required">
+                  {{'CreateProduct.processingCountry' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="The country where the product was processed" placement="right" show-delay="0"><img
+                src="../../../assets/svg/question.svg" alt=""></button>
+
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().city.invalid && (controls().city.dirty || controls().city.touched),'has-success': controls().city.valid && (controls().city.dirty || controls().country.touched)}">
+            <span class="has-float-label">
+              <select id="city" class="form-control" formControlName="city" (change)="onCityChange()">
+                <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+              </select>
+              <label id="city">Port of Loading...*</label>
+              <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
+                <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="Select from the dropdown list the port of loading within 10 hours by land from your facility"
+              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group hs-code-contant">
+            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Code <i class="fa fa-arrow-right"
+                aria-hidden="true"></i> </a>
+            <span class="has-float-label">
+              <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
+              <label for="hscode">HS Code...</label>
+            </span>
+            <button type="button" class="question-btn question-btn-hs-code" tabIndex="-1"
+              tooltip="This is the Harmonized System code for your product as per World Customs Organization."
+              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <h1 class="subtitle-form">
+            <span>product pricing</span>
+          </h1>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().unitOfSale.invalid && (controls().unitOfSale.dirty || controls().unitOfSale.touched),'has-success': controls().unitOfSale.valid && (controls().unitOfSale.dirty || controls().unitOfSale.touched)}">
+            <span class="has-float-label">
+              <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfSale" class="form-control">
+                <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
+                <option value="kg">Kg</option>
+                <!-- <option value="lb">lb</option> -->
+                <option value="boxes">Boxes</option>
+              </select>
+              <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
+              <div class="form-control-feedback" *ngIf="controls().unitOfSale.errors&&parentForm.submitted">
+                <p *ngIf="controls().unitOfSale.errors.required">{{'CreateProduct.unitOfSale' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
+              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+
+        <div class="offset-lg-3 col-lg-6" [hidden]="!showAverageUnit">
+
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().averageUnitWeight.invalid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched),'has-success': controls().averageUnitWeight.valid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched)}">
+            <span class="has-float-label">
+              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight (kg)...*"
+                formControlName="averageUnitWeight" required>
+              <label for="averageunit">{{'CreateProduct.averageUnitWeight' | translate}}...*</label>
+              <div class="form-control-feedback" *ngIf="controls().averageUnitWeight.errors&&parentForm.submitted">
+                <p *ngIf="controls().averageUnitWeight.errors.required">
+                  {{'CreateProduct.averageUnitWeight' | translate}}
+                  {{'CreateProduct.required' | translate}}
+                </p>
+              </div>
+            </span>
+            <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
+              tooltip="Please use the common name of the product in the market (E.g. Filleted Norwegian Salmon)"
+              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+
+        </div>
+
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
+            <span class="has-float-label">
+              <input id="min" placeholder="Minimum Order..." type="number" class="form-control"
+                formControlName="minimunorder">
+              <label for="min">Minimum Order...</label>
+              <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
+                <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+
+            </span>
+
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="An optional field for setting your minimum order quantity" placement="right" show-delay="0"><img
+                src="../../../assets/svg/question.svg" alt=""></button>
+
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group"
+            [ngClass]="{'has-danger': controls().maximumorder.invalid && (controls().maximumorder.dirty || controls().maximumorder.touched),'has-success': controls().maximumorder.valid && (controls().maximumorder.dirty || controls().maximumorder.touched)}">
+            <span class="has-float-label">
+              <input id="max" placeholder="Maximum Order..." type="number" class="form-control"
+                formControlName="maximumorder">
+              <label for="max">Maximum Order...</label>
+              <div class="form-control-feedback" *ngIf="controls().maximumorder.errors&&parentForm.submitted">
+                <p *ngIf="controls().maximumorder.errors.required">{{'CreateProduct.maximum' | translate}}
+                  {{'CreateProduct.required' | translate}}</p>
+              </div>
+            </span>
+
+            <button type="button" class="question-btn" tabIndex="-1"
+              tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
+              placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </div>
+</div>
+</div>
 
-  <div class="col-12">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <h1 class="subtitle-form">
-          <span>company info</span>
-        </h1>
+<div class="modal fade" id="trimModal" tabindex="-1" role="dialog" aria-labelledby="trimModalTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="trimModalTitle">Manage Salmon Trimming</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <img src="../../assets/svg/close.svg" alt="">
+        </button>
       </div>
-
-      <div class="col-lg-6">
-        <div class="form-group input-group">
-          <span class="has-float-label">
-            <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control"
-              formControlName="seller_sku">
-            <label id="sellersku">Company Product SKU...</label>
-          </span>
-          <button type="button" class="question-btn" tabIndex="-1" tooltip="Optional field for your unique product code"
-            placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group input-group hs-code-contant" >
-            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Code <i class="fa fa-arrow-right" aria-hidden="true"></i> </a>
-          <span class="has-float-label">
-            <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
-            <label for="hscode">HS Code...</label>
-          </span>
-          <button type="button" class="question-btn question-btn-hs-code" tabIndex="-1"
-            tooltip="This is the Harmonized System code for your product as per World Customs Organization."
-            placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-        </div>
-      </div>
-
-
-      <div class="col-lg-6">
-        <div class="form-group input-group"
-          [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
-          <span class="has-float-label">
-            <input id="min" placeholder="Minimum Order..." type="number" class="form-control"
-              formControlName="minimunorder">
-            <label for="min">Minimum Order...</label>
-            <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
-              <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
-                {{'CreateProduct.required' | translate}}</p>
-            </div>
-
-          </span>
-
-          <button type="button" class="question-btn" tabIndex="-1"
-            tooltip="An optional field for setting your minimum order quantity" placement="right" show-delay="0"><img
-              src="../../../assets/svg/question.svg" alt=""></button>
-
-        </div>
-      </div>
-      <div class="col-lg-6">
-        <div class="form-group input-group"
-          [ngClass]="{'has-danger': controls().maximumorder.invalid && (controls().maximumorder.dirty || controls().maximumorder.touched),'has-success': controls().maximumorder.valid && (controls().maximumorder.dirty || controls().maximumorder.touched)}">
-          <span class="has-float-label">
-            <input id="max" placeholder="Maximum Order..." type="number" class="form-control"
-              formControlName="maximumorder">
-            <label for="max">Maximum Order...</label>
-            <div class="form-control-feedback" *ngIf="controls().maximumorder.errors&&parentForm.submitted">
-              <p *ngIf="controls().maximumorder.errors.required">{{'CreateProduct.maximum' | translate}}
-                {{'CreateProduct.required' | translate}}</p>
-            </div>
-          </span>
-
-          <button type="button" class="question-btn" tabIndex="-1"
-            tooltip="An optional field for setting your maximum order quantity. We urge you to constantly update this field to accurately reflect your stock levels."
-            placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
-
-        </div>
-      </div>
-
-
-
-      <div class="col-12">
-        <div class="form-group  file-input"
-          [ngClass]="{'has-danger': controls().images.invalid && (controls().images.dirty || controls().images.touched),'has-success': controls().images.valid && (controls().images.dirty || controls().images.touched)}">
-          <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Gallery Images...*</label>
-          <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
-            accept="image/png,image/jpeg,image/jpg" formControlName="images">
-          <div class="form-control-feedback" *ngIf="controls().images.errors&&parentForm.submitted">
-            <p *ngIf="controls().images.errors.required">Images
-              {{'CreateProduct.required' | translate}}</p>
-          </div>
-          <button type="button" class="question-btn upload-svg"><img
-              src="../../../assets/svg/upload.svg" alt=""></button>
-          <button type="button" class="question-btn" tabIndex="-1"
-            tooltip="Any additional images you have for the product." placement="right" show-delay="0"><img
-              src="../../../assets/svg/question.svg" alt=""></button>
-        </div>
-      </div>
-
-      <input type="text" hidden formControlName="imagesSend">
-      <input type="text" hidden formControlName="deletedImages">
-
-      <div class="row gallery-container" *ngIf="images.length===0">
-        <div class="col-3">
-          <img src="../../assets/add-default.png" width="100%" height="auto">
-        </div>
-        <div class="col-3">
-          <img src="../../assets/add-default.png" width="100%" height="auto">
-        </div>
-        <div class="col-3">
-          <img src="../../assets/add-default.png" width="100%" height="auto">
-        </div>
-        <div class="col-3">
-          <img src="../../assets/add-default.png" width="100%" height="auto">
-        </div>
-      </div>
-
-      <div class="col-12" *ngIf="images.length>0">
-        <div class="row align-items-center text-center">
-          <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
-            <i class="fa fa-chevron-left" [hidden]="!inLimit(1)" aria-hidden="true" (click)="toSl(1)"></i>
-          </div>
-          <div class="col-10" [ngClass]="images.length<=4?'offset-1':''">
-            <div class="row gallery-container">
-              <div class="col-3 img-select" [style.left.px]="calcLeft(i)" [ngClass]="image.type!=='primary'?'changeable':''"
-                *ngFor="let image of images; let i=index;">
-                <div class="remove-image" (click)="remove(i)">x</div>
-                <img [src]="byPassImageUrl(image.src)">
-                <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
-                <div class="default" *ngIf="image.type==='primary'">default image</div>
+      <div class="modal-body">
+        <div class="row body-width">
+          <div class="col-1 border-dark"></div>
+          <div class="col-11 border-dark">
+            <div class="row">
+              <div class="col text-center" *ngFor="let part of partsModal">
+                <span class="partsModal">{{part.name}}</span>
               </div>
             </div>
           </div>
-          <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
-            <i class="fa fa-chevron-right" [hidden]="!inLimit(-1)" aria-hidden="true" (click)="toSl(-1)"></i>
+          <div class="col-12">
+            <div class="row checkbox-row" *ngFor="let type of typesModal; let i=index">
+              <div class="col-1">
+                <span class="types">{{type.name}}</span>
+              </div>
+              <div class="col-11">
+                <div class="row check-item">
+                  <div class="col checkboxes" *ngFor="let part of partsModal; let j=index">
+                    <input type="checkbox" class=" df" [disabled]="isDefault(part.name,type.name)"
+                      [checked]="isChecked(part.name,type.name)" (click)="checked($event, type.id, part.id)">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
     </div>
   </div>
-
 </div>
