@@ -163,7 +163,7 @@
 	},
 	"CreateProduct": {
 		"title": "Add New Product",
-		"brandName": "Brand",
+		"brandName": "Brand Name",
 		"name": "Product Name...",
 		"price": "Price/KG in USD",
 		"Kg": "Kg",
@@ -185,21 +185,21 @@
 		"preparation": "Preparation",
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "Product SKU",
 		"seafood_sku": "Seafood Souq SKU",
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country...",
-		"mainCategory": "Sea Life Category...",
+		"mainCategory": "Product Category...",
 		"species": "Species...",
 		"subSpecies": "Subspecies...",
 		"subSpeciesVariant": "Subspecies Variant...",
 		"productSku": "Company Product SKU...",
 		"hsCode": "HS Code...",
 		"productFeatures": "Product Features",
-		"uploadGallery": "Upload Gallery Images...",
+		"uploadGallery": "Upload your Images...",
 		"wholeFish": "Whole Fish",
 		"filletedFish": "Filleted Fish",
 		"headOffWeight": "Head Off Weight...",
@@ -212,9 +212,9 @@
 		"advancepricing": "advanced pricing",
 		"back": "Back",
 		"trimming": "Trimming...",
-		"unitOfSale": "Unit of Sale...",
+		"unitOfSale": "Unit of Measurement...",
 		"averageUnitWeight": "Average Unit Weight (kg)..."
-	},
+		},
 	"SingleProduct": {
 		"add": "Add to cart",
 		"view": "View Cart",
@@ -760,5 +760,9 @@
 	},
 	"historicalOrders": {
 		"title": "Historical Orders"
+	},
+	"newProduct": {
+		"title": "Add product",
+		"edit": "Edit product"
 	}
 }

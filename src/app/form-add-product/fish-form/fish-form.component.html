@@ -6,7 +6,7 @@
       <span class="has-float-label">
         <input id="pname" type="text" class="form-control" placeholder="Product Name...*" formControlName="name"
           required>
-        <label for="pname">Product Name...*</label>
+        <label for="pname">{{'CreateProduct.name' | translate}}</label>
         <div class="form-control-feedback" *ngIf="controls().name.errors&&parentForm.submitted">
           <p *ngIf="controls().name.errors.required">{{'CreateProduct.name' | translate}}
             {{'CreateProduct.required' | translate}}
@@ -22,8 +22,8 @@
   <div class="col-lg-6">
     <div class="form-group input-group">
       <span class="has-float-label">
-        <input id="brandname" placeholder="Brand Name" type="text" class="form-control" formControlName="brandName">
-        <label for="brandname">Brand Name</label>
+        <input id="brandname" placeholder="{{'CreateProduct.brandName' | translate}}" type="text" class="form-control" formControlName="brandName">
+        <label for="brandname">{{'CreateProduct.brandName' | translate}}</label>
       </span>
       <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
         tooltip="An optional field in case you are selling a branded product" placement="right" show-delay="0"><img
@@ -34,10 +34,10 @@
     <div class="form-group input-group"
       [ngClass]="{'has-danger': controls().country.invalid && (controls().country.dirty || controls().country.touched),'has-success': controls().country.valid && (controls().country.dirty || controls().country.touched)}">
       <span class="has-float-label">
-        <select id="country" class="form-control" formControlName="country" placeholder="Country of Origin...*">
+        <select id="country" class="form-control" formControlName="country">
           <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
         </select>
-        <label for="country">Country of Origin...*</label>
+        <label for="country">{{'CreateProduct.country' | translate}}*</label>
         <div class="form-control-feedback" *ngIf="controls().country.errors&&parentForm.submitted">
           <p *ngIf="controls().country.errors.required">{{'CreateProduct.country' | translate}}
             {{'CreateProduct.required' | translate}}</p>
@@ -56,7 +56,7 @@
         <select id="processing" (change)="getCities();" class="form-control" formControlName="processingCountry">
           <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
         </select>
-        <label for="processing">Processing Country...* </label>
+        <label for="processing">{{'CreateProduct.processingCountry' | translate}}* </label>
         <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
           <p *ngIf="controls().processingCountry.errors.required">{{'CreateProduct.processingCountry' | translate}}
             {{'CreateProduct.required' | translate}}</p>
@@ -74,7 +74,7 @@
         <select id="city" class="form-control" formControlName="city" (change)="onCityChange()">
           <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
         </select>
-        <label id="city">Port of Loading...*</label>
+        <label id="city">{{'CreateProduct.portLoading' | translate}}*</label>
         <div class="form-control-feedback" *ngIf="controls().city.errors&&parentForm.submitted">
           <p *ngIf="controls().city.errors.required">{{'CreateProduct.portLoading' | translate}}
             {{'CreateProduct.required' | translate}}</p>
@@ -91,7 +91,7 @@
       [ngClass]="{'has-danger': controls().unitOfSale.invalid && (controls().unitOfSale.dirty || controls().unitOfSale.touched),'has-success': controls().unitOfSale.valid && (controls().unitOfSale.dirty || controls().unitOfSale.touched)}">
       <span class="has-float-label">
         <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfSale" class="form-control">
-          <option value="">{{'AddProduct.select' | translate}}</option>
+          <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
           <option value="kg">Kg</option>
           <!-- <option value="lb">lb</option> -->
           <option value="boxes">Boxes</option>
@@ -216,7 +216,7 @@
               <option value="">{{'CreateProduct.select' | translate}}</option>
               <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
             </select>
-            <label id="variant">Subspecies Variant...</label>
+            <label id="variant">{{'CreateProduct.subSpeciesVariant' | translate}}</label>
           </span>
           <button type="button" class="question-btn" tabIndex="-1"
             tooltip="An optional field in case your product is a specific variant within the subspecies (Eg: King Chinook is a variant of pacific salmon)"
@@ -231,16 +231,16 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="subtitle-form">
-          <span>company info</span>
+          <span>Product Details</span>
         </h1>
       </div>
 
       <div class="col-lg-6">
         <div class="form-group input-group">
           <span class="has-float-label">
-            <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control"
+            <input id="sellersku" placeholder="{{'CreateProduct.productSku' | translate}}" type="text" class="form-control"
               formControlName="seller_sku">
-            <label id="sellersku">Company Product SKU...</label>
+            <label id="sellersku">{{'CreateProduct.productSku' | translate}}</label>
           </span>
           <button type="button" class="question-btn" tabIndex="-1" tooltip="Optional field for your unique product code"
             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>

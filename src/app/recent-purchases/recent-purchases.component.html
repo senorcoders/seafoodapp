@@ -184,15 +184,15 @@
 						<table class="table" *ngIf="showShipped; else noShipped" id="shipped-table">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Order
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">{{'Orders.order' | translate}}
 									</th>
-									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">Date
+									<th scope="col" class="selectionable" (click)="orderForOrder('firstShipped')">{{'Orders.date' | translate}}
 									</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Amount</th>
-									<th scope="col">QTY</th>
-									<th scope="col">SKU</th>
-									<th scope="col">Product</th>
+									<th scope="col">{{'Orders.amount' | translate}}</th>
+									<th scope="col">{{'Orders.qty' | translate}}</th>
+									<th scope="col">{{'Orders.sku' | translate}}</th>
+									<th scope="col">{{'Orders.product' | translate}}</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -331,14 +331,14 @@
 						<table class="table" *ngIf="showDelivered; else noDelivered">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Order
+									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">{{'Orders.order' | translate}}
 									</th>
-									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">Date</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('delivered')">{{'Orders.date' | translate}}</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Amount</th>
-									<th scope="col">QTY</th>
-									<th scope="col">SKU</th>
-									<th scope="col">Product</th>
+									<th scope="col">{{'Orders.amount' | translate}}</th>
+									<th scope="col">{{'Orders.qty' | translate}}</th>
+									<th scope="col">{{'Orders.sku' | translate}}</th>
+									<th scope="col">{{'Orders.product' | translate}}</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -409,14 +409,14 @@
 						<table class="table" *ngIf="showCancelled; else noCancelled">
 							<thead>
 								<tr>
-									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Order
+									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">{{'Orders.order' | translate}}
 									</th>
-									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">Date</th>
+									<th scope="col" class="selectionable" (click)="orderForOrder('cancelled')">{{'Orders.date' | translate}}</th>
 									<!-- <th scope="col">Address</th> -->
-									<th scope="col">Amount</th>
-									<th scope="col">QTY</th>
-									<th scope="col">SKU</th>
-									<th scope="col">Product</th>
+									<th scope="col">{{'Orders.amount' | translate}}</th>
+									<th scope="col">{{'Orders.qty' | translate}}</th>
+									<th scope="col">{{'Orders.sku' | translate}}</th>
+									<th scope="col">{{'Orders.product' | translate}}</th>
 									<th></th>
 								</tr>
 							</thead>
