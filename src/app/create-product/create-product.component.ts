@@ -137,7 +137,7 @@ export class CreateProductComponent implements OnInit {
     product.speciesSelected.disable();
     product.subSpeciesSelected.disable();
     product.descriptorSelected.disable();
-    features.acceptableSpoilageRate.disable();
+    // features.acceptableSpoilageRate.disable();
     features.raised.disable();
     features.treatment.disable();
     // features.wholeFishAction.disable();
@@ -176,7 +176,7 @@ export class CreateProductComponent implements OnInit {
 
           let features = {
             price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
-            acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
+            // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
             raised: data["raised"].id || "",
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
@@ -473,7 +473,7 @@ export class CreateProductComponent implements OnInit {
         boxWeight: product.averageUnitWeight,
         'minimumOrder': product.minimunorder,
         'maximumOrder': product.maximumorder,
-        "acceptableSpoilageRate": features.acceptableSpoilageRate,
+        // "acceptableSpoilageRate": features.acceptableSpoilageRate,
         'raised': features.raised,
         'treatment': features.treatment,
         'seller_sku': product.seller_sku,

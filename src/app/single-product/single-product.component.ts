@@ -71,7 +71,7 @@ export class SingleProductComponent implements OnInit {
   processingCountry: any;
   countries: any = [];
   types: any = '';
-  mortalityRate: any;
+  // mortalityRate: any;
   wholeFishWeight: any = null;
   options: Options = {
     floor: 1,
@@ -279,7 +279,7 @@ export class SingleProductComponent implements OnInit {
       this.storeId = data['store'].id;
       this.storeName = data['store'].name;
       this.brandname = data['brandname'];
-      this.mortalityRate = data['acceptableSpoilageRate'] || 0; //Para mantener compatibilidad con productos nuevos
+      // this.mortalityRate = data['acceptableSpoilageRate'] || 0; //Para mantener compatibilidad con productos nuevos
       if (data['raised'] && data['raised'] !== '') {
         this.raised = data['raised'];
       } else {
@@ -412,8 +412,13 @@ export class SingleProductComponent implements OnInit {
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
     }, err => {
-      if (err.error) {
+      console.log('err', err  );
+      if( err.hasOwnProperty('error') ){
+        this.toast.error( err.error.message, 'Seafood Souq', { positionClass: 'toast-top-right' });
+      } else if ( err.error ) {
         this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+      } else {
+        this.toast.error('An error has occurred', 'Seafood Souq', { positionClass: 'toast-top-right' });
       }
     });
   }

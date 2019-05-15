@@ -308,8 +308,8 @@ export class AvancedPricingComponent implements OnInit {
 
         }
 
-        this.refreshSlider();
       }
+      this.refreshSlider();
 
     });
 
@@ -502,7 +502,7 @@ export class AvancedPricingComponent implements OnInit {
 
     for (let k of keys) {
       if (data[k] === undefined) {
-        data[k] = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
+        data[k] = [{ min: this.options.floor, max: this.options.ceil, price: "", options: Object.assign({}, this.options) }];
         try {
           (this.parentForm.form.controls.price as FormGroup)
             .addControl(k + this.identifier, new FormGroup(this.controlsArray(data[k])));
@@ -528,7 +528,7 @@ export class AvancedPricingComponent implements OnInit {
 
     for (let k of keys) {
       if (this.trimWeights[k] === undefined) {
-        this.trimWeights[k] = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
+        this.trimWeights[k] = [{ min: this.options.floor, max: this.options.ceil, price: "", options: Object.assign({}, this.options) }];
         try {
           (this.parentForm.form.controls.price as FormGroup)
             .addControl(k + this.identifierTrim, new FormGroup(this.controlsArray(this.trimWeights[k])));
@@ -574,7 +574,7 @@ export class AvancedPricingComponent implements OnInit {
     //asi que simplemente se rrecorre el arry asigna 
     //los slides
     if (this.weightsFilleted.length === 0) {
-      this.weightsFilleted = [{ min: this.options.floor, max: this.options.ceil, price: 45, options: Object.assign({}, this.options) }];
+      this.weightsFilleted = [{ min: this.options.floor, max: this.options.ceil, price: "", options: Object.assign({}, this.options) }];
     }
     try {
       (this.parentForm.form.controls.price as FormGroup)
@@ -775,7 +775,7 @@ export class AvancedPricingComponent implements OnInit {
 
   public addPricing() {
     console.log(this.headAction, this.keySelect);
-    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : "";
+    let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) === false ? Number(this.valueExample) : "";
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     if (this.headAction === true) {
@@ -803,7 +803,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public addPricingTrim() {
-    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : 0;
+    let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) == false ? Number(this.valueExample) : "";
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     this.trimWeights[this.keySelectTrim].push(it);
@@ -826,7 +826,7 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public addPricingFilleted() {
-    let price = isNaN(this.valueExample) == false ? Number(this.valueExample) : 0;
+    let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) == false ? Number(this.valueExample) : "";
     let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
     let index = 0;
     this.weightsFilleted.push(it);

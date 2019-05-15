@@ -53,6 +53,11 @@ export class SellerComponent implements OnInit {
   storeEndpoint: any = 'api/store/user/';
   heroEndpoint: any = 'api/store/hero/';
   fileSfs: any = [];
+  paginationNumbers = [];
+  public skip = 0;
+  public limit = 20;
+  public page = 1;
+  public count = 0;
 
   constructor(private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
     private router: Router, private fb: FormBuilder, private productService: ProductService, private product: ProductService,
@@ -125,10 +130,15 @@ export class SellerComponent implements OnInit {
   }
 
   getUsers() {
-    this.auth.getData('user?where={"role":1}').subscribe(
-      result => {
-        this.users = result;
-        this.showLoading = false;
+    this.showLoading = true;
+    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=1`).subscribe(
+      result=> {
+        let r = result as any;
+        if(r.message=== 'ok'){
+          this.users = r.data;
+          this.calcPagination(r.pageAvailables);
+        }
+        this.showLoading = false; 
       },
       e => {
         this.showLoading = false;
@@ -136,6 +146,52 @@ export class SellerComponent implements OnInit {
       }
     );
   }
+
+  getUsersWithPagination(index) {
+    this.showLoading = true;
+    this.users = [];
+    this.page = index;
+    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=${this.page}`).subscribe(
+      result => {
+        let data: any = result;
+        if (data.message === 'ok') {
+          this.users = data.data;
+          // this.count = data.count;
+          this.calcPagination(data.pageAvailables);
+        }
+        
+        this.showLoading = false;
+      },
+      e => {
+        console.log(e)
+        this.showLoading = false;
+      }
+    )
+
+    
+  }
+
+  private calcPagination(length) {
+    this.paginationNumbers = [];
+    for (let i = 0; i < length; i++) {
+      this.paginationNumbers.push(i);
+    }
+  }
+
+  public nextPage() {
+    this.paginationNumbers = [];
+    this.page++;
+    this.getUsersWithPagination(this.page);
+  }
+
+  public previousPage() {
+    this.paginationNumbers = [];
+      if (this.page > 1) {
+        this.page--;
+      }
+      this.getUsersWithPagination(this.page);
+  }
+
   deleteUser(id) {
     this.product.deleteData('api/user/' + id).subscribe(
       result => {

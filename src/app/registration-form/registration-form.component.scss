@@ -75,6 +75,9 @@
             display: flex;
             align-items: center;
             text-align: center;
+            .row{
+                width: 100%;
+            }
             h1{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
@@ -200,5 +203,17 @@
         width: 100%;
         position: absolute;
         text-align: center;
+    }
+}
+
+#nav_content_dark {
+    a{
+        display: inline !important;
+    }
+}
+
+#content_light{
+    @media screen and (max-width: 992px){
+        left : 0 !important;
     }
 }

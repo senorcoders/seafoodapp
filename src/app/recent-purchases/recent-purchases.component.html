@@ -62,10 +62,14 @@
 							</thead>
 							<tbody *ngFor="let item of firstNoShipped; let i=index">
 								<tr [className]="item.items[0].updateInfo == null ? 'green-row' : 'gray-row'" >
-									<td><span *ngIf="item.items[0].updateInfo == null"
+									<td *ngIf="item.items.length == 1"><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
-									<td>{{item.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(item)}}</td>
+									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button"><span *ngIf="item.items[0].updateInfo == null"
+												class="new-span">NEW</span>{{item.orderNumber}}</td>
+									<td *ngIf="item.items.length == 1">{{item.updatedAt | date: 'd/M/y'}}</td>
+									<td  *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">{{item.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="item.items.length == 1">{{getTotal(item)}}</td>
+									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">{{getTotal(item)}}</td>	
 									<!-- <td>{{item?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.quantity?.value}} kg </td>
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.seller_sku}}</td>
@@ -101,9 +105,9 @@
 										<input class="input-hidden" id="epa{{item.items[0].id}}">
 
 									</td>
-									<td *ngIf="item.items.length > 1">N/A</td>
-									<td *ngIf="item.items.length > 1">N/A</td>
-									<td *ngIf="item.items.length > 1">{{item.items.length}} items </td>
+									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">N/A</td>
+									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">N/A</td>
+									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">{{item.items.length}} items </td>
 									<td *ngIf="item.items.length > 1"><a class="expandible-link collapsed"
 											data-toggle="collapse" href="#collapse{{item.id}}" role="button"
 											aria-expanded="false" aria-controls="collapseExample">
@@ -194,10 +198,16 @@
 							</thead>
 							<tbody *ngFor="let shipped of firstShipped; let i=index">
 								<tr>
-									<td>{{shipped.orderNumber}}</td>
-									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.updatedAt | date: 'd/M/y'}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
-									<td>{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length == 1">{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+									attr.data-target="#collapse{{shipped.id}}" role="button">{{getTotal(shipped)}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
@@ -234,9 +244,12 @@
 										<input class="input-hidden" id="epa{{shipped.items[0].id}}">
 
 									</td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.items.length}} items</td>
 
 									<td *ngIf="shipped.items.length > 1">
 										<a class="expandible-link collapsed" data-toggle="collapse"
@@ -331,18 +344,27 @@
 							</thead>
 							<tbody *ngFor="let shipped of delivered; let i=index">
 								<tr>
-									<td>{{shipped.orderNumber}}</td>
-									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length == 1">{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{getTotal(shipped)}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1"> </td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.items.length}} items</td>
 
 									<td *ngIf="shipped.items.length > 1">
 										<a class="expandible-link collapsed" data-toggle="collapse"
@@ -379,7 +401,7 @@
 						</table>
 						<ng-template #noDelivered>
 							<div class="col">
-								<h4 class="black-title">There are not products delivered</h4>
+								<h4 class="black-title">No products have been delivered</h4>
 							</div>
 						</ng-template>
 					</div>
@@ -400,18 +422,27 @@
 							</thead>
 							<tbody *ngFor="let shipped of cancelled; let i=index">
 								<tr>
-									<td>{{shipped.orderNumber}}</td>
-									<td>{{shipped.updatedAt | date: 'd/M/y'}}</td>
-									<td>{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.orderNumber}}</td>
+									<td *ngIf="shipped.items.length == 1">{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.updatedAt | date: 'd/M/y'}}</td>
+									<td *ngIf="shipped.items.length == 1">{{getTotal(shipped)}}</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{getTotal(shipped)}}</td>
 									<!-- <td>{{shipped?.buyer?.dataExtra?.Address}}</td> -->
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.quantity?.value}} kg
 									</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.seller_sku}}</td>
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1"> </td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">N/A</td>
-									<td *ngIf="shipped.items.length > 1">{{shipped.items.length}} items</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">N/A</td>
+									<td *ngIf="shipped.items.length > 1" data-toggle="collapse"
+										attr.data-target="#collapse{{shipped.id}}" role="button">{{shipped.items.length}} items</td>
 
 									<td *ngIf="shipped.items.length > 1">
 										<a class="expandible-link collapsed" data-toggle="collapse"
@@ -448,7 +479,7 @@
 						</table>
 						<ng-template #noCancelled>
 							<div class="col">
-								<h4 class="black-title">There are not products cancelled</h4>
+								<h4 class="black-title">No products have been cancelled</h4>
 							</div>
 						</ng-template>
 					</div>

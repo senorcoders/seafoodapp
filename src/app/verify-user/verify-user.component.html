@@ -53,14 +53,14 @@
 		</div>
 		<div class="row">
 			<div class="col" style="text-align: center;">
-				<span class="btn-red-a previous" (click)="previousPageSearch()"
+				<span class="btn-red-a previous" (click)="previousPage()"
 					*ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
 				<span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
 					[ngClass]="{'active': page==number}" (click)="getPendingUsersWithPagination(number)">{{number+1}}</span>
-				<span class="btn-red-a next" (click)="nextPageSearch()"
+				<span class="btn-red-a next" (click)="nextPage()"
 					*ngIf="showNextPS">{{'Products.next' | translate}}</span>
 			</div>
-		</div>
+		</div> 
 	</div>
 </div>
 <ng-template #noInfo>

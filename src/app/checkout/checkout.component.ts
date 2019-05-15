@@ -11,6 +11,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { environment } from '../../environments/environment';
 import {Location} from '@angular/common';
+import { ToastrService } from '../toast.service';
 
 declare var jQuery:any;
 
@@ -67,6 +68,7 @@ export class CheckoutComponent implements OnInit {
     private auth: AuthenticationService,
     private orders: OrderService,
     private _location: Location,
+    private toast:ToastrService,
     dateAdapter: DateTimeAdapter<any>)
     {  
     this.min.setDate( this.today.getDate() + 3 );
@@ -226,28 +228,7 @@ export class CheckoutComponent implements OnInit {
   onSubmit() {
     
 
-    //if ( all_medd_ok ) {
-      
-      /*this.orders.updateItemsETA( { etas: this.expectedDates } ).subscribe(
-        res=>{
-          this.toast.success('ETA updated', 'Success', { positionClass: 'toast-top-right' });
-        },
-        error => {
-          this.toast.error('Error updating ETA', 'Error', { positionClass: 'toast-top-right' });
-          console.log( error );
-        }
-      )*/
-      /*if (this.checkoutForm.valid) {
-        console.log('Valido');
-        this.sendDataToPayfort().subscribe(res => {
-          console.log(res);
-        });
-      } else {
-        this.validateAllFormFields(this.checkoutForm);
-      }*/
-    //} else {
-    //  this.toast.error('Please fill all Max Expected Delivery Dates', 'Error', { positionClass: 'toast-top-right' });
-    //}
+    this.validateCreditCardNumber();
 
 
   }
@@ -313,21 +294,57 @@ export class CheckoutComponent implements OnInit {
     localStorage.setItem('billingInformationAddress', this.address)
 
   }
-  validateLength(event: any, length: number, id: string) {
+  validateLength(event: any, min:number, max: number, id: string) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     const icard_number = <HTMLInputElement> document.getElementById(id);
+    //this.validateCreditCardNumber(icard_number.value+inputChar);
     if (!pattern.test(inputChar)) {
       // invalid character, prevent input
       event.preventDefault();
     }
-    console.log( icard_number.value.length, length );
-    if ( icard_number.value.length >= length ) {
+    console.log( icard_number.value.length, max );
+    if ( icard_number.value.length >= max ) {
+      this.all_medd_ok = false;
       event.preventDefault();
+    } else if ( icard_number.value.length < min ) {
+      this.all_medd_ok = false;
+    } else {
+      this.all_medd_ok = true;
     }
   }
 
   back(){
     this._location.back();
   }
+
+  validateccvNumber() { 
+ 
+    const ccv = <HTMLInputElement> document.getElementById('card_security_code');
+   
+    if ( ccv.value.length > 4 ) {
+      this.all_medd_ok = false;    
+      this.toast.error('Please enter a valid ccv number.', 'Error', { positionClass: 'toast-top-right' });
+    } else if ( ccv.value.length < 3 ) {
+      this.all_medd_ok = false;
+      this.toast.error('Please enter a valid ccv number.', 'Error', { positionClass: 'toast-top-right' });
+    } else {
+      this.all_medd_ok = true;
+    }
+  }
+
+ validateCreditCardNumber() {
+  const icard_number = <HTMLInputElement> document.getElementById('card_number');
+  if ( icard_number.value.length > 16 ) {
+    this.all_medd_ok = false;
+    this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
+  } else if ( icard_number.value.length < 13 ) {
+    this.all_medd_ok = false;
+    this.toast.error('Please enter a valid card number.', 'Error', { positionClass: 'toast-top-right' });
+  } else {
+    this.all_medd_ok = true;
+  }
+
+}
+
 }

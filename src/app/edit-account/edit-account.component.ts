@@ -65,6 +65,10 @@ export class EditAccountComponent implements OnInit {
   constructor(private auth: AuthenticationService, private rest: ProductService, 
     private toast:ToastrService, public ngProgress: NgProgress, private router:Router,
     private countryService: CountriesService) {
+      jQuery(document).ready(function () {
+      jQuery('.js-example-basic-single').select2();
+    });
+
   }
 
   
@@ -214,9 +218,27 @@ export class EditAccountComponent implements OnInit {
       this.updateAccount(this.info);
     }else{
       this.validateAllFormFields(this.buyerForm);
+      this.scrollToError();
     }
   }
 
+  scrollTo(el: Element): void {
+    if(el) { 
+      console.log("el", el);
+     el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+ }
+ 
+ scrollToError(): void {
+   let that:any = this;
+  setTimeout(function(){
+    const firstElementWithError = document.querySelector('.is-invalid');
+    console.log("HTMLElement", firstElementWithError);
+    that.scrollTo(firstElementWithError);
+   }, 500);
+
+ 
+ }
   updateSeller(){
     if(this.sellerForm.valid){
       console.log("Valido");
@@ -241,6 +263,7 @@ export class EditAccountComponent implements OnInit {
       this.updateAccount(this.info);
     }else{
       this.validateAllFormFields(this.sellerForm);
+      this.scrollToError();
     }
   }
 
