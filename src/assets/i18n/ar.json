@@ -600,12 +600,16 @@
 	},
 	"PricingCharges": {
 		"title": "System Pricing Charges",
-		"formTitle" : "Update System Pricing Charges",
+		"formTitle": "Update System Pricing Charges",
 		"uaeTaxes": "UAE Taxes (%)",
-		"handlingFess": "Handling Fess (%)",
+		"handlingFess": "Handling Fess ( AED / KG )",
 		"customs": "Customs (%)",
-		"lastMileCost":  "Last Mile Cost (%)",
+		"lastMileCost": "Last Mile Cost ( AED )",
 		"updateButton": "Update (%)",
-		"date": "Updated At"
+		"exchangeRates": "Exchange Rate (AED / USD)",
+		"date": "Updated At",
+		"type": "Type",
+		"price": "Price",
+		"flatCustoms": "Flat Customs (AED)"
 	}
 }
