@@ -328,7 +328,8 @@
 		"company-country": "Country of Origin",
 		"company-product": "Product Type",
 		"deliveryAddress": "Delivery Address",
-		"logo-company": "Logo Company"
+		"logo-company": "Logo Company",
+		"passwordPatternError": "The password should be 8 to 20 characters, contain an uppercase letter and a number."
 	},
 	"Featured-product": {
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
