@@ -476,7 +476,17 @@
 		"title": "My Orders",
 		"see-button": "View Order",
 		"name": "Shopping Cart",
-		"hour": "Hour"
+		"hour": "Hour",
+		"actionable": "Actionable",
+		"shipped": "Shipped",
+		"delivered": "Delivered",
+		"cancelled": "Cancelled",
+		"order": "Order No.",
+		"date": "Date of Order",
+		"amount": "Amount ($)",
+		"qty": "QTY",
+		"sku": "SKU",
+		"product": "product"
 	},
 	"Orders-items": {
 		"title": "Ordered Items",
