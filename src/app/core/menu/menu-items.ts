@@ -281,10 +281,10 @@ const menuSeller = [
     icon: 'box.svg',
     translate: {
       en: {
-        name: 'Orders'
+        name: 'My Orders'
       },
       ar: {
-        name: 'Orders'
+        name: 'My Orders'
       }
     }
   },

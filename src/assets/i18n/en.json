@@ -281,17 +281,19 @@
 		"Errortext": "Verification code is not valid."
 	},
 	"Login": {
-		"title": "Login",
-		"email": "Email...",
+		"title": "Welcome",
+		"email": "Email...", 
 		"password": "Password...",
 		"required": "is required",
 		"invalid": "is invalid",
 		"account": "Create Account",
 		"return": "Return to Home",
-		"forgot": "Forgot your password?",
+		"forgot": "Forgot password?",
 		"login": "Sign in",
 		"send": "Send",
-		"forgot-password": "Recover your password"
+		"forgot-password": "Recover your password",
+		"error": "The Email or Password you entered is incorrect.",
+		"register": "Register"
 	},
 	"Register": {
 		"title": "Register",
@@ -311,9 +313,9 @@
 		"required": "is required",
 		"invalid": "is invalid",
 		"licence": "License",
-		"message": "Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
+		"message": "Thank you for registering at Seafood Souq! Just one more thing - please check your inbox and follow the instructions to confirm your email address. We’ll be in touch within the next 24 hours to confirm your account. In the meantime to find out a bit more about what we are doing at Seafood Souq check out our blog",
 		"EmailNotification": "This email is already taken",
-		"submessage": "Click here to go back to home",
+		"submessage": "Or to go back home",
 		"Address": "Address",
 		"City": "City",
 		"zipCode": "Zip Code",
@@ -327,7 +329,9 @@
 		"company-country": "Country of Origin",
 		"company-product": "Product Type",
 		"deliveryAddress": "Delivery Address",
-		"logo-company": "Logo Company"
+		"logo-company": "Logo Company",
+		"buyer-title": "I want to buy",
+		"seller-title": "I want to sell"
 	},
 	"Featured-product": {
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
