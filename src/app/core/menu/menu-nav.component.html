@@ -201,8 +201,8 @@
            
             <!-- login options -->
             <li class="nav-item sliding-nav-item">
-              <a  class="nav-link dropdown-toggle"  data-toggle="dropdown" routerLink="/store/{{storeID}}" role="button" aria-haspopup="true" aria-expanded="false">
-                  <div class="headshot-logo" [ngClass]="(logo == '../../../assets/svg/account-circle.svg') ? 'white-logo' : 'original-logo'" [style.background]="'url('+ logo +')'"></div>
+              <a  class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                  <div class="headshot-logo" routerLink="/store/{{storeID}}" role="button" [ngClass]="(logo == '../../../assets/svg/account-circle.svg') ? 'white-logo' : 'original-logo'" [style.background]="'url('+ logo +')'"></div>
                   <div class="arrow-toggle"></div>
                   <div class="dropdown-menu">
                     <a class="dropdown-item" routerLink="/account">settings</a>
