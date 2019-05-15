@@ -281,6 +281,26 @@ submitStep1(){
     console.log("Invalido");
     this.validateAllFormFields(this.buyerForm);
     this.showError("Please fix all required fields");
+    this.scrollToError();
   }
+}
+
+
+scrollTo(el: Element): void {
+  if(el) { 
+    console.log("el", el);
+   el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
+scrollToError(): void {
+ let that:any = this;
+setTimeout(function(){
+  const firstElementWithError = document.querySelector('.is-invalid');
+  console.log("HTMLElement", firstElementWithError);
+  that.scrollTo(firstElementWithError);
+ }, 500);
+
+
 }
 }

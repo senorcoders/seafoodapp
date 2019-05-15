@@ -647,7 +647,8 @@
 		"exchangeRates": "Exchange Rate (AED / USD)",
 		"date": "Updated At",
 		"type": "Type",
-		"price": "Price"
+		"price": "Price",
+		"flatCustoms": "Flat Customs (AED)"
 	},
 	"FulsfillsOrders": {
 		"title": "Seller Fulfills Orders",

@@ -11,6 +11,7 @@
               <label>{{'PricingCharges.type' | translate}}</label>
               <select (change)="changeSelectedType($event.target.value)" id="type" class="form-control" formControlName="type" >
                 <option value="customs">Customs</option>
+                <option value="flatCustoms">Flat Customs</option>
                 <option value="uaeTaxes">UAE Taxes</option>
                 <option value="lastMileCost">Last Mile Cost</option>
                 <option value="handlingFees">Handling Fees</option>
@@ -44,6 +45,7 @@
         <table class="table table-hover">
           <thead>
             <tr>
+              <th scope="col">{{'PricingCharges.flatCustoms' | translate}}</th>
               <th scope="col">{{'PricingCharges.customs' | translate}}</th>
               <th scope="col">{{'PricingCharges.uaeTaxes' | translate}}</th>
               <th scope="col">{{'PricingCharges.lastMileCost' | translate}}</th>
@@ -53,6 +55,7 @@
           </thead>
           <tbody>
             <tr>
+              <td> {{currentPricing.flatCustoms}} </td>
               <td> {{currentPricing.customs}} </td>
               <td> {{currentPricing.uaeTaxes}} </td>
               <td> {{currentPricing.lastMileCost}} </td>
@@ -73,6 +76,23 @@
   </div><!--end row-->
 
   <div class="row">
+      <div class="col">
+          <h5>{{'PricingCharges.flatCustoms' | translate}}</h5>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">{{'PricingCharges.price' | translate}}</th>
+                <th scope="col">{{'PricingCharges.date' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let pricing of historyPricing.flatCustoms" >
+                <th scope="row"> {{pricing.price}} </th>                
+                <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+              </tr>              
+            </tbody>
+          </table>
+        </div><!--col-md-3 customs-->
     <div class="col">
       <h5>{{'PricingCharges.customs' | translate}}</h5>
       <table class="table table-hover">

@@ -746,6 +746,8 @@
 		"delete": "Delete"
 	},
 	"historicalOrders": {
-		"title": "Historical Orders"
+		"title": "Historical Orders",
+		"price": "Price",
+		"flatCustoms": "Flat Customs (AED)"
 	}
 }
