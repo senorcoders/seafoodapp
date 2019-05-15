@@ -192,19 +192,11 @@
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country...",
-<<<<<<< HEAD
-		"mainCategory": "Product Category...",
-		"species": "Species...",
-		"subSpecies": "Subspecies...",
-		"subSpeciesVariant": "Subspecies Variant...",
-		"productSku": "Product SKU...",
-=======
 		"mainCategory": "Sea Life Category",
 		"species": "Species",
 		"subSpecies": "Subspecies",
 		"subSpeciesVariant": "Subspecies Variant",
 		"productSku": "Company Product SKU...",
->>>>>>> 21fbf44f3e26af55ac597bf3272af99f6d585e17
 		"hsCode": "HS Code...",
 		"productFeatures": "Product Features",
 		"uploadGallery": "Upload your Images...",
@@ -220,16 +212,10 @@
 		"advancepricing": "advanced pricing",
 		"back": "Back",
 		"trimming": "Trimming...",
-<<<<<<< HEAD
-		"unitOfSale": "Unit of Measurement...",
-		"averageUnitWeight": "Average Unit Weight (kg)..."
-		},
-=======
 		"unitOfSale": "Unit of Sale...",
 		"averageUnitWeight": "Average Unit Weight (kg)...",
 		"sealife": "Sea Life Category"
 	},
->>>>>>> 21fbf44f3e26af55ac597bf3272af99f6d585e17
 	"SingleProduct": {
 		"add": "Add to cart",
 		"view": "View Cart",
@@ -347,6 +333,7 @@
 		"logo-company": "Logo Company",
 		"buyer-title": "I want to buy",
 		"seller-title": "I want to sell"
+		"passwordPatternError": "The password should be 8 to 20 characters, contain an uppercase letter and a number.",
 	},
 	"Featured-product": {
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",

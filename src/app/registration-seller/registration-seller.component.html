@@ -58,7 +58,7 @@
                                     <input id="password" type="password"  minlength="8" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':sellerForm.get('password').invalid && sellerForm.get('password').touched}">
                                     <label for="password">{{'Register.password' | translate}}</label> 
                                     <div class="invalid-feedback" *ngIf="sellerForm.get('password').hasError('password') || sellerForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
-                                    <div class="invalid-feedback" *ngIf="sellerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters maximum 20, 1 uppercase and 1 number.</div>
+                                    <div class="invalid-feedback" *ngIf="sellerForm.get('password').errors?.pattern">{{'Register.passwordPatternError' | translate}}.</div>
                               </span>         
                             </div>
                         </div>

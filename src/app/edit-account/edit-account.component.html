@@ -226,8 +226,10 @@
           <div class="form-group input-group" style="max-width:975px;">
               <span class="has-float-label">
                <input type="text" id="desc" placeholder="Company Description" class="form-control" formControlName="storeDescription" [ngClass]="{'is-invalid':sellerForm.get('storeDescription').invalid && sellerForm.get('storeDescription').touched}">
-              <label for="desc">Company Description <span class="field-status red">*</span></label>
-              <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div>
+              <label for="desc">Company Description 
+                <!-- <span class="field-status red">*</span> -->
+              </label>
+              <!-- <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div> -->
               </span>
             </div>
          
