@@ -151,10 +151,10 @@
           <span class="has-float-label">
             <select id="cat" placeholder="Sea Life Category...*" formControlName="parentSelectedType"
               (change)="getOnChangeLevel(0)" class="form-control">
-              <option value="">{{'AddProduct.select' | translate}}</option>
+              <option value="">{{'CreateProduct.mainCategory' | translate}}</option>
               <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
             </select>
-            <label id="cat">Sea Life Category...*</label>
+            <label id="cat">{{'CreateProduct.mainCategory' | translate}}...*</label>
 
             <div class="form-control-feedback" *ngIf="controls().parentSelectedType.errors&&parentForm.submitted">
               <p *ngIf="controls().parentSelectedType.errors.required">{{'CreateProduct.mainCategory' | translate}}
@@ -172,10 +172,10 @@
           <span class="has-float-label">
             <select id="specie" placeholder="Species...*" (change)="getOnChangeLevel(1, $event.target.value)"
               class="form-control" formControlName="speciesSelected">
-              <option value="">{{'CreateProduct.select' | translate}}</option>
+              <option value="">{{'CreateProduct.species' | translate}}</option>
               <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
             </select>
-            <label for="specie">Species...*</label>
+            <label for="specie">{{'CreateProduct.species' | translate}}...*</label>
             <div class="form-control-feedback" *ngIf="controls().speciesSelected.errors&&parentForm.submitted">
               <p *ngIf="controls().speciesSelected.errors.required">{{'CreateProduct.species' | translate}}
                 {{'CreateProduct.required' | translate}}</p>
@@ -193,10 +193,10 @@
           <span class="has-float-label">
             <select id="subspecie" placeholder="Subspecies...*" formControlName="subSpeciesSelected"
               (change)="getOnChangeLevel(2)" class="form-control" required>
-              <option value="">{{'CreateProduct.select' | translate}}</option>
+              <option value="">{{'CreateProduct.subSpecies' | translate}}</option>
               <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>
             </select>
-            <label id="subspecie">Subspecies...*</label>
+            <label id="subspecie">{{'CreateProduct.subSpecies' | translate}}...*</label>
 
             <div class="form-control-feedback" *ngIf="controls().subSpeciesSelected.errors&&parentForm.submitted">
               <p *ngIf="controls().subSpeciesSelected.errors.required">{{'CreateProduct.subSpecies' | translate}}
@@ -213,10 +213,11 @@
           <span class="has-float-label">
             <select id="variant" placholder="Subspecies Variant..." class="form-control"
               formControlName="descriptorSelected">
-              <option value="">{{'CreateProduct.select' | translate}}</option>
+              <option value="">{{'CreateProduct.subSpeciesVariant' | translate}}</option>
               <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>
             </select>
             <label id="variant">{{'CreateProduct.subSpeciesVariant' | translate}}</label>
+
           </span>
           <button type="button" class="question-btn" tabIndex="-1"
             tooltip="An optional field in case your product is a specific variant within the subspecies (Eg: King Chinook is a variant of pacific salmon)"
