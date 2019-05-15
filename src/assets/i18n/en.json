@@ -192,10 +192,10 @@
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country...",
-		"mainCategory": "Sea Life Category...",
-		"species": "Species...",
-		"subSpecies": "Subspecies...",
-		"subSpeciesVariant": "Subspecies Variant...",
+		"mainCategory": "Sea Life Category",
+		"species": "Species",
+		"subSpecies": "Subspecies",
+		"subSpeciesVariant": "Subspecies Variant",
 		"productSku": "Company Product SKU...",
 		"hsCode": "HS Code...",
 		"productFeatures": "Product Features",
@@ -213,7 +213,8 @@
 		"back": "Back",
 		"trimming": "Trimming...",
 		"unitOfSale": "Unit of Sale...",
-		"averageUnitWeight": "Average Unit Weight (kg)..."
+		"averageUnitWeight": "Average Unit Weight (kg)...",
+		"sealife": "Sea Life Category"
 	},
 	"SingleProduct": {
 		"add": "Add to cart",
