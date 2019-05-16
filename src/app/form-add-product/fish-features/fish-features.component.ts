@@ -144,28 +144,6 @@ export class FishFeaturesComponent implements OnInit {
     // this.checkPriceForm();
   }
 
-  // private checkPriceForm() {
-  //   if (this.parentForm.form.controls.price !== undefined) {
-  //     this.parentForm.form.controls.price.valueChanges.subscribe(ig => {
-  //       let keys = Object.keys(ig);
-  //       keys = keys.filter(it => {
-  //         if (
-  //           it === 'headAction' ||
-  //           it === 'weights' ||
-  //           it === 'example' ||
-  //           it.includes(this.identifier) === true
-  //         ) return false;
-  //         return ig[it] === true;
-  //       });
-  //       if (keys.length > 1) {
-  //         this.head = 'both';
-  //       }
-  //     });
-  //   } else {
-  //     setTimeout(this.checkPriceForm.bind(this), 3000);
-  //   }
-  // }
-
   private getwholeFishWeight() {
     this.productService.getData("wholefishweight").subscribe(it => {
       this.wholeFishs = it as any;

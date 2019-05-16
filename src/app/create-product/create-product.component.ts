@@ -126,7 +126,7 @@ export class CreateProductComponent implements OnInit {
 
   private disableInputs() {
     let product = (this.myform.controls.product as FormGroup).controls;
-    let features = (this.myform.controls.features as FormGroup).controls;
+    // let features = (this.myform.controls.features as FormGroup).controls;
     product.name.disable();
     product.country.disable();
     product.processingCountry.disable();
@@ -138,8 +138,8 @@ export class CreateProductComponent implements OnInit {
     product.subSpeciesSelected.disable();
     product.descriptorSelected.disable();
     // features.acceptableSpoilageRate.disable();
-    features.raised.disable();
-    features.treatment.disable();
+    product.raised.disable();
+    product.treatment.disable();
     // features.wholeFishAction.disable();
   }
 
@@ -171,17 +171,23 @@ export class CreateProductComponent implements OnInit {
             hsCode: data["hsCode"],
             minimunorder: data["minimumOrder"],
             maximumorder: data["maximumOrder"],
-            imagesSend: images.forForm
-          }; console.log("product", product);
-
-          let features = {
+            imagesSend: images.forForm,
             price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
             // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
             raised: data["raised"].id || "",
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
             wholeFishAction: data["wholeFishAction"]
-          };
+          }; console.log("product", product);
+
+          // let features = {
+          //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
+          //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
+          //   raised: data["raised"].id || "",
+          //   treatment: data["treatment"].id || "",
+          //   head: data["head"] || "on",
+          //   wholeFishAction: data["wholeFishAction"]
+          // };
 
           let price = {
             headAction: data["headAction"],
@@ -189,7 +195,7 @@ export class CreateProductComponent implements OnInit {
 
           // let varit = this.reingenieriaVariations(data, data["variations"]);
           // features = Object.assign(features, varit.features);
-          this.setValue({ product, features, price });
+          this.setValue({ product, price });
           let we: any = {};
           we.isTrimms = data["isTrimms"];
           we.weights = data["weights"];
@@ -323,7 +329,7 @@ export class CreateProductComponent implements OnInit {
       console.log(this.myform.value);
       let value = this.myform.value,
         product = value.product,
-        features = value.features,
+        features = product,
         pricing = value.price;
 
       product.speciesSelected = product.speciesSelected || this.speciesSelected;
@@ -447,7 +453,7 @@ export class CreateProductComponent implements OnInit {
       }
 
       // this.ngProgress.start();
-      let priceAED = Number(value.features.price).toFixed(2);
+      // let priceAED = Number(features.price).toFixed(2);
       const data: any = {
         parentType: product.parentSelectedType,
         "specie": product.speciesSelected,

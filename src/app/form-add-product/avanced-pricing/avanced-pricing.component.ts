@@ -225,7 +225,7 @@ export class AvancedPricingComponent implements OnInit {
       //Para elegir los slides que se muestran si es salmon o no
       if (it.speciesSelected) {
         this.speciesSelected = it.speciesSelected;
-        console.log(this.speciesSelected === '5bda361c78b3140ef5d31fa4', it);
+        // console.log(this.speciesSelected === '5bda361c78b3140ef5d31fa4', it);
         if (this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.wholeFishAction === false) {
           this.hideTrimesSlides = false;
         } else {
@@ -314,7 +314,7 @@ export class AvancedPricingComponent implements OnInit {
     });
 
     //Para mostrar el advance pricing
-    this.parentForm.form.controls.features.valueChanges.subscribe(it => {
+    this.parentForm.form.controls.product.valueChanges.subscribe(it => {
       this.head = it.head;
       if (it.head === 'both') {
         // if (this.showPricingValue === false) this.showPricingValue = true;
