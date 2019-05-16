@@ -530,6 +530,7 @@ export class CreateProductComponent implements OnInit {
         try {
           //La imagen primary siempre se vuelve a subir
           let files: File[] = [];
+	  
           for (let image of images) {
             let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + this.productID);
             if (image.type === "primary") {
@@ -539,9 +540,10 @@ export class CreateProductComponent implements OnInit {
               files.push(file);
             }
           }
-          await this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
-          await this.productService.updateImages(files, this.productID).toPromise();
-        }
+          //secondary images are uploaded on background
+           this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
+           this.productService.updateImages(files, this.productID).toPromise();
+        }       
         catch (e) {
           console.error(e);
         }
@@ -580,7 +582,8 @@ export class CreateProductComponent implements OnInit {
           files.push(file);
         }
       }
-      await this.saveImages(productID, 'secundary', files);
+      //secondary images are uploaded on background
+      this.saveImages(productID, 'secundary', files);
     }
     catch (e) {
       console.error(e);

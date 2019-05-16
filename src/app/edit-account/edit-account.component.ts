@@ -122,7 +122,7 @@ export class EditAccountComponent implements OnInit {
     this.SellerProductsIntered = new FormControl('', [Validators.required]);
     this.sellerContactNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
     this.sellerCurrencyTrade = new FormControl('', [Validators.required]);
-    this.sellerStoreDescription= new FormControl('', [Validators.required]);
+    this.sellerStoreDescription= new FormControl('', [Validators.nullValidator]);
 
   }
 

@@ -136,7 +136,7 @@
                   <div class="headshot-logo" style="background: url('../../../assets/svg/account-circle.svg')"></div>
                   <div class="arrow-toggle"></div>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="/account">settings</a>
+                    <a class="dropdown-item" routerLink="/account">my profile</a>
                     <a class="dropdown-item" (click)="logOut()" >logout</a>
                   </div>
               </a>
@@ -205,7 +205,7 @@
                   <div class="headshot-logo" routerLink="/store/{{storeID}}" role="button" [ngClass]="(logo == '../../../assets/svg/account-circle.svg') ? 'white-logo' : 'original-logo'" [style.background]="'url('+ logo +')'"></div>
                   <div class="arrow-toggle"></div>
                   <div class="dropdown-menu">
-                    <a class="dropdown-item" routerLink="/account">settings</a>
+                    <a class="dropdown-item" routerLink="/account">My Profile</a>
                     <a class="dropdown-item" (click)="logOut()" >logout</a>
                   </div> 
               </a>

@@ -163,7 +163,7 @@
 	},
 	"CreateProduct": {
 		"title": "Add New Product",
-		"brandName": "Brand",
+		"brandName": "Brand Name",
 		"name": "Product Name...",
 		"price": "Price/KG in USD",
 		"Kg": "Kg",
@@ -185,21 +185,21 @@
 		"preparation": "Preparation",
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
-		"seller_sku": "Seller SKU",
+		"seller_sku": "Product SKU",
 		"seafood_sku": "Seafood Souq SKU",
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country...",
-		"mainCategory": "Sea Life Category",
-		"species": "Species",
-		"subSpecies": "Subspecies",
-		"subSpeciesVariant": "Subspecies Variant",
-		"productSku": "Company Product SKU...",
+		"mainCategory": "Product Category...",	
+		"species": "Species...",	
+		"subSpecies": "Subspecies...",	
+		"subSpeciesVariant": "Subspecies Variant...",	
+		"productSku": "Product SKU...",
 		"hsCode": "HS Code...",
 		"productFeatures": "Product Features",
-		"uploadGallery": "Upload Gallery Images...",
+		"uploadGallery": "Upload your Images...",
 		"wholeFish": "Whole Fish",
 		"filletedFish": "Filleted Fish",
 		"headOffWeight": "Head Off Weight...",
@@ -212,7 +212,7 @@
 		"advancepricing": "advanced pricing",
 		"back": "Back",
 		"trimming": "Trimming...",
-		"unitOfSale": "Unit of Sale...",
+		"unitOfSale": "Unit of Measurement...",
 		"averageUnitWeight": "Average Unit Weight (kg)...",
 		"sealife": "Sea Life Category"
 	},
@@ -269,7 +269,7 @@
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
 		"small-title-banner": "Fresh seafood",
 		"banner-button": "Shop Now",
-		"back": "Back To Shopping",
+		"back": "Continue Shopping",
 		"delete": "Delete",
 		"update": "Update All",
 		"subtotal": "Sub Total",
@@ -282,17 +282,19 @@
 		"Errortext": "Verification code is not valid."
 	},
 	"Login": {
-		"title": "Login",
-		"email": "Email...",
+		"title": "Welcome",
+		"email": "Email...", 
 		"password": "Password...",
 		"required": "is required",
 		"invalid": "is invalid",
 		"account": "Create Account",
 		"return": "Return to Home",
-		"forgot": "Forgot your password?",
+		"forgot": "Forgot password?",
 		"login": "Sign in",
 		"send": "Send",
-		"forgot-password": "Recover your password"
+		"forgot-password": "Recover your password",
+		"error": "The Email or Password you entered is incorrect.",
+		"register": "Register"
 	},
 	"Register": {
 		"title": "Register",
@@ -312,9 +314,9 @@
 		"required": "is required",
 		"invalid": "is invalid",
 		"licence": "License",
-		"message": "Your registration information has been sent to the administrators of Seafood Souq for review.  Please keep an eye out for our email regarding your registration status",
+		"message": "Thank you for registering at Seafood Souq! Just one more thing - please check your inbox and follow the instructions to confirm your email address. We’ll be in touch within the next 24 hours to confirm your account. In the meantime to find out a bit more about what we are doing at Seafood Souq check out our blog",
 		"EmailNotification": "This email is already taken",
-		"submessage": "Click here to go back to home",
+		"submessage": "Or to go back home",
 		"Address": "Address",
 		"City": "City",
 		"zipCode": "Zip Code",
@@ -328,7 +330,10 @@
 		"company-country": "Country of Origin",
 		"company-product": "Product Type",
 		"deliveryAddress": "Delivery Address",
-		"logo-company": "Logo Company"
+		"logo-company": "Logo Company",
+		"buyer-title": "I want to buy",
+		"seller-title": "I want to sell",
+		"passwordPatternError": "The password should be 8 to 20 characters, contain an uppercase letter and a number."
 	},
 	"Featured-product": {
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
@@ -473,7 +478,17 @@
 		"title": "My Orders",
 		"see-button": "View Order",
 		"name": "Shopping Cart",
-		"hour": "Hour"
+		"hour": "Hour",
+		"actionable": "Actionable",
+		"shipped": "Shipped",
+		"delivered": "Delivered",
+		"cancelled": "Cancelled",
+		"order": "Order No.",
+		"date": "Date of Order",
+		"amount": "Amount ($)",
+		"qty": "QTY",
+		"sku": "SKU",
+		"product": "product"
 	},
 	"Orders-items": {
 		"title": "Ordered Items",
@@ -748,5 +763,9 @@
 	},
 	"historicalOrders": {
 		"title": "Historical Orders"
+	},
+	"newProduct": {
+		"title": "Add product",
+		"edit": "Edit product"
 	}
 }

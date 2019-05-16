@@ -14,16 +14,16 @@
 				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
 						<li class="nav-item">
 							<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
-								aria-controls="pending" aria-selected="true">open <span
+								aria-controls="pending" aria-selected="true">open orders <span
 									*ngIf="shoppingCarts.length > 0">({{shoppingCarts.length}})</span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
-								aria-controls="purchased" aria-selected="false">complete <span
+								aria-controls="purchased" aria-selected="false">complete orders <span
 									*ngIf="orders.length > 0">({{orders.length}})</span></a>
 						</li>
 						<div class="filter-field">
-							<input type="text" placeholder="Search by order number..."  [(ngModel)]="searchText">
+							<input type="text" placeholder="Search by order no."  [(ngModel)]="searchText">
 							<img src="../../assets/svg/magnify.svg" alt="">
 						</div>
 
@@ -38,7 +38,7 @@
 											<tr>
 												<th scope="col">product</th>
 												<th scope="col">seller</th>
-												<th scope="col">status</th>
+												<th scope="col">Item status</th>
 												<th scope="col">qty</th>
 												<th scope="col">price / kg</th>
 												<th scope="col">total (aed)</th>
@@ -97,10 +97,10 @@
 						<table id="open-table" class="table" *ngIf="showData; else noProduct">
 							<thead>
 								<tr>
-									<th scope="col">Order</th>
-									<th scope="col">Date</th>
-									<th scope="col">status</th>
-									<th scope="col">product</th>
+									<th scope="col">Order No.</th>
+									<th scope="col">Date Placed</th>
+									<th scope="col">Order Status</th>
+									<th scope="col">No. of Items</th>
 									<th scope="col">total (aed)</th>
 								</tr>
 							</thead>

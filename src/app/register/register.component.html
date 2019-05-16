@@ -66,7 +66,7 @@
              <label>{{'Register.password' | translate}}<span class="field-status red">*</span></label>
              <input type="password"  minlength="8" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
              <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('password') || buyerForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
-             <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters maximum 20, 1 uppercase and 1 number.</div>
+             <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors?.pattern">{{'Register.passwordPatternError' | translate}}</div>
              <!-- <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors">{{'Register.password' | translate}} should has at least 8 characters</div> -->	
 
            </div>
@@ -178,7 +178,7 @@
              <label>{{'Register.password' | translate}} <span class="field-status red">*</span></label>
              <input type="password" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':sellerForm.get('password').invalid && sellerForm.get('password').touched}">
              <div class="invalid-feedback" *ngIf="sellerForm.get('password').hasError('required')"> {{'Register.password' | translate}} {{'Register.required' | translate}}.</div>
-             <div class="invalid-feedback" *ngIf="sellerForm.get('password').errors?.pattern">{{'Register.password' | translate}} should has at least 8 characters maximum 20, 1 uppercase and 1 number.</div>	
+             <div class="invalid-feedback" *ngIf="sellerForm.get('password').errors?.pattern">{{'Register.passwordPatternError' | translate}}</div>	
 
            </div>
          </div>

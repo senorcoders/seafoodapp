@@ -6,8 +6,8 @@
             <div class="row"> 
               
                 <div class="col-lg-12 text-center">
-                    <h1 class="gray-title" *ngIf="createProduct" ><span>Add new product</span></h1>
-                    <h1 class="gray-title" *ngIf="!createProduct" ><span>Edit product</span></h1>
+                    <h1 class="gray-title" *ngIf="createProduct" ><span>{{'newProduct.title' | translate}}</span></h1>
+                    <h1 class="gray-title" *ngIf="!createProduct" ><span>{{'newProduct.edit' | translate}}</span></h1>
                   </div>
                 <ng-template #customLoadingTemplate>
                   <div class="row">
