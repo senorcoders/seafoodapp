@@ -29,14 +29,11 @@
                   {{variationId}}
                     <h2>{{product.fish.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">-{{product?.wholeFishWeight[0]?.name}}</span></h2>
                     <div class="range-box">
-                        <div>
-                            <span id="qty-kg-{{product.fish.id}}" class="qty-kg" (click)="hideMe(product.fish.id)"> {{product.quantity.value}} kg</span>  
-                            <input placeholder="type kg..."  id="edit-qty-{{product.fish.id}}" class="qty-number" type="number"  (change)="manualInput(product.fish.id, i, product.fish.maximumOrder)" (focusout)="showSpan(product.fish.id)">
-                         </div>
+              
                          
                           <form>
                               <span class="amount-span">{{product.fish.minimumOrder}}</span>
-                              <input id="range-{{product.fish.id}}"  type="range" class="product-range"  [value]="product.quantity.value" [min]="product.fish.minimumOrder" [max]="product.fish.maximumOrder" (input)="showRangeVal(product.fish.id, i)" (change)="getRange(product.fish.id, i)">
+                              <input placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number"  (change)="manualInput(product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)">
                               <span class="amount-span">{{product.fish.maximumOrder}}</span>
                           </form>
                     </div>

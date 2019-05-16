@@ -97,7 +97,6 @@
                 display: block;
                 width: 300px;
                 margin-left: 30px;
-                margin-top: -25px;
                 @media screen  and (max-width: 992px){
                     margin: 20px auto;
                  }
@@ -118,6 +117,7 @@
                     line-height: 16px;
                   }
 
+                
                 .qty-number{
                     background: none;
                     border: none;
@@ -130,7 +130,20 @@
                     width: auto;
                     height: auto;
                     font-weight: 300;
-                    display: none;
+                    font-style: normal;
+                    border-bottom: 1px solid #3E4E75;
+                    width: 120px;
+                    text-align: center;
+                    &::placeholder{
+                      color: #7484AA;
+                      font-style: italic;
+                    }
+                    &:focus{
+                      color: #3E4E75;
+                      border-bottom: 1px solid #3E4E75;
+                
+                
+                    }
                 }
                form{
                    label{

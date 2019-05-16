@@ -134,14 +134,12 @@
 
             <div class="row range-row">
               <div class="col-md-7">
-                <input type="number" step="1" [min]="min" [max]="max" name="quantity" [(ngModel)]="count" title="Qty"
-                  class="input-text qty text" size="4" pattern="[0-9]*" inputmode="numeric"
-                  (keyup.enter)="getPricingCharges()" (change)="verifyQty()" (focusout)="hideElements()"
-                  id="input-text">
-                <input type="text" id="qty-text" class="qty" (click)="showElements()" value="type...">
-                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="value" [options]="options"
-                  (userChangeEnd)="onUserChangeEnd($event)">
-                </ng5-slider>
+
+                <form class="kg-form">
+                    <span class="amount-span"style="margin-right: 5px;">{{min}}</span>
+                    <input type="number"  placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (change)="verifyQty()">
+                    <span class="amount-span" style="margin-left: 5px;">{{max}}</span>
+                </form>
               </div>
               <div class="col-md-5">
                 <button *ngIf="!cooming_soon" (click)="addToCart()" type="submit"

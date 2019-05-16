@@ -261,7 +261,7 @@
               <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
               <div class="cart-slide-range">
                   <form>
-                      <span class="amount-span"style="margin-right: 5px;">{{product.variation.min}}</span>
+                      <span class="amount-span" style="margin-right: 5px;">{{product.variation.min}}</span>
                       <input disabled  name="foo" type="text" class="qty-number" value="{{product?.quantity?.value}} kg">
                       <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
                       <label>{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>

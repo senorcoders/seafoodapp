@@ -215,7 +215,12 @@ export class SingleProductComponent implements OnInit {
       this.count = this.max;
       this.value = this.count;
       this.getPricingCharges();
-    } else {
+    } else if(this.count < this.min){
+      this.count = this.min;
+      this.value = this.count;
+      this.getPricingCharges();
+    }
+    else {
       this.value = this.count;
       this.getPricingCharges();
     }
