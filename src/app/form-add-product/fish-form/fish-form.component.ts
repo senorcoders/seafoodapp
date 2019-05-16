@@ -35,7 +35,7 @@ export class FishFormComponent implements OnInit {
   public typeLevel2 = [];
   public typeLevel3 = [];
 
-  public preparationOptions:any[] = [
+  public preparationOptions: any[] = [
     'Head On Gutted',
     'Head Off Gutted',
     'Filleted'
@@ -75,7 +75,7 @@ export class FishFormComponent implements OnInit {
 
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
-    private route: ActivatedRoute, private sanitizer: DomSanitizer, 
+    private route: ActivatedRoute, private sanitizer: DomSanitizer,
     private toast: ToastrService, private auth: AuthenticationService
   ) {
     let productID = this.route.snapshot.params['id'];
@@ -136,6 +136,7 @@ export class FishFormComponent implements OnInit {
       // price: new FormControl('0', Validators.required),
       priceShow: new FormControl(true, Validators.nullValidator)
     }));
+    
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       if (it.unitOfSale === "boxes") {
         this.showAverageUnit = true;
@@ -144,11 +145,22 @@ export class FishFormComponent implements OnInit {
       }
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
+
+      //Features
+      if (it.speciesSelected !== undefined && it.speciesSelected !== null) {
+        if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+          this.hideTrimModal = false;
+        } else {
+          this.hideTrimModal = true;
+        }
+      }
+
+      this.wholeFishAction = it.wholeFishAction;
     });
-    
+
   }
 
-  
+
 
   public byPassImageUrl(image) {
     return this.sanitizer.bypassSecurityTrustUrl(image);
@@ -489,16 +501,16 @@ export class FishFormComponent implements OnInit {
     this.indexImage = index;
   }
 
-  public inLimit(to){
+  public inLimit(to) {
     let limit = { min: (this.images.length - 4) * -1, max: 0 };
     let index = JSON.parse(JSON.stringify({ ind: this.indexImage })).ind;
     if (to < 0) {
       // index -= 1;
-      console.log("-1", limit.min < index, limit.min, index);
+      // console.log("-1", limit.min < index, limit.min, index);
       return limit.min < index;
     } else {
       // index += 1;
-      console.log("1", limit.max > index, limit.max, index);
+      // console.log("1", limit.max > index, limit.max, index);
       return limit.max > index;
     }
   }
@@ -582,16 +594,10 @@ export class FishFormComponent implements OnInit {
     //   priceShow: new FormControl(true, Validators.nullValidator)
     // }));
 
-    this.parentForm.form.controls.product.valueChanges.subscribe(it => {
-      if (it.speciesSelected !== undefined && it.speciesSelected !== null) {
-        if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
-          this.hideTrimModal = false;
-        } else {
-          this.hideTrimModal = true;
-        }
-      }
+    // this.parentForm.form.controls.product.valueChanges.subscribe(it => {
 
-    });
+
+    // });
 
     // this.parentForm.form.controls.features.valueChanges.subscribe(it => {
     //   this.wholeFishAction = it.wholeFishAction;
