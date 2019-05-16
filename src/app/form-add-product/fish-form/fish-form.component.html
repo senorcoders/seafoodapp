@@ -322,7 +322,7 @@
             [ngClass]="{'has-danger': controls().processingCountry.invalid && (controls().processingCountry.dirty || controls().processingCountry.touched),'has-success': controls().processingCountry.valid && (controls().processingCountry.dirty || controls().processingCountry.touched)}">
             <span class="has-float-label">
               <select id="processing" (change)="getCities();" class="form-control" formControlName="processingCountry">
-                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                <option value="{{country.code}}" *ngFor="let country of countriesWithShipping">{{country.name}}</option>
               </select>
               <label for="processing">Processing of Country...* </label>
               <div class="form-control-feedback" *ngIf="controls().processingCountry.errors&&parentForm.submitted">
