@@ -192,11 +192,11 @@
 		"waterLostRate": "Water Lost Rate",
 		"mortalityRate": "Acceptable Spoilage Rate",
 		"processingCountry": "Processing Country...",
-		"mainCategory": "Sea Life Category",
-		"species": "Species",
-		"subSpecies": "Subspecies",
-		"subSpeciesVariant": "Subspecies Variant",
-		"productSku": "Company Product SKU...",
+		"mainCategory": "Product Category...",	
+		"species": "Species...",	
+		"subSpecies": "Subspecies...",	
+		"subSpeciesVariant": "Subspecies Variant...",	
+		"productSku": "Product SKU...",
 		"hsCode": "HS Code...",
 		"productFeatures": "Product Features",
 		"uploadGallery": "Upload your Images...",
@@ -212,7 +212,7 @@
 		"advancepricing": "advanced pricing",
 		"back": "Back",
 		"trimming": "Trimming...",
-		"unitOfSale": "Unit of Sale...",
+		"unitOfSale": "Unit of Measurement...",
 		"averageUnitWeight": "Average Unit Weight (kg)...",
 		"sealife": "Sea Life Category"
 	},
@@ -332,8 +332,8 @@
 		"deliveryAddress": "Delivery Address",
 		"logo-company": "Logo Company",
 		"buyer-title": "I want to buy",
-		"seller-title": "I want to sell"
-		"passwordPatternError": "The password should be 8 to 20 characters, contain an uppercase letter and a number.",
+		"seller-title": "I want to sell",
+		"passwordPatternError": "The password should be 8 to 20 characters, contain an uppercase letter and a number."
 	},
 	"Featured-product": {
 		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
