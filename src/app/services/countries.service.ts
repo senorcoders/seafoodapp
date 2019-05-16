@@ -13,6 +13,9 @@ export class CountriesService {
   getCountriesWithCities() {
     return this.http.get(`api/countries/withCities`)
   }
+  getCountriesWithShipping() {
+    return this.http.get( 'api/v2/countriesWithShipping' );
+  }
   getCities( country_code:string ){
     return this.http.get(`countries?code=${country_code}`)
   }

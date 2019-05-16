@@ -21,6 +21,7 @@ export class FishFormComponent implements OnInit {
   myInputVariable: ElementRef;
   public product: FormGroup;
   public countries = [];
+  public countriesWithShipping = [];
   public cities = [];
   public allCities = [];
   public hideTrimModal = true;
@@ -87,6 +88,7 @@ export class FishFormComponent implements OnInit {
   ngOnInit() {
     this.createFormGroup();
     this.getCountries();
+    this.getCountriesWithShipping();
     this.getAllCities();
     this.getAllTypesByLevel();
 
@@ -180,6 +182,19 @@ export class FishFormComponent implements OnInit {
     this.countryService.getCountries().subscribe(
       result => {
         this.countries = result as any[];
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  private getCountriesWithShipping() {
+    this.countryService.getCountriesWithShipping().subscribe(
+      result => {
+        if( result['message'] === 'ok' ){
+          this.countriesWithShipping = result['data'] as any[];
+        }
       },
       error => {
         console.log(error);
