@@ -509,7 +509,7 @@ export class CreateProductComponent implements OnInit {
       // this.loading = false;
       // this.ngProgress.done();
     } else {
-      this.toast.error('All fields are required', 'Error', { positionClass: 'toast-top-right' });
+      this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
       this.ngProgress.done();
     }
