@@ -92,14 +92,6 @@ export class CartComponent implements OnInit {
             this.totalOtherFees = cart['totalOtherFees']+cart['totalUAETaxes'];
             this.totalWithShipping = cart['total'];
             this.products.forEach((data, index) => {
-              setTimeout(() => {
-                console.log( jQuery('#range-' + data.fish.id), data.quantity.value);
-                jQuery('#range-' + data.fish.id).val(data.quantity.value);
-                this.moveBubble(data.fish.id);
-
-              }, 1000);
-
-              jQuery('#range-' + data.fish.id).trigger('change');
               if (data.fish.imagePrimary && data.fish.imagePrimary != '') {
                 this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`);
               }
@@ -315,14 +307,16 @@ export class CartComponent implements OnInit {
     }
 
      //Functino to enter manual kg
-  manualInput(id, i, max) {
+  manualInput(id, i, max, min) {
     let val: any = jQuery('#edit-qty-' + id).val();
     if (val > max) {
       val = max;
+    }else if(val < min){
+      val = min;
     }
     this.products[i].quantity.value  = val;
-    jQuery('#range-' + id).val(val);
-    this.moveBubble(id);
+    // jQuery('#range-' + id).val(val);
+    // this.moveBubble(id);
     this.getAllProductsCount();
 
   }

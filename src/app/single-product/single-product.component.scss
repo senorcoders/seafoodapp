@@ -204,7 +204,7 @@ $marginBottom : '8px';
 
         .range-row {
             margin: $marginBottom 0;
-
+            align-items: center;
             .col-md-7,
             .col-md-5 {
                 padding: 0;
@@ -339,4 +339,45 @@ input.qty {
         border-bottom: 1px solid #504e4e;
         color: #504e4e;
     }
+}
+
+.kg-form{
+    display: inline-flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    .amount-span{
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 21px;
+        color: #7484AA;
+        line-height: 16px;
+      }
+      .qty-number{
+        background: none;
+        border: none;
+        margin: 0;
+        padding: 0;
+        font-family: 'Josefin Sans', sans-serif;
+        font-size: 21px;
+        color: #7484AA;
+        line-height: 19px;
+        width: auto;
+        height: auto;
+        font-weight: 300;
+        font-style: normal;
+        border-bottom: 1px solid #7484AA;
+        width: 250px;
+        text-align: center;
+        &::placeholder{
+          color: #7484AA;
+          font-style: italic;
+        }
+        &:focus{
+          color: #3E4E75;
+          border-bottom: 1px solid #3E4E75;
+    
+    
+        }
+    }
+   
 }

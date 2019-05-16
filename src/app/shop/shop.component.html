@@ -195,19 +195,17 @@
               <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
             </div>
 
-          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} {{product.type}} {{removeSpaces(product.country)}} {{i}} {{product.variation.id }} {{product.id}} category-{{product.type}} {{product.variation.max}}">
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} {{product.type}} {{removeSpaces(product.country)}} {{i}} {{product.variation.id }} {{product.id}} category-{{product.type}} {{product.variation.max}} {{product.variation.min}}">
               <div class="single-product-box">
                   <div class="product-header">
                    <div class="row">
                      <div class="col-md-10">
-                       <div>
-                          <span id="qty-kg-{{product.variation.id}}" class="qty-kg" (click)="hideMe(product.variation.id)"><span *ngIf="!product.qty">{{product.variation.min}}</span> {{product.qty}} kg</span>  
-                          <input placeholder="type kg..."  id="edit-qty-{{product.variation.id}}" class="qty-number" type="number"  (change)="manualInput(product.variation.max, product.variation.id, product.type)" (focusout)="showSpan(product.variation.id)">
-                       </div>
+                     
                        
                         <form>
                             <span class="amount-span"style="margin-right: 5px;">{{product.variation.min}}</span>
-                            <input id="range-{{product.variation.id}}" name="foo" type="range" class="product-range" [value]="product.variation.min" [min]="product.variation.min" [max]="product.variation.max"  (input)="showRangeVal(product.variation.id, i)" (change)="getRange(product.variation.id, product.type)">
+                            <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
+                            <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
                             <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
@@ -263,9 +261,10 @@
             <div class="col-md-6">
               <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
               <div class="cart-slide-range">
-                  <span class="qty-kg"> {{product?.quantity?.value}} kg</span>  
                   <form>
-                      <input disabled  name="foo" type="range" class="product-range">
+                      <span class="amount-span" style="margin-right: 5px;">{{product.variation.min}}</span>
+                      <input disabled  name="foo" type="text" class="qty-number" value="{{product?.quantity?.value}} kg">
+                      <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
                       <label>{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
                   </form>
               </div>

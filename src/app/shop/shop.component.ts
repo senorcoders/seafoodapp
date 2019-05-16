@@ -399,20 +399,24 @@ export class ShopComponent implements OnInit {
           console.log("Max", parseInt(classes[10]));
           if(val > parseInt(classes[10])){
             console.log("es mayor al max", parseInt(classes[10]));
-            jQuery('#range-' + classes[7]).val(parseInt(classes[10]));
+            jQuery('#amount-' + classes[7]).val(parseInt(classes[10]));
             this.products[classes[6]].qty = classes[10];
+
+          }else if(val < parseInt(classes[11])){
+            jQuery('#amount-' + classes[7]).val(parseInt(classes[11]));
+            this.products[classes[6]].qty = classes[11];
 
           }else{
             console.log("es menor al max");
 
-            jQuery('#range-' + classes[7]).val(val);
+            jQuery('#amount-' + classes[7]).val(val);
             this.products[classes[6]].qty = val;
 
 
           }
-          this.moveBubble(classes[7]);
-          jQuery('#edit-qty-' + classes[7]).css('display', 'none');
-          jQuery('#qty-kg-' + classes[7]).css('display', 'block');
+          // this.moveBubble(classes[7]);
+          // jQuery('#edit-qty-' + classes[7]).css('display', 'none');
+          // jQuery('#qty-kg-' + classes[7]).css('display', 'block');
           this.showQty = true;
           this.getShippingRates(val, classes[8], classes[7], classes[6]);
         }
@@ -437,7 +441,7 @@ export class ShopComponent implements OnInit {
       const finalPrice:any = Number(calcFinalPrice.toFixed(2)).toString();
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
-      jQuery('#product-price-' + variation).html("AED " + Number(parseFloat(result['variation']['price']).toFixed(2)) + ' / kg');
+      jQuery('#product-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
       }
@@ -490,12 +494,14 @@ export class ShopComponent implements OnInit {
     input.focus();
   }
   //Functino to enter manual kg
-  manualInput(max, variation, type) {
-    let val: any = jQuery('#edit-qty-' + variation).val();
+  manualInput(max, min, variation, type) {
+    let val: any = jQuery('#amount-' + variation).val();
   
 
     if (val > max) {
       val = max;
+    } else if(val < min){
+      val = min;
     }
     this.comparePrices(type, val);
     
