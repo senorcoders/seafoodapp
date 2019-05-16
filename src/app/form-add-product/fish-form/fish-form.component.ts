@@ -122,7 +122,7 @@ export class FishFormComponent implements OnInit {
       minimunorder: new FormControl('', Validators.required),
       maximumorder: new FormControl('', Validators.required),
       images: new FormControl('', Validators.nullValidator),
-      imagesSend: new FormControl("", Validators.required),
+      imagesSend: new FormControl("", Validators.nullValidator),
       unitOfSale: new FormControl("", Validators.required),
       averageUnitWeight: new FormControl(10, Validators.required),
       deletedImages: new FormControl("[]", Validators.nullValidator),
