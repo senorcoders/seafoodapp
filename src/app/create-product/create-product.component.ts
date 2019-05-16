@@ -325,6 +325,8 @@ export class CreateProductComponent implements OnInit {
       }
     }
 
+
+
     if (this.myform.valid) {
       console.log(this.myform.value);
       let value = this.myform.value,
@@ -333,6 +335,20 @@ export class CreateProductComponent implements OnInit {
         pricing = value.price;
 
       product.speciesSelected = product.speciesSelected || this.speciesSelected;
+
+      //Para checkar si hay imagenes
+      if (product.imagesSend === '') {
+        this.loading = false;
+        this.ngProgress.done();
+        return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+      } else {
+        let imagesSend = JSON.parse(product.imagesSend);
+        if (imagesSend.length === 0) {
+          this.loading = false;
+          this.ngProgress.done();
+          return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+        }
+      }
 
       //Para checkar si hay imagen default
       if (product.images !== undefined && product.images !== '') {
@@ -530,7 +546,7 @@ export class CreateProductComponent implements OnInit {
         try {
           //La imagen primary siempre se vuelve a subir
           let files: File[] = [];
-	  
+
           for (let image of images) {
             let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + this.productID);
             if (image.type === "primary") {
@@ -541,9 +557,9 @@ export class CreateProductComponent implements OnInit {
             }
           }
           //secondary images are uploaded on background
-           this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
-           this.productService.updateImages(files, this.productID).toPromise();
-        }       
+          this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
+          this.productService.updateImages(files, this.productID).toPromise();
+        }
         catch (e) {
           console.error(e);
         }
