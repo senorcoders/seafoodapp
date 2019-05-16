@@ -58,7 +58,8 @@ const appRoutes: Routes = [
   },
   {
     path: 'add-product',
-    loadChildren: 'app/create-product/create-product.module#CreateProductModule'
+    loadChildren: 'app/create-product/create-product.module#CreateProductModule',
+    canActivate: [SellerRouterService]
   },
   {
     path: 'fish-type/:category/:page',
