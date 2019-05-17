@@ -22,6 +22,7 @@
                 flex-wrap: nowrap;
                 .col-md-10{
                     width: 80%;
+                    padding-right: 0;
                 }
                 .col-md-2{
                     width: 20%;
@@ -52,7 +53,7 @@
                     font-weight: 300;
                     font-style: normal;
                     border-bottom: 1px solid #7484AA;
-                    width: 120px;
+                    width: 100px;
                     text-align: center;
                     &::placeholder{
                       color: #7484AA;
@@ -69,6 +70,7 @@
                 display: inline-flex;
                 flex-wrap: nowrap;
                 width: 100%;
+                align-items: center;
                    label{
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 400;
@@ -76,7 +78,7 @@
                     font-size: 16px;
                     line-height: 20px;
                     margin: 0;
-                    margin-left: 10px;
+                    margin-left: 8px;
                     display: none;
                    }
                    
@@ -553,7 +555,7 @@
     font-weight: 300;
     font-style: normal;
     border-bottom: 1px solid #7484AA;
-    width: 120px;
+    width: 100px;
     text-align: center;
     &::placeholder{
       color: #7484AA;
