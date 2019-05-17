@@ -1511,6 +1511,8 @@ button:focus {
 .tooltip-right{
   background-color:#3E4E75 !important;
   border-radius: 10px !important;
+  padding: 20px !important;
+  box-shadow: none !important;
 }
 
 .tooltip-right::after{
