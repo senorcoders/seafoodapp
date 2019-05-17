@@ -48,10 +48,10 @@
             background: none;
             border: none;
             border-radius: 2px;
-            border: 1px solid #7484AA;
+            border: 1px solid #3498E5;
             text-transform: uppercase;
             font-size: 16px;
-            color: #7484AA;
+            color: #3498E5;
             letter-spacing: 0.5px;
             width: 290px;
             height: 50px;
@@ -61,7 +61,7 @@
             line-height: 50px;
             transition: all .2s ease-in-out;
             &:hover{
-                background: #7484AA;
+                background: #094D82;
                 color: #fff;
             }
         }
@@ -191,13 +191,15 @@
 
                 }
                 a{
-                    color: #7484AA;
+                    color: #3498E5;
                     font-family: 'Open Sans', sans-serif;
                     font-weight: 300;
                     font-size: 16px;
                     line-height: 22px;
                     &:hover{
                         text-decoration: none;
+                        color: #094D82;
+
                     }
                 }
             }
@@ -349,9 +351,9 @@
             }
 
             .transparent-btn{
-                color: #7484AA;
+                color: #3498E5;
                 background: none;
-                border: 1px solid #7484AA;
+                border: 1px solid #3498E5;
                 border-radius: 2px;
                 text-transform: uppercase;
                 width: 100%;
@@ -369,7 +371,7 @@
                   }
                 &:hover{
                     color: #fff;
-                    background: #7484AA;
+                    background: #094D82;
                 }
 
             }
