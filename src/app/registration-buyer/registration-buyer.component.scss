@@ -117,9 +117,9 @@
   button{
     border-radius: 2px;
     background: none;
-    border: 1px solid #7484AA;
+    border: 1px solid #3498E5;
     text-transform: uppercase;
-    color: #7484AA;
+    color: #3498E5;
     text-transform: uppercase;
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 300;
@@ -131,7 +131,7 @@
     height: 50px;
     transition: all .2s ease-in-out;
     &:hover{
-        background: #7484AA;
+        background: #094D82;
         color: #f7f8f9;
     }
 }

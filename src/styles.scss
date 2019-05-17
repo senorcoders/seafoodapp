@@ -1511,6 +1511,8 @@ button:focus {
 .tooltip-right{
   background-color:#3E4E75 !important;
   border-radius: 10px !important;
+  padding: 20px !important;
+  box-shadow: none !important;
 }
 
 .tooltip-right::after{
@@ -1532,7 +1534,7 @@ button:focus {
 }
 
 a:hover{
-  color: #3E4E75;
+  color: #094D82;
 }
 .select2-container--default .select2-selection--single{
   background: no-repeat;
@@ -1572,4 +1574,10 @@ app-registration-form{
 .select2-container--default .select2-selection--single .select2-selection__arrow{
     height: 45.5px !important;
 }
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

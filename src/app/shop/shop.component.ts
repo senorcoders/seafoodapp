@@ -436,9 +436,9 @@ export class ShopComponent implements OnInit {
     this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}/true`).subscribe(result => {
      this.tmpPrice = result['price'];
       const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
-      const priceT: any = Number(priceTByWeight.toFixed(2)).toString();
+      const priceT: any = priceTByWeight.toFixed(2);
       const calcFinalPrice:any = Number(parseFloat(result['weight'])) * Number(parseFloat(result['variation']['price']));
-      const finalPrice:any = Number(calcFinalPrice.toFixed(2)).toString();
+      const finalPrice:any = calcFinalPrice.toFixed(2);
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
       jQuery('#product-price-' + variation).html("AED " + finalPrice);
@@ -446,10 +446,10 @@ export class ShopComponent implements OnInit {
         label.innerHTML = result['message'];
       }
       else {
-        label.innerHTML = '<span class="delivered-small-span">(delivered/kg)</span> <br> AED ' + priceT;
+        label.innerHTML = 'AED ' + priceT + '<span class="delivered-small-span"> (delivered/kg)</span>';
       }
       (label as HTMLElement).style.display = 'inline-block';
-      (label as HTMLElement).style.marginTop = '-34px';
+      (label as HTMLElement).style.whiteSpace = 'nowrap';
       (label as HTMLElement).style.textAlign = 'center';
       (btn as HTMLElement).style.display = 'block';
       this.isChange[id] = {status: true, kg: weight};
