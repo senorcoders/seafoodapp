@@ -33,7 +33,7 @@
                     font-style: italic;
                     font-size: 16px;
                     line-height: 19px;
-                    color: #7484AA;
+                    color: #3498E5;
                     cursor: pointer;
                     display: none;
 
@@ -46,22 +46,22 @@
                     padding: 0;
                     font-family: 'Josefin Sans', sans-serif;
                     font-size: 16px;
-                    color: #7484AA;
+                    color: #3498E5;
                     line-height: 19px;
                     width: auto;
                     height: auto;
                     font-weight: 300;
                     font-style: normal;
-                    border-bottom: 1px solid #7484AA;
+                    border-bottom: 1px solid #3498E5;
                     width: 100px;
                     text-align: center;
                     &::placeholder{
-                      color: #7484AA;
+                      color: #3498E5;
                       font-style: italic;
                     }
                     &:focus{
-                      color: #3E4E75;
-                      border-bottom: 1px solid #3E4E75;
+                      color: #094D82;
+                      border-bottom: 1px solid #094D82;
 
 
                     }
@@ -74,7 +74,7 @@
                    label{
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 400;
-                    color: #7484AA;
+                    color: #3498E5;
                     font-size: 16px;
                     line-height: 20px;
                     margin: 0;
@@ -93,7 +93,7 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 16px;
                 text-transform: uppercase;
-                color: #7484AA;
+                color: #3498E5;
                 font-weight: 300;
                 letter-spacing: 0.5px;
                 line-height: 19px;
@@ -107,7 +107,7 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
                 font-size: 14px;
-                color: #7484AA;
+                color: #3498E5;
                 line-height: 16px;
               }
             }
@@ -141,7 +141,7 @@
                   justify-content: center;
                   align-items: center;
                   font-family: 'Josefin Sans', sans-serif;
-                  color: #F7F8F9;
+                  color: #F9FCFF;
                   font-size: 21px;
                   letter-spacing: 0.5px;
                   line-height: 34px;
@@ -171,7 +171,7 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 16px;
                 text-transform: uppercase;
-                color: #7484AA;
+                color: #3498E5;
                 font-weight: 300;
                 letter-spacing: 0.5px;
                 line-height: 25px;
@@ -182,7 +182,7 @@
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 16px;
                 line-height: 25px;
-                color: #7484AA;
+                color: #3498E5;
               }
             }
         
@@ -192,7 +192,7 @@
           .single-product-box:hover{
             .product-footer{
               h5{
-                color: #3E4E75;
+                color: #094D82;
               }
             }
           }
@@ -218,7 +218,7 @@
 
 .filter-container{
   .filter-header{
-    background-color: #7484AA;
+    background-color: #3498E5;
     padding: 35px 50px;
     @media screen and (max-width: 768px){
       padding-left: 15px;
@@ -327,7 +327,7 @@
   }
  
   .filter-content{
-    background-color: rgba($color: #7484AA, $alpha: 0.9);
+    background-color: rgba($color: #3498E5, $alpha: 0.9);
     .container{
       padding-top: 35px;
       padding-bottom: 35px;
@@ -538,7 +538,7 @@
     font-family: 'Josefin Sans', sans-serif;
     font-weight: 300;
     font-size: 14px;
-    color: #7484AA;
+    color: #3498E5;
     line-height: 16px;
   }
   .qty-number{
@@ -548,22 +548,22 @@
     padding: 0;
     font-family: 'Josefin Sans', sans-serif;
     font-size: 16px;
-    color: #7484AA;
+    color: #3498E5;
     line-height: 19px;
     width: auto;
     height: auto;
     font-weight: 300;
     font-style: normal;
-    border-bottom: 1px solid #7484AA;
+    border-bottom: 1px solid #3498E5;
     width: 100px;
     text-align: center;
     &::placeholder{
-      color: #7484AA;
+      color: #3498E5;
       font-style: italic;
     }
     &:focus{
-      color: #3E4E75;
-      border-bottom: 1px solid #3E4E75;
+      color: #094D82;
+      border-bottom: 1px solid #094D82;
 
 
     }
@@ -593,7 +593,7 @@ width: 100%;
       font-size: 21px;
       letter-spacing: 0.5px;
       line-height: 34px;
-      color: #7484AA;
+      color: #3498E5;
       @media screen and (max-width: 700px){
         width: 200px;
        }
@@ -628,7 +628,7 @@ width: 100%;
       h4{
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
-        color: #7484AA;
+        color: #3498E5;
         letter-spacing: 0.5px;
         line-height: 25px;
         font-size: 16px;
@@ -641,7 +641,7 @@ width: 100%;
           font-weight: 300;
           font-size: 16px;
           line-height: 19px;
-          color: #3E4E75;
+          color: #094D82;
         }
        
       }
@@ -684,7 +684,7 @@ width: 100%;
     h4{
       font-family: 'Josefin Sans', sans-serif;
       font-weight: 300;
-      color: #0D1321;
+      color: #121619;
       font-size: 16px;
       letter-spacing: 0.5px;
       line-height: 25px;
@@ -697,7 +697,7 @@ width: 100%;
       font-weight: 300;
       font-size: 16px;
       line-height: 19px;
-      color: #9A9EA8;
+      color: #848A8E;
     }
 
     .btn-cart{
@@ -783,7 +783,7 @@ input[type=range]::-moz-range-track {
   border: 0px solid #3498E5;
 }
 input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 0px #7484AA;
+  box-shadow: 0px 0px 0px #3498E5;
   border: 1px solid #3498E5;
   height: 18px;
   width: 18px;
@@ -800,16 +800,16 @@ input[type=range]::-ms-track {
   color: transparent;
 }
 input[type=range]::-ms-fill-lower {
-  background: #7484AA;
-  border: 0px solid #7484AA;
+  background: #3498E5;
+  border: 0px solid #3498E5;
   border-radius: 2px;
-  box-shadow: 0px 0px 0px #7484AA;
+  box-shadow: 0px 0px 0px #3498E5;
 }
 input[type=range]::-ms-fill-upper {
-  background: #7484AA;
-  border: 0px solid #7484AA;
+  background: #3498E5;
+  border: 0px solid #3498E5;
   border-radius: 2px;
-  box-shadow: 0px 0px 0px #7484AA;
+  box-shadow: 0px 0px 0px #3498E5;
 }
 input[type=range]::-ms-thumb {
   margin-top: 1px;
