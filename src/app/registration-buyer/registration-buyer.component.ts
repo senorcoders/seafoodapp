@@ -88,8 +88,8 @@ btnText:any = 'register to buy';
 
   //Create control for each form field
   createFormControls(){ 
-    this.firstName = new FormControl('', [Validators.required]);
-    this.lastName = new FormControl('',[Validators.required]);
+    this.firstName = new FormControl('', [Validators.required]); 
+    this.lastName = new FormControl('',[Validators.required]); 
     this.location = new FormControl('', [Validators.required]);
     this.emailForm = new FormControl('',[Validators.required, Validators.email]);
     this.password = new FormControl('',[Validators.required, Validators.pattern(this.regex)]);

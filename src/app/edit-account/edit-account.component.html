@@ -395,31 +395,38 @@
                 <img src="../../assets/svg/close.svg" alt="">
               </button>
           <h5 class="modal-title">CHANGE PASSWORD</h5>
-          <button type="button" class="close" (click)="updatePassword()">
+          <button type="submit" class="close" (click)="handleSubmit()">
               <img src="../../assets/svg/check.svg" alt="">
             </button>
         </div>
         <div class="modal-body">
-         <form (submit)="updatePassword()">
+         <form [formGroup]="passwordForm" (submit)="updatePassword()" >
             <div class="form-group input-group">
                 <span class="has-float-label">
-                    <input type="password" placeholder="{{'Account.current' | translate}}" class="form-control" id="current" [(ngModel)]="currentPassword" [ngModelOptions]="{standalone: true}">
+                    <input type="password" placeholder="{{'Account.current' | translate}}" class="form-control" id="current" formControlName="currentPassword" [ngClass]="{'is-invalid':passwordForm.get('currentPassword').invalid && passwordForm.get('currentPassword').touched}">
   
               <label for="current">{{'Account.current' | translate}}</label>
+              <div class="invalid-feedback" *ngIf="passwordForm.get('currentPassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
+
               </span>
             </div>
             <div class="form-group input-group">
                 <span class="has-float-label">
-             <input type="password" placeholder="{{'Account.new' | translate}}" class="form-control" id="pass" [(ngModel)]="password" [ngModelOptions]="{standalone: true}">
+             <input type="password" placeholder="{{'Account.new' | translate}}" class="form-control" id="pass" formControlName="password" [ngClass]="{'is-invalid':passwordForm.get('password').invalid && passwordForm.get('password').touched}">
               <label for="pass">{{'Account.new' | translate}}</label>
+              <div class="invalid-feedback" *ngIf="passwordForm.get('password').hasError('password') || passwordForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
+              <div class="invalid-feedback" *ngIf="passwordForm.get('password').errors?.pattern">{{'Register.passwordPatternError' | translate}}</div>
             </span>
             </div>
             <div class="form-group input-group">
                 <span class="has-float-label">
-              <input type="password" placeholder="{{'Account.repeat' | translate}}" class="form-control" id="rep" [(ngModel)]="repassword" [ngModelOptions]="{standalone: true}">
+              <input type="password" placeholder="{{'Account.repeat' | translate}}" class="form-control" id="rep" formControlName="rePassword" [ngClass]="{'is-invalid':passwordForm.get('rePassword').invalid && passwordForm.get('rePassword').touched}">
               <label for="rep">{{'Account.repeat' | translate}}</label>
+              <div class="invalid-feedback" *ngIf="passwordForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
+              <div class="invalid-feedback" *ngIf="passwordForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
            </span>
             </div>
+            <button id="submit-btn" style="visibility:hidden;"  type="submit">submit</button>
           </form>
         </div>
       </div>
