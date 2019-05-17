@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { FormGroup, FormControl, FormControlName, Validators } from '@angular/forms';
 import { environment } from '../../environments/environment';
@@ -27,9 +27,8 @@ export class EditAccountComponent implements OnInit {
   buyerAddress: FormControl;
   buyerCity: FormControl;
   countries:any =[];
-  password:any = "";
-  repassword:string;
-  currentPassword:string;
+  password:FormControl;
+  currentPassword:FormControl;
   sellerForm: FormGroup;
   sellerFirstName: FormControl;
   sellerLastName: FormControl;
@@ -57,7 +56,10 @@ export class EditAccountComponent implements OnInit {
   fileHero:any = [];
   heroEndpoint:any = 'api/store/hero/';
   logoEndpoint:any = 'api/store/logo/';
+  regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   public loading = false;
+  rePassword: FormControl;
+  passwordForm: FormGroup;
 
 
 
@@ -77,6 +79,7 @@ export class EditAccountComponent implements OnInit {
     this.createFormControls();  
     this.createBuyerForm();
     this.createSellerForm();
+    this.createPasswordForm();
     this.getCountries();
    this.getPersonalData();
     console.log(this.info.role);
@@ -100,7 +103,7 @@ export class EditAccountComponent implements OnInit {
     this.buyerFirstName = new FormControl('', [Validators.required]);
     this.buyerLastName = new FormControl('',[Validators.required]);
     this.buyerEmail = new FormControl('', [Validators.email, Validators.required]);
-    this.buyerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
+    this.buyerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')]);
     this.buyerCompanyName = new FormControl('',[Validators.required]);
     this.buyerTypeBusiness = new FormControl('',[Validators.required]);
     this.buyerCountry = new FormControl('',[Validators.required]);
@@ -109,7 +112,7 @@ export class EditAccountComponent implements OnInit {
     this.sellerFirstName = new FormControl('', [Validators.required]);
     this.sellerLastName = new FormControl('',[Validators.required]);
     this.sellerEmail = new FormControl('', [Validators.email, Validators.required]);
-    this.sellerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
+    this.sellerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')]);
     this.sellerCompanyName = new FormControl('', [Validators.required]);
     this.sellerTrade = new FormControl('', [Validators.required]);
     this.sellerCompanyType = new FormControl('', [Validators.required]);
@@ -123,7 +126,9 @@ export class EditAccountComponent implements OnInit {
     this.sellerContactNumber = new FormControl('', [Validators.required, Validators.pattern('[0-9]+')]);
     this.sellerCurrencyTrade = new FormControl('', [Validators.required]);
     this.sellerStoreDescription= new FormControl('', [Validators.nullValidator]);
-
+    this.password = new FormControl('',[Validators.required, Validators.pattern(this.regex)]);
+    this.rePassword = new FormControl('',[Validators.required]);
+    this.currentPassword = new FormControl('',[Validators.required]);
   }
 
   createBuyerForm(){
@@ -167,6 +172,16 @@ export class EditAccountComponent implements OnInit {
      }, {
     updateOn: 'submit'
   });
+  }
+
+  createPasswordForm(){
+    this.passwordForm = new FormGroup({
+      password:this.password,
+      rePassword:this.rePassword,
+      currentPassword: this.currentPassword
+    }, {
+      updateOn: 'submit'
+    })
   }
 
   setValues(){
@@ -299,25 +314,43 @@ export class EditAccountComponent implements OnInit {
     })
   }
 
+  handleSubmit(){
+    jQuery('#submit-btn').trigger('click');
+  }
 
   updatePassword(){
-    
-    if(this.repassword == this.password){
-      this.rest.updatePassword(this.info.email,this.currentPassword,this.password).subscribe(
+   console.log(this.passwordForm.value);
+    if(this.passwordForm.valid){
+      console.log("Formulario Valido");
+      this.verifyMatch();
+    }else{
+      console.log("FOrmulario invalido");
+      this.validateAllFormFields(this.passwordForm);
+    }
+   
+}
+verifyMatch(){
+  let password = this.passwordForm.get('password').value; // to get value in input tag
+       let confirmPassword = this.passwordForm.get('rePassword').value; // to get value in input tag
+        if(password != confirmPassword) {
+            // console.log('false');
+            this.passwordForm.get('rePassword').setErrors( {MatchPassword: true} )
+        } else{
+         this.handleRequest();
+        }
+}
+
+handleRequest(){
+      this.rest.updatePassword(this.info.email,this.currentPassword.value,this.password.value).subscribe(
         result=>{
           this.toast.success('Password has been changed successfully!', "Error",{positionClass:"toast-top-right"} );
-          this.currentPassword='';
-          this.password="";
-          this.repassword='';
+        
         },error=>{
           console.log(error)
           this.toast.error('Something wrong happened. Maybe your current password is not the correct one', "Error",{positionClass:"toast-top-right"} );
         }
       )
-    }
-    else{
-      this.toast.error('Password and Repeat password not matched', "Error",{positionClass:"toast-top-right"} );
-    }
+    
 }
 
 async getStoreData(){
