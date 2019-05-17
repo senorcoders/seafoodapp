@@ -276,7 +276,7 @@ input.qty {
 }
 
 #product-images {
-    background: #F9FCFF;
+    background: transparent;
 }
 
 #sticky-div {
@@ -300,7 +300,7 @@ input.qty {
 .sticky-div {
     position: sticky;
     top: 0;
-    background: #F9FCFF;
+    background: transparent;
 
     @media screen and(max-width: 991px) {
         position: relative;
