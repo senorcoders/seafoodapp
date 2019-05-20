@@ -115,7 +115,7 @@
                       <div class="col-lg-6">
                         <div class="form-group input-group">
                           <span class="has-float-label select-float-label">
-                              <select id="companyType" class="form-control js-example-basic-single" style="width: 100%" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
+                              <select id="companyType" class="form-control" style="width: 100%" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
                                   <option value="">Select an option...</option>
                                   <option value="Producer">Producer</option>
                                   <option value="Processor">Processor</option>
@@ -133,7 +133,7 @@
                       <div class="col-lg-6">
                         <div class="form-group input-group">
                             <span class="has-float-label select-float-label">    
-                                <select id="country" class="form-control n js-example-basic-single" style="width: 100%" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
+                                <select id="country" class="form-control n" style="width: 100%" formControlName="location" [ngClass]="{'is-invalid':sellerForm.get('location').invalid && sellerForm.get('location').touched}">
                                     <option value="">{{'Register.country' | translate}}</option>
                                     <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
                                   </select>                    
