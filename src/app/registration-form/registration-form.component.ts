@@ -104,12 +104,8 @@ SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
   }
 
     // action triggered when user swipes
-    swipe(action) {
-      if (action.pointerType === 'touch') {
-      console.log("Action", action);
+    toggle() {
       this.buyer = !this.buyer;
-      }
-
   }
 
 
