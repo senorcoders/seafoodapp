@@ -71,6 +71,7 @@ export class SingleProductComponent implements OnInit {
   processingCountry: any;
   countries: any = [];
   types: any = '';
+  perBox:any;
   // mortalityRate: any;
   wholeFishWeight: any = null;
   options: Options = {
@@ -277,6 +278,7 @@ export class SingleProductComponent implements OnInit {
       this.price = data['price'] ? data['price'].description : "";
       this.category = data['type'] ? data['type'].name : '';
       this.show = true;
+      this.perBox = data['perBox'];
       this.priceValue = data['price'] ? data['price'].value : 0;
       this.priceType = this.currency; // data['price'].type;
       this.measurement = data['weight'].type;
