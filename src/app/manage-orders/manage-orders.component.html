@@ -1,6 +1,6 @@
 <div class="bg">
   <div class="container">
-    <div class="row">
+    <div class="row" id="max">
       <div class="col-12">
         <h2 class="black-title">{{'ManageOrders.title' | translate}}</h2>
       </div>
@@ -9,7 +9,7 @@
       <div class="col-md-3">
         <div class="form-group">
           <label>{{'ManageOrders.status' | translate}}</label>
-          <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders()" [value]='0'>
+          <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders(true)" [value]='0'>
             <option value="0" selected="selected">Select an Option</option>
             <option *ngFor="let item of orderStatus;" [ngValue]="item.id"> {{item.status}}</option>
           </select>
@@ -18,7 +18,7 @@
       <div class="col-3">
         <div class="form-group">
           <label>{{'ManageOrders.orderNumber' | translate}}</label>
-          <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders()"
+          <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders(true)"
             placeholder="search by Order Number">
         </div>
       </div>
@@ -71,7 +71,8 @@
                   <h5 [innerHtml]="item.fish.name"></h5>
                   <span *ngIf="item.store" class="store">{{item.store.name}}</span>
                   <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
-                  <p *ngIf="item.shoppingCart&&item.shoppingCart.paidDateTime" class="status"><b>Purchase Date: </b>{{getFormDate(item.shoppingCart.paidDateTime)}}</p>
+                  <p *ngIf="item.shoppingCart&&item.shoppingCart.paidDateTime" class="status"><b>Purchase Date:
+                    </b>{{getFormDate(item.shoppingCart.paidDateTime)}}</p>
                   <p class="buyer"><b>Buyer Maximum Delivery Date: </b>{{item.buyerExpectedDeliveryDate}}</p>
                   <p class="seller"><b>Seller Expected Delivery Date: </b>{{item.sellerExpectedDeliveryDate}}</p>
 
@@ -115,6 +116,16 @@
 
       <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
         <h2 class="black-title">No records found</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col pagination">
+        <span class="btn-red-a previous" (click)="previousPage()"
+          *ngIf="page>1">{{'Products.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+          [ngClass]="{'active': page==(number+1)}" (click)="getOrdersPage(number+1)">{{number+1}}</span>
+        <span class="btn-red-a next" (click)="nextPage()"
+          *ngIf="page<paginationNumbers.length">{{'Products.next' | translate}}</span>
       </div>
     </div>
 

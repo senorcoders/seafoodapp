@@ -1,6 +1,7 @@
-.bg{
+.bg {
     padding-top: 50px;
 }
+
 .pink-btn {
     font-family: 'Roboto', sans-serif;
     text-transform: uppercase;
@@ -19,7 +20,7 @@
     text-align: center;
 }
 
-.order-col{
+.order-col {
     padding-left: 0;
     padding-right: 0;
     margin-bottom: 10px;
@@ -27,57 +28,60 @@
 
 
 
-.full-table{
+.full-table {
     width: 100%;
 }
 
-.full-table td{
+.full-table td {
     font-size: 18px;
     font-weight: 200;
 }
 
-.medium-table{
+.medium-table {
     width: 50%;
     margin: 20px 0;
 }
 
-.medium-table td{
+.medium-table td {
     font-weight: 200;
 }
 
-.select-status{
+.select-status {
     float: right;
     width: 250px;
 }
 
-.mediana-tabla{
+.mediana-tabla {
     width: 80%;
     margin-top: 10px;
 }
 
-.mediana-tabla td{
+.mediana-tabla td {
     font-weight: 200;
     font-size: 14px;
 }
-.medium-table:last-child{
+
+.medium-table:last-child {
     border-bottom: 2px solid #424242;
     width: 100%;
 }
-.table-design .row-bg:nth-of-type(even){
+
+.table-design .row-bg:nth-of-type(even) {
     background: #f5f5f5;
-    
+
 }
 
-.order-number{
+.order-number {
     font-size: 18px;
     font-weight: 200;
 }
 
-.size-40{
+.size-40 {
     font-size: 30px;
     font-weight: bold;
     margin-left: -10px;
 }
+
 .information-log[_ngcontent-c4] {
     font-size: 2em;
     color: #ee434a;
@@ -91,6 +95,7 @@
     // right: 0px;
     // margin-right: 1em;
 }
+
 .information-log .info-modal-log {
     display: none;
     background-color: #fff;
@@ -98,11 +103,13 @@
     padding: 2em;
     border-radius: 5px;
 }
+
 .information-log:hover .info-modal-log {
     display: inline-block;
     cursor: pointer;
 }
-.information-log:hover  .info-modal-log {
+
+.information-log:hover .info-modal-log {
     // font-size: 0.3em !important;
     // position: absolute;
     // top: -80px;
@@ -115,4 +122,33 @@
     right: 0px;
     z-index: 999;
     font-size: 2rem;
+}
+
+#max {
+    margin-top: 65px;
+}
+
+.pagination {
+    display: flex;
+}
+
+.previous,
+.next {
+    margin-bottom: 20px;
+}
+
+.numberPage {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.pink-btn {
+    padding: 10px 15px;
+    color: #0055bd !important;
+    border: 2px solid #0055bd !important;
+}
+
+.active {
+    background: #0055bd;
+    color: white !important;
 }

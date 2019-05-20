@@ -21,7 +21,13 @@ export class PaymentsComponent implements OnInit {
   selectedItemID: any;
   user: any;
   exchangeRate: number;
-  public API:any = environment.apiURL;
+  public API: any = environment.apiURL;
+
+  public page = 1;
+  public limit = 20;
+  public paginationNumbers = [];
+  public searchActive = false;
+
   constructor(
     private orderService: OrderService,
     private toast: ToastrService,
@@ -31,15 +37,19 @@ export class PaymentsComponent implements OnInit {
   ngOnInit() {
     this.user = this.auth.getLoginData();
     this.getExchangeRates();
-    this.getPayments();
+    this.getPayments(true);
     this.getPaymentStatus();
   }
 
-  getPayments() {
-    this.orderService.getPayedItems().subscribe(
+  getPayments(pagination?) {
+    this.searchActive = false;
+    if (pagination)
+      this.page = 1;
+    this.orderService.getPayedItemsPagination(this.page, this.limit).subscribe(
       result => {
-        if (result['length'] > 0) {
-          this.orders = result;
+        this.calcPagination(result["pageAvailables"]);
+        if (result['data'].length > 0) {
+          this.orders = result["data"];
           this.showNoData = false;
         } else {
           this.showNoData = true;
@@ -51,12 +61,38 @@ export class PaymentsComponent implements OnInit {
     );
   }
 
+  public getOrdersPage(page) {
+    this.page = page;
+    this.getPayments();
+  }
+
+  private calcPagination(length) {
+    this.paginationNumbers = [];
+    for (let i = 0; i < length; i++) {
+      this.paginationNumbers.push(i);
+    }
+  }
+
+  public nextPage() {
+    this.paginationNumbers = [];
+    this.page++;
+    this.getPayments();
+  }
+
+  public previousPage() {
+    this.paginationNumbers = [];
+    if (this.page > 1) {
+      this.page--;
+    }
+    this.getPayments();
+  }
+
   getExchangeRates() {
     this.pricingService.getCurrentPricingCharges().subscribe(
       res => {
         this.exchangeRate = res['exchangeRates'];
       }, error => {
-        console.log( error );
+        console.log(error);
       }
     )
   }
@@ -67,7 +103,7 @@ export class PaymentsComponent implements OnInit {
         this.orderStatus = res;
       },
       error => {
-        console.log( error );
+        console.log(error);
         this.toast.error('Something happend, please refresh the page', 'System Error', { positionClass: 'toast-top-right' });
       }
     );
@@ -78,7 +114,7 @@ export class PaymentsComponent implements OnInit {
     this.orderService.markItemAsRepayed(itemID).subscribe(
       result => {
         this.toast.success('Item marked as repayed!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getPayments();
+        this.getPayments(true);
       },
       error => {
         console.log(error);
@@ -89,7 +125,7 @@ export class PaymentsComponent implements OnInit {
     this.orderService.markItemAsRefounded(itemID).subscribe(
       result => {
         this.toast.success('Item marked as refunded!', 'Status Change', { positionClass: 'toast-top-right' });
-        this.getPayments();
+        this.getPayments(true);
       },
       error => {
         console.log(error);
@@ -105,10 +141,12 @@ export class PaymentsComponent implements OnInit {
     }
   }
   clear() {
-    this.getPayments();
+    this.getPayments(true);
   }
   searchByOrderNumber(order) {
+    
     if (order !== '') {
+      this.searchActive = true;
       this.orderService.getItemsPayedByOrderNumber(order).subscribe(
         res => {
           if (res['length'] > 0) {
@@ -130,30 +168,30 @@ export class PaymentsComponent implements OnInit {
     const statusName: string = this.selectedStatus;
     const itemID: string = this.selectedItemID;
 
-    this.orderStatus.map( status => {
-      if ( status.status === statusName ) {
+    this.orderStatus.map(status => {
+      if (status.status === statusName) {
         selectedStatus = status.id;
       }
-    } );
-    this.orderService.updateStatus( selectedStatus, itemID, this.user ).subscribe(
+    });
+    this.orderService.updateStatus(selectedStatus, itemID, this.user).subscribe(
       result => {
-        this.toast.success(`Item marked as ${statusName}!` , 'Status Change', { positionClass: 'toast-top-right' });
+        this.toast.success(`Item marked as ${statusName}!`, 'Status Change', { positionClass: 'toast-top-right' });
         jQuery('#confirmUpdateStatus').modal('hide');
-        this.getPayments();
+        this.getPayments(true);
       },
       error => {
-        console.log( error );
+        console.log(error);
       }
     );
-    console.log( 'status', selectedStatus );
-    console.log( 'item', itemID );
+    console.log('status', selectedStatus);
+    console.log('item', itemID);
   }
 
   noUpdate() {
     jQuery('#confirmUpdateStatus').modal('hide');
   }
 
-  confirmUpdatestatus( selectedStatus, selectedItemID ) {
+  confirmUpdatestatus(selectedStatus, selectedItemID) {
     this.selectedStatus = selectedStatus;
     this.selectedItemID = selectedItemID;
     jQuery('#confirmUpdateStatus').modal('show');
