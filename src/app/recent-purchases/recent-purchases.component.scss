@@ -26,14 +26,14 @@ p.order-number {
     margin: 40px;
     font-family: 'Open Sans', sans-serif;
     text-transform: initial;
-    color: #3E4E75 !important;
+    color: #094D82 !important;
 }
 
 .nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
     border:none;
 }
 .orders-tabs{
-    background: #F7F8F9;
+    background: #F9FCFF;
     padding: 155px 0px;
     
     .nav-tabs {
@@ -47,7 +47,7 @@ p.order-number {
         background: none;
         border: none;
         border-bottom: 2px solid transparent;
-        color: #3E4E75 !important;
+        color: #094D82 !important;
         text-transform: uppercase;
         font-weight: 300;
         font-size: 21px;
@@ -60,7 +60,7 @@ p.order-number {
     
     }
     .nav-tabs .nav-link{
-        color: #7484AA !important;
+        color: #3498E5 !important;
         text-transform: uppercase;
         font-weight: 300;
         font-size: 21px;
@@ -76,7 +76,7 @@ p.order-number {
         text-align: center;
         font-family: 'Open Sans', sans-serif;
         text-transform: uppercase;
-        color: #7484AA;
+        color: #3498E5;
         padding: 35px 15px;
         border-top: none;
         font-weight: 300;
@@ -93,7 +93,7 @@ p.order-number {
         text-align: center;
         padding: 35px 15px;
         font-family: 'Open Sans', sans-serif;
-        color: #0D1321;
+        color: #121619;
         font-weight: 300;
         font-size: 16px;
     line-height: 22px;
@@ -102,7 +102,7 @@ p.order-number {
     .new-span{
 
     font-family: 'Open Sans', sans-serif;
-    color: #397367;
+    color: #136F63;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.5px;
@@ -170,7 +170,7 @@ p.order-number {
                 text-align: center;
                 font-family: 'Josefin Sans', sans-serif;
                 width: 100%;
-                color: #7484AA;
+                color: #3498E5;
                 font-weight: 300;
                 padding: 20px;
                 font-size: 28px;
@@ -190,8 +190,8 @@ p.order-number {
                 font-family: 'Josefin Sans', sans-serif;
                 border-radius: 5px;
                 outline: none;
-                color: #7484AA !important;
-                border: 2px solid #7484AA !important;
+                color: #3498E5 !important;
+                border: 2px solid #3498E5 !important;
                 font-weight: 300;
                 margin-right: 10px !important;
                 font-size: 18px !important;
@@ -201,8 +201,8 @@ p.order-number {
             }
 
             .blue-btn-light:hover{
-                background: #3E4E75 !important;
-                border: 2px solid #3E4E75 !important;
+                background: #094D82 !important;
+                border: 2px solid #094D82 !important;
                 color: #ffffff !important;
             }
         
@@ -219,11 +219,11 @@ p.order-number {
         border-radius: 10px;
         border: none;
         .modal-header{
-            background: #F7F8F9;
+            background: #F9FCFF;
             padding: 60px 20px;
             border: none;
             .modal-title{
-                color: #7484AA;
+                color: #3498E5;
                 font-family: 'Josefin Sans', sans-serif;
                 text-align: center;
                 width: 100%;
@@ -244,8 +244,8 @@ p.order-number {
             font-family: 'Josefin Sans', sans-serif;
             border-radius: 5px;
             outline: none;
-            color: #7484AA !important;
-            border: 2px solid #7484AA !important;
+            color: #3498E5 !important;
+            border: 2px solid #3498E5 !important;
             font-weight: 300;
             margin-right: 10px !important;
             font-size: 18px !important;
@@ -255,8 +255,8 @@ p.order-number {
         }
 
         .blue-btn-light:hover{
-            background: #3E4E75 !important;
-            border: 2px solid #3E4E75 !important;
+            background: #094D82 !important;
+            border: 2px solid #094D82 !important;
             color: #ffffff !important;
         }
         .form-design{
@@ -280,7 +280,7 @@ p.order-number {
                 display: none;
              }
              label{
-                color: #7484AA !important;
+                color: #3498E5 !important;
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
                 text-transform: uppercase;
@@ -305,7 +305,7 @@ p.order-number {
                 font-style: italic;
                 text-transform: initial;
                 font-size: 18px;
-                color: #9A9EA8 !important;
+                color: #848A8E !important;
                 line-height: 25px;
                 border-bottom: 1px solid #ccced3 !important;
                 display: block;
@@ -332,12 +332,12 @@ p.order-number {
         border-radius: 10px;
         border: none;
         .modal-header{
-            background: #F7F8F9;
+            background: #F9FCFF;
             padding: 38px 20px;
             border: none;
             align-items: center;
             .modal-title{
-                color: #7484AA;
+                color: #3498E5;
                 font-family: 'Josefin Sans', sans-serif;
                 text-align: center;
                 width: 100%;
@@ -359,7 +359,7 @@ p.order-number {
                 font-weight: 300;
                 font-style: italic;
                 line-height: 22px;
-                color: #9A9EA8;
+                color: #848A8E;
                 margin-bottom: 50px;
             }
             h3{
@@ -368,10 +368,10 @@ p.order-number {
                 font-weight: 300;
                 font-style: italic;
                 line-height: 25px;
-                color: #9A9EA8;
+                color: #848A8E;
                 margin-bottom: 50px;
                 span{
-                    border-bottom: 1px solid #9A9EA8;
+                    border-bottom: 1px solid #848A8E;
                     padding-bottom: 10px;
                 }
             }
@@ -404,9 +404,9 @@ p.order-number {
         background: none !important;
 
     }
-    tr:last-child{ border-bottom: 1px solid #3E4E75 !important;   }
+    tr:last-child{ border-bottom: 1px solid #094D82 !important;   }
     tbody{
-        border-top: 1px solid #3E4E75;
+        border-top: 1px solid #094D82;
         position: relative;
 
     }
@@ -472,17 +472,17 @@ background-position: center;
             line-height: 17px;
            
             &.red-text-btn{
-                color: #885053; 
+                color: #550C18; 
                 svg .a{
-                    fill: #885053 !important;
+                    fill: #550C18 !important;
                 }
             }
 
             &.gray-text-btn{
-                color: #3E4E75;
+                color: #094D82;
             }
             &.light-gray-btn-text{
-                color: #7484AA;
+                color: #3498E5;
             }
         }
     }
@@ -490,6 +490,6 @@ background-position: center;
 
 .green-row{
     td{
-        color: #397367 !important;
+        color: #136F63 !important;
     }
 }

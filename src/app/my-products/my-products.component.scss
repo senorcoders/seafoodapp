@@ -1,5 +1,5 @@
   .products-section{
-    background: #F7F8F9;
+    background: #F9FCFF;
     padding-top: 155px;
     padding-bottom: 155px;
     a:hover{
@@ -22,7 +22,7 @@
         font-family: 'Josefin Sans', sans-serif;
         font-size: 16px;
         text-transform: uppercase;
-        color: #7484AA;
+        color: #3498E5;
         font-weight: 300;
         letter-spacing: 0.5px;
         line-height: 19px;
@@ -54,7 +54,7 @@
           border-radius: 2px;
         }
         .product-status{
-          background: #9A9EA8;
+          background: #848A8E;
           width: 100px;
           height: 40px;
           display: flex;
@@ -74,10 +74,10 @@
           border-radius: 2px;
         }
         .denied-status{
-          background: #885053;
+          background: #550C18;
         }
         .accepted-status{
-          background: #397367;
+          background: #136F63;
         }
 
         .product-view-details{
@@ -88,7 +88,7 @@
           justify-content: center;
           align-items: center;
           font-family: 'Josefin Sans', sans-serif;
-          color: #F7F8F9;
+          color: #F9FCFF;
           font-size: 21px;
           letter-spacing: 0.5px;
           line-height: 34px;
@@ -120,7 +120,7 @@
         font-family: 'Josefin Sans', sans-serif;
         font-size: 16px;
         text-transform: uppercase;
-        color: #7484AA;
+        color: #3498E5;
         font-weight: 300;
         letter-spacing: 0.5px;
         line-height: 25px;
@@ -131,7 +131,7 @@
         font-family: 'Josefin Sans', sans-serif;
         font-size: 16px;
         line-height: 25px;
-        color: #7484AA;
+        color: #3498E5;
       }
     }
 
@@ -141,7 +141,7 @@
   .single-product-box:hover{
     .product-footer{
       h5{
-        color: #3E4E75;
+        color: #094D82;
       }
     }
   }
@@ -163,11 +163,11 @@
       height: 64px;
       cursor: pointer;
       .a{
-        fill: #9A9EA8;
+        fill: #848A8E;
       }
     }
     h3{
-      color: #9A9EA8;
+      color: #848A8E;
       font-family: 'Josefin Sans', sans-serif;
       font-size: 28px;
       letter-spacing: 0.75px;
@@ -181,10 +181,10 @@
 
   .add-new-box:hover{
     h3{
-      color: #3E4E75;
+      color: #094D82;
     }
     svg .a{
-      fill: #3E4E75;
+      fill: #094D82;
     }
   }
 
