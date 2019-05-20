@@ -1,4 +1,4 @@
-<div class="gray-bg"  (swipeleft)="swipe($event)" (swiperight)="swipe($event)"> 
+<div class="gray-bg"> 
   <div class="page-header seafoodFormContainer" id="hero" >
     <div class="container-fluid">
       <div class="row" id="content-form">
@@ -9,8 +9,8 @@
           <a routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo-mobile"></a> 
 
           <a *ngIf="!buyer" class="nav-link link-desktop" routerLink="/login" style="display: initial;">Login</a>
-          <p *ngIf="buyer">SWIPE RIGHT FOR SELLER</p>
-          <p *ngIf="!buyer">SWIPE RIGHT FOR BUYER</p>
+          <p *ngIf="buyer"><strong>BUYER</strong>&nbsp;&nbsp; | &nbsp;&nbsp;<span (click)="toggle()">SELLER</span>  </p>
+          <p *ngIf="!buyer" ><span (click)="toggle()">BUYER</span> &nbsp;&nbsp; | &nbsp;&nbsp;<strong>SELLER</strong></p>
           <a  class="nav-link custom-nav-link" routerLink="/login" style="display: initial;">Login</a>
         </div>
        

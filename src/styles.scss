@@ -8,6 +8,7 @@
 @import '~ngx-bar-rating/themes/br-fontawesome-o-theme';
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 
+@import "../src/variables.scss";
 @font-face{
   font-family: Avenir;
   src: url(./assets/fonts/Avenir-Book-01.ttf) format('truetype');
@@ -61,7 +62,7 @@ body {
   letter-spacing: 1.5px;
   text-align: center;
   text-transform: capitalize;
-  color: #7484AA !important;
+  color: $light_blue !important;
   text-transform: uppercase;
   .active-fish-icon{
     display: none;
@@ -78,11 +79,11 @@ body {
 
     cursor: pointer;
     &:hover{
-      color: #3E4E75 !important;
+      color: $dark_blue !important;
     }
   }
   .active-link{
-    color: #3E4E75 !important;
+    color: $dark_blue !important;
     .active-fish-icon{
       display: initial;
     }
@@ -1085,7 +1086,7 @@ form-wizard{
 
 
 .navbar-dark .navbar-toggler-icon{
-  background-color: #0D1321;
+  background-color: $black;
 }
 
 #toast-container > div {
@@ -1096,18 +1097,18 @@ form-wizard{
   z-index: 100000000; 
 }
 .gray-bg{
-  background-color: #F7F8F9;
+  background-color: #F9FCFF;
 }
 
 .top-nav .nav-link {
   svg, .a{
-    fill: #7484AA !important;
+    fill: $light_blue !important;
 
   }
 }
 .top-nav .active-link, .top-nav .nav-link:hover{
   svg, .a{
-    fill: #3E4E75 !important;
+    fill: $dark_blue !important;
   }
 }
 
@@ -1119,12 +1120,12 @@ form-wizard{
       height: 18px;
     }
     svg, .a{
-     fill: #7484aa;
+     fill: $light_blue;
     }
 
     a:hover{
       svg, .a{
-        fill: #3E4E75;
+        fill: $dark_blue;
 
       }
     }
@@ -1140,7 +1141,7 @@ form-wizard{
         margin-left: 5px;    
       }
       svg, .a{
-        fill: #0D1321;
+        fill: $black;
       }
       .calendar-icon{
         margin: 0;
@@ -1149,7 +1150,7 @@ form-wizard{
   
     button:hover{
       svg, .a{
-        fill: #3E4E75;
+        fill: $dark_blue;
       }
     }
   }
@@ -1159,11 +1160,11 @@ form-wizard{
 }
 .ng5-slider .ng5-slider-bar{
   height: 2px !important;
-  background: #3E4E75 !important;
+  background: $dark_blue !important;
 }
 
 .ng5-slider .ng5-slider-pointer, .ng5-slider .ng5-slider-pointer:after{
-  background-color: #3E4E75 !important;
+  background-color: $dark_blue !important;
 }
 
 .loader-gif{
@@ -1369,7 +1370,7 @@ However, delay the fade out process for 2.5 seconds */
   height: 60px;
   border-radius: 50%;
   border: 3px solid transparent;
-  border-bottom-color: #7484AA;
+  border-bottom-color: $light_blue;
   box-sizing: border-box;
 }
 
@@ -1403,7 +1404,7 @@ However, delay the fade out process for 2.5 seconds */
   svg{
     margin-right: 5px !important;
     .a{
-      fill: #885053 !important;
+      fill: $red !important;
   }
   } 
 }
@@ -1412,7 +1413,7 @@ However, delay the fade out process for 2.5 seconds */
   svg{
     margin-right: 5px !important;
     .a{
-      fill: #0D1321 !important;
+      fill: $black !important;
   }
   } 
 }
@@ -1420,9 +1421,9 @@ However, delay the fade out process for 2.5 seconds */
 .light-gray-btn-text{
   svg{
     margin-right: 5px !important;
-    fill: #7484AA !important;
+    fill: $light_blue !important;
     .a{
-      fill: #7484AA !important;
+      fill: $light_blue !important;
   }
   } 
 }
@@ -1443,7 +1444,7 @@ button:focus {
 .delivered-small-span{
   font-weight: 300;
     font-size: 12px;
-    color: #3E4E75;
+    color: $dark_blue;
     line-height: 33px;
 }
 
@@ -1455,13 +1456,13 @@ button:focus {
       border: none !important;
     }
     a:hover{
-      color: #F7F8F9 !important;
+      color: $white !important;
 
     }
     a.nav-link{
-      color: #F7F8F9 !important;
+      color: $white !important;
       &:hover{
-        color: #F7F8F9 !important;
+        color: $white !important;
             }
     }
     #Layer_1{
@@ -1474,7 +1475,7 @@ button:focus {
       max-width: 100% !important;
       width: 71px !important; 
       height: 50px !important;
-      .st0{fill:#F7F8F9;}
+      .st0{fill:$white;}
 	    .st1{fill:none !important;}
       @media screen and (max-width: 992px) {
         width: 42px !important;
@@ -1502,21 +1503,21 @@ button:focus {
 }
 
 #snackbar.success{
-  background-color: #397367 !important;
+  background-color: $green !important;
 }
 
 #snackbar.error{
-  background-color: #885053 !important;
+  background-color: $red !important;
 }
 .tooltip-right{
-  background-color:#3E4E75 !important;
+  background-color:$dark_blue !important;
   border-radius: 10px !important;
   padding: 20px !important;
   box-shadow: none !important;
 }
 
 .tooltip-right::after{
-  border-color: transparent #3E4E75 transparent transparent !important;
+  border-color: transparent $dark_blue transparent transparent !important;
 }
 
 .menu-scroll{
@@ -1541,8 +1542,8 @@ a:hover{
   border: none;
   border-radius: 0;
   width: 100% !important;
-  border-bottom: solid 1px #9A9EA8 !important;
-  color: #3E4E75 !important;
+  border-bottom: solid 1px $gray !important;
+  color: $dark_blue !important;
   font-size: 21px;
   font-weight: 300;
   font-family: 'Open Sans', sans-serif;

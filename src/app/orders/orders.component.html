@@ -49,7 +49,9 @@
 													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/left-arrow.svg" alt=""></button>{{item?.fish?.name}}</td>
 													<td>{{item?.seller?.dataExtra?.companyName}}</td>
 													<td>{{item?.status?.status}}</td>
-													<td>{{item.quantity.value}} kg</td>
+													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
+													<td *ngIf="item.fish.perBox == true">{{item.quantity.value}} boxes</td>
+
 													<td>{{item.price.value | currency: 'AED'}}</td>
 													<td>{{item.total | currency: 'AED'}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
