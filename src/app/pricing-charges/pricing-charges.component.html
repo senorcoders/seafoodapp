@@ -16,6 +16,7 @@
                 <option value="lastMileCost">Last Mile Cost</option>
                 <option value="handlingFees">Handling Fees</option>
                 <option value="exchangeRates">Exchange Rates</option>
+                <option value="exchangeRateCommission">Exchange Commission</option>
               </select>
             </div>
           </div>
@@ -51,6 +52,7 @@
               <th scope="col">{{'PricingCharges.lastMileCost' | translate}}</th>
               <th scope="col">{{'PricingCharges.handlingFess' | translate}}</th>
               <th scope="col">{{'PricingCharges.exchangeRates' | translate}}</th>
+              <th scope="col">{{'PricingCharges.exchangeRateCommission' | translate}}</th>
             </tr>
           </thead>
           <tbody>
@@ -61,6 +63,7 @@
               <td> {{currentPricing.lastMileCost}} </td>
               <td> {{currentPricing.handlingFees}} </td>
               <td> {{currentPricing.exchangeRates}} </td>
+              <td> {{currentPricing.exchangeRateCommission}} </td>              
             </tr>              
           </tbody>
         </table>
@@ -182,6 +185,25 @@
         </tbody>
       </table>
     </div><!--col-md-3 exchangeRates-->
+
+
+    <div class="col">
+      <h5>{{'PricingCharges.exchangeRateCommission' | translate}}</h5>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">{{'PricingCharges.price' | translate}}</th>
+            <th scope="col">{{'PricingCharges.date' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let pricing of historyPricing.exchangeRateCommission" >
+            <th scope="row"> {{pricing.price}} </th>                
+            <td>{{pricing.updatedAt | date: 'yyyy-MM-dd'}}</td>
+          </tr>              
+        </tbody>
+      </table>
+    </div><!--col-md-3 exchangeRates Commission-->
 
 
   </div><!--end row-->
