@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container-confirmation{
     position: fixed;
     width: 100%;
@@ -17,6 +19,6 @@
         font-family: 'Roboto', sans-serif;
     }
     a{
-        color:#3498E5;
+        color:$light_blue;
     }
 }

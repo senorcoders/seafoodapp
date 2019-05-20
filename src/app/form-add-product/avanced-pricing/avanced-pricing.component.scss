@@ -1,3 +1,4 @@
+@import "../../../variables.scss";
 
 .selectionable{
     cursor: pointer !important;
@@ -12,7 +13,7 @@
     display: inline-block;
 }
 .select .square{
-    background-color: #094D82;
+    background-color: $dark_blue;
 }
 
 .selectionable.errorname{
@@ -31,7 +32,7 @@ input.errorname{
     font-size: 28px;
     line-height: 45px;
     letter-spacing: 0.5px;
-    color: #3498E5;
+    color: $light_blue;
     text-transform: uppercase;
     margin: 100px auto;
     cursor: pointer;
@@ -40,7 +41,7 @@ input.errorname{
 
       }
     span{
-        border-bottom: 1px solid #3498E5;
+        border-bottom: 1px solid $light_blue;
         padding-bottom: 15px;
 
     }
@@ -54,12 +55,12 @@ input.errorname{
             font-size: 21px;
             line-height: 31px;
             letter-spacing: 0.5px;
-            color: #3498E5;
+            color: $light_blue;
             font-weight: 300;
             padding: 0 15px;
             &.select{
                 font-weight: 400;
-                color: #094D82;
+                color: $dark_blue;
             }
         }
     }
@@ -78,17 +79,17 @@ input.errorname{
             font-family: 'Open Sans', sans-serif;
             font-size: 21px;
             line-height: 31px;
-            color: #3498E5;
+            color: $light_blue;
             font-weight: 300;
         }
         .square{
             width: 22px;
             height: 22px;
-            border: 1px solid #094D82;
+            border: 1px solid $dark_blue;
             border-radius: 3px;
             margin-right: 10px;
             &.select{
-                background-color: #094D82;
+                background-color: $dark_blue;
             }
         }
     }
@@ -99,7 +100,7 @@ input.errorname{
             font-family: 'Open Sans', sans-serif;
             font-size: 21px;
             line-height: 31px;
-            color: #3498E5;
+            color: $light_blue;
             font-weight: 300;
         }
         input[type="checkbox"]{
@@ -131,7 +132,7 @@ input.errorname{
     max-width: 1000px;
     margin: 0 auto;
     .selectionable{
-        color: #3498E5;
+        color: $light_blue;
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
         font-size: 21px;
@@ -139,9 +140,9 @@ input.errorname{
         letter-spacing: 1.75px;
         padding-bottom: 5px;
         &.select{
-            color: #094D82;
+            color: $dark_blue;
             span{
-                border-bottom: 2px solid #094D82;
+                border-bottom: 2px solid $dark_blue;
             }
         }
     }
@@ -150,27 +151,27 @@ input.errorname{
         font-family: 'Open Sans', sans-serif;
             font-size: 21px;
             line-height: 31px;
-            color: #3498E5;
+            color: $light_blue;
             font-weight: 300;
             letter-spacing: 0.5px;
             text-transform: uppercase;
             padding: 30px;
-            border-bottom: 1px solid #094D82;
+            border-bottom: 1px solid $dark_blue;
     }
     .custom-pricing-table{
-        border: 1px solid #3498E5;
+        border: 1px solid $light_blue;
        
         .slider-price{
             .col-8, .col-4{
                 padding: 20px;
-                border-bottom: 1px solid #3498E5;
+                border-bottom: 1px solid $light_blue;
             }
             .col-8{
                 padding: 20px 60px;
             }
 
             .col-4{
-                color: #121619;
+                color: $black;
                 font-family: 'Open Sans', sans-serif;
                 font-size: 16px;
                 line-height: 22px;
@@ -205,12 +206,12 @@ input.errorname{
                     border: none;
                     text-align: center;
                     font-family: 'Open Sans', sans-serif;
-                    color: #848A8E;
+                    color: $gray;
                     font-style: italic;
                     font-size: 16px;
                     line-height: 22px;
                     &::placeholder{
-                        color: #848A8E;
+                        color: $gray;
                     }
                 }
             }

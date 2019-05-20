@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .gray-bg{
   padding: 155px 0;
   .container-fluid{
@@ -18,7 +20,7 @@
           font-size: 21px;
           letter-spacing: 0.75px;
           line-height: 25px;
-          color: #3498E5;
+          color: $light_blue;
           text-transform: uppercase;
           font-weight: 300;
           &:hover{
@@ -31,7 +33,7 @@
       }
       .thanks-content{
         h2{
-          color: #3498E5;
+          color: $light_blue;
           font-size: 28px;
           font-family: 'Josefin Sans', sans-serif;
           font-weight: 300;
@@ -42,7 +44,7 @@
           margin-bottom: 20px;
         }
         p{
-          color: #848A8E;
+          color: $gray;
           font-family: 'Open Sans', sans-serif;
           font-weight: 300;
           font-size: 21px;
@@ -51,8 +53,8 @@
           margin: 20px auto;
         }
         .btn-transparent{
-          border: 1px solid #094D82;
-          color: #094D82;
+          border: 1px solid $dark_blue;
+          color: $dark_blue;
           text-transform: uppercase;
           background: none;
           font-size: 16px;

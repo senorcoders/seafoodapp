@@ -1,3 +1,5 @@
+@import "../../../variables.scss";
+
 footer{
     background-color: #fff;
     padding-top: 50px;
@@ -5,7 +7,7 @@ footer{
     border-top: 2px solid #fafafb;
 
     strong{
-        color: #121619;
+        color: $black;
         font-size: 14px;
         font-family: 'Josefin Sans', sans-serif;
         text-transform: uppercase;
@@ -14,14 +16,14 @@ footer{
         font-weight: normal;
     }
     a{
-        color: #3498E5;
+        color: $light_blue;
         font-size: 14px;
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
     }
 
     a:hover{
-        color: #094D82;
+        color: $dark_blue;
     }
 
     .col{
@@ -41,7 +43,7 @@ footer{
         margin-top: -10px;    }
 
     p{
-        color: #121619;
+        color: $black;
         font-size: 14px;
         font-family: 'Josefin Sans', sans-serif;
         margin: 0;
@@ -77,7 +79,7 @@ footer{
     }
 
     p{
-        color: #121619;
+        color: $black;
         font-size: 14px;
         font-family: 'Josefin Sans', sans-serif;
         margin: 0;
@@ -89,8 +91,8 @@ footer{
         padding: 0;
         padding-top: 10px;
         select{
-            color: #121619;
-            border-color: #121619;
+            color: $black;
+            border-color: $black;
         }
     }
     .container{

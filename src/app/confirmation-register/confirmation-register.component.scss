@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .container-confirmation{
     position: fixed;
     width: 100%;
@@ -14,7 +16,7 @@
     }
     h2{
         font-size: 1.5rem;
-        color: #550C18 !important;
+        color: $red !important;
         margin-top: 20px;
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
