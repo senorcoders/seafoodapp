@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .error {
     background-color: red;
 }
@@ -21,7 +23,7 @@
             font-size: 21px;
             letter-spacing: 0.75px;
             line-height: 25px;
-            color: #3498E5;
+            color: $light_blue;
             text-transform: uppercase;
             font-weight: 300;
             cursor: pointer;
@@ -40,7 +42,7 @@
             font-size: 28px;
             line-height: 45px;
             letter-spacing: 0.5px;
-            color: #3498E5;
+            color: $light_blue;
             text-transform: uppercase;
             margin: 0 auto;
             margin-bottom: 100px;
@@ -49,7 +51,7 @@
     
               }
             span{
-                border-bottom: 1px solid #3498E5;
+                border-bottom: 1px solid $light_blue;
                 padding-bottom: 15px;
     
             }
@@ -99,9 +101,9 @@
             input.form-control, textarea.form-control{
                 background: none !important;
                 border: 0;
-                border-bottom: solid 2px #848A8E !important;
+                border-bottom: solid 2px $gray !important;
                 border-radius: 0 !important;
-                color: #094D82 !important;
+                color: $dark_blue !important;
                 font-size: 21px;
                 font-weight: 300;
                 font-family: 'Open Sans', sans-serif;
@@ -119,10 +121,10 @@
                 background: none !important;
                 border-radius: 0 !important;
                 border: 0;
-                border-bottom: solid 2px #848A8E !important;
+                border-bottom: solid 2px $gray !important;
                 -webkit-appearance: none;
                 -webkit-border-radius: 0px;
-                color: #094D82 !important;
+                color: $dark_blue !important;
                 font-size: 21px;
                 font-weight: 300;
                 font-family: 'Open Sans', sans-serif;
@@ -133,18 +135,18 @@
                   }
             }
             input.form-control.is-invalid{
-                border-bottom: solid 2px #550C18;
+                border-bottom: solid 2px $red;
         
             }
             input:focus{
                 outline: none !important;
                 box-shadow: none !important;
-                border-bottom: solid 2px #094D82 !important;
+                border-bottom: solid 2px $dark_blue !important;
         
             }
             input.form-control:disabled, select.form-control:disabled{
-                color: #848A8E !important;
-                border-bottom: solid 2px #848A8E !important;
+                color: $gray !important;
+                border-bottom: solid 2px $gray !important;
     
             }
           
@@ -157,7 +159,7 @@
                 line-height: 28px;
                 letter-spacing: normal;
                 text-align: left;
-                color: #848A8E !important;
+                color: $gray !important;
                 padding-left: 0 !important;
                 font-weight: 300 !important;
                 top: .3em !important;
@@ -166,7 +168,7 @@
         
                   }
                 .red{
-                    color: #848A8E;
+                    color: $gray;
                     font-size: 0.8em;
                 
                 }
@@ -175,7 +177,7 @@
             .has-float-label label{
                 font-size: 16px !important;
                 left: 0 !important;
-                color: #094D82 !important;
+                color: $dark_blue !important;
                 line-height: 28px !important;
                 font-style: normal !important;
                 font-weight: 300 !important;
@@ -185,14 +187,14 @@
         
                   }
                 .red{
-                    color: #094D82;
+                    color: $dark_blue;
                     font-size: 0.8em;
                 
                 }
             }
     
             .has-float-label label.disabled-label{
-                color: #848A8E !important;
+                color: $gray !important;
             }
             .form-control:placeholder-shown:not(:focus)+*{
              font-size: inherit; 
@@ -214,7 +216,7 @@
                     margin-bottom: 20px;
                     padding-left: 0;
                     h4{
-                        color: #121619;
+                        color: $black;
                         font-family: 'Josefin Sans', sans-serif;
                         font-weight: 300;
                         font-size: 21px;
@@ -234,7 +236,7 @@
                     margin-bottom: 20px;
                     padding-left: 0;
                     h4{
-                        color: #121619;
+                        color: $black;
                         font-family: 'Josefin Sans', sans-serif;
                         font-weight: 300;
                         font-size: 28px;
@@ -254,7 +256,7 @@
                     margin-bottom: 20px;
                     padding-left: 0;
                     h4{
-                        color: #3498E5;
+                        color: $light_blue;
                         font-family: 'Josefin Sans', sans-serif;
                         font-weight: 300;
                         font-size: 21px;
@@ -273,15 +275,15 @@
                         border: none;
                         width: 100px;
                         font-family: 'Open Sans', sans-serif;
-                        color: #848A8E;
+                        color: $gray;
                         font-size: 16px;
                         line-height: 22px;
                         &::placeholder{
-                            color: #848A8E;
+                            color: $gray;
                         }
                     }
                     i{
-                        color: #848A8E;
+                        color: $gray;
                         font-size: 5px;
                         vertical-align: middle;
                     }
@@ -290,7 +292,7 @@
     
             .total-row{
                 h4{
-                    color: #121619;
+                    color: $black;
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 300;
                     font-size: 21px;
@@ -304,7 +306,7 @@
                 }
     
                 h2{ 
-                    color: #121619;
+                    color: $black;
                     font-family: 'Josefin Sans', sans-serif;
                     font-weight: 300;
                     font-size: 28px;
@@ -319,9 +321,9 @@
                 }
     
                 .transparent-btn{
-                    color: #3498E5;
+                    color: $light_blue;
                     background: none;
-                    border: 1px solid #3498E5;
+                    border: 1px solid $light_blue;
                     border-radius: 2px;
                     text-transform: uppercase;
                     width: 100%;
@@ -340,7 +342,7 @@
                       }
                     &:hover{
                         color: #fff;
-                        background: #094D82;
+                        background: $dark_blue;
                     }
     
                 }
@@ -359,7 +361,7 @@
         font-size: 21px;
         letter-spacing: 0.75px;
         line-height: 25px;
-        color: #3498E5;
+        color: $light_blue;
         text-transform: uppercase;
         font-weight: 300;
     }
@@ -367,8 +369,8 @@
         width: 200px;
         border:none;
         background: none;
-        border-bottom: 1px solid #848A8E;
-        color: #848A8E;
+        border-bottom: 1px solid $gray;
+        color: $gray;
         font-style: italic;
         font-size: 21px;
         line-height: 28px;
@@ -377,7 +379,7 @@
         border-radius: 0;
         padding: 0;
         &::placeholder{
-            color: #848A8E;
+            color: $gray;
         }
     }
 }

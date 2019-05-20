@@ -1,3 +1,4 @@
+@import "../../variables.scss";
 
 #blah{
 	max-width: 100%;
@@ -25,7 +26,7 @@
         font-size: 28px;
         line-height: 45px;
         letter-spacing: 0.5px;
-        color: #3498E5;
+        color: $light_blue;
         text-transform: uppercase;
         margin: 0 auto;
         // margin-bottom: 100px;
@@ -33,15 +34,15 @@
             font-size: 28px !important;
           }
         span{
-            border-bottom: 1px solid #3498E5;
+            border-bottom: 1px solid $light_blue;
             // padding-bottom: 15px;
         }
     }
 
     .btn-save{
-        border: 1px solid #3498E5;
+        border: 1px solid $light_blue;
         text-transform: uppercase;
-        color: #3498E5;
+        color: $light_blue;
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
         letter-spacing: 0.5px;
@@ -63,8 +64,8 @@
       }
 
       .btn-save:hover{
-        background: #094D82 !important;
-        border: 1px solid #094D82 !important;
+        background: $dark_blue !important;
+        border: 1px solid $dark_blue !important;
         color: #ffffff !important;
     }
 

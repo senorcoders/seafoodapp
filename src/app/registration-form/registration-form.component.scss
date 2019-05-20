@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 #hero{
     min-height: 100vh;
     height: auto;
@@ -63,7 +65,7 @@
         }
      }
     .side-dark-gray{
-        background-color: #3498E5;
+        background-color: $light_blue;
         .nav-link{
             color: #f7f8f9 !important;
             display: initial;
@@ -84,7 +86,7 @@
                 font-size: 28px;
                 letter-spacing: 0.5px;
                 line-height: 34px;
-                color: #F9FCFF;
+                color: $white;
                 text-transform: uppercase;
                 margin-bottom: 20px;
             }
@@ -98,15 +100,15 @@
                 font-size: 16px;
                 letter-spacing: 0.15px;
                 line-height: 19px;
-                color: #F9FCFF;
+                color: $white;
                 margin-bottom: 20px;
             }
             button{
                 border-radius: 2px;
                 background: none;
-                border: 1px solid #F9FCFF;
+                border: 1px solid $white;
                 text-transform: uppercase;
-                color: #F9FCFF;
+                color: $white;
                 text-transform: uppercase;
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
@@ -118,8 +120,8 @@
                 height: 50px;
                 transition: all .2s ease-in-out;
                 &:hover{
-                    background: #F9FCFF;
-                    color: #3498E5;
+                    background: $white;
+                    color: $light_blue;
                 }
             }
         }
@@ -139,7 +141,7 @@
         font-weight: 300;
         font-size: 12px;
         line-height: 14px;
-        color: #848A8E;
+        color: $gray;
         margin: 0 20px;
         display: none;
         @media screen and (max-width: 992px){
@@ -191,7 +193,7 @@
     }
     h2{
         font-size: 1.5rem;
-        color: #550C18 !important;
+        color: $red !important;
         margin-top: 20px;
         font-family: 'Roboto', sans-serif Medium;
         

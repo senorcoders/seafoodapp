@@ -1,13 +1,15 @@
+@import "../../variables.scss";
+
 #carouselExampleIndicators{
   height: 100vh;
   .row{
     flex-wrap: nowrap;
   }
   .light-gray-section{
-    background: #3498E5;
+    background: $light_blue;
   }
   .dark-gray-section{
-    background: #094D82;
+    background: $dark_blue;
   }
   .background-rules{
     background-position: center !important;
@@ -131,7 +133,7 @@
     align-items: center;
     flex-wrap: nowrap;
     a{
-      color: #F9FCFF !important;
+      color: $white !important;
       padding: 20px 25px;
       img.logo{
           max-width: 100%;
@@ -182,11 +184,11 @@
     height: 12px;
     border-radius: 50%;
     background: transparent;
-    border: 1px solid #F9FCFF;
+    border: 1px solid $white;
     opacity: 1;
     margin: 20px 3px;
     &.active{
-      background: #F9FCFF;
+      background: $white;
     }
   }
   @media screen and (max-width: 992px) {
@@ -206,7 +208,7 @@
       line-height: 25px;
       margin: 0;
       margin-bottom: 10px;
-      color: #F9FCFF;
+      color: $white;
       text-transform: uppercase;
       @media screen and (max-width: 992px) {
        font-size: 16px;
@@ -221,7 +223,7 @@
       line-height: 45px;
       margin: 0;
       margin-bottom: 10px;
-      color: #F9FCFF;
+      color: $white;
       text-transform: uppercase;
       @media screen and (max-width: 992px) {
         font-size: 28px;
@@ -231,7 +233,7 @@
     p{
       font-family: 'Josefin Sans', sans-serif;
       font-weight: 300;
-      color: #F9FCFF;
+      color: $white;
       font-style: italic;
       letter-spacing: 0.25px;
       line-height: 25px;
@@ -251,10 +253,10 @@
       font-size: 16px;
       letter-spacing: 0.5px;
       line-height: 50px;
-      color: #F9FCFF;
+      color: $white;
       margin: 10px 0;
       &:hover{
-        background: #F9FCFF;
+        background: $white;
         color: #5C9EAD;
       }
       @media screen and (max-width: 992px) {
@@ -281,7 +283,7 @@
       font-size: 28px;
       letter-spacing: 0.5px;
       line-height: 45px;
-      color: #F9FCFF;
+      color: $white;
       text-decoration: none !important;
       text-transform: uppercase;
       img{
@@ -371,7 +373,7 @@
       justify-content: center;
       a.nav-link{
         display: initial;
-        color: #F9FCFF !important;
+        color: $white !important;
         padding: 0;
         margin: 0;
         text-transform: uppercase !important;
