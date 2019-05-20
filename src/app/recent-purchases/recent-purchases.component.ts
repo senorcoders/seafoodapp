@@ -91,7 +91,7 @@ export class RecentPurchasesComponent implements OnInit {
     $mainNav.append("<li id='magic-line'></li>");
 
     jQuery('#magic-line').css('position', 'absolute');
-    jQuery('#magic-line').css('background', '$dark_blue');
+    jQuery('#magic-line').css('background', '#094D82');
     jQuery('#magic-line').css('height', '2px');
     jQuery('#magic-line').css('width', '280px');
     jQuery('#magic-line').css('left', '0');

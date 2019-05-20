@@ -4,12 +4,12 @@
       <div class="container-fluid">
           <ng-template #customLoadingTemplate>
               <div class="row">
-                <div class="wave-loader" style="background-color: $white; z-index: 999999; height: 100px; position:fixed;">
+                <div class="wave-loader" style="background-color: #F9FCFF; z-index: 999999; height: 100px; position:fixed;">
                   <div class="wave-loading"></div>
                 </div>
                 
               </div>
-            </ng-template>
+            </ng-template> 
             <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
             </ngx-loading>
         <div class="row">
