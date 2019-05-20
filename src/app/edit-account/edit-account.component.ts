@@ -103,7 +103,7 @@ export class EditAccountComponent implements OnInit {
     this.buyerFirstName = new FormControl('', [Validators.required]);
     this.buyerLastName = new FormControl('',[Validators.required]);
     this.buyerEmail = new FormControl('', [Validators.email, Validators.required]);
-    this.buyerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')]);
+    this.buyerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9 ]{1,4}[)]{0,1}[-\s\./0-9 ]*$')]);
     this.buyerCompanyName = new FormControl('',[Validators.required]);
     this.buyerTypeBusiness = new FormControl('',[Validators.required]);
     this.buyerCountry = new FormControl('',[Validators.required]);
@@ -112,7 +112,7 @@ export class EditAccountComponent implements OnInit {
     this.sellerFirstName = new FormControl('', [Validators.required]);
     this.sellerLastName = new FormControl('',[Validators.required]);
     this.sellerEmail = new FormControl('', [Validators.email, Validators.required]);
-    this.sellerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')]);
+    this.sellerPhoneNumber = new FormControl('', [Validators.required, Validators.pattern('^[+]*[(]{0,1}[0-9 ]{1,4}[)]{0,1}[-\s\./0-9 ]*$')]);
     this.sellerCompanyName = new FormControl('', [Validators.required]);
     this.sellerTrade = new FormControl('', [Validators.required]);
     this.sellerCompanyType = new FormControl('', [Validators.required]);
