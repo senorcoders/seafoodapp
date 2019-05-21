@@ -663,7 +663,8 @@
 		"date": "Updated At",
 		"type": "Type",
 		"price": "Price",
-		"flatCustoms": "Flat Customs (AED)"
+		"flatCustoms": "Flat Customs (AED)",
+		"exchangeRateCommission": "Exchange Commission (%)"
 	},
 	"FulsfillsOrders": {
 		"title": "Seller Fulfills Orders",
