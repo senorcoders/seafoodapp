@@ -39,10 +39,12 @@ export class ProductListComponent implements OnInit {
 		};
 		this.product.listProduct(data).subscribe(
 			res => {
-				this.showPagination = true;
 				this.paginationNumbers = [];
 				this.products = res['productos']
 				this.pageNumbers = parseInt(res['pagesNumber']);
+				if( this.pageNumbers > 1 ){
+					this.showPagination = true;
+				}
 				for (let i = 1; i <= this.pageNumbers; i++) {
 					this.paginationNumbers.push(i);
 				}

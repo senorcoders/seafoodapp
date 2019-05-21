@@ -23,18 +23,22 @@
 						</div>
 						<div class="col">
 							<p class="order-number"><b>{{product.name}}</b></p>
-							<span >Status:<br> <b>{{product.status.status }}</b></span>
+							<p class="order-number"><b>{{product.variation.fishPreparation.name}} <span *ngIf="product.variation.wholeFishWeight !== null">{{product.variation.wholeFishWeight.name}}</span></b> </p>
+							
+							
+							<!--<span >Status:<br> <b>{{product.status.status }}</b></span>-->
 						</div>
 						<div class="col date-span">
-							Seafood SKU: <span *ngIf="product.seafood_sku"><b>{{product.seafood_sku}}</b></span> <br>
-							Seller SKU: <span *ngIf="product.seafood_sku"><b>{{product.seller_sku}}</b></span>
+							<span *ngIf="product.seller_sku">Seller SKU: <b>{{product.seller_sku}}</b></span>
+							<span *ngIf="product.seafood_sku">Seafood SKU: <b>{{product.seafood_sku}}</b></span> <br>
+							<span *ngIf="product.variation.sku">Variation SKU: <b>{{product.variation.sku}}</b></span>
 						</div>
 						<div class="col">
 							Store: <b>{{product.store.name}}</b>
 						</div>
-						<div class="col">
-							<span class="price">AED {{product.price.value}} / kg</span>
-						</div>
+						<!--<div class="col">
+							<span class="price" *ngIf="product.price">AED {{product.price.value}} / kg</span>
+						</div>-->
 						<div class="col">
 							<a routerLink="/edit-product/{{product.id}}" class="blue-btn">View Product</a>
 						</div>
