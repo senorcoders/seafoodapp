@@ -23,6 +23,10 @@ export class OrderService {
     return this.http.get(`api/orderStatus/logistic`);
   }
 
+  getLogisticOrderStatusPagination(page, limit) {
+    return this.http.get(`api/v2/orderStatus/logistic?page=${page}&limit=${limit}`);
+  }
+
   getAllOrders() {
     return this.http.get(`api/itemshopping/all`);
   }
@@ -34,6 +38,20 @@ export class OrderService {
   }
   getOrdersByStatusAndNumber( status: string, orderNumber: string ) {
     return this.http.get(`api/itemshopping/status/${status}/order-number/${orderNumber}`);
+  }
+
+  //For get orders with pagination
+  getAllOrdersPagination(page:number, limit:number) {
+    return this.http.get(`api/v2/itemshopping/all?page=${page}&limit=${limit}`);
+  }
+  getOrdersByStatusPagination(page:number, limit:number, status:string) {
+    return this.http.get(`api/v2/itemshopping/status/${status}?page=${page}&limit=${limit}`);
+  }
+  getOrdersByNumberPagination(page:number, limit:number, orderNumber:string) {
+    return this.http.get(`api/v2/itemshopping/order-number/${orderNumber}?page=${page}&limit=${limit}`);
+  }
+  getOrdersByStatusAndNumberPagination(page:number, limit:number, status:string, orderNumber:string) {
+    return this.http.get(`api/v2/itemshopping/status/${status}/order-number/${orderNumber}?page=${page}&limit=${limit}`);
   }
   
   // Get Buyer Orders
@@ -69,6 +87,10 @@ export class OrderService {
 
   getPayedItems() {
     return this.http.get(`itemshopping/payed`);
+  }
+
+  getPayedItemsPagination(page, limit) {
+    return this.http.get(`api/v2/itemshopping/payed?page=${page}&limit=${limit}`);
   }
 
   getCanceledItems() {

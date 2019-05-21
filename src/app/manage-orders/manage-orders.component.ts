@@ -32,6 +32,10 @@ export class ManageOrdersComponent implements OnInit {
   public date2 = new Date();
   public useFilterDate = false;
 
+  public page = 1;
+  public limit = 20;
+  public paginationNumbers = [];
+
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -43,21 +47,24 @@ export class ManageOrdersComponent implements OnInit {
     this.user = this.auth.getLoginData();
     this.status = '0';
     this.getStatus();
-    this.getOrders();
+    this.getOrders(true);
   }
 
   clear() {
     this.status = '0';
     this.orderNumber = '';
-    this.getOrders();
+    this.getOrders(true);
   }
 
   onItemChange(selectedItem: string) {
     this.status = selectedItem;
-    this.getOrders();
+    this.getOrders(true);
   }
 
-  getOrders() {
+  getOrders(pagination?) {
+    if(pagination){
+      this.page = 1;
+    }
     this.showNoData = false;
     console.log('status', this.status);
     console.log('orderNumber', this.orderNumber);
@@ -66,12 +73,13 @@ export class ManageOrdersComponent implements OnInit {
       (this.status === undefined && this.orderNumber === undefined) ||
       (this.status === '0' && (this.orderNumber === undefined || this.orderNumber === ''))
     ) {
-      this.orderService.getAllOrders().subscribe(
+      this.orderService.getAllOrdersPagination(this.page, this.limit).subscribe(
         res => {
-          if (res['length'] > 0) {
-            this.orders = res;
+          this.calcPagination(res["pageAvailables"]);
+          if (res['data'].length > 0) {
+            this.orders = res["data"];
             this.showNoData = false;
-            this.groupByOrders(res)
+            this.groupByOrders(res["data"])
           } else {
             this.showNoData = true;
           }
@@ -82,12 +90,13 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if (this.status !== '0' && (this.orderNumber === undefined || this.orderNumber === '')) {// by status
-      this.orderService.getOrdersByStatus(this.status).subscribe(
+      this.orderService.getOrdersByStatusPagination(this.page, this.limit, this.status).subscribe(
         res => {
-          if (res['length'] > 0) {
-            this.orders = res;
+          this.calcPagination(res["pageAvailables"]);
+          if (res['data'].length > 0) {
+            this.orders = res["data"];
             this.showNoData = false;
-            this.groupByOrders(res)
+            this.groupByOrders(res["data"])
           } else {
             this.showNoData = true;
           }
@@ -99,11 +108,13 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if ((this.orderNumber !== undefined || this.orderNumber > 0) && this.status === '0') {// by order number
-      this.orderService.getOrdersByNumber(this.orderNumber).subscribe(
+      this.orderService.getOrdersByNumberPagination(this.page, this.limit, this.orderNumber).subscribe(
         res => {
-          if (res['length'] > 0) {
-            this.orders = res;
-            this.groupByOrders(res);
+          this.calcPagination(res["pageAvailables"]);
+          if (res['data'].length > 0) {
+            this.orders = res["data"];
+            this.groupByOrders(res["data"]);
+            this.showNoData = false;
           } else {
             this.showNoData = true;
           }
@@ -115,12 +126,13 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else if (this.status !== '0' && this.orderNumber !== undefined || this.orderNumber !== '') {
-      this.orderService.getOrdersByStatusAndNumber(this.status, this.orderNumber).subscribe(
+      this.orderService.getOrdersByStatusAndNumberPagination(this.page, this.limit, this.status, this.orderNumber).subscribe(
         res => {
-          if (res['length'] > 0) {
-            this.orders = res;
+          this.calcPagination(res["pageAvailables"]);
+          if (res['data'].length > 0) {
+            this.orders = res["data"];
             this.showNoData = false;
-            this.groupByOrders(res);
+            this.groupByOrders(res["data"]);
           } else {
             this.showNoData = true;
           }
@@ -132,10 +144,11 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     } else {
-      this.orderService.getAllOrders().subscribe(
+      this.orderService.getAllOrdersPagination(this.page, this.limit).subscribe(
         res => {
-          if (res['length'] > 0) {
-            this.orders = res;
+          this.calcPagination(res["pageAvailables"]);
+          this.orders = res["data"];
+          if (res['data'].length > 0) {
             this.showNoData = false;
           } else {
             this.showNoData = true;
@@ -148,6 +161,32 @@ export class ManageOrdersComponent implements OnInit {
         }
       );
     }
+  }
+
+  public getOrdersPage(page){
+    this.page = page;
+    this.getOrders();
+  }
+
+  private calcPagination(length) {
+    this.paginationNumbers = [];
+    for (let i = 0; i < length; i++) {
+      this.paginationNumbers.push(i);
+    }
+  }
+
+  public nextPage() {
+    this.paginationNumbers = [];
+    this.page++;
+    this.getOrders();
+  }
+
+  public previousPage() {
+    this.paginationNumbers = [];
+      if (this.page > 1) {
+        this.page--;
+      }
+      this.getOrders();
   }
 
   getStatus() {

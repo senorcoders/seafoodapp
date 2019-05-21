@@ -29,6 +29,10 @@ export class AdminLogisticManagmentComponent implements OnInit {
   public date1 = new Date();
   public date2 = new Date();
 
+  public page = 1;
+  public limit = 20;
+  public paginationNumbers = [];
+
   constructor(
     private orderService: OrderService,
     private productService: ProductService,
@@ -39,7 +43,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
     this.date2.setMonth(new Date().getMonth()+ 1);
     this.user = this.auth.getLoginData();
     this.status = '0';
-    this.getManagement();
+    this.getManagement(true);
     this.getStatus();
   }
 
@@ -56,16 +60,45 @@ export class AdminLogisticManagmentComponent implements OnInit {
   }
 
 
-  getManagement() {
-    this.productService.getData('api/shoppingcart/orderlogistic').subscribe(data => {
-      this.rows = (data as any[]).map(it => {
+  getManagement(pagination?) {
+    if(pagination)
+      this.page = 1;
+    this.productService.getData(`api/v2/shoppingcart/orderlogistic?page=${this.page}&limit=${this.limit}`).subscribe(data => {
+      this.calcPagination(data["pageAvailables"]);
+      this.rows = (data["data"] as any[]).map(it => {
         if (typeof it.paidDateTime === 'string' && it.paidDateTime !== "")
           it.paidDateTime = new Date(it.paidDateTime);
 
-        return it;
+        return it; 
       });
     })
 
+  }
+
+  public getOrdersPage(page){
+    this.page = page;
+    this.getManagement();
+  }
+
+  private calcPagination(length) {
+    this.paginationNumbers = [];
+    for (let i = 0; i < length; i++) {
+      this.paginationNumbers.push(i);
+    }
+  }
+
+  public nextPage() {
+    this.paginationNumbers = [];
+    this.page++;
+    this.getManagement();
+  }
+
+  public previousPage() {
+    this.paginationNumbers = [];
+      if (this.page > 1) {
+        this.page--;
+      }
+      this.getManagement();
   }
 
   updateStatus() {
@@ -82,7 +115,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
       result => {
         this.toast.success(`Item marked as ${statusName}!`, 'Status Change', { positionClass: 'toast-top-right' });
         jQuery('#confirmUpdateStatus').modal('hide');
-        this.getManagement();
+        this.getManagement(true);
       },
       error => {
         console.log(error);

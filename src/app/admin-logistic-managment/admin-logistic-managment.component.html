@@ -1,6 +1,6 @@
 <div class="bg">
   <div class="container">
-    <div class="row">
+    <div class="row" id="max">
       <div class="col-12">
         <h2 class="black-title">{{'LogisticManagment.title' | translate}}</h2>
       </div>
@@ -185,7 +185,16 @@
         <h2 class="black-title">No records found</h2>
       </div>
     </div>
-
+    <div class="row">
+      <div class="col pagination">
+        <span class="btn-red-a previous" (click)="previousPage()"
+          *ngIf="page>1">{{'Products.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+          [ngClass]="{'active': page==(number+1)}" (click)="getOrdersPage(number+1)">{{number+1}}</span>
+        <span class="btn-red-a next" (click)="nextPage()"
+          *ngIf="page<paginationNumbers.length">{{'Products.next' | translate}}</span>
+      </div>
+    </div>
   </div>
 </div>
 
