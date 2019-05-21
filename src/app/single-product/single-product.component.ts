@@ -104,7 +104,7 @@ export class SingleProductComponent implements OnInit {
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
     private cartService: OrderService) {
-    //Para cuando se vaya a otra pagina quitar el css del footer y funciones
+    // Para cuando se vaya a otra pagina quitar el css del footer y funciones
     this.router.events.subscribe(it => {
       $("app-footer").css({ position: "relative", top: "auto" });
       clearInterval(this.inter);
@@ -114,18 +114,17 @@ export class SingleProductComponent implements OnInit {
   ngAfterViewInit() {
 
 
-    $("#content-fixed").css("height", $(window).height());
-    $("#sticky-div").css("height", $(window).height());
+    $('#content-fixed').css('height', $(window).height());
+    // $("#sticky-div").css("height", $(window).height());
     this.inter = setInterval(this.loadingImage.bind(this), 500);
 
-    //Para checkar cuando el footer es visible
+    // Para checkar cuando el footer es visible
     $(window).scroll(function () {
       if ($(window).width() > 991) {
-        if (isScrolledIntoView($("app-footer"))) {
-          $("#sticky-div").addClass("no");
-        }
-        else {
-          $("#sticky-div").removeClass("no");
+        if (isScrolledIntoView($('app-footer'))) {
+          $('#sticky-div').addClass('no');
+        } else {
+          $('#sticky-div').removeClass('no');
         }
       }
     });
