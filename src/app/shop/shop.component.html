@@ -203,10 +203,10 @@
                      
                        
                         <form>
-                            <span class="amount-span"style="margin-right: 5px;">{{product.variation.min}}</span>
+                            <span class="amount-span"style="margin-right: 5px;">min <br> {{product.variation.min}}</span>
                             <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
                             <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
-                            <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
+                            <span class="amount-span" style="margin-left: 5px;">max <br> {{product.variation.max}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
                       </div>
