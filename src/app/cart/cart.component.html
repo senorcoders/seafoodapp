@@ -32,10 +32,10 @@
               
                          
                           <form>
-                              <span class="amount-span">{{product.fish.minimumOrder}}</span>
+                              <span class="amount-span">min <br> {{product.fish.minimumOrder}}</span>
                               <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number"  (change)="manualInput(product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)">
                               <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number"  (change)="manualInput(product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)">
-                              <span class="amount-span">{{product.fish.maximumOrder}}</span>
+                              <span class="amount-span">max <br> {{product.fish.maximumOrder}}</span>
                           </form>
                     </div>
                    
