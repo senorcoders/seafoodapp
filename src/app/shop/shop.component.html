@@ -263,7 +263,8 @@
               <div class="cart-slide-range">
                   <form>
                       <span class="amount-span" style="margin-right: 5px;">{{product.variation.min}}</span>
-                      <input disabled  name="foo" type="text" class="qty-number" value="{{product?.quantity?.value}} kg">
+                      <input *ngIf="product.fish?.perBox != true" disabled  name="foo" type="text" class="qty-number" value="{{product?.quantity?.value}} kg">
+                      <input *ngIf="product.fish?.perBox == true" disabled  name="foo" type="text" class="qty-number" value="{{product?.quantity?.value / product.fish?.boxWeight}} boxes">
                       <span class="amount-span" style="margin-left: 5px;">{{product.variation.max}}</span>
                       <label>{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
                   </form>
