@@ -32,28 +32,28 @@ export class SingleProductComponent implements OnInit {
   priceDesc: any;
   base: any = environment.apiURLImg;
   category: any;
-  show: boolean = true;
+  show = true;
   cart: any;
-  count: number = 1;
+  count = 1;
   cartEndpoint: any = 'api/shopping/add/';
   chargesEndpoint: any = 'api/fish/';
   priceValue: any;
   priceType: any;
   measurement: any;
   currency: string;
-  showCart: boolean = false;
+  showCart = false;
   mainImg: any;
   slideConfig = { 'slidesToShow': 4, 'slidesToScroll': 1 };
-  showLoading: boolean = true;
+  showLoading = true;
   isLogged: boolean;
-  isFavorite: boolean = false;
+  isFavorite = false;
   favorite: any;
   idUser: string;
   favoriteId: string;
   role: number;
   storeId: string;
   storeName: string;
-  enabledHeart: boolean = false;
+  enabledHeart = false;
   logo: any;
   reviews: any;
   averageReview: any = 0;
@@ -64,9 +64,9 @@ export class SingleProductComponent implements OnInit {
   max: any;
   charges: any;
   cooming_soon: string;
-  showTaxes: boolean = false;
+  showTaxes = false;
   FXRateFees = 0;
-  delivered: number = 0;
+  delivered = 0;
   brandname: any;
   processingCountry: any;
   countries: any = [];
@@ -82,7 +82,7 @@ export class SingleProductComponent implements OnInit {
     }
   };
   value: any = 1;
-  currentVaritionID: string = '';
+  currentVaritionID = '';
   public withVariations = false;
   public variations = [];
   public selectVariation = '';
@@ -91,8 +91,8 @@ export class SingleProductComponent implements OnInit {
   public noWholeFish = false;
   public kg = 0;
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
-  public variationId = "";
-  public fishOption = "";
+  public variationId = '';
+  public fishOption = '';
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -106,7 +106,7 @@ export class SingleProductComponent implements OnInit {
     private cartService: OrderService) {
     // Para cuando se vaya a otra pagina quitar el css del footer y funciones
     this.router.events.subscribe(it => {
-      $("app-footer").css({ position: "relative", top: "auto" });
+      $('app-footer').css({ position: 'relative', top: 'auto' });
       clearInterval(this.inter);
     });
   }
@@ -114,51 +114,51 @@ export class SingleProductComponent implements OnInit {
   ngAfterViewInit() {
 
 
-    $('#content-fixed').css('height', $(window).height());
+    // $('#content-fixed').css('height', $(window).height());
     // $("#sticky-div").css("height", $(window).height());
     this.inter = setInterval(this.loadingImage.bind(this), 500);
 
     // Para checkar cuando el footer es visible
-    $(window).scroll(function () {
-      if ($(window).width() > 991) {
-        if (isScrolledIntoView($('app-footer'))) {
-          $('#sticky-div').addClass('no');
-        } else {
-          $('#sticky-div').removeClass('no');
-        }
-      }
-    });
+    // $(window).scroll(function () {
+    //   if ($(window).width() > 991) {
+    //     if (isScrolledIntoView($('app-footer'))) {
+    //       $('#sticky-div').addClass('no');
+    //     } else {
+    //       $('#sticky-div').removeClass('no');
+    //     }
+    //   }
+    // });
 
-    function isScrolledIntoView(elem) {
-      var $elem = $(elem);
-      var $window = $(window);
+    // function isScrolledIntoView(elem) {
+    //   var $elem = $(elem);
+    //   var $window = $(window);
 
-      var docViewTop = $window.scrollTop();
-      var docViewBottom = docViewTop + $window.height();
+    //   var docViewTop = $window.scrollTop();
+    //   var docViewBottom = docViewTop + $window.height();
 
-      var elemTop = $elem.offset().top;
-      var elemBottom = elemTop + $elem.height();
+    //   var elemTop = $elem.offset().top;
+    //   var elemBottom = elemTop + $elem.height();
 
-      // return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-      // console.log(elemTop, docViewBottom);
-      return elemTop <= docViewBottom;
-    }
+    //   // return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    //   // console.log(elemTop, docViewBottom);
+    //   return elemTop <= docViewBottom;
+    // }
 
   }
 
   loadingImage() {
     if ($(window).width() <= 991) {
-      $("app-footer").css({
-        top: $("#product-content").height() + $("#product-images").height() + 200,
-        position: "absolute",
-        width: "100%"
+      $('app-footer').css({
+        top: $('#product-content').height() + $('#product-images').height() + 200,
+        position: 'absolute',
+        width: '100%'
       });
     } else {
-      //Agregamos esto al footer para que mantenga posicion
-      $("app-footer").css({
-        top: $("#product-images").height() + 200,
-        position: "absolute",
-        width: "100%"
+      // Agregamos esto al footer para que mantenga posicion
+      $('app-footer').css({
+        top: $('#product-images').height() + 200,
+        position: 'absolute',
+        width: '100%'
       });
     }
 
@@ -178,12 +178,12 @@ export class SingleProductComponent implements OnInit {
     });
     this.productID = this.route.snapshot.params['id'];
     let kg = this.route.snapshot.params['kg'];
-    let fishOption = this.route.snapshot.params["fishOption"];
-    let variationId = this.route.snapshot.params["variationId"];
-    console.log("snapshots", kg, fishOption, variationId);
-    if (kg !== undefined && kg !== null) this.kg = Number(kg);
-    if (variationId !== undefined && variationId !== null) this.variationId = variationId;
-    if (fishOption !== undefined && fishOption !== null) this.fishOption = fishOption;
+    let fishOption = this.route.snapshot.params['fishOption'];
+    let variationId = this.route.snapshot.params['variationId'];
+    console.log('snapshots', kg, fishOption, variationId);
+    if (kg !== undefined && kg !== null) { this.kg = Number(kg); }
+    if (variationId !== undefined && variationId !== null) { this.variationId = variationId; }
+    if (fishOption !== undefined && fishOption !== null) { this.fishOption = fishOption; }
     this.selectTheVariation(fishOption, variationId);
 
     this.getCurrentPricingCharges();
@@ -215,12 +215,11 @@ export class SingleProductComponent implements OnInit {
       this.count = this.max;
       this.value = this.count;
       this.getPricingCharges();
-    } else if(this.count < this.min){
+    } else if (this.count < this.min) {
       this.count = this.min;
       this.value = this.count;
       this.getPricingCharges();
-    }
-    else {
+    } else {
       this.value = this.count;
       this.getPricingCharges();
     }
@@ -247,7 +246,7 @@ export class SingleProductComponent implements OnInit {
 
   getProductDetail() {
     this.productService.getProductDetailVariations(this.productID).subscribe(data => {
-      console.log("Producto", data);
+      console.log('Producto', data);
       if (this.role !== 1) {
         this.currentExchangeRate = 1;
       }
