@@ -400,16 +400,21 @@ export class ShopComponent implements OnInit {
           if(val > parseInt(classes[10])){
             console.log("es mayor al max", parseInt(classes[10]));
             jQuery('#amount-' + classes[7]).val(parseInt(classes[10]));
+            jQuery('#cart-amount-' + classes[7]).val(parseInt(classes[10]));
             this.products[classes[6]].qty = classes[10];
 
           }else if(val < parseInt(classes[11])){
             jQuery('#amount-' + classes[7]).val(parseInt(classes[11]));
+            jQuery('#cart-amount-' + classes[7]).val(parseInt(classes[11]));
+
             this.products[classes[6]].qty = classes[11];
 
           }else{
             console.log("es menor al max");
 
             jQuery('#amount-' + classes[7]).val(val);
+            jQuery('#cart-amount-' + classes[7]).val(val);
+
             this.products[classes[6]].qty = val;
 
 
@@ -442,6 +447,7 @@ export class ShopComponent implements OnInit {
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
       jQuery('#product-price-' + variation).html("AED " + finalPrice);
+      jQuery('#cart-delivere-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
       }
@@ -496,7 +502,6 @@ export class ShopComponent implements OnInit {
   //Functino to enter manual kg
   manualInput(max, min, variation, type) {
     let val: any = jQuery('#amount-' + variation).val();
-  
 
     if (val > max) {
       val = max;
@@ -506,6 +511,20 @@ export class ShopComponent implements OnInit {
     this.comparePrices(type, val);
     
   }
+  async manualInputCart(max, min, variation, type, product) {
+    let val: any = jQuery('#cart-amount-' + variation).val();
+    console.log("manualInput", val, type);
+
+    if (val > max) {
+      val = max;
+    } else if(val < min){
+      val = min;
+    }
+    await this.comparePrices(type, val);
+    
+  }
+
+ 
   //Function to hide input and show span
   showSpan(id) {
     const span = document.getElementById('qty-kg-' + id);
