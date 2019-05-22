@@ -5,7 +5,11 @@
 }
 .orders-tabs{
     background: $white;
-    padding: 155px 0px;
+    padding-top: 110px;
+
+    .p-top {
+        padding-top: 155px;
+    }
     
     .nav-tabs {
         border-bottom: 1px solid #b5bed1;

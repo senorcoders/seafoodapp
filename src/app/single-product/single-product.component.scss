@@ -4,7 +4,10 @@ $marginBottom : '8px';
 
 .gray-bg {
     padding: 110px 0;
-    padding-top: 180px;
+
+    .content {
+        padding-top: 70px;
+    }
 
     .container-fluid {
         padding: 0 50px;
@@ -243,6 +246,7 @@ $marginBottom : '8px';
 
             .btn-gray:hover {
                 background: $dark_blue;
+                border-color: $dark_blue;
                 color: #ffff;
             }
         }

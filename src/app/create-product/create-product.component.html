@@ -22,15 +22,17 @@
                   <fish-form></fish-form>
                   <!-- <fish-features></fish-features> -->
                   <avanced-pricing [events]="eventsSubject.asObservable()" (messageEvent)="receiveMessage($event)"></avanced-pricing>
-                  <div class="row" style="width: 100%; margin-top: 40px;">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-save" routerLink="/my-products">
+                  <div class="col-lg-12">
+                    <div class="row" style="margin-top: 40px;">
+                      <div class="col-md-6 px-0">
+                        <button type="button" class="btn btn-save mr-auto" routerLink="/my-products">
                           Go back
                         </button>
-                    </div>
-                    <div class="col-md-6">
-                      <button type="submit" class="btn btn-save">submit product</button>
-                    </div>
+                      </div>
+                      <div class="col-md-6 px-0">
+                        <button type="submit" class="btn btn-save ml-auto">submit product</button>
+                      </div>
+                  </div>
                   </div>
             </div>
             </form>
