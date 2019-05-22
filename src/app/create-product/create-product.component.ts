@@ -167,7 +167,7 @@ export class CreateProductComponent implements OnInit {
             speciesSelected: parent["level1"] ? parent["level1"].id : '',
             subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
             descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
-            seller_sku: data["seller_sku"] || '',
+            seller_sku: data["seller_sku"] || '', 
             hsCode: data["hsCode"],
             minimunorder: data["minimumOrder"],
             maximumorder: data["maximumOrder"],
