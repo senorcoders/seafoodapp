@@ -138,11 +138,12 @@ export class FishFormComponent implements OnInit {
       // price: new FormControl('0', Validators.required),
       priceShow: new FormControl(true, Validators.nullValidator)
     }));
-    
+
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
+      console.log("product", it);
       if (it.unitOfSale === "boxes") {
         this.showAverageUnit = true;
-      } else {
+      } else if (it.unitOfSale === "kg") {
         this.showAverageUnit = false;
       }
       if (it.imagesSend !== '' && this.images.length === 0)
@@ -192,7 +193,7 @@ export class FishFormComponent implements OnInit {
   private getCountriesWithShipping() {
     this.countryService.getCountriesWithShipping().subscribe(
       result => {
-        if( result['message'] === 'ok' ){
+        if (result['message'] === 'ok') {
           this.countriesWithShipping = result['data'] as any[];
         }
       },

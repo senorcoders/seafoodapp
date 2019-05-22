@@ -459,6 +459,12 @@ export class AvancedPricingComponent implements OnInit {
             arr.push(this.weights.on[k][0].idVariation);
           this.setValue({ variationsDeleted: JSON.stringify(arr) });
         }
+        //Para eliminarlo del formulario, slides
+        try {
+          (this.parentForm.form.controls.price as FormGroup)
+            .removeControl(k + this.identifier);
+        }
+        catch (e) { console.error(e); }
       } else {
         if (this.productID !== "" &&
           this.weights.off[k] !== undefined &&
@@ -474,10 +480,17 @@ export class AvancedPricingComponent implements OnInit {
             arr.push(this.weights.off[k][0].idVariation);
           this.setValue({ variationsDeleted: JSON.stringify(arr) });
         }
+        //Para eliminarlo del formulario, slides
+        try {
+          (this.parentForm.form.controls.price as FormGroup)
+            .removeControl(k + this.identifier);
+        }
+        catch (e) { console.error(e); }
       }
 
     }
 
+    //Para los que se van agregar
     keys = Object.keys(weights);
     keys = keys.filter(it => {
       if (
@@ -1048,9 +1061,13 @@ export class AvancedPricingComponent implements OnInit {
   }
 
   public getControl(key, i) {
-    if (((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
-      .controls[i] === undefined) {
+    if (
+      !(this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] &&
+      ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
+        .controls[i] === undefined
+    ) {
       console.log(key, i, (this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier]);
+      return new FormControl();
     }
     return ((this.parentForm.form.controls.price as FormGroup).controls[key + this.identifier] as FormGroup)
       .controls[i];
