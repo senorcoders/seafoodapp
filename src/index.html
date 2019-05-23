@@ -7,10 +7,10 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" href="./assets/cdn/flexslider.css">
-  <link href="./assets/cdn/select2.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="./assets/cdn/bootstrap-slider.min.css" />
-  <link rel="stylesheet" href="./assets/cdn/bootstrap-float-label.min.css" />
+  <!-- <link rel="stylesheet" href="./assets/cdn/flexslider.css"> -->
+  <!-- <link href="./assets/cdn/select2.min.css" rel="stylesheet" /> -->
+  <!-- <link rel="stylesheet" href="./assets/cdn/bootstrap-slider.min.css" />
+  <link rel="stylesheet" href="./assets/cdn/bootstrap-float-label.min.css" /> -->
 </head>
 
 <body>
@@ -36,31 +36,60 @@
       document.body.appendChild(div);
     }
   </script>
-  <script src="./assets/cdn/jquery-3.2.1.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="./assets/cdn/slick.css" />
+  <!-- <script src="./assets/cdn/jquery-3.2.1.min.js"></script> -->
+  <!-- <link rel="stylesheet" type="text/css" href="./assets/cdn/slick.css" />
   <link rel="stylesheet" type="text/css" href="./assets/cdn/slick-theme.css" />
-  <link rel="stylesheet" type="text/css" href="./assets/cdn/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="./assets/cdn/css/font-awesome.min.css" /> -->
   <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:100, 100i,300,400" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,300i,400,400i,600,900" rel="stylesheet">
-  <script src="./assets/cdn/slick.js"></script>
+  <!-- <script src="./assets/cdn/slick.js"></script>
   <script src="./assets/cdn/jquery.flexslider-min.js"></script>
-  <script src="./assets/cdn/select2.min.js"></script>
+  <script src="./assets/cdn/select2.min.js"></script> -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDS90wl64q94qXJxQ-nM3Adt1K6P9-d9gE"></script>
-  <script src="./assets/cdn/Chart.min.js"></script>
-  <script src="./assets/cdn/bootstrap-slider.min.js"></script>
-  <script src="./assets/cdn/jquery-swapsies.js" type="text/javascript"></script>
+  <!-- <script src="./assets/cdn/Chart.min.js"></script> -->
+  <!-- <script src="./assets/cdn/bootstrap-slider.min.js" type="text/javascript"></script>
+  <script src="./assets/cdn/jquery-swapsies.js" type="text/javascript"></script> -->
   <!-- Hammer JS -->
-  <script src="./assets/cdn/hammer.js"></script>
+  <!-- <script src="./assets/cdn/hammer.js"></script> -->
 
   <script>
+    //check if cdn working
+    function loaderScript(scriptUrl) {
+      return new Promise(function (res, rej) {
+        let script = document.createElement('script');
+        script.src = scriptUrl;
+        script.type = 'text/javascript';
+        script.onError = rej;
+        script.async = true;
+        script.onload = res;
+        script.addEventListener('error', rej);
+        script.addEventListener('load', res);
+        document.head.appendChild(script);
+      })
 
-    jQuery(document).ready(function () {
+    }
+    let awaitResponse = null;
+    async function getR() {
+      try {
+        awaitResponse = await this.loaderScript("https://d66z88a3oqo8j.cloudfront.net/assets/cdn/jquery-3.2.1.min.js")
+        window.cdnWorking = true;
+      }
+      catch (e) {
+        awaitResponse = await this.loaderScript("./assets/cdn/jquery-3.2.1.min.js");ç
+        window.cdnWorking = false;
+      }
 
-      jQuery(document).on('click', 'footer a', function () {
-        jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
+      jQuery(document).ready(function () {
+
+        jQuery(document).on('click', 'footer a', function () {
+          jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
+        });
       });
-    });    
+    }
+    getR();
+
   </script>
+
   <script type="text/javascript">
     var io_bbout_element_id = 'device_fingerprint'; //the input id will be used to collect the device fingerprint value
     var io_install_stm = false;
