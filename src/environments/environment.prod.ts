@@ -3,7 +3,7 @@ export const environment = {
 	payfort: true,
   apiURL:"https://api.seafoodsouq.com/",
   apiURLImg:"https://api.seafoodsouq.com",
-  cdnURL:"https://seafoodsouq.com",
+  cdnURL:"https://seafoodsouq.com/",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 
 import { SellerRouterService } from './services/seller-router.service';
@@ -42,6 +42,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { AccountComponent } from './account/account.component';
 import { ToastrService } from './toast.service';
+import { CDNCheck } from './cdn-check';
 
 
 const appRoutes: Routes = [
@@ -406,6 +407,10 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
+export function jokesProviderFactory(provider: CDNCheck) {
+  return () => provider.load();
+}
+
 @NgModule({
   declarations: [
     MenuNavComponent,
@@ -444,6 +449,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateModule
   ],
   providers: [
+    CDNCheck, 
+    { provide: APP_INITIALIZER, useFactory: jokesProviderFactory, deps: [CDNCheck], multi: true },
     RouterProtectionService,
     AdminRouterService,
     BuyerRouterService,
