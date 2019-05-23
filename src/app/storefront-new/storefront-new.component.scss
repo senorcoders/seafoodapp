@@ -1,21 +1,103 @@
+@import '../../variables';
+
+* {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+section {
+    background-color: $white;
+}
+
 .hero-container {
-  height: 100vh;
+  min-height: calc(100vh - 110px);
+  margin-top: 110px;
   background:
-  linear-gradient(to top right, #fff 50%, transparent 50%),
+  linear-gradient(to top right, $white 55%, transparent 45%),
   url('https://picsum.photos/id/10/2500/1667') center/cover;
 }
 
 .hero-text {
-  width: 75%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: flex-start;
+  padding-top: 10%;
+  margin: 0 4vw;
+
+    .seller-logo {
+        margin-bottom: 25px;
+    }
+
+    h1.seller-name {
+        max-width: 30%;
+        font-weight: 400;
+        font-size: 2.375rem;
+        color: $dark-blue;
+    }
+
+    p.seller-description {
+        max-width: 35%;
+        color: $black;
+        font-family: 'Open Sans';
+        font-size: 1rem;
+    }
+
+    .brands-container {
+        margin-top: 50px;
+
+        .brands-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 80%;
+
+            .brand-logo {
+                margin-top: 12px;
+
+                &:not(:last-child) {
+                    margin-right: 12px;
+                }
+
+                img {
+                    max-height: 80px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .cert-container {
+        margin-top: 50px;
+
+        .cert-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            max-width: 90%;
+
+            .cert-logo {
+                margin-top: 12px;
+
+                &:not(:last-child) {
+                    margin-right: 12px;
+                }
+
+                img {
+                    width: 100%;
+                    max-height: 50px;
+                }
+            }
+        }
+    }
+
+    .cert-container, .brands-container {
+        h3 {
+            color: $light-blue;
+            font-size: 1.3125rem;
+        }
+    }
 }
 
-h1 {
-  font-family: sans-serif;
-  font-size: 4rem;
-  margin:50px 0 0;
+@media (max-width: 768px) {
+    
 }
