@@ -26,7 +26,6 @@
     "@types/xlsx": "0.0.36",
     "angular-font-awesome": "^3.1.2",
     "aos": "^2.3.3",
-    "bigslide": "^0.12.1",
     "bootstrap": "^4.1.1",
     "core-js": "^2.4.1",
     "font-awesome": "^4.7.0",
@@ -49,7 +48,6 @@
     "sha.js": "^2.4.11",
     "ts-xlsx": "0.0.11",
     "web-animations-js": "^2.3.1",
-    "whatwg-fetch": "^3.0.0",
     "xlsx": "^0.13.5",
     "zone.js": "^0.8.19"
   },
