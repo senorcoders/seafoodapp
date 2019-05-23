@@ -42,7 +42,6 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
 import { AccountComponent } from './account/account.component';
 import { ToastrService } from './toast.service';
-import { StorefrontNewComponent } from './storefront-new/storefront-new.component';
 
 
 const appRoutes: Routes = [
@@ -322,6 +321,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'newstore',
+    loadChildren: 'app/storefront-new/storefront-new.module#StorefrontNewModule',
+    // canActivate: [SellerRouterService]
+  },
+  {
     path: 'seller-fulfills-orders',
     loadChildren: 'app/admin-orders/admin-orders.module#AdminOrdersModule',
     canActivate: [AdminRouterService]
@@ -401,11 +405,7 @@ const appRoutes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
-  {
-    path: 'storefrontnew',
-    loadChildren: 'app/storefront-new/storefront-new.module#StorefrontNewModule',
-    // canActivate: [SellerRouterService]
-  },
+  
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -419,8 +419,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent,
-    StorefrontNewComponent
+    AccountComponent
       ],
   imports: [
     BrowserAnimationsModule,
