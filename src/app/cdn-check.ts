@@ -2,24 +2,50 @@ import { Injectable } from "@angular/core";
 // import 'whatwg-fetch'
 import { environment } from "../environments/environment";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable()
 export class CDNCheck {
 
-    cdn = "./"
+    cdn = "./";
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private cookie: CookieService) {
     }
 
     async load() {
 
-        await this.awaitCDNResponse();
+        //for check country
+        try {
+            let exist = this.cookie.check("country");
+            console.log(exist);
+            if (exist === false) {
+                let response = await this.http.get("api/v2/cdn-check").toPromise() as any;
+                console.log(response);
+                if (response.message === "ok" && response.data.country === 'AE')
+                    this.cdn = "./";
+                else
+                    this.cdn = environment.cdnURL;
 
-        //for check blocked cdn
-        let myHeaders = new HttpHeaders();
-        myHeaders.append("Content-Type", "text/plain");
-        if ((window as any).cdnWorking === true)
-            this.cdn = environment.cdnURL;
+                //save in cookies country
+                if (response.data.country)
+                    this.cookie.set("country", response.data.country, 0.25);
+
+            } else {
+                let country = this.cookie.get("country");
+                if (country === 'AE')
+                    this.cdn = "./";
+                else
+                    this.cdn = environment.cdnURL;
+            }
+
+
+        }
+        catch (e) {
+            console.error(e);
+        }
+        //change current cdn
+        environment.currentCDN = this.cdn;
+
         try {
             await this.insertLinks();
         }
@@ -65,7 +91,7 @@ export class CDNCheck {
             "assets/cdn/css/font-awesome.min.css",
         ];
         let scripts = [
-            // "assets/cdn/jquery-3.2.1.min.js",
+            "assets/cdn/jquery-3.2.1.min.js",
             "assets/cdn/bootstrap.bundle.min.js",
             "assets/cdn/bigSlide.min.js",
             "assets/cdn/select2.min.js",
@@ -79,7 +105,7 @@ export class CDNCheck {
         //Lets firt styles
         for (let st of styles) {
             try {
-                await this.insertElement(true, this.cdn+ st);
+                await this.insertElement(true, this.cdn + st);
             }
             catch (e) {
                 console.error(e);
@@ -90,30 +116,44 @@ export class CDNCheck {
         //lets second script
         for (let sc of scripts) {
             try {
-                await this.insertElement(false, this.cdn+ sc);
+                await this.insertElement(false, this.cdn + sc);
             }
             catch (e) {
                 console.error(e);
             }
         }
 
-    }
+        let scriptText = `
+        jQuery(document).ready(function () {
 
-    awaitCDNResponse() {
-
-        let ready = function (re) {
-            setTimeout(function () {
-                if ((window as any).cdnWorking === true || (window as any).cdnWorking === false) {
-                    re();
-                }
-                else
-                    ready(re);
-            }, 100);
-        }
-
-        return new Promise(function (resolve) {
-            ready(resolve);
-        });
+            jQuery(document).on('click', 'footer a', function () {
+              jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
+            });
+          });
+        `;
+        let script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        script.innerHTML = scriptText;
+        document.body.appendChild(script);
 
     }
+
+
+    // awaitCDNResponse() {
+
+    //     let ready = function (re) {
+    //         setTimeout(function () {
+    //             if ((window as any).cdnWorking === true || (window as any).cdnWorking === false) {
+    //                 re();
+    //             }
+    //             else
+    //                 ready(re);
+    //         }, 100);
+    //     }
+
+    //     return new Promise(function (resolve) {
+    //         ready(resolve);
+    //     });
+
+    // }
 }

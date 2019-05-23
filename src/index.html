@@ -52,43 +52,7 @@
   <!-- Hammer JS -->
   <!-- <script src="./assets/cdn/hammer.js"></script> -->
 
-  <script>
-    //check if cdn working
-    function loaderScript(scriptUrl) {
-      return new Promise(function (res, rej) {
-        let script = document.createElement('script');
-        script.src = scriptUrl;
-        script.type = 'text/javascript';
-        script.onError = rej;
-        script.async = true;
-        script.onload = res;
-        script.addEventListener('error', rej);
-        script.addEventListener('load', res);
-        document.head.appendChild(script);
-      })
 
-    }
-    let awaitResponse = null;
-    async function getR() {
-      try {
-        awaitResponse = await this.loaderScript("https://d66z88a3oqo8j.cloudfront.net/assets/cdn/jquery-3.2.1.min.js")
-        window.cdnWorking = true;
-      }
-      catch (e) {
-        awaitResponse = await this.loaderScript("./assets/cdn/jquery-3.2.1.min.js");ç
-        window.cdnWorking = false;
-      }
-
-      jQuery(document).ready(function () {
-
-        jQuery(document).on('click', 'footer a', function () {
-          jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
-        });
-      });
-    }
-    getR();
-
-  </script>
 
   <script type="text/javascript">
     var io_bbout_element_id = 'device_fingerprint'; //the input id will be used to collect the device fingerprint value

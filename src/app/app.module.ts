@@ -43,7 +43,7 @@ import { ProductManagmentComponent } from './product-managment/product-managment
 import { AccountComponent } from './account/account.component';
 import { ToastrService } from './toast.service';
 import { CDNCheck } from './cdn-check';
-
+import { CookieService } from 'ngx-cookie-service';
 
 const appRoutes: Routes = [
   {
@@ -449,6 +449,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     TranslateModule
   ],
   providers: [
+    CookieService,
     CDNCheck, 
     { provide: APP_INITIALIZER, useFactory: jokesProviderFactory, deps: [CDNCheck], multi: true },
     RouterProtectionService,
