@@ -63,7 +63,6 @@ export class CDNCheck {
             "assets/cdn/slick.css",
             "assets/cdn/slick-theme.css",
             "assets/cdn/css/font-awesome.min.css",
-
         ];
         let scripts = [
             // "assets/cdn/jquery-3.2.1.min.js",
@@ -83,7 +82,7 @@ export class CDNCheck {
                 await this.insertElement(true, this.cdn+ st);
             }
             catch (e) {
-                console.error(3);
+                console.error(e);
             }
 
         }
