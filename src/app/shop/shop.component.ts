@@ -389,7 +389,7 @@ export class ShopComponent implements OnInit {
   }
 
   comparePrices(type, val){
-    console.log("Type", type);
+    console.log("Type", type, val);
     if (type !== '') {
       const row = document.getElementById('products-container');
       const cards = row.querySelectorAll('.category-' + type);
@@ -397,17 +397,27 @@ export class ShopComponent implements OnInit {
           const classes = cards[index].className.split(' ');
           console.log("Classes", classes);
           console.log("Max", parseInt(classes[10]));
-          if(val > parseInt(classes[10])){
+          let min:any;
+          let max:any;
+          if(classes[12] == "true"){
+            min = parseInt(classes[13]);
+            max = parseInt(classes[14]);
+          }else{
+            min = parseInt(classes[11]);
+            max = parseInt(classes[10]);
+          }
+          console.log("Minimo y maximo", min, max);
+          if(val > max){
             console.log("es mayor al max", parseInt(classes[10]));
-            jQuery('#amount-' + classes[7]).val(parseInt(classes[10]));
-            jQuery('#cart-amount-' + classes[7]).val(parseInt(classes[10]));
-            this.products[classes[6]].qty = classes[10];
+            jQuery('#amount-' + classes[7]).val(max);
+            jQuery('#cart-amount-' + classes[7]).val(max);
+            this.products[classes[6]].qty = max;
 
-          }else if(val < parseInt(classes[11])){
-            jQuery('#amount-' + classes[7]).val(parseInt(classes[11]));
-            jQuery('#cart-amount-' + classes[7]).val(parseInt(classes[11]));
+          }else if(val < min){
+            jQuery('#amount-' + classes[7]).val(min);
+            jQuery('#cart-amount-' + classes[7]).val(min);
 
-            this.products[classes[6]].qty = classes[11];
+            this.products[classes[6]].qty = min;
 
           }else{
             console.log("es menor al max");
@@ -511,7 +521,7 @@ export class ShopComponent implements OnInit {
     this.comparePrices(type, val);
     
   }
-  async manualInputCart(max, min, variation, type, product) {
+  async manualInputCart(max, min, variation, type, product, boxWeight = 1) {
     let val: any = jQuery('#cart-amount-' + variation).val();
     console.log("manualInput", val, type);
 

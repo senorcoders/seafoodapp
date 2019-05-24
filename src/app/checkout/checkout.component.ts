@@ -62,6 +62,7 @@ export class CheckoutComponent implements OnInit {
   formAction: string = '';
   formMethod: string = 'POST';
   vat:any;
+  taxesPer: any;
   constructor(
     @Inject(DOCUMENT) private _document,
     private route: ActivatedRoute,
@@ -122,9 +123,10 @@ export class CheckoutComponent implements OnInit {
               this.products = res['items'];
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
-              this.totalOtherFees = res['totalOtherFees'] + res['uaeTaxes'];
+              this.totalOtherFees = res['totalOtherFees'];
               this.totalWithShipping = res['total'];
-              this.vat = res['customs'];
+              this.vat = res['uaeTaxes'];
+              this.taxesPer = res['currentCharges']['uaeTaxes'];
 
               localStorage.setItem('shoppingTotal', this.totalWithShipping);
               this.generateSignature();

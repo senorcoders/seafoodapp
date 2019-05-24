@@ -56,6 +56,7 @@ export class ConfirmationComponent implements OnInit {
   responseCode: string;
   env: any;
   vat:any;
+  taxesPer: any;
 
   constructor(private route: ActivatedRoute,
     private auth: AuthenticationService,
@@ -145,10 +146,12 @@ export class ConfirmationComponent implements OnInit {
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
         this.shipping = cart['shipping'];
-        this.totalOtherFees = cart['totalOtherFees'] + cart['uaeTaxes'];
+        this.totalOtherFees = cart['totalOtherFees'];
         this.totalWithShipping = cart['total'];
-        this.vat = cart['customs'];
+        this.vat = cart['uaeTaxes'];
         this.total = Math.trunc( this.totalWithShipping * 100 );
+        this.taxesPer = cart['currentCharges']['uaeTaxes'];
+
         console.log("Total", this.total);
         this.customerTotal = (this.totalWithShipping).toFixed(2);
         resolve();
