@@ -521,7 +521,7 @@ export class ShopComponent implements OnInit {
     this.comparePrices(type, val);
     
   }
-  async manualInputCart(max, min, variation, type, product) {
+  async manualInputCart(max, min, variation, type, product, boxWeight = 1) {
     let val: any = jQuery('#cart-amount-' + variation).val();
     console.log("manualInput", val, type);
 

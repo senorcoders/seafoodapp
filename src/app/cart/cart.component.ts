@@ -307,14 +307,17 @@ export class CartComponent implements OnInit {
     }
 
      //Functino to enter manual kg
-  manualInput(id, i, max, min) {
+  manualInput(id, i, max, min, boxweight = 1) {
     let val: any = jQuery('#edit-qty-' + id).val();
-    if (val > max) {
-      val = max;
-    }else if(val < min){
-      val = min;
+    val = val;
+    console.log("minimo y maximo", min, max, val);
+
+    if (val > parseFloat(max)) {
+      val = parseFloat(max);
+    }else if(val < parseFloat(min)){
+      val = parseFloat(min);
     }
-    this.products[i].quantity.value  = val;
+    this.products[i].quantity.value  = val * boxweight;
     // jQuery('#range-' + id).val(val);
     // this.moveBubble(id);
     this.getAllProductsCount();
