@@ -8,6 +8,7 @@ import { CartService } from '../core/cart/cart.service';
 import { ProductService } from '../services/product.service';
 import { OrdersService } from '../core/orders/orders.service';
 import { TranslateService } from '@ngx-translate/core';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',

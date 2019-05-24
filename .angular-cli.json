@@ -27,8 +27,6 @@
         "../node_modules/aos/dist/aos.css" ,
       "../src/assets/css/intlTelInput.css"     ],
       "scripts": [
-        "../node_modules/bigslide/dist/bigSlide.js",
-        "../node_modules/bootstrap/dist/js/bootstrap.min.js",
         "../node_modules/aos/dist/aos.js",
         "../src/assets/js/intlTelInput.js",
         "../src/assets/js/utils.js"
