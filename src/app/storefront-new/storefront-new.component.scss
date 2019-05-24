@@ -109,6 +109,7 @@ section {
     margin: 50px auto;
     .product-header{
       margin-bottom: 10px;
+      color: $light_blue;
       .row{
         align-items: center;
       }
@@ -239,5 +240,105 @@ section {
 }
 
 @media (max-width: 768px) {
+  .hero-container {
+    background: none !important;
+    padding: 0 !important;
+    margin-top: 60px;
+    text-align: center;
+  }
 
+  .mobile-bg {
+    height: 100px;
+  }
+
+  .hero-text {
+    padding-top: 0;
+    margin: 0;
+    position: relative;
+    top: -30px;
+
+    .seller-logo {
+        width: 100%;
+
+        img {
+          width: 80px;
+          height: 80px;
+        }
+    }
+
+    h1.seller-name {
+        min-width: 100%;
+        font-weight: 400;
+        font-size: 1.3125rem;
+        color: $dark-blue;
+    }
+
+    p.seller-description {
+        min-width: 100%;
+        color: $black;
+        font-family: 'Open Sans';
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .brands-container {
+        margin-top: 50px;
+
+        .brands-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+
+            .brand-logo {
+                margin-top: 12px;
+
+                &:not(:last-child) {
+                    margin-right: 12px;
+                }
+
+                img {
+                    max-height: 80px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+
+    .cert-container {
+        margin-top: 50px;
+
+        .cert-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+
+            .cert-logo {
+                margin-top: 12px;
+
+                &:not(:last-child) {
+                    margin-right: 12px;
+                }
+
+                img {
+                    width: 100%;
+                    max-height: 50px;
+                }
+            }
+        }
+    }
+
+  }
+
+  .product-list {
+    padding-top: 0px;
+  }
+
+  .single-product-box {
+
+    
+  }
 }

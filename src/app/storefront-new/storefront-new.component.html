@@ -1,5 +1,6 @@
 <section>
   <div class="container-fluid hero-container" id="hero" [ngStyle]="{'background':  'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
+    <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
     <div class="hero-text">
       <div class="seller-logo">
         <img src="https://via.placeholder.com/150" class="rounded-circle" alt="">
@@ -50,7 +51,7 @@
       </div>
 
       <div id="certifications" class="cert-container">
-        <h3 class="text-uppercase">certifications</h3>
+        <h3 class="text-uppercase">Certifications</h3>
 
         <div class="cert-list">
           <div class="cert-logo">
@@ -96,7 +97,7 @@
         <div class="single-product-box">
           <div class="product-header">
             <div class="row">
-              <div class="col-md-12">
+              <div class="col-md-12 text-uppercase">
                 {{'SingleStore.location' | translate}}: {{product.country}}
               </div>
             </div>
@@ -130,7 +131,7 @@
         </div>
       </div>
       
-      <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
+      <!-- <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
         <div class="product-result">
           <div class="col-lg-12 product-img" [style.background-image]="productImage[i]">
           </div>
@@ -151,7 +152,7 @@
             <a routerLink="/product/{{product.id}}" class="btn-red-a">{{'SingleStore.view-button' | translate}}</a>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </section>
