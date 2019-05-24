@@ -1,14 +1,12 @@
 <section>
-  <div class="container-fluid hero-container" id="hero">
+  <div class="container-fluid hero-container" id="hero" [ngStyle]="{'background':  'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
     <div class="hero-text">
       <div class="seller-logo">
         <img src="https://via.placeholder.com/150" class="rounded-circle" alt="">
       </div>
-      <h1 class="seller-name">SEAFOOD SHACK LONG TITLE</h1>
+      <h1 class="seller-name text-uppercase">{{store.name}}</h1>
       <p class="seller-description">
-        Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic saury swamp-eel? Tenuis, "North American
-        freshwater catfish milkfish channel bass, deep sea bonefish snapper yellow-edged moray thresher shark atka mackerel.
-        Located in the United States.
+        {{store.description}}
       </p>
 
       <div id="brands" class="brands-container">
@@ -105,7 +103,7 @@
           </div>
           <div class="product-body">
             <a routerLink="/product/{{product.id}}" class="image-link-holder">
-              <div class="product-single-img" >
+              <div class="product-single-img" [style.background-image]="productImage[i]">
                 <div class="product-overlay"></div>
                 <!-- <div>
                   <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
