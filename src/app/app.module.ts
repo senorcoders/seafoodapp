@@ -321,9 +321,9 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
-    path: 'newstore',
+    path: 'newstore/:id',
     loadChildren: 'app/storefront-new/storefront-new.module#StorefrontNewModule',
-    // canActivate: [SellerRouterService]
+    canActivate: [RouterProtectionService]
   },
   {
     path: 'seller-fulfills-orders',
@@ -405,7 +405,6 @@ const appRoutes: Routes = [
     redirectTo: '',
     pathMatch: 'full'
   },
-  
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -424,7 +423,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   imports: [
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule, 
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {
