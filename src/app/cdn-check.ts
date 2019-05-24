@@ -19,16 +19,17 @@ export class CDNCheck {
             let exist = this.cookie.check("country");
             console.log(exist);
             if (exist === false) {
-                let response = await this.http.get("api/v2/cdn-check").toPromise() as any;
+                let res_ip = await this.http.get("user/ip").toPromise() as any;
+                let response = await this.http.get(`https://ipapi.co/${'170.246.154.128'}/json/`).toPromise() as any;
                 console.log(response);
-                if (response.message === "ok" && response.data.country === 'AE')
+                if (response.country && response.country === 'AE')
                     this.cdn = "./";
                 else
                     this.cdn = environment.cdnURL;
 
                 //save in cookies country
-                if (response.data.country)
-                    this.cookie.set("country", response.data.country, 0.25);
+                if (response.country)
+                    this.cookie.set("country", response.country, 0.25);
 
             } else {
                 let country = this.cookie.get("country");
