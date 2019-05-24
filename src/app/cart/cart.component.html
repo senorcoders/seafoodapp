@@ -102,7 +102,7 @@
                     <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
                 </div>
                 <div class="col-lg-12 price-item">
-                  <h4>VAT (5%) <span>{{(customs) | currency: 'AED'}}</span></h4>
+                  <h4>VAT ({{taxesPer}}%) <span>{{(uaeTaxes) | currency: 'AED'}}</span></h4>
               </div>
                 <div class="col-lg-12 price-total">
                   <h4>TOTAL <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
