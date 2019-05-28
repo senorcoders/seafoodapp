@@ -253,11 +253,22 @@ export class SingleProductComponent implements OnInit {
       if (data['minimumOrder'] < 1) {
         this.min = 1;
       } else {
-        this.min = data['minimumOrder'];
-        this.count = this.min;
+        if(data.hasOwnProperty('minBox')){
+          this.min = data['minBox'];
+          this.count = this.min;
+        }else{
+          this.min = data['minimumOrder'];
+          this.count = this.min;
+        }
+        
       }
       this.cooming_soon = data['cooming_soon'];
-      this.max = data['maximumOrder'];
+      if(data.hasOwnProperty('maxBox')){
+        this.max = data['maxBox'];
+      }else{
+        this.max = data['maximumOrder'];
+
+      }
       this.value = this.kg !== 0 ? this.kg : this.min;
       const newOptions: Options = Object.assign({}, this.options);
       newOptions.ceil = this.max;

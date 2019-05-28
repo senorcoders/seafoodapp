@@ -48,6 +48,7 @@ export class CartComponent implements OnInit {
   userinfo:any;
   imageCart: any = [];
   preparataion:any =[];
+  taxesPer:any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
     private sanitizer: DomSanitizer, private countriesService: CountriesService) { }
@@ -83,13 +84,13 @@ export class CartComponent implements OnInit {
             this.lastMilteCost = cart['lastMileCost'];
             this.firstMileCost = cart['firstMileCosts'];
             this.sfsMargin = cart['sfsMargin'];
-            this.uaeTaxes = cart['totalUAETaxes'];
+            this.uaeTaxes = cart['uaeTaxes'];
             this.customs = cart['customs'];
             this.total= cart['subTotal'];
             this.shipping = cart['shipping'];
-            
+            this.taxesPer = cart['currentCharges']['uaeTaxes'];
 
-            this.totalOtherFees = cart['totalOtherFees']+cart['totalUAETaxes'];
+            this.totalOtherFees = cart['totalOtherFees'];
             this.totalWithShipping = cart['total'];
             this.products.forEach((data, index) => {
               if (data.fish.imagePrimary && data.fish.imagePrimary != '') {
@@ -307,14 +308,17 @@ export class CartComponent implements OnInit {
     }
 
      //Functino to enter manual kg
-  manualInput(id, i, max, min) {
+  manualInput(id, i, max, min, boxweight = 1) {
     let val: any = jQuery('#edit-qty-' + id).val();
-    if (val > max) {
-      val = max;
-    }else if(val < min){
-      val = min;
+    val = val;
+    console.log("minimo y maximo", min, max, val);
+
+    if (val > parseFloat(max)) {
+      val = parseFloat(max);
+    }else if(val < parseFloat(min)){
+      val = parseFloat(min);
     }
-    this.products[i].quantity.value  = val;
+    this.products[i].quantity.value  = val * boxweight;
     // jQuery('#range-' + id).val(val);
     // this.moveBubble(id);
     this.getAllProductsCount();
