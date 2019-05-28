@@ -396,19 +396,19 @@ export class ShopComponent implements OnInit {
       for (let index = 0; index < cards.length; index++) {
           const classes = cards[index].className.split(' ');
           console.log("Classes", classes);
-          console.log("Max", parseInt(classes[10]));
+          console.log("Max", parseFloat(classes[10]));
           let min:any;
           let max:any;
           if(classes[12] == "true"){
-            min = parseInt(classes[13]);
-            max = parseInt(classes[14]);
+            min = parseFloat(classes[13]);
+            max = parseFloat(classes[14]);
           }else{
-            min = parseInt(classes[11]);
-            max = parseInt(classes[10]);
+            min = parseFloat(classes[11]);
+            max = parseFloat(classes[10]);
           }
           console.log("Minimo y maximo", min, max);
           if(val > max){
-            console.log("es mayor al max", parseInt(classes[10]));
+            console.log("es mayor al max", parseFloat(classes[10]));
             jQuery('#amount-' + classes[7]).val(max);
             jQuery('#cart-amount-' + classes[7]).val(max);
             this.products[classes[6]].qty = max;
