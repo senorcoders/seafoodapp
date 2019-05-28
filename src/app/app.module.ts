@@ -178,9 +178,9 @@ const appRoutes: Routes = [
     canActivate: []
   },
   {
-    path: 'store/:id',
-    loadChildren: 'app/single-store/single-store.module#SingleStoreModule',
-    canActivate: [RouterProtectionService]
+    path: 'vendor/:id',
+    loadChildren: 'app/single-store/single-store.module#SingleStoreModule'
+    // canActivate: [RouterProtectionService]
   },
   {
     path: 'featured-products',
