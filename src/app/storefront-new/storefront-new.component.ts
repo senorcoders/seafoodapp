@@ -40,6 +40,7 @@ export class StorefrontNewComponent implements OnInit {
   firstComments: any = [];
   showMore = false;
   showLess = false;
+  simpleLayout = false;
   productImage: any = [];
   constructor(private route: ActivatedRoute,
     public productService: ProductService,

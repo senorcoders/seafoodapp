@@ -8,96 +8,196 @@ section {
     background-color: $white;
 }
 
-.hero-container {
+#hor-lyt {
+  .hero-container {
+    margin-top: 110px;
+    height: 323px;
+  }
+
+  .hero-text {
+      margin-top: -60px;
+
+      .seller-logo {
+          margin-bottom: 50px;
+          width: 300px;
+          height: 140px;
+
+          img {
+            object-fit: cover;
+            width: 100%;
+            height: 140px;
+          }
+      }
+
+      h1.seller-name {
+          font-weight: 300;
+          font-size: 2.375rem;
+          color: $dark-blue;
+          margin-bottom: 25px;
+      }
+
+      p.seller-description {
+          color: $black;
+          font-family: 'Open Sans';
+          font-size: 1rem;
+      }
+
+      .brands-container {
+          margin-top: 50px;
+
+          .brands-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+
+              .brand-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      max-height: 80px;
+                      width: 100%;
+                  }
+              }
+          }
+      }
+
+      .cert-container {
+          margin-top: 50px;
+
+          .cert-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              width: 100%;
+
+              .cert-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      width: 100%;
+                      max-height: 50px;
+                  }
+              }
+          }
+      }
+
+      .cert-container, .brands-container {
+          h3 {
+              color: $light-blue;
+              font-size: 1.3125rem;
+              font-weight: 300; 
+          }
+      }
+    }
+}
+
+#di-lyt {
+  .hero-container {
   min-height: calc(100vh - 110px);
   margin-top: 110px;
   background:
   linear-gradient(to top right, $white 55%, transparent 45%),
   url('https://picsum.photos/id/10/2500/1667') center/cover;
+
+    .hero-text {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 10%;
+    margin: 0 4vw;
+
+      .seller-logo {
+          margin-bottom: 25px;
+          width: 150px;
+          height: 150px;
+
+          img {
+            object-fit: cover;
+            border-radius: 50%;
+          }
+      }
+
+      h1.seller-name {
+          max-width: 30%;
+          font-weight: 300;
+          font-size: 2.375rem;
+          color: $dark-blue;
+      }
+
+      p.seller-description {
+          max-width: 35%;
+          color: $black;
+          font-family: 'Open Sans';
+          font-size: 1rem;
+      }
+
+      .brands-container {
+          margin-top: 50px;
+
+          .brands-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              max-width: 80%;
+
+              .brand-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      max-height: 80px;
+                      width: 100%;
+                  }
+              }
+          }
+      }
+
+      .cert-container {
+          margin-top: 50px;
+
+          .cert-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              width: 100%;
+
+              .cert-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      width: 100%;
+                      max-height: 50px;
+                  }
+              }
+          }
+      }
+
+      .cert-container, .brands-container {
+          h3 {
+              color: $light-blue;
+              font-size: 1.3125rem;
+              font-weight: 300; 
+          }
+      }
+    }
+  }
 }
-
-.hero-text {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding-top: 10%;
-  margin: 0 4vw;
-
-    .seller-logo {
-        margin-bottom: 25px;
-    }
-
-    h1.seller-name {
-        max-width: 30%;
-        font-weight: 400;
-        font-size: 2.375rem;
-        color: $dark-blue;
-    }
-
-    p.seller-description {
-        max-width: 35%;
-        color: $black;
-        font-family: 'Open Sans';
-        font-size: 1rem;
-    }
-
-    .brands-container {
-        margin-top: 50px;
-
-        .brands-list {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            max-width: 80%;
-
-            .brand-logo {
-                margin-top: 12px;
-
-                &:not(:last-child) {
-                    margin-right: 12px;
-                }
-
-                img {
-                    max-height: 80px;
-                    width: 100%;
-                }
-            }
-        }
-    }
-
-    .cert-container {
-        margin-top: 50px;
-
-        .cert-list {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            max-width: 90%;
-
-            .cert-logo {
-                margin-top: 12px;
-
-                &:not(:last-child) {
-                    margin-right: 12px;
-                }
-
-                img {
-                    width: 100%;
-                    max-height: 50px;
-                }
-            }
-        }
-    }
-
-    .cert-container, .brands-container {
-        h3 {
-            color: $light-blue;
-            font-size: 1.3125rem;
-        }
-    }
-}
-
 
 
 .product-list {
@@ -109,7 +209,6 @@ section {
     margin: 50px auto;
     .product-header{
       margin-bottom: 10px;
-      color: $light_blue;
       .row{
         align-items: center;
       }
@@ -240,76 +339,168 @@ section {
 }
 
 @media (max-width: 768px) {
-  .hero-container {
+  #di-lyt {
+    .hero-container {
     background: none !important;
     padding: 0 !important;
     margin-top: 60px;
     text-align: center;
+
+      .hero-text {
+      padding-top: 0;
+      margin: 0;
+      position: relative;
+      top: -30px;
+
+      .seller-logo {
+          width: 100%;
+          height: 100%;
+
+          img {
+            width: 80px;
+            height: 80px;
+          }
+      }
+
+      h1.seller-name {
+          min-width: 100%;
+          font-size: 1.3125rem;
+          color: $dark-blue;
+      }
+
+      p.seller-description {
+          min-width: 100%;
+          color: $black;
+          font-family: 'Open Sans';
+          font-size: 1rem;
+          text-align: center;
+      }
+
+      .brands-container {
+          margin-top: 50px;
+
+          .brands-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              max-width: 100%;
+
+              .brand-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      max-height: 80px;
+                      width: 100%;
+                  }
+              }
+          }
+      }
+
+      .cert-container {
+          margin-top: 50px;
+
+          .cert-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              max-width: 100%;
+
+              .cert-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      width: 100%;
+                      max-height: 50px;
+                  }
+              }
+          }
+      }
+    }
   }
 
-  .mobile-bg {
-    height: 100px;
+    .mobile-bg {
+      height: 100px;
+    }
   }
 
-  .hero-text {
-    padding-top: 0;
-    margin: 0;
-    position: relative;
-    top: -30px;
+  #hor-lyt{
+    .hero-container {
+      margin-top: 60px;
+      height: 110px;
+    }
 
-    .seller-logo {
-        width: 100%;
+    .hero-text {
+      padding-top: 0;
+      margin: 0;
+      position: relative;
+      top: -30px;
+
+      .seller-logo {
+        width: 170px;
+        height: 80px;
+        margin: 0 auto; 
+        margin-bottom: 25px;
 
         img {
-          width: 80px;
           height: 80px;
+          object-fit: cover;
+          width: 100%;
         }
-    }
+      }
 
-    h1.seller-name {
-        min-width: 100%;
-        font-weight: 400;
-        font-size: 1.3125rem;
-        color: $dark-blue;
-    }
+      h1.seller-name {
+          font-size: 1.3125rem;
+          color: $dark-blue;
+          text-align: center;
+          margin-bottom: 12px;
+      }
 
-    p.seller-description {
-        min-width: 100%;
-        color: $black;
-        font-family: 'Open Sans';
-        font-size: 1rem;
-        text-align: center;
-    }
+      p.seller-description {
+          color: $black;
+          font-family: 'Open Sans';
+          font-size: 1rem;
+          text-align: center;
+      }
 
-    .brands-container {
+      .brands-container {
+          margin-top: 50px;
+
+          .brands-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              max-width: 100%;
+
+              .brand-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      max-height: 80px;
+                      width: 100%;
+                  }
+              }
+          }
+      }
+
+      .cert-container {
         margin-top: 50px;
 
-        .brands-list {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            justify-content: center;
-            max-width: 100%;
-
-            .brand-logo {
-                margin-top: 12px;
-
-                &:not(:last-child) {
-                    margin-right: 12px;
-                }
-
-                img {
-                    max-height: 80px;
-                    width: 100%;
-                }
-            }
-        }
-    }
-
-    .cert-container {
-        margin-top: 50px;
-
-        .cert-list {
+          .cert-list {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
@@ -317,28 +508,194 @@ section {
             max-width: 100%;
 
             .cert-logo {
-                margin-top: 12px;
+              margin-top: 12px;
 
-                &:not(:last-child) {
-                    margin-right: 12px;
-                }
+              &:not(:last-child) {
+                  margin-right: 12px;
+              }
 
-                img {
-                    width: 100%;
-                    max-height: 50px;
-                }
+              img {
+                width: 100%;
+                max-height: 50px;
+              }
             }
         }
-    }
+      }
 
+      .cert-container, .brands-container {
+          h3 {
+              text-align: center;
+          }
+      }
+    }
   }
 
   .product-list {
     padding-top: 0px;
   }
+}
 
-  .single-product-box {
 
-    
+@media (max-width: 480px) {
+
+  #di-lyt {
+      .hero-text {
+        padding-top: 0;
+
+        .seller-logo {
+            width: 100%;
+
+            img {
+              width: 80px;
+              height: 80px;
+            }
+        }
+
+        .brands-container {
+            margin-top: 50px;
+
+            .brands-list {
+                justify-content: center;
+                max-width: 100%;
+
+                .brand-logo {
+                    margin-top: 12px;
+
+                    &:not(:last-child) {
+                        margin-right: 12px;
+                    }
+
+                    img {
+                        max-height: 70px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .cert-container {
+            margin-top: 50px;
+
+            .cert-list {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: center;
+                max-width: 100%;
+
+                .cert-logo {
+                    margin-top: 12px;
+
+                    &:not(:last-child) {
+                        margin-right: 12px;
+                    }
+
+                    img {
+                        width: 100%;
+                        max-height: 40px;
+                    }
+                }
+            }
+        }
+
+        .cert-container, .brands-container {
+            h3 {
+                font-size: 1rem;
+            }
+        }
+
+      }
   }
+
+  #hor-lyt{
+    .hero-container {
+      margin-top: 60px;
+      height: 110px;
+    }
+
+    .hero-text {
+      padding-top: 0;
+      margin: 0;
+      position: relative;
+      top: -30px;
+
+      .seller-logo {
+        width: 170px;
+        height: 80px;
+
+        img {
+          height: 80px;
+          object-fit: cover;
+          width: 100%;
+          margin: 0 auto;
+        }
+      }
+
+      h1.seller-name {
+          min-width: 100%;
+          font-size: 1.3125rem;
+          color: $dark-blue;
+          text-align: center;
+      }
+
+      p.seller-description {
+          min-width: 100%;
+          color: $black;
+          font-family: 'Open Sans';
+          font-size: 1rem;
+          text-align: center;
+      }
+
+      .brands-container {
+          margin-top: 50px;
+
+          .brands-list {
+              display: flex;
+              flex-wrap: wrap;
+              align-items: center;
+              justify-content: center;
+              max-width: 100%;
+
+              .brand-logo {
+                  margin-top: 12px;
+
+                  &:not(:last-child) {
+                      margin-right: 12px;
+                  }
+
+                  img {
+                      max-height: 80px;
+                      width: 100%;
+                  }
+              }
+          }
+      }
+
+      .cert-container {
+        margin-top: 50px;
+
+          .cert-list {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            max-width: 100%;
+
+            .cert-logo {
+              margin-top: 12px;
+
+              &:not(:last-child) {
+                  margin-right: 12px;
+              }
+
+              img {
+                width: 100%;
+                max-height: 50px;
+              }
+            }
+        }
+      }
+    }
+  }
+
 }
