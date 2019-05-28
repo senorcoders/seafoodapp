@@ -18,7 +18,7 @@ export class SingleStoreComponent implements OnInit {
     name:"",
     description: "",
     location: "",
-  };  
+  };
   hero:any;
   logo:any;
   base:string=environment.apiURLImg;

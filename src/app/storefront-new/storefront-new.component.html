@@ -1,0 +1,268 @@
+<div *ngIf="!empty; else elseBlock">
+
+  <section id="di-lyt" *ngIf="!simpleLayout; else simpleLayout">
+    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
+      <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
+      <div class="hero-text">
+        <div class="seller-logo">
+          <img src="https://via.placeholder.com/150" class="" alt="">
+        </div>
+        <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+        <p class="seller-description">
+          {{store.description}}
+        </p>
+
+        <div id="brands" class="brands-container">
+          <h3 class="text-uppercase">Brands</h3>
+
+          <div class="brands-list">
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+          </div>
+        </div>
+
+        <div id="certifications" class="cert-container">
+          <h3 class="text-uppercase">Certifications</h3>
+
+          <div class="cert-list">
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x150" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x90" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/60x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/120x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/50x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/60x80" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ng-template #simpleLayout>
+    <section id="hor-lyt">
+      <header id='hero' class="hero-container" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}">
+      </header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-11 mx-auto">
+            <div class="hero-text">
+              <div class="seller-logo">
+                <img src="https://via.placeholder.com/150" class="" alt="">
+              </div>
+            
+              <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+              <p class="seller-description">
+                {{store.description}}
+              </p>
+            
+              <div id="brands" class="brands-container">
+                <h3 class="text-uppercase">Brands</h3>
+            
+                <div class="brands-list">
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                </div>
+              </div>
+            
+              <div id="certifications" class="cert-container">
+                <h3 class="text-uppercase">Certifications</h3>
+            
+                <div class="cert-list">
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x150" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x90" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/60x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/120x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/50x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/60x80" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+  
+
+  <section id="prodcuts">
+    <div class="container-fluid product-list">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 result" *ngFor="let product of products; let i=index">
+          <div class="single-product-box">
+            <div class="product-header">
+              <div class="row">
+                <div class="col-md-12 text-uppercase">
+                  <h5>{{'SingleStore.location' | translate}}: {{product.country}}</h5>
+                </div>
+              </div>
+            </div>
+            <div class="product-body">
+              <a routerLink="/product/{{product.id}}" class="image-link-holder">
+                <div class="product-single-img" [style.background-image]="productImage[i]">
+                  <div class="product-overlay"></div>
+                  <!-- <div>
+                    <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
+                      
+                    </div>
+                    <div class="product-status denied-status" *ngIf="product.status.id == '5c0866f2a0eda00b94acbdc1'">
+                      denied
+                    </div>
+                    <div class="product-status" *ngIf="product.status.id == '5c0866e4a0eda00b94acbdc0'">
+                      
+                    </div>
+                  </div> -->
+            
+            
+                  <h2 class="product-view-details">EDIT PRODUCT</h2>
+            
+                </div>
+              </a>
+            </div>
+            <div class="product-footer">
+              <h4>{{product.name}}</h4>
+              <h5>{{product.price.type}} {{product.price.value}} {{product.weight.type}}</h5>
+            </div>
+          </div>
+        </div>
+        
+        <!-- <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
+          <div class="product-result">
+            <div class="col-lg-12 product-img" [style.background-image]="productImage[i]">
+            </div>
+            <div class="col-lg-12 search-product-desc">
+              <a routerLink="/product/{{product.id}}" class="search-product-name">{{product.name}}</a>
+              <span class="coming-from">
+                {{'SingleStore.location' | translate}}: {{product.country}}
+              </span>
+              <hr class="black-line">
+              <div class="description">
+                {{smallDesc(product.description)}}
+              </div>
+              <div class="price">
+                {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <a routerLink="/product/{{product.id}}" class="btn-red-a">{{'SingleStore.view-button' | translate}}</a>
+            </div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #elseBlock>
+  <div class="not-found-grid">
+    <p>{{'SingleStore.no-store' | translate}}</p>
+  </div>
+</ng-template>
