@@ -25,7 +25,9 @@ export class CDNCheck {
                 if (response.country && response.country === 'AE')
                     this.cdn = "./";
                 else
-                    this.cdn = environment.cdnURL;
+                    // this.cdn = environment.cdnURL;
+                    this.cdn = "./";
+
 
                 //save in cookies country
                 if (response.country)
@@ -36,7 +38,9 @@ export class CDNCheck {
                 if (country === 'AE')
                     this.cdn = "./";
                 else
-                    this.cdn = environment.cdnURL;
+                    // this.cdn = environment.cdnURL;
+                    this.cdn = "./";
+
             }
 
 
@@ -90,6 +94,7 @@ export class CDNCheck {
             "assets/cdn/slick.css",
             "assets/cdn/slick-theme.css",
             "assets/cdn/css/font-awesome.min.css",
+            "assets/cdn/bootstrap-select.css"
         ];
         let scripts = [
             "assets/cdn/jquery-3.2.1.min.js",
@@ -100,7 +105,9 @@ export class CDNCheck {
             "assets/cdn/bootstrap-slider.min.js",
             "assets/cdn/jquery-swapsies.js",
             "assets/cdn/jquery.flexslider-min.js",
-            "assets/cdn/hammer.js"
+            "assets/cdn/hammer.js",
+            "assets/cdn/bootstrap-select.min.js"
+
         ];
 
         //Lets firt styles
