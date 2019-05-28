@@ -25,8 +25,7 @@ export class CDNCheck {
                 if (response.country && response.country === 'AE')
                     this.cdn = "./";
                 else
-                    // this.cdn = environment.cdnURL;
-                    this.cdn = "./";
+                    this.cdn = environment.cdnURL;
 
 
                 //save in cookies country
@@ -38,8 +37,7 @@ export class CDNCheck {
                 if (country === 'AE')
                     this.cdn = "./";
                 else
-                    // this.cdn = environment.cdnURL;
-                    this.cdn = "./";
+                    this.cdn = environment.cdnURL;
 
             }
 

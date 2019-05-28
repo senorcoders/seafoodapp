@@ -1,124 +1,234 @@
 <div *ngIf="!empty; else elseBlock">
-<div class="page-header" id="hero" [ngStyle]="{'background':  'url(' +  hero + ') '}">
-  <div class="bg-overlay" style="background: url(../../assets/bg-store.png)"></div>
-  <div class="content">
-    <h1 class="big-title">{{store.name}}</h1>
-    <hr class="white-line">
-    <h3>{{'SingleStore.detail' | translate}}</h3>
-    <p>{{store.name}} + {{store.location}}</p>
-    <h3>{{'SingleStore.desc' | translate}}</h3>
-    <p>{{store.description}}</p>
-    <a class="btn-red-a" data-toggle="modal" data-target="#form">{{'SingleStore.message' | translate}}</a>
-  </div>
-</div>
-<div class="single-store">
-  <div class="container">
-    <div class="row" style="position: relative;">
-      <div class="logo-cont">
-        <img class="logo-store" src="{{logo}}" alt="">
-      </div>
-    </div>
-    <div class="row result-cont" *ngIf="products.length > 0">
-      <div class="col-md-12">
-        <h3>{{'SingleStore.available' | translate}}</h3> <br>
-      </div>
-      <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
-        <div class="product-result">
-          <div class="col-lg-12 product-img" [style.background-image]="productImage[i]">
-          </div>
-          <div class="col-lg-12 search-product-desc">
-            <a routerLink="/product/{{product.id}}" class="search-product-name">{{product.name}}</a>
-            <span class="coming-from">
-              {{'SingleStore.location' | translate}}: {{product.country}}
-            </span>
-            <hr class="black-line">
-            <div class="description">
-              {{smallDesc(product.description)}}
+
+  <section id="di-lyt" *ngIf="!simpleLayout; else simpleLayout">
+    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
+      <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
+      <div class="hero-text">
+        <div class="seller-logo">
+          <img src="https://via.placeholder.com/150" class="" alt="">
+        </div>
+        <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+        <p class="seller-description">
+          {{store.description}}
+        </p>
+
+        <div id="brands" class="brands-container">
+          <h3 class="text-uppercase">Brands</h3>
+
+          <div class="brands-list">
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
             </div>
-            <div class="price">
-              {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
+            </div>
+            <div class="brand-logo">
+              <img src="https://via.placeholder.com/100x70" alt="">
             </div>
           </div>
-          <div style="text-align: center;">
-            <a routerLink="/product/{{product.id}}" class="btn-red-a">{{'SingleStore.view-button' | translate}}</a>
+        </div>
+
+        <div id="certifications" class="cert-container">
+          <h3 class="text-uppercase">Certifications</h3>
+
+          <div class="cert-list">
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x150" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x90" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/60x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/120x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/100x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/50x80" alt="">
+            </div>
+            <div class="cert-logo">
+              <img src="https://via.placeholder.com/60x80" alt="">
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="row rating">
-      <div class="col-md-12 start">
-        <h4>{{'SingleStore.rating' | translate}}</h4>
-        <hr class="black-line">
-        <bar-rating [(rate)]="averageReview" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+  </section>
+
+  <ng-template #simpleLayout>
+    <section id="hor-lyt">
+      <header id='hero' class="hero-container" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}">
+      </header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-11 mx-auto">
+            <div class="hero-text">
+              <div class="seller-logo">
+                <img src="https://via.placeholder.com/150" class="" alt="">
+              </div>
+            
+              <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+              <p class="seller-description">
+                {{store.description}}
+              </p>
+            
+              <div id="brands" class="brands-container">
+                <h3 class="text-uppercase">Brands</h3>
+            
+                <div class="brands-list">
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                  <div class="brand-logo">
+                    <img src="https://via.placeholder.com/100x70" alt="">
+                  </div>
+                </div>
+              </div>
+            
+              <div id="certifications" class="cert-container">
+                <h3 class="text-uppercase">Certifications</h3>
+            
+                <div class="cert-list">
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x150" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x90" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/60x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/120x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/100x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/50x80" alt="">
+                  </div>
+                  <div class="cert-logo">
+                    <img src="https://via.placeholder.com/60x80" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="col-md-12 comment-table">
-        <div class="row" *ngFor="let firstComment of firstComments; let i=index">
-          <div class="col-lg-2 col-md-2 ">
-            <div class="user-pic" style="background:url(../../assets/accesories.jpg)"></div>
-          </div>
-          <div class="col-lg-8 col-md-8">
-            <span class="user-name">
-              {{firstComment.buyer.firstName}} {{firstComment.buyer.lastName}} 
-              <bar-rating [(rate)]="firstComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
-            </span>
-            <span class="comment">{{firstComment.comment}}</span>
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <span class="date">{{getDates(firstComment.createdAt)}}</span>
+    </section>
+  </ng-template>
+  
+
+  <section id="prodcuts">
+    <div class="container-fluid product-list">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 result" *ngFor="let product of products; let i=index">
+          <div class="single-product-box">
+            <div class="product-header">
+              <div class="row">
+                <div class="col-md-12 text-uppercase">
+                  <h5>{{'SingleStore.location' | translate}}: {{product.country}}</h5>
+                </div>
+              </div>
+            </div>
+            <div class="product-body">
+              <a  class="image-link-holder">
+                <div class="product-single-img" [style.background-image]="productImage[i]">
+                  <div class="product-overlay"></div>
+            
+                  <h2 class="product-view-details">{{product.name}}</h2>
+            
+                </div>
+              </a>
+            </div>
+            <div class="product-footer">
+              <h4>{{product.name}}</h4>
+            </div>
           </div>
         </div>
-        <div *ngIf="showMore">
-          <span class="see-more" (click)="getAllComments()">{{'SingleStore.more' | translate}}</span>
-        </div>
-        <div *ngIf="showLess">
-          <span class="see-less" (click)="getFirstComments()">{{'SingleStore.less' | translate}}</span>
-        </div>
+        
+      
       </div>
     </div>
-  </div>
+  </section>
 </div>
-</div>
+
 <ng-template #elseBlock>
   <div class="not-found-grid">
     <p>{{'SingleStore.no-store' | translate}}</p>
-  </div>  
-</ng-template>
-<div class="modal fade" id="form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="row" style="align-items: center;">
-          <div class="col-md-4">
-              <img src="{{logo}}" alt="" class="img-fluid">
-          </div>
-          <div class="col-md-8">
-            <h6 class="modal-subtitle">{{'SingleStore.hi' | translate}}</h6>
-            <h5 class="modal-title">{{'SingleStore.contact' | translate}}</h5>
-          </div>
-        </div>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (ngSubmit)="sendMail()">
-          <div class="form-group">
-            <label for="name">{{'SingleStore.name' | translate}}</label>
-            <input [(ngModel)]="form.name" [ngModelOptions]="{standalone: true}" type="text" id="name" class="form-control" required placeholder="{{'SingleStore.name' | translate}}">
-          </div>
-          <div class="form-group">
-            <label for="exampleInputEmail1">{{'SingleStore.email' | translate}}</label>
-            <input [(ngModel)]="form.email" [ngModelOptions]="{standalone: true}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'SingleStore.email' | translate}}" required>
-            <small id="emailHelp" class="form-text text-muted">{{'SingleStore.no-share' | translate}}.</small>
-          </div>
-          <div class="form-group">
-            <label for="message">{{'SingleStore.your-message' | translate}}</label>
-            <textarea [(ngModel)]="form.message" [ngModelOptions]="{standalone: true}" required class="form-control" id="message" rows="3"></textarea>
-          </div>
-      
-          <button type="submit" class="btn-red">{{'SingleStore.send' | translate}}</button>
-        </form>
-      </div>
-    </div>
   </div>
-</div>
+</ng-template>
