@@ -40,6 +40,7 @@ export class CreateProductComponent implements OnInit {
   showNoData: boolean = false;
   default = [2, 3, 4, 3, 5];
   defaultTrimming = [];
+  sellers = [];
   pd = [];
   hideTrimModal: boolean = true;
   public loading = false;
@@ -48,8 +49,8 @@ export class CreateProductComponent implements OnInit {
   public myform: FormGroup;
   public showError = false;
   private trimmings = [];
-  private seafood_sku = "";
-  private productID = "";
+  private seafood_sku = '';
+  private productID = '';
   private user: any = {};
   private ready = false;
   public loadingDetails = false;
@@ -60,7 +61,7 @@ export class CreateProductComponent implements OnInit {
   public currentPrincingCharges: any;
 
   public createProduct = true;
-  public speciesSelected = "";
+  public speciesSelected = '';
 
   constructor(
     private productService: ProductService,
@@ -106,7 +107,7 @@ export class CreateProductComponent implements OnInit {
 
   receiveMessage($event) {
     console.log($event);
-    //Si tenemos productID es para editar producto
+    // Si tenemos productID es para editar producto
     this.ready = true;
     if (this.productID !== '' && this.currentExchangeRate !== 0) {
       this.getDetails();
@@ -114,18 +115,18 @@ export class CreateProductComponent implements OnInit {
   }
 
   private getUser() {
-    let loginData = this.auth.getLoginData();
-    this.productService.getData("user/" + loginData["id"]).subscribe(it => {
-      console.log("user", it);
+    const loginData = this.auth.getLoginData();
+    this.productService.getData('user/' + loginData['id']).subscribe(it => {
+      console.log('user', it);
       this.user = it;
-      if (this.user["role"] !== 0) {
+      if (this.user['role'] !== 0) {
         this.disableInputs();
       }
     });
   }
 
   private disableInputs() {
-    let product = (this.myform.controls.product as FormGroup).controls;
+    const product = (this.myform.controls.product as FormGroup).controls;
     // let features = (this.myform.controls.features as FormGroup).controls;
     product.name.disable();
     product.country.disable();
@@ -147,38 +148,38 @@ export class CreateProductComponent implements OnInit {
     if (this.loadingDetails === true) return;
     this.loadingDetails = true;
     this.loading = true;
-    let parent = await this.getParent();
-    console.log("parent", parent, this.productID);
+    const parent = await this.getParent();
+    console.log('parent', parent, this.productID);
     this.productService.getProductDetailVariations(this.productID)
       .subscribe(async data => {
         try {
           this.product = data;
-          let images = await this.getImages(data);
+          const images = await this.getImages(data);
 
-          let product = {
-            name: data["name"],
-            brandName: data["brandname"] || "",
-            country: data["country"],
-            processingCountry: data["processingCountry"],
-            city: data["city"],
-            unitOfSale: data["perBox"] === false ? 'kg' : 'boxes',
-            averageUnitWeight: data["boxWeight"],
-            parentSelectedType: parent["level0"] ? parent["level0"].id : "",
-            speciesSelected: parent["level1"] ? parent["level1"].id : '',
-            subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
-            descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
-            seller_sku: data["seller_sku"] || '', 
-            hsCode: data["hsCode"],
-            minimunorder: data["minimumOrder"],
-            maximumorder: data["maximumOrder"],
+          const product = {
+            name: data['name'],
+            brandName: data['brandname'] || '',
+            country: data['country'],
+            processingCountry: data['processingCountry'],
+            city: data['city'],
+            unitOfSale: data['perBox'] === false ? 'kg' : 'boxes',
+            averageUnitWeight: data['boxWeight'],
+            parentSelectedType: parent['level0'] ? parent['level0'].id : '',
+            speciesSelected: parent['level1'] ? parent['level1'].id : '',
+            subSpeciesSelected: parent['level2'] ? parent['level2'].id : '',
+            descriptorSelected: data['descriptor'] ? data['descriptor'] : '',
+            seller_sku: data['seller_sku'] || '',
+            hsCode: data['hsCode'],
+            minimunorder: data['minimumOrder'],
+            maximumorder: data['maximumOrder'],
             imagesSend: images.forForm,
-            price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
+            price: data['price'] ? (data['price'].value / this.currentExchangeRate).toFixed(2) : 0,
             // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
-            raised: data["raised"].id || "",
-            treatment: data["treatment"].id || "",
-            head: data["head"] || "on",
-            wholeFishAction: data["wholeFishAction"]
-          }; console.log("product", product);
+            raised: data['raised'].id || '',
+            treatment: data['treatment'].id || '',
+            head: data['head'] || 'on',
+            wholeFishAction: data['wholeFishAction']
+          }; console.log('product', product);
 
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
@@ -189,24 +190,23 @@ export class CreateProductComponent implements OnInit {
           //   wholeFishAction: data["wholeFishAction"]
           // };
 
-          let price = {
-            headAction: data["headAction"],
+          const price = {
+            headAction: data['headAction'],
           };
 
           // let varit = this.reingenieriaVariations(data, data["variations"]);
           // features = Object.assign(features, varit.features);
           this.setValue({ product, price });
-          let we: any = {};
-          we.isTrimms = data["isTrimms"];
-          we.weights = data["weights"];
-          we.weightsTrim = data["weightsTrim"];
-          we.weightsFilleted = data["weightsFilleted"];
-          we.wholeFishAction = data["wholeFishAction"];
+          const we: any = {};
+          we.isTrimms = data['isTrimms'];
+          we.weights = data['weights'];
+          we.weightsTrim = data['weightsTrim'];
+          we.weightsFilleted = data['weightsFilleted'];
+          we.wholeFishAction = data['wholeFishAction'];
           console.log(we);
           this.emitEventToChild(we);
-          this.speciesSelected = parent["level1"] ? parent["level1"].id : ''
-        }
-        catch (e) {
+          this.speciesSelected = parent['level1'] ? parent['level1'].id : '';
+        } catch (e) {
           console.error(e);
         }
         this.getUser();
@@ -229,40 +229,38 @@ export class CreateProductComponent implements OnInit {
     let forForm = [], forInput = [];
     let imagePrimary, imagePrimaryForForm,
       baseUrl = environment.apiURLImg, imagePrimary64,
-      rt: any = { responseType: "blob" };
+      rt: any = { responseType: 'blob' };
     try {
-      imagePrimary = await this.http.get(baseUrl + product["imagePrimary"], rt).toPromise() as any;
+      imagePrimary = await this.http.get(baseUrl + product['imagePrimary'], rt).toPromise() as any;
       imagePrimary64 = await this.blobToBase64(imagePrimary);
       imagePrimaryForForm = {
         src: imagePrimary64,
-        url: product["imagePrimary"],
-        type: "primary",
+        url: product['imagePrimary'],
+        type: 'primary',
         defaultInial: true
       };
       forForm.push(imagePrimaryForForm);
-      forInput = [this.blobToFile(imagePrimary, "primary.jpg")];
-    }
-    catch (e) {
+      forInput = [this.blobToFile(imagePrimary, 'primary.jpg')];
+    } catch (e) {
       console.error(e);
     }
 
-    //Para agregar las imagenes secundarias
-    if (product["images"] && product["images"].length > 0) {
-      for (let image of product["images"]) {
+    // Para agregar las imagenes secundarias
+    if (product['images'] && product['images'].length > 0) {
+      for (const image of product['images']) {
         try {
           if (image && image.src !== undefined) {
-            let imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
-            let imageSecond64 = await this.blobToBase64(imageSecond);
-            let imageSecondForForm = {
+            const imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
+            const imageSecond64 = await this.blobToBase64(imageSecond);
+            const imageSecondForForm = {
               src: imageSecond64,
               url: image.src,
-              type: "secundary"
+              type: 'secundary'
             };
             forForm.push(imageSecondForForm);
-            forInput.push(this.blobToFile(imageSecond, "second.jpg"));
+            forInput.push(this.blobToFile(imageSecond, 'second.jpg'));
           }
-        }
-        catch (e) { console.error(e); }
+        } catch (e) { console.error(e); }
       }
     }
 
@@ -279,12 +277,12 @@ export class CreateProductComponent implements OnInit {
 
   private blobToBase64(blob: Blob) {
     return new Promise((resolve, reject) => {
-      var reader = new FileReader();
+      const reader = new FileReader();
       reader.readAsDataURL(blob);
       reader.onloadend = function () {
-        let base64data = reader.result;
+        const base64data = reader.result;
         resolve(base64data);
-      }
+      };
     });
   }
 
@@ -315,12 +313,12 @@ export class CreateProductComponent implements OnInit {
   async onSubmit() {
     this.showError = true;
     this.loading = true;
-    let keys = Object.keys(this.myform.controls)
-    for (let name of keys) {
-      let keys_ = Object.keys((this.myform.controls[name] as any).controls);
-      for (let na of keys_) {
+    const keys = Object.keys(this.myform.controls);
+    for (const name of keys) {
+      const keys_ = Object.keys((this.myform.controls[name] as any).controls);
+      for (const na of keys_) {
         if ((this.myform.controls[name] as any).controls[na].valid === false) {
-          console.log(name + "." + na, (this.myform.controls[name] as any).controls[na]);
+          console.log(name + '.' + na, (this.myform.controls[name] as any).controls[na]);
         }
       }
     }
@@ -329,20 +327,20 @@ export class CreateProductComponent implements OnInit {
 
     if (this.myform.valid) {
       console.log(this.myform.value);
-      let value = this.myform.value,
+      const value = this.myform.value,
         product = value.product,
         features = product,
         pricing = value.price;
 
       product.speciesSelected = product.speciesSelected || this.speciesSelected;
 
-      //Para checkar si hay imagenes
+      // Para checkar si hay imagenes
       if (product.imagesSend === '') {
         this.loading = false;
         this.ngProgress.done();
         return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
       } else {
-        let imagesSend = JSON.parse(product.imagesSend);
+        const imagesSend = JSON.parse(product.imagesSend);
         if (imagesSend.length === 0) {
           this.loading = false;
           this.ngProgress.done();
@@ -350,11 +348,11 @@ export class CreateProductComponent implements OnInit {
         }
       }
 
-      //Para checkar si hay imagen default
+      // Para checkar si hay imagen default
       if (product.images !== undefined && product.images !== '') {
-        let images = JSON.parse(product.imagesSend);
-        let index = images.findIndex(it => {
-          return it.type === "primary";
+        const images = JSON.parse(product.imagesSend);
+        const index = images.findIndex(it => {
+          return it.type === 'primary';
         });
         if (index === -1) {
           this.loading = false;
@@ -363,8 +361,8 @@ export class CreateProductComponent implements OnInit {
         }
       }
 
-      //si es actualizando un producto para saber los que se eliminan
-      let variationsDeleted = JSON.parse(pricing.variationsDeleted);
+      // si es actualizando un producto para saber los que se eliminan
+      const variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
       let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
         weightsFilleted = [];
@@ -379,68 +377,68 @@ export class CreateProductComponent implements OnInit {
         weightsFilleted = JSON.parse(pricing.weightsFilleted);
       }
 
-      //Para quitar las options
-      let itereOptions = it => {
+      // Para quitar las options
+      const itereOptions = it => {
         delete it.options;
         return it;
       };
-      //Para ver si es varations Trimming
+      // Para ver si es varations Trimming
       if (features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4') {
         console.log(Object.keys(variationsTrim));
-        for (let key of Object.keys(variationsTrim)) {
-          let fishPreparation = key;
-          let itr = {
+        for (const key of Object.keys(variationsTrim)) {
+          const fishPreparation = key;
+          const itr = {
             fishPreparation,
             prices: variationsTrim[key].map(itereOptions)
-          }
+          };
           variationsEnd.push(itr);
         }
       } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
-        //para los fillete
-        let fishPreparation = "5c93c01465e25a011eefbcc4";
+        // para los fillete
+        const fishPreparation = '5c93c01465e25a011eefbcc4';
 
-        let itr = {
+        const itr = {
           fishPreparation,
           prices: weightsFilleted.map((it, i) => {
-            let price = pricing["weightsFillete_arr"][i];
+            const price = pricing['weightsFillete_arr'][i];
             it.price = price;
             return itereOptions(it);
           })
-        }
+        };
         variationsEnd.push(itr);
       } else {
-        //Para los ON
-        let fishPreparation = "5c93bff065e25a011eefbcc2";
+        // Para los ON
+        let fishPreparation = '5c93bff065e25a011eefbcc2';
         if (variations.on.keys && variations.on.keys.length > 0) {
-          for (let it of variations.on.keys) {
-            let wholeFishWeight = it;
-            let itr = {
+          for (const it of variations.on.keys) {
+            const wholeFishWeight = it;
+            const itr = {
               fishPreparation,
               wholeFishWeight,
               prices: variations.on[it].map(itereOptions)
-            }
+            };
             variationsEnd.push(itr);
           }
         }
-        //Para off
-        fishPreparation = "5c93c00465e25a011eefbcc3";
+        // Para off
+        fishPreparation = '5c93c00465e25a011eefbcc3';
         if (variations.off.keys && variations.off.keys.length > 0) {
-          for (let it of variations.off.keys) {
-            let wholeFishWeight = it;
-            let itr = {
+          for (const it of variations.off.keys) {
+            const wholeFishWeight = it;
+            const itr = {
               fishPreparation,
               wholeFishWeight,
               prices: variations.off[it].map(itereOptions)
-            }
+            };
             variationsEnd.push(itr);
           }
         }
       }
 
-      //Buscamos si algun price yeva id, si lleva quiere decir que es
-      //Para actualizar
+      // Buscamos si algun price yeva id, si lleva quiere decir que es
+      // Para actualizar
       variationsEnd = variationsEnd.map(it => {
-        let index = it.prices.findIndex(it => {
+        const index = it.prices.findIndex(it => {
           return it.idVariation !== null && it.idVariation !== undefined;
         });
         if (index !== -1) {
@@ -449,16 +447,16 @@ export class CreateProductComponent implements OnInit {
         return it;
       });
 
-      //Para quitar el _off y _arr
+      // Para quitar el _off y _arr
       for (let i = 0; i < variationsEnd.length; i++) {
         if (variationsEnd[i].fishPreparation !== null && variationsEnd[i].fishPreparation !== undefined) {
-          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_off", "");
-          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace("_arr", "");
+          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_off', '');
+          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_arr', '');
         }
 
         if (variationsEnd[i].wholeFishWeight !== null && variationsEnd[i].wholeFishWeight !== undefined) {
-          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_off", "");
-          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace("_arr", "");
+          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_off', '');
+          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
         }
       }
 
@@ -472,7 +470,7 @@ export class CreateProductComponent implements OnInit {
       // let priceAED = Number(features.price).toFixed(2);
       const data: any = {
         parentType: product.parentSelectedType,
-        "specie": product.speciesSelected,
+        'specie': product.speciesSelected,
         'type': product.subSpeciesSelected,
         'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
         'store': this.store[0].id,
@@ -488,10 +486,10 @@ export class CreateProductComponent implements OnInit {
         //   'description': priceAED + ' for pack'
         // },
         'weight': {
-          'type': "kg",
+          'type': 'kg',
           'value': 5
         },
-        perBox: product.unitOfSale === "boxes",
+        perBox: product.unitOfSale === 'boxes',
         boxWeight: product.averageUnitWeight,
         'minimumOrder': product.minimunorder,
         'maximumOrder': product.maximumorder,
@@ -507,13 +505,13 @@ export class CreateProductComponent implements OnInit {
         'hsCode': product.hsCode,
         variations: variationsEnd,
       };
-      if (this.productID !== "") {
+      if (this.productID !== '') {
         data.idProduct = this.product.id;
         data.variationsDeleted = variationsDeleted;
         data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
       }
       console.log(data);
-      if (this.productID !== "") {
+      if (this.productID !== '') {
         this.productService.updateData('api/variations', data).subscribe(result => {
           this.uploadImagesAction(product, result);
         });
@@ -535,32 +533,31 @@ export class CreateProductComponent implements OnInit {
     if (product.imagesSend !== undefined && product.imagesSend !== '') {
       let images = JSON.parse(product.imagesSend),
         deletedImages = product.deletedImages;
-      //Si se esta actualizando un producto
-      //se filtra las imagenes, las que tiene url son
-      //las nuevas imagenes
-      if (this.productID !== "") {
+      // Si se esta actualizando un producto
+      // se filtra las imagenes, las que tiene url son
+      // las nuevas imagenes
+      if (this.productID !== '') {
         images = images.filter(it => {
-          return it.url === undefined || it.url === null || it.type === "primary" || it.change === true;
+          return it.url === undefined || it.url === null || it.type === 'primary' || it.change === true;
         });
         console.log(images.length, deletedImages);
         try {
-          //La imagen primary siempre se vuelve a subir
-          let files: File[] = [];
+          // La imagen primary siempre se vuelve a subir
+          const files: File[] = [];
 
-          for (let image of images) {
-            let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + this.productID);
-            if (image.type === "primary") {
+          for (const image of images) {
+            const file = this.blobToFile(this.b64toBlob(image.src, 'image/jpg'), new Date().getTime().toString() + '-' + this.productID);
+            if (image.type === 'primary') {
               await this.productService.postFile([file], this.productID, 'primary').toPromise();
               continue;
             } else {
               files.push(file);
             }
           }
-          //secondary images are uploaded on background
-          this.productService.updateData("api/fish/images/delete/" + this.productID, { deletedImages }).toPromise();
+          // secondary images are uploaded on background
+          this.productService.updateData('api/fish/images/delete/' + this.productID, { deletedImages }).toPromise();
           this.productService.updateImages(files, this.productID).toPromise();
-        }
-        catch (e) {
+        } catch (e) {
           console.error(e);
         }
         this.finish();
@@ -574,7 +571,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   private finish() {
-    if (this.productID === "") {
+    if (this.productID === '') {
       this.toast.success('Product added successfully!', 'Well Done', { positionClass: 'toast-top-right' });
     } else {
       this.toast.success('Product updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
@@ -587,21 +584,20 @@ export class CreateProductComponent implements OnInit {
   }
 
   private async uploadFileToActivity(productID, images) {
-    let files = [];
+    const files = [];
     try {
-      for (let image of images) {
-        let file = this.blobToFile(this.b64toBlob(image.src, "image/jpg"), new Date().getTime().toString() + "-" + productID);
-        if (image.type === "primary") {
+      for (const image of images) {
+        const file = this.blobToFile(this.b64toBlob(image.src, 'image/jpg'), new Date().getTime().toString() + '-' + productID);
+        if (image.type === 'primary') {
           await this.productService.postFile([file], productID, 'primary').toPromise();
           continue;
         } else {
           files.push(file);
         }
       }
-      //secondary images are uploaded on background
+      // secondary images are uploaded on background
       this.saveImages(productID, 'secundary', files);
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e);
     }
     this.finish();
@@ -617,44 +613,44 @@ export class CreateProductComponent implements OnInit {
       result => {
         this.currentPrincingCharges = result;
         this.currentExchangeRate = result['exchangeRates'];
-        if (this.ready === true && this.productID !== '') this.getDetails();
+        if (this.ready === true && this.productID !== '') { this.getDetails(); }
       }, error => {
         console.log(error);
       }
-    )
+    );
   }
 
 
   public blobToFile = (theBlob: Blob, fileName: string): File => {
-    var b: any = theBlob;
-    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    const b: any = theBlob;
+    // A Blob() is almost a File() - it's just missing the two properties below which we will add
     b.lastModifiedDate = new Date();
     b.name = fileName;
 
-    //Cast to a File() type
+    // Cast to a File() type
     return <File>theBlob;
   }
 
   public b64toBlob(b64Data, contentType) {
     contentType = contentType || '';
-    var sliceSize = 512;
-    var byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg|blob|blob[0-9]{1,50});base64,/, ''));
-    var byteArrays = [];
+    const sliceSize = 512;
+    const byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg|blob|blob[0-9]{1,50});base64,/, ''));
+    const byteArrays = [];
 
-    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
-      var slice = byteCharacters.slice(offset, offset + sliceSize);
+    for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+      const slice = byteCharacters.slice(offset, offset + sliceSize);
 
-      var byteNumbers = new Array(slice.length);
-      for (var i = 0; i < slice.length; i++) {
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
         byteNumbers[i] = slice.charCodeAt(i);
       }
 
-      var byteArray = new Uint8Array(byteNumbers);
+      const byteArray = new Uint8Array(byteNumbers);
 
       byteArrays.push(byteArray);
     }
 
-    var blob = new Blob(byteArrays, { type: contentType });
+    const blob = new Blob(byteArrays, { type: contentType });
     return blob;
   }
 
