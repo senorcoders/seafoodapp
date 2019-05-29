@@ -151,6 +151,54 @@
                           </span>         
                         </div>
                     </div>
+                    <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">    
+                              <select multiple id="productsInterestedinBuying" placeholder="test" class="form-control selectpicker"  data-live-search="true" style="width: 100%" formControlName="productsInterestedinBuying" [ngClass]="{'is-invalid':buyerForm.get('productsInterestedinBuying').invalid && buyerForm.get('productsInterestedinBuying').touched}">
+                                <option value="Atlantic Salmon - HOG">Atlantic Salmon - HOG</option>
+                                <option value="Pacific Salmon - HOG">Pacific Salmon - HOG</option>
+                                <option value="Atlantic Salmon - Fillet">Atlantic Salmon - Fillet</option>
+                                <option value="Pacific Salmon - Fillet">Pacific Salmon - Fillet</option>
+                                <option value="Local Seabass - Whole">Local Seabass - Whole</option>
+                                <option value="Local Seabream - Whole">Local Seabream - Whole</option>
+                                <option value="European Seabass - Whole">European Seabass - Whole</option>
+                                <option value="European Seabream - Whole">European Seabream - Whole</option>
+                                <option value="Local Seabass - Fillet">Local Seabass - Fillet</option>
+                                <option value="Local Seabream - Fillet">Local Seabream - Fillet</option>
+                                <option value="European Seabass - Fillet">European Seabass - Fillet</option>
+                                <option value="European Seabream - Fillet">European Seabream - Fillet</option>
+                                <option value="European Lobster">European Lobster</option>
+                                <option value="American Lobster">American Lobster</option>
+                                <option value="Mud Crab">Mud Crab</option>
+                                <option value="King Crab">King Crab</option>
+                                <option value="Blue Crab">Blue Crab</option>
+                                <option value="Langoustines">Langoustines</option>
+                                <option value="Bluefin Tuna">Bluefin Tuna</option>
+                                <option value="Yellowfin Tuna">Yellowfin Tuna</option>
+                                <option value="European Oysters">European Oysters</option>
+                                <option value="Local Oysters">Local Oysters</option>
+                                <option value="Fresh Shrimps">Fresh Shrimps</option>
+                                <option value="Frozen Shrimps">Frozen Shrimps</option>
+                                <option value="Squid">Squid</option>
+                                <option value="Frozen Squid">Frozen Squid</option>
+                              </select> 
+                              <label for="productsInterestedinBuying">Products Interested in Buying</label> 
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('productsInterestedinBuying').hasError('required')"> Products Interested in Buying {{'Register.required' | translate}}.</div>
+  
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
+                            <label for="additionalItems">Additional Items</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('additionalItems').hasError('required')">Additional Items {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                  
                       <div class="col-lg-12 text-center">
                           <div class="form-check">
                               <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">

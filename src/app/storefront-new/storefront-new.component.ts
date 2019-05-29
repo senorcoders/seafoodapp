@@ -6,12 +6,13 @@ import { NgxSmartModalService } from 'ngx-smart-modal';
 import { ToastrService } from '../toast.service';
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
+
 @Component({
-  selector: 'app-single-store',
-  templateUrl: './single-store.component.html',
-  styleUrls: ['./single-store.component.scss']
+  selector: 'app-storefront-new',
+  templateUrl: './storefront-new.component.html',
+  styleUrls: ['./storefront-new.component.scss']
 })
-export class SingleStoreComponent implements OnInit {
+export class StorefrontNewComponent implements OnInit {
 
   storeID: any;
   storeEndpoint: any = 'store/';

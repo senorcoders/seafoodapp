@@ -232,7 +232,8 @@
                     </a>
                   </div>
                   <div class="product-footer">
-                    <h4>{{product.name}} <span *ngIf="product.variation.fishPreparation != null">-</span> {{product?.variation?.fishPreparation?.name}} <span *ngIf="product.variation.wholeFishWeight != null">-</span> {{product?.variation?.wholeFishWeight?.name}}</h4>
+                    <h4>{{product.name}} <span *ngIf="product.variation.fishPreparation != null">-</span> {{product?.variation?.fishPreparation?.name}} <span *ngIf="product.variation.wholeFishWeight != null">-</span> {{product?.variation?.wholeFishWeight?.name}}
+                      <span *ngIf="product.perBox == true"> - (1 box = {{product.boxWeight}} kg)</span></h4>
                     <h5 id="product-price-{{product.variation.id}}"></h5>
                   </div>
               </div>

@@ -178,9 +178,9 @@ const appRoutes: Routes = [
     canActivate: []
   },
   {
-    path: 'store/:id',
-    loadChildren: 'app/single-store/single-store.module#SingleStoreModule',
-    canActivate: [RouterProtectionService]
+    path: 'vendor/:id',
+    loadChildren: 'app/single-store/single-store.module#SingleStoreModule'
+    // canActivate: [RouterProtectionService]
   },
   {
     path: 'featured-products',
@@ -322,6 +322,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'newstore/:id',
+    loadChildren: 'app/storefront-new/storefront-new.module#StorefrontNewModule',
+    canActivate: [RouterProtectionService]
+  },
+  {
     path: 'seller-fulfills-orders',
     loadChildren: 'app/admin-orders/admin-orders.module#AdminOrdersModule',
     canActivate: [AdminRouterService]
@@ -400,7 +405,7 @@ const appRoutes: Routes = [
     path: '**',
     redirectTo: '',
     pathMatch: 'full'
-  }
+  },
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -423,7 +428,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
   imports: [
     BrowserAnimationsModule,
     SharedModule,
-    HttpClientModule, 
+    HttpClientModule,
     RouterModule.forRoot(appRoutes),
     TranslateModule.forRoot({
       loader: {

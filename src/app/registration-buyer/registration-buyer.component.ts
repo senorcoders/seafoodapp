@@ -35,13 +35,16 @@ showConfirmation=true;
 email:string;
 isValid:boolean = false;
 btnText:any = 'register to buy';
-
+productsInterestedinBuying:FormControl;
+additionalItems: FormControl;
 
   constructor(private auth: AuthenticationService, 
     private countryService: CountriesService, private toast:ToastrService,
     private router:Router) {
       jQuery(document).ready(function () {
         jQuery('.js-example-basic-single').select2();
+        jQuery('select').selectpicker();
+
       });
      }
  
@@ -101,6 +104,8 @@ btnText:any = 'register to buy';
     this.companyName = new FormControl('',[Validators.required]);
     this.tcs = new FormControl('', [Validators.requiredTrue]);
     this.vat = new FormControl('', [Validators.required]);
+    this.productsInterestedinBuying = new FormControl('', [Validators.required]);
+    this.additionalItems = new FormControl('', [Validators.required]);
   }
 
   //Initializar for group for first step wizard form
@@ -118,7 +123,9 @@ btnText:any = 'register to buy';
       TypeBusiness:this.TypeBusiness,
       companyName:this.companyName,
       location:this.location,
-      vat: this.vat
+      vat: this.vat,
+      productsInterestedinBuying: this.productsInterestedinBuying,
+      additionalItems: this.additionalItems
 
     },{
       updateOn: 'submit'
@@ -244,7 +251,9 @@ regiterBuyer() {
     "City":this.buyerForm.get('City').value,
     "companyName": this.buyerForm.get('companyName').value,
     "typeBusiness":this.buyerForm.get('TypeBusiness').value,
-    "vat": this.buyerForm.get('vat').value
+    "vat": this.buyerForm.get('vat').value,
+    "productsInterestedinBuying": this.buyerForm.get('productsInterestedinBuying').value,
+    "additionalItems": this.buyerForm.get('additionalItems').value
     }
     
   this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
