@@ -80,7 +80,7 @@
             show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6" [hidden]="typeLevel2.length == 0">
         <div class="form-group input-group"
           [ngClass]="{'has-danger': controls().subSpeciesSelected.invalid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched),'has-success': controls().subSpeciesSelected.valid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched)}">
           <span class="has-float-label">
@@ -101,7 +101,7 @@
             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6" [hidden]="typeLevel3.length == 0">
         <div class="form-group input-group">
           <span class="has-float-label">
             <select id="variant" placholder="Subspecies Variant..." class="form-control"
