@@ -34,10 +34,11 @@ export class AuthenticationService {
       return false;
     }
   }
-  register(data, role, dataExtra) {
+  register(data, role, dataExtra, newQueries?) {
+    newQueries = newQueries || "";
     let body = { "firstName": data.firstName, "lastName": data.lastName, "email": data.email, "password": data.password, "role": role, "dataExtra": dataExtra };
     console.log(body);
-    return this.http.post(`api/signup`, body, httpOptions);
+    return this.http.post(`api/signup${newQueries}`, body, httpOptions);
   }
 
   setCart(data) {
