@@ -127,8 +127,8 @@ p.order-number {
             outline: none;
             padding: 0;
             img, svg{
-                   height: 14px;
-                    width: 14px;  
+                   height: 11px;
+                    width: 11px;  
                     margin-left: 5px;            
             }
             .alert-circle{
@@ -475,6 +475,8 @@ background-position: center;
            
             &.red-text-btn{
                 color: $red; 
+                display: flex;
+                align-items: center;
                 svg .a{
                     fill: $red !important;
                 }
