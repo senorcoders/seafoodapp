@@ -190,14 +190,15 @@
               }
             }
         
-        
-          }
-        
-          .single-product-box:hover{
-            .product-footer{
-                color: $dark_blue;
+          &:hover{
+              .product-footer{
+                  h4 {
+                    color: $dark_blue;
+                  }
+              }
             }
-          }
+        }
+        
 
           .coming-true{
             pointer-events: none;
