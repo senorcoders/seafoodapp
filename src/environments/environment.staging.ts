@@ -3,7 +3,7 @@ export const environment = {
 	payfort: false,
   apiURL:"https://stagingapi.seafoodsouq.com/",
 	apiURLImg:"https://stagingapi.seafoodsouq.com",
-	cdnURL:"https://staging.seafoodsouq.com/",
+	cdnURL:"http://d2jztj5rpu8tit.cloudfront.net/",
 
 	// apiURL:"http://localhost:7000/",
   // apiURLImg:"http://localhost:7000",
