@@ -115,7 +115,7 @@ public staticmin:number = 1;
       kg: new FormControl('', Validators.nullValidator),
       parentSelectedType: new FormControl('', Validators.required),
       speciesSelected: new FormControl('', Validators.required),
-      subSpeciesSelected: new FormControl('', Validators.required),
+      subSpeciesSelected: new FormControl('', Validators.nullValidator),
       descriptorSelected: new FormControl('', Validators.nullValidator),
       seller_sku: new FormControl('', Validators.nullValidator),
       hsCode: new FormControl('', Validators.nullValidator),

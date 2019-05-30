@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   email: FormControl;
   password: FormControl;
   isValid: boolean = false;
-  loginText: any = 'LOGIN & SWIM';
+  loginText: any = 'LOGIN';
   role
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(["/"]);
       }
       this.isValid = false;
-      this.loginText = 'LOGIN & SWIM';
+      this.loginText = 'LOGIN';
     }
   }
   setHeight(h) {

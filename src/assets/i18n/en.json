@@ -282,7 +282,7 @@
 		"Errortext": "Verification code is not valid."
 	},
 	"Login": {
-		"title": "Welcome",
+		"title": "Welcome!",
 		"email": "Email...", 
 		"password": "Password...",
 		"required": "is required",

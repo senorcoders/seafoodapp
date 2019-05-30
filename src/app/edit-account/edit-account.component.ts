@@ -60,6 +60,10 @@ export class EditAccountComponent implements OnInit {
   public loading = false;
   rePassword: FormControl;
   passwordForm: FormGroup;
+  swiftCode: FormControl;
+  vat: FormControl;
+  productsInterestedinBuying: FormControl;
+  additionalItems: FormControl;
 
 
 
@@ -69,6 +73,8 @@ export class EditAccountComponent implements OnInit {
     private countryService: CountriesService) {
       jQuery(document).ready(function () {
       jQuery('.js-example-basic-single').select2();
+      jQuery('select').selectpicker();
+
     });
 
   }
@@ -94,7 +100,7 @@ export class EditAccountComponent implements OnInit {
   }
    getPersonalData(){
       this.info = this.auth.getLoginData();
-      console.log(this.info);
+      console.log("Info", this.info);
       return this.info;   
     // this.getStoreData();
   }
@@ -129,6 +135,11 @@ export class EditAccountComponent implements OnInit {
     this.password = new FormControl('',[Validators.required, Validators.pattern(this.regex)]);
     this.rePassword = new FormControl('',[Validators.required]);
     this.currentPassword = new FormControl('',[Validators.required]);
+    this.swiftCode = new FormControl('', [Validators.nullValidator]);
+    this.vat = new FormControl('', [Validators.nullValidator]);
+    this.productsInterestedinBuying = new FormControl('', [Validators.required]);
+    this.additionalItems = new FormControl('', [Validators.required]);
+
   }
 
   createBuyerForm(){
@@ -141,9 +152,10 @@ export class EditAccountComponent implements OnInit {
       city: this.buyerCity,
       telephone: this.buyerPhoneNumber,
       companyName: this.buyerCompanyName,
-      typeBusiness: this.buyerTypeBusiness
-
-
+      typeBusiness: this.buyerTypeBusiness,
+      vat: this.vat,
+      productsInterestedinBuying: this.productsInterestedinBuying,
+      additionalItems: this.additionalItems
   }, {
     updateOn: 'submit'
   });
@@ -168,7 +180,9 @@ export class EditAccountComponent implements OnInit {
       productsIntered: this.SellerProductsIntered,
       contactNumber: this.sellerContactNumber,
       currencyTrade: this.sellerCurrencyTrade,
-       storeDescription: this.sellerStoreDescription
+       storeDescription: this.sellerStoreDescription,
+       swiftCode: this.swiftCode
+       
      }, {
     updateOn: 'submit'
   });
@@ -194,6 +208,9 @@ export class EditAccountComponent implements OnInit {
     this.buyerForm.controls['companyName'].setValue(this.info.dataExtra['companyName']);
     this.buyerForm.controls['typeBusiness'].setValue(this.info.dataExtra['typeBusiness']); 
     this.buyerForm.controls['country'].setValue('AE');
+    this.buyerForm.controls['vat'].setValue(this.info.dataExtra['vat']);
+    this.buyerForm.controls['productsInterestedinBuying'].setValue(this.info.dataExtra['productsInterestedinBuying']);
+    this.buyerForm.controls['additionalItems'].setValue(this.info.dataExtra['additionalItems']);
 
   }
 
@@ -215,6 +232,7 @@ export class EditAccountComponent implements OnInit {
     this.sellerForm.controls['currencyTrade'].setValue(this.info.dataExtra['currencyTrade']);
     this.sellerForm.controls['trade'].setValue(this.info.dataExtra['trade']);
     this.sellerForm.controls['storeDescription'].setValue(this.store[0].description);
+    this.sellerForm.controls['swiftCode'].setValue(this.info.dataExtra['swiftCode']);
   }
 
   updateBuyer(){
@@ -229,6 +247,9 @@ export class EditAccountComponent implements OnInit {
       this.info.dataExtra['tel'] = this.buyerForm.get('telephone').value;
       this.info.dataExtra['companyName'] = this.buyerForm.get('companyName').value;
       this.info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
+      this.info.dataExtra['vat'] = this.buyerForm.get('vat').value;
+      this.info.dataExtra['productsInterestedinBuying'] = this.buyerForm.get('productsInterestedinBuying').value;
+      this.info.dataExtra['additionalItems'] = this.buyerForm.get('additionalItems').value;
       console.log(this.info);
       this.updateAccount(this.info);
     }else{
@@ -267,6 +288,7 @@ export class EditAccountComponent implements OnInit {
       this.info.dataExtra['companyName'] = this.sellerForm.get('companyName').value;
       this.info.dataExtra['companyType'] = this.sellerForm.get('companyType').value;
       this.info.dataExtra['licenseNumber'] = this.sellerForm.get('licenseNumber').value;
+      this.info.dataExtra['swiftCode'] = this.sellerForm.get('swiftCode').value;
       this.info.dataExtra['iso'] = this.sellerForm.get('iso').value;
       this.info.dataExtra['iban'] = this.sellerForm.get('iban').value;
       this.info.dataExtra['productsIntered'] = this.sellerForm.get('productsIntered').value;
