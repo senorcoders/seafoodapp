@@ -93,6 +93,7 @@ export class SingleProductComponent implements OnInit {
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   public variationId = '';
   public fishOption = '';
+  staticField: any;
   constructor(
     private route: ActivatedRoute,
     public productService: ProductService,
@@ -209,6 +210,20 @@ export class SingleProductComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  handleInput($event){
+    console.log("ON INput", $event.srcElement.value);
+    let val = $event.srcElement.value;
+    this.staticField = $event.srcElement.value;
+    var that = this;
+    setTimeout(() => {
+      if(that.staticField == val){
+        console.log("El valor no ha cambiado en un segundo");
+        this.verifyQty();
+      }
+    }, 1000);
+
   }
   verifyQty() {
     if (this.count > this.max) {
