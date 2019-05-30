@@ -124,6 +124,7 @@ export class FishFormComponent implements OnInit {
       images: new FormControl('', Validators.nullValidator),
       imagesSend: new FormControl("", Validators.nullValidator),
       unitOfSale: new FormControl("", Validators.required),
+      perBoxes: new FormControl('', Validators.nullValidator),
       averageUnitWeight: new FormControl(10, Validators.required),
       deletedImages: new FormControl("[]", Validators.nullValidator),
       //features
@@ -141,9 +142,9 @@ export class FishFormComponent implements OnInit {
 
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       console.log("product", it);
-      if (it.unitOfSale === "boxes") {
+      if (it.perBoxes === true) {
         this.showAverageUnit = true;
-      } else if (it.unitOfSale === "kg") {
+      } else {
         this.showAverageUnit = false;
       }
       if (it.imagesSend !== '' && this.images.length === 0)

@@ -388,7 +388,7 @@
                 <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
                 <option value="kg">Kg</option>
                 <!-- <option value="lb">lb</option> -->
-                <option value="boxes">Boxes</option>
+                <option value="lbs">Lbs</option>
               </select>
               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
               <div class="form-control-feedback" *ngIf="controls().unitOfSale.errors&&parentForm.submitted">
@@ -400,14 +400,20 @@
               tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
+          <div class="custom-control custom-checkbox mb-3" style="max-width: 400px; margin: 0 auto;">
+              <input type="checkbox" formControlName="perBoxes" class="custom-control-input form-control" id="customControlValidation1" required>
+              <label class="custom-control-label" for="customControlValidation1">Enable if you would like to sell you product in boxes.</label>
+            </div>
         </div>
+
+       
 
         <div class="col-lg-6" [hidden]="!showAverageUnit">
 
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().averageUnitWeight.invalid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched),'has-success': controls().averageUnitWeight.valid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched)}">
             <span class="has-float-label">
-              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight (kg)...*"
+              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight (kg/lbs)...*"
                 formControlName="averageUnitWeight" required>
               <label for="averageunit">{{'CreateProduct.averageUnitWeight' | translate}}...*</label>
               <div class="form-control-feedback" *ngIf="controls().averageUnitWeight.errors&&parentForm.submitted">

@@ -213,7 +213,7 @@
 		"back": "Back",
 		"trimming": "Trimming...",
 		"unitOfSale": "Unit of Measurement...",
-		"averageUnitWeight": "Average Unit Weight (kg)...",
+		"averageUnitWeight": "Average Unit Weight (kg/lbs)...",
 		"sealife": "Sea Life Category"
 	},
 	"SingleProduct": {

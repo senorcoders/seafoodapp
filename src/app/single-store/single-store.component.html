@@ -1,6 +1,6 @@
 <div *ngIf="!empty; else elseBlock">
 
-  <section id="di-lyt" *ngIf="!simpleLayout; else simpleLayout">
+  <section id="di-lyt" *ngIf="!simpleLayout; else anotherLayout">
     <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
       <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
       <div class="hero-text">
@@ -92,7 +92,7 @@
     </div>
   </section>
 
-  <ng-template #simpleLayout>
+  <ng-template #anotherLayout>
     <section id="hor-lyt">
       <header id='hero' class="hero-container" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}">
       </header>

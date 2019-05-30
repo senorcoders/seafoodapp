@@ -61,6 +61,7 @@ export class CreateProductComponent implements OnInit {
 
   public createProduct = true;
   public speciesSelected = "";
+  lbHandler:number = 1;
 
   constructor(
     private productService: ProductService,
@@ -153,6 +154,7 @@ export class CreateProductComponent implements OnInit {
       .subscribe(async data => {
         try {
           this.product = data;
+          console.log("Producto", data);
           let images = await this.getImages(data);
 
           let product = {
@@ -161,24 +163,26 @@ export class CreateProductComponent implements OnInit {
             country: data["country"],
             processingCountry: data["processingCountry"],
             city: data["city"],
-            unitOfSale: data["perBox"] === false ? 'kg' : 'boxes',
-            averageUnitWeight: data["boxWeight"],
+            unitOfSale: data["unitOfSale"],
+            averageUnitWeight: data["unitOfSale"] == 'lbs' ? data['boxWeight'] * 2.205 :  data['boxWeight'],
             parentSelectedType: parent["level0"] ? parent["level0"].id : "",
             speciesSelected: parent["level1"] ? parent["level1"].id : '',
             subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
             descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
             seller_sku: data["seller_sku"] || '', 
             hsCode: data["hsCode"],
-            minimunorder: data["minimumOrder"],
-            maximumorder: data["maximumOrder"],
+            minimunorder: data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 :  data['minimumOrder'],
+            maximumorder:  data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 :  data['maximumOrder'],
             imagesSend: images.forForm,
             price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
+            perBoxes: data['perBox'],
             // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
             raised: data["raised"].id || "",
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
             wholeFishAction: data["wholeFishAction"]
-          }; console.log("product", product);
+          }; 
+          console.log("product fetched", product);
 
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
@@ -491,10 +495,12 @@ export class CreateProductComponent implements OnInit {
           'type': "kg",
           'value': 5
         },
-        perBox: product.unitOfSale === "boxes",
-        boxWeight: product.averageUnitWeight,
-        'minimumOrder': product.minimunorder,
-        'maximumOrder': product.maximumorder,
+        'perBox': product.perBoxes,
+        'perBoxes': product.perBoxes,
+        'unitOfSale': product.unitOfSale,
+        'boxWeight': product.unitOfSale == 'lbs' ? product.averageUnitWeight / 2.205 :  product.averageUnitWeight,
+        'minimumOrder': product.unitOfSale == 'lbs' ? product.minimunorder / 2.205 :  product.minimunorder,
+        'maximumOrder': product.unitOfSale == 'lbs' ? product.maximumorder / 2.205 :  product.maximumorder,
         // "acceptableSpoilageRate": features.acceptableSpoilageRate,
         'raised': features.raised,
         'treatment': features.treatment,
