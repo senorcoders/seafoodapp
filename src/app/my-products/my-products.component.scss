@@ -141,8 +141,14 @@
   }
 
   .single-product-box:hover{
-    .product-footer{
+    .product-header{
       h5{
+        color: $dark_blue;
+      }
+    }
+    
+    .product-footer{
+      h4, h5{
         color: $dark_blue;
       }
     }
