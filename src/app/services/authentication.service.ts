@@ -34,11 +34,20 @@ export class AuthenticationService {
       return false;
     }
   }
-  register(data, role, dataExtra, newQueries?) {
-    newQueries = newQueries || "";
+  register(data, role, dataExtra, dataMore?) {
+    dataMore = dataMore || {};
+    let httpOptionsForm: any = { headers: new HttpHeaders() };
+    httpOptionsForm.headers.append('Content-Type', 'multipart/form-data');
+    const formData: FormData = new FormData();
+    
     let body = { "firstName": data.firstName, "lastName": data.lastName, "email": data.email, "password": data.password, "role": role, "dataExtra": dataExtra };
-    console.log(body);
-    return this.http.post(`api/signup${newQueries}`, body, httpOptions);
+    // body = Object.assign(body, dataMore);
+    
+    for (let name of Object.keys(dataMore)) {
+      body[name] = dataMore[name];
+    }
+    console.log("here", body);
+    return this.http.post(`api/signup`, body);
   }
 
   setCart(data) {

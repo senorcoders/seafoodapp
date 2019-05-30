@@ -322,18 +322,19 @@ export class RegistrationSellerComponent implements OnInit {
       "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
       "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
     };
-    //go convert to queries url :)
-    let query = "?";
-    for (let name of Object.keys(store)) {
-      if (query !== "?")
-        query += "&";
-      query += name + "=" + store[name];
-    }
+    
 
-    this.auth.register(this.sellerForm.value, 1, dataExtra, query).subscribe(res => {
+    this.auth.register(this.sellerForm.value, 1, dataExtra, store).subscribe(res => {
       console.log("Res", res);
+      let r:any = res;
+      if(r.message && r.message === "error"){
+        this.isValid = false;
+        this.btnText = "REGISTER TO SELL";
+        return this.showError(r.data);
+      }
       this.email = this.sellerForm.get('email').value;
-      this.userID = res['id']
+      this.userID = res['id'];
+
       this.router.navigate(['/register-verification']);
       // this.createStore();
     }, error => {
@@ -351,59 +352,60 @@ export class RegistrationSellerComponent implements OnInit {
 
 
   //Create store on the Database
-  createStore() {
-    let store = {
-      "name": this.sellerForm.get('companyName').value,
-      "owner": this.userID,
-      "description": ""
-    }
-    this.product.saveData('api/store/', store).subscribe(
-      result => {
-        this.storeID = result[0].id;
-        //update store with full data, api is working in this way
-        let storeFullData = {
-          "companyName": this.sellerForm.get('companyName').value,
-          "companyType": this.sellerForm.get('companyType').value,
-          "location": this.sellerForm.get('location').value,
-          "Address": this.sellerForm.get('Address').value,
-          "City": this.sellerForm.get('City').value,
-          "ContactNumber": this.sellerForm.get('ContactNumber').value,
-          "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
-          "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
-          "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
-          "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
-          "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
-          "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
-        }
-        console.log(this.storeID)
-        this.product.updateData('store/' + this.storeID, storeFullData).subscribe(
-          result => {
-            console.log("REesult", result);
-            this.showConfirmation = false;
-            this.router.navigate(['/register-verification']);
-            this.isValid = false;
-            this.btnText = 'REGISTER TO SELL'
-          },
-          error => {
-            this.isValid = false;
-            this.btnText = 'REGISTER TO SELL'
-            this.showError(error.error)
-            //if store has error. delete user and store
-            this.product.deleteData('user/' + this.userID).subscribe(
-              result => { console.log(result) }, e => { console.log(e) })
-            this.product.deleteData('store/' + this.storeID).subscribe(
-              result => { console.log(result) }, e => { console.log(e) })
-            console.log(error)
-          }
-        )
-      },
-      error => {
-        this.showError(error.error)
-        console.log(error)
-        this.isValid = false;
-        this.btnText = 'REGISTER TO SELL'
-      }
-    )
-  }
+  // createStore() {
+  //   let store = {
+  //     "name": this.sellerForm.get('companyName').value,
+  //     "owner": this.userID,
+  //     "description": ""
+  //   }
+  //   this.product.saveData('api/store/', store).subscribe(
+  //     result => {
+  //       this.storeID = result[0].id;
+  //       //update store with full data, api is working in this way
+  //       let storeFullData = {
+  //         "companyName": this.sellerForm.get('companyName').value,
+  //         "companyType": this.sellerForm.get('companyType').value,
+  //         "location": this.sellerForm.get('location').value,
+  //         "Address": this.sellerForm.get('Address').value,
+  //         "City": this.sellerForm.get('City').value,
+  //         "ContactNumber": this.sellerForm.get('ContactNumber').value,
+  //         "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
+  //         "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
+  //         "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+  //         "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
+  //         "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
+  //         "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
+  //       }
+  //       console.log(this.storeID)
+  //       this.product.updateData('store/' + this.storeID, storeFullData).subscribe(
+  //         result => {
+  //           console.log("REesult", result);
+  //           this.showConfirmation = false;
+  //           this.router.navigate(['/register-verification']);
+  //           this.isValid = false;
+  //           this.btnText = 'REGISTER TO SELL'
+  //         },
+  //         error => {
+  //           this.isValid = false;
+  //           this.btnText = 'REGISTER TO SELL'
+  //           this.showError(error.error)
+  //           //if store has error. delete user and store
+  //           this.product.deleteData('user/' + this.userID).subscribe(
+  //             result => { console.log(result) }, e => { console.log(e) })
+  //           this.product.deleteData('store/' + this.storeID).subscribe(
+  //             result => { console.log(result) }, e => { console.log(e) })
+  //           console.log(error)
+  //         }
+  //       )
+  //     },
+  //     error => {
+  //       this.showError(error.error)
+  //       console.log(error)
+  //       this.isValid = false;
+  //       this.btnText = 'REGISTER TO SELL'
+  //     }
+  //   )
+  // }
+
 }
 
