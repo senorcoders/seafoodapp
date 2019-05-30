@@ -137,8 +137,8 @@
 
                 <form class="kg-form">
                     <span class="amount-span"style="margin-right: 5px;">min <br> {{min}}</span>
-                    <input *ngIf="perBox != true" type="number"  placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (change)="verifyQty()">
-                    <input *ngIf="perBox == true" type="number"  placeholder="enter box..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (change)="verifyQty()">
+                    <input *ngIf="perBox != true" type="number"  placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
+                    <input *ngIf="perBox == true" type="number"  placeholder="enter box..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{max}}</span>
                 </form>
               </div>

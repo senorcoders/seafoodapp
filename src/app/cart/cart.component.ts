@@ -49,6 +49,7 @@ export class CartComponent implements OnInit {
   imageCart: any = [];
   preparataion:any =[];
   taxesPer:any;
+  staticField: any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
     private sanitizer: DomSanitizer, private countriesService: CountriesService) { }
@@ -307,6 +308,19 @@ export class CartComponent implements OnInit {
       input.focus();
     }
 
+    handleInput($event, id, i, max, min, boxweight = 1){
+      console.log("ON INput", $event.srcElement.value);
+      let val = $event.srcElement.value;
+      this.staticField = $event.srcElement.value;
+      var that = this;
+      setTimeout(() => {
+        if(that.staticField == val){
+          console.log("El valor no ha cambiado en un segundo");
+          this.manualInput(id, i, max, min, boxweight = 1);
+        }
+      }, 1000);
+  
+    }
      //Functino to enter manual kg
   manualInput(id, i, max, min, boxweight = 1) {
     let val: any = jQuery('#edit-qty-' + id).val();
