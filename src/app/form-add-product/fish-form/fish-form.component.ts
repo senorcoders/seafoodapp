@@ -73,7 +73,7 @@ export class FishFormComponent implements OnInit {
   // public trimmings = [];
   private identifier = "_arr";
   public treatments = [];
-
+public staticmin:number = 1;
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
     private route: ActivatedRoute, private sanitizer: DomSanitizer,
@@ -144,9 +144,16 @@ export class FishFormComponent implements OnInit {
       console.log("product", it);
       if (it.perBoxes === true) {
         this.showAverageUnit = true;
+        if(it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight){
+          this.product
+          it.minimunorder = it.averageUnitWeight + 1;
+          this.controls().minimunorder.setValue(it.averageUnitWeight + 1);
+        }
+
       } else {
         this.showAverageUnit = false;
       }
+
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
 

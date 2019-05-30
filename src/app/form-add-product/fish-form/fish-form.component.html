@@ -434,7 +434,7 @@
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
             <span class="has-float-label">
-              <input id="min" placeholder="Minimum Order...*" type="number" class="form-control"
+              <input id="min" placeholder="Minimum Order...*" [min]="staticmin" type="number" class="form-control"
                 formControlName="minimunorder">
               <label for="min">Minimum Order...*</label>
               <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
