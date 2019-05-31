@@ -519,11 +519,19 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" (click)="closeShippingModal()">
-					<img src="../../assets/svg/close.svg" alt="">
+					<svg
+						xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24"
+						viewBox="0 0 24 24">
+						<path
+							d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+						</svg>
 				</button>
 				<h5 class="modal-title">ATTACH SHIPPING DOCUMENTS</h5>
 				<button type="button" class="close" (click)="saveTracking()">
-					<img src="../../assets/svg/check.svg" alt="">
+					<svg
+						xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24"
+						viewBox="0 0 24 24">
+						<path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z" /></svg>
 				</button>
 			</div>
 			<div class="modal-body">
@@ -657,8 +665,16 @@
 														z-index="1000000000"
 														src="../../assets/svg/information-outline.svg" alt=""
 														width="20"></label>
-												<label for="5" class="fake-input"> <img
-														src="../../assets/svg/attachment.svg" alt=""> {{label5}}</label>
+												<label for="5" class="fake-input">
+														
+														<svg class='attach-svg' xmlns="http://www.w3.org/2000/svg" width="17.935" height="17.935" viewBox="0 0 17.935 17.935">
+															
+															<path [ngClass]="doc  ? 'filled' : 'a'"
+																d="M6.5,16a4.5,4.5,0,1,1,0-9h8.591a3.273,3.273,0,1,1,0,6.545H8.136a2.045,2.045,0,0,1,0-4.091h6.136v1.227H8.136a.818.818,0,1,0,0,1.636h6.955a2.045,2.045,0,1,0,0-4.091H6.5a3.273,3.273,0,0,0,0,6.545h7.773V16Z"
+																transform="translate(-6.364 8.035) rotate(-45)" />
+														</svg>
+														
+														{{label5}}</label>
 
 												<input type="file" class="form-control" id="5"
 													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"

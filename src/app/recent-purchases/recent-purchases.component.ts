@@ -609,10 +609,16 @@ export class RecentPurchasesComponent implements OnInit {
   public mapDocs(doc, name) {
     const file = doc.split('/');
     if (file[3] !== undefined && file[3].includes(name)) {
-
       return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`;
     }
   }
+
+  hasContent(element: string) {
+    if (document.getElementById(element).innerHTML !== null) {
+      return true;
+    }
+  }
+
   async postFile(element) {
     await new Promise((resolve) => {
 
