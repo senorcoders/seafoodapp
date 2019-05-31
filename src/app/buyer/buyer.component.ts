@@ -42,10 +42,12 @@ export class BuyerComponent implements OnInit {
 			email: ['', [Validators.email, Validators.required]],
 			tel: [''],
 			companyName: [''],
-			fullBakingInfo: [''],
 			TypeBusiness: [''],
 			Address: [''],
-			City: ['']
+			City: [''],
+			vat: [''],
+			productsInterestedinBuying: [''],
+			additionalItems: ['']
 
 		});
 	}
@@ -53,14 +55,16 @@ export class BuyerComponent implements OnInit {
 		this.buyerForm = this.fb.group({
 			firstName: [this.user.firstName, Validators.required],
 			lastName: [this.user.lastName, Validators.required],
-			country: [this.user.country, Validators.required],
+			country: [this.user.dataExtra.country, Validators.required],
 			email: [this.user.email, [Validators.email, Validators.required]],
 			tel: [this.user.dataExtra.tel],
-			companyName: [this.user.companyName],
-			fullBakingInfo: [this.user.dataExtra.fullBakingInfo],
-			TypeBusiness: [this.user.dataExtra.TypeBusiness],
+			companyName: [this.user.dataExtra.companyName],
+			TypeBusiness: [this.user.dataExtra.typeBusiness],
 			Address: [this.user.dataExtra.Address],
-			City: [this.user.dataExtra.City]
+			City: [this.user.dataExtra.City],
+			vat: [this.user.dataExtra.vat],
+			productsInterestedinBuying: [this.user.dataExtra.productsInterestedinBuying],
+			additionalItems: [this.user.dataExtra.additionalItems]
 
 		});
 	}
@@ -161,7 +165,10 @@ export class BuyerComponent implements OnInit {
 			'Address': data.Address,
 			'City': data.City,
 			'companyName': data.companyName,
-			'TypeBusiness': data.TypeBusiness
+			'TypeBusiness': data.TypeBusiness,
+			"vat": data.vat,
+			'additionalItems': data.additionalItems,
+			'productsInterestedinBuying': data.productsInterestedinBuying
 		};
 		data.dataExtra = dataExtra;
 		console.log('buyer', data);

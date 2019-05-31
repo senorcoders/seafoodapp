@@ -63,10 +63,15 @@ export class CreateProductComponent implements OnInit {
   public currentPrincingCharges: any;
 
   public createProduct = true;
+<<<<<<< HEAD
   public speciesSelected = '';
   
   private sellectedSeller: any;
   private sellerChange: Subject<void> = new Subject<void>();
+=======
+  public speciesSelected = "";
+  lbHandler:number = 1;
+>>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
 
   constructor(
     private productService: ProductService,
@@ -187,6 +192,7 @@ export class CreateProductComponent implements OnInit {
       .subscribe(async data => {
         try {
           this.product = data;
+<<<<<<< HEAD
           const images = await this.getImages(data);
 
           const product = {
@@ -216,6 +222,38 @@ export class CreateProductComponent implements OnInit {
           this.store = data['store'];
           this.selectedSeller = data['store']['owner'];
           this.getSeller( this.selectedSeller );
+=======
+          console.log("Producto", data);
+          let images = await this.getImages(data);
+
+          let product = {
+            name: data["name"],
+            brandName: data["brandname"] || "",
+            country: data["country"],
+            processingCountry: data["processingCountry"],
+            city: data["city"],
+            unitOfSale: data["unitOfSale"],
+            averageUnitWeight: data["unitOfSale"] == 'lbs' ? data['boxWeight'] * 2.205 :  data['boxWeight'],
+            parentSelectedType: parent["level0"] ? parent["level0"].id : "",
+            speciesSelected: parent["level1"] ? parent["level1"].id : '',
+            subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
+            descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
+            seller_sku: data["seller_sku"] || '', 
+            hsCode: data["hsCode"],
+            minimunorder: data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 :  data['minimumOrder'],
+            maximumorder:  data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 :  data['maximumOrder'],
+            imagesSend: images.forForm,
+            price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
+            perBoxes: data['perBox'],
+            // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
+            raised: data["raised"].id || "",
+            treatment: data["treatment"].id || "",
+            head: data["head"] || "on",
+            wholeFishAction: data["wholeFishAction"]
+          }; 
+          console.log("product fetched", product);
+
+>>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
           //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
@@ -573,6 +611,67 @@ export class CreateProductComponent implements OnInit {
         this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
         this.loading = false;
         this.ngProgress.done();
+<<<<<<< HEAD
+=======
+        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
+      }
+
+      // this.ngProgress.start();
+      // let priceAED = Number(features.price).toFixed(2);
+      const data: any = {
+        parentType: product.parentSelectedType,
+        "specie": product.speciesSelected,
+        'type': product.subSpeciesSelected,
+        'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
+        'store': this.store[0].id,
+        'quality': 'good',
+        'name': product.name,
+        'description': '',
+        'country': product.country,
+        'processingCountry': product.processingCountry,
+        'city': product.city,
+        // 'price': {
+        //   'type': '$',
+        //   'value': priceAED,
+        //   'description': priceAED + ' for pack'
+        // },
+        'weight': {
+          'type': "kg",
+          'value': 5
+        },
+        'perBox': product.perBoxes,
+        'perBoxes': product.perBoxes,
+        'unitOfSale': product.unitOfSale,
+        'boxWeight': product.unitOfSale == 'lbs' ? product.averageUnitWeight / 2.205 :  product.averageUnitWeight,
+        'minimumOrder': product.unitOfSale == 'lbs' ? product.minimunorder / 2.205 :  product.minimunorder,
+        'maximumOrder': product.unitOfSale == 'lbs' ? product.maximumorder / 2.205 :  product.maximumorder,
+        // "acceptableSpoilageRate": features.acceptableSpoilageRate,
+        'raised': features.raised,
+        'treatment': features.treatment,
+        'seller_sku': product.seller_sku,
+        'seafood_sku': this.seafood_sku,
+        'mortalityRate': 1,
+        'waterLostRate': '0',
+        'status': '5c0866e4a0eda00b94acbdc0',
+        'brandName': product.brandName,
+        'hsCode': product.hsCode,
+        variations: variationsEnd,
+      };
+      if (this.productID !== "") {
+        data.idProduct = this.product.id;
+        data.variationsDeleted = variationsDeleted;
+        data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
+      }
+      console.log(data);
+      if (this.productID !== "") {
+        this.productService.updateData('api/variations', data).subscribe(result => {
+          this.uploadImagesAction(product, result);
+        });
+      } else {
+        this.productService.saveData('api/variations/add', data).subscribe(result => {
+          this.uploadImagesAction(product, result);
+        });
+>>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
       }
     }
   }

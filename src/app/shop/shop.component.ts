@@ -76,6 +76,7 @@ export class ShopComponent implements OnInit {
   public loading:boolean = true;
 
   public isChange:any = {};
+  staticField:any;
 
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
@@ -508,6 +509,19 @@ export class ShopComponent implements OnInit {
     (span as HTMLElement).style.display = 'none';
     (input as HTMLElement).style.display = 'inline-block';
     input.focus();
+  }
+  handleInput($event, max, min, variation, type){
+    console.log("ON INput", $event.srcElement.value);
+    let val = $event.srcElement.value;
+    this.staticField = $event.srcElement.value;
+    var that = this;
+    setTimeout(() => {
+      if(that.staticField == val){
+        console.log("El valor no ha cambiado en un segundo");
+        this.manualInput(max, min, variation, type);
+      }
+    }, 1000);
+
   }
   //Functino to enter manual kg
   manualInput(max, min, variation, type) {

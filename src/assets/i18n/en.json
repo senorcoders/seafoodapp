@@ -213,9 +213,8 @@
 		"back": "Back",
 		"trimming": "Trimming...",
 		"unitOfSale": "Unit of Measurement...",
-		"averageUnitWeight": "Average Unit Weight (kg)...",
-		"sealife": "Sea Life Category",
-		"selectSeller": "Choose a Seller"
+		"averageUnitWeight": "Average Unit Weight (kg/lbs)...",
+		"sealife": "Sea Life Category"
 	},
 	"SingleProduct": {
 		"add": "Add to cart",
@@ -283,7 +282,7 @@
 		"Errortext": "Verification code is not valid."
 	},
 	"Login": {
-		"title": "Welcome",
+		"title": "Welcome!",
 		"email": "Email...", 
 		"password": "Password...",
 		"required": "is required",

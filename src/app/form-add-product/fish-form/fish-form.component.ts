@@ -80,7 +80,7 @@ export class FishFormComponent implements OnInit {
   // public trimmings = [];
   private identifier = "_arr";
   public treatments = [];
-
+public staticmin:number = 1;
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
     private route: ActivatedRoute, private sanitizer: DomSanitizer,
@@ -127,7 +127,7 @@ export class FishFormComponent implements OnInit {
       kg: new FormControl('', Validators.nullValidator),
       parentSelectedType: new FormControl('', Validators.required),
       speciesSelected: new FormControl('', Validators.required),
-      subSpeciesSelected: new FormControl('', Validators.required),
+      subSpeciesSelected: new FormControl('', Validators.nullValidator),
       descriptorSelected: new FormControl('', Validators.nullValidator),
       seller_sku: new FormControl('', Validators.nullValidator),
       hsCode: new FormControl('', Validators.nullValidator),
@@ -136,6 +136,7 @@ export class FishFormComponent implements OnInit {
       images: new FormControl('', Validators.nullValidator),
       imagesSend: new FormControl("", Validators.nullValidator),
       unitOfSale: new FormControl("", Validators.required),
+      perBoxes: new FormControl('', Validators.nullValidator),
       averageUnitWeight: new FormControl(10, Validators.required),
       deletedImages: new FormControl("[]", Validators.nullValidator),
       //features
@@ -153,11 +154,18 @@ export class FishFormComponent implements OnInit {
 
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       console.log("product", it);
-      if (it.unitOfSale === "boxes") {
+      if (it.perBoxes === true) {
         this.showAverageUnit = true;
-      } else if (it.unitOfSale === "kg") {
+        if(it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight){
+          this.product
+          it.minimunorder = it.averageUnitWeight + 1;
+          this.controls().minimunorder.setValue(it.averageUnitWeight + 1);
+        }
+
+      } else {
         this.showAverageUnit = false;
       }
+
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
 
