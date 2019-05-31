@@ -362,7 +362,7 @@ export class CreateProductComponent implements OnInit {
     this.showError = true;
     this.loading = true;
 
-    if ( this.selectedSeller == undefined ) {
+    if ( this.selectedSeller == undefined && this.user['role'] == 0 ) {
       this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
       this.ngProgress.done();    
