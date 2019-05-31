@@ -40,9 +40,9 @@ export class CreateProductComponent implements OnInit {
   showNoData: boolean = false;
   default = [2, 3, 4, 3, 5];
   defaultTrimming = [];
-  sellers: any = [];
-  selectedSeller: string;
-  selectedSellerInfo: any;
+  public sellers: any = [];
+  public selectedSeller: string;
+  public selectedSellerInfo: any;
   pd = [];
   hideTrimModal: boolean = true;
   public loading = false;
@@ -53,7 +53,7 @@ export class CreateProductComponent implements OnInit {
   private trimmings = [];
   private seafood_sku = '';
   private productID = '';
-  private user: any = {};
+  public user: any = {};
   private ready = false;
   public loadingDetails = false;
   public eventsSubject: Subject<any> = new Subject<any>();
@@ -64,8 +64,8 @@ export class CreateProductComponent implements OnInit {
 
   public createProduct = true;
   
-  private sellectedSeller: any;
-  private sellerChange: Subject<void> = new Subject<void>();
+  public sellectedSeller: any;
+  public sellerChange: Subject<void> = new Subject<void>();
 
   public speciesSelected = "";
   lbHandler:number = 1;
@@ -364,7 +364,7 @@ export class CreateProductComponent implements OnInit {
     this.showError = true;
     this.loading = true;
 
-    if ( this.selectedSeller == undefined ) {
+    if ( this.selectedSeller == undefined && this.user['role'] !== 0 ) {
       this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
       this.ngProgress.done();    
@@ -379,12 +379,21 @@ export class CreateProductComponent implements OnInit {
         }
       }
 
+      //let product = value.product;
+      let value = this.myform.value,
+      product = value.product,
+      features = product,
+      pricing = value.price;
+
+      let variationsDeleted = JSON.parse(pricing.variationsDeleted);
+      let variations: any = {}, variationsTrim: any = {}, variationsEnd = [], weightsFilleted = [];
+
       if (this.myform.valid) {
         console.log(this.myform.value);
-        const value = this.myform.value,
-          product = value.product,
+        /*const value = this.myform.value,
           features = product,
-          pricing = value.price;
+	  product = value.product,
+          pricing = value.price;*/
 
         product.speciesSelected = product.speciesSelected || this.speciesSelected;
 
