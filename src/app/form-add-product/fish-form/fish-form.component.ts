@@ -137,7 +137,7 @@ weightType:any = 'Kg';
       images: new FormControl('', Validators.nullValidator),
       imagesSend: new FormControl("", Validators.nullValidator),
       unitOfSale: new FormControl("", Validators.required),
-      perBoxes: new FormControl('', Validators.nullValidator),
+      perBoxes: new FormControl(false, Validators.nullValidator),
       averageUnitWeight: new FormControl(10, Validators.required),
       deletedImages: new FormControl("[]", Validators.nullValidator),
       //features
