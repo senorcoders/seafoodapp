@@ -56,6 +56,8 @@ export class EditAccountComponent implements OnInit {
   fileHero:any = [];
   heroEndpoint:any = 'api/store/hero/';
   logoEndpoint:any = 'api/store/logo/';
+  brandsEndpint:any = 'api/v2/seller/logos/';
+  certsEndpint:any = 'api/v2/seller/certifications/';
   regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   public loading = false;
   rePassword: FormControl;
@@ -64,6 +66,11 @@ export class EditAccountComponent implements OnInit {
   vat: FormControl;
   productsInterestedinBuying: FormControl;
   additionalItems: FormControl;
+  brandsFiles:any = [];
+  currentBrandLogos:any = [];
+  certsFiles:any = [];
+  currentCertifications:any = [];
+
 
 
 
@@ -73,7 +80,7 @@ export class EditAccountComponent implements OnInit {
     private countryService: CountriesService) {
       jQuery(document).ready(function () {
       jQuery('.js-example-basic-single').select2();
-      jQuery('select').selectpicker();
+      jQuery('.selectpicker').selectpicker();
 
     });
 
@@ -92,6 +99,7 @@ export class EditAccountComponent implements OnInit {
     if(this.info['role'] == 1){
       await this.getStoreData();
       this.setSellerValues();
+      this.getBrandLogos();
 
     }
     this.setValues();
@@ -105,6 +113,19 @@ export class EditAccountComponent implements OnInit {
     // this.getStoreData();
   }
 
+  getBrandLogos(){
+    this.rest.getData(`user/${this.info["id"]}`).subscribe(res => {
+      console.log("Brand Logos", res);
+      if(res['logos']){
+        this.currentBrandLogos = res['logos'];
+
+      }
+      if(res['certifications']){
+        this.currentCertifications = res['certifications'];
+
+      }
+    })
+  }
   createFormControls(){
     this.buyerFirstName = new FormControl('', [Validators.required]);
     this.buyerLastName = new FormControl('',[Validators.required]);
@@ -137,8 +158,8 @@ export class EditAccountComponent implements OnInit {
     this.currentPassword = new FormControl('',[Validators.required]);
     this.swiftCode = new FormControl('', [Validators.nullValidator]);
     this.vat = new FormControl('', [Validators.nullValidator]);
-    this.productsInterestedinBuying = new FormControl('', [Validators.required]);
-    this.additionalItems = new FormControl('', [Validators.required]);
+    this.productsInterestedinBuying = new FormControl('', [Validators.nullValidator]);
+    this.additionalItems = new FormControl('', [Validators.nullValidator]);
 
   }
 
@@ -276,6 +297,9 @@ export class EditAccountComponent implements OnInit {
  
  }
   updateSeller(){
+
+    console.log("Logos", this.brandsFiles);
+    console.log("Certificados", this.certsFiles);
     if(this.sellerForm.valid){
       console.log("Valido");
       this.info.firstName = this.sellerForm.get('firstName').value;
@@ -413,9 +437,11 @@ updateStore(){
   this.rest.updateData('store/'+this.store[0].id, storeFullData).subscribe(
     async result=>{
 
-      if(this.fileHero.length > 0 || this.fileToUpload.length>0){
+      if(this.fileHero.length > 0 || this.fileToUpload.length>0 || this.brandsFiles.length > 0 || this.certsFiles.length > 0){
         (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
         (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
+        (this.brandsFiles.length > 0) ? await this.uploadFileBrands(this.brandsEndpint+this.info['id'], this.brandsFiles, 'logos') : null;
+        (this.certsFiles.length > 0) ? await this.uploadFileBrands(this.certsEndpint+this.info['id'], this.certsFiles, 'certifications') : null;
         this.loading = false;
         this.ngProgress.done();
         this.toast.success("Your account and store information has been updated successfully!",'Well Done',{positionClass:"toast-top-right"})
@@ -451,6 +477,36 @@ handleFileHero(files: FileList){
 
 }
 
+handleFileBrands(files: FileList, tag){
+ 
+  console.log("TAG", tag);
+  if(files){
+    if(tag == 'logos'){
+      this.brandsFiles = files;
+
+    }else{
+      this.certsFiles = files;
+    }
+    var filesAmount = files.length;
+
+    for (var i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+
+        reader.onload = function(event) {
+          if(tag == 'logos'){
+            jQuery(jQuery.parseHTML('<img height="100px">')).attr('src', event.target['result']).appendTo('div#brands-gallery');
+
+          }else{
+            jQuery(jQuery.parseHTML('<img height="100px">')).attr('src', event.target['result']).appendTo('div#certs-gallery');
+
+          }
+        }
+
+        reader.readAsDataURL(files[i]);
+    }
+  }
+}
+
   async uploadFile(id, endpoint, file, from){
 
   await new Promise((resolve, reject) => {
@@ -464,6 +520,18 @@ handleFileHero(files: FileList){
 });
 }
 
+async uploadFileBrands(endpoint, file, from){
+
+  await new Promise((resolve, reject) => {
+  this.rest.uploadFile(endpoint, from, file).subscribe(result => {
+    console.log("File", result);
+    resolve();
+  }, error => {
+    console.log("File Error", error);
+    reject();
+  })
+});
+}
 
 readFile(files, id){
   if (files[0]) {
@@ -486,5 +554,20 @@ getCountries() {
       console.log(error);
     }
   );
+}
+
+deleteLogo(url, i, tag){
+  let urlP = url.split("/").slice(1).join("/");
+
+  this.rest.deleteData(urlP).subscribe(res=>{
+    console.log("Delete", res);
+    if(tag == 'brands' ){
+      this.currentBrandLogos.splice(i, 1);
+
+    }else{
+      this.currentCertifications.splice(i, 1);
+    }
+
+  })
 }
 }

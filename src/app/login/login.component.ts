@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit {
         console.log(error);
         this.showError(error.error);
         this.isValid = false;
-        this.loginText = 'Login & swim';
+        this.loginText = 'Login';
       }
     )
   }

@@ -308,7 +308,7 @@ export class CartComponent implements OnInit {
       input.focus();
     }
 
-    handleInput($event, id, i, max, min, boxweight = 1){
+    handleInput($event, id, i, max, min, boxweight){
       console.log("ON INput", $event.srcElement.value);
       let val = $event.srcElement.value;
       this.staticField = $event.srcElement.value;
@@ -316,13 +316,14 @@ export class CartComponent implements OnInit {
       setTimeout(() => {
         if(that.staticField == val){
           console.log("El valor no ha cambiado en un segundo");
-          this.manualInput(id, i, max, min, boxweight = 1);
+          this.manualInput(id, i, max, min, boxweight);
         }
       }, 1000);
   
     }
      //Functino to enter manual kg
   manualInput(id, i, max, min, boxweight = 1) {
+    console.log("BOx Weight", boxweight);
     let val: any = jQuery('#edit-qty-' + id).val();
     val = val;
     console.log("minimo y maximo", min, max, val);

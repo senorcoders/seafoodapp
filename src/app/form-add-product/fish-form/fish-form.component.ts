@@ -159,8 +159,8 @@ weightType:any = 'Kg';
         this.showAverageUnit = true;
         if(it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight){
           this.product
-          it.minimunorder = it.averageUnitWeight + 1;
-          this.controls().minimunorder.setValue(it.averageUnitWeight + 1);
+          it.minimunorder = it.averageUnitWeight;
+          this.controls().minimunorder.setValue(it.averageUnitWeight);
         }
 
       } else {
