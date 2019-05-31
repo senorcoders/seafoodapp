@@ -297,6 +297,9 @@ export class EditAccountComponent implements OnInit {
  
  }
   updateSeller(){
+
+    console.log("Logos", this.brandsFiles);
+    console.log("Certificados", this.certsFiles);
     if(this.sellerForm.valid){
       console.log("Valido");
       this.info.firstName = this.sellerForm.get('firstName').value;
@@ -475,6 +478,8 @@ handleFileHero(files: FileList){
 }
 
 handleFileBrands(files: FileList, tag){
+ 
+  console.log("TAG", tag);
   if(files){
     if(tag == 'logos'){
       this.brandsFiles = files;
