@@ -3,6 +3,21 @@
 .selectionable{
     cursor: pointer;
 }
+
+.close {
+    opacity: 1 !important;
+    
+    svg {
+        fill: $light_blue;
+    }
+
+    &:hover {
+        svg {
+            fill: $dark_blue
+        }
+    } 
+}
+
 .black-btn{
     color: white !important;
     font-size: 0.8rem;
@@ -317,6 +332,16 @@ p.order-number {
                 img{
                     width: 20px;
                     vertical-align: inherit;
+                }
+
+                .attach-svg {
+                    .a {
+                        fill: $gray;
+                    }
+
+                    .filled {
+                        fill: $black
+                    }
                 }
              }
             } 
