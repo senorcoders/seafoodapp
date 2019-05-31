@@ -385,7 +385,6 @@ export class CreateProductComponent implements OnInit {
           pricing = value.price;
 
         product.speciesSelected = product.speciesSelected || this.speciesSelected;
-
         // Para checkar si hay imagenes
         if (product.imagesSend === '') {
           this.loading = false;
@@ -399,7 +398,6 @@ export class CreateProductComponent implements OnInit {
             return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
           }
         }
-
         // Para checkar si hay imagen default
         if (product.images !== undefined && product.images !== '') {
           const images = JSON.parse(product.imagesSend);
@@ -412,7 +410,6 @@ export class CreateProductComponent implements OnInit {
             return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
           }
         }
-
         // si es actualizando un producto para saber los que se eliminan
         const variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
@@ -486,7 +483,6 @@ export class CreateProductComponent implements OnInit {
             }
           }
         }
-
         // Buscamos si algun price yeva id, si lleva quiere decir que es
         // Para actualizar
         variationsEnd = variationsEnd.map(it => {
@@ -511,12 +507,11 @@ export class CreateProductComponent implements OnInit {
             variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
           }
         }
-
         if (variationsEnd.length === 0) {
           this.loading = false;
           this.ngProgress.done();        
-        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
-      }
+          return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
+        }
 
       // this.ngProgress.start();
       // let priceAED = Number(features.price).toFixed(2);
@@ -575,6 +570,10 @@ export class CreateProductComponent implements OnInit {
           this.uploadImagesAction(product, result);
         });
       }
+    } else {
+      this.loading = false;
+          this.ngProgress.done();
+          return this.toast.error('fields are required', 'Error', { positionClass: 'toast-top-right' });
     }
   }
 }
