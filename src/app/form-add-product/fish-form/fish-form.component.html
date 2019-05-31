@@ -219,7 +219,7 @@
         <div class="col-12">
           <div class="form-group  file-input"
             [ngClass]="{'has-danger': controls().images.invalid && (controls().images.dirty || controls().images.touched),'has-success': controls().images.valid && (controls().images.dirty || controls().images.touched)}">
-            <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Gallery Images...*</label>
+            <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload your images...*</label>
             <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
               accept="image/png,image/jpeg,image/jpg" formControlName="images">
             <div class="form-control-feedback" *ngIf="controls().images.errors&&parentForm.submitted">
@@ -288,9 +288,9 @@
         <div class="col-lg-6">
           <div class="form-group input-group">
             <span class="has-float-label">
-              <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control"
+              <input id="sellersku" placeholder="Product SKU..." type="text" class="form-control"
                 formControlName="seller_sku">
-              <label id="sellersku">Company Product SKU...</label>
+              <label id="sellersku">Product SKU...</label>
             </span>
             <button type="button" class="question-btn" tabIndex="-1"
               tooltip="Optional field for your unique product code" placement="right" show-delay="0"><img
@@ -357,7 +357,7 @@
         </div>
         <div class="col-lg-6 offset-lg-3">
           <div class="form-group input-group hs-code-contant">
-            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Code 
+            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Here 
               <img src="../../../assets/svg/arrow-right.svg" class="hs-code-link-img" > </a>
             <span class="has-float-label">
               <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
@@ -376,7 +376,7 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h1 class="subtitle-form">
-            <span>product pricing</span>
+            <span>pricing</span>
           </h1>
         </div>
 
