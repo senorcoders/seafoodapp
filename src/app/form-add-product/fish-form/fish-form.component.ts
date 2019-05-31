@@ -81,6 +81,7 @@ export class FishFormComponent implements OnInit {
   private identifier = "_arr";
   public treatments = [];
 public staticmin:number = 1;
+weightType:any = 'Kg';
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
     private route: ActivatedRoute, private sanitizer: DomSanitizer,
@@ -166,6 +167,11 @@ public staticmin:number = 1;
         this.showAverageUnit = false;
       }
 
+      if(it.unitOfSale == 'lbs'){
+        this.weightType = "Lbs"
+      }else{
+        this.weightType = "Kg";
+      }
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
 
