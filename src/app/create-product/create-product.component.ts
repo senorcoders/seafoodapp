@@ -40,7 +40,9 @@ export class CreateProductComponent implements OnInit {
   showNoData: boolean = false;
   default = [2, 3, 4, 3, 5];
   defaultTrimming = [];
-  sellers = [];
+  sellers: any = [];
+  selectedSeller: string;
+  selectedSellerInfo: any;
   pd = [];
   hideTrimModal: boolean = true;
   public loading = false;
@@ -62,6 +64,9 @@ export class CreateProductComponent implements OnInit {
 
   public createProduct = true;
   public speciesSelected = '';
+  
+  private sellectedSeller: any;
+  private sellerChange: Subject<void> = new Subject<void>();
 
   constructor(
     private productService: ProductService,
@@ -88,7 +93,15 @@ export class CreateProductComponent implements OnInit {
     this.eventsSubject.next(str)
   }
 
+  emitSellerSelectedToChild() {
+    this.getSeller( this.selectedSeller );
+    
+  }
+
   ngOnInit() {
+    if ( this.createProduct ) {
+      this.getSellers();
+    }
     this.myform = new FormGroup({
     });
 
@@ -103,6 +116,26 @@ export class CreateProductComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+
+  getSellers() {
+    this.productService.getData(`api/v2/user?where={%22role%22:1}&limit=200`).subscribe(
+      res => {
+        this.sellers = res['data'];
+      },
+      e => {
+        console.log(e);
+      }
+    );
+  }
+
+  getSeller( seller_id ) {
+    this.productService.getData('user/' + seller_id).subscribe(it => {
+      console.log('user', it);
+      this.getStore();
+      this.selectedSellerInfo = it;
+      this.sellerChange.next( this.selectedSellerInfo );
+    });
   }
 
   receiveMessage($event) {
@@ -179,8 +212,10 @@ export class CreateProductComponent implements OnInit {
             treatment: data['treatment'].id || '',
             head: data['head'] || 'on',
             wholeFishAction: data['wholeFishAction']
-          }; console.log('product', product);
-
+          }; console.log('product data', data);
+          this.store = data['store'];
+          this.selectedSeller = data['store']['owner'];
+          this.getSeller( this.selectedSeller );
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
           //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
@@ -292,11 +327,18 @@ export class CreateProductComponent implements OnInit {
 
   getMyData() {
     this.info = this.auth.getLoginData();
-    this.getStore();
+    if( this.user['role'] !== 0 ) {
+      this.getStore();
+    }
   }
 
   getStore() {
-    this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
+    let endpoint = this.storeEndpoint + this.info.id;
+    if( this.user['role'] === 0 ) {
+      endpoint = this.storeEndpoint + this.selectedSeller;
+    }
+    console.log( 'store endpoint',  endpoint );
+    this.productService.getData( endpoint ).subscribe(results => {
       this.store = results;
     });
   }
@@ -313,219 +355,225 @@ export class CreateProductComponent implements OnInit {
   async onSubmit() {
     this.showError = true;
     this.loading = true;
-    const keys = Object.keys(this.myform.controls);
-    for (const name of keys) {
-      const keys_ = Object.keys((this.myform.controls[name] as any).controls);
-      for (const na of keys_) {
-        if ((this.myform.controls[name] as any).controls[na].valid === false) {
-          console.log(name + '.' + na, (this.myform.controls[name] as any).controls[na]);
+
+    if ( this.selectedSeller == undefined ) {
+      this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
+      this.loading = false;
+      this.ngProgress.done();    
+    } else {
+      const keys = Object.keys(this.myform.controls);
+      for (const name of keys) {
+        const keys_ = Object.keys((this.myform.controls[name] as any).controls);
+        for (const na of keys_) {
+          if ((this.myform.controls[name] as any).controls[na].valid === false) {
+            console.log(name + '.' + na, (this.myform.controls[name] as any).controls[na]);
+          }
         }
       }
-    }
 
+      if (this.myform.valid) {
+        console.log(this.myform.value);
+        const value = this.myform.value,
+          product = value.product,
+          features = product,
+          pricing = value.price;
 
+        product.speciesSelected = product.speciesSelected || this.speciesSelected;
 
-    if (this.myform.valid) {
-      console.log(this.myform.value);
-      const value = this.myform.value,
-        product = value.product,
-        features = product,
-        pricing = value.price;
-
-      product.speciesSelected = product.speciesSelected || this.speciesSelected;
-
-      // Para checkar si hay imagenes
-      if (product.imagesSend === '') {
-        this.loading = false;
-        this.ngProgress.done();
-        return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
-      } else {
-        const imagesSend = JSON.parse(product.imagesSend);
-        if (imagesSend.length === 0) {
+        // Para checkar si hay imagenes
+        if (product.imagesSend === '') {
           this.loading = false;
           this.ngProgress.done();
           return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+        } else {
+          const imagesSend = JSON.parse(product.imagesSend);
+          if (imagesSend.length === 0) {
+            this.loading = false;
+            this.ngProgress.done();
+            return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+          }
         }
-      }
 
-      // Para checkar si hay imagen default
-      if (product.images !== undefined && product.images !== '') {
-        const images = JSON.parse(product.imagesSend);
-        const index = images.findIndex(it => {
-          return it.type === 'primary';
-        });
-        if (index === -1) {
-          this.loading = false;
-          this.ngProgress.done();
-          return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
+        // Para checkar si hay imagen default
+        if (product.images !== undefined && product.images !== '') {
+          const images = JSON.parse(product.imagesSend);
+          const index = images.findIndex(it => {
+            return it.type === 'primary';
+          });
+          if (index === -1) {
+            this.loading = false;
+            this.ngProgress.done();
+            return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
+          }
         }
-      }
 
-      // si es actualizando un producto para saber los que se eliminan
-      const variationsDeleted = JSON.parse(pricing.variationsDeleted);
+        // si es actualizando un producto para saber los que se eliminan
+        const variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
-      let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
-        weightsFilleted = [];
-      if (pricing.weights !== '') {
-        variations = JSON.parse(pricing.weights);
-      }
-      if (pricing.weightsTrim !== '') {
-        variationsTrim = JSON.parse(pricing.weightsTrim);
-      }
+        let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
+          weightsFilleted = [];
+        if (pricing.weights !== '') {
+          variations = JSON.parse(pricing.weights);
+        }
+        if (pricing.weightsTrim !== '') {
+          variationsTrim = JSON.parse(pricing.weightsTrim);
+        }
 
-      if (pricing.weightsFilleted !== '') {
-        weightsFilleted = JSON.parse(pricing.weightsFilleted);
-      }
+        if (pricing.weightsFilleted !== '') {
+          weightsFilleted = JSON.parse(pricing.weightsFilleted);
+        }
 
-      // Para quitar las options
-      const itereOptions = it => {
-        delete it.options;
-        return it;
-      };
-      // Para ver si es varations Trimming
-      if (features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4') {
-        console.log(Object.keys(variationsTrim));
-        for (const key of Object.keys(variationsTrim)) {
-          const fishPreparation = key;
+        // Para quitar las options
+        const itereOptions = it => {
+          delete it.options;
+          return it;
+        };
+        // Para ver si es varations Trimming
+        if (features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+          console.log(Object.keys(variationsTrim));
+          for (const key of Object.keys(variationsTrim)) {
+            const fishPreparation = key;
+            const itr = {
+              fishPreparation,
+              prices: variationsTrim[key].map(itereOptions)
+            };
+            variationsEnd.push(itr);
+          }
+        } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
+          // para los fillete
+          const fishPreparation = '5c93c01465e25a011eefbcc4';
+
           const itr = {
             fishPreparation,
-            prices: variationsTrim[key].map(itereOptions)
+            prices: weightsFilleted.map((it, i) => {
+              const price = pricing['weightsFillete_arr'][i];
+              it.price = price;
+              return itereOptions(it);
+            })
           };
           variationsEnd.push(itr);
-        }
-      } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
-        // para los fillete
-        const fishPreparation = '5c93c01465e25a011eefbcc4';
-
-        const itr = {
-          fishPreparation,
-          prices: weightsFilleted.map((it, i) => {
-            const price = pricing['weightsFillete_arr'][i];
-            it.price = price;
-            return itereOptions(it);
-          })
-        };
-        variationsEnd.push(itr);
-      } else {
-        // Para los ON
-        let fishPreparation = '5c93bff065e25a011eefbcc2';
-        if (variations.on.keys && variations.on.keys.length > 0) {
-          for (const it of variations.on.keys) {
-            const wholeFishWeight = it;
-            const itr = {
-              fishPreparation,
-              wholeFishWeight,
-              prices: variations.on[it].map(itereOptions)
-            };
-            variationsEnd.push(itr);
+        } else {
+          // Para los ON
+          let fishPreparation = '5c93bff065e25a011eefbcc2';
+          if (variations.on.keys && variations.on.keys.length > 0) {
+            for (const it of variations.on.keys) {
+              const wholeFishWeight = it;
+              const itr = {
+                fishPreparation,
+                wholeFishWeight,
+                prices: variations.on[it].map(itereOptions)
+              };
+              variationsEnd.push(itr);
+            }
+          }
+          // Para off
+          fishPreparation = '5c93c00465e25a011eefbcc3';
+          if (variations.off.keys && variations.off.keys.length > 0) {
+            for (const it of variations.off.keys) {
+              const wholeFishWeight = it;
+              const itr = {
+                fishPreparation,
+                wholeFishWeight,
+                prices: variations.off[it].map(itereOptions)
+              };
+              variationsEnd.push(itr);
+            }
           }
         }
-        // Para off
-        fishPreparation = '5c93c00465e25a011eefbcc3';
-        if (variations.off.keys && variations.off.keys.length > 0) {
-          for (const it of variations.off.keys) {
-            const wholeFishWeight = it;
-            const itr = {
-              fishPreparation,
-              wholeFishWeight,
-              prices: variations.off[it].map(itereOptions)
-            };
-            variationsEnd.push(itr);
-          }
-        }
-      }
 
-      // Buscamos si algun price yeva id, si lleva quiere decir que es
-      // Para actualizar
-      variationsEnd = variationsEnd.map(it => {
-        const index = it.prices.findIndex(it => {
-          return it.idVariation !== null && it.idVariation !== undefined;
+        // Buscamos si algun price yeva id, si lleva quiere decir que es
+        // Para actualizar
+        variationsEnd = variationsEnd.map(it => {
+          const index = it.prices.findIndex(it => {
+            return it.idVariation !== null && it.idVariation !== undefined;
+          });
+          if (index !== -1) {
+            it.idVariation = it.prices[index].idVariation;
+          }
+          return it;
         });
-        if (index !== -1) {
-          it.idVariation = it.prices[index].idVariation;
-        }
-        return it;
-      });
 
-      // Para quitar el _off y _arr
-      for (let i = 0; i < variationsEnd.length; i++) {
-        if (variationsEnd[i].fishPreparation !== null && variationsEnd[i].fishPreparation !== undefined) {
-          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_off', '');
-          variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_arr', '');
+        // Para quitar el _off y _arr
+        for (let i = 0; i < variationsEnd.length; i++) {
+          if (variationsEnd[i].fishPreparation !== null && variationsEnd[i].fishPreparation !== undefined) {
+            variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_off', '');
+            variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_arr', '');
+          }
+
+          if (variationsEnd[i].wholeFishWeight !== null && variationsEnd[i].wholeFishWeight !== undefined) {
+            variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_off', '');
+            variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
+          }
         }
 
-        if (variationsEnd[i].wholeFishWeight !== null && variationsEnd[i].wholeFishWeight !== undefined) {
-          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_off', '');
-          variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
+        if (variationsEnd.length === 0) {
+          this.loading = false;
+          this.ngProgress.done();
+          return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
         }
-      }
 
-      if (variationsEnd.length === 0) {
+        // this.ngProgress.start();
+        // let priceAED = Number(features.price).toFixed(2);
+        let data: any = {
+          parentType: product.parentSelectedType,
+          'specie': product.speciesSelected,
+          'type': product.subSpeciesSelected,
+          'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
+          'store': this.store[0].id,
+          'quality': 'good',
+          'name': product.name,
+          'description': '',
+          'country': product.country,
+          'processingCountry': product.processingCountry,
+          'city': product.city,
+          // 'price': {
+          //   'type': '$',
+          //   'value': priceAED,
+          //   'description': priceAED + ' for pack'
+          // },
+          'weight': {
+            'type': 'kg',
+            'value': 5
+          },
+          perBox: product.unitOfSale === 'boxes',
+          boxWeight: product.averageUnitWeight,
+          'minimumOrder': product.minimunorder,
+          'maximumOrder': product.maximumorder,
+          // "acceptableSpoilageRate": features.acceptableSpoilageRate,
+          'raised': features.raised,
+          'treatment': features.treatment,
+          'seller_sku': product.seller_sku,
+          'seafood_sku': this.seafood_sku,
+          'mortalityRate': 1,
+          'waterLostRate': '0',
+          'status': '5c0866e4a0eda00b94acbdc0',
+          'brandName': product.brandName,
+          'hsCode': product.hsCode,
+          variations: variationsEnd,
+          'role': this.user['role']
+        };
+        if (this.productID !== '') {
+          data.idProduct = this.product.id;
+          data.variationsDeleted = variationsDeleted;
+          data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
+        }
+        console.log(data);
+        if (this.productID !== '') {
+          this.productService.updateData('api/variations', data).subscribe(result => {
+            this.uploadImagesAction(product, result);
+          });
+        } else {
+          this.productService.saveData('api/variations/add', data).subscribe(result => {
+            this.uploadImagesAction(product, result);
+          });
+        }
+        // this.loading = false;
+        // this.ngProgress.done();
+      } else {
+        this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
         this.loading = false;
         this.ngProgress.done();
-        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
       }
-
-      // this.ngProgress.start();
-      // let priceAED = Number(features.price).toFixed(2);
-      const data: any = {
-        parentType: product.parentSelectedType,
-        'specie': product.speciesSelected,
-        'type': product.subSpeciesSelected,
-        'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
-        'store': this.store[0].id,
-        'quality': 'good',
-        'name': product.name,
-        'description': '',
-        'country': product.country,
-        'processingCountry': product.processingCountry,
-        'city': product.city,
-        // 'price': {
-        //   'type': '$',
-        //   'value': priceAED,
-        //   'description': priceAED + ' for pack'
-        // },
-        'weight': {
-          'type': 'kg',
-          'value': 5
-        },
-        perBox: product.unitOfSale === 'boxes',
-        boxWeight: product.averageUnitWeight,
-        'minimumOrder': product.minimunorder,
-        'maximumOrder': product.maximumorder,
-        // "acceptableSpoilageRate": features.acceptableSpoilageRate,
-        'raised': features.raised,
-        'treatment': features.treatment,
-        'seller_sku': product.seller_sku,
-        'seafood_sku': this.seafood_sku,
-        'mortalityRate': 1,
-        'waterLostRate': '0',
-        'status': '5c0866e4a0eda00b94acbdc0',
-        'brandName': product.brandName,
-        'hsCode': product.hsCode,
-        variations: variationsEnd,
-      };
-      if (this.productID !== '') {
-        data.idProduct = this.product.id;
-        data.variationsDeleted = variationsDeleted;
-        data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
-      }
-      console.log(data);
-      if (this.productID !== '') {
-        this.productService.updateData('api/variations', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
-        });
-      } else {
-        this.productService.saveData('api/variations/add', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
-        });
-      }
-      // this.loading = false;
-      // this.ngProgress.done();
-    } else {
-      this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
-      this.loading = false;
-      this.ngProgress.done();
     }
   }
 

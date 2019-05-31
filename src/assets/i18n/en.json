@@ -214,7 +214,8 @@
 		"trimming": "Trimming...",
 		"unitOfSale": "Unit of Measurement...",
 		"averageUnitWeight": "Average Unit Weight (kg)...",
-		"sealife": "Sea Life Category"
+		"sealife": "Sea Life Category",
+		"selectSeller": "Choose a Seller"
 	},
 	"SingleProduct": {
 		"add": "Add to cart",
