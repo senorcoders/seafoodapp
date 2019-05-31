@@ -190,7 +190,6 @@ export class CreateProductComponent implements OnInit {
       .subscribe(async data => {
         try {
           this.product = data;
-
           console.log("Producto", data);
           let images = await this.getImages(data);
 
@@ -223,7 +222,6 @@ export class CreateProductComponent implements OnInit {
           this.store = data['store'];
           this.selectedSeller = data['store']['owner'];
           this.getSeller( this.selectedSeller );
-
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
           //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
@@ -364,7 +362,7 @@ export class CreateProductComponent implements OnInit {
     this.showError = true;
     this.loading = true;
 
-    if ( this.selectedSeller == undefined ) {
+    if ( this.selectedSeller == undefined && this.user['role'] == 0 ) {
       this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
       this.ngProgress.done();    
@@ -387,7 +385,6 @@ export class CreateProductComponent implements OnInit {
           pricing = value.price;
 
         product.speciesSelected = product.speciesSelected || this.speciesSelected;
-
         // Para checkar si hay imagenes
         if (product.imagesSend === '') {
           this.loading = false;
@@ -401,7 +398,6 @@ export class CreateProductComponent implements OnInit {
             return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
           }
         }
-
         // Para checkar si hay imagen default
         if (product.images !== undefined && product.images !== '') {
           const images = JSON.parse(product.imagesSend);
@@ -414,7 +410,6 @@ export class CreateProductComponent implements OnInit {
             return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
           }
         }
-
         // si es actualizando un producto para saber los que se eliminan
         const variationsDeleted = JSON.parse(pricing.variationsDeleted);
 
@@ -488,7 +483,6 @@ export class CreateProductComponent implements OnInit {
             }
           }
         }
-
         // Buscamos si algun price yeva id, si lleva quiere decir que es
         // Para actualizar
         variationsEnd = variationsEnd.map(it => {
@@ -513,76 +507,11 @@ export class CreateProductComponent implements OnInit {
             variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
           }
         }
-
         if (variationsEnd.length === 0) {
           this.loading = false;
-          this.ngProgress.done();
+          this.ngProgress.done();        
           return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
         }
-
-        // this.ngProgress.start();
-        // let priceAED = Number(features.price).toFixed(2);
-        let data: any = {
-          parentType: product.parentSelectedType,
-          'specie': product.speciesSelected,
-          'type': product.subSpeciesSelected,
-          'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
-          'store': this.store[0].id,
-          'quality': 'good',
-          'name': product.name,
-          'description': '',
-          'country': product.country,
-          'processingCountry': product.processingCountry,
-          'city': product.city,
-          // 'price': {
-          //   'type': '$',
-          //   'value': priceAED,
-          //   'description': priceAED + ' for pack'
-          // },
-          'weight': {
-            'type': 'kg',
-            'value': 5
-          },
-          perBox: product.unitOfSale === 'boxes',
-          boxWeight: product.averageUnitWeight,
-          'minimumOrder': product.minimunorder,
-          'maximumOrder': product.maximumorder,
-          // "acceptableSpoilageRate": features.acceptableSpoilageRate,
-          'raised': features.raised,
-          'treatment': features.treatment,
-          'seller_sku': product.seller_sku,
-          'seafood_sku': this.seafood_sku,
-          'mortalityRate': 1,
-          'waterLostRate': '0',
-          'status': '5c0866e4a0eda00b94acbdc0',
-          'brandName': product.brandName,
-          'hsCode': product.hsCode,
-          variations: variationsEnd,
-          'role': this.user['role']
-        };
-        if (this.productID !== '') {
-          data.idProduct = this.product.id;
-          data.variationsDeleted = variationsDeleted;
-          data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
-        }
-        console.log(data);
-        if (this.productID !== '') {
-          this.productService.updateData('api/variations', data).subscribe(result => {
-            this.uploadImagesAction(product, result);
-          });
-        } else {
-          this.productService.saveData('api/variations/add', data).subscribe(result => {
-            this.uploadImagesAction(product, result);
-          });
-        }
-        // this.loading = false;
-        // this.ngProgress.done();
-      } else {
-        this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
-        this.loading = false;
-        this.ngProgress.done();
-        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
-      }
 
       // this.ngProgress.start();
       // let priceAED = Number(features.price).toFixed(2);
@@ -624,6 +553,7 @@ export class CreateProductComponent implements OnInit {
         'brandName': product.brandName,
         'hsCode': product.hsCode,
         variations: variationsEnd,
+        'role': this.user['role']
       };
       if (this.productID !== "") {
         data.idProduct = this.product.id;
@@ -640,8 +570,13 @@ export class CreateProductComponent implements OnInit {
           this.uploadImagesAction(product, result);
         });
       }
+    } else {
+      this.loading = false;
+          this.ngProgress.done();
+          return this.toast.error('fields are required', 'Error', { positionClass: 'toast-top-right' });
     }
   }
+}
 
   private async uploadImagesAction(product, result) {
     if (product.imagesSend !== undefined && product.imagesSend !== '') {
