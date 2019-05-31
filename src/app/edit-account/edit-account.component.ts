@@ -557,7 +557,9 @@ getCountries() {
 }
 
 deleteLogo(url, i, tag){
-  this.rest.deleteData(url).subscribe(res=>{
+  let urlP = url.split("/").slice(1).join("/");
+
+  this.rest.deleteData(urlP).subscribe(res=>{
     console.log("Delete", res);
     if(tag == 'brands' ){
       this.currentBrandLogos.splice(i, 1);
