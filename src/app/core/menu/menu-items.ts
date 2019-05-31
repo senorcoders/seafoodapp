@@ -212,6 +212,19 @@ const menuAdmin = [
             name: 'Pending Approval'
           }
         }
+      },
+      {
+        state: 'add-product',
+        type: 'link',
+        name: 'Add Product',
+        translate: {
+          en: {
+            name: 'Add Product'
+          },
+          ar: {
+            name: 'Add Product'
+          }
+        }
       }
     ]
   },

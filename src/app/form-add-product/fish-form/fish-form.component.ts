@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, Input  } from '@angular/core';
 import { FormGroupDirective, ControlContainer, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { ProductService } from '../../services/product.service';
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from '../../toast.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'fish-form',
@@ -16,7 +18,12 @@ import { AuthenticationService } from '../../services/authentication.service';
   providers: [NgClass, NgIf]
 })
 export class FishFormComponent implements OnInit {
-
+  private eventSellerSelected: any;
+  @Input() seller: Observable<void>;
+  @Input() events: Observable<void>;
+  private eventsSubscription: Subscription;
+  sellerInfo: any;
+  
   @ViewChild('myInput')
   myInputVariable: ElementRef;
   public product: FormGroup;
@@ -86,6 +93,11 @@ public staticmin:number = 1;
   }
 
   ngOnInit() {
+    this.eventsSubscription = this.events.subscribe( (sellerInfo) => {
+      console.log('lololol', sellerInfo);
+      this.sellerInfo = sellerInfo;
+      this.getStore();
+    } );
     this.createFormGroup();
     this.getCountries();
     this.getCountriesWithShipping();
@@ -100,7 +112,7 @@ public staticmin:number = 1;
     this.reaised();
     this.getParts();
     this.getTrimmingModal();
-
+    
   }
 
 
@@ -568,15 +580,23 @@ public staticmin:number = 1;
   }
 
   getStore() {
-    this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
-      this.store = results;
-      this.getTrimmingByStore();
-      this.getParts();
-      this.getProcessingParts();
-      if (this.store.length < 1) {
-        this.existStore = false;
-      }
-    });
+    console.log( 'role', this.info['role'] );
+    if( this.info !== undefined && this.sellerInfo !== undefined && this.info['role'] == 0 )
+      this.info.id = this.sellerInfo.id;
+
+    if( this.info !== undefined ) {
+      this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
+        this.store = results;
+        console.log( 'store', results );
+        this.getTrimmingByStore();
+        this.getParts();
+        this.getProcessingParts();
+        if (this.store.length < 1) {
+          this.existStore = false;
+        }
+      });
+    }
+    
   }
 
   getFishPreparation() {
@@ -593,14 +613,16 @@ public staticmin:number = 1;
   }
 
   getProcessingParts() {
-    this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      res => {
-        this.ProcessingParts = res as any;
-      },
-      e => {
-        console.log(e);
-      }
-    );
+    if( this.store[0] !== undefined ) {
+      this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+        res => {
+          this.ProcessingParts = res as any;
+        },
+        e => {
+          console.log(e);
+        }
+      );
+    }    
   }
 
   private createFormGroupFeatures() {
@@ -728,14 +750,16 @@ public staticmin:number = 1;
   }
 
   private getTrimmingByStore() {
-    this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      result => {
-        this.trimmingsModal = result as any;
-      },
-      e => {
-        console.log(e)
-      }
-    )
+    if( this.store[0] !== undefined ) {
+      this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+        result => {
+          this.trimmingsModal = result as any;
+        },
+        e => {
+          console.log(e)
+        }
+      )
+    }
   }
 
   public isDefault(part, trim) {
