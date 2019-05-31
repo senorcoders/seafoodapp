@@ -53,7 +53,7 @@ export class CreateProductComponent implements OnInit {
   private trimmings = [];
   private seafood_sku = '';
   private productID = '';
-  private user: any = {};
+  public user: any = {};
   private ready = false;
   public loadingDetails = false;
   public eventsSubject: Subject<any> = new Subject<any>();
@@ -64,8 +64,8 @@ export class CreateProductComponent implements OnInit {
 
   public createProduct = true;
   
-  private sellectedSeller: any;
-  private sellerChange: Subject<void> = new Subject<void>();
+  public sellectedSeller: any;
+  public sellerChange: Subject<void> = new Subject<void>();
 
   public speciesSelected = "";
   lbHandler:number = 1;
