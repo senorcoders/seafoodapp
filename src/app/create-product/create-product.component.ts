@@ -63,15 +63,13 @@ export class CreateProductComponent implements OnInit {
   public currentPrincingCharges: any;
 
   public createProduct = true;
-<<<<<<< HEAD
-  public speciesSelected = '';
   
   private sellectedSeller: any;
   private sellerChange: Subject<void> = new Subject<void>();
-=======
+
   public speciesSelected = "";
   lbHandler:number = 1;
->>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
+
 
   constructor(
     private productService: ProductService,
@@ -192,37 +190,7 @@ export class CreateProductComponent implements OnInit {
       .subscribe(async data => {
         try {
           this.product = data;
-<<<<<<< HEAD
-          const images = await this.getImages(data);
 
-          const product = {
-            name: data['name'],
-            brandName: data['brandname'] || '',
-            country: data['country'],
-            processingCountry: data['processingCountry'],
-            city: data['city'],
-            unitOfSale: data['perBox'] === false ? 'kg' : 'boxes',
-            averageUnitWeight: data['boxWeight'],
-            parentSelectedType: parent['level0'] ? parent['level0'].id : '',
-            speciesSelected: parent['level1'] ? parent['level1'].id : '',
-            subSpeciesSelected: parent['level2'] ? parent['level2'].id : '',
-            descriptorSelected: data['descriptor'] ? data['descriptor'] : '',
-            seller_sku: data['seller_sku'] || '',
-            hsCode: data['hsCode'],
-            minimunorder: data['minimumOrder'],
-            maximumorder: data['maximumOrder'],
-            imagesSend: images.forForm,
-            price: data['price'] ? (data['price'].value / this.currentExchangeRate).toFixed(2) : 0,
-            // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
-            raised: data['raised'].id || '',
-            treatment: data['treatment'].id || '',
-            head: data['head'] || 'on',
-            wholeFishAction: data['wholeFishAction']
-          }; console.log('product data', data);
-          this.store = data['store'];
-          this.selectedSeller = data['store']['owner'];
-          this.getSeller( this.selectedSeller );
-=======
           console.log("Producto", data);
           let images = await this.getImages(data);
 
@@ -252,8 +220,10 @@ export class CreateProductComponent implements OnInit {
             wholeFishAction: data["wholeFishAction"]
           }; 
           console.log("product fetched", product);
+          this.store = data['store'];
+          this.selectedSeller = data['store']['owner'];
+          this.getSeller( this.selectedSeller );
 
->>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
           //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
@@ -611,8 +581,6 @@ export class CreateProductComponent implements OnInit {
         this.toast.error('Complete the required fields', 'Error', { positionClass: 'toast-top-right' });
         this.loading = false;
         this.ngProgress.done();
-<<<<<<< HEAD
-=======
         return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
       }
 
@@ -671,7 +639,6 @@ export class CreateProductComponent implements OnInit {
         this.productService.saveData('api/variations/add', data).subscribe(result => {
           this.uploadImagesAction(product, result);
         });
->>>>>>> cd8dee70eaa5aa43fa10d903cac0af0a37660743
       }
     }
   }
