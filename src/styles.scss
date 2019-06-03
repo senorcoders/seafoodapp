@@ -1452,6 +1452,7 @@ button:focus {
   .top-nav{
     background: transparent !important;
     border: none !important;
+    position: initial !important;
     .address{
       border: none !important;
     }
@@ -1496,6 +1497,15 @@ button:focus {
   }
 
   }
+
+      .top-nav .navbar{
+          padding: 0 !important;
+      }
+      .navbar-collapse{
+          align-items: flex-start;
+          height: 110px;
+      }
+  
 }
 
 .home-header > app-root > app-menu-nav{

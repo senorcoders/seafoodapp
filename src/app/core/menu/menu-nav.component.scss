@@ -529,3 +529,22 @@ form{
   #Layer_1_mobile{
 	  display: none;
   }
+
+  .flex-nav-link{
+    width: 175px;
+    height: 110px;
+    display: flex;
+    justify-content: center;
+	align-items: center;
+	a.nav-link{
+		padding: 0 !important;
+	}
+	&.blue-nav-bg{
+		background: $light_blue;
+
+	}
+
+	&.gray-nav-bg{
+		background: $gray;
+	}
+  }
