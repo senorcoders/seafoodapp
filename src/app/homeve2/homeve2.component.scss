@@ -1,5 +1,9 @@
 @import "../../variables.scss";
 
+section {
+  margin-bottom: 300px;
+}
+
 .fish-hero{
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
     height: 120vh;
@@ -107,6 +111,222 @@
     }
  }
 
+.section-title {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 3.125rem;
+  font-weight: 300;
+  color: $light_blue;
+}
+
+.how-it-works {
+
+  font-family: 'Josefin Sans', sans-serif;
+
+  .sellers-col, .buyers-col {
+    h3 {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 1.3125rem;
+      font-weight: 300;
+      color: $light_blue;
+      margin-bottom: 60px;
+    }
+
+    ul li {
+
+      color: $dark-blue;
+      font-size: 1rem;
+      font-weight: 300;
+
+      &:not(:last-child) {
+        margin-bottom: 30px;
+      }
+    }
+  }
+
+  .step-box {
+    h4 {
+      font-size: 1.3125rem;
+      color: $light_blue;
+      font-weight: 300;
+    }
+  }
+
+}
+
+.sfs-gives {
+  font-family: 'Josefin Sans', sans-serif;
+
+  .feat-box {
+    .feat-logo {
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 30px;
+    }
+
+    h4 {
+      font-size: 1.3125rem;
+      font-weight: 300;
+      color: $light_blue;
+      margin-bottom: 15px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: $black;
+    }
+  }
+}
+
+.custom-tabs {
+
+  margin-top: 70px;
+  border: none;
+
+  .nav-link {
+    text-transform: initial;
+    border: none;
+    color: $gray !important;
+    border-radius: 0;
+    border-top: 2px solid $gray;
+
+    &.active {
+      color: $dark-blue !important;
+      border-color: $dark-blue;
+    }
+  }
+
+  .tab-header {
+    h5 {
+      font-size: 1.125rem;
+      text-transform: uppercase; 
+      color: inherit;
+      margin-bottom: 30px;
+      letter-spacing: 0px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: inherit;
+      letter-spacing: 0px;
+    }
+  }
+}
+
+.customers{
+  font-family: 'Josefin Sans', sans-serif;
+
+  .cards-container {
+    background-color: rgba(9, 78, 130, 0.5);
+    padding: 50px 0;
+    margin-top: 60px;
+
+    .card {
+      padding-top: 20px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .card-img-top {
+      width: 60px;
+      height: 60px;
+      display: block;
+      margin: 0 auto;
+      border-radius: 50%;
+    }
+
+    .card-body {
+      text-align: center;
+
+      .quote {
+        font-style: italic;
+        color: $gray;
+        margin-bottom: 18px;
+        font-family: 'Open Sans', sans-serif;
+      }
+
+      .customer-name {
+        font-size: 1rem;
+        color: $dark-blue;
+      }
+    }
+  }
+}
+
+.blog {
+  font-family: 'Josefin Sans', sans-serif;
+
+  .description-span {
+    font-size: 1.3125rem;;
+  }
+}
+
+.blog-post-card {
+  max-width: 400px;
+  height: 500px;
+  position: relative;
+  border-radius: 5px;
+  font-family: 'Josefin Sans', sans-serif;
+  margin: 0 auto;
+
+  .top-img {
+    height: 250px;
+    border-radius: 5px;
+  }
+
+  .blog-content {
+    height: calc(100% - 250px);
+  }
+
+  .social-links {
+    height: 100%;
+    width: 100px;
+  }
+
+  .post-details {
+    padding: 30px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+    height: 300px;
+    background-color: #FFF;
+    border-radius: 5px;
+
+    .author {
+      margin-bottom: 30px;
+    }
+
+    .blog-post-preview {
+      font-size: 1.7rem;
+      line-height: 34px;
+      letter-spacing: -1px;
+      max-height: 102px;
+      overflow: hidden;
+    }
+
+    .bottom-row {
+      display: flex;
+      justify-content: space-between;
+
+      .date {
+        color: $gray;
+        text-transform: uppercase;
+        font-family: 'Open Sans', sans-serif;
+      }
+    }
+  }
+}
+
+.get-started {
+  font-family: 'Josefin Sans', sans-serif;
+
+  .get-started-btn {
+    background-color: $light_blue;
+    color: #FFF;
+    padding: 30px 40px;
+    font-size: 1rem;
+  }
+}
+
  @media (min-width: 1300px){
     .container {
         max-width: 1240px;
@@ -140,7 +360,7 @@
 }
  .fish-shape{
      position: absolute;
-     z-index: 9999;
+     z-index: 9998;
      bottom: 0;
      width: 100%;
      background: url('../../assets/shape.png');
