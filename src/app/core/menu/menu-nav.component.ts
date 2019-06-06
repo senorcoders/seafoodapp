@@ -38,13 +38,23 @@ export class MenuNavComponent {
   storeEndpoint: any = 'api/store/user/';
   base: string = environment.apiURLImg;
   storeID: any;
-
+  isScrolled = false;
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
     private toast: ToastrService, private translate: TranslateService, private languageService: LanguageService,
     private cart: CartService, private orders: OrdersService) {
 
+  }
+
+  @HostListener("window:scroll", ['$event'])
+  classOnScroll($event: Event) {
+    let scrollOffset = $event.srcElement.children[0].scrollTop;
+    if (scrollOffset > 50) {
+      this.isScrolled = true;
+    } else {
+      this.isScrolled = false;
+    }
   }
 
   ngOnInit() {

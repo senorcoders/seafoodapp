@@ -368,6 +368,29 @@ section {
   }
 }
 
+.preview-carousel {
+  .tab-header {
+    margin-top: 15px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: $dark-blue;
+    text-align: center;
+
+    h5 {
+      font-size: 1.125rem;
+      text-transform: uppercase; 
+      color: inherit;
+      margin-bottom: 20px;
+      letter-spacing: 0px;
+    }
+
+    p {
+      font-size: 1rem;
+      color: inherit;
+      letter-spacing: 0px;
+    }
+  }
+}
+
 .get-started {
   font-family: 'Josefin Sans', sans-serif;
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 declare var jQuery;
 @Component({
   selector: 'app-homeve2',
@@ -7,10 +7,26 @@ declare var jQuery;
 })
 export class Homeve2Component implements OnInit {
 
+  isMobile = false;
+
   constructor() { }
 
   ngOnInit() {
     jQuery('body').addClass('home-header');
+
+    if (window.innerWidth < 800) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
+  }
+
+  ngAfterViewChecked() {
+    if (window.innerWidth < 800) {
+      this.isMobile = true;
+    } else {
+      this.isMobile = false;
+    }
   }
 
   ngAfterViewInit() {
@@ -61,6 +77,15 @@ export class Homeve2Component implements OnInit {
         // settings: "unslick"
         // instead of a settings object
       ]
+    });
+
+    jQuery('.preview-carousel').slick({
+      dots: true,
+      arrows: true,
+      infinite: false,
+      speed: 300,
+      slidesToShow: 1,
+      slidesToScroll: 1
     });
   }
 

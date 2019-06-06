@@ -1453,6 +1453,28 @@ button:focus {
     background: transparent !important;
     border: none !important;
     // position: initial !important;
+    transition: 0.2s all ease-in-out;
+
+  &.scrolled {
+    background-color: #FFF !important;
+    transition: 0.2s all ease-in-out;
+    box-shadow: 0px 0px 5px -2px #00000085;
+
+   a:hover{
+      color: $dark_blue !important;
+    }
+    a.nav-link{
+      color: $light_blue !important;
+      
+      &:hover{
+        color: $dark_blue !important;
+      }
+    }
+
+    .img-logo svg{
+      .st0{fill:$light_blue;}
+    }
+  }
     .address{
       border: none !important;
     }

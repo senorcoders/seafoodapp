@@ -161,7 +161,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!isMobile; else mobileCarousel">
       <div class="col-12">
         <div class="tab-content" id="single-tabs">
           <div class="tab-pane fade show active" id="nav-catalogue" role="tabpanel" aria-labelledby="nav-catalogue-tab">
@@ -209,6 +209,38 @@
         </nav>
       </div>
     </div>
+
+    <ng-template #mobileCarousel>
+      <div class="preview-carousel">
+        <div class="item">
+          <div class="screen-preview">
+            <img src="../../assets/Online-Catalogue.jpg" class="img-fluid d-block shadow" alt="">
+          </div>
+          <div class="tab-header">
+            <h5 class="text-center">Online Catalogue</h5>
+            <p>Browse products from sellers around the world using search filters based on your requirements.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="screen-preview">
+            <img src="../../assets/Product-Details.jpg" class="img-fluid d-block shadow" alt="">
+          </div>
+          <div class="tab-header">
+            <h5>Product Details</h5>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+          </div>
+        </div>
+        <div class="item">
+          <div class="screen-preview">
+            <img src="../../assets/Your-Cart.jpg" class="img-fluid d-block shadow" alt="">
+          </div>
+          <div class="tab-header">
+            <h5>Your Cart</h5>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </section>
 
