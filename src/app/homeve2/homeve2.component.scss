@@ -185,6 +185,34 @@ section {
       color: $light_blue;
       font-weight: 300;
     }
+
+    &.order-step {
+      position: relative;
+
+      &::before {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        height: 2px;
+        width: 95%;
+        top: 25px;
+        right: -200px;
+        background-color: $gray;
+        opacity: 0.6;
+      }
+
+      &::after {
+        content: '';
+        display: inline-block;
+        position: absolute;
+        height: 2px;
+        width: 95%;
+        top: 25px;
+        right: 215px;
+        background-color: $gray;
+        opacity: 0.6;
+      }
+    }
   }
 
 }
@@ -491,6 +519,20 @@ section {
 
     .buyers-col h3::before {
       content: none;
+    }
+
+    .step-box {
+      &.order-step {
+      position: relative;
+
+      &::before {
+        content: none;
+      }
+
+      &::after {
+        content: none;
+      }
+    }
     }
     
   }

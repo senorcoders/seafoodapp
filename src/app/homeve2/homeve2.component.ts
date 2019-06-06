@@ -31,7 +31,7 @@ export class Homeve2Component implements OnInit {
 
   ngAfterViewInit() {
     jQuery('.customer-cards-carousel').slick({
-      dots: true,
+      dots: false,
       arrows: true,
       infinite: false,
       speed: 300,
@@ -42,14 +42,18 @@ export class Homeve2Component implements OnInit {
           breakpoint: 800,
           settings: {
             slidesToShow: 2,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            dots: true,
+            arrows: false,
           }
         },
         {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            dots: true,
+            arrows: false,
           }
         }
         // You can unslick at a given breakpoint now by adding:
@@ -59,7 +63,7 @@ export class Homeve2Component implements OnInit {
     });
 
     jQuery('.blog-cards-carousel').slick({
-      dots: true,
+      dots: false,
       arrows: true,
       infinite: false,
       speed: 300,
@@ -70,7 +74,9 @@ export class Homeve2Component implements OnInit {
           breakpoint: 480,
           settings: {
             slidesToShow: 1,
-            slidesToScroll: 1
+            slidesToScroll: 1,
+            dots: true,
+            arrows: false,
           }
         }
         // You can unslick at a given breakpoint now by adding:
@@ -81,11 +87,11 @@ export class Homeve2Component implements OnInit {
 
     jQuery('.preview-carousel').slick({
       dots: true,
-      arrows: true,
+      arrows: false,
       infinite: false,
       speed: 300,
       slidesToShow: 1,
-      slidesToScroll: 1
+      slidesToScroll: 1,
     });
   }
 

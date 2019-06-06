@@ -1463,7 +1463,7 @@ button:focus {
    a:hover{
       color: $dark_blue !important;
     }
-    a.nav-link{
+    a.nav-link:not(.bg-btn){
       color: $light_blue !important;
       
       &:hover{
@@ -1473,6 +1473,12 @@ button:focus {
 
     .img-logo svg{
       .st0{fill:$light_blue;}
+    }
+
+    .plus-icon {
+      .a {
+        fill: $light_blue;
+      }
     }
   }
     .address{
@@ -1636,3 +1642,9 @@ input[type=number]::-webkit-outer-spin-button {
   transition: none;
   background: none !important;
 }
+
+.customer-cards-carousel {
+    .slick-prev.slick-disabled, .slick-next.slick-disabled {
+      display: none !important;
+    }
+  }
