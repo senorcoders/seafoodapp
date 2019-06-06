@@ -128,8 +128,12 @@ section {
       font-size: 1.3125rem;
       font-weight: 300;
       color: $light_blue;
+      padding-top: 30px;
       margin-bottom: 60px;
+      position: relative;
     }
+
+    
 
     ul li {
 
@@ -141,6 +145,38 @@ section {
         margin-bottom: 30px;
       }
     }
+  }
+
+
+  .sellers-col h3::after {
+      display: inline-block;
+      margin: 0;
+      height: 2px;
+      content: " ";
+      text-shadow: none;
+      background-color: $gray;
+      opacity: 0.4;
+      width: 100%;
+      position: absolute;
+      top: 70%;
+  }
+
+  .buyers-col h3::before {
+    display: inline-block;
+    margin: 0;
+    height: 2px;
+    content: " ";
+    text-shadow: none;
+    background-color: $gray;
+    opacity: 0.4;
+    width: 100%;
+    position: absolute;
+    top: 70%;
+    right: 65%;
+  }
+
+  .screen-col img {
+    z-index: 1;
   }
 
   .step-box {
@@ -182,6 +218,10 @@ section {
   margin-top: 70px;
   border: none;
 
+  &.nav-fill .nav-item {
+    flex: 1 1 calc(100% / 3);
+  }
+
   .nav-link {
     text-transform: initial;
     border: none;
@@ -196,6 +236,8 @@ section {
   }
 
   .tab-header {
+    position: relative;
+
     h5 {
       font-size: 1.125rem;
       text-transform: uppercase; 
@@ -279,6 +321,10 @@ section {
   .social-links {
     height: 100%;
     width: 100px;
+
+    img {
+      display: inline !important;
+    }
   }
 
   .post-details {
@@ -313,6 +359,12 @@ section {
         font-family: 'Open Sans', sans-serif;
       }
     }
+  }
+}
+
+.blog-cards-carousel {
+  .item {
+    padding-bottom: 20px;
   }
 }
 
@@ -368,4 +420,112 @@ section {
      background-position: bottom;
      background-repeat: no-repeat;
      background-size: cover;
+ }
+
+
+ @media (max-width: 768px) {
+
+  .section-title {
+    font-size: 2.375rem;
+  }
+
+  .how-it-works {
+    .sellers-col, .buyers-col {
+      h3 {
+        font-size: 1.125rem;
+        margin-bottom: 10px;
+      }
+
+      ul li {
+        font-size: 1rem;
+        font-weight: 300;
+        position: relative;
+
+        &:not(:last-child) {
+          margin-bottom: 0px;
+        }
+
+        &:last-child::after {
+          display: inline-block;
+          margin: 0;
+          height: 2px;
+          content: " ";
+          text-shadow: none;
+          background-color: $gray;
+          opacity: 0.4;
+          width: 100%;
+          transform: rotate(90deg);
+          position: absolute;
+          left: 0px;
+          top: 100px;
+        }
+      }
+    }
+
+    .sellers-col h3::after {
+      content: none;
+    }
+
+    .buyers-col h3::before {
+      content: none;
+    }
+    
+  }
+
+  .blog-post-card {
+    max-width: 310px;
+    height: 390px;
+    position: relative;
+    border-radius: 5px;
+    font-family: 'Josefin Sans', sans-serif;
+    margin: 0 auto;
+
+    .top-img {
+      height: 190px;
+      border-radius: 5px;
+    }
+
+    .blog-content {
+      height: calc(100% - 190px);
+    }
+
+    .social-links {
+      height: 100%;
+      width: 60px;
+    }
+
+    .post-details {
+      padding: 25px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 250px;
+      height: 240px;
+      background-color: #FFF;
+      border-radius: 5px;
+
+        .author {
+          margin-bottom: 20px;
+        }
+
+        .blog-post-preview {
+          font-size: 1.3125rem;
+          line-height: 25px;
+          letter-spacing: -1px;
+          max-height: 75px;
+          overflow: hidden;
+        }
+
+        .bottom-row {
+          display: flex;
+          justify-content: space-between;
+
+          .date {
+            color: $gray;
+            text-transform: uppercase;
+            font-family: 'Open Sans', sans-serif;
+          }
+        }
+      }
+    }
  }
