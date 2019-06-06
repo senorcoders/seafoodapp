@@ -12,6 +12,21 @@ section {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+
+    .video-container {
+    .filter {
+      height: 120vh;
+      width: 100%;
+      position: absolute;
+      background-color: #000;
+      opacity: 0.6;
+    }
+
+      video {
+        height: 120vh;
+        object-fit: cover;
+      }
+    }
     @media screen and (max-width: 992px){
         height: 100vh;
         .hide-mobile{
