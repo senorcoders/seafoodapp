@@ -1643,8 +1643,53 @@ input[type=number]::-webkit-outer-spin-button {
   background: none !important;
 }
 
-.customer-cards-carousel {
+.customer-cards-carousel, .preview-carousel, .blog-cards-carousel {
     .slick-prev.slick-disabled, .slick-next.slick-disabled {
       display: none !important;
     }
+
+    .slick-next::before {
+      content: url('./assets/svg/chevron-right-white.svg')
+    }
+
+    .slick-prev::before {
+      content: url('./assets/svg/chevron-right-white.svg');
+      transform: rotate(180deg);
+      display: inline-block; 
+    }
+
+    .slick-dots li button:before {
+      font-size: 50px;
+      color: $gray;
+      opacity: .5;
+    }
+
+    .slick-dots li.slick-active button:before {
+      color: $light_blue;
+      opacity: 1;
+    }
+}
+
+.blog-cards-carousel {
+  .slick-next::before {
+      content: url('./assets/svg/chevron-right.svg')
+    }
+
+    .slick-prev::before {
+      content: url('./assets/svg/chevron-right.svg');
+      transform: rotate(180deg);
+      display: inline-block; 
+    }
+}
+
+.customer-cards-carousel {
+  .slick-dots li button:before {
+      color: $white;
+      opacity: .5;
+    }
+
+  .slick-dots li.slick-active button:before {
+    color: $white;
+    opacity: 1;
   }
+}
