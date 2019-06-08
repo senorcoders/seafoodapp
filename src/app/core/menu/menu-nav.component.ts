@@ -47,9 +47,9 @@ export class MenuNavComponent {
 
   }
 
-  @HostListener("window:scroll", ['$event'])
+  @HostListener('window:scroll', ['$event'])
   classOnScroll($event: Event) {
-    let scrollOffset = $event.srcElement.children[0].scrollTop;
+    const scrollOffset = $event.srcElement.children[0].scrollTop;
     if (scrollOffset > 50) {
       this.isScrolled = true;
     } else {
@@ -203,7 +203,7 @@ export class MenuNavComponent {
     //     // console.log(error)
     //   }
     // )
-  }1
+  }
   search() {
     this.showSuggestion = false;
     // this.show=false;

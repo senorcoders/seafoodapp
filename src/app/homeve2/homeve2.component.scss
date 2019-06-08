@@ -4,6 +4,19 @@
   background-color: $white;
 }
 
+.connecting-line {
+  // position: absolute;
+  // z-index: -1;
+  width: 100%;
+  height: 100%;
+  vector-effect:non-scaling-stroke;
+
+  path{
+  fill:none;
+  stroke:black;
+  }
+}
+
 section {
   margin-bottom: 300px;
 
@@ -307,6 +320,97 @@ section {
   }
 }
 
+.custom-mat-tabs{
+	width:100%;
+  display: flex;
+  flex-direction: column-reverse;
+  font-family: 'Josefin Sans', sans-serif;
+
+  header {
+		position: relative;
+  }
+
+  .tab-content {
+    padding:25px;
+    opacity: 1;
+    visibility: visible;
+    transition: 0.2s all;
+  }
+
+  #material-tabs {
+		position: relative;
+		display: flex;
+	  padding:0;
+    border-top: 2px solid #848a8e78;
+    flex-wrap: nowrap;
+
+    &>a {
+		position: relative;
+	  display:inline-block;
+    text-decoration: none;
+    padding: 8px 16px;
+		color: $gray;
+    outline: none;
+    flex: 1 1 calc(100% / 3);
+
+    &.active {
+      color: $dark-blue;
+    }
+
+    &:not(.active):hover {
+      background-color: inherit;
+      color: #7c848a;
+    }
+
+    .tab-header {
+      position: relative;
+
+      h5 {
+        font-size: 1.125rem;
+        text-transform: uppercase; 
+        color: inherit;
+        margin-bottom: 30px;
+        letter-spacing: 0px;
+      }
+
+      p {
+        font-size: 1rem;
+        color: inherit;
+        letter-spacing: 0px;
+        font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .yellow-bar {
+		position: absolute;
+		z-index: 10;
+		top: -2px;
+		height: 2px;
+		background: $dark-blue;
+		display: block;
+		left: 0;
+		transition: left .3s ease;
+		-webkit-transition: left .3s ease;
+  }
+
+  #tab1-tab.active ~ span.yellow-bar {
+    left: 0;
+    width: calc(100% / 3);
+  }
+
+  #tab2-tab.active ~ span.yellow-bar {
+    left: calc(100% / 3 * 1);
+    width: calc(100% / 3);
+  }
+
+  #tab3-tab.active ~ span.yellow-bar {
+    left: calc(100% / 3 * 2);
+    width: calc(100% / 3);
+  }
+}
+
 .customers{
   font-family: 'Josefin Sans', sans-serif;
 
@@ -401,6 +505,9 @@ section {
       letter-spacing: -1px;
       max-height: 102px;
       overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;  
     }
 
     .bottom-row {
@@ -488,7 +595,7 @@ section {
             letter-spacing: 1.5px;
             line-height: 25px;
         }
-        img{
+        img, svg{
             margin-bottom: 30px;
         }
     }
@@ -652,3 +759,7 @@ section {
       }
     }
  }
+
+
+
+

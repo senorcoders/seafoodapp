@@ -1,4 +1,4 @@
-<div class="home-container">
+<div class="home-container" id="home-container">
   <section class="fish-hero">
     <div class="carousel-nav-sfs">
       <app-menu-nav></app-menu-nav>
@@ -19,7 +19,20 @@
     <div class="carousel-bottom">
       <button>
         <span>WATCH THE VIDEO</span>
-        <img src="../../assets/svg/play-circle.svg" alt="">
+        <!-- <img src="../../assets/svg/play-circle.svg" alt=""> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+          <defs>
+            <style>
+              .a {
+                fill: #f9fcff;
+              }
+              .a:hover {
+                fill: #3498E5;
+              }
+            </style>
+          </defs>
+          <path class="a" d="M22,38.25V15.75L37,27M27,2A25,25,0,1,0,52,27,25,25,0,0,0,27,2Z" transform="translate(-2 -2)" />
+        </svg>
       </button>
       <button class="hide-mobile">
         <img src="../../assets/svg/down-arrow.svg" alt="">
@@ -176,7 +189,7 @@
       </div>
   
       <div class="row" *ngIf="!isMobile; else mobileCarousel">
-        <div class="col-12">
+        <!-- <div class="col-12">
           <div class="tab-content" id="single-tabs">
             <div class="tab-pane fade show active" id="nav-catalogue" role="tabpanel" aria-labelledby="nav-catalogue-tab">
               <div class="screen-preview">
@@ -221,6 +234,52 @@
               </a>
             </div>
           </nav>
+        </div> -->
+
+        <div class="col-12">
+            <div class="custom-mat-tabs">
+              <header>
+                <div id="material-tabs">
+                  <a id="tab1-tab" href="#tab1" class="active">
+                    <div class="tab-header">
+                      <h5>Online Catalogue</h5>
+                      <p>Browse products from sellers around the world using search filters based on your requirements.</p>
+                    </div>
+                  </a>
+                  <a id="tab2-tab" href="#tab2">
+                    <div class="tab-header">
+                      <h5>Product Details</h5>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+                    </div>
+                  </a>
+                  <a id="tab3-tab" href="#tab3">
+                    <div class="tab-header">
+                      <h5>Your Cart</h5>
+                      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+                    </div>
+                  </a>
+                  <span class="yellow-bar"></span>
+                </div>
+              </header>
+          
+              <div class="tab-content">
+                <div id="tab1">
+                  <div class="screen-preview">
+                    <img src="../../assets/Online-Catalogue.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+                <div id="tab2">
+                  <div class="screen-preview">
+                    <img src="../../assets/Product-Details.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+                <div id="tab3">
+                  <div class="screen-preview">
+                    <img src="../../assets/Your-Cart.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
       </div>
   
@@ -387,7 +446,7 @@
                 </div>
   
                 <p class="blog-post-preview">
-                  This is an example blog post title. See what happens when...
+                  This is an example blog post title. See what happens when there's a lot of text on the post
                 </p>
   
                 <div class="bottom-row">

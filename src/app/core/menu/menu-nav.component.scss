@@ -550,6 +550,8 @@ form{
     display: flex;
     justify-content: center;
 	align-items: center;
+	transition: 0.2s all;
+
 	a.nav-link{
 		padding: 0 !important;
 	}
@@ -560,6 +562,10 @@ form{
 
 	&.gray-nav-bg{
 		background: $gray;
+
+		&:hover {
+		background-color: $light_blue;
+	}
 	}
   }
 
