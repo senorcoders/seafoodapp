@@ -92,7 +92,8 @@ export class CDNCheck {
             "assets/cdn/slick.css",
             "assets/cdn/slick-theme.css",
             "assets/cdn/css/font-awesome.min.css",
-            "assets/cdn/bootstrap-select.css"
+            "assets/cdn/bootstrap-select.css",
+            "assets/cdn/animate.css"
         ];
         let scripts = [
             "assets/cdn/jquery-3.2.1.min.js",

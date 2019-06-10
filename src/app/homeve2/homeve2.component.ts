@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewChecked, HostListener } from '@angular/core';
+import { WOW } from 'wowjs/dist/wow.min';
 declare var jQuery;
 @Component({
   selector: 'app-homeve2',
@@ -125,7 +126,6 @@ export class Homeve2Component implements OnInit {
       slidesToScroll: 1,
     });
 
-
     jQuery('#material-tabs').each(function () {
 
       var $active, $content, $links = jQuery(this).find('a');
@@ -153,6 +153,8 @@ export class Homeve2Component implements OnInit {
         e.preventDefault();
       });
     });
+
+    new WOW().init();
   }
 
 }
