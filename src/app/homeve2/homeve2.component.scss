@@ -34,6 +34,12 @@
   animation-name: expandLeft;
 }
 
+@keyframes dash {
+  to {
+    stroke-dashoffset: 1000;
+  }
+}
+
 
 /******************/
 
@@ -41,21 +47,11 @@
   background-color: $white;
 }
 
-.connecting-line {
-  // position: absolute;
-  // z-index: -1;
-  width: 100%;
-  height: 100%;
-  vector-effect:non-scaling-stroke;
-
-  path{
-  fill:none;
-  stroke:black;
-  }
-}
 
 section {
   margin-bottom: 300px;
+  background-color: $white;
+  position: relative;
 
   &:last-child {
     margin-bottom: 0;
@@ -485,6 +481,16 @@ section {
       }
     }
   }
+
+  .fish-bg {
+    position: absolute;
+    right: 0;
+    z-index: 0;
+    top: 132px;
+    width: 100%;
+    height: 78%;
+    object-fit: fill;
+  }
 }
 
 .blog {
@@ -602,6 +608,10 @@ section {
   .item {
     padding-bottom: 20px;
   }
+}
+
+.customer-cards-carousel {
+  z-index: 1;
 }
 
 /***********************/
