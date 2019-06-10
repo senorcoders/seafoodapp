@@ -121,6 +121,19 @@ const menuAdmin = [
         }
       },
       {
+        state: 'custom-rates',
+        type: 'link',
+        name: 'Custom Rates',
+        translate: {
+          en: {
+            name: 'Custom Rates'
+          },
+          ar: {
+            name: 'Custom Rates'
+          }
+        }
+      },
+      {
         state: 'port-loading-management',
         type: 'link',
         name: 'Port of Loading Management',

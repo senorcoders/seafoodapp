@@ -256,6 +256,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'custom-rates',
+    loadChildren: 'app/custom-rates/custom-rates.module#CustomRatesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
     path: 'documents',
     loadChildren: 'app/documents/documents.module#DocumentsModule',
     canActivate: [AdminRouterService]

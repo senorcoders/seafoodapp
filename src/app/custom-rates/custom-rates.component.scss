@@ -1,0 +1,41 @@
+//Para en la seleccion en featured
+@import "../../variables.scss";
+
+.container{
+    padding-top: 130px;
+
+    .has-float-label .form-control:placeholder-shown:not(:focus)+label[for="val"]{
+        font-size: 100%;
+    }
+}
+
+button[type="submit"]{
+    width: 100%;
+}
+
+.has-danger{
+    input.form-control, select.form-control{
+        border-bottom: solid 2px $red !important;
+    }
+}
+
+.form-control-feedback{
+	color:red;
+	font-family: 'Roboto', sans-serif;
+}
+
+.items{
+    margin-top: 60px;
+    .actions{
+        font-size: 25px;
+        i{
+            cursor: pointer;
+        }
+        i.fa-times{
+            color: $red;
+        }
+        i.fa-pencil-square-o{
+            color: $light_blue;
+        }
+    }
+}
