@@ -614,6 +614,25 @@ section {
   z-index: 1;
 }
 
+.fish-small {
+  min-height: 350px;
+  background-color: $light_blue;
+  opacity: 0.4;
+
+  img {
+    position: absolute;
+    top: -49px;
+  }
+
+  &:first-child img {
+    right: 0;
+  }
+
+  &:last-child img {
+    transform: scaleX(-1);
+  }
+}
+
 /***********************/
 
  @media (min-width: 1300px){
