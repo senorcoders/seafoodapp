@@ -3,6 +3,21 @@
 .selectionable{
     cursor: pointer;
 }
+
+.close {
+    opacity: 1 !important;
+    
+    svg {
+        fill: $light_blue;
+    }
+
+    &:hover {
+        svg {
+            fill: $dark_blue
+        }
+    } 
+}
+
 .black-btn{
     color: white !important;
     font-size: 0.8rem;
@@ -262,7 +277,7 @@ p.order-number {
             color: #ffffff !important;
         }
         .form-design{
-            padding: 0 50px;
+            padding: 0;
             .col-lg-12{
                 border-bottom: 1px solid #F0F0F1;
                 margin-bottom: 15px !important;
@@ -275,6 +290,7 @@ p.order-number {
             .form-group{
              background: none !important;
              margin-bottom: 0 !important;
+             padding: 0 50px;
              .form-control{
                 border-bottom: 1px solid #ccced3 !important;
                 border-radius: 0;
@@ -317,6 +333,16 @@ p.order-number {
                 img{
                     width: 20px;
                     vertical-align: inherit;
+                }
+
+                .attach-svg {
+                    .a {
+                        fill: $gray;
+                    }
+
+                    .filled {
+                        fill: $black
+                    }
                 }
              }
             } 

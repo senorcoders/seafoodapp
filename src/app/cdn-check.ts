@@ -135,6 +135,7 @@ export class CDNCheck {
 
             jQuery(document).on('click', 'footer a', function () {
               jQuery("html, body").animate({ scrollTop: 0 }, 'slow');
+              
             });
           });
         `;

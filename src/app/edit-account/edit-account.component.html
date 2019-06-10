@@ -66,6 +66,10 @@
           </div>
         </div>
 
+        <div class="col-lg-12 text-center">
+          <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Company Info</span></h1>
+        </div>
+
         <div class="col-lg-6">
           <div class="form-group input-group">
               <span class="has-float-label"> 
@@ -102,20 +106,9 @@
           </div>
         </div>
         <div class="col-lg-6">
-          <div class="form-group input-group">
-              <span class="has-float-label"> 
-            <input id="address" placeholder="{{'Account.Address' | translate}}" type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" formControlName="address" [ngClass]="{'is-invalid':buyerForm.get('address').invalid && buyerForm.get('address').touched}">
-            <label for="address">{{'Account.Address' | translate}}<span class="field-status red">*</span></label>
-
-            <div class="invalid-feedback" *ngIf="buyerForm.get('address').hasError('required')">{{'Account.Address' | translate}} {{'Register.required' | translate}}.</div>
-              </span>
-          </div>
-        </div>
-
-        <div class="col-lg-12">
-          <div class="form-group input-group" style="max-width:975px;">
+          <div class="form-group input-group" >
             <span class="has-float-label select-float-label">    
-              <select id="city" class="form-control js-example-basic-single" style="width: 100%" formControlName="city" [ngClass]="{'is-invalid':buyerForm.get('city').invalid && buyerForm.get('city').touched}">
+              <select id="city" class="form-control"  formControlName="city" [ngClass]="{'is-invalid':buyerForm.get('city').invalid && buyerForm.get('city').touched}">
                 <option value="">Select an Emirate...</option>
                 <option value="Dubai">Dubai</option>
                 <option value="Abu Dhabi">Abu Dhabi</option>
@@ -132,6 +125,76 @@
              
           </div>
         </div>
+        <div class="col-lg-6">
+          <div class="form-group input-group">
+              <span class="has-float-label"> 
+            <input id="address" placeholder="{{'Account.Address' | translate}}" type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" formControlName="address" [ngClass]="{'is-invalid':buyerForm.get('address').invalid && buyerForm.get('address').touched}">
+            <label for="address">{{'Account.Address' | translate}}<span class="field-status red">*</span></label>
+
+            <div class="invalid-feedback" *ngIf="buyerForm.get('address').hasError('required')">{{'Account.Address' | translate}} {{'Register.required' | translate}}.</div>
+              </span>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <span class="has-float-label">    
+                                <input id="vat" type="number" class="form-control" placeholder="TRN (VAT)" formControlName="vat" [ngClass]="{'is-invalid':buyerForm.get('vat').invalid && buyerForm.get('vat').touched}">
+                                <label for="vat">TRN (VAT)</label> 
+                                <div class="invalid-feedback" *ngIf="buyerForm.get('vat').hasError('required')">TRN (VAT) {{'Register.required' | translate}}.</div>
+    
+                          </span>         
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">    
+                              <select multiple id="productsInterestedinBuying" placeholder="test" class="form-control selectpicker"  data-live-search="true" style="width: 100%" formControlName="productsInterestedinBuying" [ngClass]="{'is-invalid':buyerForm.get('productsInterestedinBuying').invalid && buyerForm.get('productsInterestedinBuying').touched}">
+                                <option value="Atlantic Salmon - HOG">Atlantic Salmon - HOG</option>
+                                <option value="Pacific Salmon - HOG">Pacific Salmon - HOG</option>
+                                <option value="Atlantic Salmon - Fillet">Atlantic Salmon - Fillet</option>
+                                <option value="Pacific Salmon - Fillet">Pacific Salmon - Fillet</option>
+                                <option value="Local Seabass - Whole">Local Seabass - Whole</option>
+                                <option value="Local Seabream - Whole">Local Seabream - Whole</option>
+                                <option value="European Seabass - Whole">European Seabass - Whole</option>
+                                <option value="European Seabream - Whole">European Seabream - Whole</option>
+                                <option value="Local Seabass - Fillet">Local Seabass - Fillet</option>
+                                <option value="Local Seabream - Fillet">Local Seabream - Fillet</option>
+                                <option value="European Seabass - Fillet">European Seabass - Fillet</option>
+                                <option value="European Seabream - Fillet">European Seabream - Fillet</option>
+                                <option value="European Lobster">European Lobster</option>
+                                <option value="American Lobster">American Lobster</option>
+                                <option value="Mud Crab">Mud Crab</option>
+                                <option value="King Crab">King Crab</option>
+                                <option value="Blue Crab">Blue Crab</option>
+                                <option value="Langoustines">Langoustines</option>
+                                <option value="Bluefin Tuna">Bluefin Tuna</option>
+                                <option value="Yellowfin Tuna">Yellowfin Tuna</option>
+                                <option value="European Oysters">European Oysters</option>
+                                <option value="Local Oysters">Local Oysters</option>
+                                <option value="Fresh Shrimps">Fresh Shrimps</option>
+                                <option value="Frozen Shrimps">Frozen Shrimps</option>
+                                <option value="Squid">Squid</option>
+                                <option value="Frozen Squid">Frozen Squid</option>
+                              </select> 
+                              <label for="productsInterestedinBuying">Products Interested in Buying</label> 
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('productsInterestedinBuying').hasError('required')"> Products Interested in Buying {{'Register.required' | translate}}.</div>
+  
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
+                            <label for="additionalItems">Additional Items</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('additionalItems').hasError('required')">Additional Items {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                  
+      
 
 
       </div>
@@ -197,7 +260,7 @@
           </div>
         </div>
         <div class="col-lg-12 text-center">
-            <h1 class="gray-title" style="margin-top: 60px;"><span>Company Info</span></h1>
+            <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Company Info</span></h1>
           </div>
 
         <div class="col-md-6">
@@ -214,6 +277,15 @@
         <div class="col-md-6">  
           <div class="form-group input-group">
               <span class="has-float-label">
+            <input id="cn" placeholder="Contact Number" type="number" class="form-control" placeholder="Contact Number" formControlName="contactNumber"  [ngClass]="{'is-invalid':sellerForm.get('contactNumber').invalid && sellerForm.get('contactNumber').touched}">
+            <label for="cn">Contact Number <span class="field-status red">*</span></label>
+            <div class="invalid-feedback" *ngIf="sellerForm.get('contactNumber').hasError('required')">Contact Number is required.</div>
+         </span>
+          </div>
+        </div>
+        <div class="col-md-6">  
+          <div class="form-group input-group">
+              <span class="has-float-label">
                   <input id="brandme" placeholder="Trade/Brand Name"  disabled type="text" class="form-control" placeholder="Trade/Brand Name" formControlName="trade"  [ngClass]="{'is-invalid':sellerForm.get('trade').invalid && sellerForm.get('trade').touched}">
 
             <label for="brandme" class="disabled-label">Trade/Brand Name <span class="field-status red">*</span></label>
@@ -222,19 +294,6 @@
           </div>
         </div>
 
-        <div class="col-md-12">
-          <div class="form-group input-group" style="max-width:975px;">
-              <span class="has-float-label">
-               <input type="text" id="desc" placeholder="Company Description" class="form-control" formControlName="storeDescription" [ngClass]="{'is-invalid':sellerForm.get('storeDescription').invalid && sellerForm.get('storeDescription').touched}">
-              <label for="desc">Company Description 
-                <!-- <span class="field-status red">*</span> -->
-              </label>
-              <!-- <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div> -->
-              </span>
-            </div>
-         
-
-        </div>
         <div class="col-md-6">
           <div class="form-group input-group">
               <span class="has-float-label">
@@ -249,6 +308,7 @@
          </span>
           </div>
         </div>
+
         <div class="col-md-6">
           <div class="form-group input-group">
               <span class="has-float-label">
@@ -262,16 +322,7 @@
           </span>
           </div>
         </div>
-        <div class="col-md-6">
-          <div class="form-group input-group">
-              <span class="has-float-label">
-             <input id="address" placeholder="{{'Register.Address' | translate}}" disabled type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="address"  [ngClass]="{'is-invalid':sellerForm.get('address').invalid && sellerForm.get('address').touched}">
 
-            <label for="address" class="disabled-label">{{'Register.Address' | translate}} <span class="field-status red">*</span></label>
-            <div class="invalid-feedback" *ngIf="sellerForm.get('address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
-          </span>
-          </div>
-        </div>
         <div class="col-md-6">  
           <div class="form-group input-group">
               <span class="has-float-label">
@@ -282,6 +333,46 @@
           </span>
           </div>
         </div>
+
+        <div class="col-md-12">
+          <div class="form-group input-group" style="max-width: 87.5% !important;">
+              <span class="has-float-label">
+             <input id="address" placeholder="{{'Register.Address' | translate}}" disabled type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="address"  [ngClass]="{'is-invalid':sellerForm.get('address').invalid && sellerForm.get('address').touched}">
+
+            <label for="address" class="disabled-label">{{'Register.Address' | translate}} <span class="field-status red">*</span></label>
+            <div class="invalid-feedback" *ngIf="sellerForm.get('address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+          </span>
+          </div>
+        </div>
+
+        <div class="col-md-12">  
+          <div class="form-group input-group" style="max-width: 87.5% !important;">
+              <span class="has-float-label">
+            <input id="pis" placeholder="Products Interested in Selling" type="text" class="form-control" placeholder="Products Interested in Selling" formControlName="productsIntered"  [ngClass]="{'is-invalid':sellerForm.get('productsIntered').invalid && sellerForm.get('productsIntered').touched}">
+            <label for="pis">Products Interested in Selling <span class="field-status red">*</span></label>
+            <div class="invalid-feedback" *ngIf="sellerForm.get('productsIntered').hasError('required')">Products Interested in Selling is required.</div>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="form-group input-group" style="max-width:975px;">
+              <span class="has-float-label">
+               <input type="text" id="desc" placeholder="Company Description" class="form-control" formControlName="storeDescription" [ngClass]="{'is-invalid':sellerForm.get('storeDescription').invalid && sellerForm.get('storeDescription').touched}">
+              <label for="desc">Company Description 
+                <!-- <span class="field-status red">*</span> -->
+              </label>
+              <!-- <div class="invalid-feedback" *ngIf="sellerForm.get('storeDescription').hasError('required')">Company Description is required.</div> -->
+              </span>
+            </div>
+         
+
+        </div>
+        
+       
+        <div class="col-lg-12 text-center">
+          <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Legal &amp; bank Info</span></h1>
+        </div>
+       
         <div class="col-md-6">  
           <div class="form-group input-group">
               <span class="has-float-label">
@@ -305,31 +396,26 @@
         <div class="col-md-6">  
           <div class="form-group input-group">
               <span class="has-float-label">
-            <input  id="iban" placeholder="Corporate Bank Account Number IBAN" type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN" formControlName="iban"  [ngClass]="{'is-invalid':sellerForm.get('iban').invalid && sellerForm.get('iban').touched}">
-            <label for="iban">Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
+            <input  id="iban" placeholder="IBAN" type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN" formControlName="iban"  [ngClass]="{'is-invalid':sellerForm.get('iban').invalid && sellerForm.get('iban').touched}">
+            <label for="iban"> IBAN <span class="field-status red">*</span></label>
             <div class="invalid-feedback" *ngIf="sellerForm.get('iban').hasError('required')">Corporate Bank Account Number IBAN is required.</div>
           </span>
           </div>
         </div>
-        <div class="col-md-6">  
+
+        <div class="col-lg-6">
           <div class="form-group input-group">
-              <span class="has-float-label">
-            <input id="pis" placeholder="Products Interested in Selling" type="text" class="form-control" placeholder="Products Interested in Selling" formControlName="productsIntered"  [ngClass]="{'is-invalid':sellerForm.get('productsIntered').invalid && sellerForm.get('productsIntered').touched}">
-            <label for="pis">Products Interested in Selling <span class="field-status red">*</span></label>
-            <div class="invalid-feedback" *ngIf="sellerForm.get('productsIntered').hasError('required')">Products Interested in Selling is required.</div>
-            </span>
+              <span class="has-float-label">    
+                <input id="swift" type="text" class="form-control" placeholder="Swift Code " formControlName="swiftCode" [ngClass]="{'is-invalid':sellerForm.get('swiftCode').invalid && sellerForm.get('swiftCode').touched}">
+                <label for="swift">Swift Code (Optional)</label> 
+                <div class="invalid-feedback" *ngIf="sellerForm.get('swiftCode').hasError('required')"> Swift Code  {{'Register.required' | translate}}.</div>
+
+            </span>         
           </div>
-        </div>
-        <div class="col-md-6">  
-          <div class="form-group input-group">
-              <span class="has-float-label">
-            <input id="cn" placeholder="Contact Number" type="number" class="form-control" placeholder="Contact Number" formControlName="contactNumber"  [ngClass]="{'is-invalid':sellerForm.get('contactNumber').invalid && sellerForm.get('contactNumber').touched}">
-            <label for="cn">Contact Number <span class="field-status red">*</span></label>
-            <div class="invalid-feedback" *ngIf="sellerForm.get('contactNumber').hasError('required')">Contact Number is required.</div>
-         </span>
-          </div>
-        </div>
-        <div class="col-md-6">  
+      </div>
+       
+       
+        <div class="col-md-12">  
           <div class="form-group input-group">
               <span class="has-float-label">
 
@@ -371,6 +457,46 @@
               <img [src]="base + hero" alt="" style="width: 350px;">
             </div>
             
+          </div>
+          <div class="col-lg-12">
+              <div class="form-group file-input" style="max-width: 87.5% !important;">
+                  <label for="fileBrands"><img src="../../assets/svg/attachment.svg" alt=""> Upload Brand logos...</label>
+                  <input type="file" multiple class="form-control" type="file" id="fileBrands" accept="image/*"
+                    (change)="handleFileBrands($event.target.files, 'logos')">
+                </div>
+                <div id="brands-gallery" class="row img-cont"  style="max-width: 87.5% !important;"></div>
+                <div class="form-group img-cont row" *ngIf="currentBrandLogos.length > 0">
+                  <div class="col-md-12 text-center">
+                      <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Current Brands Logos</span></h1>
+                  </div>
+                    <div class="col-md-3" *ngFor="let logo of currentBrandLogos; let i=index ">
+                        <img height="100px" [src]="base + logo" alt="Logo">
+                        <br> <br>
+                        <button type="button" class="btn btn-danger" (click)="deleteLogo(logo, i, 'brands')">Delete</button>
+                        <br><br>
+                    </div>
+
+                </div>
+          </div>
+          <div class="col-lg-12">
+              <div class="form-group file-input" style="max-width: 87.5% !important;">
+                  <label for="fileCerts"><img src="../../assets/svg/attachment.svg" alt=""> Upload Certifications...</label>
+                  <input type="file" multiple class="form-control" type="file" id="fileCerts" accept="image/*"
+                    (change)="handleFileBrands($event.target.files, 'certifications')">
+                </div>
+                <div id="certs-gallery" class="row img-cont"  style="max-width: 87.5% !important;"></div>
+                <div class="form-group img-cont row" *ngIf="currentCertifications.length > 0">
+                  <div class="col-md-12 text-center">
+                      <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Current Certifications</span></h1>
+                  </div>
+                    <div class="col-md-3" *ngFor="let logo of currentCertifications; let i=index ">
+                        <img height="100px" [src]="base + logo" alt="Certifications">
+                        <br> <br>
+                        <button type="button" class="btn btn-danger" (click)="deleteLogo(logo, i, 'certs')">Delete</button>
+                        <br><br>
+                    </div>
+
+                </div>
           </div>
         </div>
       <div class="row">

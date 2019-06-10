@@ -220,10 +220,35 @@
 .form-check{
     margin: 50px;
     label{
-        color: $light_blue;
+        color: $dark_blue;
         font-family: 'Open Sans', sans-serif;
         font-weight: 300;
         font-size: 21px;
         line-height: 28px;
+    }
+}
+
+.custom-checkbox {
+
+    .custom-control-label::before {
+        border-radius: 3px;
+    }
+
+    .custom-control-label::before, .custom-control-label::after {
+        top: 0.4rem;
+    }
+
+    .custom-control-input:checked ~ .custom-control-label::before {
+    border-color: $dark_blue;
+    background-color: $dark_blue;
+    box-shadow: none;
+}
+
+    .custom-control-input:checked ~ .custom-control-label::after {
+    background-image: none;
+    }
+
+    .custom-control-input:focus ~ .custom-control-label::before {
+        box-shadow: none;
     }
 }

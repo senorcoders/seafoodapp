@@ -97,7 +97,7 @@
     .gray-title{
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
-        font-size: 28px;
+        font-size: 2em;
         line-height: 45px;
         letter-spacing: 0.5px;
         color: $light_blue;
@@ -112,6 +112,10 @@
             border-bottom: 1px solid $light_blue;
             padding-bottom: 15px;
 
+        }
+        &.company-title{
+            font-size: 1.143em;
+            line-height: 19px;
         }
     }
 

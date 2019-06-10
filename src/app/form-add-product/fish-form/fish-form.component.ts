@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, Input  } from '@angular/core';
 import { FormGroupDirective, ControlContainer, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { ProductService } from '../../services/product.service';
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ToastrService } from '../../toast.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'fish-form',
@@ -16,7 +18,12 @@ import { AuthenticationService } from '../../services/authentication.service';
   providers: [NgClass, NgIf]
 })
 export class FishFormComponent implements OnInit {
-
+  private eventSellerSelected: any;
+  @Input() seller: Observable<void>;
+  @Input() events: Observable<void>;
+  private eventsSubscription: Subscription;
+  sellerInfo: any;
+  
   @ViewChild('myInput')
   myInputVariable: ElementRef;
   public product: FormGroup;
@@ -73,7 +80,8 @@ export class FishFormComponent implements OnInit {
   // public trimmings = [];
   private identifier = "_arr";
   public treatments = [];
-
+public staticmin:number = 1;
+weightType:any = 'Kg';
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
     private route: ActivatedRoute, private sanitizer: DomSanitizer,
@@ -86,6 +94,11 @@ export class FishFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.eventsSubscription = this.events.subscribe( (sellerInfo) => {
+      console.log('lololol', sellerInfo);
+      this.sellerInfo = sellerInfo;
+      this.getStore();
+    } );
     this.createFormGroup();
     this.getCountries();
     this.getCountriesWithShipping();
@@ -100,7 +113,7 @@ export class FishFormComponent implements OnInit {
     this.reaised();
     this.getParts();
     this.getTrimmingModal();
-
+    
   }
 
 
@@ -115,7 +128,7 @@ export class FishFormComponent implements OnInit {
       kg: new FormControl('', Validators.nullValidator),
       parentSelectedType: new FormControl('', Validators.required),
       speciesSelected: new FormControl('', Validators.required),
-      subSpeciesSelected: new FormControl('', Validators.required),
+      subSpeciesSelected: new FormControl('', Validators.nullValidator),
       descriptorSelected: new FormControl('', Validators.nullValidator),
       seller_sku: new FormControl('', Validators.nullValidator),
       hsCode: new FormControl('', Validators.nullValidator),
@@ -124,6 +137,7 @@ export class FishFormComponent implements OnInit {
       images: new FormControl('', Validators.nullValidator),
       imagesSend: new FormControl("", Validators.nullValidator),
       unitOfSale: new FormControl("", Validators.required),
+      perBoxes: new FormControl(false, Validators.nullValidator),
       averageUnitWeight: new FormControl(10, Validators.required),
       deletedImages: new FormControl("[]", Validators.nullValidator),
       //features
@@ -141,10 +155,22 @@ export class FishFormComponent implements OnInit {
 
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {
       console.log("product", it);
-      if (it.unitOfSale === "boxes") {
+      if (it.perBoxes === true) {
         this.showAverageUnit = true;
-      } else if (it.unitOfSale === "kg") {
+        if(it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight){
+          this.product
+          it.minimunorder = it.averageUnitWeight;
+          this.controls().minimunorder.setValue(it.averageUnitWeight);
+        }
+
+      } else {
         this.showAverageUnit = false;
+      }
+
+      if(it.unitOfSale == 'lbs'){
+        this.weightType = "Lbs"
+      }else{
+        this.weightType = "Kg";
       }
       if (it.imagesSend !== '' && this.images.length === 0)
         this.images = JSON.parse(it.imagesSend);
@@ -560,15 +586,23 @@ export class FishFormComponent implements OnInit {
   }
 
   getStore() {
-    this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
-      this.store = results;
-      this.getTrimmingByStore();
-      this.getParts();
-      this.getProcessingParts();
-      if (this.store.length < 1) {
-        this.existStore = false;
-      }
-    });
+    console.log( 'role', this.info['role'] );
+    if( this.info !== undefined && this.sellerInfo !== undefined && this.info['role'] == 0 )
+      this.info.id = this.sellerInfo.id;
+
+    if( this.info !== undefined ) {
+      this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
+        this.store = results;
+        console.log( 'store', results );
+        this.getTrimmingByStore();
+        this.getParts();
+        this.getProcessingParts();
+        if (this.store.length < 1) {
+          this.existStore = false;
+        }
+      });
+    }
+    
   }
 
   getFishPreparation() {
@@ -585,14 +619,16 @@ export class FishFormComponent implements OnInit {
   }
 
   getProcessingParts() {
-    this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      res => {
-        this.ProcessingParts = res as any;
-      },
-      e => {
-        console.log(e);
-      }
-    );
+    if( this.store[0] !== undefined ) {
+      this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+        res => {
+          this.ProcessingParts = res as any;
+        },
+        e => {
+          console.log(e);
+        }
+      );
+    }    
   }
 
   private createFormGroupFeatures() {
@@ -720,14 +756,16 @@ export class FishFormComponent implements OnInit {
   }
 
   private getTrimmingByStore() {
-    this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
-      result => {
-        this.trimmingsModal = result as any;
-      },
-      e => {
-        console.log(e)
-      }
-    )
+    if( this.store[0] !== undefined ) {
+      this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
+        result => {
+          this.trimmingsModal = result as any;
+        },
+        e => {
+          console.log(e)
+        }
+      )
+    }
   }
 
   public isDefault(part, trim) {

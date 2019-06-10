@@ -21,15 +21,15 @@ export class RecentPurchasesComponent implements OnInit {
   firstNoShipped: any = [];
   shipped: any;
   datesShipping = [];
-  showMore: boolean = false;
-  showLess: boolean = false;
-  showMoreNoShipped: boolean = false;
-  showLessNoShipped: boolean = false;
-  showLoading: boolean = true;
-  showProduct: boolean = false;
-  showShipped: boolean = false;
-  showDelivered: boolean = false;
-  showCancelled: boolean = false;
+  showMore = false;
+  showLess = false;
+  showMoreNoShipped = false;
+  showLessNoShipped = false;
+  showLoading = true;
+  showProduct = false;
+  showShipped = false;
+  showDelivered = false;
+  showCancelled = false;
   firstProducts: any;
   min = new Date();
   max = new Date();
@@ -76,6 +76,7 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.setHeight();
     this.createFormControl();
     this.createForm();
     this.user = this.auth.getLoginData();
@@ -83,12 +84,12 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
   chargeJS() {
-    console.log(jQuery('#slidinTab'))
-    //Sliding underline effect
-    var $el, leftPos, newWidth;
-    var $mainNav: any = jQuery("#slidinTab");
+    console.log(jQuery('#slidinTab'));
+    // Sliding underline effect
+    let $el, leftPos, newWidth;
+    const $mainNav: any = jQuery('#slidinTab');
 
-    $mainNav.append("<li id='magic-line'></li>");
+    $mainNav.append('<li id=\'magic-line\'></li>');
 
     jQuery('#magic-line').css('position', 'absolute');
     jQuery('#magic-line').css('background', '#094D82');
@@ -98,10 +99,10 @@ export class RecentPurchasesComponent implements OnInit {
     jQuery('#magic-line').css('bottom', '-2px');
     jQuery('#magic-line').css('border-radius', '2px');
     /* Cache it */
-    var $magicLine = jQuery("#magic-line");
+    const $magicLine = jQuery('#magic-line');
 
 
-    jQuery("#slidinTab li a").click(function () {
+    jQuery('#slidinTab li a').click(function () {
       $el = jQuery(this);
       leftPos = $el.position().left;
       newWidth = $el.width();
@@ -114,14 +115,14 @@ export class RecentPurchasesComponent implements OnInit {
 
 
     jQuery('img.order-icon').each(function () {
-      var $img = jQuery(this);
-      var imgID = $img.attr('id');
-      var imgClass = $img.attr('class');
-      var imgURL = $img.attr('src');
+      const $img = jQuery(this);
+      const imgID = $img.attr('id');
+      const imgClass = $img.attr('class');
+      const imgURL = $img.attr('src');
 
       jQuery.get(imgURL, function (data) {
         // Get the SVG tag, ignore the rest
-        var $svg = jQuery(data).find('svg');
+        let $svg = jQuery(data).find('svg');
 
         // Add replaced image's ID to the new SVG
         if (typeof imgID !== 'undefined') {
@@ -137,7 +138,7 @@ export class RecentPurchasesComponent implements OnInit {
 
         // Check if the viewport is set, else we gonna set it if we can.
         if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-          $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+          $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'));
         }
 
 
@@ -194,7 +195,7 @@ export class RecentPurchasesComponent implements OnInit {
     // this.productS.getData('api/store/fish/items/paid/' + this.storeID).subscribe(
     this.productS.getData(`api/store/orders/shipped/user/${this.user.id}`).subscribe(
       result => {
-        console.log("Shipped", result);
+        console.log('Shipped', result);
         if (result && result !== '') {
           this.shipped = result;
           this.firstShipped = result;
@@ -298,10 +299,10 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
 
-  //Confirm order function
+  // Confirm order function
   confirmOrder(itemId: string, subindex?) {
-    let index = this.index;
-    let sellerETA = jQuery(`#epa${itemId}`).val();
+    const index = this.index;
+    const sellerETA = jQuery(`#epa${itemId}`).val();
 
     this.productS.updateData('api/itemshopping/' + itemId + '/5c017af047fb07027943a405',
       { userEmail: this.user['email'], userID: this.user['id'], sellerExpectedDeliveryDate: sellerETA }).subscribe(
@@ -309,7 +310,7 @@ export class RecentPurchasesComponent implements OnInit {
           jQuery('#confirm').modal('hide');
           console.log(res);
           this.toast.success(res['message'], 'Alert', { positionClass: 'toast-top-right' });
-          if (subindex != undefined) {
+          if (subindex !== undefined) {
             this.firstNoShipped[index].items[subindex].updateInfo = res['item'][0].updateInfo;
 
           } else {
@@ -330,13 +331,13 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
 
-  //Show Modal for Confirm order
+  // Show Modal for Confirm order
   showModal(id, action, index, where, subindex?) {
-    let sellerETA = jQuery(`#epa${id}`).val()
+    const sellerETA = jQuery(`#epa${id}`).val();
     this.index = index;
     this.where = where;
     this.subindex = subindex;
-    console.log("index Modal", this.index);
+    console.log('index Modal', this.index);
 
     if ((sellerETA !== '' && sellerETA !== undefined) || action === 'cancel') {
       this.citemId = id;
@@ -348,24 +349,22 @@ export class RecentPurchasesComponent implements OnInit {
     }
   }
 
-  //Confirm action in the modal 
+  // Confirm action in the modal
   confirm(val, action) {
     if (val) {
       console.log(action);
-      if (action == "confirm") {
+      if (action === 'confirm') {
         this.confirmOrder(this.citemId);
-      }
-      else if (action == 'cancel') {
+      } else if (action === 'cancel') {
         this.cancelOrder(this.citemId);
       }
-    }
-    else {
+    } else {
       jQuery('#confirm').modal('hide');
     }
   }
 
 
-  //Cancel an order
+  // Cancel an order
   cancelOrder(itemId: string) {
     const status = {
       'id': itemId,
@@ -378,19 +377,19 @@ export class RecentPurchasesComponent implements OnInit {
         console.log(res, this.subindex);
         jQuery('#confirm').modal('hide');
         this.toast.success('Order Canceled', 'Well Done', { positionClass: 'toast-top-right' });
-        if (this.where == 'pending') {
-          if (this.subindex != undefined) {
-            console.log("indefinida");
+        if (this.where === 'pending') {
+          if (this.subindex !== undefined) {
+            console.log('indefinida');
             this.firstNoShipped[this.index].items.splice(this.subindex, 1);
 
           } else {
-            console.log("Definida");
+            console.log('Definida');
             this.firstNoShipped.splice(this.index, 1);
 
 
           }
         } else {
-          if (this.subindex != undefined) {
+          if (this.subindex !== undefined) {
             this.firstShipped[this.index].items.splice(this.subindex, 1);
 
           } else {
@@ -407,12 +406,12 @@ export class RecentPurchasesComponent implements OnInit {
         });
   }
 
-  //Function to open calendar to confirm order
+  // Function to open calendar to confirm order
   selectDate(id, index, subindex?) {
     this.index = index;
-    let date = jQuery('#epa' + id).val();
-    console.log("Item ID", id, date);
-    if (subindex != undefined) {
+    const date = jQuery('#epa' + id).val();
+    console.log('Item ID', id, date);
+    if (subindex !== undefined) {
       this.confirmOrder(id, subindex);
 
     } else {
@@ -422,7 +421,7 @@ export class RecentPurchasesComponent implements OnInit {
 
   }
 
-  //Open set delivery date modal
+  // Open set delivery date modal
   openDeliveryModal(id, index, subindex?) {
     jQuery('#deliveryModal').modal('show');
     this.deliveryID = id;
@@ -430,7 +429,7 @@ export class RecentPurchasesComponent implements OnInit {
     this.deliverySunindex = subindex;
   }
 
-  //Create form controls and shipping docs form
+  // Create form controls and shipping docs form
 
   createFormControl() {
     this.invoice = new FormControl('');
@@ -466,10 +465,10 @@ export class RecentPurchasesComponent implements OnInit {
   addItem(): void {
     this.extra = this.trackingForm.get('extra') as FormArray;
     this.extra.push(this.createItem());
-    console.log("Extra", this.trackingForm.get('extra').value);
+    console.log('Extra', this.trackingForm.get('extra').value);
   }
 
-  //Validate each input fields of the form
+  // Validate each input fields of the form
 
   validateAllFormFields(formGroup: FormGroup) {
     Object.keys(formGroup.controls).forEach(field => {
@@ -483,11 +482,11 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
 
-  //Check if form is valid
+  // Check if form is valid
   saveTracking() {
 
     if (this.trackingForm.valid) {
-      console.log("PDFs validos");
+      console.log('PDFs validos');
       console.log(this.trackingForm.value);
       this.loading = true;
       this.ngProgress.start();
@@ -498,42 +497,42 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
 
-  //Save docs in DATABASE
+  // Save docs in DATABASE
   async sendToAPI() {
-    let data = [
+    const data = [
       this.trackingForm.get('invoice').value,
       this.trackingForm.get('healthCert').value,
       this.trackingForm.get('packingList').value,
       this.trackingForm.get('awb').value,
       this.trackingForm.get('certificateOrigin').value,
       this.trackingForm.get('creditNote').value
-    ]
+    ];
 
 
     for (const file of data) {
-      console.log("File", file);
-      if(file != '' && file != null){
+      console.log('File', file);
+      if (file !== '' && file != null) {
         const contents = await this.postFile(file);
         }
-   
+
     }
 
-    console.log("Mostrar items");
+    console.log('Mostrar items');
 
-    if (this.where == 'pending') {
-      if (this.shippingSubindex != undefined) {
-        console.log("indefinida");
+    if (this.where === 'pending') {
+      if (this.shippingSubindex !== undefined) {
+        console.log('indefinida');
         this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
 
 
       } else {
-        console.log("Definida");
+        console.log('Definida');
         this.firstNoShipped[this.shippingIndex].items[0].shippingFiles = this.tmpFiles;
 
 
       }
     } else {
-      if (this.shippingSubindex != undefined) {
+      if (this.shippingSubindex !== undefined) {
         this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles = this.tmpFiles;
 
 
@@ -543,77 +542,83 @@ export class RecentPurchasesComponent implements OnInit {
       }
 
     }
-    console.log("Extra vacio", this.extra);
-    if(this.extra != undefined){
-      if(this.extra.length > 0){
+    console.log('Extra vacio', this.extra);
+    if (this.extra !== undefined) {
+      if (this.extra.length > 0) {
         await this.saveExtraDocs();
       }
-    } 
-  
-      
-    this.toast.success("Order marked as document fulfillment!", 'Upload Succesfully', { positionClass: "toast-top-right" });
+    }
+
+
+    this.toast.success('Order marked as document fulfillment!', 'Upload Succesfully', { positionClass: 'toast-top-right' });
       jQuery('#shippingDocs').modal('hide');
       this.doc = [];
       this.cleanLabels();
       this.loading = false;
       this.ngProgress.done();
-    
 
-  
+
+
   }
 
-  async saveExtraDocs(){
+  async saveExtraDocs() {
 
     await new Promise((resolve) => {
-    for(let i = 0; i < this.extra.length; i++) {
+    for (let i = 0; i < this.extra.length; i++) {
       console.log(this.extra.at(i).value);
-      let item = this.extra.at(i).value;
+      const item = this.extra.at(i).value;
 
-      this.postFile(item['fileextra'])
-      if((i + 1) == this.extra.length){
-        console.log("Se resolvio");
+      this.postFile(item['fileextra']);
+      if ((i + 1) === this.extra.length) {
+        console.log('Se resolvio');
         resolve();
       }
 
     }
-    })
-  
+    });
+
   }
 
-  //Function to prepulate current shiiping docs uploaded to the server
+  // Function to prepulate current shiiping docs uploaded to the server
   getShippingDocs() {
-    if (this.where == 'pending') {
-      if (this.shippingSubindex != undefined) {
+    if (this.where === 'pending') {
+      if (this.shippingSubindex !== undefined) {
         this.doc = this.firstNoShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
 
 
       } else {
-        console.log("Definida");
+        console.log('Definida');
         this.doc = this.firstNoShipped[this.shippingIndex].items[0].shippingFiles;
 
 
       }
     } else {
-      if (this.shippingSubindex != undefined) {
+      if (this.shippingSubindex !== undefined) {
         this.doc = this.firstShipped[this.shippingIndex].items[this.shippingSubindex].shippingFiles;
 
 
       } else {
-        this.doc = this.firstShipped[this.shippingIndex].items[0].shippingFiles;;
+        this.doc = this.firstShipped[this.shippingIndex].items[0].shippingFiles;
 
       }
 
     }
-    console.log("Doc", this.doc);
+    console.log('Doc', this.doc);
   }
 
   public mapDocs(doc, name) {
-    let file = doc.split("/");
-    if (file[3] != undefined && file[3].includes(name)) {
-
-      return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`
+    const file = doc.split('/');
+    if (file[3] !== undefined && file[3].includes(name)) {
+      return `<a download href="${this.API}api/itemshopping/${file[2]}/shipping-documents/${file[3]}/"><i class="fa fa-file-o" aria-hidden="true"></i> ${file[3]}</a>`;
     }
   }
+
+  hasContent(element: string) {
+    if (document.getElementById(element).innerHTML !== null) {
+      return true;
+    }
+  }
+
   async postFile(element) {
     await new Promise((resolve) => {
 
@@ -625,9 +630,9 @@ export class RecentPurchasesComponent implements OnInit {
       }, error => {
         console.log(error);
         resolve();
-      })
+      });
 
-    })
+    });
   }
 
   cleanLabels() {
@@ -641,43 +646,43 @@ export class RecentPurchasesComponent implements OnInit {
     this.trackingForm.reset();
     jQuery('#shippingDocs input[type=file]').val('');
   }
-  //Get file on input change and change the name before upload it
+  // Get file on input change and change the name before upload it
   removeAllButLast(string, token) {
     /* Requires STRING not contain TOKEN */
-    var parts = string.split(token);
-    return parts.slice(0,-1).join('') + token + parts.slice(-1)
+    const parts = string.split(token);
+    return parts.slice(0, -1).join('') + token + parts.slice(-1);
 }
   handleFileInput(event, name) {
 
 
-    if (event.target.files.length > 0) { 
-      let file = event.target.files;
-      let tmpNameFile = this.removeAllButLast(file[0].name, "."); 
-      console.log("File", tmpNameFile);
+    if (event.target.files.length > 0) {
+      const file = event.target.files;
+      const tmpNameFile = this.removeAllButLast(file[0].name, '.');
+      console.log('File', tmpNameFile);
 
-      let ext = tmpNameFile.split(".");
+      const ext = tmpNameFile.split('.');
       console.log(ext);
-      console.log("Nombre", name + '.' + ext[1]);
+      console.log('Nombre', name + '.' + ext[1]);
 
-      var blob = file[0].slice(0, file[0].size, file[0].type);
+      const blob = file[0].slice(0, file[0].size, file[0].type);
       console.log(blob);
-      var newFile = new File([blob], name  + '-' + ext[0] + '.' + ext[1], { type: file[0].type });
+      const newFile = new File([blob], name  + '-' + ext[0] + '.' + ext[1], { type: file[0].type });
 
-      console.log("newFile", newFile);
+      console.log('newFile', newFile);
       // file[0].name=name;
 
       this.trackingForm.get(`${name}`).setValue(newFile);
-      if (name == 'invoice') {
+      if (name === 'invoice') {
         this.label1 = ext[0] + '.' + ext[1];
-      } else if (name == 'healthCert') {
+      } else if (name === 'healthCert') {
         this.label2 = ext[0] + '.' + ext[1];
-      } else if (name == 'packingList') {
+      } else if (name === 'packingList') {
         this.label3 = ext[0] + '.' + ext[1];
 
-      } else if (name == 'awb') {
+      } else if (name === 'awb') {
         this.label4 = ext[0] + '.' + ext[1];
 
-      } else if (name == 'certificateOrigin') {
+      } else if (name === 'certificateOrigin') {
         this.label5 = ext[0] + '.' + ext[1];
 
       } else {
@@ -687,87 +692,89 @@ export class RecentPurchasesComponent implements OnInit {
   }
 
   renameFilename(file, name) {
-    return file.renameFilename = name + "." + file['name'].split('.').pop();
+    return file.renameFilename = name + '.' + file['name'].split('.').pop();
   }
 
-  //Open shipping docs modal
+  // Open shipping docs modal
   openShippingModal(id, index, where, subindex?) {
     jQuery('#shippingDocs').modal('show');
-    console.log("index", index, subindex);
+    console.log('index', index, subindex);
     this.itemId = id;
     this.shippingIndex = index;
     this.where = where;
-    if (subindex != undefined) {
+    if (subindex !== undefined) {
       this.shippingSubindex = subindex;
     }
     this.getShippingDocs();
 
   }
 
-  //Close shipping docs modal
+  // Close shipping docs modal
   closeShippingModal() {
     jQuery('#shippingDocs').modal('hide');
     this.doc = [];
   }
 
-  //Get delivered orders
+  // Get delivered orders
 
   getDelivered() {
     this.productS.getData(`/api/store/${this.user.id}/order/status/5c017b3c47fb07027943a409`).subscribe(res => {
-      console.log("Delivered Orders", res);
-      let arr: any = res;
+      console.log('Delivered Orders', res);
+      const arr: any = res;
       if (arr.length > 0) {
         this.delivered = res;
         this.showDelivered = true;
       }
-    })
+    });
   }
 
-  //Get cancelled orders
+  // Get cancelled orders
 
   getCancelled() {
     this.productS.getData(`/api/store/${this.user.id}/order/status/5c06f4bf7650a503f4b731fd`).subscribe(res => {
-      console.log("Delivered Orders", res);
-      let arr: any = res;
+      console.log('Delivered Orders', res);
+      const arr: any = res;
       if (arr.length > 0) {
         this.cancelled = res;
         this.showCancelled = true;
       }
-    })
+    });
   }
 
   public orderForOrder(prop: string) {
-    if (this[prop + "_sort"] === null || this[prop + "_sort"] === undefined)
-      this[prop + "_sort"] = "desc";
+    if (this[prop + '_sort'] === null || this[prop + '_sort'] === undefined) {
+      this[prop + '_sort'] = 'desc';
+    }
 
-    if (this[prop + "_sort"] === "desc") {
+    if (this[prop + '_sort'] === 'desc') {
       this[prop] = this[prop].sort((a, b) => {
         return a.orderNumber - b.orderNumber;
       });
-      this[prop + "_sort"] = "asc";
+      this[prop + '_sort'] = 'asc';
     } else {
       this[prop] = this[prop].sort((a, b) => {
         return b.orderNumber - a.orderNumber;
       });
-      this[prop + "_sort"] = "desc";
+      this[prop + '_sort'] = 'desc';
     }
 
   }
 
   public orderForDate(prop: string) {
-    if (this[prop + "_sort_date"] === null || this[prop + "_sort_date"] === undefined)
-      this[prop + "_sort_date"] = "desc";
+    if (this[prop + '_sort_date'] === null || this[prop + '_sort_date'] === undefined) {
+      this[prop + '_sort_date'] = 'desc';
+    }
 
-    if (this[prop + "_sort_date"] === "desc") {
+    if (this[prop + '_sort_date'] === 'desc') {
       this[prop] = this[prop].sort((a, b) => {
         return a.updatedAt - b.updatedAt;
       });
-      this[prop + "_sort_date"] = "asc";
+      this[prop + '_sort_date'] = 'asc';
     } else {
       this[prop] = this[prop].sort((a, b) => {
         return b.updatedAt - a.updatedAt;
       });
-      this[prop + "_sort_date"] = "desc";
+      this[prop + '_sort_date'] = 'desc';
     }
 
   }
@@ -775,25 +782,28 @@ export class RecentPurchasesComponent implements OnInit {
 
   public getTotal(order) {
     let total = 0;
-    if (isNaN(order.currentCharges.exchangeRates) === false)
+    if (isNaN(order.currentCharges.exchangeRates) === false) {
       total = order.total / order.currentCharges.exchangeRates;
+    }
     if (
       Object.prototype.toString.call(order.currentCharges.exchangeRates) === '[object Array]' &&
       order.currentCharges.exchangeRates.length > 0
     ) {
       total = order.total / order.currentCharges.exchangeRates[0].price;
     }
-    if (isNaN(Number(total)) === true)
+    if (isNaN(Number(total)) === true) {
       return 'not available';
-    return total.toFixed(2)+ " USD";
+    }
+    return total.toFixed(2) + ' USD';
   }
 
   public getTotalItem(item, order) {
     let result;
     try {
       let exchangeRates = 0;
-      if (isNaN(order.currentCharges.exchangeRates) === false)
+      if (isNaN(order.currentCharges.exchangeRates) === false) {
         exchangeRates = Number(order.currentCharges.exchangeRates);
+      }
       if (
         Object.prototype.toString.call(order.currentCharges.exchangeRates) === '[object Array]' &&
         order.currentCharges.exchangeRates.length > 0
@@ -801,18 +811,18 @@ export class RecentPurchasesComponent implements OnInit {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
       result = (Number(item.total) / exchangeRates).toFixed(2);
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e);
     }
 
-    if (isNaN(Number(result)) === true)
+    if (isNaN(Number(result)) === true) {
       return 'not available';
-    return result+ " USD";
+    }
+    return result + ' USD';
   }
 
   logCalendar() {
-    console.log("Momento", this.selectedMoment);
+    console.log('Momento', this.selectedMoment);
     jQuery(`#epa${this.deliveryID}`).val(this.selectedMoment);
     console.log(jQuery(`#epa${this.deliveryID}`).val());
     this.selectDate(this.deliveryID, this.deliveryIndex, this.deliverySunindex);
@@ -823,16 +833,16 @@ export class RecentPurchasesComponent implements OnInit {
 
 
     if (event.target.files.length > 0) {
-      let file = event.target.files;
-      let ext = file[0].name.split(".");
+      const file = event.target.files;
+      const ext = file[0].name.split('.');
       console.log(ext);
-      console.log("Nombre", name + '.' + ext[1]);
+      console.log('Nombre', name + '.' + ext[1]);
 
-      var blob = file[0].slice(0, file[0].size, file[0].type);
+      const blob = file[0].slice(0, file[0].size, file[0].type);
       console.log(blob);
-      var newFile = new File([blob], name  + '-extra'  + '.' + ext[1], { type: file[0].type });
+      const newFile = new File([blob], name  + '-extra'  + '.' + ext[1], { type: file[0].type });
 
-      console.log("newFile", newFile);
+      console.log('newFile', newFile);
 
      this.extra.at(index).setValue(
         {
@@ -840,9 +850,15 @@ export class RecentPurchasesComponent implements OnInit {
           fileextra: newFile
         }
       );
-      console.log("Extra updated", this.extra.value);
+      console.log('Extra updated', this.extra.value);
 
-     
+
     }
+  }
+
+  setHeight() {
+    const screenHeight = window.screen.height - 410;
+
+    document.getElementById('panel').style.minHeight = screenHeight + 'px';
   }
 }

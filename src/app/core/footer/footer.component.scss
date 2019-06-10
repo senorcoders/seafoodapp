@@ -117,4 +117,25 @@ footer{
             margin: 10px 0;
         }
     }
+
+    .sub-footer {
+            .footer-logos {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                .list-inline-item {
+                    margin: 0
+                }
+
+                img {
+                    height: 35px;
+                    max-height: 53px;
+                }
+            }
+
+            ul.copyright {
+                padding-bottom: 20px;
+            }
+        }
 }

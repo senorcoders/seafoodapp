@@ -92,12 +92,15 @@
 						<b>Last Name: </b>{{singleUser.lastName}} <br>
 						<b>Email: </b>{{singleUser.email}} <br>
 						<b>Role: </b>{{getRole(singleUser.role)}} <br>
-						<b>Location: </b>{{singleUser.dataExtra.country}},{{singleUser.dataExtra.City}},
-						{{singleUser.dataExtra.Address}} <br>
 						<b>Tel: </b>{{singleUser.dataExtra.tel}} <br>
 						<b>Company Name: </b>{{singleUser.dataExtra.companyName}} <br>
 						<b>Type of Business:</b>
 						{{singleUser.dataExtra.TypeBusiness!==undefined?singleUser.dataExtra.TypeBusiness:singleUser.dataExtra.typeBusiness}}<br>
+						<b>Location: </b>{{singleUser.dataExtra.country}},{{singleUser.dataExtra.City}},
+						{{singleUser.dataExtra.Address}} <br>
+						<b>TRN (VAT): </b> {{singleUser.dataExtra?.vat}} <br>
+						<b>Products Interested in Buying: </b> {{singleUser.dataExtra?.productsInterestedinBuying}} <br>
+						<b>Additional Items: </b> {{singleUser.dataExtra?.additionalItems}} <br>
 						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">

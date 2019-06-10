@@ -4,8 +4,9 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="subtitle-form">
-          <span>product type</span>
+          <span>product type</span> 
         </h1>
+      
       </div>
 
       <div class="col-lg-6">
@@ -80,7 +81,7 @@
             show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6" [hidden]="typeLevel2.length == 0">
         <div class="form-group input-group"
           [ngClass]="{'has-danger': controls().subSpeciesSelected.invalid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched),'has-success': controls().subSpeciesSelected.valid && (controls().subSpeciesSelected.dirty || controls().subSpeciesSelected.touched)}">
           <span class="has-float-label">
@@ -101,7 +102,7 @@
             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
         </div>
       </div>
-      <div class="col-lg-6">
+      <div class="col-lg-6" [hidden]="typeLevel3.length == 0">
         <div class="form-group input-group">
           <span class="has-float-label">
             <select id="variant" placholder="Subspecies Variant..." class="form-control"
@@ -124,7 +125,7 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h1 class="subtitle-form">
-            <span>product features</span>
+            <span>product featuressss</span>
           </h1>
         </div>
 
@@ -219,7 +220,7 @@
         <div class="col-12">
           <div class="form-group  file-input"
             [ngClass]="{'has-danger': controls().images.invalid && (controls().images.dirty || controls().images.touched),'has-success': controls().images.valid && (controls().images.dirty || controls().images.touched)}">
-            <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Gallery Images...*</label>
+            <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload your images...*</label>
             <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
               accept="image/png,image/jpeg,image/jpg" formControlName="images">
             <div class="form-control-feedback" *ngIf="controls().images.errors&&parentForm.submitted">
@@ -288,9 +289,9 @@
         <div class="col-lg-6">
           <div class="form-group input-group">
             <span class="has-float-label">
-              <input id="sellersku" placeholder="Company Product SKU..." type="text" class="form-control"
+              <input id="sellersku" placeholder="Product SKU..." type="text" class="form-control"
                 formControlName="seller_sku">
-              <label id="sellersku">Company Product SKU...</label>
+              <label id="sellersku">Product SKU...</label>
             </span>
             <button type="button" class="question-btn" tabIndex="-1"
               tooltip="Optional field for your unique product code" placement="right" show-delay="0"><img
@@ -357,7 +358,7 @@
         </div>
         <div class="col-lg-6 offset-lg-3">
           <div class="form-group input-group hs-code-contant">
-            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Code 
+            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Here 
               <img src="../../../assets/svg/arrow-right.svg" class="hs-code-link-img" > </a>
             <span class="has-float-label">
               <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
@@ -376,7 +377,7 @@
       <div class="row">
         <div class="col-lg-12 text-center">
           <h1 class="subtitle-form">
-            <span>product pricing</span>
+            <span>pricing</span>
           </h1>
         </div>
 
@@ -388,7 +389,7 @@
                 <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
                 <option value="kg">Kg</option>
                 <!-- <option value="lb">lb</option> -->
-                <option value="boxes">Boxes</option>
+                <option value="lbs">Lbs</option>
               </select>
               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
               <div class="form-control-feedback" *ngIf="controls().unitOfSale.errors&&parentForm.submitted">
@@ -400,16 +401,22 @@
               tooltip="The product segment or type of seafood which your product belongs to (Eg: fish, crustaceans, etc.)"
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
+          <div class="custom-control custom-checkbox mb-3" style="max-width: 400px; margin: 0 auto;">
+              <input type="checkbox" formControlName="perBoxes" class="custom-control-input form-control" id="customControlValidation1">
+              <label class="custom-control-label" for="customControlValidation1">Enable if you would like to sell you product in boxes.</label>
+            </div>
         </div>
+
+       
 
         <div class="col-lg-6" [hidden]="!showAverageUnit">
 
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().averageUnitWeight.invalid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched),'has-success': controls().averageUnitWeight.valid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched)}">
             <span class="has-float-label">
-              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight (kg)...*"
+              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight ({{weightType}})...*"
                 formControlName="averageUnitWeight" required>
-              <label for="averageunit">{{'CreateProduct.averageUnitWeight' | translate}}...*</label>
+              <label for="averageunit">Average Unit Weight ({{weightType}})...*</label>
               <div class="form-control-feedback" *ngIf="controls().averageUnitWeight.errors&&parentForm.submitted">
                 <p *ngIf="controls().averageUnitWeight.errors.required">
                   {{'CreateProduct.averageUnitWeight' | translate}}
@@ -428,9 +435,9 @@
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
             <span class="has-float-label">
-              <input id="min" placeholder="Minimum Order...*" type="number" class="form-control"
+              <input id="min" placeholder="Minimum Order ({{weightType}})...*" [min]="staticmin" type="number" class="form-control"
                 formControlName="minimunorder">
-              <label for="min">Minimum Order...*</label>
+              <label for="min">Minimum Order ({{weightType}})...*</label>
               <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
                 <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
                   {{'CreateProduct.required' | translate}}</p>
@@ -448,9 +455,9 @@
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().maximumorder.invalid && (controls().maximumorder.dirty || controls().maximumorder.touched),'has-success': controls().maximumorder.valid && (controls().maximumorder.dirty || controls().maximumorder.touched)}">
             <span class="has-float-label">
-              <input id="max" placeholder="Maximum Order...*" type="number" class="form-control"
+              <input id="max" placeholder="Maximum Order ({{weightType}})...*" type="number" class="form-control"
                 formControlName="maximumorder">
-              <label for="max">Maximum Order...*</label>
+              <label for="max">Maximum Order ({{weightType}})...*</label>
               <div class="form-control-feedback" *ngIf="controls().maximumorder.errors&&parentForm.submitted">
                 <p *ngIf="controls().maximumorder.errors.required">{{'CreateProduct.maximum' | translate}}
                   {{'CreateProduct.required' | translate}}</p>
