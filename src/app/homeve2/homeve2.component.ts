@@ -12,36 +12,23 @@ export class Homeve2Component implements OnInit {
 
   constructor() { }
 
-  // @HostListener('mousewheel', ['$event'])
-  // drawLine($event: MouseEvent) {
+  @HostListener('window:scroll', ['$event'])
+  drawLine($event) {
 
-  //   const svg: any = document.querySelector('#connecting-line');
-  //   const l = 188; // the total length of the paths
-  //   const dasharray = l;
-  //   let dashoffset = l;
-  //   // set the stroke-dasharray and the stroke-dashoffset for the paths
-  //   svg.style.strokeDasharray = dasharray.toString();
-  //   svg.style.strokeDashoffset = dashoffset.toString();
+    const path = document.querySelector('#line-svg');
+    let percentScroll;
 
-  //   document.getElementById('home-container').addEventListener('wheel',
+    jQuery(path).each(function () {
+      this.style.strokeDasharray = this.getTotalLength();
+      this.style.strokeDashoffset = this.getTotalLength();
+    });
 
-  //     (e) => {
+    percentScroll = window.pageYOffset / (document.body.offsetHeight - window.innerHeight);
 
-  //       e.preventDefault();
-  //       //e.deltaY is the vertical movement
-  //       if (dashoffset > 0 && e.deltaY > 0 ||
-  //         dashoffset < l && e.deltaY < 0) {
-  //         //using e.deltaY would have been too fast. I'm using e.deltaY/10 to change the paths's stroke-dashoffset
-  //         dashoffset -= e.deltaY / 10;
-  //       }
-
-  //       //limiting the value of dashoffset
-  //       if (dashoffset < 0) { dashoffset = 0; }
-  //       if (dashoffset > l) { dashoffset = l; }
-  //       //reset the stroke-dasharray and the stroke-dashoffset for the paths
-  //       svg.style.strokeDashoffset = dashoffset.toString();
-  //     }, false);
-  // }
+    jQuery(path).each(function () {
+      this.style.strokeDashoffset = Math.floor(this.getTotalLength() * (1 - percentScroll));
+    });
+  }
 
   ngOnInit() {
     jQuery('body').addClass('home-header');
@@ -128,7 +115,7 @@ export class Homeve2Component implements OnInit {
 
     jQuery('#material-tabs').each(function () {
 
-      var $active, $content, $links = jQuery(this).find('a');
+      let $active, $content, $links = jQuery(this).find('a');
 
       $active = jQuery($links[0]);
       $active.addClass('active');

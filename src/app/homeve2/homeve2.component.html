@@ -1,4 +1,4 @@
-<div class="home-container" id="home-container">
+<div class="home-container" id="home-container" (window:scroll)="drawLine($event)">
   <section class="fish-hero">
     <div class="carousel-nav-sfs">
       <app-menu-nav></app-menu-nav>
@@ -51,7 +51,7 @@
   
 
   <div class="svg" style='width: 50%; margin: 0 auto;'>
-    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+    <svg version="1.1" id="connecting-line" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
       y="0px" viewBox="0 0 519 5640" style="enable-background:new 0 0 519 5640; position: absolute; top: 120vh; width: 50%; height: 5400px" xml:space="preserve">
       <style type="text/css">
         .svg-line {
@@ -63,7 +63,7 @@
           enable-background: new;
         } 
       </style>
-      <path id="Line_52" class="svg-line" d="M258,5339L4,5084H3.9v-501H4l256.4-223v0.8V0c0,4361.3,0,4361.3,0,4361.3L515,4583h-0.1v501h0.1
+      <path id="line-svg" class="svg-line" d="M258,5339L4,5084H3.9v-501H4l256.4-223v0.8V0c0,4361.3,0,4361.3,0,4361.3L515,4583h-0.1v501h0.1
     	l-256,255l-0.1,1.5v300" />
     </svg>
 
