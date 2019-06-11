@@ -1,4 +1,4 @@
-<div class="top-nav fixed-top">
+ <div (window:scroll)="classOnScroll($event)"  [ngClass]="(isScrolled === true) ? 'scrolled' : ''" class="top-nav fixed-top" id="top-nav">
   <div class="container-fluid">
     <div class="row" style="align-items: center;height: 100%; margin: 0;   flex-wrap: nowrap;">
       <div class="address">
@@ -104,9 +104,22 @@
           <span class="navbar-toggler-icon"></span>
 
         </button> -->
-        <button class="plus-btn navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><img src="../../assets/svg/plus-symbol.svg" alt=""></button>
+        <button class="plus-btn navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <svg xmlns="http://www.w3.org/2000/svg" class="plus-icon" width="19.989" height="20" viewBox="0 0 19.989 20">
+            <defs>
+              <style>
+                .a {
+                  fill: #FFF;
+                }
+              </style>
+            </defs>
+            <path class="a"
+              d="M.715,10.712a.711.711,0,0,1-.707-.717.7.7,0,0,1,.707-.707H9.285V.717A.721.721,0,0,1,10,0a.711.711,0,0,1,.707.717V9.288H19.28A.711.711,0,0,1,20,9.995a.72.72,0,0,1-.717.717H10.71v8.571A.711.711,0,0,1,10,20a.72.72,0,0,1-.717-.717V10.712Z"
+              transform="translate(-0.008)" />
+          </svg>
+        </button>
 
-        <div class="collapse navbar-collapse mobile-full-menu" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse align-items-center mobile-full-menu" id="navbarSupportedContent">
           <!-- star menu buyer -->
           <ul class="navbar-nav ml-auto menuitem-buyer access-buyer icon-menu" *ngIf="isLogged && role==2">
 
@@ -214,14 +227,15 @@
           </ul>
           <!-- end menu seller -->
           <ul class="navbar-nav access" *ngIf="!isLogged">
-            <li class="nav-item">
+            <li class="nav-item flex-nav-link">
               <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
             </li>
-            <li class="nav-item bar">
-              <!-- <span class="bar nav-link">|</span> -->
+            
+            <li class="nav-item gray-nav-bg flex-nav-link">
+              <a routerLink="/register" class="nav-link bg-btn">Sell now</a>
             </li>
-            <li class="nav-item">
-              <a routerLink="/register" class="nav-link">{{ "Menu.register" | translate }}</a>
+            <li class="nav-item  blue-nav-bg flex-nav-link">
+              <a routerLink="/register" class="nav-link bg-btn">Buy now</a>
             </li>
           </ul>
           <div class="fish-type-menu-mobile" *ngIf="isLogged && role==2">

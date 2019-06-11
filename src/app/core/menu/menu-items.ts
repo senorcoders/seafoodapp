@@ -279,10 +279,22 @@ const menu = [
     type: 'link',
     translate: {
       en: {
-        name: 'Register'
+        name: 'Sell Now'
       },
       ar: {
-        name: 'Register'
+        name: 'Sell Now'
+      }
+    }
+  },
+  {
+    state: 'register',
+    type: 'link',
+    translate: {
+      en: {
+        name: 'Buy Now'
+      },
+      ar: {
+        name: 'Buy Now'
       }
     }
   }

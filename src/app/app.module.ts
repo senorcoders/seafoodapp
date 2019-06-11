@@ -44,10 +44,11 @@ import { AccountComponent } from './account/account.component';
 import { ToastrService } from './toast.service';
 import { CDNCheck } from './cdn-check';
 import { CookieService } from 'ngx-cookie-service';
+import { Homeve2Component } from './homeve2/homeve2.component';
 
 const appRoutes: Routes = [
   {
-    path: '', component: HomeComponent,
+    path: '', component: Homeve2Component,
   },
   {
     path: "login",
@@ -423,7 +424,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent
+    AccountComponent,
+    Homeve2Component
       ],
   imports: [
     BrowserAnimationsModule,
