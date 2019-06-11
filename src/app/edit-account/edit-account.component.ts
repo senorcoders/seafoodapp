@@ -93,11 +93,12 @@ export class EditAccountComponent implements OnInit {
     this.createBuyerForm();
     this.createSellerForm();
     this.createPasswordForm();
-    this.getCountries();
    this.getPersonalData();
+   await this.getCountries();
     console.log(this.info.role);
     if(this.info['role'] == 1){
       await this.getStoreData();
+      
       this.setSellerValues();
       this.getBrandLogos();
 
@@ -545,15 +546,20 @@ readFile(files, id){
   }
 }
 
-getCountries() {
+  async getCountries() {
+  await new Promise((resolve, reject) => {
   this.countryService.getCountries().subscribe(
     result => {
+      console.log("Countries", result);
       this.countries = result;
+      resolve();
     },
     error => {
       console.log(error);
+      reject();
     }
   );
+  })
 }
 
 deleteLogo(url, i, tag){
