@@ -768,5 +768,13 @@
 	"newProduct": {
 		"title": "Add product",
 		"edit": "Edit product"
+	},
+	"Inventory": {
+		"title": "Product Inventory",
+		"seller": "Seller",
+		"sku": "SKU",
+		"date": "ETA",
+		"quantity": "Quantity",
+		"purchased": "Purchased"
 	}
 }

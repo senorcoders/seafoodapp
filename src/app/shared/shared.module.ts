@@ -22,6 +22,7 @@ import { ProductService } from '../services/product.service';
 import { IsLoginService } from '../core/login/is-login.service';
 import { LanguageService } from '../core/language/language.service';
 import { OrderService } from '../services/orders.service';
+import { InventoryService } from '../services/inventory.service';
 
 import { SellerRouterService } from '../services/seller-router.service';
 import { BuyerRouterService } from '../services/buyer-router.service';
@@ -86,6 +87,7 @@ import { FilterPipePipe } from '../filter-pipe.pipe';
     RouterProtectionService,
     LanguageService,
     AdminRouterService,
+    InventoryService,
     OrderService, {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

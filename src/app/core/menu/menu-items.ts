@@ -225,6 +225,19 @@ const menuAdmin = [
             name: 'Add Product'
           }
         }
+      },
+      {
+        state: 'inventory',
+        type: 'link',
+        name: 'Inventory',
+        translate: {
+          en: {
+            name: 'Inventory'
+          },
+          ar: {
+            name: 'Inventory'
+          }
+        }
       }
     ]
   },
