@@ -63,12 +63,12 @@ export class CreateProductComponent implements OnInit {
   public currentPrincingCharges: any;
 
   public createProduct = true;
-  
+
   public sellectedSeller: any;
   public sellerChange: Subject<void> = new Subject<void>();
 
   public speciesSelected = "";
-  lbHandler:number = 1;
+  lbHandler: number = 1;
 
 
   constructor(
@@ -97,12 +97,12 @@ export class CreateProductComponent implements OnInit {
   }
 
   emitSellerSelectedToChild() {
-    this.getSeller( this.selectedSeller );
-    
+    this.getSeller(this.selectedSeller);
+
   }
 
   ngOnInit() {
-    if ( this.createProduct ) {
+    if (this.createProduct) {
       this.getSellers();
     }
     this.myform = new FormGroup({
@@ -132,12 +132,12 @@ export class CreateProductComponent implements OnInit {
     );
   }
 
-  getSeller( seller_id ) {
+  getSeller(seller_id) {
     this.productService.getData('user/' + seller_id).subscribe(it => {
       console.log('user', it);
       this.getStore();
       this.selectedSellerInfo = it;
-      this.sellerChange.next( this.selectedSellerInfo );
+      this.sellerChange.next(this.selectedSellerInfo);
     });
   }
 
@@ -189,7 +189,7 @@ export class CreateProductComponent implements OnInit {
     this.productService.getProductDetailVariations(this.productID)
       .subscribe(async data => {
         try {
-          this.product = data;
+          this.product = JSON.parse(JSON.stringify(data));
           console.log("Producto", data);
           let images = await this.getImages(data);
 
@@ -200,15 +200,15 @@ export class CreateProductComponent implements OnInit {
             processingCountry: data["processingCountry"],
             city: data["city"],
             unitOfSale: data["unitOfSale"],
-            averageUnitWeight: data["unitOfSale"] == 'lbs' ? data['boxWeight'] * 2.205 :  data['boxWeight'],
+            averageUnitWeight: data["unitOfSale"] == 'lbs' ? data['boxWeight'] * 2.205 : data['boxWeight'],
             parentSelectedType: parent["level0"] ? parent["level0"].id : "",
             speciesSelected: parent["level1"] ? parent["level1"].id : '',
             subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
             descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
-            seller_sku: data["seller_sku"] || '', 
+            seller_sku: data["seller_sku"] || '',
             hsCode: data["hsCode"],
-            minimunorder: data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 :  data['minimumOrder'],
-            maximumorder:  data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 :  data['maximumOrder'],
+            minimunorder: data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 : data['minimumOrder'],
+            maximumorder: data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 : data['maximumOrder'],
             imagesSend: images.forForm,
             price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
             perBoxes: data['perBox'],
@@ -216,12 +216,13 @@ export class CreateProductComponent implements OnInit {
             raised: data["raised"].id || "",
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
-            wholeFishAction: data["wholeFishAction"]
-          }; 
+            wholeFishAction: data["wholeFishAction"],
+            foreignfish: data["foreign_fish"]
+          };
           console.log("product fetched", product);
           this.store = data['store'];
           this.selectedSeller = data['store']['owner'];
-          this.getSeller( this.selectedSeller );
+          this.getSeller(this.selectedSeller);
           // let features = {
           //   price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
           //   // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
@@ -267,6 +268,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   private async getImages(product) {
+    console.log(product['images']);
     let forForm = [], forInput = [];
     let imagePrimary, imagePrimaryForForm,
       baseUrl = environment.apiURLImg, imagePrimary64,
@@ -290,17 +292,15 @@ export class CreateProductComponent implements OnInit {
     if (product['images'] && product['images'].length > 0) {
       for (const image of product['images']) {
         try {
-          if (image && image.src !== undefined) {
-            const imageSecond = await this.http.get(baseUrl + image.src, rt).toPromise() as any;
-            const imageSecond64 = await this.blobToBase64(imageSecond);
-            const imageSecondForForm = {
-              src: imageSecond64,
-              url: image.src,
-              type: 'secundary'
-            };
-            forForm.push(imageSecondForForm);
-            forInput.push(this.blobToFile(imageSecond, 'second.jpg'));
-          }
+          const imageSecond = await this.http.get(baseUrl + image, rt).toPromise() as any;
+          const imageSecond64 = await this.blobToBase64(imageSecond);
+          const imageSecondForForm = {
+            src: imageSecond64,
+            url: image,
+            type: 'secundary'
+          };
+          forForm.push(imageSecondForForm);
+          forInput.push(this.blobToFile(imageSecond, 'second.jpg'));
         } catch (e) { console.error(e); }
       }
     }
@@ -333,18 +333,18 @@ export class CreateProductComponent implements OnInit {
 
   getMyData() {
     this.info = this.auth.getLoginData();
-    if( this.user['role'] !== 0 ) {
+    if (this.user['role'] !== 0) {
       this.getStore();
     }
   }
 
   getStore() {
     let endpoint = this.storeEndpoint + this.info.id;
-    if( this.user['role'] === 0 ) {
+    if (this.user['role'] === 0) {
       endpoint = this.storeEndpoint + this.selectedSeller;
     }
-    console.log( 'store endpoint',  endpoint );
-    this.productService.getData( endpoint ).subscribe(results => {
+    console.log('store endpoint', endpoint);
+    this.productService.getData(endpoint).subscribe(results => {
       this.store = results;
     });
   }
@@ -362,10 +362,10 @@ export class CreateProductComponent implements OnInit {
     this.showError = true;
     this.loading = true;
 
-    if ( this.selectedSeller == undefined && this.user['role'] == 0 ) {
+    if (this.selectedSeller == undefined && this.user['role'] == 0) {
       this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
-      this.ngProgress.done();    
+      this.ngProgress.done();
     } else {
       const keys = Object.keys(this.myform.controls);
       for (const name of keys) {
@@ -509,74 +509,85 @@ export class CreateProductComponent implements OnInit {
         }
         if (variationsEnd.length === 0) {
           this.loading = false;
-          this.ngProgress.done();        
+          this.ngProgress.done();
           return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
         }
 
-      // this.ngProgress.start();
-      // let priceAED = Number(features.price).toFixed(2);
-      const data: any = {
-        parentType: product.parentSelectedType,
-        "specie": product.speciesSelected,
-        'type': product.subSpeciesSelected,
-        'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
-        'store': this.store[0].id,
-        'quality': 'good',
-        'name': product.name,
-        'description': '',
-        'country': product.country,
-        'processingCountry': product.processingCountry,
-        'city': product.city,
-        // 'price': {
-        //   'type': '$',
-        //   'value': priceAED,
-        //   'description': priceAED + ' for pack'
-        // },
-        'weight': {
-          'type': "kg",
-          'value': 5
-        },
-        'perBox': product.perBoxes,
-        'perBoxes': product.perBoxes,
-        'unitOfSale': product.unitOfSale,
-        'boxWeight': product.unitOfSale == 'lbs' ? product.averageUnitWeight / 2.205 :  product.averageUnitWeight,
-        'minimumOrder': product.unitOfSale == 'lbs' ? product.minimunorder / 2.205 :  product.minimunorder,
-        'maximumOrder': product.unitOfSale == 'lbs' ? product.maximumorder / 2.205 :  product.maximumorder,
-        // "acceptableSpoilageRate": features.acceptableSpoilageRate,
-        'raised': features.raised,
-        'treatment': features.treatment,
-        'seller_sku': product.seller_sku,
-        'seafood_sku': this.seafood_sku,
-        'mortalityRate': 1,
-        'waterLostRate': '0',
-        'status': '5c0866e4a0eda00b94acbdc0',
-        'brandName': product.brandName,
-        'hsCode': product.hsCode,
-        variations: variationsEnd,
-        'role': this.user['role']
-      };
-      if (this.productID !== "") {
-        data.idProduct = this.product.id;
-        data.variationsDeleted = variationsDeleted;
-        data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
-      }
-      console.log(data);
-      if (this.productID !== "") {
-        this.productService.updateData('api/variations', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
-        });
+        // this.ngProgress.start();
+        // let priceAED = Number(features.price).toFixed(2);
+        const data: any = {
+          parentType: product.parentSelectedType,
+          "specie": product.speciesSelected,
+          'type': product.subSpeciesSelected,
+          'descriptor': product.descriptorSelected === '' ? null : product.descriptorSelected,
+          'store': this.store[0].id,
+          'quality': 'good',
+          'name': product.name,
+          'description': '',
+          'country': product.country,
+          'processingCountry': product.processingCountry,
+          'city': product.city,
+          // 'price': {
+          //   'type': '$',
+          //   'value': priceAED,
+          //   'description': priceAED + ' for pack'
+          // },
+          'weight': {
+            'type': "kg",
+            'value': 5
+          },
+          "foreign_fish": product.foreignfish,
+          'perBox': product.perBoxes,
+          'perBoxes': product.perBoxes,
+          'unitOfSale': product.unitOfSale,
+          'boxWeight': product.unitOfSale == 'lbs' ? product.averageUnitWeight / 2.205 : product.averageUnitWeight,
+          'minimumOrder': product.unitOfSale == 'lbs' ? product.minimunorder / 2.205 : product.minimunorder,
+          'maximumOrder': product.unitOfSale == 'lbs' ? product.maximumorder / 2.205 : product.maximumorder,
+          // "acceptableSpoilageRate": features.acceptableSpoilageRate,
+          'raised': features.raised,
+          'treatment': features.treatment,
+          'seller_sku': product.seller_sku,
+          'seafood_sku': this.seafood_sku,
+          'mortalityRate': 1,
+          'waterLostRate': '0',
+          'status': '5c0866e4a0eda00b94acbdc0',
+          'brandName': product.brandName,
+          'hsCode': product.hsCode,
+          variations: variationsEnd,
+          'role': this.user['role']
+        };
+        if (this.productID !== "") {
+          data.idProduct = this.product.id;
+          data.variationsDeleted = variationsDeleted;
+          data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
+        }
+        console.log(data);
+        if (this.productID !== "") {
+          this.productService.updateData('api/variations', data).subscribe(result => {
+            this.uploadImagesAction(product, result);
+          }, err => {
+            this.showError = false;
+            this.loading = false;
+            this.ngProgress.done();
+            this.toast.error('Error when saving the product returns try', 'Error', { positionClass: 'toast-top-right' });
+          });
+        } else {
+          this.productService.saveData('api/variations/add', data).subscribe(result => {
+            this.uploadImagesAction(product, result);
+          }, err => {
+            this.showError = false;
+            this.loading = false;
+            this.ngProgress.done();
+            this.toast.error('Error when saving the product returns try', 'Error', { positionClass: 'toast-top-right' });
+          });
+        }
       } else {
-        this.productService.saveData('api/variations/add', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
-        });
+        this.loading = false;
+        this.ngProgress.done();
+        return this.toast.error('fields are required', 'Error', { positionClass: 'toast-top-right' });
       }
-    } else {
-      this.loading = false;
-          this.ngProgress.done();
-          return this.toast.error('fields are required', 'Error', { positionClass: 'toast-top-right' });
     }
   }
-}
 
   private async uploadImagesAction(product, result) {
     if (product.imagesSend !== undefined && product.imagesSend !== '') {
@@ -595,7 +606,8 @@ export class CreateProductComponent implements OnInit {
           const files: File[] = [];
 
           for (const image of images) {
-            const file = this.blobToFile(this.b64toBlob(image.src, 'image/jpg'), new Date().getTime().toString() + '-' + this.productID);
+            let extension = this.getExtension(image.src);
+            const file = this.blobToFile(this.b64toBlob(image.src, 'image/' + extension), new Date().getTime().toString() + '-' + this.productID + "." + extension);
             if (image.type === 'primary') {
               await this.productService.postFile([file], this.productID, 'primary').toPromise();
               continue;
@@ -619,6 +631,10 @@ export class CreateProductComponent implements OnInit {
     }
   }
 
+  private getExtension(encoded) {
+    return encoded.substring("data:image/".length, encoded.indexOf(";base64"));
+  }
+
   private finish() {
     if (this.productID === '') {
       this.toast.success('Product added successfully!', 'Well Done', { positionClass: 'toast-top-right' });
@@ -636,7 +652,8 @@ export class CreateProductComponent implements OnInit {
     const files = [];
     try {
       for (const image of images) {
-        const file = this.blobToFile(this.b64toBlob(image.src, 'image/jpg'), new Date().getTime().toString() + '-' + productID);
+        let extension = this.getExtension(image.src);
+        const file = this.blobToFile(this.b64toBlob(image.src, 'image/' + extension), new Date().getTime().toString() + '-' + productID + "." + extension);
         if (image.type === 'primary') {
           await this.productService.postFile([file], productID, 'primary').toPromise();
           continue;
@@ -671,13 +688,14 @@ export class CreateProductComponent implements OnInit {
 
 
   public blobToFile = (theBlob: Blob, fileName: string): File => {
-    const b: any = theBlob;
-    // A Blob() is almost a File() - it's just missing the two properties below which we will add
-    b.lastModifiedDate = new Date();
-    b.name = fileName;
+    // const b: any = theBlob;
+    // // A Blob() is almost a File() - it's just missing the two properties below which we will add
+    // b.lastModifiedDate = new Date();
+    // b.name = fileName;
 
-    // Cast to a File() type
-    return <File>theBlob;
+    // // Cast to a File() type
+    // return <File>theBlob;
+    return new File([theBlob], fileName, { lastModified: new Date().getTime() });
   }
 
   public b64toBlob(b64Data, contentType) {
