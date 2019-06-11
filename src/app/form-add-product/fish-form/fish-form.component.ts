@@ -150,7 +150,8 @@ weightType:any = 'Kg';
       head: new FormControl(this.head, Validators.required),
       wholeFishAction: new FormControl(this.wholeFishAction, Validators.required),
       // price: new FormControl('0', Validators.required),
-      priceShow: new FormControl(true, Validators.nullValidator)
+      priceShow: new FormControl(true, Validators.nullValidator),
+      foreignfish: new FormControl(false, Validators.required)
     }));
 
     (this.parentForm.form.controls.product as FormGroup).valueChanges.subscribe(it => {

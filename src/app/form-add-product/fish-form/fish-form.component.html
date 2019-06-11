@@ -4,9 +4,9 @@
     <div class="row">
       <div class="col-lg-12 text-center">
         <h1 class="subtitle-form">
-          <span>product type</span> 
+          <span>product type</span>
         </h1>
-      
+
       </div>
 
       <div class="col-lg-6">
@@ -356,10 +356,10 @@
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
         </div>
-        <div class="col-lg-6 offset-lg-3">
+        <div class="col-lg-6">
           <div class="form-group input-group hs-code-contant">
-            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Here 
-              <img src="../../../assets/svg/arrow-right.svg" class="hs-code-link-img" > </a>
+            <a href="https://hts.usitc.gov/" class="hs-code-link" target="_blank">Find Here
+              <img src="../../../assets/svg/arrow-right.svg" class="hs-code-link-img"> </a>
             <span class="has-float-label">
               <input id="hscode" placeholder="HS Code..." class="form-control" formControlName="hsCode" type="text">
               <label for="hscode">HS Code...</label>
@@ -367,6 +367,13 @@
             <button type="button" class="question-btn question-btn-hs-code" tabIndex="-1"
               tooltip="This is the Harmonized System code for your product as per World Customs Organization."
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
+          </div>
+        </div>
+        <div class="col-lg-6 fish-foreign">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" formControlName="foreignfish" class="custom-control-input form-control"
+              id="foreignfish">
+            <label class="custom-control-label" for="foreignfish">My fish is foreign...</label>
           </div>
         </div>
 
@@ -402,20 +409,22 @@
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
           <div class="custom-control custom-checkbox mb-3" style="max-width: 400px; margin: 0 auto;">
-              <input type="checkbox" formControlName="perBoxes" class="custom-control-input form-control" id="customControlValidation1">
-              <label class="custom-control-label" for="customControlValidation1">Enable if you would like to sell you product in boxes.</label>
-            </div>
+            <input type="checkbox" formControlName="perBoxes" class="custom-control-input form-control"
+              id="customControlValidation1">
+            <label class="custom-control-label" for="customControlValidation1">Enable if you would like to sell you
+              product in boxes.</label>
+          </div>
         </div>
 
-       
+
 
         <div class="col-lg-6" [hidden]="!showAverageUnit">
 
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().averageUnitWeight.invalid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched),'has-success': controls().averageUnitWeight.valid && (controls().averageUnitWeight.dirty || controls().averageUnitWeight.touched)}">
             <span class="has-float-label">
-              <input id="averageunit" type="number" class="form-control" placeholder="Average Unit Weight ({{weightType}})...*"
-                formControlName="averageUnitWeight" required>
+              <input id="averageunit" type="number" class="form-control"
+                placeholder="Average Unit Weight ({{weightType}})...*" formControlName="averageUnitWeight" required>
               <label for="averageunit">Average Unit Weight ({{weightType}})...*</label>
               <div class="form-control-feedback" *ngIf="controls().averageUnitWeight.errors&&parentForm.submitted">
                 <p *ngIf="controls().averageUnitWeight.errors.required">
@@ -435,8 +444,8 @@
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().minimunorder.invalid && (controls().minimunorder.dirty || controls().minimunorder.touched),'has-success': controls().minimunorder.valid && (controls().minimunorder.dirty || controls().minimunorder.touched)}">
             <span class="has-float-label">
-              <input id="min" placeholder="Minimum Order ({{weightType}})...*" [min]="staticmin" type="number" class="form-control"
-                formControlName="minimunorder">
+              <input id="min" placeholder="Minimum Order ({{weightType}})...*" [min]="staticmin" type="number"
+                class="form-control" formControlName="minimunorder">
               <label for="min">Minimum Order ({{weightType}})...*</label>
               <div class="form-control-feedback" *ngIf="controls().minimunorder.errors&&parentForm.submitted">
                 <p *ngIf="controls().minimunorder.errors.required">{{'CreateProduct.minimun' | translate}}
