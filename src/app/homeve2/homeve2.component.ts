@@ -95,7 +95,7 @@ export class Homeve2Component implements OnInit {
           }
         },
         {
-          breakpoint: 480,
+          breakpoint: 570,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -118,7 +118,7 @@ export class Homeve2Component implements OnInit {
       slidesToScroll: 1,
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 768,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

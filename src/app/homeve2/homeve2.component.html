@@ -349,7 +349,7 @@
       </div>
     </div>
   
-    <div class="cards-container wow expandLeft" data-wow-duration=".7s">
+    <div class="cards-container" [ngClass]="(isMobile === false) ? 'wow expandLeft' : ''" data-wow-duration=".7s">
       <div class="container">
         <div class="customer-cards-carousel">
           <div class="item">
