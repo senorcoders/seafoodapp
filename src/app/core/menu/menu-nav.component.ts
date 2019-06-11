@@ -161,7 +161,8 @@ export class MenuNavComponent {
     }
     // subscribe to cart service to get the cart items.
     this.cart.cart.subscribe((cart: any) => {
-      this.cartItem = cart;
+      this.cartItem = cart
+      console.log("CART ITEM", this.cartItem);
       if (this.cartItem && this.cartItem.total !== 0) {
         this.showCart = true;
       } else {

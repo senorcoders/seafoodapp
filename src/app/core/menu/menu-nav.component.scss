@@ -617,3 +617,14 @@ form{
 		  }
 	}
 }
+  .menu-car-qty{
+	position: absolute;
+    top: -4px;
+    right: 16%;
+    background: $dark_blue;
+    width: 15px;
+    height: 15px;
+    font-size: 10px;
+    line-height: 15px;
+    border-radius: 50%;
+  }
