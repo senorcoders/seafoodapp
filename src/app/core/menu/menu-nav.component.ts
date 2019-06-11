@@ -39,6 +39,8 @@ export class MenuNavComponent {
   base: string = environment.apiURLImg;
   storeID: any;
   isScrolled = false;
+  lastScroll = 0;
+  scrollUp: boolean;
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
@@ -55,6 +57,19 @@ export class MenuNavComponent {
     } else {
       this.isScrolled = false;
     }
+
+    // Determines up-or-down scrolling
+    if (scrollOffset > this.lastScroll) {
+      // Replace this with your function call for downward-scrolling
+      this.scrollUp = true;
+      // }, 800);
+    } else if (scrollOffset < this.lastScroll) {
+      // Replace this with your function call for upward-scrolling
+      this.scrollUp = false;
+    }
+
+    // Updates scroll position
+    this.lastScroll = scrollOffset;
   }
 
   ngOnInit() {

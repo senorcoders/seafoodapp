@@ -50,8 +50,8 @@
   </section>
   
 
-  <div class="svg" style='width: 50%; margin: 0 auto;'>
-    <svg version="1.1" id="connecting-line" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+  <div class="svg" style='width: 100%; z-index: 0; position: absolute; top: 100vh; left: 50%; opacity: 0.6;'>
+    <!-- <svg version="1.1" id="connecting-line" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
       y="0px" viewBox="0 0 519 5640" style="enable-background:new 0 0 519 5640; position: absolute; top: 120vh; width: 50%; height: 5400px" xml:space="preserve">
       <style type="text/css">
         .svg-line {
@@ -65,8 +65,10 @@
       </style>
       <path id="line-svg" class="svg-line" d="M258,5339L4,5084H3.9v-501H4l256.4-223v0.8V0c0,4361.3,0,4361.3,0,4361.3L515,4583h-0.1v501h0.1
     	l-256,255l-0.1,1.5v300" />
+    </svg> -->
+    <svg height="5000" width="5">
+      <path id="lineAB" d="M 0 0 l 0 5000" stroke="#848A8E" stroke-width="3" fill="none" />
     </svg>
-
   </div>
   
   <section id="how-it-works" class="how-it-works">
@@ -347,7 +349,7 @@
       </div>
     </div>
   
-    <div class="cards-container wow expandLeft" data-wow-duration=".7s">
+    <div class="cards-container" [ngClass]="(isMobile === false) ? 'wow expandLeft' : ''" data-wow-duration=".7s">
       <div class="container">
         <div class="customer-cards-carousel">
           <div class="item">

@@ -19,7 +19,7 @@ export class Homeve2Component implements OnInit {
   @HostListener('window:scroll', ['$event'])
   drawLine($event) {
 
-    const path = document.querySelector('#line-svg');
+    const path = document.querySelector('#lineAB');
     let percentScroll;
 
     jQuery(path).each(function () {
@@ -27,7 +27,7 @@ export class Homeve2Component implements OnInit {
       this.style.strokeDashoffset = this.getTotalLength();
     });
 
-    percentScroll = window.pageYOffset / (document.body.offsetHeight - window.innerHeight);
+    percentScroll = window.pageYOffset / ((document.body.offsetHeight - window.innerHeight) - window.innerHeight);
 
     jQuery(path).each(function () {
       this.style.strokeDashoffset = Math.floor(this.getTotalLength() * (1 - percentScroll));
@@ -95,7 +95,7 @@ export class Homeve2Component implements OnInit {
           }
         },
         {
-          breakpoint: 480,
+          breakpoint: 570,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -118,7 +118,7 @@ export class Homeve2Component implements OnInit {
       slidesToScroll: 1,
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 768,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,
