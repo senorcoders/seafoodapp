@@ -44,10 +44,11 @@ import { AccountComponent } from './account/account.component';
 import { ToastrService } from './toast.service';
 import { CDNCheck } from './cdn-check';
 import { CookieService } from 'ngx-cookie-service';
+import { Homeve2Component } from './homeve2/homeve2.component';
 
 const appRoutes: Routes = [
   {
-    path: '', component: HomeComponent,
+    path: '', component: Homeve2Component,
   },
   {
     path: "login",
@@ -256,6 +257,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'custom-rates',
+    loadChildren: 'app/custom-rates/custom-rates.module#CustomRatesModule',
+    canActivate: [AdminRouterService]
+  },
+  {
     path: 'documents',
     loadChildren: 'app/documents/documents.module#DocumentsModule',
     canActivate: [AdminRouterService]
@@ -423,7 +429,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     HomeComponent,
     FeaturedStoreComponent,
     ProductManagmentComponent,
-    AccountComponent
+    AccountComponent,
+    Homeve2Component
       ],
   imports: [
     BrowserAnimationsModule,

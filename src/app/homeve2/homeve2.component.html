@@ -1,0 +1,609 @@
+<div class="home-container" id="home-container" (window:scroll)="drawLine($event)">
+  <section class="fish-hero">
+    <div class="carousel-nav-sfs">
+      <app-menu-nav></app-menu-nav>
+    </div>
+    <div class="carousel-excerpt">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1>WELCOME TO YOUR ONLINE B2B SEAFOOD MARKETPLACE</h1>
+            <h5>Connecting buyers and sellers direct</h5>
+            <button class="light-blue-btn">GET STARTED FOR FREE</button>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+  
+    <div class="carousel-bottom">
+      <button>
+        <span>WATCH THE VIDEO</span>
+        <!-- <img src="../../assets/svg/play-circle.svg" alt=""> -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50">
+          <defs>
+            <style>
+              .a {
+                fill: #f9fcff;
+              }
+              .a:hover {
+                fill: #3498E5;
+              }
+            </style>
+          </defs>
+          <path class="a" d="M22,38.25V15.75L37,27M27,2A25,25,0,1,0,52,27,25,25,0,0,0,27,2Z" transform="translate(-2 -2)" />
+        </svg>
+      </button>
+      <button class="hide-mobile">
+        <img src="../../assets/svg/down-arrow.svg" alt="">
+      </button>
+    </div>
+    <div class="video-container">
+      <div class="filter"></div>
+      <video width="100%" height="auto" autoplay muted loop
+        style="background:transparent no-repeat 0 0; background-size:cover; display: block;"
+        poster="../../assets/slides/slide1.jpg">
+        <source src="../../assets/videos/sushi.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="fish-shape"></div>
+  </section>
+  
+
+  <div class="svg" style='width: 50%; margin: 0 auto;'>
+    <svg version="1.1" id="connecting-line" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+      y="0px" viewBox="0 0 519 5640" style="enable-background:new 0 0 519 5640; position: absolute; top: 120vh; width: 50%; height: 5400px" xml:space="preserve">
+      <style type="text/css">
+        .svg-line {
+          opacity: 0.4;
+          fill: none;
+          stroke: #848A8E;
+          stroke-width: 2;
+          stroke-linecap: round;
+          enable-background: new;
+        } 
+      </style>
+      <path id="line-svg" class="svg-line" d="M258,5339L4,5084H3.9v-501H4l256.4-223v0.8V0c0,4361.3,0,4361.3,0,4361.3L515,4583h-0.1v501h0.1
+    	l-256,255l-0.1,1.5v300" />
+    </svg>
+
+  </div>
+  
+  <section id="how-it-works" class="how-it-works">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 justify-content-center">
+          <span><img src="../../assets/svg/longtail-bass-fish-shape.svg" class="d-block mx-auto mb-3" alt=""></span>
+          <h1 class="text-uppercase section-title text-center">How It Works</h1>
+          <span class="d-block"><img src="../../assets/svg/sfs-logo.svg" class="d-block mx-auto" width="70" height="50"
+              alt=""></span>
+        </div>
+      </div>
+  
+      <div class="row mb-5">
+        <div class="col-6 col-md-3 justify-content-center order-0 order-md-0">
+          <div class="sellers-col">
+            <h3 class="text-center text-uppercase">Sellers</h3>
+  
+            <ul class="sellers-list list-unstyled text-center">
+              <li>Seafood Producers</li>
+              <li>Fishermen</li>
+              <li>Seafood Farms</li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 justify-content-center order-1 order-md-0">
+          <div class="screen-col">
+            <img src="../../assets/howitworks.png" class="img-fluid d-block mx-auto position-relative" alt="">
+          </div>
+        </div>
+        <div class="col-6 col-md-3 justify-content-center order-0 order-md-0">
+          <div class="buyers-col">
+            <h3 class="text-center text-uppercase">Buyers</h3>
+  
+            <ul class="buyers-list list-unstyled text-center">
+              <li>Restaurants</li>
+              <li>Hotels</li>
+              <li>Caterers</li>
+              <li>Meal Plan Services</li>
+              <li>Supermarkets</li>
+              <li>Wholesalers</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="step-box text-center browse-step">
+            <span><img src="../../assets/svg/laptop.svg" alt=""></span>
+            <h4 class="mt-3 text-uppercase">1. Browse Catalogue</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="step-box text-center order-step">
+            <span><img src="../../assets/svg/cart-full.svg" alt=""></span>
+            <h4 class="mt-3 text-uppercase">2. Place Order</h4>
+          </div>
+        </div>
+        <div class="col-12 col-md-4">
+          <div class="step-box text-center receive-step">
+            <span><img src="../../assets/svg/package.svg" alt=""></span>
+            <h4 class="mt-3 text-uppercase">3. Receive Products</h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="sfs-gives" class="sfs-gives">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="row mb-5">
+            <div class="col-12 justify-content-center">
+              <span><img src="../../assets/svg/warsaw-grouper-fish-shape.svg" class="d-block mx-auto mb-3" alt=""></span>
+              <h1 class="text-uppercase section-title text-center">Seafood Souq Gives You...</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-12 col-md-3">
+          <div class="feat-box">
+            <img src="../../assets/svg/tag outline.svg" alt="" class="feat-logo">
+            <h4 class="text-center text-uppercase">Better Pricing</h4>
+            <p class="text-center">
+              <strong>Order direct from source</strong> to get a better price for a fresher product. An open marketplace
+              means full transparency - you
+              see the price the producer sets.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="feat-box">
+            <img src="../../assets/svg/cog.svg" alt="" class="feat-logo">
+            <h4 class="text-center text-uppercase">Streamlined Process</h4>
+            <p class="text-center">
+              <strong>Simplify your ordering.</strong> Get all your seafood products in one place quickly and easily
+              through an
+              online catalogue of
+              global producers.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="feat-box">
+            <img src="../../assets/svg/ship.svg" alt="" class="feat-logo">
+            <h4 class="text-center text-uppercase">100% Traceability</h4>
+            <p class="text-center">
+              <strong>Order direct</strong> and get your seafood direct from source. Our improved supply chain model
+              guarantees 100%
+              traceability.
+            </p>
+          </div>
+        </div>
+        <div class="col-12 col-md-3">
+          <div class="feat-box">
+            <img src="../../assets/svg/plane.svg" alt="" class="feat-logo">
+            <h4 class="text-center text-uppercase">Reliable Last Mile</h4>
+            <p class="text-center">
+              <strong>Always receive</strong> your order when you need it. We work with Emirates Skycargo to create a more
+              efficient logistics network
+              from Sea to B.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="preview-sfs" class="preview-sfs">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12 justify-content-center">
+          <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
+          <h1 class="text-uppercase section-title text-center">Preview Seafood Souq</h1>
+        </div>
+      </div>
+  
+      <div class="row" *ngIf="!isMobile; else mobileCarousel">
+        <!-- <div class="col-12">
+          <div class="tab-content" id="single-tabs">
+            <div class="tab-pane fade show active" id="nav-catalogue" role="tabpanel" aria-labelledby="nav-catalogue-tab">
+              <div class="screen-preview">
+                <img src="../../assets/Online-Catalogue.jpg" class="img-fluid d-block shadow" alt="">
+              </div>
+            </div>
+            <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
+              <div class="screen-preview">
+                <img src="../../assets/Product-Details.jpg" class="img-fluid d-block shadow" alt="">
+              </div>
+            </div>
+  
+            <div class="tab-pane fade" id="nav-cart" role="tabpanel" aria-labelledby="nav-product-tab">
+              <div class="screen-preview">
+                <img src="../../assets/Your-Cart.jpg" class="img-fluid d-block shadow" alt="">
+              </div>
+            </div>
+          </div>
+          <nav>
+            <div class="nav nav-tabs nav-fill custom-tabs flex-nowrap" id="nav-tab" role="tablist">
+              <div class="slide"></div>
+              <a class="nav-item nav-link text-left active" id="nav-catalogue-tab" data-toggle="tab" href="#nav-catalogue"
+                role="tab" aria-controls="nav-home" aria-selected="true">
+                <div class="tab-header">
+                  <h5>Online Catalogue</h5>
+                  <p>Browse products from sellers around the world using search filters based on your requirements.</p>
+                </div>
+              </a>
+              <a class="nav-item nav-link text-left" id="nav-product-tab" data-toggle="tab" href="#nav-product" role="tab"
+                aria-controls="nav-product" aria-selected="false">
+                <div class="tab-header">
+                  <h5>Product Details</h5>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+                </div>
+              </a>
+              <a class="nav-item nav-link text-left" id="nav-cart-tab" data-toggle="tab" href="#nav-cart" role="tab"
+                aria-controls="nav-product" aria-selected="false">
+                <div class="tab-header">
+                  <h5>Your Cart</h5>
+                  <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+                </div>
+              </a>
+            </div>
+          </nav>
+        </div> -->
+
+        <div class="col-12">
+            <div class="custom-mat-tabs">
+              <header>
+                <div id="material-tabs">
+                  <a id="tab1-tab" href="#tab1" class="active">
+                    <div class="tab-header">
+                      <h5>Online Catalogue</h5>
+                      <p>Browse products from sellers around the world using search filters based on your requirements.</p>
+                    </div>
+                  </a>
+                  <a id="tab2-tab" href="#tab2">
+                    <div class="tab-header">
+                      <h5>Product Details</h5>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+                    </div>
+                  </a>
+                  <a id="tab3-tab" href="#tab3">
+                    <div class="tab-header">
+                      <h5>Your Cart</h5>
+                      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+                    </div>
+                  </a>
+                  <span class="yellow-bar"></span>
+                </div>
+              </header>
+          
+              <div class="tab-content">
+                <div id="tab1">
+                  <div class="screen-preview">
+                    <img src="../../assets/Online-Catalogue.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+                <div id="tab2">
+                  <div class="screen-preview">
+                    <img src="../../assets/Product-Details.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+                <div id="tab3">
+                  <div class="screen-preview">
+                    <img src="../../assets/Your-Cart.jpg" class="img-fluid d-block shadow" alt="">
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+  
+      <ng-template #mobileCarousel>
+        <div class="preview-carousel">
+          <div class="item">
+            <div class="screen-preview">
+              <img src="../../assets/Online-Catalogue.jpg" class="img-fluid d-block shadow" alt="">
+            </div>
+            <div class="tab-header">
+              <h5 class="text-center">Online Catalogue</h5>
+              <p>Browse products from sellers around the world using search filters based on your requirements.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="screen-preview">
+              <img src="../../assets/Product-Details.jpg" class="img-fluid d-block shadow" alt="">
+            </div>
+            <div class="tab-header">
+              <h5>Product Details</h5>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+            </div>
+          </div>
+          <div class="item">
+            <div class="screen-preview">
+              <img src="../../assets/Your-Cart.jpg" class="img-fluid d-block shadow" alt="">
+            </div>
+            <div class="tab-header">
+              <h5>Your Cart</h5>
+              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </section>
+  
+  <section id="customers" class="customers">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 justify-content-center">
+          <span><img src="../../assets/svg/fish-shape.svg" class="d-block mx-auto mb-3" alt=""></span>
+          <h1 class="text-uppercase section-title text-center">See What Our Customers Say</h1>
+        </div>
+      </div>
+    </div>
+  
+    <div class="cards-container wow expandLeft" data-wow-duration=".7s">
+      <div class="container">
+        <div class="customer-cards-carousel">
+          <div class="item">
+            <div class="card shadow-sm">
+              <img src="https://via.placeholder.com/100" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="card-text quote">
+                  "Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic sauryswamp-eel? Tenuis,
+                  Blenny
+                  chum
+                  salmon
+                  sea raven sandperch Redhorse sucker"
+                </p>
+                <p class="card-text"><small class="customer-name">John Doe, Alaska Salmon</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="card shadow-sm">
+              <img src="https://via.placeholder.com/100" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="card-text quote">
+                  "Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic sauryswamp-eel? Tenuis,
+                  Blenny
+                  chum
+                  salmon
+                  sea raven sandperch Redhorse sucker"
+                </p>
+                <p class="card-text"><small class="customer-name">John Doe, Alaska Salmon</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="card shadow-sm">
+              <img src="https://via.placeholder.com/100" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="card-text quote">
+                  "Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic sauryswamp-eel? Tenuis,
+                  Blenny
+                  chum
+                  salmon
+                  sea raven sandperch Redhorse sucker"
+                </p>
+                <p class="card-text"><small class="customer-name">John Doe, Alaska Salmon</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="card shadow-sm">
+              <img src="https://via.placeholder.com/100" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="card-text quote">
+                  "Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic sauryswamp-eel? Tenuis,
+                  Blenny
+                  chum
+                  salmon
+                  sea raven sandperch Redhorse sucker"
+                </p>
+                <p class="card-text"><small class="customer-name">John Doe, Alaska Salmon</small></p>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="card shadow-sm">
+              <img src="https://via.placeholder.com/100" class="card-img-top" alt="...">
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="card-text quote">
+                  "Blenny chum salmon sea raven sandperch Redhorse sucker pirate perch Atlantic sauryswamp-eel? Tenuis,
+                  Blenny
+                  chum
+                  salmon
+                  sea raven sandperch Redhorse sucker"
+                </p>
+                <p class="card-text"><small class="customer-name">John Doe, Alaska Salmon</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <img src="../../assets/large-fish.png" class="fish-bg" alt="">
+    </div>
+  </section>
+  
+  <section id="blog" class="blog">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 justify-content-center">
+          <span><img src="../../assets/svg/rockfish-shape.svg" class="d-block mx-auto mb-3" alt=""></span>
+          <h1 class="text-uppercase section-title text-center">Keep Up To Date On Our Blog</h1>
+          <span class="d-block text-center description-span">See why and how we are transforming the seafood
+            industry</span>
+        </div>
+      </div>
+  
+      <div class="blog-cards-carousel mt-5">
+        <div class="item">
+          <div class="blog-post-card shadow">
+            <img src="https://via.placeholder.com/100" alt="" class="top-img w-100">
+            <div class="blog-content d-flex">
+              <div class="social-links">
+                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/facebook.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/twitter.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/instagram.svg" alt="">
+                  </button>
+                </div>
+              </div>
+              <div class="post-details">
+                <div class="author d-flex align-items-center">
+                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
+                  <span>John Doe</span>
+                </div>
+  
+                <p class="blog-post-preview">
+                  This is an example blog post title. See what happens when there's a lot of text on the post
+                </p>
+  
+                <div class="bottom-row">
+                  <span class="date">May 19, 2019</span>
+                  <a href=""><img src="../../assets/svg/arrow-right.svg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="item">
+          <div class="blog-post-card shadow">
+            <img src="https://via.placeholder.com/100" alt="" class="top-img w-100">
+            <div class="blog-content d-flex">
+              <div class="social-links">
+                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/facebook.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/twitter.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/instagram.svg" alt="">
+                  </button>
+                </div>
+              </div>
+              <div class="post-details">
+                <div class="author d-flex align-items-center">
+                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
+                  <span>John Doe</span>
+                </div>
+  
+                <p class="blog-post-preview">
+                  This is an example blog post title. See what happens when...
+                </p>
+  
+                <div class="bottom-row">
+                  <span class="date">May 19, 2019</span>
+                  <a href=""><img src="../../assets/svg/arrow-right.svg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="item">
+          <div class="blog-post-card shadow">
+            <img src="https://via.placeholder.com/100" alt="" class="top-img w-100">
+            <div class="blog-content d-flex">
+              <div class="social-links">
+                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/facebook.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/twitter.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/instagram.svg" alt="">
+                  </button>
+                </div>
+              </div>
+              <div class="post-details">
+                <div class="author d-flex align-items-center">
+                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
+                  <span>John Doe</span>
+                </div>
+  
+                <p class="blog-post-preview">
+                  This is an example blog post title. See what happens when...
+                </p>
+  
+                <div class="bottom-row">
+                  <span class="date">May 19, 2019</span>
+                  <a href=""><img src="../../assets/svg/arrow-right.svg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="item">
+          <div class="blog-post-card shadow">
+            <img src="https://via.placeholder.com/100" alt="" class="top-img w-100">
+            <div class="blog-content d-flex">
+              <div class="social-links">
+                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/facebook.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/twitter.svg" alt="">
+                  </button>
+                  <button type="button" class="btn rounded-0 flex-grow-1">
+                    <img src="../../assets/svg/instagram.svg" alt="">
+                  </button>
+                </div>
+              </div>
+              <div class="post-details">
+                <div class="author d-flex align-items-center">
+                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
+                  <span>John Doe</span>
+                </div>
+  
+                <p class="blog-post-preview">
+                  This is an example blog post title. See what happens when...
+                </p>
+  
+                <div class="bottom-row">
+                  <span class="date">May 19, 2019</span>
+                  <a href=""><img src="../../assets/svg/arrow-right.svg" alt=""></a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="get-started" class="get-started">
+    <div class="container-fluid px-0">
+      <div class="row justify-content-center align-items-center no-gutters flex-nowrap">
+        <div class="col fish-small d-none d-lg-block">
+          <img src="../../assets/fish-small-siluet.png" class="img-fluid d-block ml-auto" alt="">
+        </div>
+        <div class="col-auto">
+          <button class="btn text-uppercase shadow-sm get-started-btn">Get Started For Free</button>
+        </div>
+        <div class="col fish-small d-none d-lg-block">
+          <img src="../../assets/fish-small-siluet.png" class="img-fluid" alt="">
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

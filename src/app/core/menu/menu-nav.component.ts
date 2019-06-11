@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MenuItems } from './menu-items';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IsLoginService } from '../login/is-login.service';
@@ -12,8 +12,8 @@ import { OrdersService } from '../orders/orders.service';
 import { environment } from '../../../environments/environment';
 import { TranslateService } from '@ngx-translate/core';
 declare var jQuery: any;
-const defaultLanguage = "en";
-const additionalLanguages = ["ar"];
+const defaultLanguage = 'en';
+const additionalLanguages = ['ar'];
 const languages: string[] = [defaultLanguage].concat(additionalLanguages);
 @Component({
   selector: 'app-menu-nav',
@@ -21,24 +21,24 @@ const languages: string[] = [defaultLanguage].concat(additionalLanguages);
   styleUrls: ['./menu-nav.component.scss']
 })
 export class MenuNavComponent {
-  isLogged: boolean = false;
+  isLogged = false;
   role: any;
   fishTypeMenu: any;
   userData: any;
   searchForm: FormGroup;
   fishTypeMenuList: any = [];
-  showCart: boolean = false;
+  showCart = false;
   cartItem: any;
-  showSuggestion: boolean = false;
+  showSuggestion = false;
   results: any;
   lang: any;
-  //show:boolean=false;
-  showOrders: boolean = false;
+  // show:boolean=false;
+  showOrders = false;
   logo: any = '../../../assets/svg/account-circle.svg';
-  storeEndpoint: any = "api/store/user/";
+  storeEndpoint: any = 'api/store/user/';
   base: string = environment.apiURLImg;
-  storeID:any;
-
+  storeID: any;
+  isScrolled = false;
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
@@ -47,27 +47,32 @@ export class MenuNavComponent {
 
   }
 
-  
-
+  @HostListener('window:scroll', ['$event'])
+  classOnScroll($event: Event) {
+    const scrollOffset = $event.srcElement.children[0].scrollTop;
+    if (scrollOffset > 50) {
+      this.isScrolled = true;
+    } else {
+      this.isScrolled = false;
+    }
+  }
 
   ngOnInit() {
 
-
-
     jQuery(document).ready(function () {
       jQuery('#search-icon').on('click', function () {
-        setTimeout(function () { jQuery('#search-input').focus() }, 300)
-      })
+        setTimeout(function () { jQuery('#search-input').focus(); }, 300);
+      });
 
       jQuery('img.menu-icon').each(function () {
-        var $img = jQuery(this);
-        var imgID = $img.attr('id');
-        var imgClass = $img.attr('class');
-        var imgURL = $img.attr('src');
+        const $img = jQuery(this);
+        const imgID = $img.attr('id');
+        const imgClass = $img.attr('class');
+        const imgURL = $img.attr('src');
 
         jQuery.get(imgURL, function (data) {
           // Get the SVG tag, ignore the rest
-          var $svg = jQuery(data).find('svg');
+          let $svg = jQuery(data).find('svg');
 
           // Add replaced image's ID to the new SVG
           if (typeof imgID !== 'undefined') {
@@ -83,7 +88,7 @@ export class MenuNavComponent {
 
           // Check if the viewport is set, else we gonna set it if we can.
           if (!$svg.attr('viewBox') && $svg.attr('height') && $svg.attr('width')) {
-            $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'))
+            $svg.attr('viewBox', '0 0 ' + $svg.attr('height') + ' ' + $svg.attr('width'));
           }
 
           $svg.addClass('menu-icon');
@@ -95,7 +100,7 @@ export class MenuNavComponent {
         }, 'xml');
 
       });
-    })
+    });
 
     try {
       this.translate.setDefaultLang(defaultLanguage);
@@ -103,81 +108,83 @@ export class MenuNavComponent {
       this.lang = defaultLanguage;
       this.translate.use(defaultLanguage);
       this.languageService.setLanguage(defaultLanguage);
-    }
-    catch (e) {
+    } catch (e) {
       console.error(e);
     }
 
     this.isLoggedSr.isLogged.subscribe((val: boolean) => {
       this.isLogged = val;
-    })
+    });
     this.isLoggedSr.role.subscribe((role: number) => {
-      this.role = role
-    })
+      this.role = role;
+    });
     if (this.auth.isLogged()) {
       this.userData = this.auth.getLoginData();
-      if (this.userData.role == 1) {
+      if (this.userData.role === 1) {
         this.getStore();
       }
-      this.isLoggedSr.setLogin(true, this.userData.role)
-      //create the cart
-      let cart = {
-        "buyer": this.userData['id']
-      }
-      this.productService.saveData("shoppingcart", cart).subscribe(result => {
-        //set cart value
-        this.cart.setCart(result)
+      this.isLoggedSr.setLogin(true, this.userData.role);
+      // create the cart
+      const cart = {
+        'buyer': this.userData['id']
+      };
+      this.productService.saveData('shoppingcart', cart).subscribe(result => {
+        // set cart value
+        this.cart.setCart(result);
         if (result && result['total'] !== 0) {
           this.showCart = true;
-        }
-        else {
+        } else {
           this.showCart = false;
         }
       },
         e => {
           console.log(e);
-          this.showCart = false
-        })
-      //check if the user has orders
-      if (this.isLoggedSr.role.value == 2) {
+          this.showCart = false;
+        });
+      // check if the user has orders
+      if (this.isLoggedSr.role.value === 2) {
         this.productService.getData(`shoppingcart/?where={"status":{"like":"paid"},"buyer":"${this.userData.id}"}`).subscribe(
           result => {
-            if (result && result != '') {
+            if (result && result !== '') {
               this.showOrders = true;
-              this.orders.setOrders(true)
+              this.orders.setOrders(true);
             }
           },
           e => {
             this.showOrders = false;
-            this.orders.setOrders(false)
-            console.log(e)
-          })
+            this.orders.setOrders(false);
+            console.log(e);
+          });
       }
     } else {
-      this.isLoggedSr.setLogin(false, -1)
+      this.isLoggedSr.setLogin(false, -1);
     }
-    //subscribe to cart service to get the cart items.
+    // subscribe to cart service to get the cart items.
     this.cart.cart.subscribe((cart: any) => {
       this.cartItem = cart
+      console.log("CART ITEM", this.cartItem);
       if (this.cartItem && this.cartItem.total !== 0) {
         this.showCart = true;
-      }
-      else {
+      } else {
         this.showCart = false;
       }
-    })
+    });
     this.orders.hasOrders.subscribe((hasOrder: any) => {
-      this.showOrders = hasOrder
-    })
+      this.showOrders = hasOrder;
+    });
     this.getFishTypeMenu();
     this.searchForm = this.fb.group({
       search: ['', Validators.required]
-    })
+    });
   }
+
+  ngOnChanges() {
+  }
+
   async logOut() {
     await this.isLoggedSr.setLogin(false, -1);
     await this.auth.logOut();
-    this.router.navigate(["/"]);
+    this.router.navigate(['/']);
   }
   // openSearch(){
   //   if(this.show){
@@ -198,20 +205,18 @@ export class MenuNavComponent {
     //   }
     // )
   }
-
- 
   search() {
     this.showSuggestion = false;
-    //this.show=false;
+    // this.show=false;
     this.results = '';
     this.router.navigate([`search/${this.searchForm.get('search').value}/1`]);
-    this.searchForm.reset()
+    this.searchForm.reset();
   }
   searchBySuggestion(name) {
     this.searchForm.reset();
     this.results = '';
     this.showSuggestion = false;
-    //this.show=false;
+    // this.show=false;
     this.router.navigate([`search/${name}`]);
   }
   goCart() {
@@ -220,10 +225,10 @@ export class MenuNavComponent {
   addFishTypeMenu() {
     this.fishTypeMenu.featureds.forEach((category) => {
       if (category.childsTypes.length > 0) {
-        let data = { "children": [] };
+        const data = { 'children': [] };
         category.childsTypes.forEach((children) => {
-          data['children'].push({ state: `fish-type/${children.child.name}/1`, name: children.child.name, translate: { en: { name: children.child.name }, ar: { name: children.child.name } } })
-        })
+          data['children'].push({ state: `fish-type/${children.child.name}/1`, name: children.child.name, translate: { en: { name: children.child.name }, ar: { name: children.child.name } } });
+        });
         this.fishTypeMenuList.push(
           {
             state: `fish-type/${category.name}/1`, type: 'sub', children: data.children,
@@ -236,58 +241,56 @@ export class MenuNavComponent {
               }
             }
           }
-        )
-      }
-      else {
-        this.fishTypeMenuList.push({ state: `fish-type/${category.name}/1`, type: 'link', translate: { en: { name: category.name }, ar: { name: category.name } } })
+        );
+      } else {
+        this.fishTypeMenuList.push({ state: `fish-type/${category.name}/1`, type: 'link', translate: { en: { name: category.name }, ar: { name: category.name } } });
       }
     });
   }
   suggestions() {
-    let search = this.searchForm.get('search').value
+    let search = this.searchForm.get('search').value;
     if (search && search.length >= 3) {
       search = {
         name: search
-      }
+      };
       this.productService.suggestions(search).subscribe(
         result => {
           this.results = result;
           this.showSuggestion = true;
         },
         error => {
-          console.log(error)
+          console.log(error);
         }
-      )
-    }
-    else {
-      this.showSuggestion = false
+      );
+    } else {
+      this.showSuggestion = false;
     }
   }
   closeSuggestion() {
-    this.showSuggestion = false
-    //this.show=false
+    this.showSuggestion = false;
+    // this.show=false
   }
   changeLanguage(e) {
-    let value = e.srcElement.value;
-    if (value != this.lang) {
+    const value = e.srcElement.value;
+    if (value !== this.lang) {
       this.translate.use(value);
-      this.lang = value
+      this.lang = value;
       this.languageService.setLanguage(value);
     }
   }
 
-  //Get store for seller
+  // Get store for seller
   getStore() {
     this.productService.getData(this.storeEndpoint + this.userData['id']).subscribe(result => {
-      console.log("Resultado store", result);
+      console.log('Resultado store', result);
       this.storeID = result[0].id;
-      if (result[0].hasOwnProperty('logo') && result[0]['logo'] != '') {
+      if (result[0].hasOwnProperty('logo') && result[0]['logo'] !== '') {
         this.logo = this.base + result[0].logo;
       } else {
-        this.logo = '../../../assets/svg/account-circle.svg'
+        this.logo = '../../../assets/svg/account-circle.svg';
       }
     }, error => {
       console.error(error);
-    })
+    });
   }
 }
