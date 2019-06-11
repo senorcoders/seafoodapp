@@ -314,7 +314,7 @@
               <span class="has-float-label">
             <select id="country" disabled class="form-control"  formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
               <option value="">{{'Register.country' | translate}}</option>
-               <option *ngFor="let country of countries" value="{{country.name}}">{{country.name}}</option>
+               <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
             </select>
             <label for="country" class="disabled-label">{{'Register.country' | translate}} <span class="field-status red">*</span></label>
 

@@ -1,5 +1,7 @@
 import { Component, OnInit, AfterViewChecked, HostListener } from '@angular/core';
 import { WOW } from 'wowjs/dist/wow.min';
+import { IsLoginService } from '../core/login/is-login.service';
+import { AuthenticationService } from '../services/authentication.service';
 declare var jQuery;
 @Component({
   selector: 'app-homeve2',
@@ -9,8 +11,10 @@ declare var jQuery;
 export class Homeve2Component implements OnInit {
 
   isMobile = false;
+  role: number;
+  isLoggedIn: boolean = false;
 
-  constructor() { }
+  constructor(private isLoggedSr: IsLoginService,  private auth: AuthenticationService) { }
 
   @HostListener('window:scroll', ['$event'])
   drawLine($event) {
@@ -38,6 +42,26 @@ export class Homeve2Component implements OnInit {
     } else {
       this.isMobile = false;
     }
+    console.log("Probando Home");
+
+    this.getLoginStatus();
+    this.isLoggedSr.role.subscribe((role: number) => {
+      this.role = role
+      if (this.role === -1)
+        this.isLoggedIn = false;
+    })
+
+    
+  }
+
+  getLoginStatus() {
+    let login = this.auth.getLoginData();
+    console.log('login status', login);
+    if (login != null) {
+      this.isLoggedIn = true;
+    } else {
+      this.isLoggedIn = false;
+    }
   }
 
   ngAfterViewChecked() {
@@ -48,6 +72,10 @@ export class Homeve2Component implements OnInit {
     }
   }
 
+
+  public ngOnDestroy() {
+    jQuery('body').removeClass('home-header');
+  }
   ngAfterViewInit() {
     jQuery('.customer-cards-carousel').slick({
       dots: false,

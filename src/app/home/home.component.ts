@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
       console.log("GOT HERE");
       console.log("CUrrent Scroll: ", canScroll);
       canScroll = 1;
-    }
+    } 
 
     //FIREFOX
     jQuery('#carouselExampleIndicators').bind('DOMMouseScroll', function (e) {

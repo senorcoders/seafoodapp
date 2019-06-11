@@ -552,7 +552,7 @@
 														src="../../assets/svg/attachment.svg" alt=""> {{label1}}</label>
 
 												<input type="file" class="form-control" id="1"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event, 'invoice')"
 													[ngClass]="{'is-invalid':trackingForm.get('invoice').invalid && trackingForm.get('invoice').touched}">
 												<div class="invalid-feedback"
@@ -582,7 +582,7 @@
 														src="../../assets/svg/attachment.svg" alt=""> {{label2}}</label>
 
 												<input type="file" class="form-control" id="2"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event, 'healthCert')"
 													[ngClass]="{'is-invalid':trackingForm.get('healthCert').invalid && trackingForm.get('healthCert').touched}">
 												<div class="invalid-feedback"
@@ -611,7 +611,7 @@
 														src="../../assets/svg/attachment.svg" alt=""> {{label3}}</label>
 
 												<input type="file" class="form-control" id="3"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event, 'packingList')"
 													[ngClass]="{'is-invalid':trackingForm.get('packingList').invalid && trackingForm.get('packingList').touched}">
 												<div class="invalid-feedback"
@@ -640,7 +640,7 @@
 														src="../../assets/svg/attachment.svg" alt=""> {{label4}}</label>
 
 												<input type="file" class="form-control" id="4"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event, 'awb')"
 													[ngClass]="{'is-invalid':trackingForm.get('awb').invalid && trackingForm.get('awb').touched}">
 												<div class="invalid-feedback"
@@ -677,7 +677,7 @@
 														{{label5}}</label>
 
 												<input type="file" class="form-control" id="5"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event, 'certificateOrigin')"
 													[ngClass]="{'is-invalid':trackingForm.get('certificateOrigin').invalid && trackingForm.get('certificateOrigin').touched}">
 												<div class="invalid-feedback"
@@ -704,7 +704,7 @@
 												<label for="6" class="fake-input"> <img
 														src="../../assets/svg/attachment.svg" alt=""> {{label6}}</label>
 												<input type="file" class="form-control" id="6"
-													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													(change)="handleFileInput($event,'creditNote')"
 													[ngClass]="{'is-invalid':trackingForm.get('creditNote').invalid && trackingForm.get('creditNote').touched}">
 												<div class="invalid-feedback"
@@ -736,7 +736,7 @@
 													<div [formGroupName]="i">
 													  <input formControlName="filename" placeholder="Document name">
 													  <input [disabled]="trackingForm.controls.extra.controls[i].controls.filename.value == ''" type="file" 
-													  accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/*"
+													  accept="application/msword, .doc, .docx, .rtf, application/rtf, application/pdf, image/x-png, image/jpeg"
 													  (change)="onExtraChange($event,trackingForm.controls.extra.controls[i].controls.filename.value, i)">
 													</div>
 												  
