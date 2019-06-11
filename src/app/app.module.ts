@@ -37,6 +37,8 @@ import { BarRatingModule } from 'ngx-bar-rating';
 import { ShippingRatesService } from './services/shipping-rates.service';
 import { CountriesService } from './services/countries.service';
 import { PricingChargesService } from './services/pricing-charges.service';
+import { InventoryService } from './services/inventory.service';
+
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 import { ProductManagmentComponent } from './product-managment/product-managment.component';
@@ -318,6 +320,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'inventory',
+    loadChildren: 'app/inventory/inventory.module#InventoryModule',
+    canActivate: [AdminRouterService]
+  },
+  {
     path: 'orders-shipped',
     loadChildren: 'app/admin-orders-shipped/admin-orders-shipped.module#AdminOrdersShippedModule',
     canActivate: [AdminRouterService]
@@ -474,6 +481,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     ShippingRatesService,
     CountriesService,
     PricingChargesService,
+    InventoryService,
     MenuItems,
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'en', },
     ToastrService
