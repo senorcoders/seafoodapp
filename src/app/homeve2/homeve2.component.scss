@@ -40,6 +40,23 @@
   }
 }
 
+@keyframes slideDown {
+  from {
+    height: 0px;
+    opacity: 0;
+  }
+
+  to {
+    height: 300px;
+    opacity: 1;
+  }
+}
+
+.slideDown {
+  -webkit-animation-name: slideDown;
+  animation-name: slideDown;
+}
+
 
 /******************/
 
@@ -494,6 +511,7 @@ section {
 
 .blog {
   font-family: 'Josefin Sans', sans-serif;
+  margin-bottom: 0;
 
   .description-span {
     font-size: 1.3125rem;;
@@ -565,6 +583,24 @@ section {
   }
 }
 
+
+.svg-bottom {
+  position: relative;
+
+  svg {
+    max-height: 450px;
+    position: absolute
+  }
+
+  svg:first-child {
+    right: 103px;
+  }
+
+  svg:last-child {
+    transform: scaleX(-1);
+    left: 103px;
+  }
+}
 
 .get-started {
   font-family: 'Josefin Sans', sans-serif;
@@ -821,6 +857,10 @@ section {
         }
       }
     }
+
+    .svg-bottom {
+    display: none;
+  }
  }
 
 
