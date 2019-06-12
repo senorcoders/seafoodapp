@@ -7,6 +7,7 @@ import { environment } from '../../environments/environment';
 import { OrderService } from '../services/orders.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CountriesService } from '../services/countries.service';
+import { CartService } from '../core/cart/cart.service';
 declare var jQuery:any;
 @Component({
   selector: 'app-cart',
@@ -52,7 +53,7 @@ export class CartComponent implements OnInit {
   staticField: any;
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
-    private sanitizer: DomSanitizer, private countriesService: CountriesService) { }
+    private sanitizer: DomSanitizer, private countriesService: CountriesService, private cService: CartService) { }
 
 
   async ngOnInit() {
@@ -193,6 +194,7 @@ export class CartComponent implements OnInit {
       "buyer": this.buyerId
     }
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
+      this.cService.setCart(result);
       console.log(' calcular totales', result );
     },e=>{console.log(e)})
   }
@@ -206,8 +208,8 @@ export class CartComponent implements OnInit {
         this.products.splice(i, 1);
         console.log("Borrando item..", result, this.products);
 
-        // this.getItems();
-        jQuery('#confirmDelete').modal('hide');
+        this.getItems();
+        jQuery('#confirmDelete').modal('hide'); 
 
         this.getAllProductsCount();
         if(this.products.length == 0){

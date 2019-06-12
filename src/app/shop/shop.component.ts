@@ -8,6 +8,7 @@ import { OrderService } from '../services/orders.service';
 import { Options, ChangeContext } from 'ng5-slider';
 import { CountriesService } from '../services/countries.service';
 import { Router } from '@angular/router';
+import { CartService } from '../core/cart/cart.service';
 
 declare var jQuery;
 @Component({
@@ -80,7 +81,7 @@ export class ShopComponent implements OnInit {
 
   constructor(private auth: AuthenticationService, private productService: ProductService, 
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
-    private countryservice: CountriesService, private router: Router) {
+    private countryservice: CountriesService, private router: Router, private cService: CartService) {
     }
   async ngOnInit() {
     //GET current user info to be used to get current cart of the user
@@ -485,13 +486,14 @@ export class ShopComponent implements OnInit {
       'quantity': {
         'type': 'kg',
         'value': product.qty
-      },
+      }, 
       'shippingStatus': 'pending',
       'variation_id': product.variation.id
     };
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(async result => {
       // set the new value to cart
       // this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
+      this.getItems();
       await this.getCart();
       this.openCart();
     }, err => {
@@ -842,6 +844,7 @@ export class ShopComponent implements OnInit {
       "buyer": this.buyerId
     };
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
+      this.cService.setCart(result);
       console.log(' calcular totales', result);
     }, e => { console.log(e); });
   }
