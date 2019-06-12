@@ -47,7 +47,6 @@
   background-color: $white;
 }
 
-
 section {
   margin-bottom: 300px;
   background-color: $white;
@@ -79,7 +78,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
     @media screen and (max-width: 992px){
@@ -448,7 +447,7 @@ section {
   font-family: 'Josefin Sans', sans-serif;
 
   .cards-container {
-    background-color: rgba(9, 78, 130, 0.5);
+    background: url(../../assets/svg/ct-fish.svg) 100% / cover no-repeat;
     padding: 50px 0;
     margin-top: 60px;
 
@@ -569,6 +568,7 @@ section {
 
 .get-started {
   font-family: 'Josefin Sans', sans-serif;
+  background-color: transparent;
 
   .get-started-btn {
     background-color: $light_blue;
@@ -615,20 +615,7 @@ section {
 }
 
 .fish-small {
-  min-height: 350px;
-  background-color: $light_blue;
-  opacity: 0.4;
-
-  img {
-    position: absolute;
-    top: -49px;
-  }
-
-  &:first-child img {
-    right: 0;
-  }
-
-  &:last-child img {
+  &:first-child {
     transform: scaleX(-1);
   }
 }
@@ -681,6 +668,10 @@ section {
 
  @media (max-width: 768px) {
 
+  .svg {
+    display: none;
+  }
+
   section {
     margin-bottom: 150px;
 
@@ -706,7 +697,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
   }
@@ -769,8 +760,8 @@ section {
   }
 
   .customers {
-    .fish-bg {
-      display: none;
+    .cards-container {
+      background: rgba(9, 78, 130, 0.5)
     }
   }
 
