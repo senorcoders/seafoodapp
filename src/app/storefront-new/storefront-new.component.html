@@ -12,80 +12,25 @@
           {{store.description}}
         </p>
 
-        <div id="brands" class="brands-container">
+        <div id="brands" class="brands-container" *ngIf="brands.length > 0">
           <h3 class="text-uppercase">Brands</h3>
-
-          <div class="brands-list">
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
+      
+          <div class="brands-list" >
+            <div class="brand-logo" *ngFor="let i of brands">
+              <img [src]="base + i" alt="">
             </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
-            <div class="brand-logo">
-              <img src="https://via.placeholder.com/100x70" alt="">
-            </div>
+            
           </div>
         </div>
-
-        <div id="certifications" class="cert-container">
+      
+        <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
           <h3 class="text-uppercase">Certifications</h3>
-
+      
           <div class="cert-list">
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
+            <div class="cert-logo" *ngFor="let i of certs">
+              <img [src]="base + i" alt="">                  
             </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/100x150" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/100x90" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/60x80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/120x80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/100x80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/50x80" alt="">
-            </div>
-            <div class="cert-logo">
-              <img src="https://via.placeholder.com/60x80" alt="">
-            </div>
+
           </div>
         </div>
       </div>
@@ -109,80 +54,25 @@
                 {{store.description}}
               </p>
             
-              <div id="brands" class="brands-container">
+              <div id="brands" class="brands-container" *ngIf="brands.length > 0">
                 <h3 class="text-uppercase">Brands</h3>
             
-                <div class="brands-list">
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
+                <div class="brands-list" >
+                  <div class="brand-logo" *ngFor="let i of brands">
+                    <img [src]="base + i" alt="">
                   </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
-                  <div class="brand-logo">
-                    <img src="https://via.placeholder.com/100x70" alt="">
-                  </div>
+                  
                 </div>
               </div>
             
-              <div id="certifications" class="cert-container">
+              <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
                 <h3 class="text-uppercase">Certifications</h3>
             
                 <div class="cert-list">
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
+                  <div class="cert-logo" *ngFor="let i of certs">
+                    <img [src]="base + i" alt="">                  
                   </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/100x150" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/100x90" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/60x80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/120x80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/100x80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/50x80" alt="">
-                  </div>
-                  <div class="cert-logo">
-                    <img src="https://via.placeholder.com/60x80" alt="">
-                  </div>
+
                 </div>
               </div>
             </div>

@@ -41,6 +41,8 @@ export class SingleStoreComponent implements OnInit {
   showLess = false;
   simpleLayout = false;
   productImage: any = [];
+  brands: any = [];
+  certs: any = [];
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -51,8 +53,16 @@ export class SingleStoreComponent implements OnInit {
     this.storeID = this.route.snapshot.params['id'];
     this.getPersonalData();
     this.getReview();
+    this.getLogos();
   }
 
+  getLogos(){
+    this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
+        console.log("Logos", result);
+        this.brands = result['brands'];
+        this.certs = result['certifications'];
+    });
+  }
   getPersonalData() {
     this.getStoreData();
   }
