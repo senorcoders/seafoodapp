@@ -273,6 +273,11 @@ section {
       font-weight: 300;
     }
 
+    span {
+      display: inline-block;
+      background-color: $white;
+    }
+
     &.order-step {
       position: relative;
 
@@ -733,7 +738,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
   }
@@ -799,6 +804,10 @@ section {
     .cards-container {
       background: rgba(9, 78, 130, 0.5)
     }
+  }
+
+  .blog {
+    margin-bottom: 150px;
   }
 
   .blog-post-card {
