@@ -868,3 +868,30 @@ input[type=range]:focus::-ms-fill-upper {
     min-height: 200px;
   }
 }
+
+.not-found-row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h1{
+    font-family: 'Josefin Sans', sans-serif;
+    color: $dark_blue;
+    font-size: 1.5em;
+    letter-spacing: 1.75px;
+    line-height: 25px;
+    text-transform: uppercase;
+    font-weight: 300;
+  }
+  button{
+    background: none;
+    border: 1px solid;
+    border-radius: 2px;
+    width: 290px;
+    height: 50px;
+    line-height: 50px;
+    font-weight: 300;
+    font-family: 'Josefin Sans', sans-serif;
+    color: $dark_blue;
+    text-transform: uppercase;
+  }
+}
