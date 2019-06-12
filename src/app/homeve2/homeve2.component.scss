@@ -40,13 +40,29 @@
   }
 }
 
+@keyframes slideDown {
+  from {
+    height: 0px;
+    opacity: 0;
+  }
+
+  to {
+    height: 300px;
+    opacity: 1;
+  }
+}
+
+.slideDown {
+  -webkit-animation-name: slideDown;
+  animation-name: slideDown;
+}
+
 
 /******************/
 
 .home-container {
   background-color: $white;
 }
-
 
 section {
   margin-bottom: 300px;
@@ -67,6 +83,7 @@ section {
     background-repeat: no-repeat;
     background-size: cover;
     position: relative;
+    z-index: 1;
 
     .video-container {
     .filter {
@@ -79,7 +96,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: cover;
+        object-fit: contain;
       }
     }
     @media screen and (max-width: 992px){
@@ -255,6 +272,11 @@ section {
       font-size: 1.3125rem;
       color: $light_blue;
       font-weight: 300;
+    }
+
+    span {
+      display: inline-block;
+      background-color: $white;
     }
 
     &.order-step {
@@ -448,7 +470,7 @@ section {
   font-family: 'Josefin Sans', sans-serif;
 
   .cards-container {
-    background-color: rgba(9, 78, 130, 0.5);
+    background: url(../../assets/svg/ct-fish.svg) 100% / cover no-repeat;
     padding: 50px 0;
     margin-top: 60px;
 
@@ -495,6 +517,7 @@ section {
 
 .blog {
   font-family: 'Josefin Sans', sans-serif;
+  margin-bottom: 0;
 
   .description-span {
     font-size: 1.3125rem;;
@@ -567,8 +590,27 @@ section {
 }
 
 
+.svg-bottom {
+  position: relative;
+
+  svg {
+    max-height: 450px;
+    position: absolute
+  }
+
+  svg:first-child {
+    right: 103px;
+  }
+
+  svg:last-child {
+    transform: scaleX(-1);
+    left: 103px;
+  }
+}
+
 .get-started {
   font-family: 'Josefin Sans', sans-serif;
+  background-color: transparent;
 
   .get-started-btn {
     background-color: $light_blue;
@@ -615,20 +657,7 @@ section {
 }
 
 .fish-small {
-  min-height: 350px;
-  background-color: $light_blue;
-  opacity: 0.4;
-
-  img {
-    position: absolute;
-    top: -49px;
-  }
-
-  &:first-child img {
-    right: 0;
-  }
-
-  &:last-child img {
+  &:first-child {
     transform: scaleX(-1);
   }
 }
@@ -680,6 +709,10 @@ section {
 
 
  @media (max-width: 768px) {
+
+  .svg {
+    display: none;
+  }
 
   section {
     margin-bottom: 150px;
@@ -769,9 +802,13 @@ section {
   }
 
   .customers {
-    .fish-bg {
-      display: none;
+    .cards-container {
+      background: rgba(9, 78, 130, 0.5)
     }
+  }
+
+  .blog {
+    margin-bottom: 150px;
   }
 
   .blog-post-card {
@@ -830,6 +867,10 @@ section {
         }
       }
     }
+
+    .svg-bottom {
+    display: none;
+  }
  }
 
 
