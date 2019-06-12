@@ -52,8 +52,8 @@
 													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
 													<td *ngIf="item.fish.perBox == true">{{item.quantity.value}} boxes</td>
 
-													<td>{{item.price.value | currency: 'AED'}}</td>
-													<td>{{item.total | currency: 'AED'}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
+													<td>{{(item.price.value)}}</td>
+													<td>{{(item.total).toFixed(2)}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
 											
 										</tbody>
@@ -112,7 +112,7 @@
 									<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
 									<td>{{shoppingCart.orderStatus.status}}</td>
 									<td >{{shoppingCart?.items.length}} items</td>
-									<td >{{shoppingCart.total | currency: 'AED'}} <button class="clear-btn" (click)="openChild(shoppingCart.items, shoppingCart.subTotal, shoppingCart.shipping, shoppingCart.totalOtherFees, shoppingCart.total)"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
+									<td >{{shoppingCart.total}} <button class="clear-btn" (click)="openChild(shoppingCart.items, shoppingCart.subTotal, shoppingCart.shipping, shoppingCart.totalOtherFees, shoppingCart.total)"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
 	
 								</tr>
 							</tbody>
