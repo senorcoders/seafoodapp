@@ -342,6 +342,8 @@ export class EditAccountComponent implements OnInit {
   }
 
   updateAccount(data){
+    delete data.logos;
+    delete data.certifications;
     this.rest.updateData('user/'+this.info.id, data).subscribe(res =>{
       console.log(res);
       this.auth.setLoginData(this.info);
