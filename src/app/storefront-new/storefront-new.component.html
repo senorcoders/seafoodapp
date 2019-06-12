@@ -1,7 +1,7 @@
 <div *ngIf="!empty; else elseBlock">
 
-  <section id="di-lyt" *ngIf="!simpleLayout; else simpleLayout">
-    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
+  <section id="di-lyt" *ngIf="simpleLayout; else simpleLayout">
+    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 50%, transparent 50%), url('+ hero +') center/cover'}">
       <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
       <div class="hero-text">
         <div class="seller-logo">
