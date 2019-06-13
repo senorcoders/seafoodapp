@@ -115,6 +115,9 @@ export class CheckoutComponent implements OnInit {
   }
 
   public goToConfirmation(){
+    if(this.cart.total>this.cart.buyer.cod.available){
+      return this.toast.error("TThe credit you have available is not enough for you to pay with COD");
+    }
     this.http.patch("shoppingcart/"+ this.cart.id, {isCOD:true}).subscribe(it=>{
       this.router.navigate(["confirmation"]);
     });
