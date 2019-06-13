@@ -577,6 +577,10 @@ section {
     width: 100px;
     background-color: #FFF;
 
+    button:hover .a{
+      fill: $dark-blue
+    }
+
     img {
       display: inline !important;
     }
@@ -616,6 +620,10 @@ section {
         color: $gray;
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
+      }
+
+      a:hover .arr-left {
+        fill: $dark-blue;
       }
     }
   }
