@@ -16,7 +16,7 @@ export class InventoryService {
   getSellersSkus( seller_id ) {
     return this.http.get(`api/variation/skus/${seller_id}`)
   }
-
+  
   getVariationStock( variation ) {
     return this.http.get(`api/variation/${variation}/stock`)
   }
