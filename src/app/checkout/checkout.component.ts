@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 
 
-import {  ActivatedRoute } from '@angular/router';
+import {  ActivatedRoute, Router } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
@@ -63,9 +63,15 @@ export class CheckoutComponent implements OnInit {
   formMethod: string = 'POST';
   vat:any;
   taxesPer: any;
+
+  private cart:any;
+  public CODPayment = false;
+  public codEnable = false;
+
   constructor(
     @Inject(DOCUMENT) private _document,
     private route: ActivatedRoute,
+    private router: Router,
     private http: HttpClient,
     private auth: AuthenticationService,
     private orders: OrderService,
@@ -107,6 +113,12 @@ export class CheckoutComponent implements OnInit {
 
     });
   }
+
+  public goToConfirmation(){
+    this.http.patch("shoppingcart/"+ this.cart.id, {isCOD:true}).subscribe(it=>{
+      this.router.navigate(["confirmation"]);
+    });
+  }
  
   getPersonalData() {
     this.info = this.auth.getLoginData();
@@ -120,6 +132,8 @@ export class CheckoutComponent implements OnInit {
               if (res && res['items'] !== '') {
 
               console.log("Cart", res);
+              this.cart = res;
+              this.codEnable = res["buyer"].cod !== undefined && res["buyer"].cod.usage === true;
               this.products = res['items'];
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
@@ -130,6 +144,12 @@ export class CheckoutComponent implements OnInit {
 
               localStorage.setItem('shoppingTotal', this.totalWithShipping);
               this.generateSignature();
+
+            //si se entra el pagina checkout el cod se pone false, porque quizas se entro de confirmation a checkout
+            this.http.patch("shoppingcart/"+ this.cart.id, {isCOD:false}).subscribe(it=>{
+              console.log("back inside");
+            });
+
             }
 
             },

@@ -54,11 +54,11 @@ export class BuyerComponent implements OnInit {
 		
 	}
 	userForm() {
-		let cod = this.user.cod && this.user.cod.usage === true ? true : false;
+		let cod = (this.user.cod !== undefined && this.user.cod.usage === true);
+		console.log(cod);
 		let limit = "";
 		if(cod === true){
 			limit = parseFloat(this.user.cod.limit).toFixed(2);
-
 			this.buyerForm.setControl("limit", new FormControl(Number(limit) <= 0 ? "": limit, Validators.required));
 		}
 		this.buyerForm.patchValue({
@@ -194,11 +194,12 @@ export class BuyerComponent implements OnInit {
 		const limit = usage === true && isNaN(data.limit) === false ? Number(parseFloat(data.limit).toFixed(2)) : 0;
 		let available = this.user.cod && this.user.cod.available ? Number(this.user.cod.limit) - Number(parseFloat(this.user.cod.available).toFixed(2)) : limit;
 		available = limit - available;
-		if(available<0){
-			available = 0;
+		let disp = limit - available;
+		if(disp<0){
+			disp = 0;
 		}
-		available = Number(parseFloat(available.toString()).toFixed(2));
-		const cod = {usage,limit,available};
+		// disp = Number(parseFloat(disp.toString()).toFixed(2));
+		const cod = {usage,limit,available:disp};
 		console.log(cod);
 		data.cod = cod;
 		console.log('buyer', data);
