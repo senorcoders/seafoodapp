@@ -48,15 +48,10 @@ import { CDNCheck } from './cdn-check';
 import { CookieService } from 'ngx-cookie-service';
 import { Homeve2Component } from './homeve2/homeve2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
-import { PathResolveService } from './services/path-resolve.service';
 
 const appRoutes: Routes = [
   {
     path: '', component: Homeve2Component,
-  },
-  {
-    path: '**', 
-    component: NotfoundComponent
   },
   {
     path: "login",
@@ -421,8 +416,11 @@ const appRoutes: Routes = [
     // canActivate: [AdminRouterService]
   },
   {
+    path: '404', component: NotfoundComponent
+  },
+  {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/404',
     pathMatch: 'full'
   },
 ];
@@ -491,8 +489,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     InventoryService,
     MenuItems,
     { provide: OWL_DATE_TIME_LOCALE, useValue: 'en', },
-    ToastrService,
-    PathResolveService
+    ToastrService
     // TranslateService
   ],
   bootstrap: [AppComponent]
