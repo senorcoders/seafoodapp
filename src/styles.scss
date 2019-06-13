@@ -1693,3 +1693,39 @@ input[type=number]::-webkit-outer-spin-button {
     opacity: 1;
   }
 }
+
+
+select.form-control{
+  background: none !important;
+  border-radius: 0 !important;
+  border: 0;
+  border-bottom: solid 2px $gray !important;
+  -webkit-appearance: none;
+  -webkit-border-radius: 0px;
+  color: $dark_blue !important;
+  font-weight: 300;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0 !important;
+  background: url('../src/assets/svg/chevron-down.svg') no-repeat 100% 50% !important;
+  background-size: 11px 7px;    
+}
+
+input.form-control, textarea.form-control{
+  background: none !important;
+  border: 0;
+  border-bottom: solid 2px $gray !important;
+  border-radius: 0 !important;
+  color: $dark_blue !important;
+  font-weight: 300;
+  font-family: 'Open Sans', sans-serif;
+  padding: 0 !important;
+}
+
+.dropdown-toggle::after{
+  border: none;
+  background: url('../src/assets/svg/chevron-down.svg') no-repeat 100% 50% !important;
+  background-size: 11px 7px;
+  width: 20px;
+  height: 20px;
+
+}
