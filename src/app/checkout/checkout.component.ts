@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-
-
 import {  ActivatedRoute, Router } from '@angular/router';
 import * as shajs from 'sha.js';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
