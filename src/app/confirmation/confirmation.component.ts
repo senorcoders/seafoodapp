@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import {  Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+
 
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { OrderService } from '../services/orders.service';
 
 @Component({

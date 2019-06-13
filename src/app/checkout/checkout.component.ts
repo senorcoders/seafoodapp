@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+
 
 import {  ActivatedRoute } from '@angular/router';
 import * as shajs from 'sha.js';
@@ -10,7 +10,7 @@ import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { DateTimeAdapter } from 'ng-pick-datetime';
 import { environment } from '../../environments/environment';
-import {Location} from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { ToastrService } from '../toast.service';
 
 declare var jQuery:any;
