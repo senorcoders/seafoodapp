@@ -942,4 +942,10 @@ export class ShopComponent implements OnInit {
     return product.variation.wholeFishWeight!=null? product.variation.wholeFishWeight.id : product.variation.fishPreparation.id;
   }
  
+  public getFixedNumber(number){
+    if(Math.round(number) !== number) {
+      number = number.toFixed(2);
+  }
+  return number;
+  }
 }
