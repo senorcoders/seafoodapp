@@ -205,7 +205,8 @@ export class FishComponent implements OnInit {
     });
     this.buttonLabel = 'Edit Fish';
     if (this.orgCats[index].images != null) {
-      this.currentImage = environment.apiURLImg + this.orgCats[index].images[0].src;
+      let src = this.orgCats[index][0].src ? this.orgCats[index][0].src : this.orgCats[index][0];
+      this.currentImage = environment.apiURLImg + src;
       this.showImage = true;
     }
   }
@@ -224,7 +225,8 @@ export class FishComponent implements OnInit {
     });
     this.buttonLabel = 'Edit Product Category';
     if (child.images != null) {
-      this.currentImage = environment.apiURLImg + child.images[0].src;
+      let src = child.images[0].src ? child.images[0].src : child.images[0];
+      this.currentImage = environment.apiURLImg + src;
       this.showImage = true;
     }
   }

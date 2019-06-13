@@ -43,7 +43,8 @@ export class FeaturedStoreComponent implements OnInit {
               this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
             }
             else if(data.images && data.images.length>0){
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+              let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`)
             }
             else{
               this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')

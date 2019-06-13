@@ -49,7 +49,8 @@ export class ArchiveProductsComponent implements OnInit {
               this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`)
             }
             else if(data.images && data.images.length>0){
-              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.images[0].src})`)
+              let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+              this.image[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${src})`)
             }
             else{
               this.image[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')
@@ -122,7 +123,8 @@ export class ArchiveProductsComponent implements OnInit {
     this.product.getData(`fishtype?where=%7B"name":"${this.category}"%7D`).subscribe(result =>{
       //console.log("category", result);
       if(result[0].images != null){
-        this.categoryImage = this.API + result[0].images[0].src;
+        let src = result['images'][0].src ? result['images'][0].src : result['images'][0];
+        this.categoryImage = this.API + src;
       }else{
         this.categoryImage = "../../assets/search-bg.jpg";
       }

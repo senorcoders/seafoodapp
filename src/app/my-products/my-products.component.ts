@@ -85,7 +85,8 @@ export class MyProductsComponent implements OnInit {
           if (data.imagePrimary && data.imagePrimary !== '') {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`);
           } else if (data.images && data.images.length > 0) {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`);
+            let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${src})`);
           } else {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
           }
@@ -102,7 +103,8 @@ export class MyProductsComponent implements OnInit {
           if (data.imagePrimary && data.imagePrimary !== '') {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.imagePrimary})`);
           } else if (data.images && data.images.length > 0) {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${data.images[0].src})`);
+            let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${src})`);
           } else {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
           }

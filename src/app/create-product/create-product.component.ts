@@ -288,9 +288,11 @@ export class CreateProductComponent implements OnInit {
       console.error(e);
     }
 
-    // Para agregar las imagenes secundarias
+    // Para agregar las imasgenes secundarias
     if (product['images'] && product['images'].length > 0) {
-      for (const image of product['images']) {
+      for (let image of product['images']) {
+        if(typeof image === "object" && image.src)
+          image = image.src;
         try {
           const imageSecond = await this.http.get(baseUrl + image, rt).toPromise() as any;
           const imageSecond64 = await this.blobToBase64(imageSecond);
