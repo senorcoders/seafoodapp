@@ -58,6 +58,8 @@ export class ConfirmationComponent implements OnInit {
   vat:any;
   taxesPer: any;
 
+  public cart:any;
+
   constructor(private route: ActivatedRoute,
     private auth: AuthenticationService,
     private product: ProductService,
@@ -142,6 +144,7 @@ export class ConfirmationComponent implements OnInit {
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
+        this.cart = cart;
         this.apiShopID = cart['id'];
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
@@ -257,6 +260,11 @@ export class ConfirmationComponent implements OnInit {
     );
   }
     submit() {
+
+      if(this.cart.isCOD === true){
+        return this.clearCart();
+      }
+
       const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
       console.log('finger', finger.value);
       this.generateSignature();
