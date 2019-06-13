@@ -56,6 +56,8 @@ export class AvancedPricingComponent implements OnInit {
     kg78_off: '7-8 KG',
     kg8m_off: '8+ KG',
   };
+  weightType:any = 'KG';
+
   public wholesFish: any[] = [];
   public keySelect = '';
   public options: Options = {
@@ -222,6 +224,7 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
+      console.log("IT", it);
       //Para elegir los slides que se muestran si es salmon o no
       if (it.speciesSelected) {
         this.speciesSelected = it.speciesSelected;
@@ -231,6 +234,12 @@ export class AvancedPricingComponent implements OnInit {
         } else {
           this.hideTrimesSlides = true;
         }
+      }
+
+      if(it.unitOfSale == 'lbs'){
+        this.weightType = "LBS"
+      }else{
+        this.weightType = "KG";
       }
 
       //Para asinar el maximo y minimo de slides
@@ -411,8 +420,27 @@ export class AvancedPricingComponent implements OnInit {
       let it = this.wholesFish.find(it => {
         return it.id === id;
       });
-      if (it !== undefined && it !== null) return it.name;
-      else return "";
+      if (it !== undefined && it !== null){
+        if(this.weightType == 'LBS'){
+          if((it.name).includes('-')){
+            let tmpName =  it.name.split('-');
+            tmpName[1] = tmpName[1].replace(" KG", "");
+            tmpName[0] = parseInt(tmpName[0]) * 2.205;
+            tmpName[1] = parseInt(tmpName[1]) * 2.205;
+            return tmpName[0] + '-' + tmpName[1] + ' LBS';
+          }else if((it.name).includes('+')){
+            let tmpName =  it.name.split('+');
+            console.log("tmpName", tmpName);
+            tmpName[0] = parseInt(tmpName[0]) * 2.205;
+            return tmpName[0]  + ' LBS';
+          }
+       
+        }else{
+          return it.name;
+        }
+        
+      } else return "";
+
     }
     catch (e) {
       console.error(e);
