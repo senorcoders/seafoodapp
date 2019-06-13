@@ -266,7 +266,7 @@ export class SingleProductComponent implements OnInit {
         this.currentExchangeRate = 1;
       }
       if (data['minimumOrder'] < 1) {
-        this.min = 1;
+        this.min = 0;
       } else {
         if(data.hasOwnProperty('minBox')){
           this.min = data['minBox'];
