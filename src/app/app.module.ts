@@ -47,6 +47,7 @@ import { ToastrService } from './toast.service';
 import { CDNCheck } from './cdn-check';
 import { CookieService } from 'ngx-cookie-service';
 import { Homeve2Component } from './homeve2/homeve2.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 
 const appRoutes: Routes = [
   {
@@ -415,8 +416,11 @@ const appRoutes: Routes = [
     // canActivate: [AdminRouterService]
   },
   {
+    path: '404', component: NotfoundComponent
+  },
+  {
     path: '**',
-    redirectTo: '',
+    redirectTo: '/404',
     pathMatch: 'full'
   },
 ];
@@ -437,7 +441,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     FeaturedStoreComponent,
     ProductManagmentComponent,
     AccountComponent,
-    Homeve2Component
+    Homeve2Component,
+    NotfoundComponent
       ],
   imports: [
     BrowserAnimationsModule,

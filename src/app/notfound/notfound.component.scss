@@ -1,0 +1,45 @@
+@import "../../variables.scss";
+
+.gray-bg{
+    padding: 155px 0;
+    .container-fluid{
+        @media screen  and (min-width: 1450px){
+            padding-left: 155px;
+            padding-right: 155px;
+        }
+    }
+
+    .empty-container{
+        h4{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 21px;
+            letter-spacing: 0.75px;
+            line-height: 25px;
+            color: $dark_blue;
+            font-weight: 300;
+            margin: 50px 0;
+        }
+        .outline-btn{
+            background: none;
+            border: none;
+            border-radius: 2px;
+            border: 1px solid $light_blue;
+            text-transform: uppercase;
+            font-size: 16px;
+            color: $light_blue;
+            letter-spacing: 0.5px;
+            width: 290px;
+            height: 50px;
+            margin: 0 auto;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+            line-height: 50px;
+            transition: all .2s ease-in-out;
+            &:hover{
+                background: $dark_blue;
+                color: #fff;
+            }
+        }
+       
+    }
+}
