@@ -34,6 +34,32 @@
   animation-name: expandLeft;
 }
 
+@-webkit-keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+}
+
+.slideRight {
+  -webkit-animation-name: slideIn;
+  animation-name: slideIn;
+}
+
+
 @keyframes dash {
   to {
     stroke-dashoffset: 1000;
@@ -43,12 +69,10 @@
 @keyframes slideDown {
   from {
     height: 0px;
-    opacity: 0;
   }
 
   to {
     height: 300px;
-    opacity: 1;
   }
 }
 
