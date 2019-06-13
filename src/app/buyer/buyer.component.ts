@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../services/authentication.service';
 import { ProductService } from '../services/product.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ToastrService } from '../toast.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
@@ -47,26 +47,44 @@ export class BuyerComponent implements OnInit {
 			City: [''],
 			vat: [''],
 			productsInterestedinBuying: [''],
-			additionalItems: ['']
-
+			additionalItems: [''],
+			cod: [false, Validators.required],
+			limit: [1, Validators.nullValidator]
 		});
+		
 	}
 	userForm() {
-		this.buyerForm = this.fb.group({
-			firstName: [this.user.firstName, Validators.required],
-			lastName: [this.user.lastName, Validators.required],
-			country: [this.user.dataExtra.country, Validators.required],
-			email: [this.user.email, [Validators.email, Validators.required]],
-			tel: [this.user.dataExtra.tel],
-			companyName: [this.user.dataExtra.companyName],
-			TypeBusiness: [this.user.dataExtra.typeBusiness],
-			Address: [this.user.dataExtra.Address],
-			City: [this.user.dataExtra.City],
-			vat: [this.user.dataExtra.vat],
-			productsInterestedinBuying: [this.user.dataExtra.productsInterestedinBuying],
-			additionalItems: [this.user.dataExtra.additionalItems]
+		let cod = this.user.cod && this.user.cod.usage === true ? true : false;
+		let limit = "";
+		if(cod === true){
+			limit = parseFloat(this.user.cod.limit).toFixed(2);
 
+			this.buyerForm.setControl("limit", new FormControl(Number(limit) <= 0 ? "": limit, Validators.required));
+		}
+		this.buyerForm.patchValue({
+			firstName: this.user.firstName,
+			lastName: this.user.lastName,
+			country: this.user.dataExtra.country,
+			email: this.user.email,
+			tel: this.user.dataExtra.tel,
+			companyName: this.user.dataExtra.companyName,
+			TypeBusiness: this.user.dataExtra.typeBusiness,
+			Address: this.user.dataExtra.Address,
+			City: this.user.dataExtra.City,
+			vat: this.user.dataExtra.vat,
+			productsInterestedinBuying: this.user.dataExtra.productsInterestedinBuying,
+			additionalItems: this.user.dataExtra.additionalItems,
+			cod,
+			limit
 		});
+	}
+
+	changeCOD(){ console.log("changed");
+		if(this.buyerForm.value.cod === true){
+			this.buyerForm.setControl("limit", new FormControl("", Validators.required));
+		}else{
+			this.buyerForm.setControl("limit", new FormControl("", Validators.nullValidator));
+		}
 	}
 
 	getUsers() {
@@ -157,10 +175,11 @@ export class BuyerComponent implements OnInit {
 		);
 	}
 	editUser() {
+		console.log(this.buyerForm)
 		const data = this.buyerForm.value;
 
 		const dataExtra = {
-			'country': data.location,
+			'country': data.country,
 			'tel': data.tel,
 			'Address': data.Address,
 			'City': data.City,
@@ -171,6 +190,17 @@ export class BuyerComponent implements OnInit {
 			'productsInterestedinBuying': data.productsInterestedinBuying
 		};
 		data.dataExtra = dataExtra;
+		const usage = data.cod;
+		const limit = usage === true && isNaN(data.limit) === false ? Number(parseFloat(data.limit).toFixed(2)) : 0;
+		let available = this.user.cod && this.user.cod.available ? Number(this.user.cod.limit) - Number(parseFloat(this.user.cod.available).toFixed(2)) : limit;
+		available = limit - available;
+		if(available<0){
+			available = 0;
+		}
+		available = Number(parseFloat(available.toString()).toFixed(2));
+		const cod = {usage,limit,available};
+		console.log(cod);
+		data.cod = cod;
 		console.log('buyer', data);
 		this.product.updateData('user/' + this.user.id, data).subscribe(
 			result => {
