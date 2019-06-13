@@ -53,6 +53,19 @@
 		          <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}">
 		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.required' | translate}}.</div>
 		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.invalid' | translate}}</div>	
+				</div>
+				<div class="form-group">
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" (change)="changeCOD()" formControlName="cod" id="invalidCheck">
+					  <label class="form-check-label" for="invalidCheck">
+						COD
+					  </label>
+					</div>
+				</div>
+				<div class="form-group" [hidden]="buyerForm.value.cod===false">
+		        	<label>Limit</label>
+		          <input type="number" min="1" class="form-control" formControlName="limit" [ngClass]="{'is-invalid':buyerForm.get('limit').invalid && buyerForm.get('limit').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('limit').hasError('required')">Limit of COD is required</div>	
 		        </div>
 		        <div class="form-group">
 		        	<label>{{'Buyer.tel' | translate}}</label>
@@ -70,10 +83,10 @@
             </div>
 						
 						
-						<div style="display:none;" class="form-group">
+						<!-- <div style="display:none;" class="form-group">
 		        	<label>{{'Buyer.banking' | translate}}</label>
 		          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
-						</div>
+						</div> -->
 						
 						
 						<div class="form-group">
