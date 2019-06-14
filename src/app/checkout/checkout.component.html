@@ -18,10 +18,20 @@
                     <h1 class="gray-title" ><span>PAYMENT</span></h1>
                   </div>
             </div>
-            <div class="form-check text-center" *ngIf="codEnable">
+            <div class="row cod-row" *ngIf="codEnable">
+                <div class="col-sm-12 text-center">
+                    <div class="d-inline-block border-right">
+                      <button (click)="setCod(false)" [class.selected-cod]="!CODPayment">Credit card</button>
+                    </div>
+                    <div class="d-inline-block">
+                      <button class="cod-btn" [class.selected-cod]="CODPayment" (click)="setCod(true)">Cod</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-check text-center" *ngIf="codEnable">
               <input type="checkbox" class="form-check-input" [(ngModel)]="CODPayment" id="cod">
               <label class="form-check-label" for="cod">Pay with COD</label>
-            </div>
+            </div> -->
               <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
               <div [hidden]="CODPayment" class="row">
                 <div class="col-lg-12" *ngIf="error">
