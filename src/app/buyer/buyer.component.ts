@@ -54,7 +54,7 @@ export class BuyerComponent implements OnInit {
 		
 	}
 	userForm() {
-		let cod = (this.user.cod !== undefined && this.user.cod.usage === true);
+		let cod = (this.user.cod !== undefined && this.user.cod !== null && this.user.cod.usage === true);
 		console.log(cod);
 		let limit = "";
 		if(cod === true){

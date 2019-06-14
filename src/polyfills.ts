@@ -9,6 +9,9 @@
 // import 'web-animations-js';  // Run `npm install --save web-animations-js`.
 
 
+// Add global to window, assigning the value of window itself.
+(window as any).global = window;
+
 
 /***************************************************************************************************
  * Zone JS is required by default for Angular itself.
