@@ -32,6 +32,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   public page = 1;
   public limit = 20;
   public paginationNumbers = [];
+  public type = "cc";
 
   constructor(
     private orderService: OrderService,
@@ -63,7 +64,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
   getManagement(pagination?) {
     if(pagination)
       this.page = 1;
-    this.productService.getData(`api/v2/shoppingcart/orderlogistic?page=${this.page}&limit=${this.limit}`).subscribe(data => {
+    this.productService.getData(`api/v2/shoppingcart/orderlogistic?page=${this.page}&limit=${this.limit}&type=${this.type}`).subscribe(data => {
       this.calcPagination(data["pageAvailables"]);
       this.rows = (data["data"] as any[]).map(it => {
         if (typeof it.paidDateTime === 'string' && it.paidDateTime !== "")
