@@ -51,8 +51,7 @@ export class MenuNavComponent {
 
   @HostListener('window:scroll', ['$event'])
   classOnScroll($event: Event) {
-    //Updated by Kharron 6-13/2019 const scrollOffset = $event.srcElement.children[0].scrollTop;
-    const scrollOffset = document.getElementById("top-nav").scrollTop;
+    const scrollOffset = $event.target.children[0].scrollTop;
     if (scrollOffset > 50) {
       this.isScrolled = true;
     } else {
