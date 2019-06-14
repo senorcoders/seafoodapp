@@ -498,10 +498,19 @@ section {
     padding: 50px 0;
     margin-top: 60px;
 
+    .item {
+      padding: 5px 0;
+    }
+
     .card {
       padding-top: 20px;
+      border: none;
       max-width: 300px;
+      height: 300px;
       margin: 0 auto;
+      background-color: $white;
+      border-radius: 5px;
+      box-shadow: 0px 2px 4px 0px #00000036;;
     }
     .card-img-top {
       width: 60px;
@@ -852,7 +861,7 @@ section {
   }
 
   .customers {
-    .cards-container {
+    .cards-container .ct-fish-right{
        display: none;
     }
   }
@@ -921,7 +930,17 @@ section {
     .svg-bottom {
     display: none;
   }
- }
+
+  .get-started {
+
+    .get-started-btn {
+
+      &::after {
+        content: none;
+      }
+    }
+  }
+}
 
 
 
