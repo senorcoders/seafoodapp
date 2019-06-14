@@ -29,10 +29,10 @@ export class OrdersComponent implements OnInit {
   selectedItemID: string;
   showNoData: boolean = false;
   items:any = [];
-  subtotal: any;
-  shipping: any;
-  fees: any;
-  total: any;
+  subtotal: any = 0;
+  shipping: any = 0;
+  fees: any = 0;
+  total: any = 0;
   constructor(private productService: ProductService, private Cart: CartService, private auth: AuthenticationService,
     private orderService: OrderService,
     private toast: ToastrService,) { }

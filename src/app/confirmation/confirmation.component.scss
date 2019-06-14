@@ -250,17 +250,14 @@
                         }
                     } 
 
-                    input.medd{
-                        background: none;
-                        border: none;
-                        width: 100px;
+                    .eta-span{
+                        margin-left: 5px;
                         font-family: 'Open Sans', sans-serif;
                         color: $gray;
                         font-size: 16px;
                         line-height: 22px;
-                        &::placeholder{
-                            color: $gray;
-                        }
+                        float: none !important;
+                       
                     }
                     i{
                         color: $gray;
