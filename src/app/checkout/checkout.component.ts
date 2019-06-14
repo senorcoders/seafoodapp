@@ -39,10 +39,10 @@ export class CheckoutComponent implements OnInit {
   payForAPI: any = 'https://checkout.PayFort.com/FortAPI/paymentPage';
   randomID: any;
   products: any = [];
-  total: any;
-  totalOtherFees: any;
-  shipping: any;
-  totalWithShipping: any;
+  total: any = 0;
+  totalOtherFees: any  = 0;
+  shipping: any  = 0;
+  totalWithShipping: any  = 0;
   showShippingFields: boolean = false;
   check: boolean = false;
   env: any;
@@ -61,7 +61,7 @@ export class CheckoutComponent implements OnInit {
   address:any;
   formAction: string = '';
   formMethod: string = 'POST';
-  vat:any;
+  vat:any = 0;
   taxesPer: any;
 
   private cart:any;
@@ -121,6 +121,10 @@ export class CheckoutComponent implements OnInit {
     this.http.patch("shoppingcart/"+ this.cart.id, {isCOD:true}).subscribe(it=>{
       this.router.navigate(["confirmation"]);
     });
+  }
+
+  setCod(boolean){
+    this.CODPayment = boolean;
   }
  
   getPersonalData() {
