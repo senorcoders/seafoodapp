@@ -63,8 +63,8 @@
                       <img src="../../assets/svg/knife-military.svg" alt="" width="18px" height="18px">
                       {{product?.fishPreparation[0]?.name}}
                       </li>
-                    <li class="list-inline-item info-item" *ngIf="product.minDeliveryDate != ''">
-                        Lead Time: {{product?.adminNumberOfDaysForDelivery}} Days
+                    <li class="list-inline-item info-item" *ngIf="product.inventory != ''">
+                        <strong>ETA: </strong>{{product?.inventory?.short_date}} 
                       </li>
                   </ul>
                 </div>

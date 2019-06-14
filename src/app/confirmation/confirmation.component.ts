@@ -48,14 +48,14 @@ export class ConfirmationComponent implements OnInit {
   description: any;
   buyerId: any;
   apiShopID: any;
-  totalAPI: any;
+  totalAPI: any = 0;
   products: any = [];
-  shipping: any;
-  totalWithShipping: any;
-  totalOtherFees: any;
+  shipping: any = 0;
+  totalWithShipping: any = 0;
+  totalOtherFees: any = 0;
   responseCode: string;
   env: any;
-  vat:any;
+  vat:any = 0;
   taxesPer: any;
 
   public cart:any;
