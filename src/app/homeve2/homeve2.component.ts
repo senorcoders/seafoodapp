@@ -49,9 +49,7 @@ export class Homeve2Component implements OnInit {
       this.role = role
       if (this.role === -1)
         this.isLoggedIn = false;
-    })
-
-    
+    });
   }
 
   getLoginStatus() {
