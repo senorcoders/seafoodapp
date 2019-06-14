@@ -8,7 +8,7 @@ import {Location} from '@angular/common';
   styleUrls: ['./reviewcart.component.scss']
 })
 export class ReviewcartComponent implements OnInit {
-
+ 
   shoppingCartId: any;
   checked:boolean = true;
 

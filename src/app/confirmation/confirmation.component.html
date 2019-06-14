@@ -59,22 +59,22 @@
                     <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
                       <h4> {{product?.fish?.name}} ({{product.quantity.value}} kg)  
                 
-                        <span>{{(getTotalxItem(product.quantity.value, product.fish.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
+                        <span>{{(getTotalxItem(product.quantity.value, product.fish.price.value)).toFixed(2)}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                        <h4>SUBTOTAL <span>{{(totalAPI) | currency: 'AED'}}</span></h4>
+                        <h4>SUBTOTAL <span>{{(totalAPI).toFixed(2)}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                        <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
+                        <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees).toFixed(2)}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                        <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
+                        <h4>SHIPPING <span>{{(shipping).toFixed(2)}}</span></h4>
                     </div>
                     <div class="col-lg-12 price-item">
-                      <h4>VAT ({{taxesPer}}%) <span>{{(vat) | currency: 'AED'}}</span></h4>
+                      <h4>VAT ({{taxesPer}}%) <span>{{(vat).toFixed(2)}}</span></h4>
                   </div>
                     <div class="col-lg-12 price-total">
-                      <h4>TOTAL <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                      <h4>TOTAL <span>{{(totalWithShipping).toFixed(2)}}</span></h4>
                   </div>
                   <div class="col-lg-12 total-row text-center">
                     <button class="transparent-btn" type="submit">
