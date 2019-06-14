@@ -604,9 +604,12 @@ section {
     height: 300px;
     background-color: #FFF;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 
     .author {
-      margin-bottom: 30px;
+      // margin-bottom: 30px;
     }
 
     .blog-post-preview {
@@ -618,6 +621,7 @@ section {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  
+      margin: 0;
     }
 
     .bottom-row {
@@ -629,6 +633,7 @@ section {
         color: $gray;
         text-transform: uppercase;
         font-family: 'Open Sans', sans-serif;
+        font-size: 0.875rem;
       }
 
       a:hover .arr-left {
