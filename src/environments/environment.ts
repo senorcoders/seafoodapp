@@ -10,7 +10,7 @@ export const environment = {
 	apiURLImg:"https://devapi.seafoodsouq.com",
 	cdnURL:"https://d66z88a3oqo8j.cloudfront.net/",
 	// apiURL:"http://localhost:7000/",
-	// apiURLImg:"http://localhost:7000",
+	// apiURLImg:"http://localhost:7000", 
 	currentCDN: "",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
