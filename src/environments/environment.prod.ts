@@ -4,6 +4,7 @@ export const environment = {
   apiURL:"https://api.seafoodsouq.com/",
   apiURLImg:"https://api.seafoodsouq.com",
   cdnURL:"https://seafoodsouq.com/",
+  currentCDN: "",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},
