@@ -70,22 +70,22 @@
 											</div>
 											<div class="col-lg-12">
 													<h4 class="pricing-item">
-															SUBTOTAL <span>{{subtotal | currency: 'AED'}}</span>
+															SUBTOTAL <span>{{(subtotal).toFixed(2)}}</span>
 													</h4>
 												</div>
 												<div class="col-lg-12">
 														<h4 class="pricing-item">
-																TAXES, CUSTOMS, & FEES <span>{{fees | currency: 'AED'}}</span>
+																TAXES, CUSTOMS, & FEES <span>{{(fees).toFixed(2)}}</span>
 														</h4>
 													</div>
 													<div class="col-lg-12">
 															<h4 class="pricing-item">
-																	SHIPPING <span>{{shipping | currency: 'AED'}}</span>
+																	SHIPPING <span>{{(shipping).toFixed(2)}}</span>
 															</h4>
 														</div>
 														<div class="col-lg-12">
 																<h4 class="pricing-total">
-																		TOTAL <span>{{total | currency: 'AED'}}</span>
+																		TOTAL <span>{{(total).toFixed(2)}}</span>
 																</h4>
 															</div>
 												
