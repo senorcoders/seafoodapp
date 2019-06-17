@@ -271,6 +271,7 @@ section {
       width: 100%;
       position: absolute;
       top: 70%;
+      margin-left: 5px;
   }
 
   .buyers-col h3::before {
@@ -285,6 +286,7 @@ section {
     position: absolute;
     top: 70%;
     right: 65%;
+    margin-right: 5px;
   }
 
   .screen-col img {
@@ -313,7 +315,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: -200px;
+        right: -195px;
         background-color: $gray;
         opacity: 0.6;
       }
@@ -325,7 +327,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: 215px;
+        right: 210px;
         background-color: $gray;
         opacity: 0.6;
       }
@@ -410,14 +412,16 @@ section {
   }
 
   .tab-content {
-    padding:25px;
+    padding:25px 0;
     opacity: 1;
     visibility: visible;
     transition: 0.2s all;
+    margin-bottom: 35px;
   }
 
   .screen-preview img {
     border-radius: 6px;
+    height: 686px;
   }
 
   #material-tabs {
@@ -475,7 +479,8 @@ section {
 		display: block;
 		left: 0;
 		transition: left .3s ease;
-		-webkit-transition: left .3s ease;
+    -webkit-transition: left .3s ease;
+    border-radius: 2px;
   }
 
   #tab1-tab.active ~ span.yellow-bar {
@@ -589,7 +594,11 @@ section {
     height: 100%;
     width: 100px;
     background-color: #FFF;
+    button:hover{
+      background: #FFF !important;
+      border: none !important;
 
+    }
     button:hover .a{
       fill: $dark-blue
     }
@@ -627,6 +636,7 @@ section {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  
       margin: 0;
+      font-weight: 300;
     }
 
     .bottom-row {
@@ -735,7 +745,7 @@ section {
 
  @media (min-width: 1300px){
     .container {
-        max-width: 1240px;
+        max-width: 1220px;
     }
  }
 
@@ -953,5 +963,27 @@ section {
 }
 
 
+button{
+  transition: all .2s ease-in-out;
+  border-radius: 3px !important;
+  &:hover{
+    background: $dark-blue !important;
+    border-color: $dark-blue !important;
+    color: $white !important;
+  }
+}
 
+.post-bg{
+  height: 250px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+}
 
+#how-it-works, #sfs-gives,#preview-sfs, #customers, #blog{
+  padding-top: 15px;
+}
+
+.padding-0{
+  padding: 0;
+}

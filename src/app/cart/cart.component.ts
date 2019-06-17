@@ -184,7 +184,7 @@ export class CartComponent implements OnInit {
   //FUNCTION TO GET ONLY THE TOTALS WHEN CHANGING QTY OF A PRODUCT
   getTotalPricing(){
       //this.showLoading=true;
-      this.cartService.getCart( this.buyerId )
+      this.cartService.getCart( this.userinfo['id'] )
       .subscribe(        
         cart=> {
           this.showLoading = false;

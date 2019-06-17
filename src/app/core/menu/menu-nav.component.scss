@@ -426,7 +426,7 @@ form{
 				font-size: 16px;
 				letter-spacing: normal;
 				line-height: 19px;
-				color: $light_blue;
+				color: $light_blue !important;
 				font-weight: 300;
 				border-bottom: 1px solid $white;
 				padding-top: 15px;
@@ -563,16 +563,21 @@ form{
 	}
 	&.blue-nav-bg{
 		background: $light_blue;
-
+		&:hover{
+			background: $dark-blue !important;
+			border-color: $dark-blue !important;
+		  }
 	}
 
 	&.gray-nav-bg{
 		background: $gray;
+		&:hover{
+			background: $dark-blue !important;
+			border-color: $dark-blue !important;
+		  }
+	}
 
-		&:hover {
-		background-color: $light_blue;
-	}
-	}
+
   }
 
 
@@ -627,11 +632,11 @@ form{
 	position: absolute;
     top: -9px;
     right: 13%;
-    background: #f9fcff;
+    color: #f9fcff;
     width: 20px;
     height: 20px;
     font-size: 14px;
     line-height: 25px;
     border-radius: 50%;
-    color: #3498e5;
+    background: #3498e5;
   }
