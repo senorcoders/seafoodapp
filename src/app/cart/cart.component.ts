@@ -143,6 +143,28 @@ export class CartComponent implements OnInit {
     
   }
 
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  public isVacio(id, idSuffix) {
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return true;
+
+    //unit measure
+    const suffixElement = document.getElementById(idSuffix);
+    const width = this.getTextWidth(element.value, 'Josefin Sans, sans-serif');
+    if (suffixElement !== null)
+      suffixElement.style.left = ($(element).width() / 2) + width + 'px';
+
+    return element.value === '';
+  }
+
   //GET COUNTRIES
   async getCountries() {
     await new Promise((resolve, reject) => {
