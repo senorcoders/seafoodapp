@@ -76,20 +76,24 @@ export class ShopComponent implements OnInit {
   disabledInputs: boolean = false;
   public loading: boolean = true;
 
-  public isChange: any = {};
-  staticField: any;
+  public isChange:any = {};
+  staticField:any;
+  showSnackBar:boolean = false;
+  itemsDeleted: any =  [];
 
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
     private countryservice: CountriesService, private router: Router, private cService: CartService) {
   }
   async ngOnInit() {
+
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();
     if (this.userInfo == null) {
       this.router.navigate(["/"]);
     }
     this.buyerId = this.userInfo['id'];
+    await this.validateCart();
     this.getCart();
     this.getProducts(100, 1);
     // this.getAllTypesByLevel();
@@ -174,6 +178,8 @@ export class ShopComponent implements OnInit {
   }
   //CHARGE LATE JS
   chargeJS() {
+    jQuery('.toast').toast({autohide: false})
+
     jQuery('.input-preparation:checkbox').on('change', (e) => {
       this.disabledInputs = true;
       this.showClear = true;
@@ -257,6 +263,22 @@ export class ShopComponent implements OnInit {
       this.showClear = true;
       this.filterProducts();
       this.createPills('pill-variant', 'input[type=radio][name=variant]:checked', 'tmpVariant');
+    });
+  }
+
+  //VALIDATING CART 
+  async validateCart(){
+    await new Promise((resolve, reject) => {
+      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+        console.log("Cart Validation", val);
+        if(val['items'].length > 0){
+          this.itemsDeleted = val['items'];
+          this.showSnackBar = true;
+        }
+        resolve();
+      }, error =>{
+        reject();
+      })
     });
   }
   //GETTING cart info
@@ -495,6 +517,7 @@ export class ShopComponent implements OnInit {
       // set the new value to cart
       // this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
       this.getItems();
+      await this.validateCart();
       await this.getCart();
       this.openCart();
     }, err => {
@@ -972,4 +995,10 @@ export class ShopComponent implements OnInit {
     }
     return number;
   }
+
+  closeSnackBar(){
+    this.showSnackBar = false;
+  }
 }
+
+

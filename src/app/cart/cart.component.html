@@ -173,3 +173,22 @@
           </div>  
         </ng-template>
 </div>
+
+<div class="custom-snackbar" *ngIf="showSnackBar">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+            <img src="../../assets/svg/alert-circle-white.svg" alt="">
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length == 1">
+          Your item <strong>{{itemsDeleted[0]['fish']['name']}}</strong>  is no longer available. Please check back later.
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length > 1">
+          Your items <strong *ngFor="let i of itemsDeleted">{{i['fish']['name']}} </strong>  are no longer available. Please check back later.
+        </div>
+        <div class="col-sm-2 text-right">
+          <button class="clear-btn" (click)="closeSnackBar()">OK</button>
+        </div>
+      </div>
+  </div>
+</div>
