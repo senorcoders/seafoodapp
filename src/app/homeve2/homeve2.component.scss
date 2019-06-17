@@ -412,10 +412,11 @@ section {
   }
 
   .tab-content {
-    padding:25px;
+    padding:25px 0;
     opacity: 1;
     visibility: visible;
     transition: 0.2s all;
+    margin-bottom: 35px;
   }
 
   .screen-preview img {
@@ -478,7 +479,8 @@ section {
 		display: block;
 		left: 0;
 		transition: left .3s ease;
-		-webkit-transition: left .3s ease;
+    -webkit-transition: left .3s ease;
+    border-radius: 2px;
   }
 
   #tab1-tab.active ~ span.yellow-bar {
@@ -743,7 +745,7 @@ section {
 
  @media (min-width: 1300px){
     .container {
-        max-width: 1240px;
+        max-width: 1220px;
     }
  }
 
@@ -980,4 +982,8 @@ button{
 
 #how-it-works, #sfs-gives,#preview-sfs, #customers, #blog{
   padding-top: 15px;
+}
+
+.padding-0{
+  padding: 0;
 }
