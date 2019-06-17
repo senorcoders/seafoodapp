@@ -28,7 +28,7 @@ export class TrackingCodeComponent implements OnInit {
 		}) 
 	}
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControl();
     this.createForm();
   }

@@ -34,7 +34,7 @@ export class PaymentsComponent implements OnInit {
     private auth: AuthenticationService,
     private pricingService: PricingChargesService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.user = this.auth.getLoginData();
     this.getExchangeRates();
     this.getPayments(true);

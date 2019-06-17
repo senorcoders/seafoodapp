@@ -75,7 +75,7 @@ export class RecentPurchasesComponent implements OnInit {
     this.max.setDate(this.today.getDate() + 90);
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.setHeight();
     this.createFormControl();
     this.createForm();

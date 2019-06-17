@@ -20,7 +20,7 @@ export class ChartComponent implements OnInit {
   charts:any=[];
   constructor(private productService:ProductService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.getFishTypes();
   	this.getAllFish();
   	jQuery('.fishType').select2();

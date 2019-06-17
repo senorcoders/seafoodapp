@@ -93,7 +93,7 @@ weightType:any = 'Kg';
     }
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.eventsSubscription = this.events.subscribe( (sellerInfo) => {
       console.log('lololol', sellerInfo);
       this.sellerInfo = sellerInfo;

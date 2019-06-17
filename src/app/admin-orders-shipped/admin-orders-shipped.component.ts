@@ -16,7 +16,7 @@ export class AdminOrdersShippedComponent implements OnInit {
   constructor( private orderService:OrderService, private productService:ProductService, 
     private toast:ToastrService, private auth:AuthenticationService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getOrdersShipped();
   }
 

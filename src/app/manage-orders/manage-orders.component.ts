@@ -42,7 +42,7 @@ export class ManageOrdersComponent implements OnInit {
     private toast: ToastrService,
     private auth: AuthenticationService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.date2.setMonth(new Date().getMonth() + 1);
     this.user = this.auth.getLoginData();
     this.status = '0';

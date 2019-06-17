@@ -21,7 +21,7 @@ export class FavoritesComponent implements OnInit {
   constructor(public productService: ProductService, private toast:ToastrService, private router: Router, 
     private auth:AuthenticationService,private sanitizer: DomSanitizer) {}
 
-  ngOnInit() {
+ ngOnInit() {
   	let data=this.auth.getLoginData();
   	this.userId=data['id'];
   	this.getFavorites()

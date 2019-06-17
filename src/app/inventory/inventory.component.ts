@@ -46,7 +46,7 @@ export class InventoryComponent implements OnInit {
     dateAdapter.setLocale('en-EN'); // change locale to Japanese
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.seller = new FormControl('', Validators.required);
     this.sku = new FormControl('', Validators.required);
     this.date = new FormControl('', Validators.required);

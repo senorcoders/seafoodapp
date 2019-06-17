@@ -18,7 +18,7 @@ export class AdminOrderArrivedComponent implements OnInit {
     private productService: ProductService,
     private toast: ToastrService) {}
 
-  ngOnInit() {
+ ngOnInit() {
     this.getOrdersArrived();
   }
 

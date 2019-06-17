@@ -15,7 +15,7 @@ export class RecoveryPasswordComponent implements OnInit {
 	regex:string='(?=.*)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9_]).{8,20}$';
   constructor(private fb:FormBuilder, private productSer:ProductService, private toast:ToastrService, private router:Router) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.recoveryForm=this.fb.group({
   		code:['', Validators.required],
   		password:['', [Validators.required, Validators.pattern(this.regex)]],

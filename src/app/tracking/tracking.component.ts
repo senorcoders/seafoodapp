@@ -20,7 +20,7 @@ export class TrackingComponent implements OnInit {
   marker: google.maps.Marker;
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
    this.findMe();
   }
 

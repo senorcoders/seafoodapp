@@ -28,7 +28,7 @@ export class FishComponent implements OnInit {
   tmpParentID: any;
   constructor(private product: ProductService, private fb: FormBuilder, private toast: ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getCategories();
     this.getFishTypeTree();
     this.categoryForm = this.fb.group({

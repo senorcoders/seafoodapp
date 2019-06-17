@@ -58,7 +58,7 @@ export class RegistrationSellerComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.RegisterSellerForm();
     this.getCountries();

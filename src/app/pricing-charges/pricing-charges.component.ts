@@ -40,7 +40,7 @@ export class PricingChargesComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private toast:ToastrService, private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {    
+ ngOnInit() {    
     this.createForm();
     this.getCurrentPricing();
     this.getHistoryPricing();

@@ -48,7 +48,7 @@ additionalItems: FormControl;
       });
      }
  
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.RegisterBuyerForm();
     this.getCountries();

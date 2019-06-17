@@ -85,7 +85,7 @@ export class CheckoutComponent implements OnInit {
     dateAdapter.setLocale('en-EN'); // change locale to Japanese
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.env = environment;
     //this.addFingerPrintScript();
     // bypass payfort, payfort only works in main domain

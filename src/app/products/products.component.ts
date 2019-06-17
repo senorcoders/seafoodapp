@@ -12,7 +12,7 @@ import 'rxjs/add/operator/catch';
 import { CountriesService } from '../services/countries.service';
 import { OrderService } from '../services/orders.service';
 import { AuthenticationService } from '../services/authentication.service';
-
+declare var jQuery;
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html', 
@@ -65,7 +65,8 @@ userInfo:any;
 
 
 
-  async ngOnInit() {
+  async ngOnInit() { 
+    jQuery('body').removeClass('home-header');
     this.userInfo = this.auth.getLoginData();
     this.buyerId = this.userInfo['id'];
     jQuery('.category').select2( {  width: 'resolve'  } );

@@ -33,7 +33,7 @@ export class MyProductsComponent implements OnInit {
 
      }
 
-  ngOnInit() {
+ ngOnInit() {
     
 
     this.user = this.auth.getLoginData();

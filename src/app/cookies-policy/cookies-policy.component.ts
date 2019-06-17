@@ -9,7 +9,7 @@ export class CookiesPolicyComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
 }

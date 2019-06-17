@@ -101,7 +101,7 @@ export class CreateProductComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+ ngOnInit() {
     if (this.createProduct) {
       this.getSellers();
     }

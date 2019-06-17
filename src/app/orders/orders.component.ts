@@ -37,7 +37,7 @@ export class OrdersComponent implements OnInit {
     private orderService: OrderService,
     private toast: ToastrService,) { }
 
-  ngOnInit() {
+ ngOnInit() {
 
     this.userData = this.auth.getLoginData();
     this.getCartPaid();

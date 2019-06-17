@@ -20,7 +20,7 @@ export class RefundsComponent implements OnInit {
     private auth: AuthenticationService
   ) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getRefundItems();
   }
 

@@ -36,7 +36,7 @@ export class PendingProductsComponent implements OnInit {
     private productService: ProductService,
     private pricingChargesService: PricingChargesService) {}
 
-  ngOnInit() {
+ ngOnInit() {
     this.getCurrentPricingCharges();
     this.getPendingProducts();
     this.createForm();
