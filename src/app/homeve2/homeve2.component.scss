@@ -953,5 +953,10 @@ section {
 }
 
 
-
-
+button{
+  transition: all .2s ease-in-out;
+  &:hover{
+    background: $dark-blue !important;
+    border-color: $dark-blue !important;
+  }
+}

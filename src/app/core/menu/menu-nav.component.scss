@@ -563,16 +563,21 @@ form{
 	}
 	&.blue-nav-bg{
 		background: $light_blue;
-
+		&:hover{
+			background: $dark-blue !important;
+			border-color: $dark-blue !important;
+		  }
 	}
 
 	&.gray-nav-bg{
 		background: $gray;
+		&:hover{
+			background: $dark-blue !important;
+			border-color: $dark-blue !important;
+		  }
+	}
 
-		&:hover {
-		background-color: $light_blue;
-	}
-	}
+
   }
 
 
