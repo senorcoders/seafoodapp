@@ -26,6 +26,17 @@
                 .col-md-10{
                     width: 80%;
                     padding-right: 0;
+		    h4{
+                      font-family: 'Josefin Sans', sans-serif;
+                      font-size: 1em;
+                      text-transform: uppercase;
+                      color: $light_blue;
+                      font-weight: 300;
+                      letter-spacing: 0.5px;
+                      line-height: 25px;
+                      margin: 0;
+                      margin-bottom: -15px;
+                    }
                 }
                 .col-md-2{
                     width: 20%;
