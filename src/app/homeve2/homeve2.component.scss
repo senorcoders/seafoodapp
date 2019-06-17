@@ -271,6 +271,7 @@ section {
       width: 100%;
       position: absolute;
       top: 70%;
+      margin-left: 5px;
   }
 
   .buyers-col h3::before {
@@ -285,6 +286,7 @@ section {
     position: absolute;
     top: 70%;
     right: 65%;
+    margin-right: 5px;
   }
 
   .screen-col img {
@@ -313,7 +315,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: -200px;
+        right: -195px;
         background-color: $gray;
         opacity: 0.6;
       }
@@ -325,7 +327,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: 215px;
+        right: 210px;
         background-color: $gray;
         opacity: 0.6;
       }
