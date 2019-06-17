@@ -34,8 +34,13 @@
                           <form>
                               <span class="amount-span" *ngIf="product.fish.perBox == true">min <br> {{product.fish.minBox}}</span>
                               <span class="amount-span" *ngIf="product.fish.perBox != true">min <br> {{product.fish.minimumOrder}}</span>
-                              <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)" (keydown.enter)="manualInput(product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)" (change)="manualInput(product.fish.id, i, product.fish.maximumOrder, product.fish.minimumOrder)">
-                              <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.fish.maxBox, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.fish.maxBox, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.fish.maxBox, product.fish.minBox, product.fish.boxWeight)">
+                             
+
+                              <div class="my-input-container">
+                                <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory.quantity, product.fish.minimumOrder)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)">
+                                <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)">
+                                <span class="suffix" [hidden]="isVacio('edit-qty-'+product.fish.id, product.fish.id+ '-suffix')" [id]="product.fish.id+ '-suffix'">{{product.fish.perBox == true ? 'boxes' : 'kg'}}</span>
+                              </div>
                               <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{product.inventory?.quantity}}</span>
                               <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{product.inventory?.quantity}}</span>
                           </form>
@@ -169,4 +174,23 @@
             </div>
           </div>  
         </ng-template>
+</div>
+
+<div class="custom-snackbar" *ngIf="showSnackBar">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+            <img src="../../assets/svg/alert-circle-white.svg" alt="">
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length == 1">
+          Your item <strong>{{itemsDeleted[0]['fish']['name']}}</strong>  is no longer available. Please check back later.
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length > 1">
+          Your items <strong *ngFor="let i of itemsDeleted">{{i['fish']['name']}} </strong>  are no longer available. Please check back later.
+        </div>
+        <div class="col-sm-2 text-right">
+          <button class="clear-btn" (click)="closeSnackBar()">OK</button>
+        </div>
+      </div>
+  </div>
 </div>

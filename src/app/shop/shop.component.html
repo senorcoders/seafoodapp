@@ -209,8 +209,11 @@
                         <form>
                             <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.variation.min)}}</span>
                             <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.minBox)}}</span>
-                            <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
-                            <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
+                            <div class="my-input-container">
+                              <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
+                              <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
+                              <span class="suffix" [hidden]="isVacio('amount-'+product.variation.id, product.variation.id+ '-suffix')" [id]="product.variation.id+ '-suffix'">{{product.perBox == true ? 'boxes' : 'kg'}}</span>
+                            </div>
                             <span *ngIf="product.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.variation.max)}}</span>
                             <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
@@ -310,3 +313,24 @@
 </div>
 
 <div class="c-mask"></div>
+
+<div class="custom-snackbar" *ngIf="showSnackBar">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2">
+              <img src="../../assets/svg/alert-circle-white.svg" alt="">
+          </div>
+          <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length == 1">
+            Your item <strong>{{itemsDeleted[0]['fish']['name']}}</strong>  is no longer available. Please check back later.
+          </div>
+          <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length > 1">
+            Your items <strong *ngFor="let i of itemsDeleted">{{i['fish']['name']}} </strong>  are no longer available. Please check back later.
+          </div>
+          <div class="col-sm-2 text-right">
+            <button class="clear-btn" (click)="closeSnackBar()">OK</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+

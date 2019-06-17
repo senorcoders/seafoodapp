@@ -68,28 +68,32 @@ export class ShopComponent implements OnInit {
   total: any;
   imageCart: any = [];
   showIcon: boolean = true;
-  preparataion:any = [];
-  treatment:any = [];
-  raised:any = [];
-  isDisabled= false;
+  preparataion: any = [];
+  treatment: any = [];
+  raised: any = [];
+  isDisabled = false;
   tmpPrice: any;
-  disabledInputs:boolean = false;
-  public loading:boolean = true;
+  disabledInputs: boolean = false;
+  public loading: boolean = true;
 
   public isChange:any = {};
   staticField:any;
+  showSnackBar:boolean = false;
+  itemsDeleted: any =  [];
 
-  constructor(private auth: AuthenticationService, private productService: ProductService, 
-    private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService, 
+  constructor(private auth: AuthenticationService, private productService: ProductService,
+    private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
     private countryservice: CountriesService, private router: Router, private cService: CartService) {
-    }
+  }
   async ngOnInit() {
+
     //GET current user info to be used to get current cart of the user
     this.userInfo = this.auth.getLoginData();
-    if(this.userInfo == null){
+    if (this.userInfo == null) {
       this.router.navigate(["/"]);
     }
     this.buyerId = this.userInfo['id'];
+    await this.validateCart();
     this.getCart();
     this.getProducts(100, 1);
     // this.getAllTypesByLevel();
@@ -104,8 +108,8 @@ export class ShopComponent implements OnInit {
     this.loading = false;
 
     //JAVASCRIPT FOR FILTER
-    
-   
+
+
     jQuery('#minAmount').on('change', (e) => {
       this.disabledInputs = true;
       this.showClear = true;
@@ -174,6 +178,8 @@ export class ShopComponent implements OnInit {
   }
   //CHARGE LATE JS
   chargeJS() {
+    jQuery('.toast').toast({autohide: false})
+
     jQuery('.input-preparation:checkbox').on('change', (e) => {
       this.disabledInputs = true;
       this.showClear = true;
@@ -224,7 +230,7 @@ export class ShopComponent implements OnInit {
       this.disabledInputs = true;
       this.showClear = true;
       const specie = e.target.value;
-       this.filterProducts();
+      this.filterProducts();
       this.getOnChangeLevel(specie);
       setTimeout(() => {
         this.hideCat = true;
@@ -240,7 +246,7 @@ export class ShopComponent implements OnInit {
       const variant = e.target.value;
       this.getOnChangeLevel(variant);
       this.filterProducts();
-      if(this.searchDescriptor.length > 0){
+      if (this.searchDescriptor.length > 0) {
         setTimeout(() => {
           this.hideCat = true;
           this.hideSubcat = true;
@@ -259,37 +265,53 @@ export class ShopComponent implements OnInit {
       this.createPills('pill-variant', 'input[type=radio][name=variant]:checked', 'tmpVariant');
     });
   }
+
+  //VALIDATING CART 
+  async validateCart(){
+    await new Promise((resolve, reject) => {
+      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+        console.log("Cart Validation", val);
+        if(val['items'].length > 0){
+          this.itemsDeleted = val['items'];
+          this.showSnackBar = true;
+        }
+        resolve();
+      }, error =>{
+        reject();
+      })
+    });
+  }
   //GETTING cart info
   async getCart() {
     this.productsCart = [];
     await new Promise((resolve, reject) => {
-    this.cartService.getCart(this.buyerId).subscribe(cart => {
-      console.log("Cart", cart);
-      this.cart = cart;
-      if (cart && cart.hasOwnProperty('items')) {
-        if (cart['items'].length > 0) {
-          this.shoppingCartId = cart['id'];
-          this.productsCart = cart['items'];
-          this.total = cart['subTotal'];
-          this.productsCart.forEach((data, index) => {
-            if (data.fish.imagePrimary && data.fish.imagePrimary != '') {
-              this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`);
-            }
-            else if (data.images && data.images.length > 0) {
-              this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`);
-            }
-            else {
-              this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-            }
-            resolve();
-          });
+      this.cartService.getCart(this.buyerId).subscribe(cart => {
+        console.log("Cart", cart);
+        this.cart = cart;
+        if (cart && cart.hasOwnProperty('items')) {
+          if (cart['items'].length > 0) {
+            this.shoppingCartId = cart['id'];
+            this.productsCart = cart['items'];
+            this.total = cart['subTotal'];
+            this.productsCart.forEach((data, index) => {
+              if (data.fish.imagePrimary && data.fish.imagePrimary != '') {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`);
+              }
+              else if (data.images && data.images.length > 0) {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`);
+              }
+              else {
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+              }
+              resolve();
+            });
+          }
         }
-      }
-    }, error => {
+      }, error => {
         reject();
-      console.log(error);
+        console.log(error);
+      });
     });
-});
   }
   //GET THE COUNTRIES LIST
   async getCountries() {
@@ -309,26 +331,26 @@ export class ShopComponent implements OnInit {
   //Map only countries with fishes
   async getFishCountries() {
     await new Promise((resolve, reject) => {
-    this.productService.getFishCountries().subscribe(result => {
-      const filterCountries: any = [];
-      this.allCountries.map(country => {
-        const exists = Object.keys(result).some(function (k) {
-          return result[k] === country.code;
+      this.productService.getFishCountries().subscribe(result => {
+        const filterCountries: any = [];
+        this.allCountries.map(country => {
+          const exists = Object.keys(result).some(function (k) {
+            return result[k] === country.code;
+          });
+          if (exists) {
+            filterCountries.push(country);
+            return country;
+          }
         });
-        if (exists) {
-          filterCountries.push(country);
-          return country;
-        }
+        this.countries = filterCountries;
+        this.filteredItems = this.countries;
+        resolve();
+      }, e => {
+        this.showLoading = true;
+        this.showError('Something wrong happened, Please Reload the Page');
+        console.log(e);
+        reject();
       });
-      this.countries = filterCountries;
-      this.filteredItems = this.countries;
-      resolve();
-    }, e => {
-      this.showLoading = true;
-      this.showError('Something wrong happened, Please Reload the Page');
-      console.log(e);
-      reject();
-    });
     })
   }
   //GET all of the products
@@ -352,7 +374,7 @@ export class ShopComponent implements OnInit {
       else {
         this.showNotFound = false;
         this.products.forEach((data, index) => {
-          this.isChange[data.id] = {status: false, kg: 0};
+          this.isChange[data.id] = { status: false, kg: 0 };
           if (data.imagePrimary && data.imagePrimary !== '') {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
           }
@@ -387,61 +409,61 @@ export class ShopComponent implements OnInit {
     let val: any = jQuery('#range-' + variation).val();
 
     this.comparePrices(type, val);
-    
-   
+
+
   }
 
-  comparePrices(type, val){
+  comparePrices(type, val) {
     console.log("Type", type, val);
     if (type !== '') {
       const row = document.getElementById('products-container');
       const cards = row.querySelectorAll('.category-' + type);
       for (let index = 0; index < cards.length; index++) {
-          const classes = cards[index].className.split(' ');
-          console.log("Classes", classes);
-          console.log("Max", parseFloat(classes[10]));
-          let min:any;
-          let max:any;
-          if(classes[12] == "true"){
-            min = parseFloat(classes[13]);
-            max = parseFloat(classes[14]);
-          }else{
-            min = parseFloat(classes[11]);
-            max = parseFloat(classes[10]);
-          }
-          console.log("Minimo y maximo", min, max);
-          if(val > max){
-            console.log("es mayor al max", parseFloat(classes[10]));
-            jQuery('#amount-' + classes[7]).val(max);
-            jQuery('#cart-amount-' + classes[7]).val(max);
-            this.products[classes[6]].qty = max;
-
-          }else if(val < min){
-            jQuery('#amount-' + classes[7]).val(min);
-            jQuery('#cart-amount-' + classes[7]).val(min);
-
-            this.products[classes[6]].qty = min;
-
-          }else{
-            console.log("es menor al max");
-
-            jQuery('#amount-' + classes[7]).val(val);
-            jQuery('#cart-amount-' + classes[7]).val(val);
-
-            this.products[classes[6]].qty = val;
-
-
-          }
-          // this.moveBubble(classes[7]);
-          // jQuery('#edit-qty-' + classes[7]).css('display', 'none');
-          // jQuery('#qty-kg-' + classes[7]).css('display', 'block');
-          this.showQty = true;
-          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        const classes = cards[index].className.split(' ');
+        console.log("Classes", classes);
+        console.log("Max", parseFloat(classes[10]));
+        let min: any;
+        let max: any;
+        if (classes[12] == "true") {
+          min = parseFloat(classes[13]);
+          max = parseFloat(classes[14]);
+        } else {
+          min = parseFloat(classes[11]);
+          max = parseFloat(classes[10]);
         }
+        console.log("Minimo y maximo", min, max);
+        if (val > max) {
+          console.log("es mayor al max", parseFloat(classes[10]));
+          jQuery('#amount-' + classes[7]).val(max);
+          jQuery('#cart-amount-' + classes[7]).val(max);
+          this.products[classes[6]].qty = max;
+
+        } else if (val < min) {
+          jQuery('#amount-' + classes[7]).val(min);
+          jQuery('#cart-amount-' + classes[7]).val(min);
+
+          this.products[classes[6]].qty = min;
+
+        } else {
+          console.log("es menor al max");
+
+          jQuery('#amount-' + classes[7]).val(val);
+          jQuery('#cart-amount-' + classes[7]).val(val);
+
+          this.products[classes[6]].qty = val;
+
+
+        }
+        // this.moveBubble(classes[7]);
+        // jQuery('#edit-qty-' + classes[7]).css('display', 'none');
+        // jQuery('#qty-kg-' + classes[7]).css('display', 'block');
+        this.showQty = true;
+        this.getShippingRates(val, classes[8], classes[7], classes[6]);
+      }
 
     }
   }
-  showRangeVal(id, i){
+  showRangeVal(id, i) {
     let val: any = jQuery('#range-' + id).val();
     jQuery('#edit-qty-' + id).css('display', 'none');
     jQuery('#qty-kg-' + id).css('display', 'block');
@@ -450,13 +472,13 @@ export class ShopComponent implements OnInit {
 
   }
   //GET the shipping rates
-  getShippingRates(weight, id, variation, i) { 
+  getShippingRates(weight, id, variation, i) {
     this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}/true`).subscribe(result => {
-     this.tmpPrice = result['price'];
+      this.tmpPrice = result['price'];
       const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
       const priceT: any = priceTByWeight.toFixed(2);
-      const calcFinalPrice:any = Number(parseFloat(result['weight'])) * Number(parseFloat(result['variation']['price']));
-      const finalPrice:any = calcFinalPrice.toFixed(2);
+      const calcFinalPrice: any = Number(parseFloat(result['weight'])) * Number(parseFloat(result['variation']['price']));
+      const finalPrice: any = calcFinalPrice.toFixed(2);
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
       jQuery('#product-price-' + variation).html("AED " + finalPrice);
@@ -471,12 +493,12 @@ export class ShopComponent implements OnInit {
       (label as HTMLElement).style.whiteSpace = 'nowrap';
       (label as HTMLElement).style.textAlign = 'center';
       (btn as HTMLElement).style.display = 'block';
-      this.isChange[id] = {status: true, kg: weight};
+      this.isChange[id] = { status: true, kg: weight };
     });
   }
   //Save product in current usar cart
   addToCart(product) {
-    console.log( 'product', product );
+    console.log('product', product);
     this.isDisabled = true;
     const item = {
       'fish': product.id,
@@ -487,7 +509,7 @@ export class ShopComponent implements OnInit {
       'quantity': {
         'type': 'kg',
         'value': product.qty
-      }, 
+      },
       'shippingStatus': 'pending',
       'variation_id': product.variation.id
     };
@@ -495,13 +517,14 @@ export class ShopComponent implements OnInit {
       // set the new value to cart
       // this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
       this.getItems();
+      await this.validateCart();
       await this.getCart();
       this.openCart();
     }, err => {
-      console.log("error",err);
+      console.log("error", err);
       if (err.error) {
         this.isDisabled = false;
-        this.toast.error( err.error.message, 'An error has occurred', { positionClass: 'toast-top-right' });
+        this.toast.error(err.error.message, 'An error has occurred', { positionClass: 'toast-top-right' });
       }
     });
   }
@@ -513,30 +536,54 @@ export class ShopComponent implements OnInit {
     (input as HTMLElement).style.display = 'inline-block';
     input.focus();
   }
-  handleInput($event, max, min, variation, type){
+  handleInput($event, max, min, variation, type) {
     console.log("ON INput", $event.srcElement.value);
     let val = $event.srcElement.value;
     this.staticField = $event.srcElement.value;
     var that = this;
     setTimeout(() => {
-      if(that.staticField == val){
+      if (that.staticField == val) {
         console.log("El valor no ha cambiado en un segundo");
         this.manualInput(max, min, variation, type);
       }
     }, 1000);
 
+
   }
+
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  public isVacio(id, idSuffix) {
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return true;
+
+    //unit measure
+    const suffixElement = document.getElementById(idSuffix);
+    const width = this.getTextWidth(element.value, 'Josefin Sans, sans-serif');
+    if (suffixElement !== null)
+      suffixElement.style.left = ($(element).width() / 2) + width + 'px';
+
+    return element.value === '';
+  }
+
   //Functino to enter manual kg
   manualInput(max, min, variation, type) {
     let val: any = jQuery('#amount-' + variation).val();
 
     if (val > max) {
       val = max;
-    } else if(val < min){
+    } else if (val < min) {
       val = min;
     }
     this.comparePrices(type, val);
-    
+
   }
   async manualInputCart(max, min, variation, type, product, boxWeight = 1) {
     let val: any = jQuery('#cart-amount-' + variation).val();
@@ -544,14 +591,14 @@ export class ShopComponent implements OnInit {
 
     if (val > max) {
       val = max;
-    } else if(val < min){
+    } else if (val < min) {
       val = min;
     }
     await this.comparePrices(type, val);
-    
+
   }
 
- 
+
   //Function to hide input and show span
   showSpan(id) {
     const span = document.getElementById('qty-kg-' + id);
@@ -821,12 +868,12 @@ export class ShopComponent implements OnInit {
   getTotalxItem(count, price) {
     return count * price;
   }
-  checkout() { 
+  checkout() {
     this.closeCart();
     this.router.navigate(['/reviewcart'], { queryParams: { shoppingCartId: this.shoppingCartId } });
   }
 
-  goToCart(){
+  goToCart() {
     this.closeCart();
     this.router.navigate(['/cart']);
   }
@@ -853,15 +900,15 @@ export class ShopComponent implements OnInit {
   // GET PARENTS CATEROGIES
   async getParentsCat() {
     await new Promise((resolve, reject) => {
-    this.productService.getData(`fishTypes/parents/with-fishes`).subscribe(res => {
-      this.searchCategories = res;
-      console.log("search cat", jQuery('input[type=radio][name=cat]'));
-      resolve();
-    }, error => {
-      reject();
+      this.productService.getData(`fishTypes/parents/with-fishes`).subscribe(res => {
+        this.searchCategories = res;
+        console.log("search cat", jQuery('input[type=radio][name=cat]'));
+        resolve();
+      }, error => {
+        reject();
 
-    });
-  })
+      });
+    })
   }
   showMore() {
     jQuery('#filterCollapse').collapse('hide');
@@ -875,77 +922,83 @@ export class ShopComponent implements OnInit {
   }
 
   //GET LIST OF ITEMS FOR EACH FILTER CHECKBOX
-  async getPreparation(){
+  async getPreparation() {
     await new Promise((resolve, reject) => {
-      this.productService.getData(`fishPreparation`).subscribe(res=> {
+      this.productService.getData(`fishPreparation`).subscribe(res => {
         this.preparataion = res;
         resolve();
-      }, error =>{reject()})
+      }, error => { reject() })
     })
   }
 
-  async getTreatment(){
+  async getTreatment() {
     await new Promise((resolve, reject) => {
-      this.productService.getData(`treatment`).subscribe(res=> {
+      this.productService.getData(`treatment`).subscribe(res => {
         this.treatment = res;
         resolve();
-      }, error =>{reject()})
+      }, error => { reject() })
     })
   }
 
-  async getRaised(){
+  async getRaised() {
     await new Promise((resolve, reject) => {
-      this.productService.getData(`raised`).subscribe(res=> {
+      this.productService.getData(`raised`).subscribe(res => {
         this.raised = res;
         resolve();
-      }, error =>{reject()})
+      }, error => { reject() })
     })
   }
 
   //JAVASCRIPT FOR SLIDES
-  moveBubble(id){
+  moveBubble(id) {
     console.log("Moving...", id);
     var el, newPoint, newPlace, offset;
- 
+
     jQuery('#range-' + id).on('input', function () {
-     jQuery(this).trigger('change');
- });
- // Select all range inputs, watch for change
- jQuery('#range-' + id).change(function() {
- 
-  // Cache this for efficiency
-  el = jQuery(this);
-  
-  // Measure width of range input
-  var width = el.width();
-  
-  // Figure out placement percentage between left and right of input
-  newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
-   
-   offset = -1;
- 
-  // Prevent bubble from going beyond left or right (unsupported browsers)
-  if (newPoint < 0) { newPlace = 0; }
-  else if (newPoint > 1) { newPlace = width; }
-  else { newPlace = width * newPoint + offset; offset -= newPoint; }
-  
-  // Move bubble
-  jQuery('#qty-kg-'+id).css('margin-left', newPlace);
-  jQuery('#edit-qty-'+id).css('margin-left', newPlace);
+      jQuery(this).trigger('change');
+    });
+    // Select all range inputs, watch for change
+    jQuery('#range-' + id).change(function () {
 
-  })
-  // Fake a change to position bubble at page load
-  .trigger('change');
+      // Cache this for efficiency
+      el = jQuery(this);
+
+      // Measure width of range input
+      var width = el.width();
+
+      // Figure out placement percentage between left and right of input
+      newPoint = (el.val() - el.attr("min")) / (el.attr("max") - el.attr("min"));
+
+      offset = -1;
+
+      // Prevent bubble from going beyond left or right (unsupported browsers)
+      if (newPoint < 0) { newPlace = 0; }
+      else if (newPoint > 1) { newPlace = width; }
+      else { newPlace = width * newPoint + offset; offset -= newPoint; }
+
+      // Move bubble
+      jQuery('#qty-kg-' + id).css('margin-left', newPlace);
+      jQuery('#edit-qty-' + id).css('margin-left', newPlace);
+
+    })
+      // Fake a change to position bubble at page load
+      .trigger('change');
   }
 
-  public getIdVarian(product){
-    return product.variation.wholeFishWeight!=null? product.variation.wholeFishWeight.id : product.variation.fishPreparation.id;
+  public getIdVarian(product) {
+    return product.variation.wholeFishWeight != null ? product.variation.wholeFishWeight.id : product.variation.fishPreparation.id;
   }
- 
-  public getFixedNumber(number){
-    if( number !== null && Math.round(number) !== number) {
+
+  public getFixedNumber(number) {
+    if (number !== null && Math.round(number) !== number) {
       number = number.toFixed(2);
+    }
+    return number;
   }
-  return number;
+
+  closeSnackBar(){
+    this.showSnackBar = false;
   }
 }
+
+

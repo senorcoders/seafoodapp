@@ -51,6 +51,8 @@ export class CartComponent implements OnInit {
   preparataion:any =[];
   taxesPer:any;
   staticField: any;
+  showSnackBar:boolean = false;
+  itemsDeleted: any =  [];
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
     private sanitizer: DomSanitizer, private countriesService: CountriesService, private cService: CartService) { }
@@ -63,11 +65,26 @@ export class CartComponent implements OnInit {
     this.buyerId = this.userinfo['id'];
     await this.getCountries();
     await this.getPreparation();
+    await this.validateCart();
     this.getTotal();
   }
 
 
-
+  //VALIDATING CART 
+  async validateCart(){
+    await new Promise((resolve, reject) => {
+      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+        console.log("Cart Validation", val);
+        if(val['items'].length > 0){
+          this.itemsDeleted = val['items'];
+          this.showSnackBar = true;
+        }
+        resolve();
+      }, error =>{
+        reject();
+      })
+    });
+  }
 
   getTotal(){
     this.cartService.getCart( this.buyerId )
@@ -124,6 +141,28 @@ export class CartComponent implements OnInit {
       }
     )
     
+  }
+
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  public isVacio(id, idSuffix) {
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return true;
+
+    //unit measure
+    const suffixElement = document.getElementById(idSuffix);
+    const width = this.getTextWidth(element.value, 'Josefin Sans, sans-serif');
+    if (suffixElement !== null)
+      suffixElement.style.left = ($(element).width() / 2) + width + 'px';
+
+    return element.value === '';
   }
 
   //GET COUNTRIES
@@ -419,6 +458,10 @@ export class CartComponent implements OnInit {
         resolve();
       }, error =>{reject()})
     })
+  }
+
+  closeSnackBar(){
+    this.showSnackBar = false;
   }
 }
   

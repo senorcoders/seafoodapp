@@ -65,6 +65,8 @@ export class CheckoutComponent implements OnInit {
   private cart:any;
   public CODPayment = false;
   public codEnable = false;
+  showSnackBar:boolean = false;
+  itemsDeleted: any =  [];
 
   constructor(
     @Inject(DOCUMENT) private _document,
@@ -98,11 +100,12 @@ export class CheckoutComponent implements OnInit {
 
     console.log(this.formAction, this.formMethod);
 
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe(async params => {
       this.shoppingCartId = params['shoppingCartId'];
       this.error = params['creditIssue'];
       this.randomID = this.guid();
       this.getPersonalData();
+      await this.validateCart();
       this.getCart();
       // this.shipping = localStorage.getItem('shippingCost');
       this.name = localStorage.getItem('billingInformationName');
@@ -129,6 +132,22 @@ export class CheckoutComponent implements OnInit {
     this.info = this.auth.getLoginData();
     this.buyerId = this.info['id'];
   }
+
+    //VALIDATING CART 
+    async validateCart(){
+      await new Promise((resolve, reject) => {
+        this.orders.validateCart(this.buyerId).subscribe(val =>{
+          console.log("Cart Validation", val);
+          if(val['items'].length > 0){
+            this.itemsDeleted = val['items'];
+            this.showSnackBar = true;
+          }
+          resolve();
+        }, error =>{
+          reject();
+        })
+      });
+    }
   getCart() {
 
       this.orders.getCart(this.buyerId)
@@ -375,6 +394,10 @@ export class CheckoutComponent implements OnInit {
     this.all_medd_ok = true;
   }
 
+}
+
+closeSnackBar(){
+  this.showSnackBar = false;
 }
 
 }
