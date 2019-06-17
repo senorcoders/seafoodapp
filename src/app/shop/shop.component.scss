@@ -895,3 +895,17 @@ input[type=range]:focus::-ms-fill-upper {
     text-transform: uppercase;
   }
 }
+
+.my-input-container {
+  display: inline-block;
+  position: relative;
+  font: inherit;
+}
+
+.suffix {
+  position: absolute;
+  left: 0;
+  top: 1px;
+  color: #3498E5;
+  font: inherit;
+}
