@@ -206,7 +206,7 @@
                      <div class="col-md-10">
                      
                        
-                        <form>
+                        <form *ngIf="product.outOfStock === false">
                             <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.variation.min)}}</span>
                             <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.minBox)}}</span>
                             <div class="my-input-container">
@@ -218,6 +218,7 @@
                             <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
+                        <div *ngIf="product.outOfStock === true" > <h4>Out of Stock</h4></div>
                       </div>
                      <div class="col-md-2 text-right">
                        <a id="btn-add-{{product.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
