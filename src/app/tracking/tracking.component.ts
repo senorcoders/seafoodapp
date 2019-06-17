@@ -9,7 +9,7 @@ declare var google: any;
 })
 export class TrackingComponent implements OnInit {
 
-  @ViewChild('gmap') gmapElement: any;
+  @ViewChild('gmap', { static: true }) gmapElement: any;
   map: google.maps.Map;
 
   isTracking = false;

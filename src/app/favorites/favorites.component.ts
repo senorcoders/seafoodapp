@@ -36,7 +36,8 @@ export class FavoritesComponent implements OnInit {
               this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`)
             }
             else if(data.fish.images && data.fish.images.length>0){
-              this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`)
+              let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+              this.images[index]=this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`)
             }
             else{
               this.images[index]=this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)')

@@ -49,9 +49,7 @@ export class Homeve2Component implements OnInit {
       this.role = role
       if (this.role === -1)
         this.isLoggedIn = false;
-    })
-
-    
+    });
   }
 
   getLoginStatus() {
@@ -86,7 +84,7 @@ export class Homeve2Component implements OnInit {
       slidesToScroll: 1,
       responsive: [
         {
-          breakpoint: 800,
+          breakpoint: 900,
           settings: {
             slidesToShow: 2,
             slidesToScroll: 1,
@@ -95,7 +93,7 @@ export class Homeve2Component implements OnInit {
           }
         },
         {
-          breakpoint: 570,
+          breakpoint: 768,
           settings: {
             slidesToShow: 1,
             slidesToScroll: 1,

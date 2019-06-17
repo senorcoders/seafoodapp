@@ -30,7 +30,7 @@
 
   <div class="col-12" [hidden]="hideTrimesSlides===false||wholeFishAction===false">
     <div class="row check-row" [hidden]="headAction===false">
-      <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
+      <div class="col-lg-3 form-group" *ngFor="let whole of wholesFish">
         <div class="form-check">
           <input class="form-check-input" [formControlName]="whole.id" type="checkbox" id="defaultCheck{{whole.id}}">
           <label class="form-check-label" for="defaultCheck{{whole.id}}">
@@ -61,11 +61,11 @@
   <div class="col-12" *ngIf="hideTrimesSlides===true">
     <div class="row tab-row" *ngIf="wholeFishAction===true">
       <div *ngFor="let k of weights.on.keys" [class.errorname]="controls()[k+ '_arr']&&controls()[k+ '_arr'].invalid&&parentForm.submitted"
-        [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col-lg-2 selectionable">
+        [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col-lg-3 selectionable">
         <span>{{getNameWhole(k)}}</span></div>
       <div class="col-12">
         <div class="row custom-pricing-table">
-          <div class="col-8 text-center table-title">quantity range (kg)</div>
+          <div class="col-8 text-center table-title">quantity range ({{weightType}})</div>
           <div class="col-4 text-center table-title">price (USD)</div>
 
           <div class="col-12">
@@ -80,7 +80,7 @@
                   [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
                   placeholder="Price"
                   [class.errorname]="controls()[keySelect+ '_arr']&&controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted"
-                  [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/kg
+                  [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/{{weightType}}
                 <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
                     alt=""></button>
               </div>
@@ -142,7 +142,7 @@
       <div class="col selectionable select"><span>Fillet</span></div>
       <div class="col-12">
         <div class="row  custom-pricing-table">
-          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-8 table-title">quantity range ({{weightType}})</div>
           <div class="col-4 table-title">price (USD)</div>
 
           <div class="col-12">

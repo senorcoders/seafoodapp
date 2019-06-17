@@ -118,6 +118,9 @@
                 <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecies</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{types?.level2?.name}}</span>
                 </div>
+                <div class="dashed-row" *ngIf="types != ''"><span class="name-row">Subspecie Variant</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{types?.level3?.name}}</span>
+                </div>
                 <div class="dashed-row"><span class="name-row">Treatment</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{treatment?.name}}</span>
                 </div>
@@ -132,7 +135,10 @@
               </div>
             </div>
 
-            <div class="row range-row">
+            <div  class="row range-row">
+              <div class="col-md-12">
+                <p class="eta" *ngIf="charges.eta">Get up to {{charges?.eta?.quantity}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+              </div>
               <div class="col-md-7">
 
                 <form class="kg-form">
@@ -143,7 +149,7 @@
                 </form>
               </div>
               <div class="col-md-5">
-                <button *ngIf="!cooming_soon" (click)="addToCart()" type="submit"
+                <button  *ngIf="!cooming_soon && min > 0" (click)="addToCart()" type="submit"
                   class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>

@@ -4,9 +4,9 @@ export const environment = {
   apiURL:"https://stagingapi.seafoodsouq.com/",
 	apiURLImg:"https://stagingapi.seafoodsouq.com",
 	cdnURL:"https://staging.seafoodsouq.com/",
-
 	// apiURL:"http://localhost:7000/",
   // apiURLImg:"http://localhost:7000",
+  currentCDN: "",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},

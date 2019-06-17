@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
 import {  Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
+
 
 import * as shajs from 'sha.js';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { OrdersService } from '../core/orders/orders.service';
 import { CartService } from '../core/cart/cart.service';
 import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
-import { Location } from '@angular/common';
+import { Location, DOCUMENT } from '@angular/common';
 import { OrderService } from '../services/orders.service';
 
 @Component({
@@ -48,15 +48,17 @@ export class ConfirmationComponent implements OnInit {
   description: any;
   buyerId: any;
   apiShopID: any;
-  totalAPI: any;
+  totalAPI: any = 0;
   products: any = [];
-  shipping: any;
-  totalWithShipping: any;
-  totalOtherFees: any;
+  shipping: any = 0;
+  totalWithShipping: any = 0;
+  totalOtherFees: any = 0;
   responseCode: string;
   env: any;
-  vat:any;
+  vat:any = 0;
   taxesPer: any;
+
+  public cart:any;
 
   constructor(private route: ActivatedRoute,
     private auth: AuthenticationService,
@@ -142,6 +144,7 @@ export class ConfirmationComponent implements OnInit {
     this.orderS.getCart(this.buyerId).subscribe(cart=> {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
+        this.cart = cart;
         this.apiShopID = cart['id'];
         this.products = cart['items'];
         this.totalAPI = cart['subTotal'];
@@ -257,6 +260,11 @@ export class ConfirmationComponent implements OnInit {
     );
   }
     submit() {
+
+      if(this.cart.isCOD === true){
+        return this.clearCart();
+      }
+
       const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
       console.log('finger', finger.value);
       this.generateSignature();

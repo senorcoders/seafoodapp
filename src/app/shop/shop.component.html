@@ -127,8 +127,8 @@
         </div>
         <div class="col filter-col">
             <h4>COUNTRY</h4>
-            <div class="form-group">
-                <input *ngIf="filteredItems.lenght > 5"  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
+            <div class="form-group scroll-div">
+                <input *ngIf="filteredItems.length > 3"  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
                 <div *ngFor="let country of filteredItems; let i=index" class="custom-list">
                     <input [disabled]="disabledInputs" *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
                     <label *ngIf="i<5" for="{{country.code}}">{{country.name}}</label>
@@ -207,12 +207,12 @@
                      
                        
                         <form>
-                            <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{product.variation.min}}</span>
-                            <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{product.minBox}}</span>
+                            <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.variation.min)}}</span>
+                            <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.minBox)}}</span>
                             <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
                             <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
-                            <span *ngIf="product.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.variation.max}}</span>
-                            <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.maxBox}}</span>
+                            <span *ngIf="product.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.variation.max)}}</span>
+                            <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
                       </div>

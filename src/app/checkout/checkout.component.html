@@ -18,8 +18,22 @@
                     <h1 class="gray-title" ><span>PAYMENT</span></h1>
                   </div>
             </div>
+            <div class="row cod-row" *ngIf="codEnable">
+                <div class="col-sm-12 text-center">
+                    <div class="d-inline-block border-right">
+                      <button (click)="setCod(false)" [class.selected-cod]="!CODPayment">Credit card</button>
+                    </div>
+                    <div class="d-inline-block">
+                      <button class="cod-btn" [class.selected-cod]="CODPayment" (click)="setCod(true)">Cod</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-check text-center" *ngIf="codEnable">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="CODPayment" id="cod">
+              <label class="form-check-label" for="cod">Pay with COD</label>
+            </div> -->
               <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
-              <div class="row">
+              <div [hidden]="CODPayment" class="row">
                 <div class="col-lg-12" *ngIf="error">
                   <p class="red">We had an error processing your credit card, please try again</p>
                 </div>
@@ -116,7 +130,7 @@
                 </div>
                 
               </div>  
-              <div class="row" style="margin-top: 70px;">
+              <!-- <div [hidden]="CODPayment" class="row" style="margin-top: 70px;">
                 <div class="col-lg-12 text-center">
                   <h1 class="gray-title" ><span>SET DELIVERY DATE</span></h1>
                 </div> 
@@ -127,7 +141,7 @@
                       <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
                     </div>
                 </div>
-              </div>
+              </div> -->
                     
               <div class="cart-price-breakdown">
                   <div class="row">
@@ -137,28 +151,32 @@
                             <h4>PRICE BREAKDOWN <span>AED</span></h4>
                         </div>
                         <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
-                          <h4> {{product?.fish?.name}} ({{product.quantity.value}} kg)                                
-                            <span>{{(getTotalxItem(product.quantity.value, product.fish.price.value)).toFixed(2) | currency: 'AED'}}</span></h4>
+                          <h4> 
+                            {{product?.fish?.name}} ({{product.quantity.value}} kg) <i class="fa fa-circle" aria-hidden="true"></i> <span class="eta-span">ETA: {{product?.inventory?.short_date}} </span>                                
+                            <span>{{(getTotalxItem(product.quantity.value, product.fish.price.value)).toFixed(2)}}</span></h4>
                         </div>
                         <div class="col-lg-12 price-item">
-                            <h4>SUBTOTAL <span>{{(total) | currency: 'AED'}}</span></h4>
+                            <h4>SUBTOTAL <span>{{(total).toFixed(2)}}</span></h4>
                         </div>
                         <div class="col-lg-12 price-item">
-                            <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees) | currency: 'AED'}}</span></h4>
+                            <h4>TAXES, CUSTOMS, & FEES <span>{{(totalOtherFees).toFixed(2)}}</span></h4>
                         </div>
                         <div class="col-lg-12 price-item">
-                            <h4>SHIPPING <span>{{(shipping) | currency: 'AED'}}</span></h4>
+                            <h4>SHIPPING <span>{{(shipping).toFixed(2)}}</span></h4>
                         </div>
                         <div class="col-lg-12 price-item">
-                          <h4>VAT ({{taxesPer}}%) <span>{{(vat) | currency: 'AED'}}</span></h4>
+                          <h4>VAT ({{taxesPer}}%) <span>{{(vat).toFixed(2)}}</span></h4>
                       </div>
                         <div class="col-lg-12 price-total">
-                          <h4>TOTAL <span>{{(totalWithShipping) | currency: 'AED'}}</span></h4>
+                          <h4>TOTAL <span>{{(totalWithShipping).toFixed(2)}}</span></h4>
                       </div>
                       <div class="col-lg-12 total-row text-center">
-                        <button (click)="validateCreditCardNumber()" class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
+                        <button (click)="validateCreditCardNumber()" [hidden]="CODPayment" class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
                           Place your order
                         </button>
+                        <button (click)="goToConfirmation()" [hidden]="!CODPayment" class="transparent-btn" type="button">
+                            Place your order
+                          </button>
                       </div>
                         
                       </div>

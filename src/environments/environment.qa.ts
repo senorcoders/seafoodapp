@@ -1,9 +1,10 @@
 export const environment = {
 	production: false,
 	payfort: false,
-	apiURL: "http://qaapi.seafoodsouq.com/",
-	apiURLImg: "http://qaapi.seafoodsouq.com",
-	cdnURL: "http://d2jztj5rpu8tit.cloudfront.net/",
+	apiURL: "https://qaapi.seafoodsouq.com/",
+	apiURLImg: "https://qaapi.seafoodsouq.com",
+	cdnURL: "https://d2jztj5rpu8tit.cloudfront.net/",
+	currentCDN: "",
 	countries: [
 		{ name: "Afghanistan", code: "AF" },
 		{ name: "Åland Islands", code: "AX" },

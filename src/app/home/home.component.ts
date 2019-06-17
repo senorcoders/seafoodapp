@@ -163,7 +163,8 @@ export class HomeComponent implements OnInit {
           this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['imagePrimary']})`)
         }
         else if (result['images'] && result['images'].length > 0) {
-          this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${result['images'][0].src})`)
+          let src = result['images'][0].src ? result['images'][0].src : result['images'][0];
+          this.images[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`)
         }
         else {
           this.images[index] = this.sanitizer.bypassSecurityTrustStyle("url(../../assets/default-img-product.jpg)")

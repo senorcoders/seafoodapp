@@ -125,7 +125,7 @@
 
             <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
               <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link" style="position: relative;">
-                <span *ngIf="menuitem.state == 'cart' && cartItem.items.length > 0" class="menu-car-qty">{{cartItem.items.length}}</span>
+                <span *ngIf="menuitem.state == 'cart' && cartItem?.items?.length > 0" class="menu-car-qty">{{cartItem.items.length}}</span>
                 <img class="active-fish-icon" src="../../../assets/svg/small-fish.svg" alt=""> {{ menuitem.translate[lang].name}}
               </a>
              

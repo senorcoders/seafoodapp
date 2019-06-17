@@ -99,7 +99,8 @@ export class CartComponent implements OnInit {
                 this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.imagePrimary})`);
               }
               else if (data.images && data.images.length > 0) {
-                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.fish.images[0].src})`);
+                let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+                this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`);
               }
               else {
                 this.imageCart[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');

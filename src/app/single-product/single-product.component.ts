@@ -266,7 +266,7 @@ export class SingleProductComponent implements OnInit {
         this.currentExchangeRate = 1;
       }
       if (data['minimumOrder'] < 1) {
-        this.min = 1;
+        this.min = 0;
       } else {
         if(data.hasOwnProperty('minBox')){
           this.min = data['minBox'];
@@ -295,7 +295,9 @@ export class SingleProductComponent implements OnInit {
       this.description = data['description'];
       if (data['images']) {
         data['images'].forEach((value) => {
-          this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value.src})`));
+          if(typeof value === "object" && value.src)
+            value = value.src;
+          this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value})`));
         });
       }
       console.log(data["images"]);

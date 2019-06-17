@@ -298,11 +298,11 @@ input.qty {
     }
 }
 
-.tab-pane {
-    // -webkit-box-flex: 0;
-    // flex: 0 0 85%;
-    // max-width: 85%;
-}
+// .tab-pane {
+//     // -webkit-box-flex: 0;
+//     // flex: 0 0 85%;
+//     // max-width: 85%;
+// }
 
 .sticky-div {
     position: sticky;
@@ -389,4 +389,14 @@ input.qty {
         }
     }
    
+}
+
+p.eta{
+    font-family: 'Open Sans', sans-serif;
+    font-style: italic;
+    color: $gray;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 300;
+    margin: 10px 0;
 }

@@ -35,6 +35,10 @@
 						</div>
 						<div class="col">
 							Store: <b>{{product.store.name}}</b>
+							<div class="etaDates" *ngFor="let etaDates of product.variation.inventory">
+								<span>{{etaDates.quantity - etaDates.purchased}} kg are available for delivery on {{etaDates.short_date}} </span>
+							</div>
+
 						</div>
 						<!--<div class="col">
 							<span class="price" *ngIf="product.price">AED {{product.price.value}} / kg</span>
