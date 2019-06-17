@@ -51,6 +51,8 @@ export class CartComponent implements OnInit {
   preparataion:any =[];
   taxesPer:any;
   staticField: any;
+  showSnackBar:boolean = false;
+  itemsDeleted: any =  [];
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private toast:ToastrService, private router:Router, private cartService:OrderService, 
     private sanitizer: DomSanitizer, private countriesService: CountriesService, private cService: CartService) { }
@@ -63,11 +65,26 @@ export class CartComponent implements OnInit {
     this.buyerId = this.userinfo['id'];
     await this.getCountries();
     await this.getPreparation();
+    await this.validateCart();
     this.getTotal();
   }
 
 
-
+  //VALIDATING CART 
+  async validateCart(){
+    await new Promise((resolve, reject) => {
+      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+        console.log("Cart Validation", val);
+        if(val['items'].length > 0){
+          this.itemsDeleted = val['items'];
+          this.showSnackBar = true;
+        }
+        resolve();
+      }, error =>{
+        reject();
+      })
+    });
+  }
 
   getTotal(){
     this.cartService.getCart( this.buyerId )
@@ -419,6 +436,10 @@ export class CartComponent implements OnInit {
         resolve();
       }, error =>{reject()})
     })
+  }
+
+  closeSnackBar(){
+    this.showSnackBar = false;
   }
 }
   

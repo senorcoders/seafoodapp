@@ -1729,3 +1729,37 @@ input.form-control, textarea.form-control{
   height: 20px;
 
 }
+
+//CUSTOM SNACKBAR 
+.custom-snackbar{ 
+  position: fixed;
+  z-index: 200;
+  bottom: 20px;
+  width: 100%;
+  .container-fluid{
+    background: $light_blue;
+    width: 92%;
+    margin: 0 auto;
+    color: $white;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    line-height: 10px;
+    padding: 10px 15px;
+    font-weight: 300;
+    .row{
+      align-items: center;
+      .col-sm-8{
+        line-height: 19px;
+      }
+      button{
+        background: none;
+        border: none;
+        color: $white;
+        font-family: 'Open Sans', sans-serif;
+      }
+      strong{
+        font-style: italic;
+      }
+    }
+  }
+}
