@@ -137,11 +137,12 @@
 
             <div  class="row range-row">
               <div class="col-md-12">
-                <p class="eta" *ngIf="charges.eta">Get up to {{charges?.eta?.quantity}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p  class="eta" *ngIf="charges.eta && !outOfStock">Get up to {{charges?.eta?.quantity}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p *ngIf="outOfStock" class="eta" >Out of Stock.</p>
               </div>
               <div class="col-md-7">
 
-                <form class="kg-form">
+                <form *ngIf="!cooming_soon" class="kg-form">
                     <span class="amount-span"style="margin-right: 5px;">min <br> {{min}}</span>
                     <div class="my-input-container">
                       <input *ngIf="perBox != true" type="number" id="edit-qty-1" placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
@@ -152,7 +153,7 @@
                 </form>
               </div>
               <div class="col-md-5">
-                <button  *ngIf="!cooming_soon && min > 0" (click)="addToCart()" type="submit"
+                <button  *ngIf="!cooming_soon && !outOfStock && min > 0" (click)="addToCart()" type="submit"
                   class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>

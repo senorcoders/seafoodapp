@@ -23,6 +23,7 @@ export class SingleProductComponent implements OnInit {
   in_AED: string;
   productID: any;
   name: any;
+  outOfStock = false;
   currentPrincingCharges: any = [];
   currentExchangeRate: number;
   description: any;
@@ -277,6 +278,7 @@ export class SingleProductComponent implements OnInit {
         }
         
       }
+      this.outOfStock = data['outOfStock'];
       this.cooming_soon = data['cooming_soon'];
       if(data.hasOwnProperty('maxBox')){
         this.max = data['maxBox'];
