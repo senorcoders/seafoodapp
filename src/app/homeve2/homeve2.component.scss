@@ -589,7 +589,11 @@ section {
     height: 100%;
     width: 100px;
     background-color: #FFF;
+    button:hover{
+      background: #FFF !important;
+      border: none !important;
 
+    }
     button:hover .a{
       fill: $dark-blue
     }
@@ -627,6 +631,7 @@ section {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  
       margin: 0;
+      font-weight: 300;
     }
 
     .bottom-row {
@@ -960,4 +965,11 @@ button{
     border-color: $dark-blue !important;
     color: $white !important;
   }
+}
+
+.post-bg{
+  height: 250px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
 }
