@@ -20,7 +20,7 @@ export class ReviewcartComponent implements OnInit {
 
   ) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.shoppingCartId = params['shoppingCartId'];
     });

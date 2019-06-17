@@ -15,7 +15,7 @@ export class CommentsComponent implements OnInit {
   showAcceptedComments:boolean=false
   constructor(private productService:ProductService, private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.getCommentsPending();
   	this.getCommentAccepted();
   }

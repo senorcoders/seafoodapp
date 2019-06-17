@@ -103,7 +103,7 @@ export class AvancedPricingComponent implements OnInit {
 
 
 
-  ngOnInit() {
+ ngOnInit() {
     this.eventsSubscription = this.events.subscribe(this.agregarVariations.bind(this))
     this.createFormGroup();
     this.productService.getData("wholefishweight").subscribe(its => {

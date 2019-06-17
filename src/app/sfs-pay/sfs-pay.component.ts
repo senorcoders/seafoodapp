@@ -9,7 +9,7 @@ export class SfsPayComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
 }

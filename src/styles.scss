@@ -1763,3 +1763,13 @@ input.form-control, textarea.form-control{
     }
   }
 }
+
+.white-menu{  
+  .st1, .navbar .gray-nav-bg .nav-link, .navbar .blue-nav-bg .nav-link{
+    fill: #FFF !important;
+    color: #fff !important;
+  }
+  .navbar{
+    padding: 0 !important;
+  }
+}

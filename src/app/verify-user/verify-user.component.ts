@@ -39,7 +39,7 @@ export class VerifyUserComponent implements OnInit {
 
   constructor(private auth: AuthenticationService, private toast: ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getPendingUsers();
     this.createForm();
   }

@@ -26,7 +26,7 @@ export class ArchiveProductsComponent implements OnInit {
   paginationNumbers:any=[];
   categoryImage:any;
   constructor(private route: ActivatedRoute, private product:ProductService, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
-  ngOnInit() {
+ ngOnInit() {
     this.route.params.subscribe(params => {
       this.category= this.route.snapshot.params['category'];
       this.page= this.route.snapshot.params['page'];

@@ -9,7 +9,7 @@ export class TermsConditionsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
 }

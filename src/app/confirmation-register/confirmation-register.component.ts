@@ -9,7 +9,7 @@ export class ConfirmationRegisterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
 }

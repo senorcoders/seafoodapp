@@ -38,7 +38,7 @@ export class CustomRatesComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getAllTypesByLevel();
     this.getFishPreparation();
     this.getCustomRates();

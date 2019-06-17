@@ -50,7 +50,7 @@ export class StorefrontNewComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.storeID = this.route.snapshot.params['id'];
     this.getPersonalData();
     this.getReview();

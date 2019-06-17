@@ -19,7 +19,7 @@ export class RefundCasesComponent implements OnInit {
     private auth: AuthenticationService
   ) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getCancelItems();
   }
 

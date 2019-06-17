@@ -165,7 +165,7 @@ export class SingleProductComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role;
       if (role === 1) {

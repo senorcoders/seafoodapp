@@ -70,7 +70,7 @@ export class AccountComponent implements OnInit {
 
   constructor(private sanitizer: DomSanitizer,private auth: AuthenticationService,private toast:ToastrService, public productService: ProductService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     if(this.auth.isLogged()){
       this.loggedIn = true;
       this.getPersonalData();

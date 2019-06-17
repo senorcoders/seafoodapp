@@ -14,7 +14,7 @@ SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
   switchToSell(){

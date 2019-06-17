@@ -9,7 +9,7 @@ export class GuidesComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+ ngOnInit() {
   }
 
 }

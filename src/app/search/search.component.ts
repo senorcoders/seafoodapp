@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
   pageNumbers:any;
   paginationNumbers:any=[];
   constructor(private route: ActivatedRoute,private product: ProductService, private fb:FormBuilder, private toast:ToastrService, private sanitizer: DomSanitizer, private router:Router) { }
-  ngOnInit() {
+ ngOnInit() {
     this.route.params.subscribe(params => {
       this.searchQuery= this.route.snapshot.params['search'];
       this.page= this.route.snapshot.params['page'];

@@ -13,7 +13,7 @@ export class ConfirmationEmailComponent implements OnInit {
 	verified: number = 3;
   constructor(private route: ActivatedRoute, private product: ProductService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.route.params.subscribe(params => {
 			this.userId = this.route.snapshot.params['userid'];
 			this.code = this.route.snapshot.params['code'];

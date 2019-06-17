@@ -19,7 +19,7 @@ export class FeaturedTypesComponent implements OnInit {
   featuredLists:any=[];
   constructor(private product: ProductService, private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
 	jQuery('.types').select2();
     this.getFeaturedList();
   	this.getFishType()

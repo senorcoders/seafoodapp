@@ -14,7 +14,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   constructor( private toast:ToastrService, private product: ProductService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.createForm();
     this.setHeight(window.innerHeight);

@@ -20,7 +20,7 @@ export class RepaymentsComponent implements OnInit {
     private auth: AuthenticationService
   ) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getOrdersRepaids();
   }
 

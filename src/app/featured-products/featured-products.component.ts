@@ -14,7 +14,7 @@ export class FeaturedProductsComponent implements OnInit {
   featuredLists:any;
   constructor(private productService:ProductService, private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	jQuery('.stores').select2();
     jQuery('.products').select2();
     this.getFeaturedList();

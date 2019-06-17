@@ -30,7 +30,7 @@ export class FooterComponent {
     private isLoggedSr: IsLoginService, private translate: TranslateService) {
     this.MenuItems = this.menu;
   }
-  ngOnInit() {
+ ngOnInit() {
     jQuery(document).ready(function () {
       AOS.init();
     })

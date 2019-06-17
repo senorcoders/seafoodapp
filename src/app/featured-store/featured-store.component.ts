@@ -25,7 +25,7 @@ export class FeaturedStoreComponent implements OnInit {
 	    })
     }
 
-  ngOnInit() {
+ ngOnInit() {
   	 this.product.getData('store/'+this.id).subscribe(
       result=>{
         this.products=result;

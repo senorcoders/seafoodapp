@@ -15,12 +15,14 @@ export class Homeve2Component implements OnInit {
   role: number;
   isLoggedIn: boolean = false;
   mediumPosts:any = [];
+  processing:boolean = false;
 
   constructor(private isLoggedSr: IsLoginService,  private auth: AuthenticationService,
      private httpO: HttpClient,
       handler: HttpBackend) { 
     this.httpO = new HttpClient(handler);
-
+  
+    
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -41,7 +43,7 @@ export class Homeve2Component implements OnInit {
     });
   }
 
-  ngOnInit() {
+ ngOnInit() {
     jQuery('body').addClass('home-header');
 
     if (window.innerWidth < 800) {
@@ -61,6 +63,7 @@ export class Homeve2Component implements OnInit {
     });
   }
 
+  
   getLoginStatus() {
     let login = this.auth.getLoginData();
     console.log('login status', login);
@@ -72,16 +75,36 @@ export class Homeve2Component implements OnInit {
   }
 
   ngAfterViewChecked() {
+    var that = this;
     if (window.innerWidth < 800) {
       this.isMobile = true;
     } else {
       this.isMobile = false;
     }
+    if(location.search == ""){
+      jQuery(document).scroll(function(){
+        
+          if (jQuery(document).scrollTop()>300 ) {
+            if(that.processing == false){
+            jQuery('body').removeClass("home-header").addClass("white-menu");
+            }
+          }
+          else{
+            if(that.processing == false){
+              jQuery('body').addClass("home-header").removeClass("white-menu");
+            }
+           
+          }
+    });
+  }
+  
   }
 
 
   public ngOnDestroy() {
+    this.processing = true;
     jQuery('body').removeClass('home-header');
+
   }
   ngAfterViewInit() {
     jQuery('.customer-cards-carousel').slick({
