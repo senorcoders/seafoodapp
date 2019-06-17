@@ -130,7 +130,7 @@
         input.form-control, textarea.form-control{
             background: none !important;
             border: 0;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             border-radius: 0 !important;
             color: $dark_blue !important;
             font-size: 21px;
@@ -150,7 +150,7 @@
             background: none !important;
             border-radius: 0 !important;
             border: 0;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             -webkit-appearance: none;
             -webkit-border-radius: 0px;
             color: $dark_blue !important;
@@ -166,18 +166,18 @@
               }
         }
         input.form-control.is-invalid{
-            border-bottom: solid 2px $red;
+            border-bottom: solid 1px $red;
     
         }
         input:focus{
             outline: none !important;
             box-shadow: none !important;
-            border-bottom: solid 2px $dark_blue !important;
+            border-bottom: solid 1px $dark_blue !important;
     
         }
         input.form-control:disabled, select.form-control:disabled{
             color: $gray !important;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
 
         }
       
@@ -251,7 +251,7 @@
             font-weight: 300;
             font-family: 'Open Sans', sans-serif;
             font-style: italic;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             width: 100%;
             margin: 50px 0;
             padding-bottom: 15px;
