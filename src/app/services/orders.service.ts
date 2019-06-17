@@ -72,8 +72,15 @@ export class OrderService {
   }
   // End get buyer orders
 
-  getCart( buyer: string ) {
+   getCart( buyer: string ) {
     return this.http.post(`shoppingcart`, { buyer: buyer });
+
+  }
+
+ 
+
+  validateCart(buyer){
+    return this.http.get(`shoppingcart/${buyer}/check`);
   }
 
   updateCart( id: string, data: any ) {
