@@ -101,7 +101,8 @@
 						<b>TRN (VAT): </b> {{singleUser.dataExtra?.vat}} <br>
 						<b>Products Interested in Buying: </b> {{singleUser.dataExtra?.productsInterestedinBuying}} <br>
 						<b>Additional Items: </b> {{singleUser.dataExtra?.additionalItems}} <br>
-						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}}
+						<b>Submitted at: </b>{{singleUser.createdAt  | date: 'yyyy-MM-dd'}} <br>
+						<b>Cash on Delivery </b>{{singleUser.dataExtra?.enableCash }}
 					</div>
 					<div class="col" *ngIf="singleUser.role==1">
 						<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>
