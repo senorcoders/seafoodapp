@@ -275,12 +275,12 @@
               <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
               <div class="cart-slide-range">
                   <form>
-                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish?.minBox}}</span>
-                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish.minimumOrder}}</span>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish?.minBox} | number : '1.2-2'}</span>
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish.minimumOrder | number : '1.2-2'}}</span>
                       <input *ngIf="product.fish?.perBox != true" disabled   id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value}}" (change)="manualInputCart(product.fish.maximumOrder, product.fish.minimumOrder, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
                       <input *ngIf="product.fish?.perBox == true"  disabled id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value / product.fish?.boxWeight}}" (change)="manualInputCart(product.fish.maxBox, product.fish.minBox, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
-                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity}}</span>
-                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity}}</span>
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
                       <label id="cart-delivere-price-{{product.variation}}">{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
                   </form>
               </div>
