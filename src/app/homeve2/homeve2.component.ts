@@ -26,11 +26,13 @@ export class Homeve2Component implements OnInit, OnDestroy {
      private httpO: HttpClient,
       handler: HttpBackend, private router: Router, private wowService: NgwWowService) { 
     this.httpO = new HttpClient(handler);
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-  ).subscribe(() => {
+  //   this.router.events.pipe(
+  //     filter(event => event instanceof NavigationEnd)
+  // ).subscribe(() => {
+  //   this.wowService.init(); 
+  // });
     this.wowService.init(); 
-  });
+
   }
 
   @HostListener('window:scroll', ['$event'])
@@ -72,6 +74,7 @@ export class Homeve2Component implements OnInit, OnDestroy {
 
     this.wowSubscription = this.wowService.itemRevealed$.subscribe(
       (item:HTMLElement) => {
+        console.log("item", item);
         // do whatever you want with revealed element
       });
   }
