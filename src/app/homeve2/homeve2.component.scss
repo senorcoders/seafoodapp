@@ -209,7 +209,7 @@ section {
       font-size: 21px;
       line-height: 25px;
   }
-  button{
+  button:not(.button-post-link){
       background: $light_blue;
       border: 1px solid $light_blue;
       width: 270px;
