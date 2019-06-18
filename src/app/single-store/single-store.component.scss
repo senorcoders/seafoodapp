@@ -145,7 +145,10 @@ section {
               display: flex;
               flex-wrap: wrap;
               align-items: center;
-              max-width: 80%;
+              max-width: 100%;
+              &.eighty-percent{
+                max-width: 80%;
+              }
 
               .brand-logo {
                   margin-top: 12px;
