@@ -1449,6 +1449,13 @@ button:focus {
 }
 
 .carousel-nav-sfs{
+
+  .sliding-nav-item{
+      .arrow-toggle{
+        background-image: url('./assets/svg/chevron-down-white.svg') !important;
+  
+    }
+  }
   .top-nav{
     background: transparent !important;
     border: none !important;
