@@ -218,7 +218,7 @@ export class CreateProductComponent implements OnInit {
             head: data["head"] || "on",
             wholeFishAction: data["wholeFishAction"],
             foreignfish: data["foreign_fish"],
-            commingSoon: data['coming_soon'] === true
+            commingSoon: data['cooming_soon'] === true
           };
           console.log("product fetched", product);
           this.store = data['store'];
@@ -558,7 +558,7 @@ export class CreateProductComponent implements OnInit {
           'hsCode': product.hsCode,
           variations: variationsEnd,
           'role': this.user['role'],
-          coming_soon: product.commingSoon
+          cooming_soon: product.commingSoon
         };
         if (this.productID !== "") {
           data.idProduct = this.product.id;
