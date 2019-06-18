@@ -155,9 +155,16 @@
                   <div class="row">
                     <div class="col-md-6" style="margin: 0 auto;">
                       <div class="prices-row">
-                          <div class="col-lg-12 price-title">
+                          <div class="col-lg-12 price-title" [hidden]="!CODPayment">
                               <h4>CREDIT LIMIT AVAILABLE <span>AED {{info.cod.available}}</span></h4>
                           </div>
+                          <div class="col-lg-12 price-item" [hidden]="!CODPayment">
+                              <h4>Credit limit will be replenished with the full order amount is paid on delivery</h4>
+                            </div>
+                        <div class="col-lg-12 price-item" [hidden]="!CODPayment">
+                          <h4>Credit limit does not affect the number of orders that can be placed using Credit/Debit Card</h4>
+                        </div>
+                         
                         <div class="col-lg-12 price-title">
                             <h4>PRICE BREAKDOWN <span>AED</span></h4>
                         </div>
