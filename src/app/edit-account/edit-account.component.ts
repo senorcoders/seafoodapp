@@ -73,6 +73,7 @@ export class EditAccountComponent implements OnInit {
   currentCertifications: any = [];
 
   public indexImage = 0;
+  public indexImage2 = 0;
   private apiImage = environment.apiURLImg;
 
 
@@ -125,7 +126,9 @@ export class EditAccountComponent implements OnInit {
 
       }
       if (res['certifications']) {
-        this.currentCertifications = res['certifications'];
+        this.currentCertifications = res['certifications'].map(it => {
+          return this.apiImage + it;
+        });
 
       }
     })
@@ -446,8 +449,8 @@ export class EditAccountComponent implements OnInit {
         if (this.fileHero.length > 0 || this.fileToUpload.length > 0 || this.brandsFiles.length > 0 || this.certsFiles.length > 0) {
           (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
           (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
-          (this.brandsFiles.length > 0) ? await this.uploadFileBrands(this.brandsEndpint + this.info['id'], this.brandsFiles, 'logos') : null;
-          (this.certsFiles.length > 0) ? await this.uploadFileBrands(this.certsEndpint + this.info['id'], this.certsFiles, 'certifications') : null;
+          (this.brandsFiles.length > 0) ? await this.uploadFileBrands(this.brandsEndpint + this.info['id'], this.brandsFiles.map(it => it.file), 'logos') : null;
+          (this.certsFiles.length > 0) ? await this.uploadFileBrands(this.certsEndpint + this.info['id'], this.certsFiles.map(it => it.file), 'certifications') : null;
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
@@ -486,12 +489,13 @@ export class EditAccountComponent implements OnInit {
   async handleFileBrands(files: any, prop, propIm) {
 
     if (files) {
-      this[prop] = this[prop].concat(files);
       for (let file of files) {
         await new Promise((rs, rj) => {
           var reader = new FileReader();
           reader.onload = (e: Event) => {
-            this[propIm].push(reader.result);
+            let id = new Date().getTime();
+            this[propIm].push({ id, src: reader.result });
+            this[prop].push({ id, file })
             rs();
           };
 
@@ -571,8 +575,11 @@ export class EditAccountComponent implements OnInit {
     })
   }
 
-  public remove(i, prop, propIm) {
-    let endpoint = this[prop][i].includes('data:image/') === true ? false : this[prop][i].split('.com')[1];
+  public remove(i, prop, propIm, numGallery?) {
+    numGallery = numGallery || 1;
+    let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
+    // let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split('.com')[1];
+    let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split(':7000/')[1];
     let cc = res => {
       console.log("Delete", res);
       if (this[prop].length === 1) {
@@ -580,26 +587,30 @@ export class EditAccountComponent implements OnInit {
       } else {
         this[prop].splice(i, 1);
       }
-      this.indexImage = 0;
+      this[indexImage] = 0;
     };
-    if (endpoint === false){
-      let ii = this[propIm].findIndex(it=>{
-        return it === this[prop][i];
+    if (endpoint === false) {
+      let ii = this[propIm].findIndex(it => {
+        return it.id === this[prop][i].id;
       });
+      if(ii === -1) return cc({});
       if (this[propIm].length === 1) {
         this[propIm] = [];
       } else {
         this[propIm].splice(ii, 1);
       }
       return cc({});
-    } 
+    }
     this.rest.deleteData(endpoint).subscribe(cc);
 
   }
 
-  public toSl(to, prop) {
+  public toSl(to, prop, numGallery?) {
+    numGallery = numGallery || 1;
+    let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
+
     let limit = { min: (this[prop].length - 4) * -1, max: 0 };
-    let index = JSON.parse(JSON.stringify({ ind: this.indexImage })).ind;
+    let index = JSON.parse(JSON.stringify({ ind: this[indexImage] })).ind;
     if (to < 0) {
       index -= 1;
     } else {
@@ -607,12 +618,15 @@ export class EditAccountComponent implements OnInit {
     }
     //verificamos que este entre los limites
     if (limit.min > index || limit.max < index) return;
-    this.indexImage = index;
+    this[indexImage] = index;
   }
 
-  public inLimit(to, prop) {
+  public inLimit(to, prop, numGallery?) {
+    numGallery = numGallery || 1;
+    let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
+
     let limit = { min: (this[prop].length - 4) * -1, max: 0 };
-    let index = JSON.parse(JSON.stringify({ ind: this.indexImage })).ind;
+    let index = JSON.parse(JSON.stringify({ ind: this[indexImage] })).ind;
     if (to < 0) {
       // index -= 1;
       // console.log("-1", limit.min < index, limit.min, index);
@@ -624,22 +638,27 @@ export class EditAccountComponent implements OnInit {
     }
   }
 
-  public calcLeft(i) {
-    if (this.indexImage === 0) return 0;
+  public calcLeft(i, numGallery?) {
+    numGallery = numGallery || 1;
+    let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
+
+    if (this[indexImage] === 0) return 0;
     let width = $(".col-3.img-select").width();
-    if (this.indexImage < 0) {
-      let minus = (this.indexImage) * width;
+    if (this[indexImage] < 0) {
+      let minus = (this[indexImage]) * width;
       return minus;
     }
 
-    if (this.indexImage > 0) {
-      let maxis = (this.indexImage) * width;
+    if (this[indexImage] > 0) {
+      let maxis = (this[indexImage]) * width;
       return maxis;
     }
 
   }
 
   public byPassImageUrl(image) {
+    if (typeof image === 'object')
+      return this.sanitizer.bypassSecurityTrustUrl(image.src);
     return this.sanitizer.bypassSecurityTrustUrl(image);
   }
 
