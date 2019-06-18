@@ -73,7 +73,7 @@ export class CartComponent implements OnInit {
   //VALIDATING CART 
   async validateCart(){
     await new Promise((resolve, reject) => {
-      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+      this.cartService.validateCart(this.userinfo['id']).subscribe(val =>{
         console.log("Cart Validation", val);
         if(val['items'].length > 0){
           this.itemsDeleted = val['items'];
@@ -99,7 +99,6 @@ export class CartComponent implements OnInit {
             this.cart = cart;
             this.shoppingCartId=cart['id']
             this.products=cart['items'];
-            this.buyerId=cart['buyer']
             this.lastMilteCost = cart['lastMileCost'];
             this.firstMileCost = cart['firstMileCosts'];
             this.sfsMargin = cart['sfsMargin'];
@@ -231,7 +230,7 @@ export class CartComponent implements OnInit {
 
   getItems(){
     let cart = {
-      "buyer": this.buyerId
+      "buyer": this.userinfo['id']
     }
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
       this.cService.setCart(result);
