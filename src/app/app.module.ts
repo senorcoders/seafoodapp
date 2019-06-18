@@ -48,6 +48,7 @@ import { CDNCheck } from './cdn-check';
 import { CookieService } from 'ngx-cookie-service';
 import { Homeve2Component } from './homeve2/homeve2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { NgwWowModule } from 'ngx-wow';
 
 const appRoutes: Routes = [
   {
@@ -467,6 +468,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     BarRatingModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    NgwWowModule
   ],
   exports: [
     SharedModule,
