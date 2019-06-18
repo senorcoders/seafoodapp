@@ -462,10 +462,10 @@
               <div class="form-group file-input" style="max-width: 87.5% !important;">
                   <label for="fileBrands"><img src="../../assets/svg/attachment.svg" alt=""> Upload Brand logos...</label>
                   <input type="file" multiple class="form-control" type="file" id="fileBrands" accept="image/*"
-                    (change)="handleFileBrands($event.target.files, 'logos')">
+                    (change)="handleFileBrands($event.target.files, 'brandsFiles', 'currentBrandLogos')">
                 </div>
                 <div id="brands-gallery" class="row img-cont"  style="max-width: 87.5% !important;"></div>
-                <div class="form-group img-cont row" *ngIf="currentBrandLogos.length > 0">
+                <!-- <div class="form-group img-cont row" *ngIf="currentBrandLogos.length > 0">
                   <div class="col-md-12 text-center">
                       <h1 class="gray-title company-title" style="margin-top: 60px;"><span>Current Brands Logos</span></h1>
                   </div>
@@ -476,13 +476,44 @@
                         <br><br>
                     </div>
 
+                </div> -->
+                <div class="row gallery-container" *ngIf="currentBrandLogos.length===0">
+                  <div class="col-3">
+                    <img src="../../assets/add-default.png" width="100%" height="auto">
+                  </div>
+                  <div class="col-3">
+                    <img src="../../assets/add-default.png" width="100%" height="auto">
+                  </div>
+                  <div class="col-3">
+                    <img src="../../assets/add-default.png" width="100%" height="auto">
+                  </div>
+                  <div class="col-3">
+                    <img src="../../assets/add-default.png" width="100%" height="auto">
+                  </div>
                 </div>
+                  <div class="row align-items-center text-center" *ngIf="currentBrandLogos.length>0">
+                    <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="currentBrandLogos.length>4">
+                      <i class="fa fa-chevron-left" [hidden]="!inLimit(1, 'currentBrandLogos')" aria-hidden="true" (click)="toSl(1, 'currentBrandLogos')"></i>
+                    </div>
+                    <div class="col-10" [ngClass]="currentBrandLogos.length<=4?'offset-1':''">
+                      <div class="row gallery-container">
+                        <div class="col-3 img-select" [style.left.px]="calcLeft(i)" *ngFor="let image of currentBrandLogos; let i=index;">
+                          <div class="remove-image" (click)="remove(i, 'currentBrandLogos', 'brandsFiles')">x</div>
+                          <img [src]="byPassImageUrl(image)">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="currentBrandLogos.length>4">
+                      <i class="fa fa-chevron-right" [hidden]="!inLimit(-1, 'currentBrandLogos')" aria-hidden="true" (click)="toSl(-1, 'currentBrandLogos')"></i>
+                    </div>
+                  </div>
           </div>
+          
           <div class="col-lg-12">
               <div class="form-group file-input" style="max-width: 87.5% !important;">
                   <label for="fileCerts"><img src="../../assets/svg/attachment.svg" alt=""> Upload Certifications...</label>
                   <input type="file" multiple class="form-control" type="file" id="fileCerts" accept="image/*"
-                    (change)="handleFileBrands($event.target.files, 'certifications')">
+                    (change)="handleFileBrands($event.target.files, 'certsFiles', 'currentCertifications')">
                 </div>
                 <div id="certs-gallery" class="row img-cont"  style="max-width: 87.5% !important;"></div>
                 <div class="form-group img-cont row" *ngIf="currentCertifications.length > 0">
