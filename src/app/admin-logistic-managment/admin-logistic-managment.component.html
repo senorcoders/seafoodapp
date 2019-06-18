@@ -148,9 +148,9 @@
                       </tr>
                     </table>
 
-                    <table class="medium-table">
+                    <table *ngIf='i.buyerExpectedDeliveryDate&&i.buyerExpectedDeliveryDate!==""' class="medium-table">
                       <tr>
-                        <td>ATA:</td>
+                        <td>ETA:</td>
                         <td>{{i.buyerExpectedDeliveryDate}}</td>
                       </tr>
 
