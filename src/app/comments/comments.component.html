@@ -25,7 +25,7 @@
 	    				 <bar-rating [(rate)]="pendingcomment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
 	    			</h2>
 	    			<div class="date">
-	    				<a routerLink="/store/{{pendingcomment.store.id}}">
+	    				<a routerLink="/newstore/{{pendingcomment.store.id}}">
 	    					{{pendingcomment.store.name}}
 	    				</a>
 	    				<hr class="black-line">
@@ -55,7 +55,7 @@
 	    				 <bar-rating [(rate)]="acceptedComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
 	    			</h2>
 	    			<div class="date">
-	    				<a routerLink="/store/{{acceptedComment.store.id}}">
+	    				<a routerLink="/newstore/{{acceptedComment.store.id}}">
 	    					{{acceptedComment.store.name}}
 	    				</a>
 	    				<hr class="black-line">

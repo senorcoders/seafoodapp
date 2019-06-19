@@ -420,10 +420,20 @@ const appRoutes: Routes = [
     path: '404', component: NotfoundComponent
   },
   {
+    path: 'my-cart',
+    redirectTo: 'cart',
+    pathMatch: 'full'
+  },
+  {
+    path: 'my-orders',
+    redirectTo: 'orders',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     redirectTo: '/404',
     pathMatch: 'full'
-  },
+  }
 ];
 
 export function HttpLoaderFactory(http: HttpClient) {

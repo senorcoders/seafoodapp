@@ -42,8 +42,12 @@ export class StorefrontNewComponent implements OnInit {
   showLess = false;
   simpleLayout = false;
   productImage: any = [];
+
   brands=[];
   certs=[];
+
+  errorLoadingLogo = false; 
+
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -61,11 +65,21 @@ export class StorefrontNewComponent implements OnInit {
     this.getStoreData();
   }
 
+  public errorLoadLogo(e){
+    e.target.src = 'https://via.placeholder.com/150';
+  }
+
   getLogos(){
     this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
         console.log("Logos", result);
-        this.brands = result['brands'];
-        this.certs = result['certifications'];
+        if(result.hasOwnProperty('brands')){
+          this.brands = result['brands'];
+        } 
+
+        if(result.hasOwnProperty('certifications')){
+          this.certs = result['certifications'];
+        } 
+       
     });
   }
   getReview() {

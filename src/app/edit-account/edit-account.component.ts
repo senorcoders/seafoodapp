@@ -475,17 +475,6 @@ export class EditAccountComponent implements OnInit {
     )
   }
 
-  handleFileInput(files: FileList) {
-    this.fileToUpload = files;
-    this.readFile(files, '#logo');
-
-  }
-  handleFileHero(files: FileList) {
-    this.fileHero = files;
-    this.readFile(files, '#hero');
-
-  }
-
   async handleFileBrands(files: any, prop, propIm) {
 
     if (files) {
@@ -656,10 +645,30 @@ export class EditAccountComponent implements OnInit {
 
   }
 
+  handleFileInput(files: FileList) {
+    this.fileToUpload = files;
+    var file: File = this.fileToUpload[0];
+    var myReader: FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      this.logo = { id: new Date().getTime(), src: myReader.result };
+    }
+    myReader.readAsDataURL(file);
+  }
+
+  handleFileHero(files: FileList) {
+    this.fileHero = files;
+    var file: File = this.fileHero[0];
+    var myReader: FileReader = new FileReader();
+    myReader.onloadend = (e) => {
+      this.hero = { id: new Date().getTime(), src: myReader.result };
+    }
+    myReader.readAsDataURL(file);
+  }
+
   public byPassImageUrl(image) {
     if (typeof image === 'object')
       return this.sanitizer.bypassSecurityTrustUrl(image.src);
-    return this.sanitizer.bypassSecurityTrustUrl(image);
+    return this.sanitizer.bypassSecurityTrustUrl(image.includes('http') === true ? image : this.base+ image);
   }
 
 }

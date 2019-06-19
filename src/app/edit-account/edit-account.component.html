@@ -439,10 +439,10 @@
               <div class="form-group file-input">
                   <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload Logo...</label>
                   <input  type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)" accept="image/*">
-                  <img id="logo">
+                  <!-- <img id="logo">  -->
                 </div>
             <div class="form-group img-cont" *ngIf="logo != ''">
-              <img [src]="base + logo" alt="" style="width: 150px;">
+              <img [src]="byPassImageUrl(logo)" alt="" style="width: 150px;">
             </div>
            
           </div>
@@ -451,10 +451,10 @@
                   <label for="fileHero"><img src="../../assets/svg/attachment.svg" alt=""> Upload Hero Image...</label>
                   <input type="file" class="form-control" type="file" id="fileHero" accept="image/*"
                     (change)="handleFileHero($event.target.files)">
-                    <img id="hero" alt="">
+                    <!-- <img id="hero" alt=""> -->
                 </div>
             <div class="form-group img-cont" *ngIf="hero != ''">
-              <img [src]="base + hero" alt="" style="width: 350px;">
+              <img [src]="byPassImageUrl(hero)" alt="" style="width: 350px;">
             </div>
             
           </div>
