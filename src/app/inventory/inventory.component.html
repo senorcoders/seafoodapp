@@ -20,6 +20,7 @@
           <div class="form-group" >
             <label>{{'Inventory.sku' | translate}}</label>
             <select (change)="changeSelectedSku($event.target.value)" id="sku" class="form-control" formControlName="sku" >
+                <option value="-1">Select an SKU</option>
                 <option value="{{sku.id}}" *ngFor="let sku of skus">{{sku.sku}}</option>
             </select>
           </div>
