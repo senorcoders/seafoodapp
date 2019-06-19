@@ -17,7 +17,7 @@ export class DocumentsComponent implements OnInit {
   noDocument:boolean=false;
   constructor(private product:ProductService, private auth:IsLoginService, private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.auth.role.subscribe((role:number)=>{
       this.role=role
     })

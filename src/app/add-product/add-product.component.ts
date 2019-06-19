@@ -131,7 +131,7 @@ export class AddProductComponent implements OnInit {
     private fb: FormBuilder,
     public ngProgress: NgProgress,
     private router: Router ) {}
-  ngOnInit() {
+ ngOnInit() {
     this.myformModal = this.fb.group({
       trimmingType: ['', Validators.required],
       processingParts: ['', Validators.required]

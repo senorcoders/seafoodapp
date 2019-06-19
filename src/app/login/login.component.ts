@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.redirectHome();
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.createForm();
     this.setHeight(window.innerHeight);

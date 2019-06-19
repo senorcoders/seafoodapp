@@ -46,7 +46,7 @@
 										</thead>
 										<tbody *ngFor="let item of items ;let i=index ">
 											<tr >
-													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/left-arrow.svg" alt=""></button>{{item?.fish?.name}}</td>
+													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/arrow-left.svg" alt=""></button>{{item?.fish?.name}}</td>
 													<td>{{item?.seller?.dataExtra?.companyName}}</td>
 													<td>{{item?.status?.status}}</td>
 													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>

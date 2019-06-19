@@ -24,7 +24,7 @@ export class ManageStoreTrimmingComponent implements OnInit {
   pd=[]
   constructor(private service:ProductService, private auth:AuthenticationService, private fb:FormBuilder,private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.myform=this.fb.group({
   		trimmingType:['', Validators.required],
 		processingParts:['', Validators.required]

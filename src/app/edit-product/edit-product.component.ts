@@ -97,7 +97,7 @@ export class EditProductComponent implements OnInit {
     private countryService: CountriesService, private pricingChargesService: PricingChargesService,
     public ngProgress: NgProgress) {   }
 
-  ngOnInit() {
+ ngOnInit() {
     // this.createFormControls();
     // this.createForm();
     this.getCurrentPricingCharges();

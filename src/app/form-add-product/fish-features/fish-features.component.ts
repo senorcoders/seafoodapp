@@ -39,7 +39,7 @@ export class FishFeaturesComponent implements OnInit {
     private auth: AuthenticationService, private toast: ToastrService) { 
     }
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormGroup();
     this.getMyData();
     this.getFishPreparation();

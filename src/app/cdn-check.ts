@@ -22,7 +22,7 @@ export class CDNCheck {
                 let res_ip = await this.http.get("user/ip").toPromise() as any;
                 let response = await this.http.get(`https://ipapi.co/${res_ip.ip}/json/`).toPromise() as any;
                 console.log(response);
-                if (response.country && response.country === 'AE')
+                if (response === null || response === undefined || (response.country && response.country === 'AE'))
                     this.cdn = "./";
                 else
                     this.cdn = environment.cdnURL;

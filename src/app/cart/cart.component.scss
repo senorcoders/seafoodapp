@@ -541,3 +541,17 @@ input[type=range] {
   input[type=range]:focus::-ms-fill-upper {
     background: $dark_blue;
   }
+
+  .my-input-container {
+    display: inline-block;
+    position: relative;
+    font: inherit;
+  }
+  
+  .suffix {
+    position: absolute;
+    left: 0;
+    top: 1px;
+    color: #094D82;
+    font: inherit;
+  }

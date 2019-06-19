@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators, Form } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { CountriesService } from '../services/countries.service';
 import { ToastrService } from '../toast.service';
@@ -37,6 +37,7 @@ isValid:boolean = false;
 btnText:any = 'register to buy';
 productsInterestedinBuying:FormControl;
 additionalItems: FormControl;
+enableCash: FormControl;
 
   constructor(private auth: AuthenticationService, 
     private countryService: CountriesService, private toast:ToastrService,
@@ -48,7 +49,7 @@ additionalItems: FormControl;
       });
      }
  
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.RegisterBuyerForm();
     this.getCountries();
@@ -106,6 +107,7 @@ additionalItems: FormControl;
     this.vat = new FormControl('', [Validators.required]);
     this.productsInterestedinBuying = new FormControl('', [Validators.required]);
     this.additionalItems = new FormControl('', [Validators.required]);
+    this.enableCash = new FormControl(false, [Validators.required]);
   }
 
   //Initializar for group for first step wizard form
@@ -125,7 +127,8 @@ additionalItems: FormControl;
       location:this.location,
       vat: this.vat,
       productsInterestedinBuying: this.productsInterestedinBuying,
-      additionalItems: this.additionalItems
+      additionalItems: this.additionalItems,
+      enableCash: this.enableCash
 
     },{
       updateOn: 'submit'
@@ -253,7 +256,8 @@ regiterBuyer() {
     "typeBusiness":this.buyerForm.get('TypeBusiness').value,
     "vat": this.buyerForm.get('vat').value,
     "productsInterestedinBuying": this.buyerForm.get('productsInterestedinBuying').value,
-    "additionalItems": this.buyerForm.get('additionalItems').value
+    "additionalItems": this.buyerForm.get('additionalItems').value,
+    "enableCash": this.buyerForm.get('enableCash').value
     }
     
   this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(

@@ -206,15 +206,19 @@
                      <div class="col-md-10">
                      
                        
-                        <form>
+                        <form *ngIf="!product.variation.outOfStock && ( (getFixedNumber(product.variation.max) !== 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) !== 0 ) )">
                             <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.variation.min)}}</span>
                             <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.minBox)}}</span>
-                            <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
-                            <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
+                            <div class="my-input-container">
+                              <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
+                              <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
+                              <span class="suffix" [hidden]="isVacio('amount-'+product.variation.id, product.variation.id+ '-suffix')" [id]="product.variation.id+ '-suffix'">{{product.perBox == true ? 'boxes' : 'kg'}}</span>
+                            </div>
                             <span *ngIf="product.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.variation.max)}}</span>
                             <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
+                        <div *ngIf="product.variation.outOfStock || ( (getFixedNumber(product.variation.max) == 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) == 0 ) )" > <h4>Out of Stock</h4></div>
                       </div>
                      <div class="col-md-2 text-right">
                        <a id="btn-add-{{product.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
@@ -256,7 +260,9 @@
                 <h2>MY CART <span *ngIf="productsCart.length > 0">({{productsCart.length}})</span></h2>
             </div>
             <div class="col-md-4 text-right">
-                <button (click)="closeCart()"><img src="../../assets/svg/close.svg" alt=""></button>
+                <button (click)="closeCart()" class="main-close">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+                </button>
             </div>
             </div>
       </div>
@@ -269,19 +275,19 @@
               <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
               <div class="cart-slide-range">
                   <form>
-                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish?.minBox}}</span>
-                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish.minimumOrder}}</span>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish?.minBox} | number : '1.2-2'}</span>
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-right: 5px;">min <br> {{product.fish.minimumOrder | number : '1.2-2'}}</span>
                       <input *ngIf="product.fish?.perBox != true" disabled   id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value}}" (change)="manualInputCart(product.fish.maximumOrder, product.fish.minimumOrder, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
                       <input *ngIf="product.fish?.perBox == true"  disabled id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value / product.fish?.boxWeight}}" (change)="manualInputCart(product.fish.maxBox, product.fish.minBox, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
-                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.fish.maximumOrder}}</span>
-                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.fish.maxBox}}</span>
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
                       <label id="cart-delivere-price-{{product.variation}}">{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
                   </form>
               </div>
             </div>
             <div class="col-md-2 text-right">
               <button (click)="deleteItem(i, product.id)">
-                  <img src="../../assets/svg/close.svg" alt="">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
               </button>
             </div>
         </div>

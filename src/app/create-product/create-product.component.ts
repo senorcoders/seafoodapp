@@ -217,7 +217,8 @@ export class CreateProductComponent implements OnInit {
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
             wholeFishAction: data["wholeFishAction"],
-            foreignfish: data["foreign_fish"]
+            foreignfish: data["foreign_fish"],
+            commingSoon: data['cooming_soon'] === true
           };
           console.log("product fetched", product);
           this.store = data['store'];
@@ -291,7 +292,7 @@ export class CreateProductComponent implements OnInit {
     // Para agregar las imasgenes secundarias
     if (product['images'] && product['images'].length > 0) {
       for (let image of product['images']) {
-        if(typeof image === "object" && image.src)
+        if (typeof image === "object" && image.src)
           image = image.src;
         try {
           const imageSecond = await this.http.get(baseUrl + image, rt).toPromise() as any;
@@ -413,7 +414,8 @@ export class CreateProductComponent implements OnInit {
           }
         }
         // si es actualizando un producto para saber los que se eliminan
-        const variationsDeleted = JSON.parse(pricing.variationsDeleted);
+        let variationsDeleted = JSON.parse(pricing.variationsDeleted);
+        let pricesDeleted = JSON.parse(pricing.pricesDeleted);
 
         let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
           weightsFilleted = [];
@@ -426,6 +428,27 @@ export class CreateProductComponent implements OnInit {
 
         if (pricing.weightsFilleted !== '') {
           weightsFilleted = JSON.parse(pricing.weightsFilleted);
+        }
+
+        //if there product id so check if change whole or fillete or salmon
+        if (this.productID !== '') {
+          let trimmingCurrent = features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4';
+          let trimminProduct = this.product['wholeFishAction'] == false && this.speciesSelected === '5bda361c78b3140ef5d31fa4';
+          if (
+            this.product['wholeFishAction'] !== features.wholeFishAction ||
+            trimminProduct !== trimmingCurrent ||
+            this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.speciesSelected !== product.speciesSelected
+          ) {
+            variationsDeleted = this.product['variations'].map(it => {
+              return it.id;
+            });
+            pricesDeleted = [];
+            for (let varia of this.product['variations']) {
+              for (let price of varia.prices) {
+                pricesDeleted.push(price.id);
+              }
+            }
+          }
         }
 
         // Para quitar las options
@@ -556,12 +579,13 @@ export class CreateProductComponent implements OnInit {
           'brandName': product.brandName,
           'hsCode': product.hsCode,
           variations: variationsEnd,
-          'role': this.user['role']
+          'role': this.user['role'],
+          cooming_soon: product.commingSoon
         };
         if (this.productID !== "") {
           data.idProduct = this.product.id;
           data.variationsDeleted = variationsDeleted;
-          data.pricesDeleted = JSON.parse(pricing.pricesDeleted);
+          data.pricesDeleted = pricesDeleted;
         }
         console.log(data);
         if (this.productID !== "") {

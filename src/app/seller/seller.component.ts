@@ -63,7 +63,7 @@ export class SellerComponent implements OnInit {
     private router: Router, private fb: FormBuilder, private productService: ProductService, private product: ProductService,
     private countryService: CountriesService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.getUsers();
     this.getIncoterms();
     this.getAllCities();

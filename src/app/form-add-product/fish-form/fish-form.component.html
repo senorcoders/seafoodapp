@@ -239,7 +239,7 @@
         <input type="text" hidden formControlName="deletedImages">
 
         <div class="row gallery-container" *ngIf="images.length===0">
-          <div class="col-3">
+          <div class="col-3"> 
             <img src="../../assets/add-default.png" width="100%" height="auto">
           </div>
           <div class="col-3">
@@ -374,6 +374,13 @@
             <input type="checkbox" formControlName="foreignfish" class="custom-control-input form-control"
               id="foreignfish">
             <label class="custom-control-label" for="foreignfish">Domestic Fish</label>
+          </div>
+        </div>
+        <div class="col-lg-6 fish-foreign">
+          <div class="custom-control custom-checkbox mb-3">
+            <input type="checkbox" formControlName="commingSoon" class="custom-control-input form-control"
+              id="commingSoon">
+            <label class="custom-control-label" for="commingSoon">Coming Soon</label>
           </div>
         </div>
 

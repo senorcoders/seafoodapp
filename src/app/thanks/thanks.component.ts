@@ -14,7 +14,7 @@ export class ThanksComponent implements OnInit {
    
   }
 
-  ngOnInit() {
+ ngOnInit() {
     window.history.pushState( {} , 'Shop', '/shop' );
     window.history.pushState( {} , 'Thanks', '/thanks' );
 

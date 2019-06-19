@@ -85,7 +85,7 @@ export class CheckoutComponent implements OnInit {
     dateAdapter.setLocale('en-EN'); // change locale to Japanese
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.env = environment;
     //this.addFingerPrintScript();
     // bypass payfort, payfort only works in main domain
@@ -117,7 +117,7 @@ export class CheckoutComponent implements OnInit {
 
   public goToConfirmation(){
     if(this.cart.total>this.cart.buyer.cod.available){
-      return this.toast.error("TThe credit you have available is not enough for you to pay with COD");
+      return this.toast.error("The credit you have available is not enough for you to pay with COD");
     }
     this.http.patch("shoppingcart/"+ this.cart.id, {isCOD:true}).subscribe(it=>{
       this.router.navigate(["confirmation"]);
@@ -128,9 +128,10 @@ export class CheckoutComponent implements OnInit {
     this.CODPayment = boolean;
   }
  
-  getPersonalData() {
+  async getPersonalData() {
     this.info = this.auth.getLoginData();
     this.buyerId = this.info['id'];
+    this.info = await this.http.get('user/'+ this.buyerId).toPromise();
   }
 
     //VALIDATING CART 

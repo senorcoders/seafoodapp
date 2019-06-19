@@ -130,7 +130,7 @@
         input.form-control, textarea.form-control{
             background: none !important;
             border: 0;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             border-radius: 0 !important;
             color: $dark_blue !important;
             font-size: 21px;
@@ -150,7 +150,7 @@
             background: none !important;
             border-radius: 0 !important;
             border: 0;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             -webkit-appearance: none;
             -webkit-border-radius: 0px;
             color: $dark_blue !important;
@@ -166,18 +166,18 @@
               }
         }
         input.form-control.is-invalid{
-            border-bottom: solid 2px $red;
+            border-bottom: solid 1px $red;
     
         }
         input:focus{
             outline: none !important;
             box-shadow: none !important;
-            border-bottom: solid 2px $dark_blue !important;
+            border-bottom: solid 1px $dark_blue !important;
     
         }
         input.form-control:disabled, select.form-control:disabled{
             color: $gray !important;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
 
         }
       
@@ -251,7 +251,7 @@
             font-weight: 300;
             font-family: 'Open Sans', sans-serif;
             font-style: italic;
-            border-bottom: solid 2px $gray !important;
+            border-bottom: solid 1px $gray !important;
             width: 100%;
             margin: 50px 0;
             padding-bottom: 15px;
@@ -335,4 +335,64 @@
            
         
     }
+}
+
+.gallery-container {
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1000px;
+    overflow: hidden;
+    flex-wrap: nowrap;
+    transition: 300ms ease all;
+
+    .col-3 {
+        padding: 0;
+        position: relative;
+        transition: 300ms ease all;
+    }
+}
+
+.img-select img {
+    object-fit: cover;
+    height: 280px;
+    width: 100%;
+}
+
+.set-default,
+.remove-image {
+    display: none;
+}
+
+.img-select:hover {
+
+    .set-default,
+    .remove-image {
+        display: block;
+    }
+}
+
+.set-default,
+.default {
+    margin-top: -34px;
+}
+
+.remove-image {
+    margin-bottom: -34px;
+    height: auto;
+    width: 34px;
+    margin-left: calc(100% - 34px);
+}
+
+.remove-image,
+.set-default,
+.default {
+    color: white;
+    text-align: center;
+    background-color: #8189a4;
+    text-transform: uppercase;
+    font-family: 'Josefin Sans', sans-serif;
+    z-index: 20;
+    position: relative;
+    padding: 5px;
+    cursor: pointer;
 }

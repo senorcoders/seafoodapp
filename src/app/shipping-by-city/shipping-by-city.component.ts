@@ -43,7 +43,7 @@ export class ShippingByCityComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private toast: ToastrService, private sanitizer: DomSanitizer) { }
 
-    ngOnInit() {
+   ngOnInit() {
     this.createForm();
     this.getCountries();
     this.getAllCities();

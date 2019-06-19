@@ -63,10 +63,10 @@
                       <td>Status:</td>
                       <td>
 
-                        <select class="form-control" name="status" #device
+                        <select class="form-control" name="status" #device [value]='item.paymentStatus.id'
                           (change)="confirmUpdatestatus($event.target.value, item.id)">
-                          <option *ngFor="let sitem of orderStatus;" [selected]="i.status == sitem.id"
-                            [ngValue]="sitem.id">
+                          <option *ngFor="let sitem of orderStatus;"
+                            [value]="sitem.id"> 
                             {{sitem.status}}</option>
 
 
@@ -102,7 +102,7 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">You want to update the status to {{selectedStatus}}?</h5>
+        <h5 class="modal-title">You want to update the status to {{selectedStatusName}}?</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

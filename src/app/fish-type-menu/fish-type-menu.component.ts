@@ -17,7 +17,7 @@ export class FishTypeMenuComponent implements OnInit {
 	parent:string;
   constructor(private product: ProductService, private toast:ToastrService) { }
 
-  ngOnInit() {
+ ngOnInit() {
   	jQuery('.types').select2();
   	 jQuery('.child').select2();
   	this.getFishType()

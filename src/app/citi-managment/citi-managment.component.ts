@@ -39,7 +39,7 @@ export class CitiManagmentComponent implements OnInit {
     public ngxSmartModalService: NgxSmartModalService,
     private toast: ToastrService) {  }
 
-  ngOnInit() {
+ ngOnInit() {
     this.createForm();
     this.getCountries();
     this.getAllCities();

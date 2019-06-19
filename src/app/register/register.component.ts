@@ -78,7 +78,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
 
 
 
-  ngOnInit() {
+ ngOnInit() {
     this.createFormControls();
     this.RegisterBuyerForm();
     this.RegistersellerForm();

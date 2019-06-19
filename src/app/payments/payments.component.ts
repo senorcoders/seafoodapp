@@ -18,6 +18,7 @@ export class PaymentsComponent implements OnInit {
   orderStatus: any = [];
   showNoData: boolean = false;
   selectedStatus: any;
+  public selectedStatusName = '';
   selectedItemID: any;
   user: any;
   exchangeRate: number;
@@ -34,7 +35,7 @@ export class PaymentsComponent implements OnInit {
     private auth: AuthenticationService,
     private pricingService: PricingChargesService) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.user = this.auth.getLoginData();
     this.getExchangeRates();
     this.getPayments(true);
@@ -100,7 +101,7 @@ export class PaymentsComponent implements OnInit {
   getPaymentStatus() {
     this.orderService.getPaymentStatus().subscribe(
       res => {
-        this.orderStatus = res;
+        this.orderStatus = res; 
       },
       error => {
         console.log(error);
@@ -164,16 +165,11 @@ export class PaymentsComponent implements OnInit {
   }
 
   updateStatus() {
-    let selectedStatus: string;
+    // let selectedStatus: string;
     const statusName: string = this.selectedStatus;
     const itemID: string = this.selectedItemID;
 
-    this.orderStatus.map(status => {
-      if (status.status === statusName) {
-        selectedStatus = status.id;
-      }
-    });
-    this.orderService.updateStatus(selectedStatus, itemID, this.user).subscribe(
+    this.orderService.updateStatus(this.selectedStatus, itemID, this.user).subscribe(
       result => {
         this.toast.success(`Item marked as ${statusName}!`, 'Status Change', { positionClass: 'toast-top-right' });
         jQuery('#confirmUpdateStatus').modal('hide');
@@ -183,7 +179,7 @@ export class PaymentsComponent implements OnInit {
         console.log(error);
       }
     );
-    console.log('status', selectedStatus);
+    console.log('status', this.selectedStatus);
     console.log('item', itemID);
   }
 
@@ -192,6 +188,10 @@ export class PaymentsComponent implements OnInit {
   }
 
   confirmUpdatestatus(selectedStatus, selectedItemID) {
+    let nameIndex = this.orderStatus.findIndex(it=>{
+      return it.id === selectedStatus;
+    });
+    this.selectedStatusName = nameIndex === -1 ? '' : this.orderStatus[nameIndex].status;
     this.selectedStatus = selectedStatus;
     this.selectedItemID = selectedItemID;
     jQuery('#confirmUpdateStatus').modal('show');

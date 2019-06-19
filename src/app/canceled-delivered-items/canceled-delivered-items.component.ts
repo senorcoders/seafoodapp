@@ -27,7 +27,7 @@ export class CanceledDeliveredItemsComponent implements OnInit {
     private auth: AuthenticationService
   ) { }
 
-  ngOnInit() {
+ ngOnInit() {
     this.user = this.auth.getLoginData();
     this.status = '0';
     this.getStatus();

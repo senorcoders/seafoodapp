@@ -15,7 +15,7 @@
         <div id="brands" class="brands-container" *ngIf="brands.length > 0">
           <h3 class="text-uppercase">Brands</h3>
       
-          <div class="brands-list" >
+          <div class="brands-list" [class.eighty-percent]="brands.length > 7">
             <div class="brand-logo" *ngFor="let i of brands">
               <img [src]="base + i" alt="">
             </div>

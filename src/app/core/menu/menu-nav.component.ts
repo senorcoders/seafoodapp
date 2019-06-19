@@ -73,7 +73,7 @@ export class MenuNavComponent {
     this.lastScroll = scrollOffset;
   }
 
-  ngOnInit() {
+ ngOnInit() {
 
     jQuery(document).ready(function () {
       jQuery('#search-icon').on('click', function () {

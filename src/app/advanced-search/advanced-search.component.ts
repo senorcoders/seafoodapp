@@ -33,7 +33,7 @@ export class AdvancedSearchComponent implements OnInit {
   constructor(private fb:FormBuilder, private product:ProductService,private route: ActivatedRoute,private router:Router,private sanitizer: DomSanitizer) { 
   }
 
-  ngOnInit() {
+ ngOnInit() {
   	this.getFishType();
   	this.route.queryParams
     .subscribe(params => {

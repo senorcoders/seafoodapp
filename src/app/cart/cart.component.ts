@@ -73,7 +73,7 @@ export class CartComponent implements OnInit {
   //VALIDATING CART 
   async validateCart(){
     await new Promise((resolve, reject) => {
-      this.cartService.validateCart(this.buyerId).subscribe(val =>{
+      this.cartService.validateCart(this.userinfo['id']).subscribe(val =>{
         console.log("Cart Validation", val);
         if(val['items'].length > 0){
           this.itemsDeleted = val['items'];
@@ -99,7 +99,6 @@ export class CartComponent implements OnInit {
             this.cart = cart;
             this.shoppingCartId=cart['id']
             this.products=cart['items'];
-            this.buyerId=cart['buyer']
             this.lastMilteCost = cart['lastMileCost'];
             this.firstMileCost = cart['firstMileCosts'];
             this.sfsMargin = cart['sfsMargin'];
@@ -143,6 +142,28 @@ export class CartComponent implements OnInit {
     
   }
 
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  public isVacio(id, idSuffix) {
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return true;
+
+    //unit measure
+    const suffixElement = document.getElementById(idSuffix);
+    const width = this.getTextWidth(element.value, 'Josefin Sans, sans-serif');
+    if (suffixElement !== null)
+      suffixElement.style.left = ($(element).width() / 2) + width + 'px';
+
+    return element.value === '';
+  }
+
   //GET COUNTRIES
   async getCountries() {
     await new Promise((resolve, reject) => {
@@ -162,7 +183,7 @@ export class CartComponent implements OnInit {
   //FUNCTION TO GET ONLY THE TOTALS WHEN CHANGING QTY OF A PRODUCT
   getTotalPricing(){
       //this.showLoading=true;
-      this.cartService.getCart( this.buyerId )
+      this.cartService.getCart( this.userinfo['id'] )
       .subscribe(        
         cart=> {
           this.showLoading = false;
@@ -209,7 +230,7 @@ export class CartComponent implements OnInit {
 
   getItems(){
     let cart = {
-      "buyer": this.buyerId
+      "buyer": this.userinfo['id']
     }
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
       this.cService.setCart(result);

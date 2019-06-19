@@ -23,6 +23,7 @@ export class SingleProductComponent implements OnInit {
   in_AED: string;
   productID: any;
   name: any;
+  outOfStock = false;
   currentPrincingCharges: any = [];
   currentExchangeRate: number;
   description: any;
@@ -89,7 +90,7 @@ export class SingleProductComponent implements OnInit {
 
   public inter: any;
   public noWholeFish = false;
-  public kg = 0;
+  public kg:any = 0;
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   public variationId = '';
   public fishOption = '';
@@ -165,7 +166,7 @@ export class SingleProductComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+ ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role;
       if (role === 1) {
@@ -182,7 +183,7 @@ export class SingleProductComponent implements OnInit {
     let fishOption = this.route.snapshot.params['fishOption'];
     let variationId = this.route.snapshot.params['variationId'];
     console.log('snapshots', kg, fishOption, variationId);
-    if (kg !== undefined && kg !== null) { this.kg = Number(kg); }
+    if (kg !== undefined && kg !== null) { this.kg = Number(kg).toFixed(2); }
     if (variationId !== undefined && variationId !== null) { this.variationId = variationId; }
     if (fishOption !== undefined && fishOption !== null) { this.fishOption = fishOption; }
     this.selectTheVariation(fishOption, variationId);
@@ -277,6 +278,7 @@ export class SingleProductComponent implements OnInit {
         }
         
       }
+      this.outOfStock = data['outOfStock'];
       this.cooming_soon = data['cooming_soon'];
       if(data.hasOwnProperty('maxBox')){
         this.max = data['maxBox'];
@@ -388,6 +390,28 @@ export class SingleProductComponent implements OnInit {
       return "";
     }
 
+  }
+
+  getTextWidth(text, font) {
+    // re-use canvas object for better performance
+    var canvas = document.createElement("canvas");
+    var context = canvas.getContext("2d");
+    context.font = font;
+    var metrics = context.measureText(text);
+    return metrics.width;
+  }
+
+  public isVacio(id, idSuffix) {
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return true;
+
+    //unit measure
+    const suffixElement = document.getElementById(idSuffix);
+    const width = this.getTextWidth(element.value, 'Josefin Sans, sans-serif');
+    if (suffixElement !== null)
+      suffixElement.style.left = ($(element).width() / 2) + width + 'px';
+
+    return element.value === '';
   }
 
   public selectTheVariation(idVariation, id) {

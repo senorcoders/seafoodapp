@@ -14,7 +14,7 @@ import { ToastrService } from '../toast.service';
 import { environment } from '../../environments/environment';
 import { Location, DOCUMENT } from '@angular/common';
 import { OrderService } from '../services/orders.service';
-
+declare var jQuery;
 @Component({
   selector: 'app-confirmation',
   templateUrl: './confirmation.component.html',
@@ -85,7 +85,8 @@ export class ConfirmationComponent implements OnInit {
 
     }
 
-  async ngOnInit() {    
+  async ngOnInit() { 
+    jQuery('body').removeClass('home-header');    
     this.env = environment;
     // bypass payfort, payfort only works in main domain
     if ( this.env.payfort ) {

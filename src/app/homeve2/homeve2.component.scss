@@ -191,6 +191,7 @@ section {
       color: $white ;
       font-family: 'Josefin Sans', sans-serif;
       margin-bottom: 25px;
+      font-weight: 300;
   }
   h1{
       font-weight: 100;
@@ -208,7 +209,7 @@ section {
       font-size: 21px;
       line-height: 25px;
   }
-  button{
+  button:not(.button-post-link){
       background: $light_blue;
       border: 1px solid $light_blue;
       width: 270px;
@@ -226,7 +227,7 @@ section {
 .section-title {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 3.125rem;
-  font-weight: 300;
+  font-weight: 100;
   color: $light_blue;
 }
 
@@ -271,6 +272,7 @@ section {
       width: 100%;
       position: absolute;
       top: 70%;
+      margin-left: 5px;
   }
 
   .buyers-col h3::before {
@@ -285,6 +287,7 @@ section {
     position: absolute;
     top: 70%;
     right: 65%;
+    margin-right: 5px;
   }
 
   .screen-col img {
@@ -313,7 +316,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: -200px;
+        right: -195px;
         background-color: $gray;
         opacity: 0.6;
       }
@@ -325,7 +328,7 @@ section {
         height: 2px;
         width: 95%;
         top: 25px;
-        right: 215px;
+        right: 210px;
         background-color: $gray;
         opacity: 0.6;
       }
@@ -354,6 +357,10 @@ section {
     p {
       font-size: 1rem;
       color: $black;
+      font-weight: 300;
+      strong{
+        font-weight: 400;
+      }
     }
   }
 }
@@ -389,12 +396,14 @@ section {
       color: inherit;
       margin-bottom: 30px;
       letter-spacing: 0px;
+      font-weight: 300;
     }
 
     p {
       font-size: 1rem;
       color: inherit;
       letter-spacing: 0px;
+      font-weight: 300;
     }
   }
 }
@@ -410,14 +419,16 @@ section {
   }
 
   .tab-content {
-    padding:25px;
+    padding:25px 0;
     opacity: 1;
     visibility: visible;
     transition: 0.2s all;
+    margin-bottom: 35px;
   }
 
   .screen-preview img {
     border-radius: 6px;
+    height: 686px;
   }
 
   #material-tabs {
@@ -431,10 +442,11 @@ section {
 		position: relative;
 	  display:inline-block;
     text-decoration: none;
-    padding: 8px 16px;
+    padding: 8px 0px;
 		color: $gray;
     outline: none;
     flex: 1 1 calc(100% / 3);
+    margin-top: 10px;
 
     &.active {
       color: $dark-blue;
@@ -454,6 +466,7 @@ section {
         color: inherit;
         margin-bottom: 30px;
         letter-spacing: 0px;
+        font-weight: 300;
       }
 
       p {
@@ -475,7 +488,8 @@ section {
 		display: block;
 		left: 0;
 		transition: left .3s ease;
-		-webkit-transition: left .3s ease;
+    -webkit-transition: left .3s ease;
+    border-radius: 2px;
   }
 
   #tab1-tab.active ~ span.yellow-bar {
@@ -532,11 +546,13 @@ section {
         color: $gray;
         margin-bottom: 18px;
         font-family: 'Open Sans', sans-serif;
+        font-weight: 300;
       }
 
       .customer-name {
         font-size: 1rem;
         color: $dark-blue;
+        font-weight: 300;
       }
     }
 
@@ -564,7 +580,8 @@ section {
   margin-bottom: 0;
 
   .description-span {
-    font-size: 1.3125rem;;
+    font-size: 1.3125rem;
+    font-weight: 300;
   }
 }
 
@@ -589,7 +606,16 @@ section {
     height: 100%;
     width: 100px;
     background-color: #FFF;
+    button{
+      height: 33.33%;
+    }
+    button:hover{
+      background: #FFF !important;
+      border: none !important;
+      border-color: transparent !important;
+      border-radius: 0 !important;
 
+    }
     button:hover .a{
       fill: $dark-blue
     }
@@ -615,6 +641,9 @@ section {
     .author {
       // margin-bottom: 30px;
       color: $light_blue;
+      span{
+        font-weight: 300;
+      }
     }
 
     .blog-post-preview {
@@ -627,6 +656,7 @@ section {
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;  
       margin: 0;
+      font-weight: 300;
     }
 
     .bottom-row {
@@ -735,7 +765,7 @@ section {
 
  @media (min-width: 1300px){
     .container {
-        max-width: 1240px;
+        max-width: 1220px;
     }
  }
 
@@ -953,5 +983,31 @@ section {
 }
 
 
+button{
+  transition: all .2s ease-in-out;
+  border-radius: 3px !important;
+  font-weight: 300;
+  &:hover{
+    background: $dark-blue !important;
+    border-color: $dark-blue !important;
+    color: $white !important;
+  }
+}
+
+.post-bg{
+  height: 250px;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+#how-it-works, #sfs-gives,#preview-sfs, #customers, #blog{
+  padding-top: 15px;
+}
 
 
+.fish-small .st1{
+  fill: $light_blue !important;
+}

@@ -35,7 +35,7 @@
     <div class="fish-shape"></div>
   </section>
   
-  <div class="svg" style='width: 100%; z-index: 0; position: absolute; top: 95vh; left: 50%; opacity: 0.6;'>
+  <div class="svg" style='width: 100%; z-index: 0; position: absolute; top: 95vh; left: 49.97%; opacity: 0.6;'>
     <svg height="5000" width="5">
       <path id="lineAB" d="M 0 0 l 0 4500" stroke="#848A8E" stroke-width="3" fill="none" />
     </svg>
@@ -174,14 +174,14 @@
   <section id="preview-sfs" class="preview-sfs">
     <div class="container">
       <div class="row mb-5">
-        <div class="col-12 justify-content-center">
+        <div class="col-12 justify-content-center ">
           <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
           <h1 class="text-uppercase section-title text-center">Preview Seafood Souq</h1>
         </div>
       </div>
   
       <div class="row" *ngIf="!isMobile; else mobileCarousel">
-        <div class="col-12">
+        <div class="col-12 padding-0">
             <div class="custom-mat-tabs">
               <header>
                 <div id="material-tabs">
@@ -194,13 +194,13 @@
                   <a id="tab2-tab" href="#tab2">
                     <div class="tab-header">
                       <h5>Product Details</h5>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugiat, officiis.</p>
+                      <p>Select products to view more detailed information on species, capture methods, treatment etc.</p>
                     </div>
                   </a>
                   <a id="tab3-tab" href="#tab3">
                     <div class="tab-header">
                       <h5>Your Cart</h5>
-                      <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Earum, inventore!</p>
+                      <p>View a full transparent breakdown of the sellers price, shipping, taxes, & fees.</p>
                     </div>
                   </a>
                   <span class="yellow-bar"></span>
@@ -379,13 +379,13 @@
       </div>
   
       <div class="blog-cards-carousel mt-5">
-        <div class="item">
-          <div class="blog-post-card shadow">
-            <img src="https://via.placeholder.com/100" alt="Blog header preview" class="top-img w-100">
+        <div class="item" *ngFor="let post of mediumPosts">
+          <div class="blog-post-card shadow-sm">
+            <div class="post-bg" [style.background]="'url(' + post.thumbnail +')'"></div>
             <div class="blog-content d-flex">
               <div class="social-links">
                 <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
-                  <button type="button" class="btn rounded-0 flex-grow-1">
+                  <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareFacebook(post.link)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
                       <defs>
                         <style>
@@ -398,7 +398,7 @@
                         transform="translate(-7 -2)" />
                     </svg>
                   </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
+                  <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareTwitter(post.link)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.252" viewBox="0 0 20 16.252">
                       <defs>
                         <style>
@@ -412,7 +412,7 @@
                         transform="translate(-1.54 -4)" />
                     </svg>
                   </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
+                  <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareInstagram(post.link)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                       <defs>
                         <style>
@@ -430,17 +430,17 @@
               </div>
               <div class="post-details">
                 <div class="author d-flex align-items-center">
-                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
-                  <span>John Doe</span>
+                  <img src="https://miro.medium.com/fit/c/256/256/1*7TdYQtLau48hY8MPHRR6ZA.png" width="60px;" class="rounded-circle mr-2" alt="">
+                  <span>{{post.author}}</span>
                 </div>
         
                 <p class="blog-post-preview">
-                  This is an example blog post title. See what happens when...
+                  {{post.title}}
                 </p>
         
                 <div class="bottom-row">
-                  <span class="date">May 19, 2019</span>
-                  <a href="">
+                  <span class="date">{{post.pubDate | date:'mediumDate'}}</span>
+                  <a href="{{post.link}}" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" width="26.6" height="18.7" viewBox="0 0 26.6 18.7">
                       <defs>
                         <style>
@@ -460,248 +460,7 @@
           </div>
         </div>
 
-        <div class="item">
-          <div class="blog-post-card shadow">
-            <img src="https://via.placeholder.com/100" alt="Blog header preview" class="top-img w-100">
-            <div class="blog-content d-flex">
-              <div class="social-links">
-                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a" d="M17,2h0V6H15c-.69,0-1,.81-1,1.5V10h3v4H14v8H10V14H7V10h3V6a4,4,0,0,1,4-4Z"
-                        transform="translate(-7 -2)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.252" viewBox="0 0 20 16.252">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M21.54,5.912a8.191,8.191,0,0,1-2.352.66,4.11,4.11,0,0,0,1.8-2.275,8.261,8.261,0,0,1-2.6,1A4.039,4.039,0,0,0,15.364,4a4.1,4.1,0,0,0-4.082,4.1,4.263,4.263,0,0,0,.105.937A11.658,11.658,0,0,1,2.936,4.755a4.086,4.086,0,0,0,1.272,5.459,4.056,4.056,0,0,1-1.864-.478v.029A4.1,4.1,0,0,0,5.632,13.79a4.021,4.021,0,0,1-1.845.067,4.092,4.092,0,0,0,3.824,2.849,8.147,8.147,0,0,1-5.1,1.759,8.339,8.339,0,0,1-.975-.057,11.61,11.61,0,0,0,6.291,1.845A11.6,11.6,0,0,0,19.5,8.579c0-.182,0-.354-.01-.535A8.2,8.2,0,0,0,21.54,5.912Z"
-                        transform="translate(-1.54 -4)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M7.8,2h8.4A5.8,5.8,0,0,1,22,7.8v8.4A5.8,5.8,0,0,1,16.2,22H7.8A5.8,5.8,0,0,1,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2M7.6,4A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8A3.6,3.6,0,0,0,20,16.4V7.6A3.6,3.6,0,0,0,16.4,4H7.6m9.65,1.5A1.25,1.25,0,1,1,16,6.75,1.25,1.25,0,0,1,17.25,5.5M12,7a5,5,0,1,1-5,5,5,5,0,0,1,5-5m0,2a3,3,0,1,0,3,3,3,3,0,0,0-3-3Z"
-                        transform="translate(-2 -2)" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="post-details">
-                <div class="author d-flex align-items-center">
-                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
-                  <span>John Doe</span>
-                </div>
-        
-                <p class="blog-post-preview">
-                  This is an example blog post title. See what happens when...
-                </p>
-        
-                <div class="bottom-row">
-                  <span class="date">May 19, 2019</span>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26.6" height="18.7" viewBox="0 0 26.6 18.7">
-                      <defs>
-                        <style>
-                          .arr-left {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="arr-left"
-                        d="M8.676,4.957a.943.943,0,1,1,1.34,1.327l-6.8,6.8H25.647a.944.944,0,0,1,.952.938.956.956,0,0,1-.952.952H3.22l6.8,6.784a.962.962,0,0,1,0,1.34.939.939,0,0,1-1.34,0L.271,14.689a.946.946,0,0,1,0-1.327Z"
-                        transform="translate(26.599 23.376) rotate(180)" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="item">
-          <div class="blog-post-card shadow">
-            <img src="https://via.placeholder.com/100" alt="Blog header preview" class="top-img w-100">
-            <div class="blog-content d-flex">
-              <div class="social-links">
-                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a" d="M17,2h0V6H15c-.69,0-1,.81-1,1.5V10h3v4H14v8H10V14H7V10h3V6a4,4,0,0,1,4-4Z"
-                        transform="translate(-7 -2)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.252" viewBox="0 0 20 16.252">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M21.54,5.912a8.191,8.191,0,0,1-2.352.66,4.11,4.11,0,0,0,1.8-2.275,8.261,8.261,0,0,1-2.6,1A4.039,4.039,0,0,0,15.364,4a4.1,4.1,0,0,0-4.082,4.1,4.263,4.263,0,0,0,.105.937A11.658,11.658,0,0,1,2.936,4.755a4.086,4.086,0,0,0,1.272,5.459,4.056,4.056,0,0,1-1.864-.478v.029A4.1,4.1,0,0,0,5.632,13.79a4.021,4.021,0,0,1-1.845.067,4.092,4.092,0,0,0,3.824,2.849,8.147,8.147,0,0,1-5.1,1.759,8.339,8.339,0,0,1-.975-.057,11.61,11.61,0,0,0,6.291,1.845A11.6,11.6,0,0,0,19.5,8.579c0-.182,0-.354-.01-.535A8.2,8.2,0,0,0,21.54,5.912Z"
-                        transform="translate(-1.54 -4)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M7.8,2h8.4A5.8,5.8,0,0,1,22,7.8v8.4A5.8,5.8,0,0,1,16.2,22H7.8A5.8,5.8,0,0,1,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2M7.6,4A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8A3.6,3.6,0,0,0,20,16.4V7.6A3.6,3.6,0,0,0,16.4,4H7.6m9.65,1.5A1.25,1.25,0,1,1,16,6.75,1.25,1.25,0,0,1,17.25,5.5M12,7a5,5,0,1,1-5,5,5,5,0,0,1,5-5m0,2a3,3,0,1,0,3,3,3,3,0,0,0-3-3Z"
-                        transform="translate(-2 -2)" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="post-details">
-                <div class="author d-flex align-items-center">
-                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
-                  <span>John Doe</span>
-                </div>
-        
-                <p class="blog-post-preview">
-                  This is an example blog post title. See what happens when...
-                </p>
-        
-                <div class="bottom-row">
-                  <span class="date">May 19, 2019</span>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26.6" height="18.7" viewBox="0 0 26.6 18.7">
-                      <defs>
-                        <style>
-                          .arr-left {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="arr-left"
-                        d="M8.676,4.957a.943.943,0,1,1,1.34,1.327l-6.8,6.8H25.647a.944.944,0,0,1,.952.938.956.956,0,0,1-.952.952H3.22l6.8,6.784a.962.962,0,0,1,0,1.34.939.939,0,0,1-1.34,0L.271,14.689a.946.946,0,0,1,0-1.327Z"
-                        transform="translate(26.599 23.376) rotate(180)" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="item">
-          <div class="blog-post-card shadow">
-            <img src="https://via.placeholder.com/100" alt="Blog header preview" class="top-img w-100">
-            <div class="blog-content d-flex">
-              <div class="social-links">
-                <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a" d="M17,2h0V6H15c-.69,0-1,.81-1,1.5V10h3v4H14v8H10V14H7V10h3V6a4,4,0,0,1,4-4Z"
-                        transform="translate(-7 -2)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.252" viewBox="0 0 20 16.252">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M21.54,5.912a8.191,8.191,0,0,1-2.352.66,4.11,4.11,0,0,0,1.8-2.275,8.261,8.261,0,0,1-2.6,1A4.039,4.039,0,0,0,15.364,4a4.1,4.1,0,0,0-4.082,4.1,4.263,4.263,0,0,0,.105.937A11.658,11.658,0,0,1,2.936,4.755a4.086,4.086,0,0,0,1.272,5.459,4.056,4.056,0,0,1-1.864-.478v.029A4.1,4.1,0,0,0,5.632,13.79a4.021,4.021,0,0,1-1.845.067,4.092,4.092,0,0,0,3.824,2.849,8.147,8.147,0,0,1-5.1,1.759,8.339,8.339,0,0,1-.975-.057,11.61,11.61,0,0,0,6.291,1.845A11.6,11.6,0,0,0,19.5,8.579c0-.182,0-.354-.01-.535A8.2,8.2,0,0,0,21.54,5.912Z"
-                        transform="translate(-1.54 -4)" />
-                    </svg>
-                  </button>
-                  <button type="button" class="btn rounded-0 flex-grow-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
-                      <defs>
-                        <style>
-                          .a {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="a"
-                        d="M7.8,2h8.4A5.8,5.8,0,0,1,22,7.8v8.4A5.8,5.8,0,0,1,16.2,22H7.8A5.8,5.8,0,0,1,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2M7.6,4A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8A3.6,3.6,0,0,0,20,16.4V7.6A3.6,3.6,0,0,0,16.4,4H7.6m9.65,1.5A1.25,1.25,0,1,1,16,6.75,1.25,1.25,0,0,1,17.25,5.5M12,7a5,5,0,1,1-5,5,5,5,0,0,1,5-5m0,2a3,3,0,1,0,3,3,3,3,0,0,0-3-3Z"
-                        transform="translate(-2 -2)" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
-              <div class="post-details">
-                <div class="author d-flex align-items-center">
-                  <img src="https://via.placeholder.com/60" class="rounded-circle mr-2" alt="">
-                  <span>John Doe</span>
-                </div>
-        
-                <p class="blog-post-preview">
-                  This is an example blog post title. See what happens when...
-                </p>
-        
-                <div class="bottom-row">
-                  <span class="date">May 19, 2019</span>
-                  <a href="">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="26.6" height="18.7" viewBox="0 0 26.6 18.7">
-                      <defs>
-                        <style>
-                          .arr-left {
-                            fill: #3498e5;
-                          }
-                        </style>
-                      </defs>
-                      <path class="arr-left"
-                        d="M8.676,4.957a.943.943,0,1,1,1.34,1.327l-6.8,6.8H25.647a.944.944,0,0,1,.952.938.956.956,0,0,1-.952.952H3.22l6.8,6.784a.962.962,0,0,1,0,1.34.939.939,0,0,1-1.34,0L.271,14.689a.946.946,0,0,1,0-1.327Z"
-                        transform="translate(26.599 23.376) rotate(180)" />
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    
       </div>
     </div>
   </section>
@@ -771,7 +530,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <button class="btn text-uppercase shadow-sm get-started-btn">Get Started For Free</button>
+          <button class="btn text-uppercase shadow get-started-btn">Get Started For Free</button>
         </div>
         <div class="col fish-small d-none d-lg-block">
           <div class="wow slideIn" data-wow-duration="1s">
