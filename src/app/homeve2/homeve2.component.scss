@@ -841,6 +841,18 @@ section {
         object-fit: cover;
       }
     }
+      @media screen and (max-width: 1200px){
+        background:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../../assets/slides/slide1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        video{
+          display: none !important;
+          height: 0;
+          width: 0
+        }
+      }
+    
   }
 
   .how-it-works {
