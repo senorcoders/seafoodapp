@@ -218,6 +218,7 @@
                             <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
                             <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
+			
                         <div *ngIf="!product.cooming_soon && ( product.variation.outOfStock || ( (getFixedNumber(product.variation.max) == 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
                         <div *ngIf="product.cooming_soon" > <h4>Comming Soon</h4></div>
                       </div>
