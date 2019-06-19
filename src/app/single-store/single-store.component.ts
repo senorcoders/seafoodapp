@@ -59,8 +59,13 @@ export class SingleStoreComponent implements OnInit {
   getLogos(){
     this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
         console.log("Logos", result);
-        this.brands = result['brands'];
-        this.certs = result['certifications'];
+        if(result.hasOwnProperty('brands')){
+          this.brands = result['brands'];
+        } 
+
+        if(result.hasOwnProperty('certifications')){
+          this.certs = result['certifications'];
+        } 
     });
   }
   getPersonalData() {

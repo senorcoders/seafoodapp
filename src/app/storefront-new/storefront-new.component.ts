@@ -42,8 +42,8 @@ export class StorefrontNewComponent implements OnInit {
   showLess = false;
   simpleLayout = false;
   productImage: any = [];
-  brands=[];
-  certs=[];
+  brands:any=[];
+  certs:any=[];
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -64,8 +64,14 @@ export class StorefrontNewComponent implements OnInit {
   getLogos(){
     this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
         console.log("Logos", result);
-        this.brands = result['brands'];
-        this.certs = result['certifications'];
+        if(result.hasOwnProperty('brands')){
+          this.brands = result['brands'];
+        } 
+
+        if(result.hasOwnProperty('certifications')){
+          this.certs = result['certifications'];
+        } 
+       
     });
   }
   getReview() {
