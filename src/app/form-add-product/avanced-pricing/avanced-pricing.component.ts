@@ -430,7 +430,6 @@ export class AvancedPricingComponent implements OnInit {
             return tmpName[0] + '-' + tmpName[1] + ' LBS';
           }else if((it.name).includes('+')){
             let tmpName =  it.name.split('+');
-            console.log("tmpName", tmpName);
             tmpName[0] = parseInt(tmpName[0]) * 2.205;
             return tmpName[0]  + ' LBS';
           }

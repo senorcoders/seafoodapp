@@ -880,7 +880,7 @@ export class ShopComponent implements OnInit {
   deleteItem(i, id) {
     this.productService.deleteData(`itemshopping/${id}`).subscribe(result => {
       this.productsCart.splice(i, 1);
-      this.getItems();
+      this.getItems(); 
       this.closeCart();
       this.toast.success('Item removed from cart!', 'Well Done', { positionClass: 'toast-top-right' });
     }, e => {
