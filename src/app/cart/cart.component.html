@@ -45,12 +45,12 @@
                              
 
                               <div class="my-input-container">
-                                <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory.quantity, product.fish.minimumOrder)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)">
-                                <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)">
+                                <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product?.maxAvailableInventory, product.fish.minimumOrder)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory.quantity, product.fish.minimumOrder)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)">
+                                <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product?.maxAvailableInventory / product?.fish?.boxWeight, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)">
                                 <span class="suffix" [hidden]="isVacio('edit-qty-'+product.fish.id, product.fish.id+ '-suffix')" [id]="product.fish.id+ '-suffix'">{{getTag(product.fish.perBox, 'edit-qty-'+product.fish.id)}}</span>
                               </div>
-                              <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{getFixedNumber(product.inventory?.quantity)}}</span>
-                              <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{getFixedNumber(product.inventory?.quantity)}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{getFixedNumber(product?.maxAvailableInventory)}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{getFixedNumber((product?.maxAvailableInventory / product?.fish?.boxWeight) )}}</span>
                           </form>
                     </div>
                    
@@ -58,7 +58,7 @@
                 <div class="col-lg-12">
                   <ul class="list-inline">
                     <li class="list-inline-item store-item">
-                      <a routerLink="/newstore/{{product.fish.store.id}}" target="_blank"> <div *ngIf="product.fish.store.logo != ''" class="store-logo"  [style.background-image]="'url(' + API + product.fish.store.logo +')'"></div> {{product?.fish?.store?.name}}</a>
+                      <a routerLink="/vendor/{{product.fish.store.id}}" target="_blank"> <div *ngIf="product.fish.store.logo != ''" class="store-logo"  [style.background-image]="'url(' + API + product.fish.store.logo +')'"></div> {{product?.fish?.store?.name}}</a>
                     </li>
                     <li class="list-inline-item info-item">
                       <img src="../../assets/svg/fish.svg" alt="" width="26px" height="26px">
