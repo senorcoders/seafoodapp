@@ -90,7 +90,7 @@ export class SingleProductComponent implements OnInit {
 
   public inter: any;
   public noWholeFish = false;
-  public kg = 0;
+  public kg:any = 0;
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   public variationId = '';
   public fishOption = '';
@@ -183,7 +183,7 @@ export class SingleProductComponent implements OnInit {
     let fishOption = this.route.snapshot.params['fishOption'];
     let variationId = this.route.snapshot.params['variationId'];
     console.log('snapshots', kg, fishOption, variationId);
-    if (kg !== undefined && kg !== null) { this.kg = Number(kg); }
+    if (kg !== undefined && kg !== null) { this.kg = Number(kg).toFixed(2); }
     if (variationId !== undefined && variationId !== null) { this.variationId = variationId; }
     if (fishOption !== undefined && fishOption !== null) { this.fishOption = fishOption; }
     this.selectTheVariation(fishOption, variationId);

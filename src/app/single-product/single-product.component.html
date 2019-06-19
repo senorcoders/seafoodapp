@@ -137,7 +137,7 @@
 
             <div  class="row range-row">
               <div class="col-md-12">
-                <p  class="eta" *ngIf="charges?.eta && !outOfStock">Get up to {{charges?.eta?.quantity}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p  class="eta" *ngIf="charges?.eta && !outOfStock">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
                 <p *ngIf="outOfStock" class="eta" >Out of Stock.</p>
               </div>
               <div class="col-md-7">
