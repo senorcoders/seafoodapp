@@ -41,11 +41,23 @@ export class MenuNavComponent {
   isScrolled = false;
   lastScroll = 0;
   scrollUp: boolean;
+  isMobile:boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
     private toast: ToastrService, private translate: TranslateService, private languageService: LanguageService,
     private cart: CartService, private orders: OrdersService) {
+      jQuery(document).ready(function () {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          console.log("Es movil");
+          jQuery('.access-buyer > li').attr('data-toggle', 'collapse');
+          jQuery('.access-buyer > li').attr('data-target', '#navbarSupportedContent');
+          jQuery('.admin-navbar > li').attr('data-toggle', 'collapse');
+          jQuery('.admin-navbar > li').attr('data-target', '#navbarSupportedContent');
+          jQuery('.access-seller > li').attr('data-toggle', 'collapse');
+          jQuery('.access-seller > li').attr('data-target', '#navbarSupportedContent');
+        }
+      });
 
   }
 
