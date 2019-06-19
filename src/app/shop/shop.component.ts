@@ -573,6 +573,22 @@ export class ShopComponent implements OnInit {
     return element.value === '';
   }
 
+  public getTag(product, id){
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return '';
+    try{
+      let val = Number(element.value);
+      if(val <= 1 && product.perBox === true) {
+        return 'box';
+      }
+      return product.perBox === true ? 'boxes' : 'kg'; 
+    }
+    catch(e){
+      console.log(e);
+      return '';
+    }
+  }
+
   //Functino to enter manual kg
   manualInput(max, min, variation, type) {
     let val: any = jQuery('#amount-' + variation).val();

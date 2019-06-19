@@ -104,7 +104,7 @@
               <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
 
                 <div class="dashed-row"><span class="name-row">Company</span>
-                  <div class="separator-dashed"></div> <span class="value-row">{{storeName}}</span>
+                  <div class="separator-dashed"></div> <span class="value-row"><a routerLink="/newstore/{{storeId}}">{{storeName}}</a></span>
                 </div>
                 <div class="dashed-row" *ngIf="brandname != ''"><span class="name-row">Brand</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span>
@@ -140,14 +140,14 @@
                 <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
                 <p *ngIf="outOfStock || max == 0" class="eta" >Out of Stock.</p>
               </div>
-              <div class="col-md-7">
+              <div class="col-md-7" *ngIf="!cooming_soon && !outOfStock && max > 0">
 
                 <form *ngIf="!cooming_soon" class="kg-form">
                     <span class="amount-span"style="margin-right: 5px;">min <br> {{min | number : '1.2-2'}}</span>
                     <div class="my-input-container">  
                       <input *ngIf="perBox != true" type="number" id="edit-qty-1" placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
                       <input *ngIf="perBox == true" type="number" id="edit-qty-1"  placeholder="enter box..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
-                      <span class="suffix" [hidden]="isVacio('edit-qty-1', '1-suffix')" id="1-suffix">{{perBox == true ? 'boxes' : 'kg'}}</span>
+                      <span class="suffix" [hidden]="isVacio('edit-qty-1', '1-suffix')" id="1-suffix">{{getTag(perBox, 'edit-qty-1')}}</span>
                     </div>
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{max | number : '1.2-2'}}</span>
                 </form>

@@ -119,7 +119,7 @@
           </svg>
         </button>
 
-        <div class="collapse navbar-collapse align-items-center mobile-full-menu" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse align-items-cente" id="navbarSupportedContent" [class.mobile-full-menu]="!isLogged" [class.mobile-full-menu-old]="isLogged">
           <!-- star menu buyer -->
           <ul class="navbar-nav ml-auto menuitem-buyer access-buyer icon-menu" *ngIf="isLogged && role==2">
 
