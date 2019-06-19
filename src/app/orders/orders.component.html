@@ -47,12 +47,12 @@
 										<tbody *ngFor="let item of items ;let i=index ">
 											<tr >
 													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/arrow-left.svg" alt=""></button>{{item?.fish?.name}}</td>
-													<td>{{item?.seller?.dataExtra?.companyName}}</td>
+													<td>{{item?.fish?.store?.name}}</td>
 													<td>{{item?.status?.status}}</td>
 													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
 													<td *ngIf="item.fish.perBox == true">{{item.quantity.value}} boxes</td>
 
-													<td>{{(item.price.value)}}</td>
+													<td>{{(item.price)}}</td>
 													<td>{{(item.total).toFixed(2)}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
 											
