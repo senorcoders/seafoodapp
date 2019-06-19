@@ -32,6 +32,14 @@ export class Homeve2Component implements OnInit, OnDestroy {
   //   this.wowService.init(); 
   // });
     this.wowService.init(); 
+    jQuery(document).ready(function () {
+      if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        console.log("Es movil");
+        jQuery('video source').each(function (num, val) {
+          jQuery(this).attr('src', '')
+        });
+      }
+    });
 
   }
 
