@@ -414,6 +414,22 @@ export class SingleProductComponent implements OnInit {
     return element.value === '';
   }
 
+  public getTag(perBox, id){
+    let element = document.querySelector('#' + id) as HTMLInputElement;
+    if (element === null) return '';
+    try{
+      let val = Number(element.value);
+      if(val <= 1 && perBox === true) {
+        return 'box';
+      }
+      return perBox === true ? 'boxes' : 'kg'; 
+    }
+    catch(e){
+      console.log(e);
+      return '';
+    }
+  }
+
   public selectTheVariation(idVariation, id) {
     console.log("variacion", idVariation);
     this.selectVariation = idVariation;
