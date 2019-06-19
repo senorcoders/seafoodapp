@@ -606,9 +606,14 @@ section {
     height: 100%;
     width: 100px;
     background-color: #FFF;
+    button{
+      height: 33.33%;
+    }
     button:hover{
       background: #FFF !important;
       border: none !important;
+      border-color: transparent !important;
+      border-radius: 0 !important;
 
     }
     button:hover .a{
