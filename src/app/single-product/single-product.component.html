@@ -137,8 +137,8 @@
 
             <div  class="row range-row">
               <div class="col-md-12">
-                <p  class="eta" *ngIf="charges?.eta && !outOfStock">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
-                <p *ngIf="outOfStock" class="eta" >Out of Stock.</p>
+                <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p *ngIf="outOfStock || max == 0" class="eta" >Out of Stock.</p>
               </div>
               <div class="col-md-7">
 
@@ -153,7 +153,7 @@
                 </form>
               </div>
               <div class="col-md-5">
-                <button  *ngIf="!cooming_soon && !outOfStock && min > 0" (click)="addToCart()" type="submit"
+                <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
                   class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>
