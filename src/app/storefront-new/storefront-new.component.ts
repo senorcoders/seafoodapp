@@ -42,8 +42,12 @@ export class StorefrontNewComponent implements OnInit {
   showLess = false;
   simpleLayout = false;
   productImage: any = [];
-  brands:any=[];
-  certs:any=[];
+
+  brands=[];
+  certs=[];
+
+  errorLoadingLogo = false; 
+
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -59,6 +63,10 @@ export class StorefrontNewComponent implements OnInit {
 
   getPersonalData() {
     this.getStoreData();
+  }
+
+  public errorLoadLogo(e){
+    e.target.src = 'https://via.placeholder.com/150';
   }
 
   getLogos(){
