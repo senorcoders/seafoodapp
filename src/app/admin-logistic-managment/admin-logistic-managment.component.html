@@ -148,10 +148,10 @@
                       </tr>
                     </table>
 
-                    <table *ngIf='i.buyerExpectedDeliveryDate&&i.buyerExpectedDeliveryDate!==""' class="medium-table">
+                    <table *ngIf='i.inventory && i.inventory.short_date' class="medium-table">
                       <tr>
                         <td>ETA:</td>
-                        <td>{{i.buyerExpectedDeliveryDate}}</td>
+                        <td>{{i.inventory && i.inventory.short_date ? i.inventory.short_date : ''}}</td>
                       </tr>
 
 
