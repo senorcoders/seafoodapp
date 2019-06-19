@@ -119,11 +119,11 @@
           </svg>
         </button>
 
-        <div class="collapse navbar-collapse align-items-center mobile-full-menu" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse align-items-cente" id="navbarSupportedContent" [class.mobile-full-menu]="!isLogged" [class.mobile-full-menu-old]="isLogged">
           <!-- star menu buyer -->
           <ul class="navbar-nav ml-auto menuitem-buyer access-buyer icon-menu" *ngIf="isLogged && role==2">
 
-            <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getbuyerMenu()" data-toggle="collapse" data-target="#navbarSupportedContent">
               <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link" style="position: relative;">
                 <span *ngIf="menuitem.state == 'cart' && cartItem?.items?.length > 0" class="menu-car-qty">{{cartItem.items.length}}</span>
                 <img class="active-fish-icon" src="../../../assets/svg/small-fish.svg" alt=""> {{ menuitem.translate[lang].name}}
@@ -134,7 +134,7 @@
                   <a class="nav-link dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" routerLinkActive="active-link">
                     {{ menuitem.translate[lang].name}}
                   </a>
-                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'">
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="menuitem.type === 'sub'" >
                     <a routerLink="{{childitem.state}}" class="dropdown-item" *ngFor="let childitem of menuitem.children">{{ childitem.translate[lang].name}}</a>
                   </div>
                 </li>
@@ -159,7 +159,7 @@
           <!-- end menu bayer -->
           <!-- start menu admin-->
           <ul class="navbar-nav ml-auto admin-navbar" *ngIf="isLogged && role==0">
-            <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getMenuAdmin()" data-toggle="collapse" data-target="#navbarSupportedContent">
               <a routerLink="{{menuitem.state}}/all/1" class="nav-link" *ngIf="menuitem.state === 'products' else menu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
               <ng-template #menu>
                 <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">{{ menuitem.translate[lang].name}}</a>
@@ -193,7 +193,7 @@
           <!-- end menu admin -->
           <!-- start menu seller-->
           <ul class="navbar-nav ml-auto access-seller icon-menu" *ngIf="isLogged && role==1">
-            <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()">
+            <li class="nav-item" *ngFor="let menuitem of menuItems.getSellerMenu()" data-toggle="collapse" data-target="#navbarSupportedContent">
               <a routerLink="{{menuitem.state}}" class="nav-link" *ngIf="menuitem.type === 'link' else submenu" routerLinkActive="active-link">
                 
                 <img class="active-fish-icon" src="../../../assets/svg/small-fish.svg" alt=""> {{ menuitem.translate[lang].name}}
