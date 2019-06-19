@@ -9,7 +9,7 @@
           <div class="col-lg-12">
             <h1>WELCOME TO YOUR ONLINE B2B SEAFOOD MARKETPLACE</h1>
             <h5>Connecting buyers and sellers direct</h5>
-            <button class="light-blue-btn">GET STARTED FOR FREE</button>
+            <button class="light-blue-btn" *ngIf="!isLoggedIn" routerLink='/register'>GET STARTED FOR FREE</button>
           </div>
         </div>
       </div>
@@ -530,7 +530,8 @@
           </div>
         </div>
         <div class="col-auto">
-          <button class="btn text-uppercase shadow get-started-btn">Get Started For Free</button>
+            <button class="btn text-uppercase shadow get-started-btn" *ngIf="isLoggedIn">Meet our Team</button>
+          <button class="btn text-uppercase shadow get-started-btn" *ngIf="!isLoggedIn" routerLink='/register'>Get Started For Free</button>
         </div>
         <div class="col fish-small d-none d-lg-block">
           <div class="wow slideIn" data-wow-duration="1s">
