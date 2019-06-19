@@ -425,15 +425,15 @@ export class ShopComponent implements OnInit {
         let min: any;
         let max: any;
         if (classes[12] == "true") {
-          min = parseFloat(classes[13]);
-          max = parseFloat(classes[14]);
+          min = parseInt(classes[13]);
+          max = parseInt(classes[14]);
         } else {
-          min = parseFloat(classes[11]);
-          max = parseFloat(classes[10]);
+          min = parseInt(classes[11]);
+          max = parseInt(classes[10]);
         }
         console.log("Minimo y maximo", min, max);
         if (val > max) {
-          console.log("es mayor al max", parseFloat(classes[10]));
+          console.log("es mayor al max", parseInt(classes[10]));
           jQuery('#amount-' + classes[7]).val(max);
           jQuery('#cart-amount-' + classes[7]).val(max);
           this.products[classes[6]].qty = max;
@@ -1006,10 +1006,10 @@ export class ShopComponent implements OnInit {
   }
 
   public getFixedNumber(number) {
-    if (number !== null && Math.round(number) !== number) {
-      number = number.toFixed(2);
-    }
-    return number;
+    // if (number !== null && Math.round(number) !== number) {
+    //   number = number.toFixed(2);
+    // }
+    return parseInt(number);
   }
 
   closeSnackBar(){

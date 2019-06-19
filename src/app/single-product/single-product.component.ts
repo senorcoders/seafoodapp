@@ -183,7 +183,7 @@ export class SingleProductComponent implements OnInit {
     let fishOption = this.route.snapshot.params['fishOption'];
     let variationId = this.route.snapshot.params['variationId'];
     console.log('snapshots', kg, fishOption, variationId);
-    if (kg !== undefined && kg !== null) { this.kg = Number(kg).toFixed(2); }
+    if (kg !== undefined && kg !== null) { this.kg = parseInt(kg); }
     if (variationId !== undefined && variationId !== null) { this.variationId = variationId; }
     if (fishOption !== undefined && fishOption !== null) { this.fishOption = fishOption; }
     this.selectTheVariation(fishOption, variationId);
@@ -641,5 +641,12 @@ export class SingleProductComponent implements OnInit {
   hideElements() {
     document.getElementById('input-text').style.display = 'none';
     document.getElementById('qty-text').style.display = 'block';
+  }
+
+  public getFixedNumber(number) {
+    // if (number !== null && Math.round(number) !== number) {
+    //   number = number.toFixed(2);
+    // }
+    return parseInt(number);
   }
 }

@@ -158,7 +158,9 @@ export class CheckoutComponent implements OnInit {
 
               console.log("Cart", res);
               this.cart = res;
-              this.codEnable = res["buyer"].cod !== undefined && res["buyer"].cod.usage === true;
+              if(res['buyer']['cod'] !== null){
+                this.codEnable = res["buyer"].cod !== undefined && res["buyer"]['cod']['usage'] === true;
+              }
               this.products = res['items'];
               this.total = res['subTotal'];
               this.shipping = res['shipping'];
