@@ -410,7 +410,8 @@ p.eta{
   .suffix {
     position: absolute;
     left: 0;
-    top: 1px;
+    top: 0;
+    padding-left: 3px;
     color: #3498E5;
     font: inherit;
   }
