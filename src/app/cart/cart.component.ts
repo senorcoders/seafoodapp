@@ -478,5 +478,12 @@ export class CartComponent implements OnInit {
   closeSnackBar(){
     this.showSnackBar = false;
   }
+
+  public getFixedNumber(number) {
+    // if (number !== null && Math.round(number) !== number) {
+    //   number = number.toFixed(2);
+    // }
+    return parseInt(number);
+  }
 }
   

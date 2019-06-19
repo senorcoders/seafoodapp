@@ -40,8 +40,8 @@
               
                          
                           <form>
-                              <span class="amount-span" *ngIf="product.fish.perBox == true">min <br> {{product.fish.minBox | number : '1.2-2'}}</span>
-                              <span class="amount-span" *ngIf="product.fish.perBox != true">min <br> {{product.fish.minimumOrder | number : '1.2-2'}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox == true">min <br> {{getFixedNumber(product.fish.minBox)}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox != true">min <br> {{getFixedNumber(product.fish.minimumOrder)}}</span>
                              
 
                               <div class="my-input-container">
@@ -49,8 +49,8 @@
                                 <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)">
                                 <span class="suffix" [hidden]="isVacio('edit-qty-'+product.fish.id, product.fish.id+ '-suffix')" [id]="product.fish.id+ '-suffix'">{{getTag(product.fish.perBox, 'edit-qty-'+product.fish.id)}}</span>
                               </div>
-                              <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
-                              <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{product.inventory?.quantity | number : '1.2-2'}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{getFixedNumber(product.inventory?.quantity)}}</span>
+                              <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{getFixedNumber(product.inventory?.quantity)}}</span>
                           </form>
                     </div>
                    
