@@ -50,12 +50,12 @@ export class MenuNavComponent {
       jQuery(document).ready(function () {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
           console.log("Es movil");
-          jQuery('.access-buyer > li').attr('data-toggle', 'collapse');
-          jQuery('.access-buyer > li').attr('data-target', '#navbarSupportedContent');
-          jQuery('.admin-navbar > li').attr('data-toggle', 'collapse');
-          jQuery('.admin-navbar > li').attr('data-target', '#navbarSupportedContent');
-          jQuery('.access-seller > li').attr('data-toggle', 'collapse');
-          jQuery('.access-seller > li').attr('data-target', '#navbarSupportedContent');
+          jQuery('.access-buyer > li:not(.logout-link)').attr('data-toggle', 'collapse');
+          jQuery('.access-buyer > li:not(.logout-link)').attr('data-target', '#navbarSupportedContent');
+          jQuery('.admin-navbar > li:not(.logout-link)').attr('data-toggle', 'collapse');
+          jQuery('.admin-navbar > li:not(.logout-link)').attr('data-target', '#navbarSupportedContent');
+          jQuery('.access-seller > li:not(.logout-link)').attr('data-toggle', 'collapse');
+          jQuery('.access-seller > li:not(.logout-link)').attr('data-target', '#navbarSupportedContent');
         }
       });
 
@@ -210,6 +210,7 @@ export class MenuNavComponent {
   }
 
   async logOut() {
+    jQuery('#navbarSupportedContent').collapse('hide');
     await this.isLoggedSr.setLogin(false, -1);
     await this.auth.logOut();
     this.router.navigate(['/']);
