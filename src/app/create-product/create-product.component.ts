@@ -219,7 +219,7 @@ export class CreateProductComponent implements OnInit {
             wholeFishAction: data["wholeFishAction"],
             foreignfish: data["foreign_fish"],
             commingSoon: data['cooming_soon'] === true,
-            status: data['status']
+            status: data['status']['id']
           };
           console.log("product fetched", product);
           this.store = data['store'];
