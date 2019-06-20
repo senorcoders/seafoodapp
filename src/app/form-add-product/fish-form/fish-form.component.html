@@ -369,14 +369,27 @@
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
         </div>
-        <div class="col-lg-6 fish-foreign">
+
+        <div class="col-lg-6" *ngIf="info['role'] == 0" >
+          <div class="form-group input-group">
+            <span class="has-float-label">
+              <select id="processing" class="form-control" formControlName="status">
+                <option value="5c0866f9a0eda00b94acbdc2" >Approved</option>
+                <option value="5c3fc078970dc99bb06bed69" >Hidden</option>
+              </select>
+              <label for="processing">Status* </label>              
+            </span>            
+          </div>
+        </div>
+        
+        <div class="col-lg-3 fish-foreign">
           <div class="custom-control custom-checkbox mb-3">
             <input type="checkbox" formControlName="foreignfish" class="custom-control-input form-control"
               id="foreignfish">
             <label class="custom-control-label" for="foreignfish">Domestic Fish</label>
           </div>
         </div>
-        <div class="col-lg-6 fish-foreign">
+        <div class="col-lg-3 fish-foreign">
           <div class="custom-control custom-checkbox mb-3">
             <input type="checkbox" formControlName="commingSoon" class="custom-control-input form-control"
               id="commingSoon">

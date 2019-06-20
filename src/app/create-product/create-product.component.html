@@ -13,7 +13,9 @@
             </span>            
           </div>
             
-          </div>
+        </div>
+
+        
           
         <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" >
             <div class="row"> 
@@ -48,6 +50,12 @@
                       <div class="col-md-6 px-0">
                         <button type="submit" class="btn btn-save ml-auto">submit product</button>
                       </div>
+                      <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
+                        <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
+                          Delete
+                        </button>
+                      </div>
+                      
                   </div>
                   </div>
             </div>

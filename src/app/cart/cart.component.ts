@@ -385,10 +385,10 @@ export class CartComponent implements OnInit {
     val = val;
     console.log("minimo y maximo", min, max, val);
 
-    if (val > parseFloat(max)) {
-      val = parseFloat(max);
-    }else if(val < parseFloat(min)){
-      val = parseFloat(min);
+    if (val > parseInt(max)) {
+      val = parseInt(max);
+    }else if(val < parseInt(min)){
+      val = parseInt(min);
     }
     this.products[i].quantity.value  = val * boxweight;
     // jQuery('#range-' + id).val(val);
@@ -477,6 +477,13 @@ export class CartComponent implements OnInit {
 
   closeSnackBar(){
     this.showSnackBar = false;
+  }
+
+  public getFixedNumber(number) {
+    // if (number !== null && Math.round(number) !== number) {
+    //   number = number.toFixed(2);
+    // }
+    return parseInt(number);
   }
 }
   

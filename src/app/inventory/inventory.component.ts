@@ -41,7 +41,7 @@ export class InventoryComponent implements OnInit {
     dateAdapter: DateTimeAdapter<any>,
     private _location: Location
   ) {
-    this.min.setDate( this.today.getDate() + 3 );
+    this.min.setDate( this.today.getDate() );
     this.max.setDate( this.today.getDate() + 120 );
     dateAdapter.setLocale('en-EN'); // change locale to Japanese
   }
@@ -76,6 +76,7 @@ export class InventoryComponent implements OnInit {
     this.inventoryService.getVariationStock( this.sku.value ).subscribe(
       res => {
         this.inventories = res;
+        this.getVariationStock();
       },
       error => {
         console.log( error );

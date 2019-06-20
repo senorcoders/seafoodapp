@@ -1,13 +1,16 @@
 <div class="gray-bg">
-<div class="container-fluid orders-tabs px-0">
-	<div class="row" *ngIf="showLoading; else productshow">
-		<div class="wave-loader" >
-			<div class="wave-loading"></div>
-		</div>
+	<div class="container fluid wave-container" *ngIf="showLoading; else productshow">
+			<div class="row" >
+					<div class="wave-loader" >
+						<div class="wave-loading"></div>
+					</div>
+				</div>
 	</div>
+
+	
 	<ng-template #productshow>
 
-
+			<div class="container-fluid orders-tabs px-0">
 	<div class="row">
 			
 		<div class="col-lg-12 p-top">
@@ -47,12 +50,12 @@
 										<tbody *ngFor="let item of items ;let i=index ">
 											<tr >
 													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/arrow-left.svg" alt=""></button>{{item?.fish?.name}}</td>
-													<td>{{item?.seller?.dataExtra?.companyName}}</td>
+													<td>{{item?.fish?.store?.name}}</td>
 													<td>{{item?.status?.status}}</td>
 													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
 													<td *ngIf="item.fish.perBox == true">{{item.quantity.value}} boxes</td>
 
-													<td>{{(item.price.value)}}</td>
+													<td>{{(item.price)}}</td>
 													<td>{{(item.total).toFixed(2)}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
 											
@@ -159,10 +162,10 @@
 		</div>
 	</div>
 	</div>
-		
+			</div>
 	
 		
 	
 	</ng-template>
-</div>
+
 </div>

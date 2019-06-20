@@ -161,6 +161,13 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+  deleteProduct(id) {
+    this.productService.deleteData('api/fish/' + id).subscribe(result => {      
+      this.toast.success('Product deleted successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+      this.router.navigate(['/products-list/page/1']);
+    });
+  }
+
   private disableInputs() {
     const product = (this.myform.controls.product as FormGroup).controls;
     // let features = (this.myform.controls.features as FormGroup).controls;
@@ -218,7 +225,8 @@ export class CreateProductComponent implements OnInit {
             head: data["head"] || "on",
             wholeFishAction: data["wholeFishAction"],
             foreignfish: data["foreign_fish"],
-            commingSoon: data['cooming_soon'] === true
+            commingSoon: data['cooming_soon'] === true,
+            status: data['status']['id']
           };
           console.log("product fetched", product);
           this.store = data['store'];
@@ -575,12 +583,12 @@ export class CreateProductComponent implements OnInit {
           'seafood_sku': this.seafood_sku,
           'mortalityRate': 1,
           'waterLostRate': '0',
-          'status': '5c0866e4a0eda00b94acbdc0',
+          'status': this.user['role'] !== 0 ? '5c0866e4a0eda00b94acbdc0' : product.status,
           'brandName': product.brandName,
           'hsCode': product.hsCode,
           variations: variationsEnd,
           'role': this.user['role'],
-          cooming_soon: product.commingSoon
+          cooming_soon: product.commingSoon,
         };
         if (this.productID !== "") {
           data.idProduct = this.product.id;
