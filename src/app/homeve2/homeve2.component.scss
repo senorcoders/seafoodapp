@@ -120,7 +120,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
     @media screen and (max-width: 992px){

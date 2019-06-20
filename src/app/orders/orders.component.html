@@ -55,7 +55,7 @@
 													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
 													<td *ngIf="item.fish.perBox == true">{{item.quantity.value}} boxes</td>
 
-													<td>{{(item.price)}}</td>
+													<td>{{(item.price).toFixed(2)}}</td>
 													<td>{{(item.total).toFixed(2)}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
 											</tr>
 											
