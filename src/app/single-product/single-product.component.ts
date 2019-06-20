@@ -112,6 +112,9 @@ export class SingleProductComponent implements OnInit {
       $('app-footer').css({ position: 'relative', top: 'auto' });
       clearInterval(this.inter);
     });
+
+   
+
   }
 
   ngAfterViewInit() {

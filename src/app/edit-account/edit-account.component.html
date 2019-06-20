@@ -148,8 +148,18 @@
                     </div>
                     <div class="col-lg-6">
                       <div class="form-group input-group">
-                          <span class="has-float-label">    
-                              <select multiple id="productsInterestedinBuying" placeholder="test" class="form-control selectpicker"  data-live-search="true" style="width: 100%" formControlName="productsInterestedinBuying" [ngClass]="{'is-invalid':buyerForm.get('productsInterestedinBuying').invalid && buyerForm.get('productsInterestedinBuying').touched}">
+                          <span class="has-float-label">   
+                              <ng-select 
+                              [items]="productsI"
+                              bindLabel="name"
+                              bindValue="id"
+                              labelForId="productsInterestedinBuying"
+                              [multiple]="true"
+                              placeholder="Product Interested in Buying"
+                              clearAllText="Clear"
+                              formControlName="productsInterestedinBuying">
+                   </ng-select> 
+                              <!-- <select multiple id="productsInterestedinBuying" class="form-control selectpicker"  data-live-search="true" style="width: 100%" formControlName="productsInterestedinBuying" [ngClass]="{'is-invalid':buyerForm.get('productsInterestedinBuying').invalid && buyerForm.get('productsInterestedinBuying').touched}">
                                 <option value="Atlantic Salmon - HOG">Atlantic Salmon - HOG</option>
                                 <option value="Pacific Salmon - HOG">Pacific Salmon - HOG</option>
                                 <option value="Atlantic Salmon - Fillet">Atlantic Salmon - Fillet</option>
@@ -176,7 +186,7 @@
                                 <option value="Frozen Shrimps">Frozen Shrimps</option>
                                 <option value="Squid">Squid</option>
                                 <option value="Frozen Squid">Frozen Squid</option>
-                              </select> 
+                              </select>  -->
                               <label for="productsInterestedinBuying">Products Interested in Buying</label> 
                               <div class="invalid-feedback" *ngIf="buyerForm.get('productsInterestedinBuying').hasError('required')"> Products Interested in Buying {{'Register.required' | translate}}.</div>
   

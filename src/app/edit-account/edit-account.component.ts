@@ -71,6 +71,10 @@ export class EditAccountComponent implements OnInit {
   currentBrandLogos: any = [];
   certsFiles: any = [];
   currentCertifications: any = [];
+  productsI:any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
+'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
+'European Seabass - Fillet','European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
+'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
 
   public indexImage = 0;
   public indexImage2 = 0;
@@ -80,11 +84,7 @@ export class EditAccountComponent implements OnInit {
   constructor(private auth: AuthenticationService, private rest: ProductService,
     private toast: ToastrService, public ngProgress: NgProgress, private router: Router,
     private countryService: CountriesService, private sanitizer: DomSanitizer) {
-    jQuery(document).ready(function () {
-      jQuery('.js-example-basic-single').select2();
-      jQuery('.selectpicker').selectpicker();
-
-    });
+   
 
   }
 
@@ -239,6 +239,8 @@ export class EditAccountComponent implements OnInit {
     this.buyerForm.controls['vat'].setValue(this.info.dataExtra['vat']);
     this.buyerForm.controls['productsInterestedinBuying'].setValue(this.info.dataExtra['productsInterestedinBuying']);
     this.buyerForm.controls['additionalItems'].setValue(this.info.dataExtra['additionalItems']);
+    // jQuery('#productsInterestedinBuying').selectpicker('val', ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG']);
+
 
   }
 
