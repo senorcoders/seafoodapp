@@ -161,6 +161,13 @@ export class CreateProductComponent implements OnInit {
     });
   }
 
+  deleteProduct(id) {
+    this.productService.deleteData('api/fish/' + id).subscribe(result => {      
+      this.toast.success('Product deleted successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+      this.router.navigate(['/products-list/page/1']);
+    });
+  }
+
   private disableInputs() {
     const product = (this.myform.controls.product as FormGroup).controls;
     // let features = (this.myform.controls.features as FormGroup).controls;
