@@ -151,6 +151,7 @@
                     </div>
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
                 </form>
+                <p  *ngIf="perBox == true" class="eta"> 1 Box = {{boxWeight}} kg</p>
               </div>
               <div class="col-md-5">
                 <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
