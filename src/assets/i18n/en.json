@@ -775,6 +775,7 @@
 		"sku": "SKU",
 		"date": "ETA",
 		"quantity": "Quantity",
-		"purchased": "Purchased"
+		"purchased": "Purchased",
+		"name": "Name"
 	}
 }
