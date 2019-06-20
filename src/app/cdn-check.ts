@@ -15,48 +15,48 @@ export class CDNCheck {
     async load() {
 
         //for check country
-        try {
-            let exist = this.cookie.check("country");
-            console.log(exist);
-            if (exist === false) {
-                let res_ip = await this.http.get("user/ip").toPromise() as any;
-                let response = await this.http.get(`https://ipapi.co/${res_ip.ip}/json/`).toPromise() as any;
-                console.log(response);
-                if (response === null || response === undefined || (response.country && response.country === 'AE'))
-                    this.cdn = "./";
-                else
-                    this.cdn = environment.cdnURL;
+        // try {
+        //     let exist = this.cookie.check("country");
+        //     console.log(exist);
+        //     if (exist === false) {
+        //         let res_ip = await this.http.get("user/ip").toPromise() as any;
+        //         let response = await this.http.get(`https://ipapi.co/${res_ip.ip}/json/`).toPromise() as any;
+        //         console.log(response);
+        //         if (response === null || response === undefined || (response.country && response.country === 'AE'))
+        //             this.cdn = "./";
+        //         else
+        //             this.cdn = environment.cdnURL;
 
 
-                //save in cookies country
-                if (response.country)
-                    this.cookie.set("country", response.country, 0.25);
+        //         //save in cookies country
+        //         if (response.country)
+        //             this.cookie.set("country", response.country, 0.25);
 
-            } else {
-                let country = this.cookie.get("country");
-                if (country === 'AE')
-                    this.cdn = "./";
-                else
-                    this.cdn = environment.cdnURL;
+        //     } else {
+        //         let country = this.cookie.get("country");
+        //         if (country === 'AE')
+        //             this.cdn = "./";
+        //         else
+        //             this.cdn = environment.cdnURL;
 
-            }
+        //     }
 
 
-        }
-        catch (e) {
-            console.error(e);
-        }
+        // }
+        // catch (e) {
+        //     console.error(e);
+        // }
         //change current cdn
-        environment.currentCDN = this.cdn;
+        // environment.currentCDN = this.cdn;
 
-        try {
-            await this.insertLinks();
-        }
-        catch (e) {
-            console.error(e);
-        }
+        // try {
+        //     await this.insertLinks();
+        // }
+        // catch (e) {
+        //     console.error(e);
+        // }
 
-        console.log("loaded scripts");
+        // console.log("loaded scripts");
     }
 
     async insertElement(style: boolean, link) {
