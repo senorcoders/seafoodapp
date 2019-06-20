@@ -220,7 +220,7 @@
                         </form>
 			
                         <div *ngIf="!product.cooming_soon && ( product.variation.outOfStock || ( (getFixedNumber(product.variation.max) == 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
-                        <div *ngIf="product.cooming_soon" > <h4>Comming Soon</h4></div>
+                        <div *ngIf="product.cooming_soon" > <h4>Coming Soon</h4></div>
                       </div>
                      <div class="col-md-2 text-right">
                        <a id="btn-add-{{product.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
