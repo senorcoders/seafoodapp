@@ -75,8 +75,7 @@ export class InventoryComponent implements OnInit {
   getVariationStock(){
     this.inventoryService.getVariationStock( this.sku.value ).subscribe(
       res => {
-        this.inventories = res;
-        this.getVariationStock();
+        this.inventories = res;        
       },
       error => {
         console.log( error );
