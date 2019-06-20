@@ -106,7 +106,7 @@ enableCash: FormControl;
     this.tcs = new FormControl('', [Validators.requiredTrue]);
     this.vat = new FormControl('', [Validators.required]);
     this.productsInterestedinBuying = new FormControl('', [Validators.required]);
-    this.additionalItems = new FormControl('', [Validators.required]);
+    this.additionalItems = new FormControl('', [Validators.nullValidator]);
     this.enableCash = new FormControl(false, [Validators.required]);
   }
 
