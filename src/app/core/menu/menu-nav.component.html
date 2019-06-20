@@ -144,7 +144,7 @@
               <a class="nav-link" routerLink="/cart" routerLinkActive="active-link">Cart <span class="total">${{cartItem.total}}</span> </a>
             </li> -->
            
-            <li class="nav-item sliding-nav-item">
+            <li class="nav-item sliding-nav-item hidden-mobile">
               <a  class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   <div class="headshot-logo" style="background: url('../../../assets/svg/account-circle.svg')"></div>
                   <div class="arrow-toggle"></div>
@@ -154,6 +154,12 @@
                   </div>
               </a>
               
+            </li>
+            <li class="nav-item hidden-desktop">
+              <a routerLink="/account" class="nav-link">My  profile</a>
+            </li>
+            <li class="nav-item hidden-desktop logout-link">
+              <a class="nav-link" (click)="logOut()">logout</a>
             </li>
           </ul>
           <!-- end menu bayer -->
@@ -178,7 +184,7 @@
             </li>
              <!-- login options -->
          
-            <li class="nav-item sliding-nav-item">
+            <li class="nav-item sliding-nav-item hidden-mobile">
               <a  class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   <div class="headshot-logo" style="background: url('../../../assets/svg/account-circle.svg')"></div>
                   <div class="arrow-toggle"></div>
@@ -188,6 +194,13 @@
                   </div>
               </a>
               
+            </li>
+
+            <li class="nav-item hidden-desktop">
+              <a routerLink="/account" class="nav-link">My  profile</a>
+            </li>
+            <li class="nav-item hidden-desktop logout-link">
+              <a class="nav-link"  (click)="logOut()">logout</a>
             </li>
           </ul>
           <!-- end menu admin -->
@@ -213,7 +226,7 @@
             </li>
            
             <!-- login options -->
-            <li class="nav-item sliding-nav-item">
+            <li class="nav-item sliding-nav-item hidden-mobile">
               <a  class="nav-link dropdown-toggle"  data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                   <div class="headshot-logo" routerLink="/newstore/{{storeID}}" role="button" [ngClass]="(logo == '../../../assets/svg/account-circle.svg') ? 'white-logo' : 'original-logo'" [style.background]="'url('+ logo +')'"></div>
                   <div class="arrow-toggle"></div>
@@ -223,6 +236,12 @@
                   </div> 
               </a>
               
+            </li>
+            <li class="nav-item hidden-desktop">
+              <a routerLink="/account" class="nav-link">My  profile</a>
+            </li>
+            <li class="nav-item hidden-desktop logout-link">
+              <a class="nav-link"  (click)="logOut()">logout</a>
             </li>
           </ul>
           <!-- end menu seller -->
