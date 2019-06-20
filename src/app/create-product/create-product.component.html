@@ -15,12 +15,7 @@
             
         </div>
 
-        <div *ngIf="user['role'] == 0 && !createProduct" class="col-lg-12 text-center dl-50">
-          <div class="form-group input-group">
-            <a (click)="deleteProduct(productID)"><img class="icon-action" src="../../assets/svg/trash.svg" alt="" >Delete Product</a>        
-          </div>
-            
-        </div>
+        
           
         <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" >
             <div class="row"> 
@@ -55,6 +50,12 @@
                       <div class="col-md-6 px-0">
                         <button type="submit" class="btn btn-save ml-auto">submit product</button>
                       </div>
+                      <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
+                        <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
+                          Delete
+                        </button>
+                      </div>
+                      
                   </div>
                   </div>
             </div>
