@@ -377,6 +377,9 @@ section {
 
       .brands-container {
           margin-top: 50px;
+          width: 100%;
+          display: block;
+          text-align: center;
 
           .brands-list {
               display: flex;
@@ -393,7 +396,7 @@ section {
                   }
 
                   img {
-                      max-height: 80px;
+                      max-height: initial;
                       width: 100%;
                   }
               }
@@ -402,7 +405,9 @@ section {
 
       .cert-container {
           margin-top: 50px;
-
+          width: 100%;
+          display: block;
+          text-align: center;
           .cert-list {
               display: flex;
               flex-wrap: wrap;
@@ -419,7 +424,7 @@ section {
 
                   img {
                       width: 100%;
-                      max-height: 50px;
+                      max-height: initial;
                   }
               }
           }
