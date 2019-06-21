@@ -1481,7 +1481,9 @@ button:focus {
     }
 
     .img-logo svg{
-      .st0{fill:$light_blue;}
+      .st0{
+        fill:$light_blue;
+      }
     }
 
     .plus-icon {
@@ -1513,7 +1515,12 @@ button:focus {
       max-width: 100% !important;
       width: 71px !important; 
       height: 50px !important;
-      .st0{fill:$white;}
+      .st0{
+        fill:$white;
+        @media screen and (max-width: 992px) {
+          fill: $light_blue;
+        }
+      }
 	    .st1{fill:none !important;}
       @media screen and (max-width: 992px) {
         width: 42px !important;
