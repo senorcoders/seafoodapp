@@ -145,7 +145,7 @@ export class PaymentsComponent implements OnInit {
     this.getPayments(true);
   }
   searchByOrderNumber(order) {
-    
+    console.log(order);
     if (order !== '') {
       this.searchActive = true;
       this.orderService.getItemsPayedByOrderNumber(order).subscribe(
@@ -161,6 +161,10 @@ export class PaymentsComponent implements OnInit {
           console.log(e);
         }
       );
+    }else {
+      this.getPayments(true);
+      this.searchActive = false;
+      this.showNoData = false;
     }
   }
 
@@ -169,7 +173,7 @@ export class PaymentsComponent implements OnInit {
     const statusName: string = this.selectedStatus;
     const itemID: string = this.selectedItemID;
 
-    this.orderService.updateStatus(this.selectedStatus, itemID, this.user).subscribe(
+    this.orderService.updatePaymentStatus(this.selectedStatus, itemID, this.user).subscribe(
       result => {
         this.toast.success(`Item marked as ${statusName}!`, 'Status Change', { positionClass: 'toast-top-right' });
         jQuery('#confirmUpdateStatus').modal('hide');
