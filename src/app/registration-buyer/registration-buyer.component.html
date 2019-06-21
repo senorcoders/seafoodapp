@@ -191,8 +191,8 @@
                   <div class="col-lg-6">
                     <div class="form-group input-group">
                         <span class="has-float-label">    
-                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
-                            <label for="additionalItems">Additional Items</label> 
+                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items (Optional)" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
+                            <label for="additionalItems">Additional Items (Optional)</label> 
                             <div class="invalid-feedback" *ngIf="buyerForm.get('additionalItems').hasError('required')">Additional Items {{'Register.required' | translate}}.</div>
 
                       </span>         
