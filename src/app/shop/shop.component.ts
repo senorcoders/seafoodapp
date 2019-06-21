@@ -474,8 +474,9 @@ export class ShopComponent implements OnInit {
   //GET the shipping rates
   getShippingRates(weight, id, variation, i) {
     this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}/true`).subscribe(result => {
+      console.log("Priceing", result);
       this.tmpPrice = result['price'];
-      const priceTByWeight = result['finalPrice'] / Number(parseFloat(weight));
+      const priceTByWeight = result['finalPricePerKG'] / Number(parseFloat(weight));
       const priceT: any = priceTByWeight.toFixed(2);
       const calcFinalPrice: any = Number(parseFloat(result['weight'])) * Number(parseFloat(result['variation']['price']));
       const finalPrice: any = calcFinalPrice.toFixed(2);
