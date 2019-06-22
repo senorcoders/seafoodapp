@@ -120,7 +120,7 @@ section {
 
       video {
         height: 100vh;
-        object-fit: contain;
+        object-fit: cover;
       }
     }
     @media screen and (max-width: 992px){
@@ -339,8 +339,14 @@ section {
 
 .sfs-gives {
   font-family: 'Josefin Sans', sans-serif;
-
+  @media screen and (max-width: 992px){
+    margin-bottom: 50px;
+  }
   .feat-box {
+    @media screen and (max-width: 992px){
+      padding: 0 40px;
+      
+    }
     .feat-logo {
       display: block;
       margin: 0 auto;
@@ -515,6 +521,9 @@ section {
     background-color: rgba(9, 78, 130, 0.5);
     padding: 50px 0;
     margin-top: 60px;
+    @media screen and (max-width: 992px){
+      margin-top: 20px;
+    }
 
     .item {
       padding: 5px 0;
@@ -815,6 +824,9 @@ section {
 
   section {
     margin-bottom: 150px;
+    @media screen and (max-width: 992px){
+      margin-bottom: 50px;
+    }
 
     &:last-child {
       margin-bottom: 0;
@@ -947,7 +959,7 @@ section {
     .post-details {
       padding: 25px;
       position: absolute;
-      bottom: 0;
+      bottom: -20px;
       right: 0;
       width: 250px;
       height: 240px;
@@ -1022,4 +1034,14 @@ button{
 
 .fish-small .st1{
   fill: $light_blue !important;
+}
+
+@media screen and (max-width: 992px){
+  .btn-group-vertical{
+    height: 160px !important;
+  }
+  .slick-dots li button{
+    width: 20px !important;
+    height: 20px !important;
+  }
 }

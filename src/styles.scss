@@ -7,7 +7,7 @@
 @import "~ngx-smart-modal/ngx-smart-modal";
 @import '~ngx-bar-rating/themes/br-fontawesome-o-theme';
 @import "~ng-pick-datetime/assets/style/picker.min.css";
-
+@import "~@ng-select/ng-select/themes/default.theme.css";
 @import "../src/variables.scss";
 @font-face{
   font-family: Avenir;
@@ -1481,7 +1481,9 @@ button:focus {
     }
 
     .img-logo svg{
-      .st0{fill:$light_blue;}
+      .st0{
+        fill:$light_blue;
+      }
     }
 
     .plus-icon {
@@ -1513,7 +1515,12 @@ button:focus {
       max-width: 100% !important;
       width: 71px !important; 
       height: 50px !important;
-      .st0{fill:$white;}
+      .st0{
+        fill:$white;
+        @media screen and (max-width: 992px) {
+          fill: $light_blue;
+        }
+      }
 	    .st1{fill:none !important;}
       @media screen and (max-width: 992px) {
         width: 42px !important;
@@ -1821,4 +1828,11 @@ input.form-control, textarea.form-control{
     padding: 20px 0;
   }
   
+}
+
+.ng-select .ng-select-container{
+  background: none !important;
+  border-radius: 0 !important;
+  border: 0;
+  border-bottom: solid 1px $gray !important;
 }

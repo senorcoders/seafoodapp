@@ -50,6 +50,7 @@ import { Homeve2Component } from './homeve2/homeve2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { NgwWowModule } from 'ngx-wow';
 
+
 const appRoutes: Routes = [
   {
     path: '', component: Homeve2Component,

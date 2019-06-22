@@ -191,8 +191,8 @@
                   <div class="col-lg-6">
                     <div class="form-group input-group">
                         <span class="has-float-label">    
-                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
-                            <label for="additionalItems">Additional Items</label> 
+                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items (Optional)" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
+                            <label for="additionalItems">Additional Items (Optional)</label> 
                             <div class="invalid-feedback" *ngIf="buyerForm.get('additionalItems').hasError('required')">Additional Items {{'Register.required' | translate}}.</div>
 
                       </span>         
@@ -202,7 +202,7 @@
                 <div class="col-lg-12 text-center">
                   <div class="form-check">
                       <input type="checkbox" class="form-check-input" id="enableCash" formControlName="enableCash" [ngClass]="{'is-invalid':buyerForm.get('enableCash').invalid && buyerForm.get('enableCash').touched}">
-                      <label class="form-check-label" for="enableCash">Enable cash on delivery (Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eaque, corporis. )</label>
+                      <label class="form-check-label" for="enableCash">Enable cash on delivery (Tick box to enable Cash On Delivery option for your account)</label>
                       <div class="invalid-feedback" *ngIf="buyerForm.get('enableCash').hasError('required')"> Enable Cash or not</div>
 
                     </div>

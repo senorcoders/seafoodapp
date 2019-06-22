@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-6">
-        <input type="text" class="form-control" (change)="searchByOrderNumber($event.target.value)"
+        <input type="text" class="form-control" (input)="searchByOrderNumber($event.target.value)" 
           placeholder="search by Order Number">
       </div>
       <div class="col-6">
