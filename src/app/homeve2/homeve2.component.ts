@@ -33,6 +33,8 @@ export class Homeve2Component implements OnInit, OnDestroy {
   // });
     this.wowService.init(); 
     jQuery(document).ready(function () {
+      
+      
       if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
         console.log("Es movil");
         jQuery('video source').each(function (num, val) {
@@ -40,6 +42,8 @@ export class Homeve2Component implements OnInit, OnDestroy {
         });
       }
     });
+
+    
 
   }
 
@@ -132,6 +136,7 @@ export class Homeve2Component implements OnInit, OnDestroy {
 
   }
   ngAfterViewInit() {
+
     jQuery('.customer-cards-carousel').slick({
       dots: false,
       arrows: true,
@@ -221,6 +226,7 @@ export class Homeve2Component implements OnInit, OnDestroy {
 
 loadAsyncJS(){
   console.log("Loaded");
+  
   jQuery('.blog-cards-carousel').slick({
     dots: false,
     arrows: true,
