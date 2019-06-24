@@ -32,7 +32,7 @@
                       <button (click)="setCod(false)" [class.selected-cod]="!CODPayment">Credit card</button>
                     </div>
                     <div class="d-inline-block">
-                      <button class="cod-btn" [class.selected-cod]="CODPayment" (click)="setCod(true)">Cod</button>
+                      <button class="cod-btn" [class.selected-cod]="CODPayment" (click)="setCod(true)">Cash on Delivery</button>
                     </div>
                 </div>
             </div>
@@ -159,10 +159,10 @@
                               <h4>LIMIT AVAILABLE <span>AED {{info?.cod?.available}}</span></h4>
                           </div>
                           <div class="col-lg-12 price-item" [hidden]="!CODPayment">
-                              <h4>Credit limit will be replenished with the full order amount is paid on delivery</h4>
+                              <h4>Cash on Delivery will be replenished with the full order amount is paid on delivery</h4>
                             </div>
                         <div class="col-lg-12 price-item" [hidden]="!CODPayment">
-                          <h4>Credit limit does not affect the number of orders that can be placed using Credit/Debit Card</h4>
+                          <h4>Cash on Delivery does not affect the number of orders that can be placed using Credit/Debit Card</h4>
                         </div>
                          
                         <div class="col-lg-12 price-title">
