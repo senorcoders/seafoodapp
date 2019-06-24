@@ -482,7 +482,7 @@ export class ShopComponent implements OnInit {
       const finalPrice: any = calcFinalPrice.toFixed(2);
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
-      jQuery('#product-price-' + variation).html("AED " + finalPrice);
+      // jQuery('#product-price-' + variation).html("AED " + finalPrice);
       jQuery('#cart-delivere-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
