@@ -581,7 +581,7 @@ export class SingleProductComponent implements OnInit {
         res => {
           console.log('Pricing Charges', res, this.count);
           this.charges = res;
-          this.delivered = res['finalPrice'] / this.count;
+          this.delivered = res['finalPricePerKG'] / this.count;
           this.showTaxes = true;
         },
         error => {
