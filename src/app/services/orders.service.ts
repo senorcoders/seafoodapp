@@ -138,6 +138,11 @@ export class OrderService {
   updateStatus( statusID: string, itemID: string, user: any ) {
     return this.http.put( `api/itemshopping/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
   }
+
+  updatePaymentStatus( statusID: string, itemID: string, user: any ) {
+    return this.http.put( `api/itemshopping/payment/${itemID}/${statusID}`, { userEmail: user['email'], userID: user['id'] } );
+  }
+
   updateETA( id, eta ) {
     return this.http.put( `itemshopping/${id}`, {buyerExpectedDeliveryDate: eta} )
   }
