@@ -296,6 +296,7 @@ export class SingleProductComponent implements OnInit {
       newOptions.floor = this.min;
       this.options = newOptions;
       this.count = this.kg !== 0 ? this.kg : this.min;
+      this.verifyQty();
       this.getPricingCharges();
       this.name = data['name'];
       this.description = data['description'];
@@ -581,7 +582,7 @@ export class SingleProductComponent implements OnInit {
         res => {
           console.log('Pricing Charges', res, this.count);
           this.charges = res;
-          this.delivered = res['finalPrice'] / this.count;
+          this.delivered = res['finalPricePerKG'] / this.count;
           this.showTaxes = true;
         },
         error => {

@@ -374,7 +374,7 @@ export class ShopComponent implements OnInit {
       else {
         this.showNotFound = false;
         this.products.forEach((data, index) => {
-          this.isChange[data.id] = { status: false, kg: 0 };
+          this.isChange[data.variation.id] = { status: false, kg: 0 }; 
           if (data.imagePrimary && data.imagePrimary !== '') {
             this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
           }
@@ -482,7 +482,7 @@ export class ShopComponent implements OnInit {
       const finalPrice: any = calcFinalPrice.toFixed(2);
       const label = document.getElementById('delivere-price-' + variation);
       const btn = document.getElementById('btn-add-' + variation);
-      jQuery('#product-price-' + variation).html("AED " + finalPrice);
+      // jQuery('#product-price-' + variation).html("AED " + finalPrice);
       jQuery('#cart-delivere-price-' + variation).html("AED " + finalPrice);
       if (result.hasOwnProperty('message')) {
         label.innerHTML = result['message'];
@@ -494,7 +494,7 @@ export class ShopComponent implements OnInit {
       (label as HTMLElement).style.whiteSpace = 'nowrap';
       (label as HTMLElement).style.textAlign = 'center';
       (btn as HTMLElement).style.display = 'block';
-      this.isChange[id] = { status: true, kg: weight };
+      this.isChange[variation] = { status: true, kg: weight };
     });
   }
   //Save product in current usar cart
