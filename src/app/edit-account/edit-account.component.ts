@@ -569,8 +569,8 @@ export class EditAccountComponent implements OnInit {
   public remove(i, prop, propIm, numGallery?) {
     numGallery = numGallery || 1;
     let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
-    // let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split('.com')[1];
-    let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split(':7000/')[1];
+    let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split('.com')[1];
+    // let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split(':7000/')[1];
     let cc = res => {
       console.log("Delete", res);
       if (this[prop].length === 1) {
