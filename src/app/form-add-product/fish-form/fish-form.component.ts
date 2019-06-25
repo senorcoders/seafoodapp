@@ -1,4 +1,4 @@
-import { Component, OnInit, NgZone, ViewChild, ElementRef, Input  } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, ElementRef, Input } from '@angular/core';
 import { FormGroupDirective, ControlContainer, FormGroup, FormControl, Validators } from '@angular/forms';
 import { CountriesService } from '../../services/countries.service';
 import { ProductService } from '../../services/product.service';
@@ -23,7 +23,7 @@ export class FishFormComponent implements OnInit {
   @Input() events: Observable<void>;
   private eventsSubscription: Subscription;
   sellerInfo: any;
-  
+
   @ViewChild('myInput', { static: true })
   myInputVariable: ElementRef;
   public product: FormGroup;
@@ -80,8 +80,10 @@ export class FishFormComponent implements OnInit {
   // public trimmings = [];
   private identifier = "_arr";
   public treatments = [];
-public staticmin:number = 1;
-weightType:any = 'Kg';
+  public staticmin: number = 1;
+  weightType: any = 'Kg';
+  public parentSelectedType = '';
+
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
     private route: ActivatedRoute, private sanitizer: DomSanitizer,
@@ -93,12 +95,12 @@ weightType:any = 'Kg';
     }
   }
 
- ngOnInit() {
-    this.eventsSubscription = this.events.subscribe( (sellerInfo) => {
+  ngOnInit() {
+    this.eventsSubscription = this.events.subscribe((sellerInfo) => {
       console.log('lololol', sellerInfo);
       this.sellerInfo = sellerInfo;
       this.getStore();
-    } );
+    });
     this.createFormGroup();
     this.getCountries();
     this.getCountriesWithShipping();
@@ -113,7 +115,7 @@ weightType:any = 'Kg';
     this.reaised();
     this.getParts();
     this.getTrimmingModal();
-    
+
   }
 
 
@@ -160,8 +162,8 @@ weightType:any = 'Kg';
       console.log("product", it);
       if (it.perBoxes === true) {
         this.showAverageUnit = true;
-        if(it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight){
-          this.product
+        if (it.averageUnitWeight > 0 && it.minimunorder < it.averageUnitWeight) {
+          // this.product
           it.minimunorder = it.averageUnitWeight;
           this.controls().minimunorder.setValue(it.averageUnitWeight);
         }
@@ -170,9 +172,9 @@ weightType:any = 'Kg';
         this.showAverageUnit = false;
       }
 
-      if(it.unitOfSale == 'lbs'){
+      if (it.unitOfSale == 'lbs') {
         this.weightType = "Lbs"
-      }else{
+      } else {
         this.weightType = "Kg";
       }
       if (it.imagesSend !== '' && this.images.length === 0)
@@ -186,8 +188,13 @@ weightType:any = 'Kg';
           this.hideTrimModal = true;
         }
       }
+      if (it.parentSelectedType)
+        this.parentSelectedType = it.parentSelectedType;
 
-      this.wholeFishAction = it.wholeFishAction;
+      if (it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
+        this.wholeFishAction = true;
+      } else
+        this.wholeFishAction = it.wholeFishAction;
     });
 
   }
@@ -589,14 +596,14 @@ weightType:any = 'Kg';
   }
 
   getStore() {
-    console.log( 'role', this.info['role'] );
-    if( this.info !== undefined && this.sellerInfo !== undefined && this.info['role'] == 0 )
+    console.log('role', this.info['role']);
+    if (this.info !== undefined && this.sellerInfo !== undefined && this.info['role'] == 0)
       this.info.id = this.sellerInfo.id;
 
-    if( this.info !== undefined ) {
+    if (this.info !== undefined) {
       this.productService.getData(this.storeEndpoint + this.info.id).subscribe(results => {
         this.store = results;
-        console.log( 'store', results );
+        console.log('store', results);
         this.getTrimmingByStore();
         this.getParts();
         this.getProcessingParts();
@@ -605,7 +612,7 @@ weightType:any = 'Kg';
         }
       });
     }
-    
+
   }
 
   getFishPreparation() {
@@ -622,7 +629,7 @@ weightType:any = 'Kg';
   }
 
   getProcessingParts() {
-    if( this.store[0] !== undefined ) {
+    if (this.store[0] !== undefined) {
       this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
         res => {
           this.ProcessingParts = res as any;
@@ -631,7 +638,7 @@ weightType:any = 'Kg';
           console.log(e);
         }
       );
-    }    
+    }
   }
 
   private createFormGroupFeatures() {
@@ -759,7 +766,7 @@ weightType:any = 'Kg';
   }
 
   private getTrimmingByStore() {
-    if( this.store[0] !== undefined ) {
+    if (this.store[0] !== undefined) {
       this.productService.getData('storeTrimming/store/' + this.store[0].id).subscribe(
         result => {
           this.trimmingsModal = result as any;
