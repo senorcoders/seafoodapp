@@ -75,7 +75,7 @@
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row" *ngIf="charges && charges.sfsMarginCost"><span class="name-row">Taxes, Customs, & Fees</span>
+                <div class="dashed-row"><span class="name-row">Taxes, Customs, & Fees</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges?.sfsMarginCost + charges?.exchangeRateCommission +  charges?.customs).toFixed(2)}}</span>
                 </div>
