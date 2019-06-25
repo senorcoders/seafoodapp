@@ -135,9 +135,6 @@ enableCash: FormControl;
     });
 
     this.buyerForm.controls['location'].setValue('AE');
-
-
-
   }
 
 
@@ -251,7 +248,7 @@ regiterBuyer() {
     "country": this.buyerForm.get('location').value,
     "tel": this.buyerForm.get('tel').value,
     "Address":this.buyerForm.get('Address').value,
-    "City":this.buyerForm.get('City').value,
+    "City":this.buyerForm.get('City').value, 
     "companyName": this.buyerForm.get('companyName').value,
     "typeBusiness":this.buyerForm.get('TypeBusiness').value,
     "vat": this.buyerForm.get('vat').value,
