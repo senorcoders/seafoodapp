@@ -91,14 +91,16 @@
                   <p class="order-number">Buyer Name</p>
                   <p class="order-number">Order Number</p>
                   <p class="order-number" *ngIf="item.paidDateTime != ''">Order Date</p>
-                  <p class="order-number">Buyer Address</p>
+                  <p class="order-number" *ngIf="item.shippingAddress">Shipping Address</p>
+                  <p class="order-number" *ngIf="item.billingAddress">Billing Address</p>
 
                 </div>
                 <div class="col-8">
                   <p class="order-number"><strong>{{item.buyer.firstName}} {{item.buyer.lastName}}</strong></p>
                   <p class="order-number">{{item.orderNumber}}</p>
-                  <p class="order-number" *ngIf="item.paidDateTime != ''">{{item.paidDateTime}}</p>
-                  <p class="order-number">{{item.buyer.dataExtra.Address}}</p>
+                  <p class="order-number" *ngIf="item.paidDateTime != ''">{{item.paidDateTime | date}}</p>
+                  <p class="order-number" *ngIf="item.shippingAddress">{{item?.shippingAddress?.address}}, {{item?.shippingAddress?.city}}, {{item?.shippingAddress?.country}}</p>
+                  <p class="order-number" *ngIf="item.billingAddress">{{item?.billingAddress?.address}}, {{item?.billingAddress?.city}}, {{item?.billingAddress?.country}}</p>
 
                   <a class="purchase_pdf" *ngIf="item.invoice_pdf" target="_blank"
                     href="{{API}}api/shoppingcart/PDF/{{item.invoice_pdf}}/pdf_invoices">Invoice Order PDF</a>
