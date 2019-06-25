@@ -22,6 +22,7 @@ import { ToastrService } from '../toast.service';
 import { HttpClient } from '@angular/common/http';
 import { reject } from 'q';
 import { Subject } from 'rxjs/Subject';
+import { invalid } from 'moment';
 declare var jQuery: any;
 @Component({
   selector: 'app-create-product',
@@ -162,7 +163,7 @@ export class CreateProductComponent implements OnInit {
   }
 
   deleteProduct(id) {
-    this.productService.deleteData('api/fish/' + id).subscribe(result => {      
+    this.productService.deleteData('api/fish/' + id).subscribe(result => {
       this.toast.success('Product deleted successfully!', 'Well Done', { positionClass: 'toast-top-right' });
       this.router.navigate(['/products-list/page/1']);
     });
@@ -373,6 +374,7 @@ export class CreateProductComponent implements OnInit {
     this.showError = true;
     this.loading = true;
 
+    let invalidValue = [];
     if (this.selectedSeller == undefined && this.user['role'] == 0) {
       this.toast.error('Please select a seller', 'Error', { positionClass: 'toast-top-right' });
       this.loading = false;
@@ -384,11 +386,12 @@ export class CreateProductComponent implements OnInit {
         for (const na of keys_) {
           if ((this.myform.controls[name] as any).controls[na].valid === false) {
             console.log(name + '.' + na, (this.myform.controls[name] as any).controls[na]);
+            invalidValue.push(name + '.' + na);
           }
         }
       }
 
-      if (this.myform.valid) {
+      if (this.myform.valid || invalidValue.length === 1 && invalidValue[0] === 'product.subSpeciesSelected') {
         console.log(this.myform.value);
         const value = this.myform.value,
           product = value.product,
@@ -475,9 +478,9 @@ export class CreateProductComponent implements OnInit {
             };
             variationsEnd.push(itr);
           }
-        } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
-          // para los fillete
-          const fishPreparation = '5c93c01465e25a011eefbcc4';
+        } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4' || product.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
+          // para los fillete or crustance
+          const fishPreparation = product.parentSelectedType === '5bda35c078b3140ef5d31f9a' ? '5d128316ce26cbab9c23e52e' : '5c93c01465e25a011eefbcc4';
 
           const itr = {
             fishPreparation,
@@ -622,6 +625,7 @@ export class CreateProductComponent implements OnInit {
       }
     }
   }
+
 
   private async uploadImagesAction(product, result) {
     if (product.imagesSend !== undefined && product.imagesSend !== '') {
