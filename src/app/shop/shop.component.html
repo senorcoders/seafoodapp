@@ -228,13 +228,19 @@
                    </div>
                   </div>
                   <div class="product-body">
-                    <a *ngIf="!isChange[product.id].status" routerLink="/product/{{product.id}}/{{product.variation.min}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
+                    <a [hidden]='product.perBox===true' *ngIf="!isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{product.variation.min}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
                       <div class="product-single-img" [style.background-image]="image[i]">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      
                      </div>
                     </a>
-                    <a *ngIf="isChange[product.id].status" routerLink="/product/{{product.id}}/{{isChange[product.id].kg}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
+                    <a [hidden]='product.perBox===false' *ngIf="!isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{product.minBox}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="image[i]">
+                        <div class="product-overlay"></div>
+                        <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                     </div>
+                    </a>
+                    <a *ngIf="isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{isChange[product.variation.id].kg}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
                       <div class="product-single-img" [style.background-image]="image[i]">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      

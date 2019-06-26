@@ -66,6 +66,7 @@ export class AdminLogisticManagmentComponent implements OnInit {
       this.page = 1;
     this.productService.getData(`api/v2/shoppingcart/orderlogistic?page=${this.page}&limit=${this.limit}&type=${this.type}`).subscribe(data => {
       this.calcPagination(data["pageAvailables"]);
+      console.log("Ordenes", data);
       this.rows = (data["data"] as any[]).map(it => {
         if (typeof it.paidDateTime === 'string' && it.paidDateTime !== "")
           it.paidDateTime = new Date(it.paidDateTime);
