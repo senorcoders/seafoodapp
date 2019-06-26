@@ -24,14 +24,15 @@
                       <h1 class="gray-title" ><span>SHIPPING DETAILS</span></h1>
                     </div>
               </div>
-            <form ngNativeValidate (ngSubmit)="goToNextPage()">
+            <form  (ngSubmit)="validateForm()" [formGroup]="addressForm">
               <div class="row">
                   
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="First Name...*" class="form-control" id="first" name="first_name" required >
+                              <input type="text" placeholder="First Name...*" class="form-control" id="first"  formControlName="sFirstName" [ngClass]="{'is-invalid':addressForm.get('sFirstName').invalid && addressForm.get('sFirstName').touched}" >
                               <label for="first">First Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sFirstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
                           </span>
                           
                         </div>
@@ -39,8 +40,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Last Name...*" class="form-control" id="last" name="last_name" required >
+                              <input type="text" placeholder="Last Name...*" class="form-control" id="last"  formControlName="sLastName" [ngClass]="{'is-invalid':addressForm.get('sLastName').invalid && addressForm.get('sLastName').touched}" >
                               <label for="last">Last Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sLastName').hasError('required')">Last Name {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -48,8 +51,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Company Name...*" class="form-control" id="company" name="company" required >
+                              <input type="text" placeholder="Company Name...*" class="form-control" id="company" formControlName="sCompany" [ngClass]="{'is-invalid':addressForm.get('sCompany').invalid && addressForm.get('sCompany').touched}"  >
                               <label for="company">Company Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sCompany').hasError('required')">Company {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -57,8 +62,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Street Address...*" class="form-control" id="street" name="street" required >
+                              <input type="text" placeholder="Street Address...*" class="form-control" id="street"   formControlName="sAddress" [ngClass]="{'is-invalid':addressForm.get('sAddress').invalid && addressForm.get('sAddress').touched}" >
                               <label for="street">Street Address...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sAddress').hasError('required')">Address {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -66,8 +73,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Town/City...*" class="form-control" id="city" name="city" required >
-                              <label for="city">Town/City...*</label>
+                              <input type="text" placeholder="Emirate...*" class="form-control" id="city"  formControlName="sCity" [ngClass]="{'is-invalid':addressForm.get('sCity').invalid && addressForm.get('sCity').touched}" >
+                              <label for="city">Emirate...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sCity').hasError('required')">City {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -76,8 +85,12 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Country...*" class="form-control" id="ct" name="ct" required >
+                              <select id="ct" disabled  class="form-control"  formControlName="sCountry" [ngClass]="{'is-invalid':addressForm.get('sCountry').invalid && addressForm.get('sCountry').touched}">
+                                   <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+                                </select>
                               <label for="ct">Country...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sCountry').hasError('required')">Country {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -95,16 +108,18 @@
                    
               </div>
 
+             
+
               <div class="row" *ngIf="!checked">
                   <div class="col-lg-12 text-center">
                       <h1 class="gray-title" ><span>BILLING ADDRESS</span></h1>
-                    </div>
-                  
+                    </div> 
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="First Name...*" class="form-control" id="first2" name="first_name" required >
+                              <input type="text" placeholder="First Name...*" class="form-control" id="first2"  formControlName="bFirstName" [ngClass]="{'is-invalid':addressForm.get('bFirstName').invalid && addressForm.get('bFirstName').touched}" >
                               <label for="first2">First Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('bFirstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
                           </span>
                           
                         </div>
@@ -112,8 +127,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Last Name...*" class="form-control" id="last2" name="last_name" required >
+                              <input type="text" placeholder="Last Name...*" class="form-control" id="last2"  formControlName="bLastName" [ngClass]="{'is-invalid':addressForm.get('bLastName').invalid && addressForm.get('bLastName').touched}" >
                               <label for="last2">Last Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('bLastName').hasError('required')">Last Name {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -121,8 +138,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Company Name...*" class="form-control" id="company2" name="company" required >
+                              <input type="text" placeholder="Company Name...*" class="form-control" id="company2" formControlName="bCompany" [ngClass]="{'is-invalid':addressForm.get('bCompany').invalid && addressForm.get('bCompany').touched}"  >
                               <label for="company2">Company Name...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('bCompany').hasError('required')">Company {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -130,8 +149,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Street Address...*" class="form-control" id="street2" name="street" required >
+                              <input type="text" placeholder="Street Address...*" class="form-control" id="street2"   formControlName="bAddress" [ngClass]="{'is-invalid':addressForm.get('bAddress').invalid && addressForm.get('bAddress').touched}" >
                               <label for="street2">Street Address...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('bAddress').hasError('required')">Address {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
@@ -139,18 +160,24 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Town/City...*" class="form-control" id="city2" name="city" required >
-                              <label for="city2">Town/City...*</label>
+                              <input type="text" placeholder="Emirate...*" class="form-control" id="city2"  formControlName="bCity" [ngClass]="{'is-invalid':addressForm.get('bCity').invalid && addressForm.get('bCity').touched}" >
+                              <label for="city2">Emirate...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('bCity').hasError('required')">City {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
                   </div>
-                
+               
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Country...*" class="form-control" id="ct2" name="ct" required >
+                              <select id="ct2" disabled  class="form-control"  formControlName="bCountry" [ngClass]="{'is-invalid':addressForm.get('bCountry').invalid && addressForm.get('bCountry').touched}">
+                                   <option *ngFor="let country of countries" value="{{country.code}}">{{country.name}}</option>
+                                </select>
                               <label for="ct2">Country...*</label>
+                              <div class="invalid-feedback" *ngIf="addressForm.get('sCountry').hasError('required')">Country {{'Register.required' | translate}}.</div>
+
                           </span>
                           
                         </div>
