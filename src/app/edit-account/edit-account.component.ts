@@ -268,20 +268,22 @@ export class EditAccountComponent implements OnInit {
   updateBuyer() {
     if (this.buyerForm.valid) {
       console.log("Valido");
-      this.info.firstName = this.buyerForm.get('firstName').value;
-      this.info.lastName = this.buyerForm.get('lastName').value;
-      this.info.email = this.buyerForm.get('email').value;
-      this.info.dataExtra['country'] = this.buyerForm.get('country').value;
-      this.info.dataExtra['Address'] = this.buyerForm.get('address').value;
-      this.info.dataExtra['City'] = this.buyerForm.get('city').value;
-      this.info.dataExtra['tel'] = this.buyerForm.get('telephone').value;
-      this.info.dataExtra['companyName'] = this.buyerForm.get('companyName').value;
-      this.info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
-      this.info.dataExtra['vat'] = this.buyerForm.get('vat').value;
-      this.info.dataExtra['productsInterestedinBuying'] = this.buyerForm.get('productsInterestedinBuying').value;
-      this.info.dataExtra['additionalItems'] = this.buyerForm.get('additionalItems').value;
-      console.log(this.info);
-      this.updateAccount(this.info);
+      let info:any = {};
+      info.firstName = this.buyerForm.get('firstName').value;
+      info.lastName = this.buyerForm.get('lastName').value;
+      info.email = this.buyerForm.get('email').value;
+      info.dataExtra = {};
+      info.dataExtra['country'] = this.buyerForm.get('country').value;
+      info.dataExtra['Address'] = this.buyerForm.get('address').value;
+      info.dataExtra['City'] = this.buyerForm.get('city').value;
+      info.dataExtra['tel'] = this.buyerForm.get('telephone').value;
+      info.dataExtra['companyName'] = this.buyerForm.get('companyName').value;
+      info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
+      info.dataExtra['vat'] = this.buyerForm.get('vat').value;
+      info.dataExtra['productsInterestedinBuying'] = this.buyerForm.get('productsInterestedinBuying').value;
+      info.dataExtra['additionalItems'] = this.buyerForm.get('additionalItems').value;
+      console.log(info);
+      this.updateAccount(info);
     } else {
       this.validateAllFormFields(this.buyerForm);
       this.scrollToError();
@@ -305,7 +307,8 @@ export class EditAccountComponent implements OnInit {
 
 
   }
-  updateSeller() {
+
+  async updateSeller() {
 
     console.log("Logos", this.brandsFiles);
     console.log("Certificados", this.certsFiles);
@@ -315,6 +318,7 @@ export class EditAccountComponent implements OnInit {
       info.firstName = this.sellerForm.get('firstName').value;
       info.lastName = this.sellerForm.get('lastName').value;
       info.email = this.sellerForm.get('email').value;
+      info.dataExtra = {};
       info.dataExtra['country'] = this.sellerForm.get('country').value;
       info.dataExtra['Address'] = this.sellerForm.get('address').value;
       info.dataExtra['City'] = this.sellerForm.get('city').value;
@@ -448,7 +452,7 @@ export class EditAccountComponent implements OnInit {
     }
     this.rest.updateData('store/' + this.store[0].id, storeFullData).subscribe(
       async result => {
-
+        console.log(this.fileToUpload);
         if (this.fileHero.length > 0 || this.fileToUpload.length > 0 || this.brandsFiles.length > 0 || this.certsFiles.length > 0) {
           (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
           (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
@@ -457,13 +461,13 @@ export class EditAccountComponent implements OnInit {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          // this.router.navigate(['/recent-purchases']);
+          this.router.navigate(['/recent-purchases']);
 
         } else {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          // this.router.navigate(['/recent-purchases']);
+          this.router.navigate(['/recent-purchases']);
 
         }
 
@@ -499,7 +503,7 @@ export class EditAccountComponent implements OnInit {
   }
 
   async uploadFile(id, endpoint, file, from) {
-
+    console.log(endpoint);
     await new Promise((resolve, reject) => {
       this.rest.uploadFile(endpoint + id, from, file).subscribe(result => {
         console.log("File", result);
@@ -656,6 +660,7 @@ export class EditAccountComponent implements OnInit {
       this.logo = { id: new Date().getTime(), src: myReader.result };
     }
     myReader.readAsDataURL(file);
+    console.log(this.fileToUpload)
   }
 
   handleFileHero(files: FileList) {
