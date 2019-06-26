@@ -43,6 +43,8 @@ export class SingleStoreComponent implements OnInit {
   productImage: any = [];
   brands: any = [];
   certs: any = [];
+  errorLoadingLogo = false; 
+
   constructor(private route: ActivatedRoute,
     public productService: ProductService,
     private auth: AuthenticationService,
@@ -54,6 +56,10 @@ export class SingleStoreComponent implements OnInit {
     this.getPersonalData();
     this.getReview();
     this.getLogos();
+  }
+
+  public errorLoadLogo(e){
+    e.target.src = 'https://via.placeholder.com/150';
   }
 
   getLogos(){

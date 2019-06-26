@@ -56,7 +56,7 @@ export class AvancedPricingComponent implements OnInit {
     kg78_off: '7-8 KG',
     kg8m_off: '8+ KG',
   };
-  weightType:any = 'KG';
+  weightType: any = 'KG';
 
   public wholesFish: any[] = [];
   public keySelect = '';
@@ -86,6 +86,7 @@ export class AvancedPricingComponent implements OnInit {
   private firsTest = true;
   public weightsFilleted = [];
   public nameFilleted = "weightsFillete_arr";
+  public parentSelectedType = '';
 
   @Output() messageEvent = new EventEmitter<string>();
   @Input() events: Observable<void>;
@@ -103,7 +104,7 @@ export class AvancedPricingComponent implements OnInit {
 
 
 
- ngOnInit() {
+  ngOnInit() {
     this.eventsSubscription = this.events.subscribe(this.agregarVariations.bind(this))
     this.createFormGroup();
     this.productService.getData("wholefishweight").subscribe(its => {
@@ -224,6 +225,7 @@ export class AvancedPricingComponent implements OnInit {
 
     //Para conocer el maximo y minimo del product
     this.parentForm.form.controls.product.valueChanges.subscribe(it => {
+
       console.log("IT", it);
       //Para elegir los slides que se muestran si es salmon o no
       if (it.speciesSelected) {
@@ -236,10 +238,17 @@ export class AvancedPricingComponent implements OnInit {
         }
       }
 
-      if(it.unitOfSale == 'lbs'){
+      if (it.unitOfSale == 'lbs') {
         this.weightType = "LBS"
-      }else{
+      } else {
         this.weightType = "KG";
+      }
+
+      if (it.parentSelectedType) {
+        this.parentSelectedType = it.parentSelectedType;
+        this.hideTrimesSlides = true;
+        this.wholeFishAction = true;
+        console.log("parentSelectedType", it.parentSelectedType);
       }
 
       //Para asinar el maximo y minimo de slides
@@ -341,7 +350,7 @@ export class AvancedPricingComponent implements OnInit {
       } else {
         this.hideTrimesSlides = true;
       }
-      if (this.wholeFishAction === false && this.priceEnableChange === true && this.speciesSelected !== '5bda361c78b3140ef5d31fa4') {
+      if (this.wholeFishAction === false && this.priceEnableChange === true && this.speciesSelected !== '5bda361c78b3140ef5d31fa4' || it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
         this.priceEnableChange = false;
         this.proccessWeightsFilleted();
         console.log("agregue filleted");
@@ -420,24 +429,24 @@ export class AvancedPricingComponent implements OnInit {
       let it = this.wholesFish.find(it => {
         return it.id === id;
       });
-      if (it !== undefined && it !== null){
-        if(this.weightType == 'LBS'){
-          if((it.name).includes('-')){
-            let tmpName =  it.name.split('-');
+      if (it !== undefined && it !== null) {
+        if (this.weightType == 'LBS') {
+          if ((it.name).includes('-')) {
+            let tmpName = it.name.split('-');
             tmpName[1] = tmpName[1].replace(" KG", "");
             tmpName[0] = parseInt(tmpName[0]) * 2.205;
             tmpName[1] = parseInt(tmpName[1]) * 2.205;
             return tmpName[0] + '-' + tmpName[1] + ' LBS';
-          }else if((it.name).includes('+')){
-            let tmpName =  it.name.split('+');
+          } else if ((it.name).includes('+')) {
+            let tmpName = it.name.split('+');
             tmpName[0] = parseInt(tmpName[0]) * 2.205;
-            return tmpName[0]  + ' LBS';
+            return tmpName[0] + ' LBS';
           }
-       
-        }else{
+
+        } else {
           return it.name;
         }
-        
+
       } else return "";
 
     }

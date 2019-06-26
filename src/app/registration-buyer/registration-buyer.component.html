@@ -135,8 +135,8 @@
                       <div class="col-lg-6">
                           <div class="form-group input-group">
                               <span class="has-float-label">    
-                                  <input id="address" type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':buyerForm.get('Address').invalid && buyerForm.get('Address').touched}">
-                                  <label for="address">{{'Register.Address' | translate}}</label> 
+                                  <input id="address" type="text" class="form-control" placeholder="Billing Address" formControlName="Address"  [ngClass]="{'is-invalid':buyerForm.get('Address').invalid && buyerForm.get('Address').touched}">
+                                  <label for="address">Billing Address</label> 
                                   <div class="invalid-feedback" *ngIf="buyerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
                             </span>         
                           </div>

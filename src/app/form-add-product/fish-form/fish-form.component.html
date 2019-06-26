@@ -131,9 +131,9 @@
 
         <div class="col-lg-6 fish-group">
           <label> <span class="selectionable" [ngClass]="wholeFishAction===true?'select':''"
-              (click)="assingWholeFish(true)">WHOLE FISH</span> | <span (click)="assingWholeFish(false)"
+              (click)="assingWholeFish(true)">WHOLE</span> {{parentSelectedType==='5bda35c078b3140ef5d31f9a'?'':'|'}} <span [hidden]="parentSelectedType==='5bda35c078b3140ef5d31f9a'" (click)="assingWholeFish(false)"
               class="selectionable" [ngClass]="wholeFishAction===true?'':'select'">FILLETED FISH</span> <img
-              tooltip="The preparation of the fish"
+              tooltip="The preparation of the fish" [hidden]="parentSelectedType==='5bda35c078b3140ef5d31f9a'"
               placement="right" show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22"></label>
         </div>
         <div class="col-lg-6 head-fish">
