@@ -137,7 +137,7 @@
 										<th scope="col">seller</th>
 										<th scope="col">status</th>
 										<th scope="col">qty</th>
-										<th scope="col">total (aed)</th>
+										<th scope="col" >total (aed)</th>
 									</tr>
 								</thead>
 								<tbody *ngFor="let item of orders | filternumber : searchText ;let i=index ">
@@ -147,7 +147,7 @@
 										<td *ngIf="item.store">{{item.store.name}}</td>
 										<td *ngIf="item.status">{{item.status.status}}</td>
 										<td >{{item.quantity.value}} kg </td>
-										<td>{{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED '}}</td>
+										<td *ngIf="item.total">{{(item?.total).toFixed(2)}}</td>
 									</tr>
 								</tbody>
 							</table>

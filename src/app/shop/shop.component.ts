@@ -911,7 +911,7 @@ export class ShopComponent implements OnInit {
     };
     this.productService.saveData("shoppingcart", cart).subscribe(result => {
       this.cService.setCart(result);
-      console.log(' calcular totales', result);
+      console.log(' calcular totales', result); 
     }, e => { console.log(e); });
   }
   // GET PARENTS CATEROGIES

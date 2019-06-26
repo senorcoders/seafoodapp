@@ -51,6 +51,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 import { NgwWowModule } from 'ngx-wow';
 
 
+
 const appRoutes: Routes = [
   {
     path: '', component: Homeve2Component,
@@ -480,7 +481,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgwWowModule
-  ],
+    ],
   exports: [
     SharedModule,
     TranslateModule
