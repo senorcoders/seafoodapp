@@ -194,7 +194,7 @@ export class CreateProductComponent implements OnInit {
     this.loading = true;
     const parent = await this.getParent();
     console.log('parent', parent, this.productID);
-    this.productService.getProductDetailVariations(this.productID)
+    this.productService.getProductDetailVariationsForEdit(this.productID)
       .subscribe(async data => {
         try {
           this.product = JSON.parse(JSON.stringify(data));
