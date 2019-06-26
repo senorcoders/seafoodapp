@@ -9,6 +9,9 @@ import { ProductService } from '../services/product.service';
 import { OrdersService } from '../core/orders/orders.service';
 import { TranslateService } from '@ngx-translate/core';
 import { environment } from '../../environments/environment';
+import { HttpClient } from '@angular/common/http';
+
+declare var jQuery;
 
 @Component({
   selector: 'app-login',
@@ -30,15 +33,18 @@ export class LoginComponent implements OnInit {
   onResize(event) {
     this.setHeight(event.target.innerHeight);
   }
+  public userNo: any;
   constructor(private auth: AuthenticationService, private router: Router,
     private isLoginService: IsLoginService, private cart: CartService,
     private product: ProductService, private orders: OrdersService,
-    private translate: TranslateService, private zone:NgZone) {
+    private translate: TranslateService, private zone: NgZone,
+    private http: HttpClient
+  ) {
     console.log(this.translate.currentLang, this.translate)
     this.redirectHome();
   }
 
- ngOnInit() {
+  ngOnInit() {
     this.createFormControls();
     this.createForm();
     this.setHeight(window.innerHeight);
@@ -61,11 +67,11 @@ export class LoginComponent implements OnInit {
   }
   redirectHome() {
     if (this.auth.isLogged()) {
-      if(this.role == 1){
+      if (this.role == 1) {
         this.zone.run(() => this.router.navigate(["/my-products"]));
-      }else if(this.role == 2){
+      } else if (this.role == 2) {
         this.zone.run(() => this.router.navigate(["/shop"]));
-      }else{
+      } else {
         this.router.navigate(["/"]);
       }
       this.isValid = false;
@@ -100,6 +106,12 @@ export class LoginComponent implements OnInit {
     this.loginText = 'Loading...';
     this.auth.login(this.loginForm.value).subscribe(
       data => {
+        if (data['msg'] && data['msg'] === 'no verified') {
+          this.isValid = false;
+          this.loginText = 'Login';
+          this.userNo = data['user'];
+          return jQuery('#confirm').modal('show')
+        }
         console.log("Login Res", data);
         this.auth.setLoginData(data);
         this.role = data['role'];
@@ -144,5 +156,13 @@ export class LoginComponent implements OnInit {
     this.wrongData = true;
   }
 
+  public hideModal() {
+    jQuery('#confirm').modal('hide');
+  }
 
+  public async confirm(res) {
+    if (res === true)
+      this.http.get('user/resendemail/' + this.userNo.id).toPromise();
+    this.hideModal();
+  }
 }
