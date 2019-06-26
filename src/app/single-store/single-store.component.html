@@ -5,8 +5,8 @@
       <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
       <div class="hero-text">
         <div class="seller-logo">
-            <img [src]="logo" [hidden]='errorLoadingLogo' (error)='errorLoadLogo($event)' class="logo" alt="">
-          </div>
+          <img [src]="logo" [hidden]='errorLoadingLogo' (error)='errorLoadLogo($event)' class="logo" alt="">
+        </div>
         <h1 class="seller-name text-uppercase">{{store.name}}</h1>
         <p class="seller-description">
           {{store.description}}

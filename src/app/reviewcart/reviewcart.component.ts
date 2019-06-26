@@ -117,13 +117,13 @@ export class ReviewcartComponent implements OnInit {
   setValues(){
     this.addressForm.controls['sFirstName'].setValue(this.info.firstName);
     this.addressForm.controls['sLastName'].setValue(this.info.lastName);
-    this.addressForm.controls['sCompany'].setValue(this.info.companyName);
+    this.addressForm.controls['sCompany'].setValue(this.info.dataExtra['companyName']);
     this.addressForm.controls['sAddress'].setValue(this.info.dataExtra['Address']);
     this.addressForm.controls['sCity'].setValue(this.info.dataExtra['City']);
     this.addressForm.controls['sCountry'].setValue(this.info.dataExtra['country']); 
     this.addressForm.controls['bFirstName'].setValue(this.info.firstName);
     this.addressForm.controls['bLastName'].setValue(this.info.lastName);
-    this.addressForm.controls['bCompany'].setValue(this.info.companyName);
+    this.addressForm.controls['bCompany'].setValue(this.info.dataExtra['companyName']);
     this.addressForm.controls['bAddress'].setValue(this.info.dataExtra['Address']);
     this.addressForm.controls['bCity'].setValue(this.info.dataExtra['City']);
     this.addressForm.controls['bCountry'].setValue(this.info.dataExtra['country']);
