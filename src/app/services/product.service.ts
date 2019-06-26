@@ -111,6 +111,10 @@ export class ProductService {
   }
 
   getProductDetailVariations(id) {
+    return this.http.get(`api/fish/${id}/variations/`);
+  }
+
+  getProductDetailVariationsForEdit(id) {
     return this.http.get(`api/fish/${id}/variations/edit`);
   }
 
