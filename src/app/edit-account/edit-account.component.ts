@@ -71,10 +71,10 @@ export class EditAccountComponent implements OnInit {
   currentBrandLogos: any = [];
   certsFiles: any = [];
   currentCertifications: any = [];
-  productsI:any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
-'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
-'European Seabass - Fillet','European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
-'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
+  productsI: any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
+    'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
+    'European Seabass - Fillet', 'European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
+    'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
 
   public indexImage = 0;
   public indexImage2 = 0;
@@ -84,7 +84,7 @@ export class EditAccountComponent implements OnInit {
   constructor(private auth: AuthenticationService, private rest: ProductService,
     private toast: ToastrService, public ngProgress: NgProgress, private router: Router,
     private countryService: CountriesService, private sanitizer: DomSanitizer) {
-   
+
 
   }
 
@@ -311,26 +311,27 @@ export class EditAccountComponent implements OnInit {
     console.log("Certificados", this.certsFiles);
     if (this.sellerForm.valid) {
       console.log("Valido");
-      this.info.firstName = this.sellerForm.get('firstName').value;
-      this.info.lastName = this.sellerForm.get('lastName').value;
-      this.info.email = this.sellerForm.get('email').value;
-      this.info.dataExtra['country'] = this.sellerForm.get('country').value;
-      this.info.dataExtra['Address'] = this.sellerForm.get('address').value;
-      this.info.dataExtra['City'] = this.sellerForm.get('city').value;
-      this.info.dataExtra['tel'] = this.sellerForm.get('telephone').value;
-      this.info.dataExtra['companyName'] = this.sellerForm.get('companyName').value;
-      this.info.dataExtra['companyType'] = this.sellerForm.get('companyType').value;
-      this.info.dataExtra['licenseNumber'] = this.sellerForm.get('licenseNumber').value;
-      this.info.dataExtra['swiftCode'] = this.sellerForm.get('swiftCode').value;
-      this.info.dataExtra['iso'] = this.sellerForm.get('iso').value;
-      this.info.dataExtra['iban'] = this.sellerForm.get('iban').value;
-      this.info.dataExtra['productsIntered'] = this.sellerForm.get('productsIntered').value;
-      this.info.dataExtra['contactNumber'] = this.sellerForm.get('contactNumber').value;
-      this.info.dataExtra['currencyTrade'] = this.sellerForm.get('currencyTrade').value;
-      this.info.dataExtra['trade'] = this.sellerForm.get('trade').value;
+      let info:any = {};
+      info.firstName = this.sellerForm.get('firstName').value;
+      info.lastName = this.sellerForm.get('lastName').value;
+      info.email = this.sellerForm.get('email').value;
+      info.dataExtra['country'] = this.sellerForm.get('country').value;
+      info.dataExtra['Address'] = this.sellerForm.get('address').value;
+      info.dataExtra['City'] = this.sellerForm.get('city').value;
+      info.dataExtra['tel'] = this.sellerForm.get('telephone').value;
+      info.dataExtra['companyName'] = this.sellerForm.get('companyName').value;
+      info.dataExtra['companyType'] = this.sellerForm.get('companyType').value;
+      info.dataExtra['licenseNumber'] = this.sellerForm.get('licenseNumber').value;
+      info.dataExtra['swiftCode'] = this.sellerForm.get('swiftCode').value;
+      info.dataExtra['iso'] = this.sellerForm.get('iso').value;
+      info.dataExtra['iban'] = this.sellerForm.get('iban').value;
+      info.dataExtra['productsIntered'] = this.sellerForm.get('productsIntered').value;
+      info.dataExtra['contactNumber'] = this.sellerForm.get('contactNumber').value;
+      info.dataExtra['currencyTrade'] = this.sellerForm.get('currencyTrade').value;
+      info.dataExtra['trade'] = this.sellerForm.get('trade').value;
       this.loading = true;
       this.ngProgress.start();
-      this.updateAccount(this.info);
+      this.updateAccount(info);
     } else {
       this.validateAllFormFields(this.sellerForm);
       this.scrollToError();
@@ -456,13 +457,13 @@ export class EditAccountComponent implements OnInit {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          this.router.navigate(['/recent-purchases']);
+          // this.router.navigate(['/recent-purchases']);
 
         } else {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          this.router.navigate(['/recent-purchases']);
+          // this.router.navigate(['/recent-purchases']);
 
         }
 
@@ -584,7 +585,7 @@ export class EditAccountComponent implements OnInit {
       let ii = this[propIm].findIndex(it => {
         return it.id === this[prop][i].id;
       });
-      if(ii === -1) return cc({});
+      if (ii === -1) return cc({});
       if (this[propIm].length === 1) {
         this[propIm] = [];
       } else {
@@ -668,9 +669,10 @@ export class EditAccountComponent implements OnInit {
   }
 
   public byPassImageUrl(image) {
+    if (image == undefined || image == null) return '';
     if (typeof image === 'object')
       return this.sanitizer.bypassSecurityTrustUrl(image.src);
-    return this.sanitizer.bypassSecurityTrustUrl(image.includes('http') === true ? image : this.base+ image);
+    return this.sanitizer.bypassSecurityTrustUrl(image.includes('http') === true ? image : this.base + image);
   }
 
 }
