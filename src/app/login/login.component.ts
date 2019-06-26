@@ -109,7 +109,7 @@ export class LoginComponent implements OnInit {
         if (data['msg'] && data['msg'] === 'no verified') {
           this.isValid = false;
           this.loginText = 'Login';
-          this.userNo = data['user'];
+          this.userNo = this.loginForm.value.email.toLowerCase();
           return jQuery('#confirm').modal('show')
         }
         console.log("Login Res", data);
@@ -162,7 +162,7 @@ export class LoginComponent implements OnInit {
 
   public async confirm(res) {
     if (res === true)
-      this.http.get('user/resendemail/' + this.userNo.id).toPromise();
+      this.http.put('user/resendemail', { email: this.userNo }).toPromise();
     this.hideModal();
   }
 }
