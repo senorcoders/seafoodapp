@@ -155,13 +155,13 @@ export class ConfirmationComponent implements OnInit {
         // checking if is a cod function
         if ( this.responseCode === undefined && !cart['isCod'] ) {
           this.toast.error( 'We are not able to process your order, You will be redirected and please fill your billing information again!', 
-            params.response_message,
+            '',
             { positionClass: 'toast-top-right' }
           );
 
           //this.saveinApi();
           setTimeout(() => {
-            this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: this.params.shoppingCart, creditIssue: true}});  
+            this.router.navigate(['/checkout'],  {queryParams: {shoppingCartId: cart['id'], creditIssue: true}});  
           }, 5000)
         }
 
