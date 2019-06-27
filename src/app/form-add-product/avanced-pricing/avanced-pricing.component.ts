@@ -88,6 +88,8 @@ export class AvancedPricingComponent implements OnInit {
   public nameFilleted = "weightsFillete_arr";
   public parentSelectedType = '';
 
+  private waitChange3Seconds = null;
+
   @Output() messageEvent = new EventEmitter<string>();
   @Input() events: Observable<void>;
   private eventsSubscription: Subscription;
@@ -132,12 +134,13 @@ export class AvancedPricingComponent implements OnInit {
     this.priceEnableChange = false;
     try {
 
-      if (it.isTrimms == false && it.wholeFishAction === false) {
+      if (it.isTrimms == false && it.wholeFishAction === false || it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
         this.weightsFilleted = it.weightsFilleted.sort((a, b) => {
           return a.min - b.min;
         });
         (this.parentForm.form.controls.price as FormGroup)
           .setControl(this.nameFilleted, new FormGroup(this.controlsArray(this.weightsFilleted)));
+        console.log('weightsFilleted', JSON.parse(JSON.stringify(this.weightsFilleted)));
       } else if (it.isTrimms === true) {
         this.trimWeights = it.weightsTrim;
         console.log(this.trimWeights);
@@ -201,8 +204,23 @@ export class AvancedPricingComponent implements OnInit {
         this.setValue({ weights: this.weights });
         console.log("val", this.getValue());
       }
+
+      let min = Number(it.minimunorder);
+      let max = Number(it.maximumorder);
+      if (min > 0 && max > 0) {
+        this.options.floor = min;
+        this.options.ceil = max;
+        const newOptions: Options = Object.assign({}, this.options);
+        newOptions.floor = min;
+        newOptions.ceil = max;
+        this.options = newOptions;
+        this.exampleValues = {
+          min: newOptions.floor,
+          max: newOptions.ceil
+        };
+      }
       this.priceEnableChange = true;
-      this.setOptionsInAll();
+      this.setOptionsInAll(true);
     }
     catch (e) {
       console.error(e);
@@ -252,27 +270,37 @@ export class AvancedPricingComponent implements OnInit {
       }
 
       //Para asinar el maximo y minimo de slides
-      try {
-        let min = Number(it.minimunorder);
-        let max = Number(it.maximumorder);
-        if (min > 0 && max > 0) {
-          this.options.floor = min;
-          this.options.ceil = max;
-          const newOptions: Options = Object.assign({}, this.options);
-          newOptions.floor = min;
-          newOptions.ceil = max;
-          this.options = newOptions;
-          this.exampleValues = {
-            min: newOptions.floor,
-            max: newOptions.ceil
-          };
-          this.setOptionsInAll();
-          this.refreshSlider();
+      //si es diferente de null hay una funntion activa que tenemos que detenerla
+      if (this.waitChange3Seconds !== null) {
+        clearTimeout(this.waitChange3Seconds);
+        this.waitChange3Seconds = null;
+      }
+      this.waitChange3Seconds = setTimeout(it => {
+        try {
+          console.log(it);
+          let min = Number(it.minimunorder);
+          let max = Number(it.maximumorder);
+          if (min > 0 && max > 0) {
+            this.options.floor = min;
+            this.options.ceil = max;
+            const newOptions: Options = Object.assign({}, this.options);
+            newOptions.floor = min;
+            newOptions.ceil = max;
+            this.options = newOptions;
+            this.exampleValues = {
+              min: newOptions.floor,
+              max: newOptions.ceil
+            };
+            this.setOptionsInAll();
+            this.refreshSlider();
+          }
         }
-      }
-      catch (e) {
-        console.error(e);
-      }
+        catch (e) {
+          console.error(e);
+        }
+        this.waitChange3Seconds = null;
+      }, 3000, it);
+
     });
 
 
@@ -357,6 +385,9 @@ export class AvancedPricingComponent implements OnInit {
         setTimeout(() => {
           this.priceEnableChange = true;
         }, 500);
+        if (it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
+          this.wholeFishAction = true;
+        }
       }
     });
   }
@@ -375,20 +406,20 @@ export class AvancedPricingComponent implements OnInit {
     );
   }
 
-  private setOptionsInAll() {
+  private setOptionsInAll(ignore?: boolean) {
     let itereOptions = function (it) {
       if (Object.prototype.toString.call(it) === '[object Object]') {
-        if (it.min < this.options.floor) {
+        if (ignore === true && it.min < this.options.floor) {
           it.min = this.options.floor;
           if (it.max < it.min) {
             it.max = it.min + 1;
           }
         }
         let op = Object.assign({}, this.options);
-        // console.log(op);
+        console.log(op);
         it.options = op;
       }
-      // console.log(it);
+      console.log(it);
       return it;
     };
 
@@ -1157,7 +1188,7 @@ export class AvancedPricingComponent implements OnInit {
       }, 500);
     }
     this.manualRefresh.emit();
-    this.zone.run(function () { /*console.log("emit");*/ });
+    this.zone.run(function () { console.log("emit"); });
   }
 
   private setValue(value) {
