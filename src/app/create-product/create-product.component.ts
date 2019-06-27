@@ -71,6 +71,7 @@ export class CreateProductComponent implements OnInit {
   public speciesSelected = "";
   lbHandler: number = 1;
 
+  private parentSelectedType = "";
 
   constructor(
     private productService: ProductService,
@@ -194,13 +195,18 @@ export class CreateProductComponent implements OnInit {
     this.loading = true;
     const parent = await this.getParent();
     console.log('parent', parent, this.productID);
-    this.productService.getProductDetailVariations(this.productID)
+    this.productService.getProductDetailVariationsForEdit(this.productID)
       .subscribe(async data => {
         try {
           this.product = JSON.parse(JSON.stringify(data));
           console.log("Producto", data);
           let images = await this.getImages(data);
-
+          this.parentSelectedType = parent["level0"] ? parent["level0"].id : "";
+          let wholeFishAction = this.parentSelectedType === '5bda35c078b3140ef5d31f9a' ? true : data["wholeFishAction"];
+          data["wholeFishAction"] = wholeFishAction;
+          this.product['wholeFishAction'] = wholeFishAction;
+          let minimunorder = data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 : data['minimumOrder'];
+          let maximumorder = data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 : data['maximumOrder'];
           let product = {
             name: data["name"],
             brandName: data["brandname"] || "",
@@ -209,22 +215,22 @@ export class CreateProductComponent implements OnInit {
             city: data["city"],
             unitOfSale: data["unitOfSale"],
             averageUnitWeight: data["unitOfSale"] == 'lbs' ? data['boxWeight'] * 2.205 : data['boxWeight'],
-            parentSelectedType: parent["level0"] ? parent["level0"].id : "",
+            parentSelectedType: this.parentSelectedType,
             speciesSelected: parent["level1"] ? parent["level1"].id : '',
             subSpeciesSelected: parent["level2"] ? parent["level2"].id : '',
             descriptorSelected: data["descriptor"] ? data["descriptor"] : '',
             seller_sku: data["seller_sku"] || '',
             hsCode: data["hsCode"],
-            minimunorder: data["unitOfSale"] == 'lbs' ? data['minimumOrder'] * 2.205 : data['minimumOrder'],
-            maximumorder: data["unitOfSale"] == 'lbs' ? data['maximumOrder'] * 2.205 : data['maximumOrder'],
             imagesSend: images.forForm,
+            minimunorder,
+            maximumorder,
             price: data["price"] ? (data["price"].value / this.currentExchangeRate).toFixed(2) : 0,
             perBoxes: data['perBox'],
             // acceptableSpoilageRate: data["acceptableSpoilageRate"] || "",
             raised: data["raised"].id || "",
             treatment: data["treatment"].id || "",
             head: data["head"] || "on",
-            wholeFishAction: data["wholeFishAction"],
+            wholeFishAction,
             foreignfish: data["foreign_fish"],
             commingSoon: data['cooming_soon'] === true,
             status: data['status']['id']
@@ -250,6 +256,9 @@ export class CreateProductComponent implements OnInit {
           // features = Object.assign(features, varit.features);
           this.setValue({ product, price });
           const we: any = {};
+          we.minimunorder = minimunorder;
+          we.maximumorder = maximumorder;
+          we.parentSelectedType = '5bda35c078b3140ef5d31f9a'
           we.isTrimms = data['isTrimms'];
           we.weights = data['weights'];
           we.weightsTrim = data['weightsTrim'];
@@ -399,6 +408,7 @@ export class CreateProductComponent implements OnInit {
           pricing = value.price;
 
         product.speciesSelected = product.speciesSelected || this.speciesSelected;
+        product.parentSelectedType = product.parentSelectedType || this.parentSelectedType;
         // Para checkar si hay imagenes
         if (product.imagesSend === '') {
           this.loading = false;

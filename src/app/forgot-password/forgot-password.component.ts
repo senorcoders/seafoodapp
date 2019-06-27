@@ -36,7 +36,10 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   forgotPassword(){
-    this.product.saveData('api/user/forgot', this.forgotForm.value).subscribe(
+    let val = this.forgotForm.value;
+    val.email = val.email.toLowerCase();
+    console.log(val);
+    this.product.saveData('api/user/forgot', val).subscribe(
       result=>{
         this.toast.success('Please check your email for password reset instructions','',{positionClass:"toast-top-right"})
         this.forgotForm.reset();
