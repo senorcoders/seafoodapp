@@ -1,0 +1,196 @@
+@import "../../variables.scss";
+
+.gray-bg{
+    padding: 155px 0;
+    .container-fluid{
+        padding-left: 55px;
+            padding-right: 55px;
+        @media screen  and (min-width: 1450px){
+            padding-left: 155px;
+            padding-right: 155px;
+        }
+
+        @media screen and (max-width: 768px){
+            padding-left: 15px;
+            padding-right: 15px;
+
+        }
+        .fqa-title{
+            color: $light_blue;
+            font-size: 50px;
+            letter-spacing: 1.25px;
+            line-height: 59px;
+            text-transform: uppercase;
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 100;
+            margin-top: 50px;
+            @media screen and (max-width: 768px){
+                font-size: 38px;
+                line-height: 45px;
+            }
+        }
+        .filter-field{
+			input{
+				border: none;
+                width: 100%;
+                max-width: 698px;
+				height: 34px;
+				border-bottom: 1px solid $gray;
+				color: $gray;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 300;
+				font-style: italic;
+				font-size: 21px;
+				line-height: 28px;
+                background: no-repeat;
+                padding-bottom: 5px;
+				&::placeholder{
+					color: $gray;
+                }
+                @media screen and (max-width: 768px){
+                    font-size: 16px;
+                    line-height: 22px;
+                }
+            }
+            input:focus{
+                outline: none !important;
+                box-shadow: none !important;
+                color: $dark_blue;
+                border-bottom: solid 1px $dark_blue !important;
+        
+            }
+			img{
+				position: absolute;
+				right: 0;
+                top: 20%;
+                width: 18px;
+                height: 18px;
+			}
+            position: relative;
+            width: 100%;
+            max-width: 698px;
+            margin: 50px auto;
+			
+        }
+        
+        .gray-text{
+            color: $gray;
+			font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            font-size: 21px;
+            line-height: 28px;
+            @media screen and (max-width: 768px){
+                font-size: 16px;
+                line-height: 22px;
+            }
+        }
+
+        .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: $dark_blue !important;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 21px;
+            padding: 15px 30px;
+            letter-spacing: 1.50px;
+            line-height: 25px;
+            span{
+                display: none;
+            }
+        
+        }
+        .nav-tabs .nav-link{
+            color: $light_blue !important;
+            text-transform: uppercase;
+            font-weight: 300;
+            font-size: 21px;
+            padding: 15px 30px;
+            letter-spacing: 1.50px;
+            border: none;
+            border-bottom: 2px solid transparent;
+            line-height: 25px;
+        }
+    }
+
+    .nav-tabs .nav-item{
+        width: 50%;
+    }
+    .nav-tabs {
+        border-bottom: 1px solid $light_blue;
+        position: relative;
+        margin-top: 80px;
+    }
+    .tab-content{
+        margin-top: 20px;
+    }
+
+    .accordion{
+        .card{
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(132, 138, 142, 0.4);
+            border-radius: 0;
+            .card-header{
+                background: none;
+                border: none;
+                padding: 0;
+                .btn-link{
+                    width: 100%;
+                    text-align: left;
+                    padding: 30px 0;  
+                    font-family: 'Open Sans', sans-serif;
+                    font-weight: 300;
+                    color: $light_blue;
+                    font-size: 18px;
+                    line-height: 24px;
+                    img{
+                        float: right;
+                        width: 15px;
+                        height: 15px;
+                        margin-top: 5px;
+                        display: none;
+                    }
+                    &.collapsed{
+                        img.plus{
+                            display: initial;
+                        }
+                        img.less{
+                            display: none;
+                        }
+                    }
+
+                    &:not(.collapsed){
+                        color: $dark_blue;
+                        img.plus{
+                            display: none;
+                        }
+                        img.less{
+                            display: initial;
+                        }
+                    }
+
+                    
+                    &:hover{
+                        text-decoration: none;
+                    }
+                }
+            }
+
+            .card-body{
+                padding: 0;
+                padding-bottom: 20px;
+                font-size: 16px;
+                line-height: 22px;
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 300;
+                color: $black;
+            }
+
+        
+            
+        }
+
+    }
+}

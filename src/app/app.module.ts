@@ -419,6 +419,10 @@ const appRoutes: Routes = [
     // canActivate: [AdminRouterService]
   },
   {
+    path: 'faq',
+    loadChildren: () => import('app/faq/faq.module').then(m => m.FaqModule),
+  },
+  {
     path: '404', component: NotfoundComponent
   },
   {
@@ -455,8 +459,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     ProductManagmentComponent,
     AccountComponent,
     Homeve2Component,
-    NotfoundComponent
-      ],
+    NotfoundComponent      ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
