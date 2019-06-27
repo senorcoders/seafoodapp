@@ -194,7 +194,7 @@ export class FishFormComponent implements OnInit {
       if (it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
         this.wholeFishAction = true;
       } else
-        this.wholeFishAction = it.wholeFishAction;
+        this.wholeFishAction = it.wholeFishAction; 
     });
 
   }
