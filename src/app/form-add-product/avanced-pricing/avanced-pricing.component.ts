@@ -128,7 +128,7 @@ export class AvancedPricingComponent implements OnInit {
     this.eventsSubscription.unsubscribe()
   }
 
-  private agregarVariations(it) {
+  private agregarVariations(it) { console.log('super it', it)
     //Si es para editar un producto
     if (this.productID === '') return;
     this.priceEnableChange = false;
@@ -180,7 +180,7 @@ export class AvancedPricingComponent implements OnInit {
           }
           catch (e) { console.error(e); }
         }
-
+        console.log('weights', this.weights);
         this.weights.off.keys = this.weights.off.keys.map(it => { return it.includes("_off") === true ? it : it + "_off"; })
         for (let key of this.weights.off.keys) {
           this.weights.off[key] = this.weights.off[key].sort((a, b) => {
