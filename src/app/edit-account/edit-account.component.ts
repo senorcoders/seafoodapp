@@ -461,13 +461,13 @@ export class EditAccountComponent implements OnInit {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          // this.router.navigate(['/recent-purchases']);
+          this.router.navigate(['/recent-purchases']);
 
         } else {
           this.loading = false;
           this.ngProgress.done();
           this.toast.success("Your account and store information has been updated successfully!", 'Well Done', { positionClass: "toast-top-right" })
-          // this.router.navigate(['/recent-purchases']);
+          this.router.navigate(['/recent-purchases']);
 
         }
 
