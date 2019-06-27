@@ -106,7 +106,8 @@ export class SingleProductComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private pricingServices: PricingChargesService,
     private countryService: CountriesService,
-    private cartService: OrderService) {
+    private cartService: OrderService,
+    private cService: CartService) {
     // Para cuando se vaya a otra pagina quitar el css del footer y funciones
     this.router.events.subscribe(it => {
       $('app-footer').css({ position: 'relative', top: 'auto' });
@@ -487,7 +488,7 @@ export class SingleProductComponent implements OnInit {
     this.productService.saveData(this.cartEndpoint + this.cart['id'] , item).subscribe(result => {
       this.showCart = true;
       // set the new value to cart
-      // this.cartService.setCart(result);
+      this.cService.setCart(result);
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
     }, err => {

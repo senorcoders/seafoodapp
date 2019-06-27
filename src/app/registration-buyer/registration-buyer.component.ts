@@ -43,8 +43,8 @@ enableCash: FormControl;
     private countryService: CountriesService, private toast:ToastrService,
     private router:Router) {
       jQuery(document).ready(function () {
-        jQuery('.js-example-basic-single').select2();
-        jQuery('select').selectpicker();
+        // jQuery('.js-example-basic-single').select2();
+        jQuery('.selectpicker').selectpicker();
 
       });
      }

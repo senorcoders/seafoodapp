@@ -71,10 +71,10 @@ export class EditAccountComponent implements OnInit {
   currentBrandLogos: any = [];
   certsFiles: any = [];
   currentCertifications: any = [];
-  productsI:any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
-'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
-'European Seabass - Fillet','European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
-'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
+  productsI: any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
+    'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
+    'European Seabass - Fillet', 'European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
+    'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
 
   public indexImage = 0;
   public indexImage2 = 0;
@@ -84,7 +84,7 @@ export class EditAccountComponent implements OnInit {
   constructor(private auth: AuthenticationService, private rest: ProductService,
     private toast: ToastrService, public ngProgress: NgProgress, private router: Router,
     private countryService: CountriesService, private sanitizer: DomSanitizer) {
-   
+
 
   }
 
@@ -268,20 +268,22 @@ export class EditAccountComponent implements OnInit {
   updateBuyer() {
     if (this.buyerForm.valid) {
       console.log("Valido");
-      this.info.firstName = this.buyerForm.get('firstName').value;
-      this.info.lastName = this.buyerForm.get('lastName').value;
-      this.info.email = this.buyerForm.get('email').value;
-      this.info.dataExtra['country'] = this.buyerForm.get('country').value;
-      this.info.dataExtra['Address'] = this.buyerForm.get('address').value;
-      this.info.dataExtra['City'] = this.buyerForm.get('city').value;
-      this.info.dataExtra['tel'] = this.buyerForm.get('telephone').value;
-      this.info.dataExtra['companyName'] = this.buyerForm.get('companyName').value;
-      this.info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
-      this.info.dataExtra['vat'] = this.buyerForm.get('vat').value;
-      this.info.dataExtra['productsInterestedinBuying'] = this.buyerForm.get('productsInterestedinBuying').value;
-      this.info.dataExtra['additionalItems'] = this.buyerForm.get('additionalItems').value;
-      console.log(this.info);
-      this.updateAccount(this.info);
+      let info:any = {};
+      info.firstName = this.buyerForm.get('firstName').value;
+      info.lastName = this.buyerForm.get('lastName').value;
+      info.email = this.buyerForm.get('email').value;
+      info.dataExtra = {};
+      info.dataExtra['country'] = this.buyerForm.get('country').value;
+      info.dataExtra['Address'] = this.buyerForm.get('address').value;
+      info.dataExtra['City'] = this.buyerForm.get('city').value;
+      info.dataExtra['tel'] = this.buyerForm.get('telephone').value;
+      info.dataExtra['companyName'] = this.buyerForm.get('companyName').value;
+      info.dataExtra['typeBusiness'] = this.buyerForm.get('typeBusiness').value;
+      info.dataExtra['vat'] = this.buyerForm.get('vat').value;
+      info.dataExtra['productsInterestedinBuying'] = this.buyerForm.get('productsInterestedinBuying').value;
+      info.dataExtra['additionalItems'] = this.buyerForm.get('additionalItems').value;
+      console.log(info);
+      this.updateAccount(info);
     } else {
       this.validateAllFormFields(this.buyerForm);
       this.scrollToError();
@@ -305,32 +307,35 @@ export class EditAccountComponent implements OnInit {
 
 
   }
-  updateSeller() {
+
+  async updateSeller() {
 
     console.log("Logos", this.brandsFiles);
     console.log("Certificados", this.certsFiles);
     if (this.sellerForm.valid) {
       console.log("Valido");
-      this.info.firstName = this.sellerForm.get('firstName').value;
-      this.info.lastName = this.sellerForm.get('lastName').value;
-      this.info.email = this.sellerForm.get('email').value;
-      this.info.dataExtra['country'] = this.sellerForm.get('country').value;
-      this.info.dataExtra['Address'] = this.sellerForm.get('address').value;
-      this.info.dataExtra['City'] = this.sellerForm.get('city').value;
-      this.info.dataExtra['tel'] = this.sellerForm.get('telephone').value;
-      this.info.dataExtra['companyName'] = this.sellerForm.get('companyName').value;
-      this.info.dataExtra['companyType'] = this.sellerForm.get('companyType').value;
-      this.info.dataExtra['licenseNumber'] = this.sellerForm.get('licenseNumber').value;
-      this.info.dataExtra['swiftCode'] = this.sellerForm.get('swiftCode').value;
-      this.info.dataExtra['iso'] = this.sellerForm.get('iso').value;
-      this.info.dataExtra['iban'] = this.sellerForm.get('iban').value;
-      this.info.dataExtra['productsIntered'] = this.sellerForm.get('productsIntered').value;
-      this.info.dataExtra['contactNumber'] = this.sellerForm.get('contactNumber').value;
-      this.info.dataExtra['currencyTrade'] = this.sellerForm.get('currencyTrade').value;
-      this.info.dataExtra['trade'] = this.sellerForm.get('trade').value;
+      let info:any = {};
+      info.firstName = this.sellerForm.get('firstName').value;
+      info.lastName = this.sellerForm.get('lastName').value;
+      info.email = this.sellerForm.get('email').value;
+      info.dataExtra = {};
+      info.dataExtra['country'] = this.sellerForm.get('country').value;
+      info.dataExtra['Address'] = this.sellerForm.get('address').value;
+      info.dataExtra['City'] = this.sellerForm.get('city').value;
+      info.dataExtra['tel'] = this.sellerForm.get('telephone').value;
+      info.dataExtra['companyName'] = this.sellerForm.get('companyName').value;
+      info.dataExtra['companyType'] = this.sellerForm.get('companyType').value;
+      info.dataExtra['licenseNumber'] = this.sellerForm.get('licenseNumber').value;
+      info.dataExtra['swiftCode'] = this.sellerForm.get('swiftCode').value;
+      info.dataExtra['iso'] = this.sellerForm.get('iso').value;
+      info.dataExtra['iban'] = this.sellerForm.get('iban').value;
+      info.dataExtra['productsIntered'] = this.sellerForm.get('productsIntered').value;
+      info.dataExtra['contactNumber'] = this.sellerForm.get('contactNumber').value;
+      info.dataExtra['currencyTrade'] = this.sellerForm.get('currencyTrade').value;
+      info.dataExtra['trade'] = this.sellerForm.get('trade').value;
       this.loading = true;
       this.ngProgress.start();
-      this.updateAccount(this.info);
+      this.updateAccount(info);
     } else {
       this.validateAllFormFields(this.sellerForm);
       this.scrollToError();
@@ -447,7 +452,7 @@ export class EditAccountComponent implements OnInit {
     }
     this.rest.updateData('store/' + this.store[0].id, storeFullData).subscribe(
       async result => {
-
+        console.log(this.fileToUpload);
         if (this.fileHero.length > 0 || this.fileToUpload.length > 0 || this.brandsFiles.length > 0 || this.certsFiles.length > 0) {
           (this.fileHero.length > 0) ? await this.uploadFile(this.store[0].id, this.heroEndpoint, this.fileHero, 'hero') : null;
           (this.fileToUpload.length > 0) ? await this.uploadFile(this.store[0].id, this.logoEndpoint, this.fileToUpload, 'logo') : null;
@@ -498,7 +503,7 @@ export class EditAccountComponent implements OnInit {
   }
 
   async uploadFile(id, endpoint, file, from) {
-
+    console.log(endpoint);
     await new Promise((resolve, reject) => {
       this.rest.uploadFile(endpoint + id, from, file).subscribe(result => {
         console.log("File", result);
@@ -569,8 +574,8 @@ export class EditAccountComponent implements OnInit {
   public remove(i, prop, propIm, numGallery?) {
     numGallery = numGallery || 1;
     let indexImage = numGallery === 1 ? 'indexImage' : 'indexImage2';
-    // let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split('.com')[1];
-    let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split(':7000/')[1];
+    let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split('.com')[1];
+    // let endpoint = typeof this[prop][i] === 'object' ? false : this[prop][i].split(':7000/')[1];
     let cc = res => {
       console.log("Delete", res);
       if (this[prop].length === 1) {
@@ -584,7 +589,7 @@ export class EditAccountComponent implements OnInit {
       let ii = this[propIm].findIndex(it => {
         return it.id === this[prop][i].id;
       });
-      if(ii === -1) return cc({});
+      if (ii === -1) return cc({});
       if (this[propIm].length === 1) {
         this[propIm] = [];
       } else {
@@ -655,6 +660,7 @@ export class EditAccountComponent implements OnInit {
       this.logo = { id: new Date().getTime(), src: myReader.result };
     }
     myReader.readAsDataURL(file);
+    console.log(this.fileToUpload)
   }
 
   handleFileHero(files: FileList) {
@@ -668,9 +674,10 @@ export class EditAccountComponent implements OnInit {
   }
 
   public byPassImageUrl(image) {
+    if (image == undefined || image == null) return '';
     if (typeof image === 'object')
       return this.sanitizer.bypassSecurityTrustUrl(image.src);
-    return this.sanitizer.bypassSecurityTrustUrl(image.includes('http') === true ? image : this.base+ image);
+    return this.sanitizer.bypassSecurityTrustUrl(image.includes('http') === true ? image : this.base + image);
   }
 
 }
