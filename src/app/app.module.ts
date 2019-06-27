@@ -172,7 +172,7 @@ const appRoutes: Routes = [
   {
     path: 'cart',
     loadChildren: () => import('app/cart/cart.module').then(m => m.CartModule),
-    canActivate: []
+    canActivate: [BuyerRouterService]
   },
   {
     path: 'verification/:userid/:code',
