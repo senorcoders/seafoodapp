@@ -1,79 +1,328 @@
 @import "../../variables.scss";
-table{
-    margin-top: 80px;
-    th:first-child, td:first-child{
-        width: 30%;
-    }
-    th, td{
-        text-align: center;
-        vertical-align: middle;
-        font-family: 'Open Sans', sans-serif;
-
-    }
-
-    .red-title{
-        color: #8c575a;
-        font-size: 21px;
-        letter-spacing: 0.5px;
-        line-height: 28px;
-        text-transform: uppercase;
-        padding: 40px 60px;
-    }
-
-    .green-title{
-        color: $green;
-        font-size: 21px;
-        letter-spacing: 0.5px;
-        line-height: 21px;
-        text-transform: uppercase;
-        padding: 40px 60px;
-    }
-    td{
-        font-family: 'Open Sans', sans-serif;
-        font-size: 16px;
-        line-height: 22px;
-        color: $black;
-        padding: 40px 60px;
-        border: 1px solid #e6e8ea;
-    }
-    th{
-        border: 2px solid #adb0b5 !important;
-    }
-}
-
-p{
-    font-family: 'Open Sans', sans-serif;
-    color: $black;
-    font-size: 21px;
-    line-height: 26px;
-    
-
-}
-
-
-
-.black-title{
-    color: $light_blue;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 21px;
-    line-height: 70px;
-    letter-spacing: 0.5px;
-    font-weight: 300;
-    border-bottom: 2px solid $light_blue;
-    max-width: 145px;
-    margin: 0 auto;
-    margin-bottom: 80px;
-}
 
 .gray-bg{
-    padding-top: 80px;
-    padding-bottom: 80px;
+    padding: 110px 0;
+    @media screen  and (max-width: 768px){
+        padding: 60px 0;
+    }
+    .container-fluid{
+        @media screen  and (min-width: 1450px){
+            padding-left: 155px;
+            padding-right: 155px;
+        }
+        
+    }
+    .about-hero{
+        background: $dark_blue;
+        height: 500px;
+        position: relative;
+        @media screen and (max-width: 768px){
+            height: 400px;
+
+        }
+        @media screen and (min-width: 1450px){
+            width: 75%;
+            margin: 0 auto;
+        }
+       
+        .fish-shape{
+            background: url('../../assets/about-shape.png');
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            background-size: cover;
+            background-position: top;
+            background-repeat: no-repeat;
+        }
+
+        h1{
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 100;
+            color: $white;
+            font-size: 50px;
+            letter-spacing: 1.25px;
+            line-height: 59px;
+            position: absolute;
+            width: 100%;
+            top: 25%;
+            @media screen and (max-width: 768px){
+                font-size: 38px; 
+                line-height: 45px;
+            }
+        }
+    }
+
+    .about-title{
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 100;
+        color: $light_blue;
+        font-size: 50px;
+        letter-spacing: 1.25px;
+        line-height: 59px;
+        margin-top: 100px;
+        span{
+            font-weight: 300;
+        }
+        @media screen and (max-width: 768px){
+            font-size: 38px; 
+            line-height: 45px;
+            margin-top: 50px;
+
+        }
+    }
+
+    .about-text{
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        color: $black;
+        font-size: 21px;
+        line-height: 25px;
+        margin: 20px 0;
+    }
+    .padding-0{
+        padding: 0;
+    }
+
+    .process-row{
+        margin: 50px 0;
+        .process1{
+            width: 100%;
+            height: 400px;
+            background: url('../../assets/market-897990_1920@2x.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .process-title{
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+            color: $dark_blue;
+            font-size: 18px;
+            letter-spacing: 1.5px;
+            line-height: 21px;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .process2{
+            width: 100%;
+            height: 400px;
+            background: url('../../assets/neonbrand-y_6rqStQBYQ-unsplash@2x.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .process3{
+            width: 100%;
+            height: 400px;
+            background: url('../../assets/franck-v-U3sOwViXhkY-unsplash@2x.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        .process4{
+            width: 100%;
+            height: 400px;
+            background: url('../../assets/helloquence-5fNmWej4tAA-unsplash@2x.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .process-holder{
+            cursor: pointer;
+            position: relative;
+            transition: all .2s ease-in-out;
+            .filter{
+                position: absolute;
+                top: 0;
+                right: 0;
+                left: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.7);
+                z-index: 1;
+                transition: all .2s ease-in-out;
+
+            }
+            .img-filter{
+                position: absolute;
+                top: 42%;
+                z-index: 2;
+                width: 52px;
+                height: 52px;
+                left: 44%;
+
+            }
+            .process-title{
+                display: none;
+            }
+
+            &:hover{
+                .filter{
+                    opacity: 0;
+                }
+                .process-title{
+                    display: block;
+                }
+                .img-filter{
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .about-btn{
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 28px;
+        letter-spacing: 1.35px;
+        line-height: 34px;
+        color: $light_blue;
+        margin-bottom: 100px;
+        &:hover{
+            text-decoration: none;
+            color: $dark_blue;
+        }
+        img{
+            width: 31px;
+            height: 22px;
+            vertical-align: inherit;
+            margin-left: 10px;
+        }
+
+        @media screen and (max-width: 768px){
+            font-size: 21px;
+            line-height: 25px;
+            margin-bottom: 30px;
+        }
+    }
+
+    .padding-100{
+         margin-bottom: 200px;
+         @media screen and (max-width: 768px){
+             margin-bottom: 50px;
+         }
+    }
+    .content-grid{ 
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        h2{
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+            font-size: 38px;
+            line-height: 45px;
+            letter-spacing: 1.35px;
+            color: $black;
+            margin-bottom: 50px;
+            width: 100%;
+            span{
+                color: $light_blue;
+            }
+            @media screen and (max-width: 768px){
+                font-size: 28px;
+                line-height: 34px;
+            }
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            width: 100%;
+            li{
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: 300;
+                color: $light_blue;
+                padding: 15px 0;
+                font-size: 21px;
+                letter-spacing: 1.5px;
+                line-height: 25px;
+                text-transform: uppercase;
+              
+            }
+        }
+    }
+
+    .content-right{
+        background: url('../../assets/svg/epicurrence-ITxG2yay1ak-unsplash@2x.png');
+        height: 400px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        width: 100%;
+        border-radius: 2px;
+        &.left-img{
+            background: url('../../assets/sasan-rashtipour-641735-unsplash@2x.png');
+        }
+    }
+
+    .industry-row{
+        margin: 100px 0;
+        @media screen and (max-width: 768px){
+            margin: 50px 0;
+        }
+        .industry-col{
+            margin: 50px 0;
+            h4{
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: 300;
+                color: $light_blue;
+                font-size: 21px;
+                letter-spacing: 1.5px;
+                line-height: 25px; 
+                margin: 20px 0;
+            }
+            p{
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: 300;
+                color: $black;
+                letter-spacing: 1.05px;
+                line-height: 19px;
+                font-size: 16px;
+            }
+            @media screen and (max-width: 768px){
+                margin: 30px 0;
+            }
+        }
+    }
+    .blue-btn{
+        background: $light_blue;
+        border: 1px solid $light_blue;
+        width: 270px;
+        height: 75px;
+        line-height: 75px;
+        color: $white;
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        line-height: 10px;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        transition: all .2s ease-in-out;
+        &:hover{
+            background: $dark_blue;
+        }
+    }
 }
 
+.hidden-lg{
+    display: none;
+}
+
+.hidden-mb{
+    display: flex;
+}
 @media screen and (max-width: 768px){
-    table{
-        td, th{
-            padding: 10px !important;
-        }
+    .hidden-lg{
+        display: block;
+    }
+    
+    .hidden-mb{
+        display: none;
     }
 }
