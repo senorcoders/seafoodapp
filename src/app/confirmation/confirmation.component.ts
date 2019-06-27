@@ -57,7 +57,8 @@ export class ConfirmationComponent implements OnInit {
   env: any;
   vat:any = 0;
   taxesPer: any;
-
+  isValid: boolean = false;
+  loginText: any = 'COMPLETE CHECKOUT';
   public cart:any;
 
   constructor(private route: ActivatedRoute,
@@ -153,7 +154,7 @@ export class ConfirmationComponent implements OnInit {
       console.log('Cart', cart);
       if (cart && cart['items'] !== '') {
         // checking if is a cod function
-        if ( this.responseCode === undefined && !cart['isCOD'] ) {
+        if ( this.responseCode === undefined && !cart['isCOD'] && this.env.payfort  ) {
           this.toast.error( 'We are not able to process your order, You will be redirected and please fill your billing information again!', 
             '',
             { positionClass: 'toast-top-right' }
@@ -270,15 +271,21 @@ export class ConfirmationComponent implements OnInit {
             console.log(e);
           }
         );
+      
       },
       e => {
         this.toast.error('Error, Try again!', 'Error', {positionClass: 'toast-top-right'} );
         this.orders.setOrders(false);
         console.log(e);
+        this.isValid = false;
+        this.loginText = 'COMPLETE CHECKOUT';
       }
     );
   }
     submit() {
+      console.log("Submitting...");
+      this.isValid = true;
+      this.loginText = 'Loading...';
 
       if(this.cart.isCOD === true){
         return this.clearCart();
@@ -356,7 +363,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     back(){
-      this._location.back();
+      this._location.back(); 
     }
 
 }
