@@ -57,7 +57,8 @@ export class ConfirmationComponent implements OnInit {
   env: any;
   vat:any = 0;
   taxesPer: any;
-
+  isValid: boolean = false;
+  loginText: any = 'COMPLETE CHECKOUT';
   public cart:any;
 
   constructor(private route: ActivatedRoute,
@@ -270,15 +271,21 @@ export class ConfirmationComponent implements OnInit {
             console.log(e);
           }
         );
+      
       },
       e => {
         this.toast.error('Error, Try again!', 'Error', {positionClass: 'toast-top-right'} );
         this.orders.setOrders(false);
         console.log(e);
+        this.isValid = false;
+        this.loginText = 'COMPLETE CHECKOUT';
       }
     );
   }
     submit() {
+      console.log("Submitting...");
+      this.isValid = true;
+      this.loginText = 'Loading...';
 
       if(this.cart.isCOD === true){
         return this.clearCart();
@@ -356,7 +363,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     back(){
-      this._location.back();
+      this._location.back(); 
     }
 
 }
