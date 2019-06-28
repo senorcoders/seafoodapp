@@ -248,6 +248,9 @@
             list-style: none;
             padding: 0;
             width: 100%;
+            @media screen and (max-width: 768px){
+               min-height: 240px;
+            }
             li{
                 font-family: 'Josefin Sans', sans-serif;
                 font-weight: 300;
@@ -270,6 +273,9 @@
         background-repeat: no-repeat;   
         width: 100%;
         border-radius: 2px;
+        @media screen and (max-width: 768px){
+           background-image: url('../../assets/epicurrence-mobile.png');
+         }
         &.left-img{
             background: url('../../assets/sasan-rashtipour-641735-unsplash.png');
             background-size: cover;
