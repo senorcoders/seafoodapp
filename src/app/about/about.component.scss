@@ -107,6 +107,9 @@
             line-height: 21px;
             text-align: center;
             padding: 20px 0;
+            @media screen and (max-width: 768px){
+                padding-bottom: 10px !important;
+            }
         }
 
         .process2{
@@ -355,3 +358,4 @@
 }
 
 .remove-margin{margin-bottom: 0 !important;}
+
