@@ -39,26 +39,35 @@
 				color: $gray;
 				font-family: 'Open Sans', sans-serif;
 				font-weight: 300;
-				font-style: italic;
+				font-style: normal;
 				font-size: 21px;
 				line-height: 28px;
                 background: no-repeat;
                 padding-bottom: 5px;
 				&::placeholder{
-					color: $gray;
+                    color: $gray;
+                    font-style: italic;
                 }
                 @media screen and (max-width: 768px){
                     font-size: 16px;
                     line-height: 22px;
                 }
             }
+            input:not(:placeholder-shown) {
+                border-bottom: 1px solid $black;
+                color: $black;
+
+              }
             input:focus{
                 outline: none !important;
                 box-shadow: none !important;
                 color: $dark_blue;
                 border-bottom: solid 1px $dark_blue !important;
+                
         
             }
+
+            
 			img{
 				position: absolute;
 				right: 0;
@@ -99,6 +108,18 @@
             span{
                 display: none;
             }
+            @media screen and (max-width: 768px){
+                font-size: 14px;
+                color: $white !important;
+                background: $dark_blue;
+                width: 98px;
+                height: 30px;
+                border-radius: 5px;
+                margin: 0 auto;
+                line-height: 34px;
+                padding: 0;
+                border: 1px solid $dark_blue !important;
+            }
         
         }
         .nav-tabs .nav-link{
@@ -111,6 +132,17 @@
             border: none;
             border-bottom: 2px solid transparent;
             line-height: 25px;
+            @media screen and (max-width: 768px){
+                font-size: 14px;
+                color: $light_blue !important;
+                width: 98px;
+                height: 30px;
+                border-radius: 5px;
+                margin: 0 auto;
+                line-height: 34px;
+                padding: 0;
+                border: 1px solid $light_blue !important;
+            }
         }
     }
 
@@ -121,6 +153,12 @@
         border-bottom: 1px solid $light_blue;
         position: relative;
         margin-top: 80px;
+        @media screen and (max-width: 768px){
+            border: none !important;
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
     }
     .tab-content{
         margin-top: 20px;
@@ -145,12 +183,22 @@
                     color: $light_blue;
                     font-size: 18px;
                     line-height: 24px;
+                    text-decoration: none !important;
+                    @media screen and (max-width: 768px){
+                        position: relative;
+                        padding-right: 50px;
+                    }
                     img{
                         float: right;
-                        width: 15px;
-                        height: 15px;
+                        width: 18px;
+                        height: 18px;
                         margin-top: 5px;
                         display: none;
+                        @media screen and (max-width: 768px){
+                            position: absolute;
+                            right: 0;
+                            top: 25%;
+                        }
                     }
                     &.collapsed{
                         img.plus{
@@ -194,3 +242,5 @@
 
     }
 }
+
+

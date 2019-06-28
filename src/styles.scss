@@ -1836,3 +1836,22 @@ input.form-control, textarea.form-control{
   border: 0;
   border-bottom: solid 1px $gray !important;
 }
+
+app-about{
+  .slick-dots li button:before{
+    font-size: 15px !important;
+  }
+  .slick-dots li {
+    margin: 0 4px !important;
+  }
+  .slick-dots li.slick-active button:before{
+    color: $light_blue !important;
+    opacity: 1 !important;
+  }
+}
+
+@media screen and (max-width: 768px){
+  #magic-line{
+      display: none !important;
+  }
+}
