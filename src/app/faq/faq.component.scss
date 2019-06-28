@@ -39,26 +39,35 @@
 				color: $gray;
 				font-family: 'Open Sans', sans-serif;
 				font-weight: 300;
-				font-style: italic;
+				font-style: normal;
 				font-size: 21px;
 				line-height: 28px;
                 background: no-repeat;
                 padding-bottom: 5px;
 				&::placeholder{
-					color: $gray;
+                    color: $gray;
+                    font-style: italic;
                 }
                 @media screen and (max-width: 768px){
                     font-size: 16px;
                     line-height: 22px;
                 }
             }
+            input:not(:placeholder-shown) {
+                border-bottom: 1px solid $black;
+                color: $black;
+
+              }
             input:focus{
                 outline: none !important;
                 box-shadow: none !important;
                 color: $dark_blue;
                 border-bottom: solid 1px $dark_blue !important;
+                
         
             }
+
+            
 			img{
 				position: absolute;
 				right: 0;
