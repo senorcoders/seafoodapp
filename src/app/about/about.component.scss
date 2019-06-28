@@ -13,9 +13,12 @@
         
     }
     .about-hero{
-        background: $dark_blue;
+        background: url('../../assets/svg/fish-header.svg');
         height: 500px;
         position: relative;
+        background-position: bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
         @media screen and (max-width: 768px){
             height: 400px;
 
@@ -34,6 +37,7 @@
             background-size: cover;
             background-position: top;
             background-repeat: no-repeat;
+            display: none;
             @media screen and (max-width: 768px){
                 height: 101%;
     
