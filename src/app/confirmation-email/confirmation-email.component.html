@@ -1,6 +1,8 @@
 <div class="container-confirmation">
   <div class="content">
-    <h1 *ngIf="verified === 0" >{{'ConfirmationEmail.text' | translate}} <a routerLink="/login">{{'ConfirmationEmail.login' | translate}}</a></h1>
-    <h1 *ngIf="verified === 1" >{{'ConfirmationEmail.Errortext' | translate}} </h1>
+    <h1 *ngIf="verified === 0">{{'ConfirmationEmail.text' | translate}} If you have received our approval email you can
+      login from <a routerLink="/login">here</a>. Otherwise, we will get back to you within 24 hours of
+      registration.</h1>
+    <h1 *ngIf="verified === 1">{{'ConfirmationEmail.Errortext' | translate}} </h1>
   </div>
-</div>   
+</div>
