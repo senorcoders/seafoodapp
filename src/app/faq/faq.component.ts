@@ -46,10 +46,10 @@ export class FaqComponent implements OnInit {
 
     jQuery('#magic-line').css('position', 'absolute');
     jQuery('#magic-line').css('background', '#094D82');
-    jQuery('#magic-line').css('height', '2px');
+    jQuery('#magic-line').css('height', '1px');
     jQuery('#magic-line').css('width', '50%');
     jQuery('#magic-line').css('left', '0');
-    jQuery('#magic-line').css('bottom', '-2px');
+    jQuery('#magic-line').css('bottom', '-1px');
     jQuery('#magic-line').css('border-radius', '2px');
     /* Cache it */
     var $magicLine = jQuery("#magic-line");
