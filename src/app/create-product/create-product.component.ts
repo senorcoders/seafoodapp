@@ -258,7 +258,7 @@ export class CreateProductComponent implements OnInit {
           const we: any = {};
           we.minimunorder = minimunorder;
           we.maximumorder = maximumorder;
-          we.parentSelectedType = '5bda35c078b3140ef5d31f9a'
+          we.parentSelectedType = this.parentSelectedType;
           we.isTrimms = data['isTrimms'];
           we.weights = data['weights'];
           we.weightsTrim = data['weightsTrim'];
