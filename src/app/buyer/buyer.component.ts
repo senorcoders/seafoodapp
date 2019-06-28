@@ -22,7 +22,7 @@ export class BuyerComponent implements OnInit {
 	allCities: any = [];
 	cities: any = [];
 	public skip = 0;
-  public limit = 20;
+	public limit = 20;
 	public page = 1;
 	public paginationNumbers = [];
 
@@ -34,7 +34,7 @@ export class BuyerComponent implements OnInit {
 	ngOnInit() {
 		this.getUsers();
 		this.getAllCities();
-    	this.getCountries();
+		this.getCountries();
 		this.buyerForm = this.fb.group({
 			firstName: ['', Validators.required],
 			lastName: ['', Validators.required],
@@ -51,15 +51,15 @@ export class BuyerComponent implements OnInit {
 			cod: [false, Validators.required],
 			limit: [1, Validators.nullValidator]
 		});
-		
+
 	}
 	userForm() {
 		let cod = (this.user.cod !== undefined && this.user.cod !== null && this.user.cod.usage === true);
 		console.log(cod);
 		let limit = "";
-		if(cod === true){
+		if (cod === true) {
 			limit = parseFloat(this.user.cod.limit).toFixed(2);
-			this.buyerForm.setControl("limit", new FormControl(Number(limit) <= 0 ? "": limit, Validators.required));
+			this.buyerForm.setControl("limit", new FormControl(Number(limit) <= 0 ? "" : limit, Validators.required));
 		}
 		this.buyerForm.patchValue({
 			firstName: this.user.firstName,
@@ -79,77 +79,78 @@ export class BuyerComponent implements OnInit {
 		});
 	}
 
-	changeCOD(){ console.log("changed");
-		if(this.buyerForm.value.cod === true){
+	changeCOD() {
+		console.log("changed");
+		if (this.buyerForm.value.cod === true) {
 			this.buyerForm.setControl("limit", new FormControl("", Validators.required));
-		}else{
+		} else {
 			this.buyerForm.setControl("limit", new FormControl("", Validators.nullValidator));
 		}
 	}
 
 	getUsers() {
-    this.showLoading = true;
-    this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=1`).subscribe(
-      result=> {
-        let r = result as any;
-        if(r.message=== 'ok'){
-          this.users = r.data;
-          this.calcPagination(r.pageAvailables);
-        }
-        this.showLoading = false; 
-      },
-      e => {
-        this.showLoading = false;
-        console.log(e);
-      }
-    );
-  }
-
-  getUsersWithPagination(index) {
-    this.showLoading = true;
-    this.users = [];
-    this.page = index;
-    this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=${this.page}`).subscribe(
-      result => {
-        let data: any = result;
-        if (data.message === 'ok') {
-          this.users = data.data;
-          // this.count = data.count;
-          this.calcPagination(data.pageAvailables);
-        }
-        
-        this.showLoading = false;
-      },
-      e => {
-        console.log(e)
-        this.showLoading = false;
-      }
-    )
-
-    
-  }
-
-  private calcPagination(length) {
-    this.paginationNumbers = [];
-    for (let i = 0; i < length; i++) {
-      this.paginationNumbers.push(i);
-    }
-  }
-
-  public nextPage() {
-    this.paginationNumbers = [];
-    this.page++;
-    this.getUsersWithPagination(this.page);
-  }
-
-  public previousPage() {
-    this.paginationNumbers = [];
-      if (this.page > 1) {
-        this.page--;
-      }
-      this.getUsersWithPagination(this.page);
+		this.showLoading = true;
+		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=1`).subscribe(
+			result => {
+				let r = result as any;
+				if (r.message === 'ok') {
+					this.users = r.data;
+					this.calcPagination(r.pageAvailables);
+				}
+				this.showLoading = false;
+			},
+			e => {
+				this.showLoading = false;
+				console.log(e);
+			}
+		);
 	}
-	
+
+	getUsersWithPagination(index) {
+		this.showLoading = true;
+		this.users = [];
+		this.page = index;
+		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=${this.page}`).subscribe(
+			result => {
+				let data: any = result;
+				if (data.message === 'ok') {
+					this.users = data.data;
+					// this.count = data.count;
+					this.calcPagination(data.pageAvailables);
+				}
+
+				this.showLoading = false;
+			},
+			e => {
+				console.log(e)
+				this.showLoading = false;
+			}
+		)
+
+
+	}
+
+	private calcPagination(length) {
+		this.paginationNumbers = [];
+		for (let i = 0; i < length; i++) {
+			this.paginationNumbers.push(i);
+		}
+	}
+
+	public nextPage() {
+		this.paginationNumbers = [];
+		this.page++;
+		this.getUsersWithPagination(this.page);
+	}
+
+	public previousPage() {
+		this.paginationNumbers = [];
+		if (this.page > 1) {
+			this.page--;
+		}
+		this.getUsersWithPagination(this.page);
+	}
+
 	deleteUser(id) {
 		this.product.deleteData('api/user/' + id).subscribe(
 			result => {
@@ -192,14 +193,22 @@ export class BuyerComponent implements OnInit {
 		data.dataExtra = dataExtra;
 		const usage = data.cod;
 		const limit = usage === true && isNaN(data.limit) === false ? Number(parseFloat(data.limit).toFixed(2)) : 0;
-		let available = this.user.cod && this.user.cod.available ? Number(this.user.cod.limit) - Number(parseFloat(this.user.cod.available).toFixed(2)) : limit;
-		available = limit - available;
-		let disp = limit - available;
-		if(disp<0){
-			disp = 0;
+		let available = this.user.cod && this.user.cod.limit ? Number(this.user.cod.limit) - Number(limit) : limit;
+		console.log(limit, available);
+		if (this.user.cod && this.user.cod.available && limit < Number(this.user.cod.available)) {
+			available = limit;
+		} else {
+			if (available < 0)
+				available = this.user.cod && this.user.cod.available ? (available * -1) + Number(this.user.cod.available) : available * -1;
+			else
+				available = this.user.cod && this.user.cod.available ? available - Number(this.user.cod.available) : available;
+
+			if (available < 0) {
+				available = 0;
+			}
 		}
 		// disp = Number(parseFloat(disp.toString()).toFixed(2));
-		const cod = {usage,limit,available:disp};
+		const cod = { usage, limit, available };
 		console.log(cod);
 		data.cod = cod;
 		console.log('buyer', data);
@@ -220,37 +229,37 @@ export class BuyerComponent implements OnInit {
 	}
 	getAllCities() {
 		this.countryService.getAllCities().subscribe(
-		  result => {
-			this.allCities = result;
-			this.cities = result;
-		  },
-		  error => {
-			console.log( error );
-		  }
+			result => {
+				this.allCities = result;
+				this.cities = result;
+			},
+			error => {
+				console.log(error);
+			}
 		);
-	  }
+	}
 
-	  getCountries() {
+	getCountries() {
 		this.countryService.getCountries().subscribe(
-		  result => {
-			this.countries = result;
-		  },
-		  error => {
-			console.log(error);
-		  }
+			result => {
+				this.countries = result;
+			},
+			error => {
+				console.log(error);
+			}
 		);
-	  }
+	}
 
-	  /*getCities() {
-		this.countryService.getCities( this.country.value ).subscribe(
-		  result => {
-			this.cities = result[0].cities;
-			this.myform.controls['city'].setValue(this.cities[0]['code']);
+	/*getCities() {
+	  this.countryService.getCities( this.country.value ).subscribe(
+		result => {
+		  this.cities = result[0].cities;
+		  this.myform.controls['city'].setValue(this.cities[0]['code']);
 
-		  },
-		  error => {
+		},
+		error => {
 
-		  }
-		);
-	  }*/
+		}
+	  );
+	}*/
 }
