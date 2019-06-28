@@ -203,6 +203,11 @@
             height: 22px;
             vertical-align: inherit;
             margin-left: 10px;
+            @media screen and (max-width: 768px){
+                width: 24px;
+                height: 16px;
+                margin-left: 0;
+            }
         }
 
         @media screen and (max-width: 768px){
