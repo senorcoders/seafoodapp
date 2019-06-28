@@ -214,6 +214,9 @@
         align-items: center;
         justify-content: center;
         flex-wrap: wrap;
+        &.grid-desktop{
+            display: initial;
+        }
         h2{
             font-family: 'Josefin Sans', sans-serif;
             font-weight: 300;
@@ -250,15 +253,18 @@
     }
 
     .content-right{
-        background: url('../../assets/svg/epicurrence-ITxG2yay1ak-unsplash@2x.png');
+        background: url('../../assets/epicurrence-ITxG2yay1ak-unsplash.png');
         height: 400px;
         background-size: cover;
         background-position: center;
-        background-repeat: no-repeat;
+        background-repeat: no-repeat;   
         width: 100%;
         border-radius: 2px;
         &.left-img{
-            background: url('../../assets/sasan-rashtipour-641735-unsplash@2x.png');
+            background: url('../../assets/sasan-rashtipour-641735-unsplash.png');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;  
         }
     }
 
