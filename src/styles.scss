@@ -1849,3 +1849,9 @@ app-about{
     opacity: 1 !important;
   }
 }
+
+@media screen and (max-width: 768px){
+  #magic-line{
+      display: none !important;
+  }
+}

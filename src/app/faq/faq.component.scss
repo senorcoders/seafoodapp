@@ -108,6 +108,18 @@
             span{
                 display: none;
             }
+            @media screen and (max-width: 768px){
+                font-size: 14px;
+                color: $white !important;
+                background: $dark_blue;
+                width: 98px;
+                height: 30px;
+                border-radius: 5px;
+                margin: 0 auto;
+                line-height: 34px;
+                padding: 0;
+                border: 1px solid $dark_blue !important;
+            }
         
         }
         .nav-tabs .nav-link{
@@ -120,6 +132,17 @@
             border: none;
             border-bottom: 2px solid transparent;
             line-height: 25px;
+            @media screen and (max-width: 768px){
+                font-size: 14px;
+                color: $light_blue !important;
+                width: 98px;
+                height: 30px;
+                border-radius: 5px;
+                margin: 0 auto;
+                line-height: 34px;
+                padding: 0;
+                border: 1px solid $light_blue !important;
+            }
         }
     }
 
@@ -130,6 +153,12 @@
         border-bottom: 1px solid $light_blue;
         position: relative;
         margin-top: 80px;
+        @media screen and (max-width: 768px){
+            border: none !important;
+            width: 70%;
+            margin: 0 auto;
+            margin-top: 50px;
+        }
     }
     .tab-content{
         margin-top: 20px;
@@ -213,3 +242,5 @@
 
     }
 }
+
+
