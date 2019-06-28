@@ -187,8 +187,14 @@
         &:hover{
             text-decoration: none;
             color: $dark_blue;
+            svg{
+               
+                .a{
+                    fill: $dark_blue;
+                }
+            }
         }
-        img{
+        img,svg{
             width: 31px;
             height: 22px;
             vertical-align: inherit;
