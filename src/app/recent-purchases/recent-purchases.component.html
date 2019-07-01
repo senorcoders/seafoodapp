@@ -76,14 +76,14 @@
 									<td *ngIf="item.items.length == 1">{{item?.items[0]?.fish?.name}} </td>
 									<td *ngIf="item.items.length == 1" class="flex-td">
 
-										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
+										<!-- <div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
 											<button class="red-text-btn"
 												(click)="openDeliveryModal(item.items[0].id, i)">
 												<img class="alert-circle order-icon"
 													src="../../assets/svg/alert-circle.svg" alt="">
 												SET DELIVERY DATE
 											</button>
-										</div>
+										</div> -->
 
 										<div class="icon-flex-box half-box" *ngIf="item.items[0].updateInfo == null">
 											<button (click)="showModal(item.items[0].id,'cancel', i, 'pending')"
@@ -129,7 +129,7 @@
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
 
-														<div class="icon-flex-box half-box"
+														<!-- <div class="icon-flex-box half-box"
 															*ngIf="sub.updateInfo == null">
 															<button class="red-text-btn"
 																(click)="openDeliveryModal(sub.id, i, subi)">
@@ -137,7 +137,7 @@
 																	src="../../assets/svg/alert-circle.svg" alt="">
 																SET DELIVERY DATE
 															</button>
-														</div>
+														</div> -->
 
 														<div class="icon-flex-box half-box"
 															*ngIf="sub.updateInfo == null">
@@ -214,14 +214,14 @@
 									<td *ngIf="shipped.items.length == 1">{{shipped?.items[0]?.fish?.name}} </td>
 									<td *ngIf="shipped.items.length == 1" class="flex-td">
 
-										<div class="icon-flex-box half-box" *ngIf="shipped.items[0].updateInfo == null">
+										<!-- <div class="icon-flex-box half-box" *ngIf="shipped.items[0].updateInfo == null">
 											<button class="red-text-btn"
 												(click)="openDeliveryModal(shipped.items[0].id, i)">
 												<img class="alert-circle order-icon"
 													src="../../assets/svg/alert-circle.svg" alt="">
 												SET DELIVERY DATE
 											</button>
-										</div>
+										</div> -->
 
 										<div class="icon-flex half-box" *ngIf="shipped.items[0].updateInfo == null">
 											<button (click)="showModal(shipped.items[0].id,'cancel', i, 'shipped')">
@@ -274,7 +274,7 @@
 													<td>{{sub?.fish?.seller_sku}}</td>
 													<td>{{sub?.fish?.name}} </td>
 													<td class="flex-td">
-														<div class="icon-flex-box half-box"
+														<!-- <div class="icon-flex-box half-box"
 															*ngIf="sub.updateInfo == null">
 															<button class="red-text-btn"
 																(click)="openDeliveryModal(sub.id, i, subi)">
@@ -282,7 +282,7 @@
 																	src="../../assets/svg/alert-circle.svg" alt="">
 																SET DELIVERY DATE
 															</button>
-														</div>
+														</div> -->
 
 														<div class="icon-flex-box half-box"
 															*ngIf="sub.updateInfo == null">
