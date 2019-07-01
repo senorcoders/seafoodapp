@@ -91,6 +91,11 @@ $marginBottom : '8px';
                     text-transform: lowercase;
                     margin-left: 30%;
                     letter-spacing: initial;
+                    small{
+                        font-size: 14px;
+                        font-weight: 300;
+                        font-style: italic;
+                    }
                 }
 
                 @media screen and (max-width: 768px) {
@@ -150,6 +155,9 @@ $marginBottom : '8px';
             .name-row {
                 margin-right: 40px;
                 text-align: left;
+                &.flex-name-row{
+                    display: inline-flex;
+                }
             }
 
             .value-row {
@@ -173,7 +181,7 @@ $marginBottom : '8px';
 
             .big-font {
                 font-size: 21px;
-                line-height: 52px;
+                line-height: 32px;
                 font-weight: 200;
                 color: $dark_blue;
 
