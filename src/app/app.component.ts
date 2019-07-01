@@ -21,7 +21,7 @@ export class AppComponent {
     //if (environment.production) {
       this._router.events.subscribe(event => {
         if (event instanceof NavigationEnd) {
-          (<any>window).gtag('config', 'GA_TRACKING_ID', { 'page_path': event.urlAfterRedirects });
+          (<any>window).gtag('config', 'UA-138510183-1', { 'page_path': event.urlAfterRedirects });
         }
       })
     //}
