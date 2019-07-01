@@ -28,7 +28,7 @@
                   </a>
                 </div>
                 <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                  <span>{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}} / kg</span></h5>
+                  <span>{{(delivered/currentExchangeRate).toFixed(2)}} / kg <small>(delivered price)</small></span></h5>
 
               </h2>
             </div>
@@ -75,13 +75,17 @@
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                
+                <div class="dashed-row"><span class="name-row">Seller Price / kg</span>
+                  <div class="separator-dashed"></div> <span
+                    class="value-row" style="color: #121619;">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
+                </div>
                 <div class="dashed-row"><span class="name-row">Product Price</span>
                   <div class="separator-dashed"></div> 
                   <span *ngIf="perBox != true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
                   <span *ngIf="perBox == true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Taxes, Customs, & Fees</span>
+                <div class="dashed-row"><span class="name-row flex-name-row">Taxes, Customs, & Fees <img   tooltip="Taxes, Customs, & Fees"
+                  placement="right" show-delay="0" src="../../assets/svg/help-circle-outline.svg" alt=""></span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges?.sfsMarginCost + charges?.exchangeRateCommission +  charges?.customs).toFixed(2)}}</span>
                 </div>
@@ -91,10 +95,10 @@
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
+                <!-- <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span>
-                </div>
+                </div> -->
                  <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">VAT ({{charges?.uaeTaxes}}%)</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
@@ -155,7 +159,7 @@
                     </div>
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
                 </form>
-                <p  *ngIf="perBox == true" class="eta"> 1 Box = {{boxWeight}} kg</p>
+                <p  *ngIf="perBox == true" class="eta text-center"> 1 Box = {{boxWeight}} kg</p>
               </div>
               <div class="col-md-5">
                 <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
