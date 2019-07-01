@@ -61,7 +61,7 @@ const appRoutes: Routes = [
     loadChildren: () => import('app/login/login.module').then(m => m.LoginModule)
   },
   {
-    path: 'register',
+    path: 'register/:page',
     loadChildren: () => import('app/registration-form/registration-form.module').then(m => m.RegistrationFormModule)
   },
   {
