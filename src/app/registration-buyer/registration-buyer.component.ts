@@ -38,15 +38,14 @@ btnText:any = 'register to buy';
 productsInterestedinBuying:FormControl;
 additionalItems: FormControl;
 enableCash: FormControl;
-
+productsI: any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Salmon - Fillet', 'Pacific Salmon - Fillet', 'Local Seabass - Whole',
+'Local Seabream - Whole', 'European Seabass - Whole', 'European Seabream - Whole', 'Local Seabass - Fillet', 'Local Seabream - Fillet',
+'European Seabass - Fillet', 'European Seabream - Fillet', 'European Lobster', 'American Lobster', 'Mud Crab', 'King Crab', 'Blue Crab', 'Langoustines',
+'Bluefin Tuna', 'Yellowfin Tuna', 'European Oysters', 'Local Oysters', 'Fresh Shrimps', 'Frozen Shrimps', 'Squid', 'Frozen Squid']
   constructor(private auth: AuthenticationService, 
     private countryService: CountriesService, private toast:ToastrService,
     private router:Router) {
-      jQuery(document).ready(function () {
-        // jQuery('.js-example-basic-single').select2();
-        jQuery('.selectpicker').selectpicker();
-
-      });
+    
      }
  
  ngOnInit() {
