@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 declare var jQuery;
 @Component({
   selector: 'app-registration-form',
@@ -12,9 +13,26 @@ showConfirmation=true;
     // constant for swipe action: left or right
 SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
-  constructor() { }
+  constructor(private route:ActivatedRoute) { 
+      let page = this.route.snapshot.paramMap.get("page")
+      console.log(page);
+
+      if(!page){
+        console.log("Buyer");
+      }
+      else{
+        (page == 'seller') ? this.loadSell() :  console.log('Buyer');
+      }
+      
+        }
 
  ngOnInit() {
+  } 
+
+  loadSell(){
+    setTimeout(() => {
+      this.switchToSell();
+    }, 1000);
   }
 
   switchToSell(){
