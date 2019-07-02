@@ -193,26 +193,9 @@ export class BuyerComponent implements OnInit {
 		data.dataExtra = dataExtra;
 		const usage = data.cod;
 		const limit = usage === true && isNaN(data.limit) === false ? Number(parseFloat(data.limit).toFixed(2)) : 0;
-		let available = this.user.cod && this.user.cod.limit ? Number(this.user.cod.limit) - Number(limit) : limit;
-		console.log(limit, available);
-		if (this.user.cod && this.user.cod.available && limit < Number(this.user.cod.available)) {
-			available = limit;
-		} else {
-			if (available < 0)
-				available = this.user.cod && this.user.cod.available ? (available * -1) + Number(this.user.cod.available) : available * -1;
-			else
-				available = this.user.cod && this.user.cod.available ? available - Number(this.user.cod.available) : available;
-
-			if (available < 0) {
-				available = 0;
-			}
-		}
-		// disp = Number(parseFloat(disp.toString()).toFixed(2));
-		const cod = { usage, limit, available };
-		console.log(cod);
-		data.cod = cod;
+		data.updateCOD = { usage, limit };
 		console.log('buyer', data);
-		this.product.updateData('user/' + this.user.id, data).subscribe(
+		this.product.updateData('api/v2/user/update/' + this.user.id, data).subscribe(
 			result => {
 				this.toast.success('User has been edited', 'Well Done', { positionClass: 'toast-top-right' });
 				jQuery('#editForm').modal('hide');
