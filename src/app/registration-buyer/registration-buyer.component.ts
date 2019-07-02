@@ -242,7 +242,7 @@ productsI: any = ['Atlantic Salmon - HOG', 'Pacific Salmon - HOG', 'Atlantic Sal
   
 }
 
-regiterBuyer() {
+regiterBuyer() { 
   let dataExtra={
     "country": this.buyerForm.get('location').value,
     "tel": this.buyerForm.get('tel').value,

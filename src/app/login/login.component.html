@@ -10,6 +10,8 @@
         </div>
       </div>
     </div>
+    <div class="verified-p" *ngIf='verified'> <img src="../../assets/svg/check-white.svg" alt=""> Your email has been verified. Please login below to start swimming with the fish!</div>
+
     <div class="content">
       <div class="row">
         <div class="col-lg-12">
@@ -66,21 +68,21 @@
   </div>
 </div>
 
-<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<div class="modal fade modal-confirm" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" style="text-align: center;">You have not verified your email, do you want us to send you the verification email?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title" style="text-align: center;">Your email has not been verified.  Click yes to resend the verification email to the email address on file and follow the directions.</h5>
       </div>
       <div class="modal-body">
         <div class="row">
-          <div class="col">
-            <button (click)="confirm(true)" class="blue-btn">Yes</button>
+            <div class="col-lg-2"></div>
+          <div class="col-lg-8 text-center">
+            <button (click)="confirm(true)" class="blue-btn-light">Yes</button>
             <button (click)="confirm(false)" class="blue-btn-light">No</button>
           </div>
+          <div class="col-lg-2"></div>
+
         </div>
       </div>
     </div>

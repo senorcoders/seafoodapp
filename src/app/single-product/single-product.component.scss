@@ -128,7 +128,7 @@ $marginBottom : '8px';
 
             span {
                 float: right;
-                width: 22%;
+                width: 34%;
                 @media screen and (max-width: 992px){
                     width: 8%;
                 }
@@ -157,6 +157,9 @@ $marginBottom : '8px';
                 text-align: left;
                 &.flex-name-row{
                     display: inline-flex;
+                    img{
+                        margin-left: 5px;
+                    }
                 }
             }
 
@@ -176,7 +179,7 @@ $marginBottom : '8px';
                 background-size: cover;
                 background-position: center;
                 background-repeat: no-repeat;
-                flex: 3 1 33%;
+                flex: 3 1 20%;
             }
 
             .big-font {
@@ -223,7 +226,7 @@ $marginBottom : '8px';
         }
 
         .range-row {
-            margin: $marginBottom 0;
+            margin: 8px 0;
             align-items: center;
             .col-md-7,
             .col-md-5 {
