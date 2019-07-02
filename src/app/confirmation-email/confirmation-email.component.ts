@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProductService } from '../services/product.service';
+import { Router } from '@angular/router';
 @Component({
 	selector: 'app-confirmation-email',
 	templateUrl: './confirmation-email.component.html',
@@ -8,30 +7,17 @@ import { ProductService } from '../services/product.service';
 })
 export class ConfirmationEmailComponent implements OnInit {
 
-	userId: any;
-	code: string;
-	verified: number = 0;
-	constructor(private route: ActivatedRoute, private product: ProductService) { }
+	
+	constructor(private router:Router) {
+		setTimeout(() => {
+			this.router.navigate(['/login'], {queryParams: {verified: true}});
+
+		}, 5000);
+
+	 }
 
 	ngOnInit() {
-		// this.route.params.subscribe(params => {
-		// 		this.userId = this.route.snapshot.params['userid'];
-		// 		this.code = this.route.snapshot.params['code'];
-
-		// 		// this.product.updateData('user/'+this.userId, data).subscribe(
-		// 		this.product.getData( `api/verification/${this.userId}/${this.code}` ).subscribe(
-		// 			result => {
-		// 				if ( result['message'] === 'valid' ) {
-		// 					this.verified = 0;
-		// 				} else {
-		// 					this.verified = 1;
-		// 				}
-		// 			},
-		// 			e => {
-		// 				console.log(e);
-		// 			}
-		// 		);
-		// });
+	
 
 	}
 

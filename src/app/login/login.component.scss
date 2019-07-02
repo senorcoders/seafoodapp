@@ -369,3 +369,17 @@ form{
         top: 60%;
     }
 }
+
+.verified-p{
+    font-family: 'Open Sans', sans-serif;
+    background: $light_blue !important;
+    font-weight: 300;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 19px;
+    padding: 20px;
+    img{
+        vertical-align: baseline;
+        margin-right: 10px;
+    }
+}
