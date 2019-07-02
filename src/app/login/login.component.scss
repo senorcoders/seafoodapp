@@ -296,6 +296,68 @@ form{
     width: auto;
 }
 
+.modal-confirm{
+    border-radius: 10px;
+    .modal-dialog{
+        max-width: 900px !important;
+        width: 100%;
+    }
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        height: 350px;
+        .modal-header{
+            border: none;
+            padding: 50px 1rem;
+            .modal-title{
+                text-align: center;
+                font-family: 'Josefin Sans', sans-serif;
+                width: 100%;
+                color: $light_blue;
+                font-weight: 300;
+                padding: 20px;
+                font-size: 28px;
+                letter-spacing: 0.15px;
+                line-height: 45px;
+            }
+        }
+
+        .modal-body{
+            padding-bottom: 30px;
+        }
+
+        .text-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .blue-btn-light{
+                width: 175px;
+                background: #ffffff !important;
+                text-transform: uppercase;
+                font-family: 'Josefin Sans', sans-serif;
+                border-radius: 5px;
+                outline: none;
+                color: $light_blue !important;
+                border: 2px solid $light_blue !important;
+                font-weight: 300;
+                margin-right: 10px !important;
+                font-size: 18px !important;
+                letter-spacing: 0.5px;
+                line-height: 25px;
+                height: 60px !important;
+            }
+
+            .blue-btn-light:hover{
+                background: $dark_blue !important;
+                border: 2px solid $dark_blue !important;
+                color: #ffffff !important;
+            }
+        
+    }
+}
+
 @media screen and (max-width: 768px){
     .introductory-title{
         font-size: 30px;
