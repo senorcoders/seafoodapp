@@ -144,7 +144,7 @@
             </div>
 
             <div  class="row range-row">
-              <div class="col-md-12">
+              <div class="col-md-12" style="padding-left: 0;">
                 <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
                 <p *ngIf="outOfStock || max == 0" class="eta" >Out of Stock.</p>
               </div>
@@ -159,7 +159,7 @@
                     </div>
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
                 </form>
-                <p  *ngIf="perBox == true" class="eta text-center"> 1 Box = {{boxWeight}} kg</p>
+                <p  *ngIf="perBox == true" class="eta text-center" style="margin-top: -15px;"> 1 Box = {{boxWeight}} kg</p>
               </div>
               <div class="col-md-5">
                 <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
