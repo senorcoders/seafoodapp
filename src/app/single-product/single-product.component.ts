@@ -35,7 +35,7 @@ export class SingleProductComponent implements OnInit {
   category: any;
   show = true;
   cart: any;
-  count = 1;
+  count:any = 1;
   cartEndpoint: any = 'api/shopping/add/';
   chargesEndpoint: any = 'api/fish/';
   priceValue: any;
@@ -171,7 +171,7 @@ export class SingleProductComponent implements OnInit {
 
   }
 
- ngOnInit() {
+ async ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role;
       if (role === 1) {
@@ -191,9 +191,10 @@ export class SingleProductComponent implements OnInit {
     if (kg !== undefined && kg !== null) { this.kg = parseInt(kg); }
     if (variationId !== undefined && variationId !== null) { this.variationId = variationId; }
     if (fishOption !== undefined && fishOption !== null) { this.fishOption = fishOption; }
+
+    await this.getCurrentPricingCharges();
     this.selectTheVariation(fishOption, variationId);
 
-    this.getCurrentPricingCharges();
     this.isLoggedSr.isLogged.subscribe((val: boolean) => {
       this.isLogged = val;
     });
@@ -235,10 +236,12 @@ export class SingleProductComponent implements OnInit {
     if (this.count > this.max) {
       this.count = this.max;
       this.value = this.count;
+      this.count = parseInt(this.count);
       this.getPricingCharges();
     } else if (this.count < this.min) {
       this.count = this.min;
       this.value = this.count;
+      this.count = parseInt(this.count);
       this.getPricingCharges();
     } else {
       this.value = this.count;
@@ -441,7 +444,36 @@ export class SingleProductComponent implements OnInit {
     console.log("variacion", idVariation);
     this.selectVariation = idVariation;
     this.currentVaritionID = id;
+    this.updateMinMax(id);
     this.getPricingCharges();
+  }
+
+
+  updateMinMax(id){
+    this.productService.getData(`api/fish/${this.productID}/variations/${id}`).subscribe(data => {
+      console.log("Producto VAR", data);
+      if (data['minimumOrder'] < 1) {
+        this.min = 0;
+      } else {
+        if(data.hasOwnProperty('minBox')){
+          this.min = data['minBox'];
+          this.count = this.min;
+        }else{
+          this.min = data['minimumOrder'];
+          this.count = this.min;
+        }
+        
+      }
+      this.outOfStock = data['outOfStock'];
+      this.cooming_soon = data['cooming_soon'];
+
+      if(data.hasOwnProperty('maxBox')){
+        this.max = data['maxBox'];
+      }else{
+        this.max = data['maximumOrder'];
+
+      }
+    })
   }
 
   getCart() {
@@ -563,7 +595,8 @@ export class SingleProductComponent implements OnInit {
     return subtotal;
   }
 
-  getCurrentPricingCharges() {
+  async getCurrentPricingCharges() {
+    await new Promise((resolve, reject) => {
     this.pricingServices.getCurrentPricingCharges().subscribe(
       result => {
         this.currentPrincingCharges = result;
@@ -571,10 +604,13 @@ export class SingleProductComponent implements OnInit {
         this.currentExchangeRate = result['exchangeRates'];
         console.log(this.currentExchangeRate);
         this.getProductDetail();
+        resolve();
       }, error => {
         console.log(error);
+        reject();
       }
     )
+    })
   }
   getPricingCharges() {
     console.log("current vairation ID", this.currentVaritionID);
