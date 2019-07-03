@@ -423,6 +423,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('app/faq/faq.module').then(m => m.FaqModule),
   },
   {
+    path: 'team',
+    loadChildren: () => import('app/team/team.module').then(m => m.TeamModule),
+  },
+  {
     path: '404', component: NotfoundComponent
   },
   {
@@ -459,7 +463,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     ProductManagmentComponent,
     AccountComponent,
     Homeve2Component,
-    NotfoundComponent      ],
+    NotfoundComponent
+        ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
