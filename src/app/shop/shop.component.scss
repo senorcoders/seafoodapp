@@ -290,6 +290,9 @@
         @media screen  and (min-width: 1450px){
           padding-right: 20px;
       }
+      @media screen  and (max-width: 768px){
+        display: none;
+      }
       }
 
       .expandible-link{
@@ -318,7 +321,7 @@
     .col-md-10{
       display: inline-flex;
       @media screen and (max-width: 992px){
-       display: block;
+       display: inline-flex;
        width: 80%;
       }
       .filter-pills{
@@ -327,8 +330,15 @@
           width: 100%;
           padding: 0;
         }
+        @media screen  and (max-width: 768px){
+          // display: none;
+        }
         li{
           display: none;
+          @media screen  and (max-width: 768px){
+            display: inline-block;
+            margin-left: 30px;
+          }
         }
         button{
           padding: 0;
@@ -377,6 +387,8 @@
       .filter-col{
         @media screen and (max-width: 768px){
           flex-basis: auto;
+          border-bottom: 1px solid rgba($color: $white, $alpha: 0.5);
+          margin-bottom: 30px;
         }
         h4{
           text-transform: uppercase;
@@ -391,6 +403,7 @@
           overflow-y: scroll;
           @media screen and (max-width: 768px){
             max-height: initial;
+            column-count: 2;
           }
           &::-webkit-scrollbar {
             width: 7px;
@@ -962,4 +975,22 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 1em;
   font-family: 'Josefin Sans', sans-serif;
 
+}
+
+.hidden-desktop{
+  display: none;
+}
+
+.hidden-mobile{
+  display: initial;
+}
+
+@media screen and (max-width: 768px){
+  .hidden-desktop{
+      display: initial;
+  }
+
+  .hidden-mobile{
+      display: none;
+  }
 }
