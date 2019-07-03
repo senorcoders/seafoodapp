@@ -4,9 +4,15 @@ $marginBottom : '8px';
 
 .gray-bg {
     padding: 110px 0;
+    @media screen and (max-width: 768px){
+        padding: 72px 0;
+    }
 
     .content {
         padding-top: 70px;
+        @media screen and (max-width: 768px){
+            padding-top: 30px;
+        }
     }
 
     .container-fluid {
@@ -26,14 +32,28 @@ $marginBottom : '8px';
             margin: 0 auto;
 
             @media screen and (max-width: 768px) {
-                order: 1;
+                order: 2;
 
             }
         }
 
         .product-img {
             @media screen and (max-width: 768px) {
-                order: 2;
+                order: 1;
+                .carousel-indicators{
+                    bottom: 70px;
+                    li{
+                        width: 5px;
+                        height: 5px;
+                        border-radius: 50%;
+                        background-color: $gray;
+                        opacity: .6;
+                        border: 1px solid $gray;
+                    }
+                    li.active{
+                        opacity: 1;
+                    }
+                }
             }
         }
 
@@ -257,6 +277,8 @@ $marginBottom : '8px';
                 @media screen and (max-width: 768px) {
                     margin: 30px 0;
                     float: none;
+                    width: 100%;
+                    height: 52px;
 
                 }
 
@@ -435,4 +457,22 @@ p.eta{
     padding-left: 3px;
     color: #3498E5;
     font: inherit;
+  }
+
+  .hidden-desktop{
+      display: none;
+  }
+
+  .hidden-mobile{
+      display: initial;
+  }
+
+  @media screen and (max-width: 768px){
+      .hidden-desktop{
+          display: initial;
+      }
+
+      .hidden-mobile{
+          display: none;
+      }
   }
