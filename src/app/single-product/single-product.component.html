@@ -7,7 +7,35 @@
           <div class="wave-loading"></div>
         </div>
 
-        <div class="col-lg-6 product-img" id="product-images" *ngIf="!showLoading">
+        <div class="col-lg-6 product-img hidden-desktop">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators" *ngIf="images.length > 1">
+              <li   data-target="#carouselExampleIndicators" [attr.data-slide-to]="0" class="active"></li>
+              <li *ngFor="let image of images; index as i;"  data-target="#carouselExampleIndicators" [attr.data-slide-to]="i + 1"></li>
+             
+            </ol>
+
+            <div class="carousel-inner" *ngIf="!images;else sliderMobile">
+              <div class="carousel-item active">
+                <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'"></div>
+              </div>
+             
+            </div>
+            <ng-template #sliderMobile>
+            <div class="carousel-inner">
+              <div class="carousel-item active" *ngIf="mainImg && mainImg!=''">
+                <div  class="main-featured-img" [style.background-image]="mainImg"></div>
+              </div>
+              <div class="carousel-item" *ngFor="let image of images; index as i;">
+                <div  class="main-featured-img" [style.background-image]="image">
+                </div>
+            </div>
+            </div>
+            </ng-template>
+          
+          </div>
+        </div>
+        <div class="col-lg-6 product-img hidden-mobile" id="product-images" *ngIf="!showLoading">
           <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'"
             *ngIf="!images;else slider"></div>
 

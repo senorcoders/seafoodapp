@@ -274,6 +274,22 @@ export class OrdersComponent implements OnInit {
     jQuery('#open-table').show();
   }
 
+  openChildMobile(items, subtotal, shipping, fees, total){
+    this.items = items;
+    this.subtotal = subtotal;
+    this.shipping = shipping;
+    this.fees = fees;
+    this.total = total;
+    jQuery('#open-table-mobile').hide(); 
+    jQuery('#child-table-mobile').show();
+
+  }
+
+  hideChildMobile(){
+    jQuery('#child-table-mobile').hide(); 
+    jQuery('#open-table-mobile').show();
+  }
+
   //CANCELING A SINGLE ORDER ITEM
   cancelOrder( itemID: string ) {
     this.orderService.updateStatus ( '5c017b5a47fb07027943a40c', itemID, this.userData ).subscribe(

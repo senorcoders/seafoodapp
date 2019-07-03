@@ -58,10 +58,7 @@ export class ShopComponent implements OnInit {
   options: Options = {
     floor: 0,
     ceil: 35,
-    step: 5,
-    translate: (value: number): string => {
-      return 'AED ' + value;
-    }
+    step: 5
   };
   shoppingCartId: any;
   productsCart: any = [];
@@ -84,6 +81,15 @@ export class ShopComponent implements OnInit {
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
     private countryservice: CountriesService, private router: Router, private cService: CartService) {
+
+      jQuery(document).ready(function () {
+      
+      
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+          console.log("Es movil");
+          jQuery('#filterCollapse').collapse('hide');
+        }
+      });
   }
   async ngOnInit() {
 
