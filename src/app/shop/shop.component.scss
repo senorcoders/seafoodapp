@@ -2,6 +2,9 @@
 
 .filter-container{
   padding-top: 110px;
+  @media screen and (max-width: 768px){
+    padding-top: 72px;
+  }
 }
 .gray-bg{
     padding-bottom: 155px;
@@ -241,8 +244,7 @@
     background-color: $light_blue;
     padding: 35px 50px;
     @media screen and (max-width: 768px){
-      padding-left: 15px;
-      padding-right: 15px;
+      padding: 15px;
     }
     @media screen  and (min-width: 1450px){
       padding-left: 155px;
@@ -256,6 +258,9 @@
     }
     .row{
       align-items: center;
+      @media screen and (max-width: 768px){
+        flex-wrap: nowrap;
+      }
       h2{
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
@@ -300,13 +305,21 @@
         content: url('../../assets/svg/plus-white.svg');
         display: block;
         height: 20px;
+        @media screen and (max-width: 992px){
+          height: 14px;
+        }
     }
     }
-   
+   .col-md-2{
+    @media screen and (max-width: 992px){
+      width: 20%;
+    }
+   }
     .col-md-10{
       display: inline-flex;
       @media screen and (max-width: 992px){
        display: block;
+       width: 80%;
       }
       .filter-pills{
         margin: 0;
@@ -376,6 +389,9 @@
         .scroll-div{
           max-height: 160px;
           overflow-y: scroll;
+          @media screen and (max-width: 768px){
+            max-height: initial;
+          }
           &::-webkit-scrollbar {
             width: 7px;
             background: transparent;
