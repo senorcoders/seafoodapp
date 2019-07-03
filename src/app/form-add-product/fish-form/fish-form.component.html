@@ -130,11 +130,16 @@
         </div>
 
         <div class="col-lg-6 fish-group">
-          <label> <span class="selectionable" [ngClass]="wholeFishAction===true?'select':''"
-              (click)="assingWholeFish(true)">WHOLE</span> {{parentSelectedType==='5bda35c078b3140ef5d31f9a'?'':'|'}} <span [hidden]="parentSelectedType==='5bda35c078b3140ef5d31f9a'" (click)="assingWholeFish(false)"
-              class="selectionable" [ngClass]="wholeFishAction===true?'':'select'">FILLETED FISH</span> <img
-              tooltip="The preparation of the fish" [hidden]="parentSelectedType==='5bda35c078b3140ef5d31f9a'"
-              placement="right" show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22"></label>
+          <label> <span class="selectionable" [ngClass]="wholeFishAction==='si'?'select':''"
+              (click)="assingWholeFish('si')" [hidden]="parentSelectedType===crustaceansId">WHOLE</span>
+            {{parentSelectedType===crustaceansId?'':'|'}}
+            <span [hidden]="parentSelectedType===crustaceansId" (click)="assingWholeFish('no')" class="selectionable"
+              [ngClass]="wholeFishAction==='no'?'select':''">FILLETED FISH</span>
+            {{parentSelectedType===crustaceansId?'':'|'}}
+            <span (click)="assingWholeFish('packaged')" class="selectionable"
+              [ngClass]="wholeFishAction==='packaged'?'select':''">PACKAGED</span> <img
+              tooltip="The preparation of the fish" [hidden]="parentSelectedType===crustaceansId" placement="right"
+              show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22"></label>
         </div>
         <div class="col-lg-6 head-fish">
         </div>
@@ -154,7 +159,7 @@
           <input type="text" class="form-control" formControlName="head">
         </div>
 
-        <div class="col-lg-6" [hidden]="wholeFishAction!==false||hideTrimModal==true">
+        <div class="col-lg-6" [hidden]="wholeFishAction!=='no'||hideTrimModal==true">
           <label for="preparation" style="margin-top: 50px;
           margin-left: 70px;">
             <a class="manage-link" data-toggle="modal" data-target="#trimModal">Manage Trimming <img
@@ -184,7 +189,7 @@
           </div>
         </div>
 
-        <div [ngClass]="wholeFishAction===false&&hideTrimModal==false?'col-lg-12':'col-lg-6'">
+        <div [ngClass]="wholeFishAction==='no'&&hideTrimModal==false?'col-lg-12':'col-lg-6'">
           <!-- <div class="col-lg-6"> -->
           <div class="form-group input-group"
             [ngClass]="{'has-danger': controls().treatment.invalid && (controls().treatment.dirty || controls().treatment.touched),'has-success': controls().treatment.valid && (controls().treatment.dirty || controls().treatment.touched)}">
@@ -239,7 +244,7 @@
         <input type="text" hidden formControlName="deletedImages">
 
         <div class="row gallery-container" *ngIf="images.length===0">
-          <div class="col-3"> 
+          <div class="col-3">
             <img src="../../assets/add-default.png" width="100%" height="auto">
           </div>
           <div class="col-3">
@@ -370,18 +375,18 @@
           </div>
         </div>
 
-        <div class="col-lg-6" *ngIf="info['role'] == 0" >
+        <div class="col-lg-6" *ngIf="info['role'] == 0">
           <div class="form-group input-group">
             <span class="has-float-label">
               <select id="processing" class="form-control" formControlName="status">
-                <option value="5c0866f9a0eda00b94acbdc2" >Approved</option>
-                <option value="5c3fc078970dc99bb06bed69" >Hidden</option>
+                <option value="5c0866f9a0eda00b94acbdc2">Approved</option>
+                <option value="5c3fc078970dc99bb06bed69">Hidden</option>
               </select>
-              <label for="processing">Status* </label>              
-            </span>            
+              <label for="processing">Status* </label>
+            </span>
           </div>
         </div>
-        
+
         <div class="col-lg-3 fish-foreign">
           <div class="custom-control custom-checkbox mb-3">
             <input type="checkbox" formControlName="foreignfish" class="custom-control-input form-control"
@@ -424,8 +429,7 @@
                   {{'CreateProduct.required' | translate}}</p>
               </div>
             </span>
-            <button type="button" class="question-btn" tabIndex="-1"
-              tooltip="The Unit of measurement of the product."
+            <button type="button" class="question-btn" tabIndex="-1" tooltip="The Unit of measurement of the product."
               placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
           </div>
           <div class="custom-control custom-checkbox mb-3" style="max-width: 400px; margin: 0 auto;">

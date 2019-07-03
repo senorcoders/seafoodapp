@@ -61,7 +61,7 @@ export class FishFormComponent implements OnInit {
 
   //for features
   features;
-  public wholeFishAction = true;
+  public wholeFishAction = 'si';
   public wholeFishs = [];
   public raised = [];
   public head = "on";
@@ -83,6 +83,9 @@ export class FishFormComponent implements OnInit {
   public staticmin: number = 1;
   weightType: any = 'Kg';
   public parentSelectedType = '';
+  public crustaceansId = '5bda35c078b3140ef5d31f9a';
+  public caviarId = '5d1cd8321bcd17083acdceb3';
+  public salmon = '5bda361c78b3140ef5d31fa4';
 
   constructor(public parentForm: FormGroupDirective, private countryService: CountriesService,
     private productService: ProductService, private zone: NgZone,
@@ -182,7 +185,7 @@ export class FishFormComponent implements OnInit {
 
       //Features
       if (it.speciesSelected !== undefined && it.speciesSelected !== null) {
-        if (it.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+        if (it.speciesSelected === this.salmon) {
           this.hideTrimModal = false;
         } else {
           this.hideTrimModal = true;
@@ -191,8 +194,8 @@ export class FishFormComponent implements OnInit {
       if (it.parentSelectedType)
         this.parentSelectedType = it.parentSelectedType;
 
-      if (it.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
-        this.wholeFishAction = true;
+      if (it.parentSelectedType === this.crustaceansId) {
+        this.wholeFishAction = 'si';
       } else
         this.wholeFishAction = it.wholeFishAction; 
     });
@@ -299,7 +302,7 @@ export class FishFormComponent implements OnInit {
 
   public onChanges(): void {
     this.product.valueChanges.subscribe(val => {
-      if (val.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+      if (val.speciesSelected === this.salmon) {
         this.hideTrimModal = false;
       }
 
@@ -350,7 +353,7 @@ export class FishFormComponent implements OnInit {
 
       case 1:
         selectedType = this.getValue().speciesSelected;
-        if (value === '5bda361c78b3140ef5d31fa4') {
+        if (value === this.salmon) {
           this.preparationOptions = this.trimmings;
           this.showWholeOptions = true;
           // this.myform.controls['preparation'].setValue(this.preparationOptions[0]);
