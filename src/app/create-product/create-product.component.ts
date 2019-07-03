@@ -264,6 +264,7 @@ export class CreateProductComponent implements OnInit {
           we.weightsTrim = data['weightsTrim'];
           we.weightsFilleted = data['weightsFilleted'];
           we.wholeFishAction = data['wholeFishAction'];
+          we.weightsPackaged = data['weightsPackaged'];
           console.log(we);
           this.emitEventToChild(we);
           this.speciesSelected = parent['level1'] ? parent['level1'].id : '';
@@ -400,12 +401,20 @@ export class CreateProductComponent implements OnInit {
         }
       }
 
-      if (this.myform.valid || invalidValue.length === 1 && invalidValue[0] === 'product.subSpeciesSelected') {
+      if (this.myform.valid) {
         console.log(this.myform.value);
         const value = this.myform.value,
           product = value.product,
           features = product,
           pricing = value.price;
+
+        //types fish
+        let salmon = '5bda361c78b3140ef5d31fa4', crustaceans = '5bda35c078b3140ef5d31f9a';
+
+        //fish preparation
+        let whole = '5d128316ce26cbab9c23e52e', filleted = '5c93c01465e25a011eefbcc4',
+        headOnGutted = '5c93bff065e25a011eefbcc2', headOffGutted = '5c93c00465e25a011eefbcc3',
+        packaged ='5d1cc9cd29dc5790fa2537f3';
 
         product.speciesSelected = product.speciesSelected || this.speciesSelected;
         product.parentSelectedType = product.parentSelectedType || this.parentSelectedType;
@@ -438,7 +447,7 @@ export class CreateProductComponent implements OnInit {
         let variationsDeleted = JSON.parse(pricing.variationsDeleted);
         let pricesDeleted = JSON.parse(pricing.pricesDeleted);
 
-        let variations: any = {}, variationsTrim: any = {}, variationsEnd = [],
+        let variations: any = {}, variationsTrim: any = {}, variationsPackaged = [], variationsEnd = [],
           weightsFilleted = [];
         if (pricing.weights !== '') {
           variations = JSON.parse(pricing.weights);
@@ -451,14 +460,18 @@ export class CreateProductComponent implements OnInit {
           weightsFilleted = JSON.parse(pricing.weightsFilleted);
         }
 
+        if (pricing.weightsPackaged !== '') {
+          variationsPackaged = JSON.parse(pricing.weightsPackaged);
+        }
+
         //if there product id so check if change whole or fillete or salmon
         if (this.productID !== '') {
-          let trimmingCurrent = features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4';
-          let trimminProduct = this.product['wholeFishAction'] == false && this.speciesSelected === '5bda361c78b3140ef5d31fa4';
+          let trimmingCurrent = features.wholeFishAction === 'no' && product.speciesSelected === salmon;
+          let trimminProduct = this.product['wholeFishAction'] == 'no' && this.speciesSelected === salmon;
           if (
             this.product['wholeFishAction'] !== features.wholeFishAction ||
             trimminProduct !== trimmingCurrent ||
-            this.speciesSelected === '5bda361c78b3140ef5d31fa4' && this.speciesSelected !== product.speciesSelected
+            this.speciesSelected === salmon && this.speciesSelected !== product.speciesSelected
           ) {
             variationsDeleted = this.product['variations'].map(it => {
               return it.id;
@@ -478,7 +491,7 @@ export class CreateProductComponent implements OnInit {
           return it;
         };
         // Para ver si es varations Trimming
-        if (features.wholeFishAction === false && product.speciesSelected === '5bda361c78b3140ef5d31fa4') {
+        if (features.wholeFishAction === 'no' && product.speciesSelected === salmon) {
           console.log(Object.keys(variationsTrim));
           for (const key of Object.keys(variationsTrim)) {
             const fishPreparation = key;
@@ -488,9 +501,9 @@ export class CreateProductComponent implements OnInit {
             };
             variationsEnd.push(itr);
           }
-        } else if (features.wholeFishAction === false && product.speciesSelected !== '5bda361c78b3140ef5d31fa4' || product.parentSelectedType === '5bda35c078b3140ef5d31f9a') {
+        } else if (features.wholeFishAction === 'no' && product.speciesSelected !== salmon || product.parentSelectedType === crustaceans) {
           // para los fillete or crustance
-          const fishPreparation = product.parentSelectedType === '5bda35c078b3140ef5d31f9a' ? '5d128316ce26cbab9c23e52e' : '5c93c01465e25a011eefbcc4';
+          const fishPreparation = product.parentSelectedType === crustaceans ? whole : filleted;
 
           const itr = {
             fishPreparation,
@@ -501,9 +514,20 @@ export class CreateProductComponent implements OnInit {
             })
           };
           variationsEnd.push(itr);
+        }else if(features.wholeFishAction === 'packaged'){
+          const fishPreparation = packaged;
+          const itr = {
+            fishPreparation,
+            prices: variationsPackaged.map((it, i) => {
+              const price = pricing['weightsPackaged_arr'][i];
+              it.price = price;
+              return itereOptions(it);
+            })
+          };
+          variationsEnd.push(itr);
         } else {
           // Para los ON
-          let fishPreparation = '5c93bff065e25a011eefbcc2';
+          let fishPreparation = headOnGutted;
           if (variations.on.keys && variations.on.keys.length > 0) {
             for (const it of variations.on.keys) {
               const wholeFishWeight = it;
@@ -516,7 +540,7 @@ export class CreateProductComponent implements OnInit {
             }
           }
           // Para off
-          fishPreparation = '5c93c00465e25a011eefbcc3';
+          fishPreparation = headOffGutted;
           if (variations.off.keys && variations.off.keys.length > 0) {
             for (const it of variations.off.keys) {
               const wholeFishWeight = it;
@@ -529,7 +553,7 @@ export class CreateProductComponent implements OnInit {
             }
           }
         }
-        // Buscamos si algun price yeva id, si lleva quiere decir que es
+        // Buscamos si algun price lleva id, si lleva quiere decir que es
         // Para actualizar
         variationsEnd = variationsEnd.map(it => {
           const index = it.prices.findIndex(it => {
@@ -573,11 +597,6 @@ export class CreateProductComponent implements OnInit {
           'country': product.country,
           'processingCountry': product.processingCountry,
           'city': product.city,
-          // 'price': {
-          //   'type': '$',
-          //   'value': priceAED,
-          //   'description': priceAED + ' for pack'
-          // },
           'weight': {
             'type': "kg",
             'value': 5

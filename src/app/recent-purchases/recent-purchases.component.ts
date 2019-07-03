@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
@@ -70,12 +70,14 @@ export class RecentPurchasesComponent implements OnInit {
   public selectedMoment: any = new Date();
 
 
-  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress, private formBuilder: FormBuilder) {
+  constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress, private formBuilder: FormBuilder,
+    private zone: NgZone
+  ) {
     this.min.setDate(this.today.getDate());
     this.max.setDate(this.today.getDate() + 90);
   }
 
- ngOnInit() {
+  ngOnInit() {
     this.setHeight();
     this.createFormControl();
     this.createForm();
@@ -171,7 +173,20 @@ export class RecentPurchasesComponent implements OnInit {
         console.log(result);
         if (result && result !== '') {
           this.items = result;
-          this.firstNoShipped = result; console.log(result);
+          // this.firstNoShipped = result; 
+          let trs = [];
+          for(let it of (result as any)){
+            let index = trs.findIndex(ite=>{
+              return it.id === ite.id;
+            });
+            if(index===-1){
+              trs.push(it);
+            }else{
+              console.log(it.id, trs[index].id, it, trs[index]);
+            }
+          }
+          console.log('result', JSON.parse(JSON.stringify(result)));
+          this.firstNoShipped = trs;
 
           this.showLoading = false;
           this.showProduct = true;
@@ -190,6 +205,10 @@ export class RecentPurchasesComponent implements OnInit {
         console.log(e);
       }
     );
+  }
+  showR() {
+    console.log(this.firstNoShipped);
+    this.zone.run(function () { console.log('test'); });
   }
   getPurchasesShipped() {
     // this.productS.getData('api/store/fish/items/paid/' + this.storeID).subscribe(
@@ -258,43 +277,52 @@ export class RecentPurchasesComponent implements OnInit {
   getDates() {
     this.items.forEach((data, index) => {
       // convert date
-      const date = new Date(data.paidDateTime);
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      let hours = date.getHours();
-      const min = date.getMinutes();
-      let minutes;
-      if (min < 10) {
-        minutes = '0' + min;
-      } else {
-        minutes = min;
-      }
-      let ampm = 'AM';
-      if (hours > 12) {
-        hours -= 12;
-        ampm = 'PM';
-      }
-      this.dates[index] = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+      if (data && data.paidDateTime) {
+        const date = new Date(data.paidDateTime);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let hours = date.getHours();
+        const min = date.getMinutes();
+        let minutes;
+        if (min < 10) {
+          minutes = '0' + min;
+        } else {
+          minutes = min;
+        }
+        let ampm = 'AM';
+        if (hours > 12) {
+          hours -= 12;
+          ampm = 'PM';
+        }
+        this.dates[index] = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+
+      } else
+        this.dates[index] = 'no date'
     });
   }
   getDatesShipped() {
     this.shipped.forEach((data, index) => {
       // convert date
-      const date = new Date(data.shoppingCart.paidDateTime);
-      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-      let hours = date.getHours();
-      const min = date.getMinutes();
-      let minutes;
-      if (min < 10) {
-        minutes = '0' + min;
+      if (data.shoppingCart && data.shoppingCart.paidDateTime) {
+        const date = new Date(data.shoppingCart.paidDateTime);
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        let hours = date.getHours();
+        const min = date.getMinutes();
+        let minutes;
+        if (min < 10) {
+          minutes = '0' + min;
+        } else {
+          minutes = min;
+        }
+        let ampm = 'AM';
+        if (hours > 12) {
+          hours -= 12;
+          ampm = 'PM';
+        }
+        this.datesShipping[index] = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
+
       } else {
-        minutes = min;
+        this.datesShipping[index] = 'no date';
       }
-      let ampm = 'AM';
-      if (hours > 12) {
-        hours -= 12;
-        ampm = 'PM';
-      }
-      this.datesShipping[index] = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear() + ' ' + hours + ':' + minutes + ' ' + ampm;
     });
   }
 
@@ -513,7 +541,7 @@ export class RecentPurchasesComponent implements OnInit {
       console.log('File', file);
       if (file !== '' && file != null) {
         const contents = await this.postFile(file);
-        }
+      }
 
     }
 
@@ -551,11 +579,11 @@ export class RecentPurchasesComponent implements OnInit {
 
 
     this.toast.success('Order marked as document fulfillment!', 'Upload Succesfully', { positionClass: 'toast-top-right' });
-      jQuery('#shippingDocs').modal('hide');
-      this.doc = [];
-      this.cleanLabels();
-      this.loading = false;
-      this.ngProgress.done();
+    jQuery('#shippingDocs').modal('hide');
+    this.doc = [];
+    this.cleanLabels();
+    this.loading = false;
+    this.ngProgress.done();
 
 
 
@@ -564,17 +592,17 @@ export class RecentPurchasesComponent implements OnInit {
   async saveExtraDocs() {
 
     await new Promise((resolve) => {
-    for (let i = 0; i < this.extra.length; i++) {
-      console.log(this.extra.at(i).value);
-      const item = this.extra.at(i).value;
+      for (let i = 0; i < this.extra.length; i++) {
+        console.log(this.extra.at(i).value);
+        const item = this.extra.at(i).value;
 
-      this.postFile(item['fileextra']);
-      if ((i + 1) === this.extra.length) {
-        console.log('Se resolvio');
-        resolve();
+        this.postFile(item['fileextra']);
+        if ((i + 1) === this.extra.length) {
+          console.log('Se resolvio');
+          resolve();
+        }
+
       }
-
-    }
     });
 
   }
@@ -651,7 +679,7 @@ export class RecentPurchasesComponent implements OnInit {
     /* Requires STRING not contain TOKEN */
     const parts = string.split(token);
     return parts.slice(0, -1).join('') + token + parts.slice(-1);
-}
+  }
   handleFileInput(event, name) {
 
 
@@ -666,7 +694,7 @@ export class RecentPurchasesComponent implements OnInit {
 
       const blob = file[0].slice(0, file[0].size, file[0].type);
       console.log(blob);
-      const newFile = new File([blob], name  + '-' + ext[0] + '.' + ext[1], { type: file[0].type });
+      const newFile = new File([blob], name + '-' + ext[0] + '.' + ext[1], { type: file[0].type });
 
       console.log('newFile', newFile);
       // file[0].name=name;
@@ -810,7 +838,8 @@ export class RecentPurchasesComponent implements OnInit {
       ) {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
-      result = (Number(item.total) / exchangeRates).toFixed(2);
+      if (item && item.total)
+        result = (Number(item.total) / exchangeRates).toFixed(2);
     } catch (e) {
       console.error(e);
     }
@@ -840,11 +869,11 @@ export class RecentPurchasesComponent implements OnInit {
 
       const blob = file[0].slice(0, file[0].size, file[0].type);
       console.log(blob);
-      const newFile = new File([blob], name  + '-extra'  + '.' + ext[1], { type: file[0].type });
+      const newFile = new File([blob], name + '-extra' + '.' + ext[1], { type: file[0].type });
 
       console.log('newFile', newFile);
 
-     this.extra.at(index).setValue(
+      this.extra.at(index).setValue(
         {
           filename: name,
           fileextra: newFile
