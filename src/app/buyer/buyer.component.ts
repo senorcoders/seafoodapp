@@ -57,10 +57,10 @@ export class BuyerComponent implements OnInit {
 		let cod = (this.user.cod !== undefined && this.user.cod !== null && this.user.cod.usage === true);
 		console.log(cod);
 		let limit = "";
-		if (cod === true) {
+		/*if (cod === true) {
 			limit = parseFloat(this.user.cod.limit).toFixed(2);
 			this.buyerForm.setControl("limit", new FormControl(Number(limit) <= 0 ? "" : limit, Validators.required));
-		}
+		}*/
 		this.buyerForm.patchValue({
 			firstName: this.user.firstName,
 			lastName: this.user.lastName,
