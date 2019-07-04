@@ -60,11 +60,11 @@
 									<th scope="col"></th>
 								</tr>
 							</thead>
-							<tbody *ngFor="let item of firstNoShipped; let i=index">
+							<tbody *ngFor="let item of firstNoShipped; let i=index" (click)='showR()'>
 								<tr [className]="item.items[0].updateInfo == null ? 'green-row' : 'gray-row'" >
 									<td *ngIf="item.items.length == 1"><span *ngIf="item.items[0].updateInfo == null"
 											class="new-span">NEW</span>{{item.orderNumber}}</td>
-									<td *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button"><span *ngIf="item.items[0].updateInfo == null"
+									<td class='{{i}}' *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button"><span *ngIf="item.items[0].updateInfo == null"
 												class="new-span">NEW</span>{{item.orderNumber}}</td>
 									<td *ngIf="item.items.length == 1">{{item.updatedAt | date: 'd/M/y'}}</td>
 									<td  *ngIf="item.items.length > 1" data-toggle="collapse" attr.data-target="#collapse{{item.id}}" role="button">{{item.updatedAt | date: 'd/M/y'}}</td>

@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core'
 import { HostListener } from '@angular/core'
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { IsLoginService } from '../core/login/is-login.service';
 import { CartService } from '../core/cart/cart.service';
 import { ProductService } from '../services/product.service';
@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
   password: FormControl;
   isValid: boolean = false;
   loginText: any = 'LOGIN';
-  role
+  role;
+  verified:boolean = false;
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.setHeight(event.target.innerHeight);
@@ -38,10 +39,14 @@ export class LoginComponent implements OnInit {
     private isLoginService: IsLoginService, private cart: CartService,
     private product: ProductService, private orders: OrdersService,
     private translate: TranslateService, private zone: NgZone,
-    private http: HttpClient
+    private http: HttpClient, private route: ActivatedRoute
   ) {
     console.log(this.translate.currentLang, this.translate)
     this.redirectHome();
+    this.route.queryParams.subscribe(async params => {
+      this.verified = params['verified'];
+
+    });
   }
 
   ngOnInit() {

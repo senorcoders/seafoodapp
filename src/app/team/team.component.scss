@@ -1,0 +1,176 @@
+@import "../../variables.scss";
+
+.gray-bg{
+    padding: 110px 0;
+    @media screen  and (max-width: 768px){
+        padding: 60px 0;
+    }
+    .container-fluid{
+        @media screen  and (min-width: 1450px){
+            padding-left: 155px;
+            padding-right: 155px;
+        }
+        
+    }
+    .about-hero{
+        background: url('../../assets/svg/fish-header.svg');
+        height: 500px;
+        position: relative;
+        background-position: bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin-bottom: 100px;
+        @media screen and (max-width: 768px){
+            height: 400px;
+
+        }
+        @media screen and (min-width: 1450px){
+            width: 75%;
+            margin: 0 auto;
+        }
+
+        h1{
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 100;
+            color: $white;
+            font-size: 50px;
+            letter-spacing: 1.25px;
+            line-height: 59px;
+            position: absolute;
+            width: 100%;
+            top: 30%;
+            @media screen and (max-width: 768px){
+                font-size: 38px; 
+                line-height: 45px;
+            }
+        }
+    }
+
+    .team-member-box{
+        margin: 50px 0;
+        .member-headshot{
+            width: 100%;
+            max-width: 332px;
+            margin: 0 auto;
+            height: 448px;
+            border-radius: 5px;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            cursor: pointer;
+            position: relative;
+            transition:color .2s ease-out, background 2s ease-in;
+
+            &.sean{
+                background-image: url('../../assets/team/SeanD.png');
+            }
+            &.denis{
+                background-image: url('../../assets/team/DenisK.png');
+            }
+            &.fahim{
+                background-image: url('../../assets/team/Fahim.png');
+            }
+            &.ramie{
+                background-image: url('../../assets/team/Ramie.png');
+            }
+            &.saddam{
+                background-image: url('../../assets/team/SaddamS.png');
+            }
+            &.omar{
+                background-image: url('../../assets/team/OmarAH.png');
+            }
+            &.amrit{
+                background-image: url('../../assets/team/AmritM.png');
+            }
+            &.osama{
+                background-image: url('../../assets/team/OsamaAM.png');
+            }
+            &.hameed{
+                background-image: url('../../assets/team/HameedA.png');
+            }
+            &.sophie{
+                background-image: url('../../assets/team/Sophie.png');
+            }
+            &.justin{
+                background-image: url('../../assets/team/JustinW.png');
+            }
+            &.kharron{
+                background-image: url('../../assets/team/Kharron.png');
+            }
+            &.brittany{
+                background-image: url('../../assets/team/Brittany.png');
+            }
+            &.ron{
+                background-image: url('../../assets/team/Ron.png');
+            }
+            .content-member-box{
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                padding: 29px;
+                display: flex;
+                align-items: center;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+                z-index: 2;
+                display: none;
+                transition:color .2s ease-out, background 2s ease-in;
+
+                p{
+                    font-family: 'Open Sans';
+                    font-weight: 300;
+                    font-size: 16px;
+                    line-height: 22px;
+                    color: $white;
+                    transition:color .2s ease-out, background 2s ease-in;
+
+                    span{
+                        font-style: italic;
+                    }
+                }
+            }
+            .filter{
+                background-color: rgba($color: $black, $alpha: 0.7);
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 1;
+                border-radius: 5px;
+                display: none;
+                transition:color .2s ease-out, background 2s ease-in;
+            }
+            &:hover{
+                .filter{
+                    display: block;
+                }
+                .content-member-box{
+                    display: flex;
+                }
+            }
+        }
+
+        .team-footer{
+            width: 100%;
+            max-width: 332px;
+            margin: 0 auto;
+            padding: 15px;
+            h4{
+                font-family: 'Josefin Sans', sans-serif;
+                font-weight: 300;
+                font-size: 21px;
+                line-height: 25px;
+                color: $light_blue;
+                &.uppercase{
+                    text-transform: uppercase;
+                    font-size: 14px;
+                    letter-spacing: 1.25px;
+                    line-height: 16px;
+                }
+            }
+        }
+    }
+}

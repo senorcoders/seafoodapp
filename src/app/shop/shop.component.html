@@ -15,7 +15,12 @@
         <div class="row">
           <div class="col-md-10">
             <h2>FILTER <span *ngIf="!showClear">YOUR SEARCH</span> </h2>
-            <ul class="list-inlint filter-pills" [hidden]="!showClear">
+            <ul class="list-inlint filter-pills hidden-desktop" [hidden]="!showClear">
+              <li class="list-inline-item" *ngIf="showClear">
+                <button (click)="clear()"><span>Clear filters</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+            </ul>
+            <ul class="list-inlint filter-pills hidden-mobile" [hidden]="!showClear">
               <li class="list-inline-item" id="pill-category">
                 <button (click)="destroyPillCat()"><span>{{tmpCatName}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
               </li>
@@ -167,7 +172,7 @@
             </div>
 
             <div class="col filter-col">
-              <h4>PRICE / KG</h4>
+              <h4>PRICE / KG (AED)</h4>
               <input type="hidden" id="minPriceValue" name="priceValue">
               <input type="hidden" id="maxPriceValue" name="priceValue">
               <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
@@ -250,7 +255,7 @@
                   <div class="product-footer">
                     <h4>{{product.name}} <span *ngIf="product.variation.fishPreparation != null">-</span> {{product?.variation?.fishPreparation?.name}} <span *ngIf="product.variation.wholeFishWeight != null">-</span> {{product?.variation?.wholeFishWeight?.name}}
                       <span *ngIf="product.perBox == true"> - (1 box = {{product.boxWeight}} kg)</span></h4>
-                    <h5 id="product-price-{{product.variation.id}}"></h5>
+                    <!--<h5 id="product-price-{{product.variation.id}}">AED {{(product.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small>(based off quantity)</small></h5> -->
                   </div>
               </div>
           </div>

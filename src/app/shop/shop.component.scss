@@ -2,6 +2,9 @@
 
 .filter-container{
   padding-top: 110px;
+  @media screen and (max-width: 768px){
+    padding-top: 72px;
+  }
 }
 .gray-bg{
     padding-bottom: 155px;
@@ -198,6 +201,12 @@
                 font-size: 1em;
                 line-height: 25px;
                 color: $light_blue;
+                small{
+                  font-size: 12px;
+                  line-height: 14px;
+                  font-weight: 300;
+                  font-style: initial;
+                }
               }
             }
         
@@ -235,8 +244,7 @@
     background-color: $light_blue;
     padding: 35px 50px;
     @media screen and (max-width: 768px){
-      padding-left: 15px;
-      padding-right: 15px;
+      padding: 15px;
     }
     @media screen  and (min-width: 1450px){
       padding-left: 155px;
@@ -250,6 +258,9 @@
     }
     .row{
       align-items: center;
+      @media screen and (max-width: 768px){
+        flex-wrap: nowrap;
+      }
       h2{
         font-family: 'Josefin Sans', sans-serif;
         font-weight: 300;
@@ -279,6 +290,9 @@
         @media screen  and (min-width: 1450px){
           padding-right: 20px;
       }
+      @media screen  and (max-width: 768px){
+        display: none;
+      }
       }
 
       .expandible-link{
@@ -294,13 +308,21 @@
         content: url('../../assets/svg/plus-white.svg');
         display: block;
         height: 20px;
+        @media screen and (max-width: 992px){
+          height: 14px;
+        }
     }
     }
-   
+   .col-md-2{
+    @media screen and (max-width: 992px){
+      width: 20%;
+    }
+   }
     .col-md-10{
       display: inline-flex;
       @media screen and (max-width: 992px){
-       display: block;
+       display: inline-flex;
+       width: 80%;
       }
       .filter-pills{
         margin: 0;
@@ -308,8 +330,15 @@
           width: 100%;
           padding: 0;
         }
+        @media screen  and (max-width: 768px){
+          // display: none;
+        }
         li{
           display: none;
+          @media screen  and (max-width: 768px){
+            display: inline-block;
+            margin-left: 30px;
+          }
         }
         button{
           padding: 0;
@@ -358,6 +387,8 @@
       .filter-col{
         @media screen and (max-width: 768px){
           flex-basis: auto;
+          border-bottom: 1px solid rgba($color: $white, $alpha: 0.5);
+          margin-bottom: 30px;
         }
         h4{
           text-transform: uppercase;
@@ -370,6 +401,10 @@
         .scroll-div{
           max-height: 160px;
           overflow-y: scroll;
+          @media screen and (max-width: 768px){
+            max-height: initial;
+            column-count: 2;
+          }
           &::-webkit-scrollbar {
             width: 7px;
             background: transparent;
@@ -940,4 +975,22 @@ input[type=range]:focus::-ms-fill-upper {
   font-size: 1em;
   font-family: 'Josefin Sans', sans-serif;
 
+}
+
+.hidden-desktop{
+  display: none;
+}
+
+.hidden-mobile{
+  display: initial;
+}
+
+@media screen and (max-width: 768px){
+  .hidden-desktop{
+      display: initial;
+  }
+
+  .hidden-mobile{
+      display: none;
+  }
 }

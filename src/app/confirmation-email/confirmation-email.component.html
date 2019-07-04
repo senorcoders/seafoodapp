@@ -1,8 +1,27 @@
-<div class="container-confirmation">
-  <div class="content">
-    <h1 *ngIf="verified === 0">{{'ConfirmationEmail.text' | translate}} If you have received our approval email you can
-      login from <a routerLink="/login">here</a>. Otherwise, we will get back to you within 24 hours of
-      registration.</h1>
-    <h1 *ngIf="verified === 1">{{'ConfirmationEmail.Errortext' | translate}} </h1>
+<div class="gray-bg">
+  <div class="container-fluid logo-row">
+    <div class="row">
+      <div class="col-lg-3">
+        <img src="../../assets/svg/sfs-logo.svg" alt="" width="60px">
+      </div>
+    </div>
   </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12 text-center">
+          <img class="e-verify" src="..//../assets/svg/email-verify.svg" alt="">
+        </div>
+        <div class="col-lg-12 text-center">
+            <div class="loader">
+                <span class="dot_1"></span>
+                <span class="dot_2"></span>
+                <span class="dot_3"></span>
+              </div>
+        </div>
+
+        <div class="col-lg-12 text-center">
+          <p>ONE MOMENT, WE'RE VERIFYING YOUR EMAIL...</p>
+        </div>
+      </div>
+    </div>
 </div>
