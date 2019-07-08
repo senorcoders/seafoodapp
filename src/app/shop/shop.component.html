@@ -192,7 +192,9 @@
 </div>
 <div class="gray-bg">
     <div class="container-fluid">
-      <div class="row" style="position: relative; min-height: 50vh;" id="products-container">
+      <div class="row" style="position: relative; min-height: 50vh;" id="products-container"  
+      infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" 
+      (scrolled)="onScroll()" >
               <div class="wave-loader" *ngIf="showLoading">
                   <div class="wave-loading"></div>
                 </div>
@@ -259,6 +261,15 @@
                   </div>
               </div>
           </div>
+
+          <div class="col-lg-12 text-center scroll-animation" *ngIf="showScrollanimation">
+              <p>LOADING MORE PRODUCTS...</p>
+            <div class="loader">
+                <span class="dot_1"></span>
+                <span class="dot_2"></span>
+                <span class="dot_3"></span>
+              </div>
+        </div>
       </div>
        
     </div>
