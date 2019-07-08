@@ -206,7 +206,7 @@
               
             </div>
 
-          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} {{product.type}} {{removeSpaces(product.country)}} {{i}} {{product.variation.id }} {{product.id}} category-{{product.type}} {{product.variation.max}} {{product.variation.min}} {{product.perBox}} {{product.minBox}} {{product.maxBox}}">
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} {{product.type}} {{removeSpaces(product.country)}} {{i}} {{product.variation.id }} {{product.id}} category-{{product.type}} {{product.variation.max}} {{product.variation.min}} {{product.perBox}} {{product.minBox}} {{product.maxBox}} {{( product.variation.outOfStock || ( (getFixedNumber(product.variation.max) == 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) == 0 ) ) )}}">
               <div class="single-product-box">
                   <div class="product-header">
                    <div class="row">

@@ -78,7 +78,7 @@ export class ShopComponent implements OnInit {
   showSnackBar:boolean = false;
   itemsDeleted: any =  [];
   page:number = 1;
-  pQty:number = 5;
+  pQty:number = 6;
   showScrollanimation:boolean = false;
 
   constructor(private auth: AuthenticationService, private productService: ProductService,
@@ -472,7 +472,10 @@ export class ShopComponent implements OnInit {
         // jQuery('#edit-qty-' + classes[7]).css('display', 'none');
         // jQuery('#qty-kg-' + classes[7]).css('display', 'block');
         this.showQty = true;
-        this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        console.log("Stock", classes[15]);
+        if((classes[4] != 'coming-true' && classes[15] != 'true')){
+          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        }
       }
 
     }
