@@ -17,7 +17,7 @@ declare var jQuery;
   styleUrls: ['./shop.component.scss']
 })
 export class ShopComponent implements OnInit {
-  products: any;
+  products: any = [];
   showLoading: boolean;
   showNotFound: boolean = false;
   image: SafeStyle = [];
@@ -77,6 +77,9 @@ export class ShopComponent implements OnInit {
   staticField:any;
   showSnackBar:boolean = false;
   itemsDeleted: any =  [];
+  page:number = 1;
+  pQty:number = 6;
+  showScrollanimation:boolean = false;
 
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
@@ -101,7 +104,7 @@ export class ShopComponent implements OnInit {
     this.buyerId = this.userInfo['id'];
     await this.validateCart();
     this.getCart();
-    this.getProducts(100, 1);
+    this.getProducts(this.pQty, this.page);
     // this.getAllTypesByLevel();
     await this.getPreparation();
     await this.getRaised();
@@ -367,11 +370,16 @@ export class ShopComponent implements OnInit {
     };
     this.productService.listProduct(data).subscribe(result => {
       this.isClearButton = false;
-      this.products = result['productos'];
+      if(result['productos'] != undefined){
+        result['productos'].forEach(item => {
+          this.products.push(item);
+        });
+      }
       console.log('Productos', result);
 
       // add paginations numbers
       this.showLoading = false;
+      this.showScrollanimation = false;
       this.disabledInputs = false;
       // working on the images to use like background
       if (this.products.length === 0) {
@@ -464,7 +472,10 @@ export class ShopComponent implements OnInit {
         // jQuery('#edit-qty-' + classes[7]).css('display', 'none');
         // jQuery('#qty-kg-' + classes[7]).css('display', 'block');
         this.showQty = true;
-        this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        console.log("Stock", classes[15]);
+        if((classes[4] != 'coming-true' && classes[15] != 'true')){
+          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+        }
       }
 
     }
@@ -636,6 +647,7 @@ export class ShopComponent implements OnInit {
   }
   //FILTER PRODUCTS WITH PARAMETERS
   filterProducts() {
+    console.log("Filtrando productos...");
     this.showNotFound = false;
     if (this.isClearButton) {
       return;
@@ -1022,6 +1034,16 @@ export class ShopComponent implements OnInit {
   closeSnackBar(){
     this.showSnackBar = false;
   }
+
+
+   // When scroll down the screen  
+   onScroll()  
+   {  
+     console.log("Scrolled");  
+     this.page = this.page + 1;  
+     this.getProducts(this.pQty, this.page);  
+     this.showScrollanimation = true;
+   } 
 }
 
 
