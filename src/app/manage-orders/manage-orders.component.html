@@ -76,10 +76,12 @@
                   <p class="buyer"><b>Buyer Maximum Delivery Date: </b>{{item.buyerExpectedDeliveryDate}}</p>
                   <p class="seller"><b>Seller Expected Delivery Date: </b>{{item.sellerExpectedDeliveryDate}}</p>
 
-                  <p class="qty">Quantity {{item.quantity.value}} kg</p>
-                  <p class="total">Total:
-                    {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}
-                  </p>
+                  <p class="qty">Seller Price/kg: {{item.price}}</p>
+                  <p class="qty">Subtotal price/kg: {{item.subtotal}}</p>
+                  <p class="qty">Taxes and Customs: {{item.itemCharges.customsFee + item.itemCharges.exchangeRateCommission + item.itemCharges.sfsMarginCost}}</p>
+                  <p class="qty">Shipping, Handling and fees: {{item.itemCharges.shippingCost.cost}}</p>
+                  <p class="qty">VAT 5%: {{item.itemCharges.uaeTaxesFee}}</p>
+                  <p class="total">Total: {{item.itemCharges.finalPrice}} </p>
                   <a *ngIf="item.po_path" target="_blank"
                     href="{{API}}api/shoppingcart/PDF/{{item.po_path}}/pdf_purchase_order">Purchase Order PDF</a>
                 </ng-container>
