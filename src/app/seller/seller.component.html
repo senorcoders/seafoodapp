@@ -1,22 +1,23 @@
-<div class="container" >
+<div class="container">
 	<div class="row" style="position: relative; min-height: 50vh;">
-			<div class="wave-loader" *ngIf="showLoading">
-					<div class="wave-loading"></div>
-				</div>
+		<div class="wave-loader" *ngIf="showLoading">
+			<div class="wave-loading"></div>
+		</div>
 		<div class="col-12">
 			<h3 class="black-title">{{'Seller.title' | translate}}</h3>
 		</div>
 		<div class="col-12 table-design">
-	        <div class="row row-bg" *ngFor="let user of users; let i=index">
-	          <div class="col-lg-12">
-	            <h2 class="name">
-	              {{user.firstName}} {{user.lastName}}
-	              <img src="../../assets/trash-icon.png" alt="" (click)="deleteUser(user.id)" class="delete">
-	              <fa name="pencil" class="edit" (click)="showEditForm(user.id)" data-toggle="modal" data-target="#editForm"></fa>
-	            </h2>
-	          </div>
-	        </div>
-	    </div>
+			<div class="row row-bg" *ngFor="let user of users; let i=index">
+				<div class="col-lg-12">
+					<h2 class="name">
+						{{user.firstName}} {{user.lastName}}
+						<img src="../../assets/trash-icon.png" alt="" (click)="deleteUser(user.id)" class="delete">
+						<fa name="pencil" class="edit" (click)="showEditForm(user.id)" data-toggle="modal"
+							data-target="#editForm"></fa>
+					</h2>
+				</div>
+			</div>
+		</div>
 	</div>
 	<div class="row">
 		<div class="col">
@@ -29,49 +30,58 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="editForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">{{'Seller.edit-title' | translate}}</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      	<form [formGroup]="sellerForm" (submit)="editUser()" class="form-design">
-	        <div class="form-group">
-	        	<label>{{'Seller.first-name' | translate}}</label>
-	          <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':sellerForm.get('firstName').invalid && sellerForm.get('firstName').touched}">
-	          <div class="invalid-feedback" *ngIf="sellerForm.get('firstName').hasError('required')">{{'Seller.first-name' | translate}} {{'Seller.required' | translate}}.</div>
-	        </div>
-	        <div class="form-group">
-	        	<label>{{'Seller.last-name' | translate}}</label>
-	          <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':sellerForm.get('lastName').invalid && sellerForm.get('lastName').touched}">
-	          <div class="invalid-feedback" *ngIf="sellerForm.get('lastName').hasError('required')">{{'Seller.last-name' | translate}} {{'Seller.required' | translate}}.</div>
-	        </div>
-	        <div class="form-group">
-	        	<label>{{'Seller.email' | translate}}</label>
-	          <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':sellerForm.get('email').invalid && sellerForm.get('email').touched}">
-	          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('required')">{{'Seller.email' | translate}} {{'Seller.required' | translate}}.</div>
-	          <div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('email') && !sellerForm.get('email').hasError('required')">{{'Seller.email' | translate}} {{'Seller.invalid' | translate}}</div>	
-	        </div>
-	        <div class="form-group">
-	        	<label>{{'Seller.tel' | translate}}</label>
-	          <input type="text" class="form-control" formControlName="tel">
-	        </div>
-	        <div style="display: none;" class="form-group">
-	        	<label>{{'Seller.banking' | translate}}</label>
-	          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
-	        </div>
-	        <!-- <div class="form-group">
+<div class="modal fade" id="editForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">{{'Seller.edit-title' | translate}}</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form [formGroup]="sellerForm" (submit)="editUser()" class="form-design">
+					<div class="form-group">
+						<label>{{'Seller.first-name' | translate}}</label>
+						<input type="text" class="form-control" formControlName="firstName"
+							[ngClass]="{'is-invalid':sellerForm.get('firstName').invalid && sellerForm.get('firstName').touched}">
+						<div class="invalid-feedback" *ngIf="sellerForm.get('firstName').hasError('required')">
+							{{'Seller.first-name' | translate}} {{'Seller.required' | translate}}.</div>
+					</div>
+					<div class="form-group">
+						<label>{{'Seller.last-name' | translate}}</label>
+						<input type="text" class="form-control" formControlName="lastName"
+							[ngClass]="{'is-invalid':sellerForm.get('lastName').invalid && sellerForm.get('lastName').touched}">
+						<div class="invalid-feedback" *ngIf="sellerForm.get('lastName').hasError('required')">
+							{{'Seller.last-name' | translate}} {{'Seller.required' | translate}}.</div>
+					</div>
+					<div class="form-group">
+						<label>{{'Seller.email' | translate}}</label>
+						<input type="email" class="form-control" formControlName="email"
+							[ngClass]="{'is-invalid':sellerForm.get('email').invalid && sellerForm.get('email').touched}">
+						<div class="invalid-feedback" *ngIf="sellerForm.get('email').hasError('required')">
+							{{'Seller.email' | translate}} {{'Seller.required' | translate}}.</div>
+						<div class="invalid-feedback"
+							*ngIf="sellerForm.get('email').hasError('email') && !sellerForm.get('email').hasError('required')">
+							{{'Seller.email' | translate}} {{'Seller.invalid' | translate}}</div>
+					</div>
+					<div class="form-group">
+						<label>{{'Seller.tel' | translate}}</label>
+						<input type="text" class="form-control" formControlName="tel">
+					</div>
+					<div style="display: none;" class="form-group">
+						<label>{{'Seller.banking' | translate}}</label>
+						<textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
+					</div>
+					<!-- <div class="form-group">
 	        	<label>{{'Seller.country' | translate}}</label>
 	          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':sellerForm.get('country').invalid && sellerForm.get('country').touched}">
 							<option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
 	          </select>
 	          <div class="invalid-feedback" *ngIf="sellerForm.get('country').hasError('required')"> {{'Seller.country' | translate}} {{'Seller.required' | translate}}.</div>
 	        </div> -->
-	        <!--<div class="form-group">
+					<!--<div class="form-group">
 	          <label>{{'Seller.licence' | translate}}</label>
 	          <input type="file" class="form-control" formControlName="uploadTradeLicense">
 	        </div>
@@ -89,118 +99,154 @@
 
 					<div class="form-group">
 						<label>{{'Seller.incoterm' | translate}}</label>
-						<select class="form-control" [(ngModel)]="selectedIncoterm" [ngModelOptions]="{standalone: true}">
-							<option  *ngFor="let incoterm of incoterms; let i=index" value="{{incoterm.id}}" >
-								{{incoterm.name}} 
+						<select class="form-control" [(ngModel)]="selectedIncoterm"
+							[ngModelOptions]="{standalone: true}">
+							<option *ngFor="let incoterm of incoterms; let i=index" value="{{incoterm.id}}">
+								{{incoterm.name}}
 							</option>
 						</select>
 					</div>
-					
-	        <div class="form-group">
-	          <input type="submit" class="btn-red" value="{{'Seller.edit-title' | translate}}" [disabled]="sellerForm.invalid">
-	        </div>
-			</form>
-			<!-- start store form -->
-			<div class="row" style="margin-top: 35px" >
-				<div class="col-lg-12">
-					<h5 class="subtitle">{{'Store.title' | translate}}</h5>
-				</div>
-				<div class="col-lg-12">
-					<form (ngSubmit)="storeSubmit()">
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
-									<input type="text" class="form-control" [(ngModel)]="user.dataExtra.companyName" [ngModelOptions]="{standalone: true}">
-								</div>
-							</div>
-							<div class="col-lg-6">
+
+					<div class="form-group">
+						<input type="submit" class="btn-red" value="{{'Seller.edit-title' | translate}}"
+							[disabled]="sellerForm.invalid">
+					</div>
+				</form>
+				<!-- start store form -->
+				<div class="row" style="margin-top: 35px">
+					<div class="col-lg-12">
+						<h5 class="subtitle">{{'Store.title' | translate}}</h5>
+					</div>
+					<div class="col-lg-12">
+						<form (ngSubmit)="storeSubmit()">
+							<div class="row">
+								<div class="col-lg-6">
 									<div class="form-group">
-										<label>Trade / Brand Name <span style="color:red">*</span></label>
-										<input type="text" class="form-control" [(ngModel)]="user.dataExtra.trade" [ngModelOptions]="{standalone: true}">
+										<label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
+										<input type="text" class="form-control" [(ngModel)]="user.dataExtra.companyName"
+											[ngModelOptions]="{standalone: true}">
 									</div>
 								</div>
 								<div class="col-lg-6">
-										<div class="form-group">
-											<label>{{'Account.company-type' | translate}}</label>
-											<input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="user.dataExtra.companyType" [ngModelOptions]="{standalone: true}">
-										</div>
+									<div class="form-group">
+										<label>Trade / Brand Name <span style="color:red">*</span></label>
+										<input type="text" class="form-control" [(ngModel)]="user.dataExtra.trade"
+											[ngModelOptions]="{standalone: true}">
 									</div>
-	
-									<div class="col-lg-6">
-											<div class="form-group">
-												<label>Country <span style="color:red">*</span></label>
-												<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="user.dataExtra.country" [ngModelOptions]="{standalone: true}">
-											</div>
-										</div>
-	
-										<div class="col-lg-6">
-												<div class="form-group">
-													<label>{{'Account.Address' | translate}} <span style="color:red">*</span></label>
-													<input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}" [(ngModel)]="user.dataExtra.Address" [ngModelOptions]="{standalone: true}">
-												</div>
-											</div>
-											<div class="col-lg-6">
-													<div class="form-group">
-														<label>City <span style="color:red">*</span></label>
-														<input type="text" class="form-control" placeholder="{{'Account.City' | translate}}" [(ngModel)]="user.dataExtra.City" [ngModelOptions]="{standalone: true}">
-													</div>
-												</div>
-	
-												<div class="col-lg-6">
-													
-														<div class="form-group">
-															<label>Trade License Number (Registration<span style="color:red">*</span></label>
-															<input type="number" class="form-control" [(ngModel)]="user.dataExtra.licenseNumber" [ngModelOptions]="{standalone: true}">
-														</div>
-													</div>
-	
-													<div class="col-md-6">  
-															<div class="form-group">
-																<label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
-																<input type="text" [(ngModel)]="user.dataExtra.iso" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Food Safety Certificate Number (ISO)"  >
-															</div>
-														</div>
-														<div class="col-md-6">  
-															<div class="form-group">
-																<label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
-																<input type="text"  [(ngModel)]="user.dataExtra.iban" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Corporate Bank Account Number IBAN"   >
-															</div>
-														</div>
-														<div class="col-md-6">  
-															<div class="form-group">
-																<label>Swift Code</label>
-																<input type="text"  [(ngModel)]="user.dataExtra.swiftCode" [ngModelOptions]="{standalone: true}" class="form-control" placeholder="Swift Code"   >
-															</div>
-														</div>
-														<div class="col-md-6">  
-															<div class="form-group">
-																<label>Products Interested in Selling <span class="field-status red">*</span></label>
-																<input type="text" class="form-control" [(ngModel)]="user.dataExtra.productsIntered" [ngModelOptions]="{standalone: true}" placeholder="Products Interested in Selling"   >
-															</div>
-														</div>
-														<div class="col-md-6">  
-															<div class="form-group">
-																<label>Contact Number <span class="field-status red">*</span></label>
-																<input type="number" class="form-control" [(ngModel)]="user.dataExtra.contactNumber" [ngModelOptions]="{standalone: true}" placeholder="Contact Number"   >
-															</div>
-														</div>
-	
-														<div class="col-md-6">  
-																<div class="form-group">
-																	<label>Currency of Trade <span class="field-status red">*</span></label>
-																	<select class="form-control"  [(ngModel)]="user.dataExtra.currencyTrade" [ngModelOptions]="{standalone: true}">
-																		<option value="AED">AED</option>
-																		<option value="USD">USD</option>
-																		<option value="EUR">EUR</option>
-																		<option value="GBP">GBP</option>
-																	</select>
-																</div>
-															</div>
-						 
-						</div>
-					 
-						<!-- <div class="row">
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>{{'Account.company-type' | translate}}</label>
+										<!-- <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}" [(ngModel)]="user.dataExtra.companyType" [ngModelOptions]="{standalone: true}"> -->
+										<select id="companyType" class="form-control"
+											[(ngModel)]="user.dataExtra.companyType">
+											<!-- <option value="">Select an option...</option> -->
+											<option *ngFor='let it of typesCompany' [value]="it.val" [attr.selected]="it.val===user.dataExtra.companyType?true:null">{{it.name}}
+											</option>
+										</select>
+									</div>
+
+								</div>
+
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>Country <span style="color:red">*</span></label>
+										<input type="text" class="form-control"
+											placeholder="{{'Account.City' | translate}}"
+											[(ngModel)]="user.dataExtra.country" [ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>{{'Account.Address' | translate}} <span
+												style="color:red">*</span></label>
+										<input type="text" class="form-control"
+											placeholder="{{'Account.Address' | translate}}"
+											[(ngModel)]="user.dataExtra.Address" [ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<label>City <span style="color:red">*</span></label>
+										<input type="text" class="form-control"
+											placeholder="{{'Account.City' | translate}}"
+											[(ngModel)]="user.dataExtra.City" [ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+
+								<div class="col-lg-6">
+
+									<div class="form-group">
+										<label>Trade License Number (Registration<span
+												style="color:red">*</span></label>
+										<input type="number" class="form-control"
+											[(ngModel)]="user.dataExtra.licenseNumber"
+											[ngModelOptions]="{standalone: true}">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Food Safety Certificate Number (ISO) <span
+												class="field-status red">*</span></label>
+										<input type="text" [(ngModel)]="user.dataExtra.iso"
+											[ngModelOptions]="{standalone: true}" class="form-control"
+											placeholder="Food Safety Certificate Number (ISO)">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Corporate Bank Account Number IBAN <span
+												class="field-status red">*</span></label>
+										<input type="text" [(ngModel)]="user.dataExtra.iban"
+											[ngModelOptions]="{standalone: true}" class="form-control"
+											placeholder="Corporate Bank Account Number IBAN">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Swift Code</label>
+										<input type="text" [(ngModel)]="user.dataExtra.swiftCode"
+											[ngModelOptions]="{standalone: true}" class="form-control"
+											placeholder="Swift Code">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Products Interested in Selling <span
+												class="field-status red">*</span></label>
+										<input type="text" class="form-control"
+											[(ngModel)]="user.dataExtra.productsIntered"
+											[ngModelOptions]="{standalone: true}"
+											placeholder="Products Interested in Selling">
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Contact Number <span class="field-status red">*</span></label>
+										<input type="number" class="form-control"
+											[(ngModel)]="user.dataExtra.contactNumber"
+											[ngModelOptions]="{standalone: true}" placeholder="Contact Number">
+									</div>
+								</div>
+
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Currency of Trade <span class="field-status red">*</span></label>
+										<select class="form-control" [(ngModel)]="user.dataExtra.currencyTrade"
+											[ngModelOptions]="{standalone: true}">
+											<option value="AED">AED</option>
+											<option value="USD">USD</option>
+											<option value="EUR">EUR</option>
+											<option value="GBP">GBP</option>
+										</select>
+									</div>
+								</div>
+
+							</div>
+
+							<!-- <div class="row">
 							<div class="col-lg-6">
 								<div class="form-group img-cont">
 									<img [src]="base + logo" alt="" style="width: 150px;">
@@ -220,16 +266,16 @@
 								</div>
 							</div>
 						</div> -->
-						<div class="row">
-							<div class="col-12">
-								<button type="submit" class="btn-red">Update Store</button>
+							<div class="row">
+								<div class="col-12">
+									<button type="submit" class="btn-red">Update Store</button>
+								</div>
 							</div>
-						</div>
-					</form>
+						</form>
+					</div>
 				</div>
+				<!-- end store form -->
 			</div>
-			<!-- end store form -->
-      </div>
-  	</div>
-  </div>
+		</div>
+	</div>
 </div>
