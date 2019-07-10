@@ -59,7 +59,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.getCategoryInfo( this.category_id ).subscribe(
       res => {
         this.category = res;
-        this.catForm.get['name']['controls'].setValue(this.category.name);
+        this.catForm.controls['name'].setValue(this.category.name);
         console.log( res );
       }, error => {
         console.log( error );
