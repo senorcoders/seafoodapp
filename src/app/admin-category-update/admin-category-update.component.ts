@@ -135,7 +135,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
       //let's erase the item
       if ( !founded ) { 
-        delete this.catForm.get('fishPreparationChilds').removeAt(index);
+        this.catForm.get('fishPreparationChilds')['controls'].removeAt(index);
       }
     });
     
@@ -164,7 +164,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     )
   }
 
-  getChildPreparations( parent_id ) {
+  getChildPreparations( ) {
     this.category_service.get('fishpreparation/childs' ).subscribe(
       res => {
         this.childsPreparations = res;
