@@ -17,7 +17,7 @@
                   <div class="col-lg-12">
                       <div class="form-group input-group">
                           <span class="has-float-label">  
-                              <input type="text" placeholder="Name...*" class="form-control" formControlName="name" id="name" name="name"  >
+                              <input type="text" placeholder="Name...*" class="form-control" formControlName="name" id="name" name="name">
                               <label for="name">Name</label>
                           </span>
                         </div>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="col-lg-12">
                       <br/><br/><br/>
-                    <div formArrayName="fishPreparationChilds" *ngFor="let child of catForm.get('fishPreparationChilds').controls; let i = index" class="form-group"> 
+                    <div formArrayName="fishPreparationChilds" *ngFor="let child of catForm.get('fishPreparationChilds')['controls']; let i = index" class="form-group"> 
                       <div class="form-group input-group" [formGroupName]="i">
                         <hr/>
                         <span class="has-float-label">
