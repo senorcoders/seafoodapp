@@ -629,6 +629,7 @@ form{
 	}
 	&.blue-nav-bg{
 		background: $light_blue;
+		cursor: pointer;
 		&:hover{
 			background: $dark-blue !important;
 			border-color: $dark-blue !important;
@@ -637,6 +638,7 @@ form{
 
 	&.gray-nav-bg{
 		background: $gray;
+		cursor: pointer;
 		&:hover{
 			background: $dark-blue !important;
 			border-color: $dark-blue !important;
