@@ -35,6 +35,10 @@ ul {
 .level-3 {
 	padding-left: 45px;
 }
+a, a label {
+	cursor: pointer;
+}
+ 
 @media(max-width: 768px){
 	form, table{
 		width: 100%;

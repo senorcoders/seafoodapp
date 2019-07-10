@@ -70,6 +70,11 @@ const appRoutes: Routes = [
     canActivate: [SellerRouterService]
   },
   {
+    path: 'add-new-product',
+    loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
+    canActivate: [SellerRouterService]
+  },
+  {
     path: 'fish-type/:category/:page',
     loadChildren: () => import('app/archive-products/archive-products.module').then(m => m.ArchiveProductsModule),
     canActivate: [BuyerRouterService]
@@ -425,6 +430,10 @@ const appRoutes: Routes = [
   {
     path: 'team',
     loadChildren: () => import('app/team/team.module').then(m => m.TeamModule),
+  },
+  {
+    path: 'update-category/:category_id',
+    loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule )
   },
   {
     path: '404', component: NotfoundComponent
