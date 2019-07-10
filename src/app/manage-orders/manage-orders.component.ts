@@ -61,7 +61,7 @@ export class ManageOrdersComponent implements OnInit {
     this.getOrders(true);
   }
 
-  getOrders(pagination?) {
+  getOrders(pagination?) { 
     if(pagination){
       this.page = 1;
     }

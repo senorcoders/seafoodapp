@@ -105,7 +105,7 @@ export class CartComponent implements OnInit {
             this.uaeTaxes = cart['uaeTaxes'];
             this.customs = cart['customs'];
             this.total= cart['subTotal'];
-            this.shipping = cart['shipping'];
+            this.shipping = cart['shipping']; 
             this.taxesPer = cart['currentCharges']['uaeTaxes'];
 
             this.totalOtherFees = cart['totalOtherFees'];
