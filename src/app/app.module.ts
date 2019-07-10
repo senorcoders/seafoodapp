@@ -70,6 +70,11 @@ const appRoutes: Routes = [
     canActivate: [SellerRouterService]
   },
   {
+    path: 'add-new-product',
+    loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
+    canActivate: [SellerRouterService]
+  },
+  {
     path: 'fish-type/:category/:page',
     loadChildren: () => import('app/archive-products/archive-products.module').then(m => m.ArchiveProductsModule),
     canActivate: [BuyerRouterService]
