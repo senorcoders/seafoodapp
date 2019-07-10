@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
 declare var jQuery: any;
+import * as moment from 'moment'
 
 @Component({
 	selector: 'app-buyer',
@@ -17,7 +18,7 @@ export class BuyerComponent implements OnInit {
 	users: any;
 	showLoading: boolean = true;
 	buyerForm: FormGroup;
-	user: any;
+	user: any = { };
 	countries: any = [];
 	allCities: any = [];
 	cities: any = [];
@@ -90,8 +91,8 @@ export class BuyerComponent implements OnInit {
 
 	getUsers() {
 		this.showLoading = true;
-		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=1`).subscribe(
-			result => {
+		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=1&infoLoginLast=true`).subscribe(
+			result => { 
 				let r = result as any;
 				if (r.message === 'ok') {
 					this.users = r.data;
@@ -110,7 +111,7 @@ export class BuyerComponent implements OnInit {
 		this.showLoading = true;
 		this.users = [];
 		this.page = index;
-		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=${this.page}`).subscribe(
+		this.auth.getData(`api/v2/user?where={"role":2}&limit=${this.limit}&page=${this.page}&infoLoginLast=true`).subscribe(
 			result => {
 				let data: any = result;
 				if (data.message === 'ok') {
@@ -231,6 +232,12 @@ export class BuyerComponent implements OnInit {
 				console.log(error);
 			}
 		);
+	}
+
+	public getLastLogin(user){
+		let last = user.lastLogin ? user.lastLogin.dateTime : null;
+		if(last) return 'Last Login: '+ moment(last).format('MM/DD/YY hh:mm a')+ ',';
+		return '';
 	}
 
 	/*getCities() {
