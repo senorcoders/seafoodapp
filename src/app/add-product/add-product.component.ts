@@ -38,15 +38,18 @@ export class AddProductComponent implements OnInit {
   public allCities = [];
   raisedArray:any = [];
   treatments:any = [];
-
+ 
   constructor(private toast:ToastrService, private countryService: CountriesService,
     private productService: ProductService) {}
   ngOnInit() {
     this.createFormControl();
     this.RegisterProductForm();
+    this.onChanges();
     this.getCountries();
     this.getCountriesWithShipping();
     this.reaised();
+    this.getTreatment();
+    this.getAllCities();
   }
   createFormControl(){
     this.name = new FormControl('', [Validators.required]); 
@@ -96,9 +99,8 @@ export class AddProductComponent implements OnInit {
       maxOrder: this.maxOrder,
       perBoxes: this.perBoxes,
       averageUnitWeight: this.averageUnitWeight
-    },{
-      updateOn: 'submit'
     });
+
   }
 
   submit(){
@@ -214,7 +216,13 @@ private reaised() {
 private getTreatment() {
   this.productService.getData("treatment").subscribe(it => {
     this.treatments = it as any;
-    console.log(it);
+  });
+}
+
+
+onChanges(): void {
+  this.productForm.valueChanges.subscribe(val => {
+    console.log("cambiando..", val);
   });
 }
 
