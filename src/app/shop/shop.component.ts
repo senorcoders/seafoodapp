@@ -80,6 +80,7 @@ export class ShopComponent implements OnInit {
   page:number = 1;
   pQty:number = 6;
   showScrollanimation:boolean = false;
+  enableScroll:boolean = false;
 
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
@@ -371,6 +372,7 @@ export class ShopComponent implements OnInit {
     this.productService.listProduct(data).subscribe(result => {
       this.isClearButton = false;
       if(result['productos'] != undefined){
+        this.enableScroll = true;
         result['productos'].forEach(item => {
           this.products.push(item);
         });
@@ -647,6 +649,7 @@ export class ShopComponent implements OnInit {
   }
   //FILTER PRODUCTS WITH PARAMETERS
   filterProducts() {
+    this.enableScroll = false;
     console.log("Filtrando productos...");
     this.showNotFound = false;
     if (this.isClearButton) {
@@ -660,11 +663,11 @@ export class ShopComponent implements OnInit {
     const specie = jQuery('input[type=radio][name=specie]:checked').val() || "0";
     const variant = jQuery('input[type=radio][name=variant]:checked').val() || "0";
     const country = jQuery('input[type=radio][name=country]:checked').val() || "0";
-    let minPrice = jQuery('#minPriceValue').val();
-    let maxPrice = jQuery('#maxPriceValue').val();
-    let minimumOrder = jQuery('#minAmount').val();
-    let maximumOrder = jQuery('#maxAmount').val();
-    let cooming_soon = jQuery('#cooming').prop('checked');
+    let minPrice = "0";
+    let maxPrice = "0";
+    let minimumOrder = "0";
+    let maximumOrder = "0";
+    let cooming_soon = "0";
     if (!cooming_soon) {
       cooming_soon = '0';
     }
@@ -680,16 +683,16 @@ export class ShopComponent implements OnInit {
     jQuery('.input-preparation:checkbox:checked').each(function (i) {
       preparation[i] = jQuery(this).val();
     });
-    if ((minPrice === '' || minPrice === this.minValue) && (maxPrice === '' || maxPrice === this.maxValue)) {
-      minPrice = '0';
-      maxPrice = '0';
-    }
-    if (minimumOrder === '') {
-      minimumOrder = '0';
-    }
-    if (maximumOrder === '') {
-      maximumOrder = '0';
-    }
+    // if ((minPrice === '' || minPrice === this.minValue) && (maxPrice === '' || maxPrice === this.maxValue)) {
+    //   minPrice = '0';
+    //   maxPrice = '0';
+    // }
+    // if (minimumOrder === '') {
+    //   minimumOrder = '0';
+    // }
+    // if (maximumOrder === '') {
+    //   maximumOrder = '0';
+    // }
     if (cat === '0' &&
       subcat === '0' &&
       specie === '0' &&
@@ -703,7 +706,9 @@ export class ShopComponent implements OnInit {
       minimumOrder === '0' &&
       maximumOrder === '0' &&
       cooming_soon === '0') {
-      this.getProducts(100, 1);
+      this.products = [];
+      this.page = 1;
+      this.getProducts(this.pQty, this.page);
     }
     else {
       this.showLoading = true;
@@ -712,6 +717,7 @@ export class ShopComponent implements OnInit {
       this.productService.filterFish(cat, subcat, specie, variant, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon).subscribe(result => {
         this.showLoading = false;
         this.products = result;
+        console.log("Resultado", result);
         this.disabledInputs = false;
         // working on the images to use like background
         this.products.forEach((data, index) => {
@@ -736,6 +742,7 @@ export class ShopComponent implements OnInit {
         console.log(error);
         this.showLoading = false;
         this.showNotFound = true;
+        this.disabledInputs = false;
       });
     }
   }
@@ -761,7 +768,7 @@ export class ShopComponent implements OnInit {
             break;
           case 2:
             this.searchSubSpecie = item.fishTypes;
-            break;
+            break; 
           case 3:
             this.searchDescriptor = item.fishTypes;
             break;
@@ -786,6 +793,7 @@ export class ShopComponent implements OnInit {
   }
   //CLEAR ALL
   async clear() {
+    this.page = 1;
     this.isClearButton = true;
     this.loading = true;
     this.showNotFound = false;
@@ -807,7 +815,7 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-specie').css('display', 'none');
     jQuery('#pill-variant').css('display', 'none');
     jQuery('.filter-pills li').css('display', 'none');
-    this.getProducts(100, 1);
+    this.getProducts(this.pQty, this.page);
     this.tmpCatName = '';
     this.tmpSubcat = '';
     this.tmpSpecie = '';
@@ -880,8 +888,10 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-' + id).css('display', 'none');
     this.name = '';
     await this.getCountries();
-    this.getFishCountries();
+    await this.getFishCountries();
     this.filterProducts();
+    setTimeout(() => this.chargeJS(), 500);
+
   }
   //FUNCTION TO OPEN AND GET THE CART
   openCart() {
@@ -1039,10 +1049,16 @@ export class ShopComponent implements OnInit {
    // When scroll down the screen  
    onScroll()  
    {  
-     console.log("Scrolled");  
-     this.page = this.page + 1;  
-     this.getProducts(this.pQty, this.page);  
-     this.showScrollanimation = true;
+     if(this.enableScroll == true){
+      console.log("Scrolled");  
+
+      this.page = this.page + 1;  
+      this.getProducts(this.pQty, this.page);  
+      this.showScrollanimation = true;
+     }else{
+       console.log("scroll deshabilitado");
+     }
+    
    } 
 }
 
