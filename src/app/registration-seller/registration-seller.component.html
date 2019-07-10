@@ -153,6 +153,15 @@
                         </div>
                     </div>
                     <div class="col-lg-12">
+                      <div class="form-group input-group" style="max-width: 705px !important;">
+                          <span class="has-float-label">    
+                              <input id="description" type="text" class="form-control" placeholder="Description" formControlName="description"  [ngClass]="{'is-invalid':sellerForm.get('description').invalid && sellerForm.get('description').touched}">
+                              <label for="description">Description</label> 
+                              <div class="invalid-feedback" *ngIf="sellerForm.get('description').hasError('required')">Description required.</div>
+                        </span>         
+                      </div>
+                  </div>
+                    <div class="col-lg-12">
                         <div class="form-group input-group" style="max-width: 705px !important;">
                             <span class="has-float-label">    
                                 <input id="address" type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  [ngClass]="{'is-invalid':sellerForm.get('Address').invalid && sellerForm.get('Address').touched}">

@@ -30,6 +30,7 @@ export class RegistrationSellerComponent implements OnInit {
   TradeBrandName: FormControl;
   companyType: FormControl;
   Address: FormControl;
+  description: FormControl;
   City: FormControl;
   ProductsInterestedSelling: FormControl;
   ContactNumber: FormControl;
@@ -110,6 +111,7 @@ export class RegistrationSellerComponent implements OnInit {
     this.companyType = new FormControl('', [Validators.required]);
     this.location = new FormControl('', [Validators.required]);
     this.Address = new FormControl('', [Validators.required]);
+    this.description = new FormControl('', [Validators.required]);
     this.City = new FormControl('', [Validators.required]);
     this.ProductsInterestedSelling = new FormControl('', [Validators.required]);
     this.ContactNumber = new FormControl('', [Validators.required]);
@@ -132,6 +134,7 @@ export class RegistrationSellerComponent implements OnInit {
       tel: this.tel,
       tcs: this.tcs,
       location: this.location,
+      description: this.description,
       Address: this.Address,
       City: this.City,
       companyName: this.companyName,
@@ -308,7 +311,7 @@ export class RegistrationSellerComponent implements OnInit {
     let store = {
       "name": this.sellerForm.get('companyName').value,
       "owner": this.userID,
-      "description": "",
+      "description": this.sellerForm.get('description').value, 
       "companyName": this.sellerForm.get('companyName').value,
       "companyType": this.sellerForm.get('companyType').value,
       "location": this.sellerForm.get('location').value,
