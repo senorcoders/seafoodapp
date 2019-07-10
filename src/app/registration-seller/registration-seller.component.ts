@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 declare var jQuery: any;
 declare var window: any;
 @Component({
@@ -45,7 +46,7 @@ export class RegistrationSellerComponent implements OnInit {
   storeID: any;
   isValid: boolean = false;
   btnText: any = 'REGISTER TO SELL';
-
+  public typesCompany = [];
 
 
 
@@ -53,6 +54,7 @@ export class RegistrationSellerComponent implements OnInit {
     private auth: AuthenticationService,
     private toast: ToastrService,
     private product: ProductService,
+    private http:HttpClient,
     private router: Router) {
     jQuery(document).ready(function () {
       jQuery('.js-example-basic-single').select2();
@@ -92,6 +94,9 @@ export class RegistrationSellerComponent implements OnInit {
       input.addEventListener('keyup', handleChange);
 
 
+    });
+    this.http.get('companytypeseller').subscribe((types)=>{
+      this.typesCompany = types as any;
     });
   }
 
