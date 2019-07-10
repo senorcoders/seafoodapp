@@ -427,6 +427,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('app/team/team.module').then(m => m.TeamModule),
   },
   {
+    path: 'update-category/:category_id',
+    loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule )
+  },
+  {
     path: '404', component: NotfoundComponent
   },
   {

@@ -1,0 +1,93 @@
+
+<div class="gray-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+          <br><br><br><br>
+          <br>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h1 class="gray-title" ><span>Update Category Information</span></h1>              
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-3"></div>
+          <div class="col-lg-6 ">
+              <form  #form  [formGroup]="catForm" (ngSubmit)="onSubmit()">
+                  <div class="col-lg-12">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Name...*" class="form-control" formControlName="name" id="name" name="name"  >
+                              <label for="name">Name</label>
+                          </span>
+                        </div>
+                  </div>
+                  <div class="col-lg-12">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">   
+                              <ng-select [items]="treatments" bindLabel="name" bindValue="id" labelForId="treatment"
+                              [multiple]="true" placeholder="Treatment" clearAllText="Clear"
+                              formControlName="treatment" class="form-control"> </ng-select> 
+                              
+                               <label for="treatment">Treatment</label> 
+                              
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-12">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">    
+                              <ng-select [items]="raiseds" bindLabel="name" bindValue="id" labelForId="raiseds"
+                              [multiple]="true"  placeholder="Raised" clearAllText="Clear"
+                              formControlName="raised" class="form-control"> </ng-select>
+                               <label for="raised">Raised</label> 
+                              
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-12">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">    
+                              <ng-select (change)="addFishChildPreparation()" [items]="parentPreparations" bindLabel="name" bindValue="id" labelForId="fishPreparation"
+                              [multiple]="true" [addTag]="true" placeholder="Fish Preparation" clearAllText="Clear"
+                              formControlName="fishPreparation" class="form-control" > </ng-select>
+                                               
+                               <label for="fishPreparation">Fish Preparation</label> 
+                              
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-12">
+                      <br/><br/><br/>
+                    <div formArrayName="fishPreparationChilds" *ngFor="let child of catForm.get('fishPreparationChilds').controls; let i = index" class="form-group"> 
+                      <div class="form-group input-group" [formGroupName]="i">
+                        <hr/>
+                        <span class="has-float-label">
+                          <input type="hidden" class="form-control" id="fishParent" placeholder="fishParent" formControlName="fishParent"> 
+                          <br/>
+                          <ng-select [items]="childsPreparations" labelForId="fishPreparation" bindLabel="name" bindValue="id"
+                              [multiple]="true" [addTag]="true" placeholder="Fish Preparation" clearAllText="Clear"
+                              formControlName="fishPreparationChild" class="form-control" > </ng-select>                   
+                          <label for="fishPreparationChild">Fish Preparation Childs</label> 
+                                
+                        </span>         
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 text-center" >
+                    <div class="form-group">
+                      <button type="submit" class="btn-blue">                        
+                        Save
+                      </button>
+                      </div>
+                  </div>
+                  
+                  <br><br><br><br>
+                  <br>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
