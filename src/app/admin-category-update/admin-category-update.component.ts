@@ -59,7 +59,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.getCategoryInfo( this.category_id ).subscribe(
       res => {
         this.category = res;
-        this.catForm.controls['name'].setValue(this.category.name);
+        this.catForm.get['name']['controls'].setValue(this.category.name);
         console.log( res );
       }, error => {
         console.log( error );
@@ -88,9 +88,10 @@ export class AdminCategoryUpdateComponent implements OnInit {
   }
 
   createCatForm() {
-    
+    this.name = new FormControl('', [Validators.required]);
+
     this.catForm = this.formBuilder.group({
-      name: [ '', [Validators.required] ],
+      name: this.name,
       raised: [ '', [Validators.required] ],
       treatment: ['', [Validators.required]],
       fishPreparation: ['', [Validators.required]],
