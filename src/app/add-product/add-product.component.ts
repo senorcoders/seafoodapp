@@ -38,6 +38,13 @@ export class AddProductComponent implements OnInit {
   public allCities = [];
   raisedArray:any = [];
   treatments:any = [];
+  public typeLevel0 = [];
+  public typeLevel1 = [];
+  public typeLevel2 = [];
+  public typeLevel3 = [];
+  private productID = "";
+  fishPreparation:any = [];
+
  
   constructor(private toast:ToastrService, private countryService: CountriesService,
     private productService: ProductService) {}
@@ -50,6 +57,7 @@ export class AddProductComponent implements OnInit {
     this.reaised();
     this.getTreatment();
     this.getAllCities();
+    this.getAllTypesByLevel();
   }
   createFormControl(){
     this.name = new FormControl('', [Validators.required]); 
@@ -126,7 +134,7 @@ export class AddProductComponent implements OnInit {
         this.validateAllFormFields(control);            
       }
     });
-  }
+  } 
 
   //Show message error function
 showError(e){
@@ -226,4 +234,107 @@ onChanges(): void {
   });
 }
 
+getAllTypesByLevel() {
+  this.productService.getData(`getTypeLevel`).subscribe(
+    result => {
+      console.log(result, "variant");
+      this.typeLevel0 = result['level0'];
+      if (this.productID !== "") {
+        this.typeLevel1 = result['level1'];
+        this.typeLevel2 = result['level2'];
+        this.typeLevel3 = result['level3'];
+      }
+    },
+    error => {
+
+    }
+  );
+}
+
+
+getOnChangeLevel(level: number, value?) {
+  if (this.productForm.get('category').value === '') {
+    // this.typeLevel0 = [];
+    this.typeLevel1 = [];
+    this.typeLevel2 = [];
+    this.typeLevel3 = [];
+    return;
+  }
+  let selectedType = '';
+  switch (level) {
+    case 0:
+      selectedType = this.productForm.get('category').value;
+      break;
+
+    case 1:
+      selectedType = this.productForm.get('specie').value;
+      break;
+
+    case 2:
+      selectedType = this.productForm.get('subspecie').value;
+      break;
+
+    default:
+      selectedType = this.productForm.get('subspecieVariant').value;
+      break;
+  }
+  this.updateLevels(selectedType, level);
+  this.updateProcess(selectedType);
+  
+}
+
+updateLevels(selectedType, level){
+  this.productService.getData(`fishTypes/${selectedType}/ori_all_levels`).subscribe(
+    result => {
+      console.log("Resultado", result);
+      result['childs'].map(item => {
+        switch (item.level) {
+          case 0:
+            this.typeLevel0 = item.fishTypes;
+            break;
+
+          case 1:
+            this.typeLevel1 = item.fishTypes;
+            break;
+
+          case 2:
+            if (level > 0)
+              this.typeLevel2 = item.fishTypes;
+            break;
+
+          case 3:
+            if (level > 1)
+              this.typeLevel3 = item.fishTypes;
+            break;
+
+          default:
+            break;
+        }
+      });
+     
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
+
+updateProcess(selectedType){
+  this.productService.getData(`fishType/${selectedType}/setup`).subscribe(
+    result => {
+      console.log("Resultado", result);
+      this.raisedArray = result['raisedInfo'];
+      this.treatments = result['treatmentInfo'];
+      if(result['fishPreparationInfo']){
+        this.fishPreparation = result['fishPreparationInfo'];
+      }else{
+        this.fishPreparation = [];
+      }
+     
+    },
+    error => {
+      console.log(error);
+    }
+  );
+}
 }

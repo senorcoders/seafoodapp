@@ -49,10 +49,10 @@
                 <div class="col-lg-6">
                     <div class="form-group input-group">
                       <span class="has-float-label">
-                        <select id="cat" placeholder="Product Category...*" formControlName="category" class="form-control"
+                        <select id="cat" (change)="getOnChangeLevel(0)" placeholder="Product Category...*" formControlName="category" class="form-control"
                         [ngClass]="{'is-invalid':productForm.get('category').invalid && productForm.get('category').touched}">
-                          <option value="sjkndsd">Fish</option>
-                        </select>
+                        <option value="">{{'CreateProduct.mainCategory' | translate}}</option>
+                        <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>                        </select>
                         <label id="cat">Product Category...*</label>
             
                         <div class="invalid-feedback" *ngIf="productForm.get('category').hasError('required')">Category {{'Register.required' | translate}}.</div>
@@ -67,10 +67,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                         <span class="has-float-label">
-                          <select id="specie" placeholder="Species...*" formControlName="specie" class="form-control"
+                          <select (change)="getOnChangeLevel(1)" id="specie" placeholder="Species...*" formControlName="specie" class="form-control"
                           [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('specie').touched}">
-                            <option value="sjkndsd">Fish</option>
-                          </select>
+                          <option value="">{{'CreateProduct.species' | translate}}</option>
+                          <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>                          </select>
                           <label id="specie">Species...*</label>
               
                           <div class="invalid-feedback" *ngIf="productForm.get('specie').hasError('required')">Specie {{'Register.required' | translate}}.</div>
@@ -81,13 +81,13 @@
                         show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" [hidden]="typeLevel2.length == 0">
                         <div class="form-group input-group">
                           <span class="has-float-label">
-                            <select id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
+                            <select (change)="getOnChangeLevel(2)" id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
                             [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('subspecie').touched}">
-                              <option value="sjkndsd">Fish</option>
-                            </select>
+                            <option value="">{{'CreateProduct.species' | translate}}</option>
+                            <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>                            </select>
                             <label id="subspecie">Subspecies...*</label>
                 
                             <div class="invalid-feedback" *ngIf="productForm.get('subspecie').hasError('required')">Subspecies {{'Register.required' | translate}}.</div>
@@ -99,13 +99,13 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-6">
+                      <div class="col-lg-6" [hidden]="typeLevel3.length == 0">
                           <div class="form-group input-group">
                             <span class="has-float-label">
-                              <select id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
+                              <select (change)="getOnChangeLevel(3)" id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('subspecieVariant').invalid && productForm.get('subspecieVariant').touched}">
-                                <option value="sjkndsd">Fish</option>
-                              </select>
+                              <option value="">{{'CreateProduct.species' | translate}}</option>
+                              <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>                              </select>
                               <label id="subspecieVariant">Subspecies Variant...</label>
                   
                               <div class="invalid-feedback" *ngIf="productForm.get('subspecieVariant').hasError('required')">Subspecies Variant {{'Register.required' | translate}}.</div>
@@ -124,14 +124,11 @@
 
                  </div>
 
-                 <div class="row">
+                 <div class="row" *ngIf="fishPreparation.length > 0">
                     <div class="col-lg-6 fish-group">
                         <label> 
-                          <span class="selectionable select" >WHOLE</span>
-                          |
-                          <span class="selectionable" >FILLETED FISH</span>
-                          |
-                          <span class="selectionable">PACKAGED</span> 
+                          <span *ngFor='let prep of fishPreparation; let i = index' class="selectionable" [class.select]="i == 0" >{{prep.name}} | </span>
+                          
                           <img
                             tooltip="The preparation of the fish" placement="right"
                             show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22">
@@ -147,6 +144,7 @@
                           
                             <select id="raised" class="form-control js-example-basic-single" style="width: 100%"
                               formControlName="raised" [ngClass]="{'is-invalid':productForm.get('raised').invalid && productForm.get('raised').touched}">
+                              <option value="">Raised...*</option>
                               <option *ngFor="let r of raisedArray" value="{{r.id}}" selected>{{r.name}}</option>
                             </select>
                             <label for="raised">Raised...*</label> 
@@ -167,6 +165,7 @@
                               <select id="treatment" aria-placeholder="Treatment...*" class="form-control js-example-basic-single"
                                 style="width: 100%" formControlName="treatment"
                                 [ngClass]="{'is-invalid':productForm.get('treatment').invalid && productForm.get('treatment').touched}">
+                                <option value="">Treatment...*</option>
                                 <option [value]="tr.id" *ngFor="let tr of treatments">{{tr.name}}</option>
                               </select>
                               <label for="treatment">Treatment...*</label> 
