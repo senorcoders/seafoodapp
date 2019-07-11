@@ -60,6 +60,11 @@ export class AdminCategoryUpdateComponent implements OnInit {
       res => {
         this.category = res;
         this.catForm.controls['name'].setValue(this.category.name);
+        this.catForm.controls['raised'].setValue(this.category.raised);
+        this.catForm.controls['treatment'].setValue(this.category.treatment);
+
+        this.catForm.controls['fishPreparation'].setValue( Object.keys( this.category.fishPreparation ));
+
         console.log( res );
       }, error => {
         console.log( error );
