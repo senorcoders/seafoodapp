@@ -234,6 +234,11 @@ const appRoutes: Routes = [
     canActivate: [AdminRouterService]
   },
   {
+    path: 'amend-invoice/:id',
+    loadChildren: () => import('app/ammend-invoice/ammend-invoice.module').then(m => m.AmmendInvoiceModule),
+    canActivate: [AdminRouterService]
+  },
+  {
     path: 'orders',
     loadChildren: () => import('app/orders/orders.module').then(m => m.OrdersModule),
     canActivate: [RouterProtectionService]
@@ -463,8 +468,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     ProductManagmentComponent,
     AccountComponent,
     Homeve2Component,
-    NotfoundComponent
-        ],
+    NotfoundComponent,
+  ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
@@ -489,14 +494,14 @@ export function jokesProviderFactory(provider: CDNCheck) {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgwWowModule
-    ],
+  ],
   exports: [
     SharedModule,
     TranslateModule
   ],
   providers: [
     CookieService,
-    CDNCheck, 
+    CDNCheck,
     { provide: APP_INITIALIZER, useFactory: jokesProviderFactory, deps: [CDNCheck], multi: true },
     RouterProtectionService,
     AdminRouterService,
