@@ -15,6 +15,10 @@ export class ProductService {
     return this.http.get(`api/fish/${data.pageNumber}/${data.numberProduct}`);
   }
 
+  listProductAdmin(data) {
+    return this.http.get(`api/fish/${data.pageNumber}/${data.numberProduct}/true`);
+  }
+
   // Function to get the product categories with a limit parameter
   getAllCategoriesProducts() {
     return this.http.get(`FishType?limit=100`);
