@@ -65,6 +65,14 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
         this.catForm.controls['fishPreparation'].setValue( Object.keys( this.category.fishPreparation ));
 
+        // let's create the new controls for the fish preparation
+        Object.keys( this.category.fishPreparation ).map( (parentPreparation) => {
+          console.log( 'parent', parentPreparation );
+          (<FormArray>this.catForm.get('fishPreparationChilds')).push( 
+            this.addOtherFishPreparationChilds( parentPreparation, this.category.fishPreparation[parentPreparation] ) 
+          );
+        } )
+
         console.log( res );
       }, error => {
         console.log( error );
@@ -104,9 +112,9 @@ export class AdminCategoryUpdateComponent implements OnInit {
     })
   }
 
-  addOtherFishPreparationChilds( parent_id ): FormGroup {
+  addOtherFishPreparationChilds( parent_id, preparationChilds ): FormGroup {
     return this.formBuilder.group({
-      fishPreparationChild: [ '', Validators.required ],
+      fishPreparationChild: [ preparationChilds, Validators.required ],
       fishParent: [ parent_id, Validators.required ]
     });
   }
@@ -125,7 +133,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
       // if the control was not created, let's create it
       if ( !founded ) { 
-        (<FormArray>this.catForm.get('fishPreparationChilds')).push( this.addOtherFishPreparationChilds( item ) );        
+        (<FormArray>this.catForm.get('fishPreparationChilds')).push( this.addOtherFishPreparationChilds( item, '' ) );        
       }
     } );
 
