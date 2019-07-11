@@ -125,7 +125,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     } );
 
     //now let's check if we have a control what is not in the fish preparation parent
-    childPreparationControls.map( (childControl, index) => {
+    childPreparationControls.map( (childControl, index) => {      
       let founded = false;
       parentsPreparation.map( item => {
         // check if the control is already created
@@ -136,7 +136,8 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
       //let's erase the item
       if ( !founded ) { 
-        this.catForm.get('fishPreparationChilds')['controls'].removeAt(index);
+        const control = <FormArray>this.catForm.controls.fishPreparationChilds;
+        control.removeAt(index);
       }
     });
     
