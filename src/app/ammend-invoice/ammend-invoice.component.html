@@ -1,0 +1,164 @@
+<div class="bg">
+  <div class="container">
+
+    <div *ngFor='let it of items; let i=index' class="row">
+      <div class="col-3">
+        {{it.description}}
+      </div>
+      <div class="col-2">
+        <div class="form-inline">
+          <label for='name'>Quantity/kg</label>
+          <input type="number" id='name' class="form-control" (input)='changeValue(it, i)' [(ngModel)]="it.quantity" [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="col-2">
+        <div class="form-inline">
+          <label for='grandTotal'>Delivered Price/kg</label>
+          <input id='grandTotal' type="number" class="form-control" (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered"
+            [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf='invoiceReady' id='invoice' class="row justify-content-center">
+      <div class="col-12 col-md-10">
+
+        <div class="logo">
+          <img src="{{apiUrl}}/seafood-black.png" alt="logo seafood">
+          <span (click)='toggleDetails()'>{{showDetails===true?'Hidden Details':'Show Details'}}</span>
+        </div>
+        <div [hidden]='!showDetails' class="align-right">
+          <h1 class="paid">PAID</h1>
+        </div>
+        <div [hidden]='!showDetails'  class="row">
+          <div class="col col-5">
+            <h3>TAX INVOICE</h3>
+            <p>{{shopping.buyer.dataExtra.companyName}}<br>
+              {{shopping.buyer.firstName + ' ' + shopping.buyer.lastName}}<br>
+              {{shopping.shippingAddress.address+ ','+ shopping.shippingAddress.city + ','+ shopping.shippingAddress.country}}<br>
+              VAT: {{shopping.buyer.dataExtra.vat || 0}}
+            </p>
+          </div>
+          <div class="col col-25">
+            <p><b>Invoice Date</b><br>
+              {{formatPaid()}} </p>
+            <p><b>Seafood Souq Tax Number</b> <br>
+              contactAccountNumber </p>
+            <p><b>Invoice Number</b> <br>
+              {{shopping.orderNumber}} </p>
+            <p><b>SFS Order Number</b> <br>
+              {{shopping.orderNumber}} </p>
+          </div>
+          <div class="col col-25">
+            <p> Seafood Souq General Trading LLC.</p>
+            <p>Warehouse 10, Al Q‌uoz Industrial Area 3, 58 ST., Dubai, United Arab
+              Emirates.</p>
+            <p>P.O.Box: 282815</p>
+            <p>Telephone: <br>
+              +971 (0)4 268 3521
+            </p>
+          </div>
+        </div>
+
+        <div class="row header">
+          <table>
+            <thead>
+              <tr>
+                <th class="col-2">Description</th>
+                <th class="col-2">ETA</th>
+                <th class="col-2">Country of Origin</th>
+                <th class="col-2">Quantity</th>
+                <th class="col-2">U/M</th>
+                <th class="col-2">{{calcNews===true?'Delivered Price/kg':'Unit Price'}}</th>
+                <!-- <th >Tax Rate</th> -->
+                <th class="col-2">Amount AED</th>
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor='let it of shopping.items'>
+                <td class="col col-2">
+                  {{it.description}}
+                </td>
+                <td class="col-2">
+                  {{it.inventory.short_date}}
+                </td>
+                <td class="col-2">
+                  {{it.fishCurrent.country}}
+                </td>
+
+                <td class="col-2" *ngIf='!newValue(it,"quantity")'>
+                  {{it.fishCurrent.perBox === true ? parseFloat(Number(it.itemCharges.weight) /
+                  Number(it.fishCurrent.boxWeight)).toFixed(2) : it.itemCharges.weight}}
+                </td>
+                <td class="col-2 new-ammend" *ngIf='newValue(it,"quantity")'>
+                  {{getValue(it, 'quantity')}}
+                </td>
+
+                <td class="col-1" *ngIf='!newValue(it,"quantity")'>
+                  {{it.fishCurrent.perBox===true? parseInt(Number(it.itemCharges.weight) /
+                  Number(it.fishCurrent.boxWeight)) > 1 ? 'BOXES' : 'BOX':'KG'}}
+                </td>
+                <td class="col-1 new-ammend" *ngIf='newValue(it,"quantity")'>
+                  KG
+                </td>
+
+                <td class="col-2" *ngIf='!newValue(it, "priceDelivered")'>
+                  {{it.fishCurrent.perBox === true ? parseFloat(Number(it.itemCharges.price) *
+                  Number(it.fishCurrent.boxWeight)).toFixed(2) : it.itemCharges.price}}
+                </td>
+                <td class="col-2 new-ammend" *ngIf='newValue(it, "priceDelivered")'>
+                  {{getValue(it, 'priceDelivered')}}
+                </td>
+
+                <td class="col col-2" *ngIf='!newValue(it, "amountEAD")'>
+                  {{parseFloat(Number(it.itemCharges.fishCost)).toFixed(2)}}
+                </td>
+                <td class="col col-2 new-ammend" *ngIf='newValue(it, "amountEAD")'>
+                  {{getValue(it, "amountEAD")}}
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        <div class="subtotal" [ngClass]='calcNews===true?"new-ammend":""'>
+          <div class="text-right">
+            <span>Subtotal</span>
+          </div>
+          <div class="text-right">
+            <span>{{subtotal}}</span>
+          </div>
+        </div>
+        <div class="subtotal" [ngClass]='calcNews===true?"new-ammend":""'>
+          <div class="text-right">
+            <span>VAT (5%) </span>
+          </div>
+          <div class="text-right">
+            <span>{{vat}}</span>
+          </div>
+        </div>
+
+        <div class="subtotal text-right  clear" [ngClass]='calcNews===true?"new-ammend":""'>
+          <p><b>Grand Total AED {{total}} </b></p>
+        </div>
+        <div class="extras text-right ">
+          <p><b>Due Date: {{formatPaid()}} </b></p>
+        </div>
+        <div class="extras text-right ">
+          <p class="blue"><a href="http://seafoodsouq.com/terms-conditions">Seafood Souq T&Cs</a></p>
+          <!-- <p class="blue">Shipping and Returns Policy</p> -->
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="">
+        <button class='btn btn-save' (click)='ammendInvoice()'>{{textSave}}</button>
+      </div>
+    </div>
+
+  </div>
+</div>
