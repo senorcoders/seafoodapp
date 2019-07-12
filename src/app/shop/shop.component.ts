@@ -80,19 +80,27 @@ export class ShopComponent implements OnInit {
   page:number = 1;
   pQty:number = 6;
   showScrollanimation:boolean = false;
+  enableScroll:boolean = false;
 
   constructor(private auth: AuthenticationService, private productService: ProductService,
     private sanitizer: DomSanitizer, private toast: ToastrService, private cartService: OrderService,
     private countryservice: CountriesService, private router: Router, private cService: CartService) {
 
       jQuery(document).ready(function () {
-      
-      
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
           console.log("Es movil");
           jQuery('#filterCollapse').collapse('hide');
         }
       });
+  }
+
+  ngAfterViewInit(){
+    jQuery('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      e.target // newly activated tab
+      e.relatedTarget // previous active tab
+      console.log(e);
+    })
+  
   }
   async ngOnInit() {
 
@@ -187,6 +195,15 @@ export class ShopComponent implements OnInit {
   }
   //CHARGE LATE JS
   chargeJS() {
+    jQuery(document).on('shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+      let tab = e.target.attributes.id.value; // newly activated tab
+      let newTab = tab.split("-");
+      let currentTab:any = '#nav-footer-' + newTab[2];
+      let footerHolder = jQuery(currentTab).parent('.multiple-bottom');
+      console.log(footerHolder[0].id);
+      jQuery("#" + footerHolder[0].id + " .product-footer").removeClass('active');;
+      jQuery(currentTab).tab('show');
+    })
     jQuery('.toast').toast({autohide: false})
 
     jQuery('.input-preparation:checkbox').on('change', (e) => {
@@ -370,12 +387,16 @@ export class ShopComponent implements OnInit {
     };
     this.productService.listProduct(data).subscribe(result => {
       this.isClearButton = false;
-      if(result['productos'] != undefined){
-        result['productos'].forEach(item => {
+
+      if(result['variationsGrouped'] != undefined){
+        var array:any = Object.entries(result['variationsGrouped']);
+        this.enableScroll = true;
+        array.forEach(item => {
           this.products.push(item);
-        });
+        }); 
+        console.log('Productos', array);
+
       }
-      console.log('Productos', result);
 
       // add paginations numbers
       this.showLoading = false;
@@ -387,19 +408,19 @@ export class ShopComponent implements OnInit {
       }
       else {
         this.showNotFound = false;
-        this.products.forEach((data, index) => {
-          this.isChange[data.variation.id] = { status: false, kg: 0 }; 
-          if (data.imagePrimary && data.imagePrimary !== '') {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
-          }
-          else if (data.images && data.images.length > 0) {
-            let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`);
-          }
-          else {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-          }
-        });
+        // this.products.forEach((data, index) => {
+        //   this.isChange[data.variation.id] = { status: false, kg: 0 }; 
+        //   if (data.imagePrimary && data.imagePrimary !== '') {
+        //     this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+        //   }
+        //   else if (data.images && data.images.length > 0) {
+        //     let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+        //     this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`);
+        //   }
+        //   else {
+        //     this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+        //   }
+        // });
       }
     }, e => {
       this.showLoading = true;
@@ -450,13 +471,21 @@ export class ShopComponent implements OnInit {
           console.log("es mayor al max", parseInt(classes[10]));
           jQuery('#amount-' + classes[7]).val(max);
           jQuery('#cart-amount-' + classes[7]).val(max);
-          this.products[classes[6]].qty = max;
+          if(classes[16]){
+            this.products[classes[6]][1].variations[classes[16]].qty = max;
+          }else{
+            this.products[classes[6]][1].variations[0].qty = max;
+          }
 
         } else if (val < min) {
           jQuery('#amount-' + classes[7]).val(min);
           jQuery('#cart-amount-' + classes[7]).val(min);
 
-          this.products[classes[6]].qty = min;
+          if(classes[16]){
+            this.products[classes[6]][1].variations[classes[16]].qty = min;
+          }else{
+            this.products[classes[6]][1].variations[0].qty = min;
+          }
 
         } else {
           console.log("es menor al max");
@@ -464,7 +493,11 @@ export class ShopComponent implements OnInit {
           jQuery('#amount-' + classes[7]).val(val);
           jQuery('#cart-amount-' + classes[7]).val(val);
 
-          this.products[classes[6]].qty = val;
+          if(classes[16]){
+            this.products[classes[6]][1].variations[classes[16]].qty = val;
+          }else{
+            this.products[classes[6]][1].variations[0].qty = val;
+          }
 
 
         }
@@ -516,7 +549,6 @@ export class ShopComponent implements OnInit {
   }
   //Save product in current usar cart
   addToCart(product) {
-    console.log('product', product);
     this.isDisabled = true;
     const item = {
       'fish': product.id,
@@ -531,6 +563,8 @@ export class ShopComponent implements OnInit {
       'shippingStatus': 'pending',
       'variation_id': product.variation.id
     };
+    console.log('product', item);
+
     this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(async result => {
       // set the new value to cart
       // this.toast.success('Product added to the cart!', 'Product added', {positionClass: 'toast-top-right'});
@@ -647,6 +681,7 @@ export class ShopComponent implements OnInit {
   }
   //FILTER PRODUCTS WITH PARAMETERS
   filterProducts() {
+    this.enableScroll = false;
     console.log("Filtrando productos...");
     this.showNotFound = false;
     if (this.isClearButton) {
@@ -660,11 +695,11 @@ export class ShopComponent implements OnInit {
     const specie = jQuery('input[type=radio][name=specie]:checked').val() || "0";
     const variant = jQuery('input[type=radio][name=variant]:checked').val() || "0";
     const country = jQuery('input[type=radio][name=country]:checked').val() || "0";
-    let minPrice = jQuery('#minPriceValue').val();
-    let maxPrice = jQuery('#maxPriceValue').val();
-    let minimumOrder = jQuery('#minAmount').val();
-    let maximumOrder = jQuery('#maxAmount').val();
-    let cooming_soon = jQuery('#cooming').prop('checked');
+    let minPrice = "0";
+    let maxPrice = "0";
+    let minimumOrder = "0";
+    let maximumOrder = "0";
+    let cooming_soon = "0";
     if (!cooming_soon) {
       cooming_soon = '0';
     }
@@ -680,16 +715,16 @@ export class ShopComponent implements OnInit {
     jQuery('.input-preparation:checkbox:checked').each(function (i) {
       preparation[i] = jQuery(this).val();
     });
-    if ((minPrice === '' || minPrice === this.minValue) && (maxPrice === '' || maxPrice === this.maxValue)) {
-      minPrice = '0';
-      maxPrice = '0';
-    }
-    if (minimumOrder === '') {
-      minimumOrder = '0';
-    }
-    if (maximumOrder === '') {
-      maximumOrder = '0';
-    }
+    // if ((minPrice === '' || minPrice === this.minValue) && (maxPrice === '' || maxPrice === this.maxValue)) {
+    //   minPrice = '0';
+    //   maxPrice = '0';
+    // }
+    // if (minimumOrder === '') {
+    //   minimumOrder = '0';
+    // }
+    // if (maximumOrder === '') {
+    //   maximumOrder = '0';
+    // }
     if (cat === '0' &&
       subcat === '0' &&
       specie === '0' &&
@@ -703,7 +738,9 @@ export class ShopComponent implements OnInit {
       minimumOrder === '0' &&
       maximumOrder === '0' &&
       cooming_soon === '0') {
-      this.getProducts(100, 1);
+      this.products = [];
+      this.page = 1;
+      this.getProducts(this.pQty, this.page);
     }
     else {
       this.showLoading = true;
@@ -711,21 +748,12 @@ export class ShopComponent implements OnInit {
       this.image = [];
       this.productService.filterFish(cat, subcat, specie, variant, country, raised, preparation, treatment, minPrice, maxPrice, minimumOrder, maximumOrder, cooming_soon).subscribe(result => {
         this.showLoading = false;
-        this.products = result;
+        var array:any = Object.entries(result);
+
+        this.products = array;
+        console.log("Resultado", result);
         this.disabledInputs = false;
-        // working on the images to use like background
-        this.products.forEach((data, index) => {
-          if (data.imagePrimary && data.imagePrimary !== '') {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
-          }
-          else if (data.images && data.images.length > 0) {
-            let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`);
-          }
-          else {
-            this.image[index] = this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
-          }
-        });
+        
         if (result === undefined || Object.keys(result).length === 0) {
           this.showNotFound = true;
         }
@@ -736,6 +764,7 @@ export class ShopComponent implements OnInit {
         console.log(error);
         this.showLoading = false;
         this.showNotFound = true;
+        this.disabledInputs = false;
       });
     }
   }
@@ -761,7 +790,7 @@ export class ShopComponent implements OnInit {
             break;
           case 2:
             this.searchSubSpecie = item.fishTypes;
-            break;
+            break; 
           case 3:
             this.searchDescriptor = item.fishTypes;
             break;
@@ -786,6 +815,7 @@ export class ShopComponent implements OnInit {
   }
   //CLEAR ALL
   async clear() {
+    this.page = 1;
     this.isClearButton = true;
     this.loading = true;
     this.showNotFound = false;
@@ -807,7 +837,7 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-specie').css('display', 'none');
     jQuery('#pill-variant').css('display', 'none');
     jQuery('.filter-pills li').css('display', 'none');
-    this.getProducts(100, 1);
+    this.getProducts(this.pQty, this.page);
     this.tmpCatName = '';
     this.tmpSubcat = '';
     this.tmpSpecie = '';
@@ -880,8 +910,10 @@ export class ShopComponent implements OnInit {
     jQuery('#pill-' + id).css('display', 'none');
     this.name = '';
     await this.getCountries();
-    this.getFishCountries();
+    await this.getFishCountries();
     this.filterProducts();
+    setTimeout(() => this.chargeJS(), 500);
+
   }
   //FUNCTION TO OPEN AND GET THE CART
   openCart() {
@@ -1039,11 +1071,33 @@ export class ShopComponent implements OnInit {
    // When scroll down the screen  
    onScroll()  
    {  
-     console.log("Scrolled");  
-     this.page = this.page + 1;  
-     this.getProducts(this.pQty, this.page);  
-     this.showScrollanimation = true;
+     if(this.enableScroll == true){
+      console.log("Scrolled");  
+
+      this.page = this.page + 1;  
+      this.getProducts(this.pQty, this.page);  
+      this.showScrollanimation = true;
+     }else{
+       console.log("scroll deshabilitado");
+     }
+    
    } 
+
+
+   loadImage(data){
+      // this.isChange[data.variation.id] = { status: false, kg: 0 }; 
+      if (data.imagePrimary && data.imagePrimary !== '') {
+        return this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${data.imagePrimary})`);
+      }
+      else if (data.images && data.images.length > 0) {
+        let src = data['images'][0].src ? data['images'][0].src : data['images'][0];
+        return this.sanitizer.bypassSecurityTrustStyle(`url(${this.API}${src})`);
+      }
+      else {
+        return this.sanitizer.bypassSecurityTrustStyle('url(../../assets/default-img-product.jpg)');
+      }
+  
+   }
 }
 
 

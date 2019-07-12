@@ -7,6 +7,7 @@ import { ToastrService } from '../toast.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
+import { HttpClient } from '@angular/common/http';
 declare var jQuery: any;
 import * as moment from 'moment';
 
@@ -59,10 +60,10 @@ export class SellerComponent implements OnInit {
   public limit = 20;
   public page = 1;
   public count = 0;
-
+  public typesCompany = [];
   constructor(private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
     private router: Router, private fb: FormBuilder, private productService: ProductService, private product: ProductService,
-    private countryService: CountriesService) { }
+    private countryService: CountriesService, private http:HttpClient) { }
 
   ngOnInit() {
     this.getUsers();
@@ -80,6 +81,9 @@ export class SellerComponent implements OnInit {
       sfsAgreementForm: [''],
       ifLocal: [''],
       incoterms: ['']
+    });
+    this.http.get('companytypeseller').subscribe((types)=>{
+      this.typesCompany = types as any;
     });
   }
   getPersonalData() {

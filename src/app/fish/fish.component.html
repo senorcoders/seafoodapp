@@ -75,7 +75,8 @@
 
           <div class="row row-bg" *ngFor="let category of orgCats; let i=index">
             <div class="col text-left">
-              <label class="level-0">{{category.name}}</label>
+              <label class="level-0">
+                  <a href="update-category/{{category.id}}" >{{category.name}}</a></label>
               
             </div>
             <div class="col-md-1 text-right"><small *ngIf="category.exworks" >({{category.exworks}} %)</small>
@@ -99,7 +100,7 @@
                     <li>
                       <div class="row" >
                           <div class="col text-left">
-                              <label class="level-1" [innerHtml]="sub0?.name "></label>
+                              <a href="update-category/{{sub0?.id}}" ><label class="level-1" [innerHtml]="sub0?.name "></label></a>
                             </div>
                             <div class="col-md-1 text-right"><small *ngIf="sub0.exworks">({{sub0.exworks}} %)</small>
                             </div>
@@ -122,7 +123,7 @@
                                 <li>
                                   <div class="row" >
                                       <div class="col text-left">
-                                          <label class="level-2" [innerHtml]="sub1?.name "></label>
+                                          <a href="update-category/{{sub1?.id}}" ><label class="level-2" [innerHtml]="sub1?.name "></label></a>
                                         </div>
                                           <div class="col-md-1 text-right"><small *ngIf="sub1.exworks">({{sub1.exworks}} %)</small>
                                         </div>
@@ -142,7 +143,7 @@
                                         <li>
                                           <div class="row" >
                                             <div class="col text-left">
-                                              <label class="level-3" [innerHtml]="sub2?.name "></label>
+                                                <a href="update-category/{{sub2?.id}}" ><label class="level-3" [innerHtml]="sub2?.name "></label></a>
                                             </div>
                                               <div class="col-md-1 text-right"><small *ngIf="sub2.exworks" >({{sub2.exworks}} %)</small>
                                             </div>

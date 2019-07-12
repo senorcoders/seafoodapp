@@ -194,19 +194,51 @@
                 letter-spacing: 0.5px;
                 line-height: 25px;
                 margin: 0;
-                margin-bottom: 10px;
+                span{
+                  font-style: italic;
+                }
               }
               h5{
                 font-family: 'Josefin Sans', sans-serif;
                 font-size: 1em;
-                line-height: 25px;
+                line-height: 1em;
                 color: $light_blue;
+                margin-bottom: 0;
                 small{
                   font-size: 12px;
                   line-height: 14px;
                   font-weight: 300;
                   font-style: initial;
                 }
+              }
+              h6{
+                  font-family: 'Open Sans', sans-serif;
+                  font-weight: 300;
+                  font-size: 12px;
+                  margin-bottom: 15px;
+                a{
+                  color: $light_blue;
+                  cursor: pointer;
+                  span{
+                    color: $light_blue;
+                    font-style: italic;
+                  }
+                  &:hover{
+                    color: $dark_blue;
+                    text-decoration: none;
+                  }
+                }
+                span{
+                  color: $gray;
+                }
+              }
+              p.eta{
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 300;
+                font-size: 10px;
+                line-height: 14px;
+                color: $gray;
+                font-style: italic;
               }
             }
         
@@ -995,54 +1027,107 @@ input[type=range]:focus::-ms-fill-upper {
   }
 }
 
-.loader {
-  margin: 50px auto;
-  text-align: center;
-  position: relative;
-  width: 60%;
+
+.nav-tabs{
+  max-width: 354px;
+  margin: 5px auto;
+  border: none !important;
 }
-.loader span {
-  background: $gray;;
-  border-radius: 5px;
-  display: inline-block;
-  position: relative;
-    width: 10px;
-  height: 10px;
-  position: absolute;
-}
-.loader .dot_1 {
-  margin-right: 10px;
-  animation: loading 4s ease-in-out infinite;
-}
-.loader .dot_2 {
-  animation: loading 4s ease-in-out .3s infinite;
-}
-.loader .dot_3 {
-  animation: loading 4s ease-in-out .6s infinite;
-}
-@keyframes loading {
-    from {
-    margin-left: 50%;
-      opacity: 0;
+
+.nav-tabs .nav-link{
+  font-family: 'Josefin Sans', sans-serif;
+  color: $light_blue !important;
+  font-size: 14px;
+  line-height: 16px;
+  background: no-repeat;
+  border: none;
+  font-weight: 300;
+  padding: 0 5px !important;
+  &:hover{
+    border: none;
   }
-  50% {
-    margin-left: 0;
-      opacity: 1;
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+  font-family: 'Josefin Sans', sans-serif;
+  color: $dark_blue !important;
+  font-size: 14px;
+  line-height: 16px;
+  background: no-repeat;
+  border: none;
+  font-weight: 400;
+  padding: 0 5px !important;
+}
+
+.margin-5{
+  margin: 5px auto !important;
+}
+
+.pulse-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pulse-bubble {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: $light_blue;
+  margin: 0 5px;
+}
+
+.pulse-bubble-1 {
+    animation: pulse .4s ease 0s infinite alternate;
+}
+.pulse-bubble-2 {
+    animation: pulse .4s ease .2s infinite alternate;
+}
+.pulse-bubble-3 {
+    animation: pulse .4s ease .4s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    opacity: 1;
+    transform: scale(1);
   }
   to {
-    margin-left: -50%;
-      opacity: 0;
+    opacity: .25;
+    transform: scale(.75);
   }
 }
 
-.scroll-animation{
-  p{
-    font-family: 'Josefin Sans', sans-serif;
-    font-weight: 300;
-    color: $light_blue;
-    font-size: 21x;
-    letter-spacing: 1.5px;
-    line-height: 25px;
-    margin: 50px 0;
+.nav-tabs{
+  max-width: 354px;
+  margin: 5px auto;
+  border: none !important;
+}
+
+.nav-tabs .nav-link{
+  font-family: 'Josefin Sans', sans-serif;
+  color: $light_blue !important;
+  font-size: 14px;
+  line-height: 16px;
+  background: no-repeat;
+  border: none;
+  font-weight: 300;
+  padding: 0 5px !important;
+  &:hover{
+    border: none;
   }
+}
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+  font-family: 'Josefin Sans', sans-serif;
+  color: $dark_blue !important;
+  font-size: 14px;
+  line-height: 16px;
+  background: no-repeat;
+  border: none;
+  font-weight: 400;
+  padding: 0 5px !important;
+}
+
+.margin-5{
+  margin: 5px auto !important;
 }
