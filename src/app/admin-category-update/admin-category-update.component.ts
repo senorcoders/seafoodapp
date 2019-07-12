@@ -39,15 +39,15 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.createCatForm();
     this.route.params.subscribe(params => {
       this.category_id = this.route.snapshot.params['category_id'];
-
-      this.getCateInfo();
+      this.getTreatments();
+      this.getRaised();
+      this.getParentPreparations();
+      this.getChildPreparations();
+      this.getVariations();
+      //this.getCateInfo();
       
     });
-    this.getTreatments();
-    this.getRaised();
-    this.getParentPreparations();
-    this.getChildPreparations();
-    this.getVariations();
+    
     /*let those = this;
     jQuery('.fishPreparation').select2({
       tags: true
@@ -77,19 +77,31 @@ export class AdminCategoryUpdateComponent implements OnInit {
           );
             //getting information for current Variations
             this.category.fishPreparation[parentPreparation].map( childPreparation => {
-              this.childsPreparations.map( childBD => {
-                if ( childPreparation == childBD.id ) {
-                  let value = '';
-                  // now let's populate the current variations
-                  this.category.variations.map( variation => {                     
-                    if( variation.fishType.id == this.category.id && variation.fishPreparation.id === childPreparation ){
-                      value = variation.variations;
+              console.log( 'variations',this.category.variations );
+              if( this.childsPreparations !== undefined ) {
+                this.childsPreparations.map( childBD => {                
+                  if ( childPreparation == childBD.id ) {
+                    let value = '';
+                    // now let's populate the current variations
+                    if ( this.category.variations !== undefined ) {
+                      this.category.variations.map( variation => {                     
+                        if( variation.fishType.id == this.category.id && variation.fishPreparation.id === childPreparation ){
+                          value = variation.variations;
+                        }
+                      });
+                      (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, value ) );
+                      this.currentChildPreparations.push( { parent: parentPreparation, preparation: childBD } );
+                    } else { // if didn't had variations yet
+                    console.log('adding empty var');
+                      (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, '' ) );
+                      this.currentChildPreparations.push( { parent: parentPreparation, preparation: childBD } );
                     }
-                  });
-                  (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, value ) );
-                  this.currentChildPreparations.push( { parent: parentPreparation, preparation: childBD } );
-                }
-              } )
+                    
+                  }
+                } )
+
+              }
+              
             } );
           
         } )
@@ -223,6 +235,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.get('fishpreparation/childs' ).subscribe(
       res => {
         this.childsPreparations = res;
+        this.getCateInfo();
       }, error => {
         console.log( error );
       }
