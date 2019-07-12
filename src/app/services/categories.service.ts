@@ -9,7 +9,7 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
 
   getCategoryInfo( category_id: string ){
-    return this.http.get(`fishType/${category_id}`);
+    return this.http.get(`fishType/${category_id}/setup`);
   }
 
   get( endpoint:string ){

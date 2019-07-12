@@ -57,23 +57,41 @@
                         </span>         
                       </div>
                   </div>
-                  <div class="col-lg-12">
-                      <br/><br/><br/>
-                    <div formArrayName="fishPreparationChilds" *ngFor="let child of catForm.get('fishPreparationChilds')['controls']; let i = index" class="form-group"> 
+                  <br/><br/>
+                  <div formArrayName="fishPreparationChilds" *ngFor="let child of catForm.get('fishPreparationChilds')['controls']; let i = index" class="form-group"> 
+                    <div class="col-lg-12">
+                      <hr/>
                       <div class="form-group input-group" [formGroupName]="i">
-                        <hr/>
+                        <input type="hidden" class="form-control" id="fishParent" placeholder="fishParent" formControlName="fishParent"> 
                         <span class="has-float-label">
-                          <input type="hidden" class="form-control" id="fishParent" placeholder="fishParent" formControlName="fishParent"> 
                           <br/>
                           <ng-select [items]="childsPreparations" labelForId="fishPreparation" bindLabel="name" bindValue="id"
                               [multiple]="true" [addTag]="true" placeholder="Fish Preparation" clearAllText="Clear"
                               formControlName="fishPreparationChild" class="form-control" > </ng-select>                   
                           <label for="fishPreparationChild">Fish Preparation Childs</label> 
                                 
-                        </span>         
+                        </span>                                 
                       </div>
                     </div>
                   </div>
+                  <br/><br/><br/>
+                  <h2>Variations</h2>
+                  <div  formArrayName="fishVariations" *ngFor="let child of currentChildPreparations; let i = index">
+                    <div class="form-group input-group" [formGroupName]="i">
+                      <div class="col-lg-12">                                                  
+                            <span class="has-float-label">                                                           
+                                <input type="hidden" class="form-control" id="fishParentc" placeholder="fishParent" formControlName="fishParent"> 
+                                <input type="hidden" class="form-control" id="preparationc" placeholder="preparation" formControlName="preparation"> 
+                              <ng-select [items]="variations" labelForId="variations" bindLabel="name" bindValue="id"
+                                  [multiple]="true" [addTag]="true" placeholder="Choose some Variations" clearAllText="Clear"
+                                  formControlName="variations" class="form-control" > </ng-select>                   
+                              <label for="variations">{{child.preparation.name}}</label> 
+                              <br/>
+                                    
+                            </span>                                 
+                          </div>
+                        </div>
+                    </div>
                   <div class="col-lg-12 text-center" >
                     <div class="form-group">
                       <button type="submit" class="btn-blue">                        

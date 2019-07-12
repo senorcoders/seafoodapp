@@ -4,6 +4,7 @@ import { CategoriesService } from '../services/categories.service';
 import { FormGroup, FormControl, Validators, Form, FormBuilder, FormArray } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
+import { prepareProfile } from 'selenium-webdriver/firefox';
 declare var jQuery:any;
 
 @Component({
@@ -16,9 +17,12 @@ export class AdminCategoryUpdateComponent implements OnInit {
   category: any;
   treatments: any;
   raiseds: any;
+  variations: any;
   selectedFishPreparations: any;
-  parentPreparations: any;
-  childsPreparations: any;
+  parentPreparations: any; // only top level preparation
+  childsPreparations: any; // all preparartions what are not top level
+
+  currentChildPreparations = []; //current child prepraration in this category
 
   catForm: FormGroup;
   treatment:FormControl;
@@ -43,6 +47,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.getRaised();
     this.getParentPreparations();
     this.getChildPreparations();
+    this.getVariations();
     /*let those = this;
     jQuery('.fishPreparation').select2({
       tags: true
@@ -67,13 +72,28 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
         // let's create the new controls for the fish preparation
         Object.keys( this.category.fishPreparation ).map( (parentPreparation) => {
-          console.log( 'parent', parentPreparation );
           (<FormArray>this.catForm.get('fishPreparationChilds')).push( 
             this.addOtherFishPreparationChilds( parentPreparation, this.category.fishPreparation[parentPreparation] ) 
           );
+            //getting information for current Variations
+            this.category.fishPreparation[parentPreparation].map( childPreparation => {
+              this.childsPreparations.map( childBD => {
+                if ( childPreparation == childBD.id ) {
+                  let value = '';
+                  // now let's populate the current variations
+                  this.category.variations.map( variation => {                     
+                    if( variation.fishType.id == this.category.id && variation.fishPreparation.id === childPreparation ){
+                      value = variation.variations;
+                    }
+                  });
+                  (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, value ) );
+                  this.currentChildPreparations.push( { parent: parentPreparation, preparation: childBD } );
+                }
+              } )
+            } );
+          
         } )
-
-        console.log( res );
+        
       }, error => {
         console.log( error );
       }
@@ -100,6 +120,16 @@ export class AdminCategoryUpdateComponent implements OnInit {
     )
   }
 
+  getVariations() {
+    this.category_service.get('wholeFishWeight').subscribe(
+      res => {
+        this.variations = res;
+      }, error => {
+        console.log( error );
+      }
+    )
+  }
+
   createCatForm() {
     this.name = new FormControl('', [Validators.required]);
 
@@ -108,16 +138,26 @@ export class AdminCategoryUpdateComponent implements OnInit {
       raised: [ '', [Validators.required] ],
       treatment: ['', [Validators.required]],
       fishPreparation: ['', [Validators.required]],
-      fishPreparationChilds: this.formBuilder.array([  ])
+      fishPreparationChilds: this.formBuilder.array([  ]),
+      fishVariations: this.formBuilder.array([  ])
     })
   }
 
   addOtherFishPreparationChilds( parent_id, preparationChilds ): FormGroup {
     return this.formBuilder.group({
       fishPreparationChild: [ preparationChilds, Validators.required ],
-      fishParent: [ parent_id, Validators.required ]
+      fishParent: [ parent_id, Validators.required ]      
     });
   }
+
+  addOtherFishVariation( type, preparation_id, variations ): FormGroup {
+    return this.formBuilder.group({
+      type: [ type, Validators.required ],
+      preparation: [ preparation_id, Validators.required ],
+      variations: [ variations, Validators.required ]
+    })
+  }
+
   addFishChildPreparation(): void {
     console.log(this.catForm);
     let parentsPreparation = this.catForm.controls[ 'fishPreparation' ].value;
@@ -133,7 +173,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
       // if the control was not created, let's create it
       if ( !founded ) { 
-        (<FormArray>this.catForm.get('fishPreparationChilds')).push( this.addOtherFishPreparationChilds( item, '' ) );        
+        (<FormArray>this.catForm.get('fishPreparationChilds')).push( this.addOtherFishPreparationChilds( item, '' ) );
       }
     } );
 
