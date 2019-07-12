@@ -8,15 +8,18 @@
       <div class="col-2">
         <div class="form-inline">
           <label for='name'>Quantity/kg</label>
-          <input type="number" id='name' class="form-control" (input)='changeValue(it, i)' [(ngModel)]="it.quantity" [ngModelOptions]="{standalone: true}">
+          <input type="number" id='name' class="form-control" [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null" (input)='changeValue(it, i)' [(ngModel)]="it.quantity" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
       <div class="col-2">
         <div class="form-inline">
           <label for='grandTotal'>Delivered Price/kg</label>
-          <input id='grandTotal' type="number" class="form-control" (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered"
+          <input id='grandTotal' type="number" class="form-control" [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null" (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered"
             [ngModelOptions]="{standalone: true}">
         </div>
+      </div>
+      <div class="col-3" [ngClass]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?'new-ammend':''">
+        {{it.status.status}}
       </div>
     </div>
 
@@ -32,7 +35,7 @@
         </div>
         <div [hidden]='!showDetails'  class="row">
           <div class="col col-5">
-            <h3>TAX INVOICE</h3>
+            <h3>Proforma Invoice</h3>
             <p>{{shopping.buyer.dataExtra.companyName}}<br>
               {{shopping.buyer.firstName + ' ' + shopping.buyer.lastName}}<br>
               {{shopping.shippingAddress.address+ ','+ shopping.shippingAddress.city + ','+ shopping.shippingAddress.country}}<br>

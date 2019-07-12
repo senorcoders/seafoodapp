@@ -24,6 +24,10 @@ export class AmmendInvoiceComponent implements OnInit {
   //indicate if calcs are starts
   public calcNews = false;
   public textSave = 'amend invoice';
+  
+  public idDelivered = '5c017b3c47fb07027943a409';
+  public idCancelledOrder = '5c017b5a47fb07027943a40c';
+  public idSellerCancelledOrder = '5c06f4bf7650a503f4b731fd';
 
   constructor(
     private router: ActivatedRoute,
@@ -48,7 +52,7 @@ export class AmmendInvoiceComponent implements OnInit {
               .toFixed(2)
           )
         );
-        return { id: it.id, description: it.description, quantity: this.Number(it.itemCharges.weight), vat: 0, total: 0, priceDelivered, amountEAD: 0 };
+        return { id: it.id, status: it.status, description: it.description, quantity: this.Number(it.itemCharges.weight), vat: 0, total: 0, priceDelivered, amountEAD: 0 };
       });
       //for calculate amount, vat and total of items
       for (let i = 0; i < this.items.length; i++) { this.changeValue(this.items[i], i); }
@@ -82,7 +86,7 @@ export class AmmendInvoiceComponent implements OnInit {
       let vat = ((this.Number(priceDelivered) * quantity) * 0.05).toFixed(2),
         amountEAD = ((this.Number(priceDelivered) * quantity) * 0.95).toFixed(2),
         total = (this.Number(amountEAD) + this.Number(vat)).toFixed(2);
-      this.items[i] = Object.assign(it, { priceDelivered: this.Number(priceDelivered).toFixed(2), vat, amountEAD, total });
+      this.items[i] = Object.assign(it, { priceDelivered: priceDelivered, vat, amountEAD, total });
       console.log(this.items);
       this.calcTotals();
     }
@@ -113,7 +117,7 @@ export class AmmendInvoiceComponent implements OnInit {
   public getValue(it, prop) {
     //find item, check if value is diferent of 0
     let item = this.items.find(ite => ite.id === it.id);
-    if (item !== undefined && isNumber(this.Number(item[prop])) && this.Number(item[prop]) > 0) return this.Number(item[prop]);
+    if (item !== undefined && isNumber(this.Number(item[prop])) && this.Number(item[prop]) > 0) return this.Number(item[prop]).toFixed(2);
     return 'No Defined';
   }
 
