@@ -776,6 +776,7 @@
 		"date": "ETA",
 		"quantity": "Quantity",
 		"purchased": "Purchased",
-		"name": "Name"
+		"name": "Name",
+		"pickupCost": "Pickup Cost (AED)"
 	}
 }
