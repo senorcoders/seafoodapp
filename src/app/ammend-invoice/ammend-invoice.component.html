@@ -13,7 +13,7 @@
       </div>
       <div class="col-2">
         <div class="form-inline">
-          <label for='grandTotal'>Price Delivered</label>
+          <label for='grandTotal'>Delivered Price/kg</label>
           <input id='grandTotal' type="number" class="form-control" (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered"
             [ngModelOptions]="{standalone: true}">
         </div>
@@ -69,7 +69,7 @@
                 <th class="col-2">Country of Origin</th>
                 <th class="col-2">Quantity</th>
                 <th class="col-2">U/M</th>
-                <th class="col-2">{{calcNews===true?'Price Delivered':'Unit Price'}}</th>
+                <th class="col-2">{{calcNews===true?'Delivered Price/kg':'Unit Price'}}</th>
                 <!-- <th >Tax Rate</th> -->
                 <th class="col-2">Amount AED</th>
               </tr>
