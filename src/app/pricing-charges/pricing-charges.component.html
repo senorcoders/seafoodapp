@@ -15,8 +15,10 @@
                 <option value="uaeTaxes">UAE Taxes</option>
                 <option value="lastMileCost">Last Mile Cost</option>
                 <option value="handlingFees">Handling Fees</option>
+                <option value="flatHandlingFees">Flat Handling Fees</option>
                 <option value="exchangeRates">Exchange Rates</option>
                 <option value="exchangeRateCommission">Exchange Commission</option>
+                <option value="pickupLogistics">Pickup Logistics</option>
               </select>
             </div>
           </div>
@@ -51,8 +53,11 @@
               <th scope="col">{{'PricingCharges.uaeTaxes' | translate}}</th>
               <th scope="col">{{'PricingCharges.lastMileCost' | translate}}</th>
               <th scope="col">{{'PricingCharges.handlingFess' | translate}}</th>
+              <th scope="col">{{'PricingCharges.flatHandlingFees' | translate}}</th>
               <th scope="col">{{'PricingCharges.exchangeRates' | translate}}</th>
               <th scope="col">{{'PricingCharges.exchangeRateCommission' | translate}}</th>
+              <th scope="col">{{'PricingCharges.pickupLogistics' | translate}}</th>
+              
             </tr>
           </thead>
           <tbody>
@@ -62,8 +67,10 @@
               <td> {{currentPricing.uaeTaxes}} </td>
               <td> {{currentPricing.lastMileCost}} </td>
               <td> {{currentPricing.handlingFees}} </td>
+              <td> {{currentPricing.flatHandlingFees}} </td>
               <td> {{currentPricing.exchangeRates}} </td>
               <td> {{currentPricing.exchangeRateCommission}} </td>              
+              <td> {{currentPricing.pickupLogistics}} </td>
             </tr>              
           </tbody>
         </table>
