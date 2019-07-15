@@ -456,7 +456,7 @@
                               <div class="row check-row">
                                 <div class="col-lg-3 form-group" *ngFor="let whole of variationInfo">
                                   <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}" (click)="pushTab(whole, $event)">
                                     <label class="form-check-label" for="defaultCheck{{whole?.id}}">
                                       {{whole?.name}}
                                     </label>
@@ -465,6 +465,49 @@
 
                               </div>
                         </div>
+                        </div>
+
+                        <div class="col-lg-12" *ngIf="tabsArray.length > 0">
+                          <div class="row tab-row" >
+                            <div *ngFor="let k of tabsArray"
+                              [ngClass]="keySelect===k.id?'select':''" (click)="selectKey(k)" class="col-lg-3 selectionable">
+                              <span>{{k.name}}</span></div>
+                            <div class="col-12">
+                              <div class="row custom-pricing-table">
+                                <div class="col-8 text-center table-title">quantity range ({{weightType}})</div>
+                                <div class="col-4 text-center table-title">price (USD)</div>
+                      
+                                <div class="col-12">
+                                  <div *ngFor="let price of weights[keySelect]; let i=index;" class="row slider-price">
+                                    <div class="col-8">
+                                      <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights[keySelect][i].min"
+                                        [(highValue)]="weights[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
+                                        [options]="weights[keySelect][i].options"></ng5-slider>
+                                    </div>
+                                    <div class="col-4">
+                                      $<input type="number"
+                                    
+                                        placeholder="Price"
+                                        [(ngModel)]="weights[keySelect][i].price" [ngModelOptions]="{standalone: true}">/{{weightType}}
+                                      <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
+                                          alt=""></button>
+                                    </div>
+                                  </div>
+                                  <div class="row manual-slider" *ngIf="keySelect!==''">
+                                    <div class="col-8">
+                                      <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
+                                        [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+                                    </div>
+                                    <div class="col-4">
+                                      <input type="number" (change)="addPricing()"  placeholder="Price"
+                                        [(ngModel)]="valueExample" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                  </div>
+                      
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                         <div class="col-lg-12">

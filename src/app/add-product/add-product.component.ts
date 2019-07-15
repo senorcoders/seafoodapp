@@ -1,9 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, EventEmitter, NgZone } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from '../toast.service';
 import { CountriesService } from '../services/countries.service';
 import { ProductService } from '../services/product.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Options } from 'ng5-slider';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
+
 declare var jQuery: any;
 @Component({
   selector: 'app-add-product',
@@ -34,6 +38,7 @@ export class AddProductComponent implements OnInit {
   maxOrder: FormControl;
   perBoxes: FormControl;
   averageUnitWeight: FormControl;
+  price: FormControl;
   countries:any = [];
   countriesWithShipping:any = [];
   public cities = [];
@@ -57,9 +62,36 @@ export class AddProductComponent implements OnInit {
   imagesSend: FormControl;
   deletedImages: FormControl;
   private indexImage = 0;
+  tabsArray:any = [];
+  keySelect:any = '';
+  public weights: any = { keys: []};
+  private await_ = false;
+  private priceEnableChange = true;
+  private waitChange3Seconds = null;
+  public valueExample: number;
+  private storeEndpoint: any = 'api/store/user/';
+  public store: any;
+  pricesDeleted:any = [];
+  public user: any = {};
+  public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+  public options: Options = {
+    floor: 0,
+    ceil: 0,
+    step: 1,
+    noSwitching: true
+  };
+  public exampleValues = {
+    min: 0,
+    max: 1
+  };
+
 
   constructor(private toast:ToastrService, private countryService: CountriesService,
-    private productService: ProductService, private sanitizer: DomSanitizer) {}
+    private productService: ProductService, private sanitizer: DomSanitizer,
+    public zone: NgZone,  private router: Router,  private auth: AuthenticationService) {
+      this.user = this.auth.getLoginData();
+      this.getStore();
+    }
   ngOnInit() {
     this.createFormControl();
     this.RegisterProductForm();
@@ -70,6 +102,17 @@ export class AddProductComponent implements OnInit {
     this.getTreatment();
     this.getAllCities();
     this.getAllTypesByLevel();
+  }
+
+  getStore() {
+    let endpoint = this.storeEndpoint + this.user.id;
+    // if (this.user['role'] === 0) {
+    //   endpoint = this.storeEndpoint + this.selectedSeller;
+    // }
+    console.log('store endpoint', endpoint);
+    this.productService.getData(endpoint).subscribe(results => {
+      this.store = results;
+    });
   }
   createFormControl(){
     this.name = new FormControl('', [Validators.required]); 
@@ -97,6 +140,7 @@ export class AddProductComponent implements OnInit {
     this.images = new FormControl('', Validators.nullValidator);
     this.imagesSend = new FormControl('', Validators.nullValidator);
     this.deletedImages = new FormControl('', Validators.nullValidator);
+    this.price = new FormControl('', [Validators.required]); 
 
   }
 
@@ -126,7 +170,8 @@ export class AddProductComponent implements OnInit {
       childPreparation: this.childPreparation,
       images: this.images,
       imagesSend: this.imagesSend,
-      deletedImages: this.deletedImages
+      deletedImages: this.deletedImages,
+      price: this.price
     });
 
   }
@@ -135,6 +180,7 @@ export class AddProductComponent implements OnInit {
     console.log(this.productForm.value);
   if(this.productForm.valid){
     console.log("Valido");
+    this.onSubmit();
   }else{
     console.log("Invalido");
     this.validateAllFormFields(this.productForm);
@@ -261,6 +307,54 @@ onChanges(): void {
     }else{
       this.showAverageUnit = false;
     }
+
+    let min = Number(val.minOrder);
+     let max = Number(val.maxOrder);
+     if (min > 0 && max > 0) {
+       this.options.floor = min;
+       this.options.ceil = max;
+       const newOptions: Options = Object.assign({}, this.options);
+       newOptions.floor = min;
+       newOptions.ceil = max;
+       this.options = newOptions;
+       this.exampleValues = {
+         min: newOptions.floor,
+         max: newOptions.ceil
+       };
+     }
+     this.priceEnableChange = true;
+     this.setOptionsInAll(true);
+
+
+     if(this.waitChange3Seconds !== null) {
+      clearTimeout(this.waitChange3Seconds);
+      this.waitChange3Seconds = null;
+    }
+    this.waitChange3Seconds = setTimeout(it => {
+      try {
+        console.log(it);
+        let min = Number(it.minimunorder);
+        let max = Number(it.maximumorder);
+        if (min > 0 && max > 0) {
+          this.options.floor = min;
+          this.options.ceil = max;
+          const newOptions: Options = Object.assign({}, this.options);
+          newOptions.floor = min;
+          newOptions.ceil = max;
+          this.options = newOptions;
+          this.exampleValues = {
+            min: newOptions.floor,
+            max: newOptions.ceil
+          };
+          this.setOptionsInAll();
+          this.refreshSlider();
+        }
+      }
+      catch (e) {
+        console.error(e);
+      }
+      this.waitChange3Seconds = null;
+    }, 3000, val);
   });
 }
 
@@ -472,5 +566,520 @@ public calcLeft(i) {
 
 public byPassImageUrl(image) {
   return this.sanitizer.bypassSecurityTrustUrl(image);
+}
+
+pushTab(whole, $event){
+  if($event.srcElement.checked === true){
+    this.tabsArray.push(whole);
+    console.log(this.tabsArray, $event);
+    this.keySelect = whole.id;
+  
+    if(this.weights['keys'][this.keySelect] === undefined){
+      this.weights['keys'][this.keySelect] = [{ min: this.options.floor, max: this.options.ceil, price: "", options: Object.assign({}, this.options) }];
+  
+    }
+  
+    console.log(this.weights);
+  }else{
+
+  }
+  
+
+ 
+}
+
+public selectKey(k) {
+  this.keySelect = k.id;
+  console.log(this.weights, k);
+  setTimeout(() => {
+    this.refreshSlider();
+    console.log(this.keySelect);
+  }, 300);
+}
+
+private refreshSlider() {
+  if (this.await_ === false) {
+    this.await_ = true;
+    setTimeout(() => {
+      let r = {
+        weights: JSON.stringify(this.weights)
+      };
+      this.productForm.controls['price'].setValue(r);  
+
+      this.await_ = false;
+    }, 500);
+  }
+  this.manualRefresh.emit();
+  this.zone.run(function () { console.log("emit"); });
+}
+
+private setOptionsInAll(ignore?: boolean) {
+  let itereOptions = function (it) {
+    if (Object.prototype.toString.call(it) === '[object Object]') {
+      if (ignore === true && it.min < this.options.floor) {
+        it.min = this.options.floor;
+        if (it.max < it.min) {
+          it.max = it.min + 1;
+        }
+      }
+      let op = Object.assign({}, this.options);
+      console.log(op);
+      it.options = op;
+    }
+    console.log(it);
+    return it;
+  };
+
+  let keys = Object.keys(this.weights);
+  for (let key of keys) {
+    if(key === 'keys') continue;
+    this.weights[key] = this.weights[key]
+      .map(itereOptions.bind(this));
+  }
+
+
+}
+
+
+public addPricing() {
+  console.log( this.keySelect);
+  let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) === false ? Number(this.valueExample) : "";
+  let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
+  let index = 0;
+   if(this.weights[this.keySelect] == undefined){
+     this.weights[this.keySelect] = [it];
+   }else{
+     this.weights[this.keySelect].push(it);
+   }
+    index = this.weights[this.keySelect].length;
+  
+  this.refactorizeRanges(index - 1);
+
+
+  this.valueExample = 0;
+  this.exampleValues = {
+    min: this.options.floor,
+    max: this.options.ceil
+  };
+  this.refreshSlider();
+}
+
+public refactorizeRanges(index) {
+ 
+  let slides = [];
+  slides = this.weights[this.keySelect];
+
+ 
+  for (let i = index; i < slides.length; i++) {
+    this.refactorizeRangesItere(i);
+  }
+  this.refreshSlider();
+}
+
+public refactorizeRangesItere(index) {
+  //Si es para slides trim
+  try {
+    let newOptions: Options = Object.assign({}, this.options);
+    this.options = newOptions;
+    this.exampleValues = {
+      min: newOptions.floor,
+      max: newOptions.ceil
+    };
+    let range = {
+      minLimit: 10,
+      maxLimit: newOptions.ceil
+    }
+    let slides = [];
+    slides = this.weights[this.keySelect];
+    
+    //Entonces calculamos el valor mas alto, para tomar desde ahi
+    //el inicio de los demas slider
+    let maxValue = 0;
+    for (let i = 0; i < slides.length; i++) {
+      let slide = slides[i];
+      // if (index === 0) console.log(i, index, slide.max, maxValue, slide.max > maxValue);
+      if (i === index || i > index) continue;
+      if (slide.max > maxValue) maxValue = slide.max;
+    }
+    //ahora asignamos el mayor valor al slide
+    range.minLimit = maxValue !== 0 ? maxValue + 1 : 0;
+    range.minLimit = range.minLimit > newOptions.ceil ? newOptions.ceil : range.minLimit;
+    let newOptions1 = Object.assign(range, newOptions);
+
+    this.weights[this.keySelect][index].options = newOptions1;
+    if (this.weights[this.keySelect][index].min < range.minLimit)
+        this.weights[this.keySelect][index].min = range.minLimit;
+   
+
+  }
+  catch (e) {
+    console.error(e);
+  }
+}
+
+
+public deletePrice(headAction, i) {
+    if (this.productID !== "" &&
+      this.weights[this.keySelect][i].id !== null &&
+      this.weights[this.keySelect][i].id !== undefined
+    ) {
+     
+      this.pricesDeleted.push(this.weights[this.keySelect][i].id);
+     
+    }
+    if (this.weights[this.keySelect].length === 1) {
+      this.weights[this.keySelect] = [];
+    } else {
+      this.weights[this.keySelect].splice(i, 1);
+    }
+  
+  
+
+  this.refreshSlider();
+}
+
+async onSubmit() {
+      console.log(this.productForm.value);
+      const value = this.productForm.value;
+         //types fish
+         let salmon = '5bda361c78b3140ef5d31fa4', crustaceans = '5bda35c078b3140ef5d31f9a';
+
+         //fish preparation
+         let whole = '5d128316ce26cbab9c23e52e', filleted = '5c93c01465e25a011eefbcc4',
+         headOnGutted = '5c93bff065e25a011eefbcc2', headOffGutted = '5c93c00465e25a011eefbcc3',
+         packaged ='5d1cc9cd29dc5790fa2537f3';
+      let product:any = {};
+
+      product.speciesSelected = value.specie;
+      product.category =  value.category;
+      // Para checkar si hay imagenes
+      if (value.imagesSend === '') {
+        // this.loading = false;
+        // this.ngProgress.done();
+        return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+      } else {
+        const imagesSend = JSON.parse(value.imagesSend);
+        if (imagesSend.length === 0) {
+          // this.loading = false;
+          // this.ngProgress.done();
+          return this.toast.error('Add the images of your product', 'Error', { positionClass: 'toast-top-right' });
+        }
+      }
+      // Para checkar si hay imagen default
+      if (this.imagesTmp.length > 0) {
+        const images = JSON.parse(value.imagesSend);
+        const index = images.findIndex(it => {
+          return it.type === 'primary';
+        });
+        if (index === -1) {
+          // this.loading = false;
+          // this.ngProgress.done();
+          return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
+        }
+      }
+      // si es actualizando un producto para saber los que se eliminan
+      // let variationsDeleted = JSON.parse(pricing.variationsDeleted);
+      // let pricesDeleted = JSON.parse(pricing.pricesDeleted);
+
+      let variations: any = JSON.parse( JSON.stringify(this.weights) );
+      delete variations.keys;
+      let variationsEnd:any = [];
+
+
+      //if there product id so check if change whole or fillete or salmon
+      // if (this.productID !== '') {
+      //   let trimmingCurrent = features.wholeFishAction === 'no' && product.speciesSelected === salmon;
+      //   let trimminProduct = this.product['wholeFishAction'] == 'no' && this.speciesSelected === salmon;
+      //   if (
+      //     this.product['wholeFishAction'] !== features.wholeFishAction ||
+      //     trimminProduct !== trimmingCurrent ||
+      //     this.speciesSelected === salmon && this.speciesSelected !== product.speciesSelected
+      //   ) {
+      //     variationsDeleted = this.product['variations'].map(it => {
+      //       return it.id;
+      //     });
+      //     pricesDeleted = [];
+      //     for (let varia of this.product['variations']) {
+      //       for (let price of varia.prices) {
+      //         pricesDeleted.push(price.id);
+      //       }
+      //     }
+      //   }
+      // }
+
+      // Para quitar las options
+      const itereOptions = it => {
+        delete it.options;
+        return it;
+      };
+      // Para ver si es varations Trimming
+      if (value.preparation !== whole && value.specie === salmon) {
+        console.log(Object.keys(variations));
+        for (const key of Object.keys(variations)) {
+          const fishPreparation = key;
+          const itr = {
+            fishPreparation,
+            prices: variations[key].map(itereOptions)
+          };
+          variationsEnd.push(itr);
+        }
+      } else if (value.preparation !== whole && value.specie !== salmon || value.category === crustaceans) {
+        // para los fillete or crustance
+        const fishPreparation = value.category === crustaceans ? whole : filleted;
+
+        //preguntar  a Kharron sobre guardar filetes
+        // const itr = {
+        //   fishPreparation,
+        //   prices: weightsFilleted.map((it, i) => {
+        //     const price = pricing['weightsFillete_arr'][i];
+        //     it.price = price;
+        //     return itereOptions(it);
+        //   })
+        // };
+        // variationsEnd.push(itr);
+      // }else if(features.wholeFishAction === 'packaged'){
+      //   const fishPreparation = packaged;
+      //   const itr = {
+      //     fishPreparation,
+      //     prices: variationsPackaged.map((it, i) => {
+      //       const price = pricing['weightsPackaged_arr'][i];
+      //       it.price = price;
+      //       return itereOptions(it);
+      //     })
+      //   };
+      //   variationsEnd.push(itr);
+      } else {
+        // Para los ON
+        let fishPreparation = headOnGutted;
+        if (this.weights.keys && this.weights.keys.length > 0) {
+          
+          for (const it of this.weights.keys) {
+            const wholeFishWeight = it;
+            const itr = {
+              fishPreparation,
+              wholeFishWeight,
+              prices: variations[it].map(itereOptions)
+            };
+            variationsEnd.push(itr);
+          }
+        }
+        // // Para off
+        // fishPreparation = headOffGutted;
+        // if (variations.off.keys && variations.off.keys.length > 0) {
+        //   for (const it of variations.off.keys) {
+        //     const wholeFishWeight = it;
+        //     const itr = {
+        //       fishPreparation,
+        //       wholeFishWeight,
+        //       prices: variations.off[it].map(itereOptions)
+        //     };
+        //     variationsEnd.push(itr);
+        //   }
+        // }
+      }
+      // Buscamos si algun price lleva id, si lleva quiere decir que es
+      // Para actualizar
+      // variationsEnd = variationsEnd.map(it => {
+      //   const index = it.prices.findIndex(it => {
+      //     return it.idVariation !== null && it.idVariation !== undefined;
+      //   });
+      //   if (index !== -1) {
+      //     it.idVariation = it.prices[index].idVariation;
+      //   }
+      //   return it;
+      // });
+
+      // Para quitar el _off y _arr
+      // for (let i = 0; i < variationsEnd.length; i++) {
+      //   if (variationsEnd[i].fishPreparation !== null && variationsEnd[i].fishPreparation !== undefined) {
+      //     variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_off', '');
+      //     variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_arr', '');
+      //   }
+
+      //   if (variationsEnd[i].wholeFishWeight !== null && variationsEnd[i].wholeFishWeight !== undefined) {
+      //     variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_off', '');
+      //     variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
+      //   }
+      // }
+      if (variationsEnd.length === 0) {
+        // this.loading = false;
+        // this.ngProgress.done();
+        return this.toast.error('You have to add at least one price', 'Error', { positionClass: 'toast-top-right' });
+      }
+
+      // this.ngProgress.start();
+      // let priceAED = Number(features.price).toFixed(2);
+      const data: any = {
+        parentType: value.category,
+        "specie": value.specie,
+        'type': value.subspecie,
+        'descriptor': value.subspecieVariant === '' ? null : value.subspecieVariant,
+        'store': this.store[0].id,
+        'quality': 'good',
+        'name': value.name,
+        'description': '',
+        'country': value.country,
+        'processingCountry': value.processingCountry,
+        'city': value.portOfLoading,
+        'weight': {
+          'type': "kg",
+          'value': 5
+        },
+        "foreign_fish": value.domesticFish,
+        'perBox': value.perBoxes,
+        'perBoxes': value.perBoxes,
+        'unitOfSale': value.unitOfMeasurement,
+        'boxWeight': value.unitOfMeasurement == 'lbs' ? value.averageUnitWeight / 2.205 : value.averageUnitWeight,
+        'minimumOrder': value.unitOfMeasurement == 'lbs' ? value.minOrder / 2.205 : value.minOrder,
+        'maximumOrder': value.unitOfMeasurement == 'lbs' ? value.maxOrder / 2.205 : value.maxOrder,
+        // "acceptableSpoilageRate": features.acceptableSpoilageRate,
+        'raised': value.raised,
+        'treatment': value.treatment,
+        'seller_sku': value.sku,
+        'seafood_sku': '',
+        'mortalityRate': 1,
+        'waterLostRate': '0',
+        'status': this.user['role'] !== 0 ? '5c0866e4a0eda00b94acbdc0' : product.status,
+        'brandName': value.brand,
+        'hsCode': value.hsCode,
+        variations: variationsEnd,
+        'role': this.user['role'],
+        cooming_soon: value.comingSoon,
+      };
+     
+      console.log(data);
+    
+        this.productService.saveData('api/variations/add', data).subscribe(result => {
+          this.uploadImagesAction(product, result);
+        }, err => {
+          // this.showError = false;
+          // this.loading = false;
+          // this.ngProgress.done();
+          this.toast.error('Error when saving the product returns try', 'Error', { positionClass: 'toast-top-right' });
+        });
+      
+     
+  }
+
+
+
+private async uploadImagesAction(product, result) {
+  if (product.imagesSend !== undefined && product.imagesSend !== '') {
+    let images = JSON.parse(product.imagesSend),
+      deletedImages = product.deletedImages;
+    // Si se esta actualizando un producto
+    // se filtra las imagenes, las que tiene url son
+    // las nuevas imagenes
+    if (this.productID !== '') {
+      images = images.filter(it => {
+        return it.url === undefined || it.url === null || it.type === 'primary' || it.change === true;
+      });
+      console.log(images.length, deletedImages);
+      try {
+        // La imagen primary siempre se vuelve a subir
+        const files: File[] = [];
+
+        for (const image of images) {
+          let extension = this.getExtension(image.src);
+          const file = this.blobToFile(this.b64toBlob(image.src, 'image/' + extension), new Date().getTime().toString() + '-' + this.productID + "." + extension);
+          if (image.type === 'primary') {
+            await this.productService.postFile([file], this.productID, 'primary').toPromise();
+            continue;
+          } else {
+            files.push(file);
+          }
+        }
+        // secondary images are uploaded on background
+        this.productService.updateData('api/fish/images/delete/' + this.productID, { deletedImages }).toPromise();
+        this.productService.updateImages(files, this.productID).toPromise();
+      } catch (e) {
+        console.error(e);
+      }
+      this.finish();
+    } else {
+      this.uploadFileToActivity(result['id'], images);
+    }
+
+  } else {
+    this.finish();
+  }
+}
+
+private getExtension(encoded) {
+  return encoded.substring("data:image/".length, encoded.indexOf(";base64"));
+}
+
+private finish() {
+  if (this.productID === '') {
+    this.toast.success('Product added successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+  } else {
+    this.toast.success('Product updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+  }
+  // this.showError = false;
+  // this.loading = false;
+  // this.ngProgress.done();
+  this.productForm.reset();
+  this.router.navigate(['/my-products']);
+}
+
+private async uploadFileToActivity(productID, images) {
+  const files = [];
+  try {
+    for (const image of images) {
+      let extension = this.getExtension(image.src);
+      const file = this.blobToFile(this.b64toBlob(image.src, 'image/' + extension), new Date().getTime().toString() + '-' + productID + "." + extension);
+      if (image.type === 'primary') {
+        await this.productService.postFile([file], productID, 'primary').toPromise();
+        continue;
+      } else {
+        files.push(file);
+      }
+    }
+    // secondary images are uploaded on background
+    this.saveImages(productID, 'secundary', files);
+  } catch (e) {
+    console.error(e);
+  }
+  this.finish();
+
+}
+
+saveImages(productID, status, files) {
+  return this.productService.postFile(files, productID, status).toPromise();
+}
+
+
+public blobToFile = (theBlob: Blob, fileName: string): File => {
+  // const b: any = theBlob;
+  // // A Blob() is almost a File() - it's just missing the two properties below which we will add
+  // b.lastModifiedDate = new Date();
+  // b.name = fileName;
+
+  // // Cast to a File() type
+  // return <File>theBlob;
+  return new File([theBlob], fileName, { lastModified: new Date().getTime() });
+}
+
+public b64toBlob(b64Data, contentType) {
+  contentType = contentType || '';
+  const sliceSize = 512;
+  const byteCharacters = atob(b64Data.replace(/^data:image\/(png|jpeg|jpg|blob|blob[0-9]{1,50});base64,/, ''));
+  const byteArrays = [];
+
+  for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    const slice = byteCharacters.slice(offset, offset + sliceSize);
+
+    const byteNumbers = new Array(slice.length);
+    for (let i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+
+    const byteArray = new Uint8Array(byteNumbers);
+
+    byteArrays.push(byteArray);
+  }
+
+  const blob = new Blob(byteArrays, { type: contentType });
+  return blob;
 }
 }

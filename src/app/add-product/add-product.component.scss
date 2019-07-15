@@ -981,3 +981,97 @@
     
 
 }
+
+.tab-row{
+    // max-width: 1000px;
+    margin: 0 auto;
+    .selectionable{
+        color: $light_blue;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 21px;
+        line-height: 28px;
+        letter-spacing: 1.75px;
+        padding-bottom: 5px;
+        &.select{
+            color: $dark_blue;
+            span{
+                border-bottom: 2px solid $dark_blue;
+            }
+        }
+    }
+
+    .table-title{
+        font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: $light_blue;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 30px;
+            border-bottom: 1px solid $dark_blue;
+    }
+    .custom-pricing-table{
+        border: 1px solid $light_blue;
+       
+        .slider-price{
+            .col-8, .col-4{
+                padding: 20px;
+                border-bottom: 1px solid $light_blue;
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+
+            .col-4{
+                color: $black;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                line-height: 22px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                input{
+                    background: no-repeat;
+                    border: none;
+                    width: 80px;
+                }
+                button{
+                    background: no-repeat;
+                    border: none;
+                    position: absolute;
+                    right: 25px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+
+        .manual-slider{
+             .col-4{
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input{
+                    background: none;
+                    border: none;
+                    text-align: center;
+                    font-family: 'Open Sans', sans-serif;
+                    color: $gray;
+                    font-style: italic;
+                    font-size: 16px;
+                    line-height: 22px;
+                    &::placeholder{
+                        color: $gray;
+                    }
+                }
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+        }
+    }
+}
