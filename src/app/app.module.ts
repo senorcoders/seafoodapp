@@ -441,6 +441,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule )
   },
   {
+    path: 'fish-information-managment',
+    loadChildren: () => import('app/fish-information-managment/fish-information-managment.module').then( m => m.FishInformationManagmentModule )
+  },
+  {
     path: '404', component: NotfoundComponent
   },
   {
