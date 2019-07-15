@@ -251,6 +251,19 @@ const menuAdmin = [
             name: 'Inventory'
           }
         }
+      },
+      {
+        state: 'fish-information-managment',
+        type: 'link',
+        name: 'Fish Information Managment',
+        translate: {
+          en: {
+            name: 'Fish Information Managment'
+          },
+          ar: {
+            name: 'Fish Information Managment'
+          }
+        }
       }
     ]
   },
