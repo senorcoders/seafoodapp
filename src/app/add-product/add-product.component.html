@@ -86,7 +86,7 @@
                           <span class="has-float-label">
                             <select (change)="getOnChangeLevel(2)" id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
                             [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('subspecie').touched}">
-                            <option value="">{{'CreateProduct.species' | translate}}</option>
+                            <option value="">Subspecies</option>
                             <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>                            </select>
                             <label id="subspecie">Subspecies...*</label>
                 
@@ -104,7 +104,7 @@
                             <span class="has-float-label">
                               <select (change)="getOnChangeLevel(3)" id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('subspecieVariant').invalid && productForm.get('subspecieVariant').touched}">
-                              <option value="">{{'CreateProduct.species' | translate}}</option>
+                              <option value="">Subspecies Variant...}</option>
                               <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>                              </select>
                               <label id="subspecieVariant">Subspecies Variant...</label>
                   
@@ -126,14 +126,34 @@
 
                  <div class="row" *ngIf="fishPreparation.length > 0">
                     <div class="col-lg-6 fish-group">
-                        <label> 
-                          <span *ngFor='let prep of fishPreparation; let i = index' class="selectionable" [class.select]="i == 0" >{{prep.name}} | </span>
-                          
-                          <img
-                            tooltip="The preparation of the fish" placement="right"
-                            show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22">
-                          </label>
+                      <ul class="list-inline">
+                        <li class="list-inline-item" *ngFor='let prep of fishPreparation; let i = index'>
+                            <input type='radio' value='{{prep?.id}}' name='preparation' id='radio{{i}}' formControlName="preparation" (change)="setvariations()"
+                            [ngClass]="{'is-invalid':productForm.get('preparation').invalid && productForm.get('preparation').touched}" />
+                            <label for='radio{{i}}'>{{prep?.name}} <span>|</span></label>
+                        </li>
+                        <li class="list-inline-item">
+                            <img
+                        tooltip="The preparation of the fish" placement="right"
+                        show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22">
+                        </li>
+                      
+                      </ul>
+                      <div class="invalid-feedback" *ngIf="productForm.get('preparation').hasError('required')">Preparation {{'Register.required' | translate}}.</div>
+
+                      
                       </div>
+
+                      <div class="col-lg-6 fish-group fish-group-2">
+                        <ul class="list-inline">
+                          <li class="list-inline-item" *ngFor='let prep of preparationChilds; let i = index'>
+                              <input type='radio' value='{{prep?.id}}' name='childPreparation' id='radiochild{{i}}' formControlName="childPreparation" (change)="getKgs()" />
+                              <label for='radiochild{{i}}'>{{prep?.name}} <span>|</span></label>
+                          </li>
+                          
+                        
+                        </ul>  
+                        </div>
                  </div>
 
                  <div class="row">
@@ -188,9 +208,11 @@
                         <div class="col-12">
                           <div class="form-group file-input">
                             <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload your images...*</label>
-                            <input id="file" #myInput type="file" multiple class="form-control"
-                              accept="image/png,image/jpeg,image/jpg">
-                            
+                            <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
+                            accept="image/png,image/jpeg,image/jpg" formControlName="images"
+                            [ngClass]="{'is-invalid':productForm.get('images').invalid && productForm.get('images').touched}">
+                            <div class="invalid-feedback" *ngIf="productForm.get('images').hasError('required')">Image {{'Register.required' | translate}}.</div>
+
                             <button type="button" class="question-btn upload-svg"><img src="../../../assets/svg/upload.svg"
                                 alt=""></button>
                             <button type="button" class="question-btn" tabIndex="-1"
@@ -199,7 +221,10 @@
                           </div>
                         </div>
 
-                        <div class="row gallery-container" *ngIf="images.length===0">
+                        <input type="text" hidden formControlName="imagesSend">
+                        <input type="text" hidden formControlName="deletedImages">
+
+                        <div class="row gallery-container" *ngIf="imagesTmp.length===0">
                           <div class="col-3">
                             <img src="../../assets/add-default.png" width="100%" height="auto">
                           </div>
@@ -211,6 +236,28 @@
                           </div>
                           <div class="col-3">
                             <img src="../../assets/add-default.png" width="100%" height="auto">
+                          </div>
+                        </div>
+
+                        <div class="col-12" *ngIf="imagesTmp.length>0">
+                          <div class="row align-items-center text-center">
+                            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="imagesTmp.length>4">
+                              <i class="fa fa-chevron-left" [hidden]="!inLimit(1)" aria-hidden="true" (click)="toSl(1)"></i>
+                            </div>
+                            <div class="col-10" [ngClass]="imagesTmp.length<=4?'offset-1':''">
+                              <div class="row gallery-container">
+                                <div class="col-3 img-select" [style.left.px]="calcLeft(i)"
+                                  [ngClass]="image.type!=='primary'?'changeable':''" *ngFor="let image of imagesTmp; let i=index;">
+                                  <div class="remove-image" (click)="remove(i)">x</div>
+                                  <img [src]="byPassImageUrl(image.src)">
+                                  <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
+                                  <div class="default" *ngIf="image.type==='primary'">default image</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+                              <i class="fa fa-chevron-right" [hidden]="!inLimit(-1)" aria-hidden="true" (click)="toSl(-1)"></i>
+                            </div>
                           </div>
                         </div>
 
@@ -224,7 +271,7 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="sku" type="text" class="form-control" placeholder="Product SKU..." formControlName="treatment"
+                              <input id="sku" type="text" class="form-control" placeholder="Product SKU..." formControlName="sku"
                               [ngClass]="{'is-invalid':productForm.get('sku').invalid && productForm.get('sku').touched}">
                               <label for="sku">Product SKU...</label> 
                               <div class="invalid-feedback" *ngIf="productForm.get('sku').hasError('required')">Product SKU {{'Register.required' | translate}}.</div>
@@ -351,7 +398,7 @@
                         </div>
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" *ngIf="showAverageUnit">
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
@@ -373,7 +420,7 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order (Kg)...*" formControlName="minOrder"
+                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order (Kg)...*" [min]="staticmin" formControlName="minOrder"
                               [ngClass]="{'is-invalid':productForm.get('minOrder').invalid && productForm.get('minOrder').touched}">
                               <label for="minOrder">Minimum Order (Kg)...*</label> 
                               <div class="invalid-feedback" *ngIf="productForm.get('minOrder').hasError('required')">Minimum Order (Kg) {{'Register.required' | translate}}.</div>
@@ -386,7 +433,7 @@
                   
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" [ngClass]="showAverageUnit===true?'':'offset-lg-3'">
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
@@ -401,6 +448,23 @@
                             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
                           </div>
                   
+                        </div>
+
+                        <div class="row" *ngIf="variationInfo.length > 0" style="width: 100%">
+                           <!-- on checkbox -->
+                            <div class="col-12">
+                              <div class="row check-row">
+                                <div class="col-lg-3 form-group" *ngFor="let whole of variationInfo">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}">
+                                    <label class="form-check-label" for="defaultCheck{{whole?.id}}">
+                                      {{whole?.name}}
+                                    </label>
+                                  </div>
+                                </div>
+
+                              </div>
+                        </div>
                         </div>
 
                         <div class="col-lg-12">
