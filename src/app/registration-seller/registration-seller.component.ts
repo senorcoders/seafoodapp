@@ -5,6 +5,7 @@ import { AuthenticationService } from '../services/authentication.service';
 import { ToastrService } from '../toast.service';
 import { ProductService } from '../services/product.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 declare var jQuery: any;
 declare var window: any;
 @Component({
@@ -30,6 +31,7 @@ export class RegistrationSellerComponent implements OnInit {
   TradeBrandName: FormControl;
   companyType: FormControl;
   Address: FormControl;
+  description: FormControl;
   City: FormControl;
   ProductsInterestedSelling: FormControl;
   ContactNumber: FormControl;
@@ -44,7 +46,7 @@ export class RegistrationSellerComponent implements OnInit {
   storeID: any;
   isValid: boolean = false;
   btnText: any = 'REGISTER TO SELL';
-
+  public typesCompany = [];
 
 
 
@@ -52,6 +54,7 @@ export class RegistrationSellerComponent implements OnInit {
     private auth: AuthenticationService,
     private toast: ToastrService,
     private product: ProductService,
+    private http:HttpClient,
     private router: Router) {
     jQuery(document).ready(function () {
       jQuery('.js-example-basic-single').select2();
@@ -92,6 +95,9 @@ export class RegistrationSellerComponent implements OnInit {
 
 
     });
+    this.http.get('companytypeseller').subscribe((types)=>{
+      this.typesCompany = types as any;
+    });
   }
 
 
@@ -110,6 +116,7 @@ export class RegistrationSellerComponent implements OnInit {
     this.companyType = new FormControl('', [Validators.required]);
     this.location = new FormControl('', [Validators.required]);
     this.Address = new FormControl('', [Validators.required]);
+    this.description = new FormControl('', [Validators.required]);
     this.City = new FormControl('', [Validators.required]);
     this.ProductsInterestedSelling = new FormControl('', [Validators.required]);
     this.ContactNumber = new FormControl('', [Validators.required]);
@@ -132,6 +139,7 @@ export class RegistrationSellerComponent implements OnInit {
       tel: this.tel,
       tcs: this.tcs,
       location: this.location,
+      description: this.description,
       Address: this.Address,
       City: this.City,
       companyName: this.companyName,
@@ -308,7 +316,7 @@ export class RegistrationSellerComponent implements OnInit {
     let store = {
       "name": this.sellerForm.get('companyName').value,
       "owner": this.userID,
-      "description": "",
+      "description": this.sellerForm.get('description').value, 
       "companyName": this.sellerForm.get('companyName').value,
       "companyType": this.sellerForm.get('companyType').value,
       "location": this.sellerForm.get('location').value,

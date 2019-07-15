@@ -7,7 +7,9 @@ import { ToastrService } from '../toast.service';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
+import { HttpClient } from '@angular/common/http';
 declare var jQuery: any;
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-seller',
@@ -58,12 +60,12 @@ export class SellerComponent implements OnInit {
   public limit = 20;
   public page = 1;
   public count = 0;
-
+  public typesCompany = [];
   constructor(private sanitizer: DomSanitizer, private auth: AuthenticationService, private toast: ToastrService,
     private router: Router, private fb: FormBuilder, private productService: ProductService, private product: ProductService,
-    private countryService: CountriesService) { }
+    private countryService: CountriesService, private http:HttpClient) { }
 
- ngOnInit() {
+  ngOnInit() {
     this.getUsers();
     this.getIncoterms();
     this.getAllCities();
@@ -79,6 +81,9 @@ export class SellerComponent implements OnInit {
       sfsAgreementForm: [''],
       ifLocal: [''],
       incoterms: ['']
+    });
+    this.http.get('companytypeseller').subscribe((types)=>{
+      this.typesCompany = types as any;
     });
   }
   getPersonalData() {
@@ -124,21 +129,21 @@ export class SellerComponent implements OnInit {
       result => {
         this.incoterms = result;
       }, error => {
-        console.log( error );
+        console.log(error);
       }
     )
   }
 
   getUsers() {
     this.showLoading = true;
-    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=1`).subscribe(
-      result=> {
+    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=1&infoLoginLast=true`).subscribe(
+      result => {
         let r = result as any;
-        if(r.message=== 'ok'){
+        if (r.message === 'ok') {
           this.users = r.data;
           this.calcPagination(r.pageAvailables);
         }
-        this.showLoading = false; 
+        this.showLoading = false;
       },
       e => {
         this.showLoading = false;
@@ -151,7 +156,7 @@ export class SellerComponent implements OnInit {
     this.showLoading = true;
     this.users = [];
     this.page = index;
-    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=${this.page}`).subscribe(
+    this.auth.getData(`api/v2/user?where={"role":1}&limit=${this.limit}&page=${this.page}&infoLoginLast=true`).subscribe(
       result => {
         let data: any = result;
         if (data.message === 'ok') {
@@ -159,7 +164,7 @@ export class SellerComponent implements OnInit {
           // this.count = data.count;
           this.calcPagination(data.pageAvailables);
         }
-        
+
         this.showLoading = false;
       },
       e => {
@@ -168,7 +173,7 @@ export class SellerComponent implements OnInit {
       }
     )
 
-    
+
   }
 
   private calcPagination(length) {
@@ -186,10 +191,10 @@ export class SellerComponent implements OnInit {
 
   public previousPage() {
     this.paginationNumbers = [];
-      if (this.page > 1) {
-        this.page--;
-      }
-      this.getUsersWithPagination(this.page);
+    if (this.page > 1) {
+      this.page--;
+    }
+    this.getUsersWithPagination(this.page);
   }
 
   deleteUser(id) {
@@ -208,7 +213,7 @@ export class SellerComponent implements OnInit {
     this.auth.getData('user/' + id).subscribe(
       result => {
         this.user = result;
-        if( this.user.hasOwnProperty('incoterms') && this.user['incoterms']  !== null ) {
+        if (this.user.hasOwnProperty('incoterms') && this.user['incoterms'] !== null) {
           this.selectedIncoterm = this.user.incoterms.id;
         } else {
           this.selectedIncoterm = '';
@@ -229,8 +234,8 @@ export class SellerComponent implements OnInit {
       "companyName": this.user.dataExtra['companyName'],
       "companyType": this.user.dataExtra['companyType'],
       "country": this.user.dataExtra['country'],
-      "Address":this.user.dataExtra['Address'],
-      "City":this.user.dataExtra['City'],
+      "Address": this.user.dataExtra['Address'],
+      "City": this.user.dataExtra['City'],
       "contactNumber": this.user.dataExtra['contactNumber'],
       "iban": this.user.dataExtra['iban'],
       "swiftCode": this.user.dataExtra['swiftCode'],
@@ -238,10 +243,10 @@ export class SellerComponent implements OnInit {
       "iso": this.user.dataExtra['iso'],
       "productsIntered": this.user.dataExtra['productsIntered'],
       "licenseNumber": this.user.dataExtra['licenseNumber'],
-      "trade": this.user.dataExtra['trade']      
+      "trade": this.user.dataExtra['trade']
     };
-      data['incoterms'] = this.selectedIncoterm;
-        
+    data['incoterms'] = this.selectedIncoterm;
+
 
     data.dataExtra = dataExtra;
     // this.sellerForm.controls['firstMileCost'].setValue(5);
@@ -294,13 +299,13 @@ export class SellerComponent implements OnInit {
     }
   }
   updateStore() {
-    
-    let storeFullData={
+
+    let storeFullData = {
       "companyName": this.user.dataExtra['companyName'],
       "companyType": this.user.dataExtra['companyType'],
       "location": this.user.dataExtra['country'],
-      "Address":this.user.dataExtra['Address'],
-      "City":this.user.dataExtra['City'],
+      "Address": this.user.dataExtra['Address'],
+      "City": this.user.dataExtra['City'],
       "ContactNumber": this.user.dataExtra['contactNumber'],
       "CorporateBankAccountNumber": this.user.dataExtra['iban'],
       "CurrencyofTrade": this.user.dataExtra['currencyTrade'],
@@ -312,9 +317,9 @@ export class SellerComponent implements OnInit {
 
     this.productService.updateData('store/' + this.store.id, storeFullData).subscribe(result => {
       // update sfs files
-        console.log("Store Updated", result);
-        this.editUser();
-        // this.toast.success('Your store has been updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+      console.log("Store Updated", result);
+      this.editUser();
+      // this.toast.success('Your store has been updated successfully!', 'Well Done', { positionClass: 'toast-top-right' });
     });
   }
   updateSfs(id, file, index) {
@@ -351,26 +356,32 @@ export class SellerComponent implements OnInit {
   }
 
   getAllCities() {
-		this.countryService.getAllCities().subscribe(
-		  result => {
-			this.allCities = result;
-			this.cities = result;
-		  },
-		  error => {
-			console.log( error );
-		  }
-		);
-	  }
+    this.countryService.getAllCities().subscribe(
+      result => {
+        this.allCities = result;
+        this.cities = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 
-	  getCountries() {
-		this.countryService.getCountries().subscribe(
-		  result => {
-			this.countries = result;
-		  },
-		  error => {
-			console.log(error);
-		  }
-		);
-	  }
+  getCountries() {
+    this.countryService.getCountries().subscribe(
+      result => {
+        this.countries = result;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
+  public getLastLogin(user) {
+    let last = user.lastLogin ? user.lastLogin.dateTime : null;
+    if (last) return 'Last Login: ' + moment(last).format('MM/DD/YY hh:mm a') + ',';
+    return '';
+  }
 
 }

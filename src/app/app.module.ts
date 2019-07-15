@@ -70,6 +70,11 @@ const appRoutes: Routes = [
     canActivate: [SellerRouterService]
   },
   {
+    path: 'add-new-product',
+    loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
+    canActivate: [SellerRouterService]
+  },
+  {
     path: 'fish-type/:category/:page',
     loadChildren: () => import('app/archive-products/archive-products.module').then(m => m.ArchiveProductsModule),
     canActivate: [BuyerRouterService]
@@ -231,6 +236,11 @@ const appRoutes: Routes = [
   {
     path: 'buyer',
     loadChildren: () => import('app/buyer/buyer.module').then(m => m.BuyerModule),
+    canActivate: [AdminRouterService]
+  },
+  {
+    path: 'amend-invoice/:id',
+    loadChildren: () => import('app/ammend-invoice/ammend-invoice.module').then(m => m.AmmendInvoiceModule),
     canActivate: [AdminRouterService]
   },
   {
@@ -427,6 +437,10 @@ const appRoutes: Routes = [
     loadChildren: () => import('app/team/team.module').then(m => m.TeamModule),
   },
   {
+    path: 'update-category/:category_id',
+    loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule )
+  },
+  {
     path: '404', component: NotfoundComponent
   },
   {
@@ -463,8 +477,8 @@ export function jokesProviderFactory(provider: CDNCheck) {
     ProductManagmentComponent,
     AccountComponent,
     Homeve2Component,
-    NotfoundComponent
-        ],
+    NotfoundComponent,
+  ],
   imports: [
     BrowserAnimationsModule,
     SharedModule,
@@ -489,14 +503,14 @@ export function jokesProviderFactory(provider: CDNCheck) {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     NgwWowModule
-    ],
+  ],
   exports: [
     SharedModule,
     TranslateModule
   ],
   providers: [
     CookieService,
-    CDNCheck, 
+    CDNCheck,
     { provide: APP_INITIALIZER, useFactory: jokesProviderFactory, deps: [CDNCheck], multi: true },
     RouterProtectionService,
     AdminRouterService,

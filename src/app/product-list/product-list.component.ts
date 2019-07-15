@@ -37,7 +37,7 @@ export class ProductListComponent implements OnInit {
 			pageNumber: page,
 			numberProduct: cant
 		};
-		this.product.listProduct(data).subscribe(
+		this.product.listProductAdmin(data).subscribe(
 			res => {
 				this.paginationNumbers = [];
 				this.products = res['productos']

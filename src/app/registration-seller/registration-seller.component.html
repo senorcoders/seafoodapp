@@ -117,10 +117,7 @@
                           <span class="has-float-label select-float-label">
                               <select id="companyType" class="form-control" style="width: 100%" formControlName="companyType" [ngClass]="{'is-invalid':sellerForm.get('companyType').invalid && sellerForm.get('companyType').touched}">
                                   <option value="">Select an option...</option>
-                                  <option value="Producer">Producer</option>
-                                  <option value="Processor">Processor</option>
-                                  <option value="Trader">Trader</option>
-                                
+                                  <option *ngFor='let it of typesCompany' [value]="it.val">{{it.name}}</option>
                                 </select>                    
                                <label for="companyType">{{'Register.company-type' | translate}}</label> 
                                <div class="invalid-feedback" *ngIf="sellerForm.get('companyType').hasError('required')"> {{'Register.company-type' | translate}} {{'Register.required' | translate}}.</div>
@@ -152,6 +149,15 @@
                           </span>         
                         </div>
                     </div>
+                    <div class="col-lg-12">
+                      <div class="form-group input-group" style="max-width: 705px !important;">
+                          <span class="has-float-label">    
+                              <input id="description" type="text" class="form-control" placeholder="Description" formControlName="description"  [ngClass]="{'is-invalid':sellerForm.get('description').invalid && sellerForm.get('description').touched}">
+                              <label for="description">Description</label> 
+                              <div class="invalid-feedback" *ngIf="sellerForm.get('description').hasError('required')">Description required.</div>
+                        </span>         
+                      </div>
+                  </div>
                     <div class="col-lg-12">
                         <div class="form-group input-group" style="max-width: 705px !important;">
                             <span class="has-float-label">    

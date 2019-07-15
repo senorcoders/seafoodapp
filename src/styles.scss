@@ -1674,7 +1674,7 @@ input[type=number]::-webkit-outer-spin-button {
     }
 
     .slick-dots li button:before {
-      font-size: 20px;
+      font-size: 10px;
       color: $gray;
       opacity: .5;
     }
@@ -1682,6 +1682,9 @@ input[type=number]::-webkit-outer-spin-button {
     .slick-dots li.slick-active button:before {
       color: $light_blue;
       opacity: 1;
+    }
+    .slick-dots li{
+      margin: 0;
     }
 }
 
@@ -1753,7 +1756,7 @@ input.form-control, textarea.form-control{
   width: 100%;
   .container-fluid{
     background: $light_blue;
-    width: 92%;
+    width: 100%;
     margin: 0 auto;
     color: $white;
     font-family: 'Open Sans', sans-serif;
@@ -1839,7 +1842,9 @@ input.form-control, textarea.form-control{
 
 app-about{
   .slick-dots li button:before{
-    font-size: 15px !important;
+    font-size: 10px !important;
+    color: $gray;
+    opacity: 0.5;
   }
   .slick-dots li {
     margin: 0 4px !important;
@@ -1847,6 +1852,9 @@ app-about{
   .slick-dots li.slick-active button:before{
     color: $light_blue !important;
     opacity: 1 !important;
+  }
+  .slick-dots li{
+    margin: 0;
   }
 }
 

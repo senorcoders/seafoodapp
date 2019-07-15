@@ -58,7 +58,7 @@
       </div>
   </div>
 
-  <div class="filter-content collapse" id="filterCollapse2">
+  <!-- <div class="filter-content collapse" id="filterCollapse2">
     <div class="container second-collapse-container">
       <div class="row">
         <div class="col-md-3 filter-col">
@@ -90,7 +90,7 @@
           </div>
         </div>
     </div>
-  </div>
+  </div> -->
   <div class="filter-content collapse show" id="filterCollapse">
     <div class="container">
       <div class="row">
@@ -171,28 +171,30 @@
               </div>
             </div>
 
-            <div class="col filter-col">
+            <!-- <div class="col filter-col">
               <h4>PRICE / KG (AED)</h4>
               <input type="hidden" id="minPriceValue" name="priceValue">
               <input type="hidden" id="maxPriceValue" name="priceValue">
               <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
 
-            </div>
+            </div> -->
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-md-12 text-right">
           <button class="btn-transparent" (click)="showMore()">
               <img src="../../assets/svg/arrow-down.svg" alt="">
               MORE FILTERS
           </button>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 <div class="gray-bg">
     <div class="container-fluid">
-      <div class="row" style="position: relative; min-height: 50vh;" id="products-container">
+      <div class="row" style="position: relative; min-height: 50vh;" id="products-container"  
+      infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" 
+      (scrolled)="onScroll()" >
               <div class="wave-loader" *ngIf="showLoading">
                   <div class="wave-loading"></div>
                 </div>
@@ -204,61 +206,161 @@
               
             </div>
 
-          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6 coming-{{product.cooming_soon}} {{product.type}} {{removeSpaces(product.country)}} {{i}} {{product.variation.id }} {{product.id}} category-{{product.type}} {{product.variation.max}} {{product.variation.min}} {{product.perBox}} {{product.minBox}} {{product.maxBox}}">
-              <div class="single-product-box">
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6">
+            <div *ngIf="product[1].count == 1" class="class1 class2 class3 coming-{{product[1].variations[0].cooming_soon}} {{product[1].variations[0].type}} {{removeSpaces(product[1].variations[0].country)}} {{i}} {{product[1].variations[0].variation.id }} {{product[1].variations[0].id}} category-{{product[1].variations[0].type}} {{product[1].variations[0].variation.max}} {{product[1].variations[0].variation.min}} {{product[1].variations[0].perBox}} {{product[1].variations[0].minBox}} {{product[1].variations[0].maxBox}} {{( product[1].variations[0].variation.outOfStock || ( (getFixedNumber(product[1].variations[0].variation.max) == 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) == 0 ) ) )}}">  
+            <div class="single-product-box" >
                   <div class="product-header">
                    <div class="row">
                      <div class="col-md-10">
                      
                        
-                        <form *ngIf="!product.variation.outOfStock && ( (getFixedNumber(product.variation.max) !== 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) !== 0 ) )">
-                            <span *ngIf="product.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.variation.min)}}</span>
-                            <span *ngIf="product.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product.minBox)}}</span>
+                        <form *ngIf="!product[1].variations[0].variation.outOfStock && ( (getFixedNumber(product[1].variations[0].variation.max) !== 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) !== 0 ) )">
+                            <span *ngIf="product[1].variations[0].perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product[1].variations[0].variation.min)}}</span>
+                            <span *ngIf="product[1].variations[0].perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product[1].variations[0].minBox)}}</span>
                             <div class="my-input-container">
-                              <input *ngIf="product.perBox != true" type="number" id="amount-{{product.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product.variation.max, product.variation.min, product.variation.id, product.type)" (change)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)" (keydown.enter)="manualInput(product.variation.max, product.variation.min, product.variation.id, product.type)">
-                              <input *ngIf="product.perBox == true" type="number" id="amount-{{product.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product.maxBox, product.minBox, product.variation.id, product.type)" (change)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)" (keydown.enter)="manualInput(product.maxBox, product.minBox, product.variation.id, product.type)">
-                              <span class="suffix" [hidden]="isVacio('amount-'+product.variation.id, product.variation.id+ '-suffix')" [id]="product.variation.id+ '-suffix'">{{getTag(product, 'amount-'+product.variation.id)}}</span>
+                              <input *ngIf="product[1].variations[0].perBox != true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)" (change)="manualInput(product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)" (keydown.enter)="manualInput(product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)">
+                              <input *ngIf="product[1].variations[0].perBox == true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)" (change)="manualInput(product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)" (keydown.enter)="manualInput(product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)">
+                              <span class="suffix" [hidden]="isVacio('amount-'+product[1].variations[0].variation.id, product[1].variations[0].variation.id+ '-suffix')" [id]="product[1].variations[0].variation.id+ '-suffix'">{{getTag(product[1].variations[0], 'amount-'+product[1].variations[0].variation.id)}}</span>
                             </div>
-                            <span *ngIf="product.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.variation.max)}}</span>
-                            <span *ngIf="product.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product.maxBox)}}</span>
-                            <label id="delivere-price-{{product.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
+                            <span *ngIf="product[1].variations[0].perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product[1].variations[0].variation.max)}}</span>
+                            <span *ngIf="product[1].variations[0].perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product[1].variations[0].maxBox)}}</span>
+                            <label id="delivere-price-{{product[1].variations[0].variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
                         </form>
 			
-                        <div *ngIf="!product.cooming_soon && ( product.variation.outOfStock || ( (getFixedNumber(product.variation.max) == 0 && product.perBox !== true ) || ( product.perBox == true && getFixedNumber(product.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
-                        <div *ngIf="product.cooming_soon" > <h4>Coming Soon</h4></div>
+                        <div *ngIf="!product[1].variations[0].cooming_soon && ( product[1].variations[0].variation.outOfStock || ( (getFixedNumber(product[1].variations[0].variation.max) == 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
+                        <div *ngIf="product[1].variations[0].cooming_soon" > <h4>Coming Soon</h4></div>
                       </div>
                      <div class="col-md-2 text-right">
-                       <a id="btn-add-{{product.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                       <a id="btn-add-{{product[1].variations[0].variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product[1].variations[0])"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
                      </div>
                    </div>
                   </div>
                   <div class="product-body">
-                    <a [hidden]='product.perBox===true' *ngIf="!isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{product.variation.min}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
-                      <div class="product-single-img" [style.background-image]="image[i]">
+                    <a [hidden]='product[1].variations[0].perBox===true' *ngIf="!isChange[product[1].variations[0].variation.id]?.status" routerLink="/product/{{product[1].variations[0].id}}/{{product[1].variations[0].variation.min}}/{{getIdVarian(product[1].variations[0])}}/{{product[1].variations[0].variation.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="loadImage(product[1].variations[0])">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      
                      </div>
                     </a>
-                    <a [hidden]='product.perBox===false||product.perBox===undefined||product.perBox===null' *ngIf="!isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{product.minBox}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
-                      <div class="product-single-img" [style.background-image]="image[i]">
+                    <a [hidden]='product[1].variations[0].perBox===false||product[1].variations[0].perBox===undefined||product[1].variations[0].perBox===null' *ngIf="!isChange[product[1].variations[0].variation.id]?.status" routerLink="/product/{{product[1].variations[0].id}}/{{product[1].variations[0].minBox}}/{{getIdVarian(product[1].variations[0])}}/{{product[1].variations[0].variation.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="loadImage(product[1].variations[0])">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      
                      </div>
                     </a>
-                    <a *ngIf="isChange[product.variation.id].status" routerLink="/product/{{product.id}}/{{isChange[product.variation.id].kg}}/{{getIdVarian(product)}}/{{product.variation.id}}" class="image-link-holder">
-                      <div class="product-single-img" [style.background-image]="image[i]">
+                    <a *ngIf="isChange[product[1].variations[0].variation.id]?.status" routerLink="/product/{{product[1].variations[0].id}}/{{isChange[product[1].variations[0].variation.id].kg}}/{{getIdVarian(product[1].variations[0])}}/{{product[1].variations[0].variation.id}}" class="image-link-holder">
+                      <div class="product-single-img" [style.background-image]="loadImage(product[1].variations[0])">
                         <div class="product-overlay"></div>
                         <h2 class="product-view-details">VIEW DETAILS</h2>                      
                      </div>
                     </a>
                   </div>
                   <div class="product-footer">
-                    <h4>{{product.name}} <span *ngIf="product.variation.fishPreparation != null">-</span> {{product?.variation?.fishPreparation?.name}} <span *ngIf="product.variation.wholeFishWeight != null">-</span> {{product?.variation?.wholeFishWeight?.name}}
-                      <span *ngIf="product.perBox == true"> - (1 box = {{product.boxWeight}} kg)</span></h4>
-                    <h5 id="product-price-{{product.variation.id}}">AED {{(product.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small>(based off quantity)</small></h5>
+                    <h4>{{product[1].variations[0].name}} <span *ngIf="product[1].variations[0].variation.fishPreparation != null">({{product[1].variations[0]?.variation?.fishPreparation?.name}})</span> </h4>
+                    <h6><a routerLink="/vendor/{{product[1].variations[0]?.store?.id}}">{{product[1].variations[0]?.store?.name}} <span *ngIf="product[1].variations[0]?.store?.location != ''">({{product[1].variations[0]?.store?.location}})</span></a> 
+                      <span *ngIf="product[1].variations[0].perBox != true"> - In KG</span>
+                      <span *ngIf="product[1].variations[0].perBox == true"> - In Boxes</span>
+                    </h6>
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
+                      <p class="eta">DELIVERED DATE: {{product[1].variations[0]?.minInventoryDate | date:'fullDate'}}</p>
                   </div>
               </div>
+            </div>
+
+            <div *ngIf="product[1].count != 1">
+              <nav>
+                  <div class="tab-content" id="nav-tabContent-{{product[0]}}">
+                      <div *ngFor="let subp of product[1].variations; let vari = index;" class="tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-{{subp?.variation?.id}}" role="tabpanel" aria-labelledby="nav-tab">
+                        <div class="class1 class2 class3 coming-{{subp.cooming_soon}} {{subp.type}} {{removeSpaces(subp.country)}} {{i}} {{subp.variation.id }} {{subp.id}} category-{{subp.type}} {{subp.variation.max}} {{subp.variation.min}} {{subp.perBox}} {{subp.minBox}} {{subp.maxBox}} {{(subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )}} {{vari}}">
+                            <div class="single-product-box" style="margin-bottom: 0;">
+                                <div class="product-header">
+                                 <div class="row">
+                                   <div class="col-md-10">
+                                   
+                                     
+                                      <form *ngIf="!subp.variation.outOfStock && ( (getFixedNumber(subp.variation.max) !== 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) !== 0 ) )">
+                                          <span *ngIf="subp.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(subp.variation.min)}}</span>
+                                          <span *ngIf="subp.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(subp.minBox)}}</span>
+                                          <div class="my-input-container">
+                                            <input *ngIf="subp.perBox != true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, subp.variation.max, subp.variation.min, subp.variation.id, subp.type)" (change)="manualInput(subp.variation.max, subp.variation.min, subp.variation.id, subp.type)" (keydown.enter)="manualInput(subp.variation.max, subp.variation.min, subp.variation.id, subp.type)">
+                                            <input *ngIf="subp.perBox == true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, subp.maxBox, subp.minBox, subp.variation.id, subp.type)" (change)="manualInput(subp.maxBox, subp.minBox, subp.variation.id, subp.type)" (keydown.enter)="manualInput(subp.maxBox, subp.minBox, subp.variation.id, subp.type)">
+                                            <span class="suffix" [hidden]="isVacio('amount-'+subp.variation.id, subp.variation.id+ '-suffix')" [id]="subp.variation.id+ '-suffix'">{{getTag(subp, 'amount-'+subp.variation.id)}}</span>
+                                          </div>
+                                          <span *ngIf="subp.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.variation.max)}}</span>
+                                          <span *ngIf="subp.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.maxBox)}}</span>
+                                          <label id="delivere-price-{{subp.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
+                                      </form>
+                        
+                                      <div *ngIf="!subp.cooming_soon && ( subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
+                                      <div *ngIf="subp.cooming_soon" > <h4>Coming Soon</h4></div>
+                                    </div>
+                                   <div class="col-md-2 text-right">
+                                     <a id="btn-add-{{subp.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(subp)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                                   </div>
+                                 </div>
+                                </div>
+                                <div class="product-body">
+                                  <a [hidden]='subp.perBox===true' *ngIf="!isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{subp.variation.min}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                  <a [hidden]='subp.perBox===false||subp.perBox===undefined||subp.perBox===null' *ngIf="!isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{subp.minBox}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                  <a *ngIf="isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{isChange[subp.variation.id].kg}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                </div>
+                        
+                                <div class="product-footer">
+                                    <h4>{{subp.name}} <span *ngIf="subp.variation.fishPreparation != null">({{subp?.variation?.fishPreparation?.name}})</span> </h4>
+                                    <h6><a routerLink="/vendor/{{subp?.store?.id}}">{{subp?.store?.name}} <span *ngIf="subp?.store?.location != ''">({{subp?.store?.location}})</span></a> 
+                                      <span *ngIf="subp.perBox != true"> - In KG</span>
+                                      <span *ngIf="subp.perBox == true"> - In Boxes</span>
+                                    </h6>
+                                  </div>
+                               
+                            </div>
+                        </div>
+                      
+                        
+                      </div>
+                      
+                    </div>  
+                <div class="nav nav-tabs" id="nav-tab-{{product[0]}}" role="tablist">
+                  <a *ngFor="let subp of product[1].variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.variation?.id}}" data-toggle="tab" href="#nav-{{subp?.variation?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.variation?.wholeFishWeight?.name}}</a>
+              
+                </div>
+                <div  id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
+                    <div *ngFor="let subp of product[1].variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.variation?.id}}">
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
+                          <p class="eta">DELIVERED DATE: {{subp?.minInventoryDate | date:'fullDate'}}</p>
+                      </div>
+                </div>
+              </nav>
+              
+            </div>
           </div>
+
+          <div class="col-lg-12 text-center scroll-animation" *ngIf="showScrollanimation">
+            <div class="spinner-box">
+              <div class="pulse-container">  
+                <div class="pulse-bubble pulse-bubble-1"></div>
+                <div class="pulse-bubble pulse-bubble-2"></div>
+                <div class="pulse-bubble pulse-bubble-3"></div>
+              </div>
+            </div>
+        </div>
       </div>
        
     </div>
