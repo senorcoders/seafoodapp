@@ -11,7 +11,7 @@
           <div class="form-group" >
             <label>{{'Inventory.seller' | translate}}</label>
             <select (change)="changeSelectedSeller($event.target.value)" id="seller" class="form-control" formControlName="seller" >
-                <option value="{{seller.id}}" *ngFor="let seller of sellers">{{seller.email}}</option>
+                <option value="{{seller.id}}" *ngFor="let seller of sellers">{{seller.dataExtra?.companyName}} - {{seller.email}}</option>
             </select>
           </div>
         </div>

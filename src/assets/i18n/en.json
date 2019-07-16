@@ -779,6 +779,6 @@
 		"quantity": "Quantity",
 		"purchased": "Purchased",
 		"name": "Name",
-		"pickupCost": "Pickup Cost (AED)"
+		"pickupCost": "Partner Freight Costs (AED)"
 	}
 }
