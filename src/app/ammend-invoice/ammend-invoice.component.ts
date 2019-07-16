@@ -83,9 +83,9 @@ export class AmmendInvoiceComponent implements OnInit {
       (isNumber(priceDelivered) === true && priceDelivered > 0) &&
       (isNumber(quantity) === true && quantity > 0)
     ) {
-      let vat = ((this.Number(priceDelivered) * quantity) * 0.05).toFixed(2),
-        amountEAD = ((this.Number(priceDelivered) * quantity) * 0.95).toFixed(2),
-        total = (this.Number(amountEAD) + this.Number(vat)).toFixed(2);
+      let vat = ((this.Number(priceDelivered) * quantity) * 0.05).toFixed(2), // vat no is use.
+        amountEAD = (this.Number(priceDelivered) * quantity).toFixed(2),
+        total = this.Number(amountEAD).toFixed(2);
       this.items[i] = Object.assign(it, { priceDelivered: priceDelivered, vat, amountEAD, total });
       console.log(this.items);
       this.calcTotals();
@@ -98,7 +98,8 @@ export class AmmendInvoiceComponent implements OnInit {
     for (let it of this.items) {
       this.total += this.Number(it.total);
       this.vat += this.Number(it.vat);
-      this.subtotal += this.Number(it.total) - this.Number(it.vat);
+      // this.subtotal += this.Number(it.total) - this.Number(it.vat);
+      this.subtotal += this.Number(it.total);
     }
     this.total = this.Number(this.total.toFixed(2));
     this.vat = this.Number(this.vat.toFixed(2));
