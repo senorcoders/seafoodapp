@@ -68,7 +68,7 @@ export class RecentPurchasesComponent implements OnInit {
   deliveryIndex: any;
   deliverySunindex: any;
   public selectedMoment: any = new Date();
-
+  private currency = 'AED';
 
   constructor(private productS: ProductService, private toast: ToastrService, private auth: AuthenticationService, public ngProgress: NgProgress, private formBuilder: FormBuilder,
     private zone: NgZone
@@ -82,6 +82,10 @@ export class RecentPurchasesComponent implements OnInit {
     this.createFormControl();
     this.createForm();
     this.user = this.auth.getLoginData();
+    this.productS.getData('user/' + this.user.id).subscribe(it => {
+      this.currency = it['dataExtra']['currencyTrade'] || 'AED';
+      console.log(this.currency);
+    });
     this.getStore();
   }
 
@@ -175,13 +179,13 @@ export class RecentPurchasesComponent implements OnInit {
           this.items = result;
           // this.firstNoShipped = result; 
           let trs = [];
-          for(let it of (result as any)){
-            let index = trs.findIndex(ite=>{
+          for (let it of (result as any)) {
+            let index = trs.findIndex(ite => {
               return it.id === ite.id;
             });
-            if(index===-1){
+            if (index === -1) {
               trs.push(it);
-            }else{
+            } else {
               console.log(it.id, trs[index].id, it, trs[index]);
             }
           }
@@ -817,12 +821,19 @@ export class RecentPurchasesComponent implements OnInit {
       Object.prototype.toString.call(order.currentCharges.exchangeRates) === '[object Array]' &&
       order.currentCharges.exchangeRates.length > 0
     ) {
-      total = order.total / order.currentCharges.exchangeRates[0].price;
+      if (this.currency === 'USD')
+        total = order.total / order.currentCharges.exchangeRates[0].price;
+      else
+        total = order.total
     }
     if (isNaN(Number(total)) === true) {
       return 'not available';
     }
-    return total.toFixed(2) + ' USD';
+
+    if (this.currency === 'USD')
+      return total.toFixed(2) + ' USD';
+    else
+      return total.toFixed(2) + ' AED';
   }
 
   public getTotalItem(item, order) {
@@ -838,8 +849,14 @@ export class RecentPurchasesComponent implements OnInit {
       ) {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
-      if (item && item.total)
-        result = (Number(item.total) / exchangeRates).toFixed(2);
+      if (item && item.total) {
+        if (this.currency == 'USD')
+          result = (Number(item.total) / exchangeRates).toFixed(2);
+        else
+          result = item.total
+      }
+
+
     } catch (e) {
       console.error(e);
     }
@@ -847,7 +864,11 @@ export class RecentPurchasesComponent implements OnInit {
     if (isNaN(Number(result)) === true) {
       return 'not available';
     }
-    return result + ' USD';
+    
+    if (this.currency == 'USD')
+      return result + ' USD';
+    else
+      return result + ' AED';
   }
 
   logCalendar() {
