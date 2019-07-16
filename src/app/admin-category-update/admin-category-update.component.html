@@ -23,6 +23,19 @@
                         </div>
                   </div>
                   <div class="col-lg-12">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">   
+                            <ng-select [items]="unitOfMeasures" bindLabel="name" bindValue="name" labelForId="unitOfMeasure"
+                            [multiple]="false" placeholder="unitOfMeasure" clearAllText="Clear"
+                            formControlName="unitOfMeasure" class="form-control"> </ng-select> 
+                            
+                            
+                             <label for="treatment">Unit of Measure</label> 
+                            
+                      </span>         
+                    </div>
+                  </div>
+                  <div class="col-lg-12">
                       <div class="form-group input-group">
                           <span class="has-float-label">   
                               <ng-select [items]="treatments" bindLabel="name" bindValue="id" labelForId="treatment"

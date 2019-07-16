@@ -21,12 +21,13 @@ export class AdminCategoryUpdateComponent implements OnInit {
   selectedFishPreparations: any;
   parentPreparations: any; // only top level preparation
   childsPreparations: any; // all preparartions what are not top level
-
+  unitOfMeasures = [ { name: 'KG' }, { name: 'LBS'}, { name: 'Pieces' } ];
   currentChildPreparations = []; //current child prepraration in this category
 
   catForm: FormGroup;
   treatment:FormControl;
   fishPreparation: FormControl;
+  unitOfMeasure: FormControl;
   name:FormControl;
   constructor(
     private auth: AuthenticationService, 
@@ -64,10 +65,11 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.getCategoryInfo( this.category_id ).subscribe(
       res => {
         this.category = res;
+        //populate current fields in the category
         this.catForm.controls['name'].setValue(this.category.name);
         this.catForm.controls['raised'].setValue(this.category.raised);
         this.catForm.controls['treatment'].setValue(this.category.treatment);
-
+        this.catForm.controls['unitOfMeasure'].setValue(this.category.unitOfMeasure);
         this.catForm.controls['fishPreparation'].setValue( Object.keys( this.category.fishPreparation ));
 
         // let's create the new controls for the fish preparation
@@ -144,9 +146,10 @@ export class AdminCategoryUpdateComponent implements OnInit {
 
   createCatForm() {
     this.name = new FormControl('', [Validators.required]);
-
+    this.unitOfMeasure = new FormControl('', [Validators.required]);
     this.catForm = this.formBuilder.group({
       name: this.name,
+      unitOfMeasure: this.unitOfMeasure,
       raised: [ '', [Validators.required] ],
       treatment: ['', [Validators.required]],
       fishPreparation: ['', [Validators.required]],
