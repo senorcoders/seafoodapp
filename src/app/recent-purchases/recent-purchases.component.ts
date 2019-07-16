@@ -830,10 +830,8 @@ export class RecentPurchasesComponent implements OnInit {
       return 'not available';
     }
 
-    if (this.currency === 'USD')
-      return total.toFixed(2) + ' USD';
-    else
-      return total.toFixed(2) + ' AED';
+    return total.toFixed(2) + this.currency;
+
   }
 
   public getTotalItem(item, order) {
@@ -864,11 +862,8 @@ export class RecentPurchasesComponent implements OnInit {
     if (isNaN(Number(result)) === true) {
       return 'not available';
     }
-    
-    if (this.currency == 'USD')
-      return result + ' USD';
-    else
-      return result + ' AED';
+
+      return result + this.currency;
   }
 
   logCalendar() {
