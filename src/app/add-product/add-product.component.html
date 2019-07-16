@@ -402,10 +402,10 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="averageUnitWeight" type="text" class="form-control" placeholder="Average Unit Weight (Kg)...*" formControlName="averageUnitWeight"
+                              <input id="averageUnitWeight" type="text" class="form-control" placeholder="Average Unit Weight ({{weightType}})...*" formControlName="averageUnitWeight"
                               [ngClass]="{'is-invalid':productForm.get('averageUnitWeight').invalid && productForm.get('averageUnitWeight').touched}">
-                              <label for="averageUnitWeight">Average Unit Weight (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('averageUnitWeight').hasError('required')">Average Unit Weight (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="averageUnitWeight">Average Unit Weight ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('averageUnitWeight').hasError('required')">Average Unit Weight ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
@@ -420,10 +420,10 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order (Kg)...*" [min]="staticmin" formControlName="minOrder"
+                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order ({{weightType}})...*" [min]="staticmin" formControlName="minOrder"
                               [ngClass]="{'is-invalid':productForm.get('minOrder').invalid && productForm.get('minOrder').touched}">
-                              <label for="minOrder">Minimum Order (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('minOrder').hasError('required')">Minimum Order (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="minOrder">Minimum Order ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('minOrder').hasError('required')">Minimum Order ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1"
@@ -437,10 +437,10 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="maxOrder" type="text" class="form-control" placeholder="Maximum Order (Kg)...*" formControlName="maxOrder"
+                              <input id="maxOrder" type="text" class="form-control" placeholder="Maximum Order ({{weightType}})...*" formControlName="maxOrder"
                               [ngClass]="{'is-invalid':productForm.get('maxOrder').invalid && productForm.get('maxOrder').touched}">
-                              <label for="maxOrder">Maximum Order (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('maxOrder').hasError('required')">Maximum Order (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="maxOrder">Maximum Order ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('maxOrder').hasError('required')">Maximum Order ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1"

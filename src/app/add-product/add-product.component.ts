@@ -74,6 +74,7 @@ export class AddProductComponent implements OnInit {
   pricesDeleted:any = [];
   public user: any = {};
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
+  weightType:any = 'KG';
   public options: Options = {
     floor: 0,
     ceil: 0,
@@ -308,6 +309,12 @@ onChanges(): void {
       this.showAverageUnit = false;
     }
 
+    if (val.unitOfMeasurement == 'lbs') {
+      this.weightType = "Lbs"
+    } else {
+      this.weightType = "Kg";
+    }
+
     let min = Number(val.minOrder);
      let max = Number(val.maxOrder);
      if (min > 0 && max > 0) {
@@ -320,7 +327,7 @@ onChanges(): void {
        this.exampleValues = {
          min: newOptions.floor,
          max: newOptions.ceil
-       };
+       }; 
      }
      this.priceEnableChange = true;
      this.setOptionsInAll(true);
@@ -644,6 +651,7 @@ private setOptionsInAll(ignore?: boolean) {
 public addPricing() {
   console.log( this.keySelect);
   let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) === false ? Number(this.valueExample) : "";
+  console.log("Price", this.valueExample);
   let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
   let index = 0;
    if(this.weights[this.keySelect] == undefined){
@@ -740,14 +748,8 @@ public deletePrice(headAction, i) {
 
 async onSubmit() {
       console.log(this.productForm.value);
+      console.log("Weights", this.weights);
       const value = this.productForm.value;
-         //types fish
-         let salmon = '5bda361c78b3140ef5d31fa4', crustaceans = '5bda35c078b3140ef5d31f9a';
-
-         //fish preparation
-         let whole = '5d128316ce26cbab9c23e52e', filleted = '5c93c01465e25a011eefbcc4',
-         headOnGutted = '5c93bff065e25a011eefbcc2', headOffGutted = '5c93c00465e25a011eefbcc3',
-         packaged ='5d1cc9cd29dc5790fa2537f3';
       let product:any = {};
 
       product.speciesSelected = value.specie;
@@ -777,84 +779,26 @@ async onSubmit() {
           return this.toast.error('Select a default image', 'Error', { positionClass: 'toast-top-right' });
         }
       }
-      // si es actualizando un producto para saber los que se eliminan
-      // let variationsDeleted = JSON.parse(pricing.variationsDeleted);
-      // let pricesDeleted = JSON.parse(pricing.pricesDeleted);
-
+     
       let variations: any = JSON.parse( JSON.stringify(this.weights) );
       delete variations.keys;
       let variationsEnd:any = [];
 
+      console.log("keys", Object.keys(variations));
 
-      //if there product id so check if change whole or fillete or salmon
-      // if (this.productID !== '') {
-      //   let trimmingCurrent = features.wholeFishAction === 'no' && product.speciesSelected === salmon;
-      //   let trimminProduct = this.product['wholeFishAction'] == 'no' && this.speciesSelected === salmon;
-      //   if (
-      //     this.product['wholeFishAction'] !== features.wholeFishAction ||
-      //     trimminProduct !== trimmingCurrent ||
-      //     this.speciesSelected === salmon && this.speciesSelected !== product.speciesSelected
-      //   ) {
-      //     variationsDeleted = this.product['variations'].map(it => {
-      //       return it.id;
-      //     });
-      //     pricesDeleted = [];
-      //     for (let varia of this.product['variations']) {
-      //       for (let price of varia.prices) {
-      //         pricesDeleted.push(price.id);
-      //       }
-      //     }
-      //   }
-      // }
 
       // Para quitar las options
       const itereOptions = it => {
         delete it.options;
         return it;
       };
-      // Para ver si es varations Trimming
-      if (value.preparation !== whole && value.specie === salmon) {
-        console.log(Object.keys(variations));
-        for (const key of Object.keys(variations)) {
-          const fishPreparation = key;
-          const itr = {
-            fishPreparation,
-            prices: variations[key].map(itereOptions)
-          };
-          variationsEnd.push(itr);
-        }
-      } else if (value.preparation !== whole && value.specie !== salmon || value.category === crustaceans) {
-        // para los fillete or crustance
-        const fishPreparation = value.category === crustaceans ? whole : filleted;
 
-        //preguntar  a Kharron sobre guardar filetes
-        // const itr = {
-        //   fishPreparation,
-        //   prices: weightsFilleted.map((it, i) => {
-        //     const price = pricing['weightsFillete_arr'][i];
-        //     it.price = price;
-        //     return itereOptions(it);
-        //   })
-        // };
-        // variationsEnd.push(itr);
-      // }else if(features.wholeFishAction === 'packaged'){
-      //   const fishPreparation = packaged;
-      //   const itr = {
-      //     fishPreparation,
-      //     prices: variationsPackaged.map((it, i) => {
-      //       const price = pricing['weightsPackaged_arr'][i];
-      //       it.price = price;
-      //       return itereOptions(it);
-      //     })
-      //   };
-      //   variationsEnd.push(itr);
-      } else {
-        // Para los ON
-        let fishPreparation = headOnGutted;
-        if (this.weights.keys && this.weights.keys.length > 0) {
+        let fishPreparation = value.preparation;
+        if (variations && Object.keys(variations).length > 0) {
           
-          for (const it of this.weights.keys) {
+          for (const it of Object.keys(variations)) {
             const wholeFishWeight = it;
+            console.log("wholefish", wholeFishWeight);
             const itr = {
               fishPreparation,
               wholeFishWeight,
@@ -863,44 +807,7 @@ async onSubmit() {
             variationsEnd.push(itr);
           }
         }
-        // // Para off
-        // fishPreparation = headOffGutted;
-        // if (variations.off.keys && variations.off.keys.length > 0) {
-        //   for (const it of variations.off.keys) {
-        //     const wholeFishWeight = it;
-        //     const itr = {
-        //       fishPreparation,
-        //       wholeFishWeight,
-        //       prices: variations.off[it].map(itereOptions)
-        //     };
-        //     variationsEnd.push(itr);
-        //   }
-        // }
-      }
-      // Buscamos si algun price lleva id, si lleva quiere decir que es
-      // Para actualizar
-      // variationsEnd = variationsEnd.map(it => {
-      //   const index = it.prices.findIndex(it => {
-      //     return it.idVariation !== null && it.idVariation !== undefined;
-      //   });
-      //   if (index !== -1) {
-      //     it.idVariation = it.prices[index].idVariation;
-      //   }
-      //   return it;
-      // });
 
-      // Para quitar el _off y _arr
-      // for (let i = 0; i < variationsEnd.length; i++) {
-      //   if (variationsEnd[i].fishPreparation !== null && variationsEnd[i].fishPreparation !== undefined) {
-      //     variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_off', '');
-      //     variationsEnd[i].fishPreparation = variationsEnd[i].fishPreparation.replace('_arr', '');
-      //   }
-
-      //   if (variationsEnd[i].wholeFishWeight !== null && variationsEnd[i].wholeFishWeight !== undefined) {
-      //     variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_off', '');
-      //     variationsEnd[i].wholeFishWeight = variationsEnd[i].wholeFishWeight.replace('_arr', '');
-      //   }
-      // }
       if (variationsEnd.length === 0) {
         // this.loading = false;
         // this.ngProgress.done();
