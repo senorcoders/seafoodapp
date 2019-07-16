@@ -83,7 +83,7 @@ export class AmmendInvoiceComponent implements OnInit {
       (isNumber(priceDelivered) === true && priceDelivered > 0) &&
       (isNumber(quantity) === true && quantity > 0)
     ) {
-      let vat = ((this.Number(priceDelivered) * quantity) * 0.05).toFixed(2), // vat no is use.
+      let vat = 0, // vat no is use.((this.Number(priceDelivered) * quantity) * 0.05).toFixed(2)
         amountEAD = (this.Number(priceDelivered) * quantity).toFixed(2),
         total = this.Number(amountEAD).toFixed(2);
       this.items[i] = Object.assign(it, { priceDelivered: priceDelivered, vat, amountEAD, total });
