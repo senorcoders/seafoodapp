@@ -5,8 +5,10 @@ import { CountriesService } from '../services/countries.service';
 import { ProductService } from '../services/product.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Options } from 'ng5-slider';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 declare var jQuery: any;
 @Component({
@@ -75,6 +77,9 @@ export class AddProductComponent implements OnInit {
   public user: any = {};
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   weightType:any = 'KG';
+  private product: any = {};
+  public createProduct = true;
+  parent:any;
   public options: Options = {
     floor: 0,
     ceil: 0,
@@ -89,8 +94,15 @@ export class AddProductComponent implements OnInit {
 
   constructor(private toast:ToastrService, private countryService: CountriesService,
     private productService: ProductService, private sanitizer: DomSanitizer,
-    public zone: NgZone,  private router: Router,  private auth: AuthenticationService) {
+    public zone: NgZone,  private router: Router,  private auth: AuthenticationService,
+    private route: ActivatedRoute, private http: HttpClient) {
       this.user = this.auth.getLoginData();
+      let productID = this.route.snapshot.params['id'];
+      if (productID !== null && productID !== undefined) {
+        this.productID = productID;
+        this.createProduct = false;
+        this.getDetails();
+      }
       this.getStore();
     }
   ngOnInit() {
@@ -105,6 +117,119 @@ export class AddProductComponent implements OnInit {
     this.getAllTypesByLevel();
   }
 
+  async getDetails(){
+    this.parent= await this.getParent();
+
+    this.productService.getProductDetailVariationsForEdit(this.productID).subscribe(async data =>
+      {
+        this.product = JSON.parse(JSON.stringify(data));
+        console.log("Producto", this.product);
+        this.setValues();
+
+    })
+  }
+
+  private async getImages(product) {
+    console.log(product['images']);
+    let forForm = [], forInput = [];
+    let imagePrimary, imagePrimaryForForm,
+      baseUrl = environment.apiURLImg, imagePrimary64,
+      rt: any = { responseType: 'blob' };
+    try {
+      imagePrimary = await this.http.get(baseUrl + product['imagePrimary'], rt).toPromise() as any;
+      imagePrimary64 = await this.blobToBase64(imagePrimary);
+      imagePrimaryForForm = {
+        src: imagePrimary64,
+        url: product['imagePrimary'],
+        type: 'primary',
+        defaultInial: true
+      };
+      forForm.push(imagePrimaryForForm);
+      forInput = [this.blobToFile(imagePrimary, 'primary.jpg')];
+    } catch (e) {
+      console.error(e);
+    }
+
+    // Para agregar las imasgenes secundarias
+    if (product['images'] && product['images'].length > 0) {
+      for (let image of product['images']) {
+        if (typeof image === "object" && image.src)
+          image = image.src;
+        try {
+          const imageSecond = await this.http.get(baseUrl + image, rt).toPromise() as any;
+          const imageSecond64 = await this.blobToBase64(imageSecond);
+          const imageSecondForForm = {
+            src: imageSecond64,
+            url: image,
+            type: 'secundary'
+          };
+          forForm.push(imageSecondForForm);
+          forInput.push(this.blobToFile(imageSecond, 'second.jpg'));
+        } catch (e) { console.error(e); }
+      }
+    }
+
+    return {
+      forForm: JSON.stringify(forForm),
+      forInput: forInput
+    };
+  }
+
+  private blobToBase64(blob: Blob) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = function () {
+        const base64data = reader.result;
+        resolve(base64data);
+      };
+    });
+  }
+  private getParent() {
+    return this.productService.getData(`fishType/parents/${this.productID}`).toPromise() as any;
+  }
+
+  async setValues() {
+    let cat  = this.parent["level0"] ? this.parent["level0"].id : "";
+    let speciesSelected =  this.parent["level1"] ? this.parent["level1"].id : '';
+    let subSpeciesSelected = this.parent["level2"] ? this.parent["level2"].id : '';
+    let descriptorSelected = this.product["descriptor"] ? this.product["descriptor"] : '';
+    this.productForm.controls['name'].setValue(this.product.name);
+    this.productForm.controls['name'].disable();
+    this.productForm.controls['brand'].setValue(this.product.brandname);
+    this.productForm.controls['raised'].setValue(this.product.raised.id);
+    this.productForm.controls['raised'].disable();
+    this.productForm.controls['treatment'].setValue(this.product.treatment.id);
+    this.productForm.controls['treatment'].disable();
+    this.productForm.controls['sku'].setValue(this.product.seller_sku);
+    this.productForm.controls['country'].setValue(this.product.country);
+    this.productForm.controls['country'].disable();
+    this.productForm.controls['processingCountry'].setValue(this.product.processingCountry);
+    this.productForm.controls['processingCountry'].disable();
+    this.productForm.controls['portOfLoading'].setValue(this.product.city);
+    this.productForm.controls['portOfLoading'].disable();
+    this.productForm.controls['hsCode'].setValue(this.product.hsCode);
+    this.productForm.controls['domesticFish'].setValue(this.product.foreign_fish);
+    this.productForm.controls['comingSoon'].setValue(this.product.cooming_soon);
+    this.productForm.controls['unitOfMeasurement'].setValue(this.product.unitOfSale);
+    this.productForm.controls['unitOfMeasurement'].disable();
+    this.productForm.controls['minOrder'].setValue(this.product.minimumOrder);
+    this.productForm.controls['maxOrder'].setValue(this.product.maximumOrder);
+    this.productForm.controls['perBoxes'].setValue(this.product.perBox);
+    this.productForm.controls['averageUnitWeight'].setValue(this.product.boxWeight);
+    this.productForm.controls['category'].setValue(cat);
+    this.productForm.controls['category'].disable();
+    this.productForm.controls['specie'].setValue(speciesSelected);
+    this.productForm.controls['specie'].disable();
+    this.productForm.controls['subspecie'].setValue(subSpeciesSelected);
+    this.productForm.controls['subspecie'].disable();
+    this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
+    this.productForm.controls['subspecieVariant'].disable();
+    this.updateProcess(cat);
+    let images = await this.getImages(this.product);
+    this.productForm.controls['imagesSend'].setValue(images.forForm);
+   
+  }
   getStore() {
     let endpoint = this.storeEndpoint + this.user.id;
     // if (this.user['role'] === 0) {
@@ -315,6 +440,10 @@ onChanges(): void {
       this.weightType = "Kg";
     }
 
+    if (val.imagesSend !== '' && this.imagesTmp.length === 0){
+      this.imagesTmp = JSON.parse(val.imagesSend);
+
+    }
     let min = Number(val.minOrder);
      let max = Number(val.maxOrder);
      if (min > 0 && max > 0) {
@@ -853,17 +982,31 @@ async onSubmit() {
         'role': this.user['role'],
         cooming_soon: value.comingSoon,
       };
-     
+      if (this.productID !== "") {
+        data.idProduct = this.product.id;
+      }
       console.log(data);
     
+      if (this.productID !== "") {
+        this.productService.updateData('api/variations', data).subscribe(result => {
+          this.uploadImagesAction(value, result);
+        }, err => {
+          // this.loading = false;
+          // this.ngProgress.done();
+          this.toast.error('Error when saving the product returns try', 'Error', { positionClass: 'toast-top-right' });
+        });
+      }else{
         this.productService.saveData('api/variations/add', data).subscribe(result => {
-          this.uploadImagesAction(product, result);
+          this.uploadImagesAction(value, result);
         }, err => {
           // this.showError = false;
           // this.loading = false;
           // this.ngProgress.done();
           this.toast.error('Error when saving the product returns try', 'Error', { positionClass: 'toast-top-right' });
         });
+
+      }
+       
       
      
   }

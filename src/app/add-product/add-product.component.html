@@ -104,7 +104,7 @@
                             <span class="has-float-label">
                               <select (change)="getOnChangeLevel(3)" id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('subspecieVariant').invalid && productForm.get('subspecieVariant').touched}">
-                              <option value="">Subspecies Variant...}</option>
+                              <option value="">Subspecies Variant...</option>
                               <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>                              </select>
                               <label id="subspecieVariant">Subspecies Variant...</label>
                   

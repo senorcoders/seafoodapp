@@ -136,7 +136,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'edit-product/:id',
-    loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
+    loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
     canActivate: [SellerRouterService]
   },
   {
