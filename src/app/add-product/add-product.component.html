@@ -86,7 +86,7 @@
                           <span class="has-float-label">
                             <select (change)="getOnChangeLevel(2)" id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
                             [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('subspecie').touched}">
-                            <option value="">Subspecies</option>
+                            <option value="">Subspecies...*</option>
                             <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>                            </select>
                             <label id="subspecie">Subspecies...*</label>
                 
