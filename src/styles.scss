@@ -1752,7 +1752,7 @@ input.form-control, textarea.form-control{
 .custom-snackbar{ 
   position: fixed;
   z-index: 200;
-  bottom: 20px;
+  bottom: 0px;
   width: 100%;
   .container-fluid{
     background: $light_blue;

@@ -8,17 +8,21 @@
       <div class="col-2">
         <div class="form-inline">
           <label for='name'>Quantity/kg</label>
-          <input type="number" id='name' class="form-control" [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null" (input)='changeValue(it, i)' [(ngModel)]="it.quantity" [ngModelOptions]="{standalone: true}">
+          <input type="number" id='name' class="form-control"
+            [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null"
+            (input)='changeValue(it, i)' [(ngModel)]="it.quantity" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
       <div class="col-2">
         <div class="form-inline">
           <label for='grandTotal'>Delivered Price/kg</label>
-          <input id='grandTotal' type="number" class="form-control" [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null" (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered"
-            [ngModelOptions]="{standalone: true}">
+          <input id='grandTotal' type="number" class="form-control"
+            [readonly]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?true:null"
+            (input)='changeValue(it, i)' [(ngModel)]="it.priceDelivered" [ngModelOptions]="{standalone: true}">
         </div>
       </div>
-      <div class="col-3" [ngClass]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?'new-ammend':''">
+      <div class="col-3"
+        [ngClass]="it.status.id===idDelivered||it.status.id===idCancelledOrder||it.status.id===idSellerCancelledOrder?'new-ammend':''">
         {{it.status.status}}
       </div>
     </div>
@@ -33,7 +37,7 @@
         <div [hidden]='!showDetails' class="align-right">
           <h1 class="paid">PAID</h1>
         </div>
-        <div [hidden]='!showDetails'  class="row">
+        <div [hidden]='!showDetails' class="row">
           <div class="col col-5">
             <h3>Proforma Invoice</h3>
             <p>{{shopping.buyer.dataExtra.companyName}}<br>
@@ -134,17 +138,21 @@
             <span>{{subtotal}}</span>
           </div>
         </div>
-        <div class="subtotal" [ngClass]='calcNews===true?"new-ammend":""'>
+        <!-- <div class="subtotal" [ngClass]='calcNews===true?"new-ammend":""'>
           <div class="text-right">
             <span>VAT (5%) </span>
           </div>
           <div class="text-right">
             <span>{{vat}}</span>
           </div>
-        </div>
+        </div> -->
 
         <div class="subtotal text-right  clear" [ngClass]='calcNews===true?"new-ammend":""'>
-          <p><b>Grand Total AED {{total}} </b></p>
+          <p>
+            <b>Grand Total AED {{total}} </b>
+            <br>
+            <span class="cite-text">VAT included in total</span>
+          </p>
         </div>
         <div class="extras text-right ">
           <p><b>Due Date: {{formatPaid()}} </b></p>

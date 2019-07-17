@@ -869,3 +869,209 @@
         text-transform: uppercase;
     }
 }
+
+.fish-group{
+    li{
+        padding: 0 7px;
+    }
+    li:nth-last-child(2){
+        label{
+            span{
+                display: none;
+            }
+        }
+    }
+    input {
+        visibility:hidden;
+    }
+    label {
+        cursor: pointer;
+        font-family: "Open Sans", sans-serif;
+        font-size: 21px;
+        letter-spacing: 0.5px;
+        line-height: 31px;
+        color: $light_blue;
+        font-weight: 300;
+        span{
+            margin-left: 15px;
+        }
+    }
+    input:checked + label {
+        color: $dark_blue;
+        font-weight: 400;
+    }
+
+    &.fish-group-2{
+        li:nth-last-child(2){
+            label{
+                span{
+                    display: initial;
+                }
+            }
+        } 
+
+        li:last-child{
+            label{
+                span{
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+.check-row{
+    max-width: 1000px;
+    margin: 0 auto;
+    margin-bottom: 70px;
+
+    .custom-trim-square{
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        span.selectionable{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: $light_blue;
+            font-weight: 300;
+        }
+        .square{
+            width: 22px;
+            height: 22px;
+            border: 1px solid $dark_blue;
+            border-radius: 3px;
+            margin-right: 10px;
+            &.select{
+                background-color: $dark_blue;
+            }
+        }
+    }
+    .form-check{
+        position: relative;
+        padding: 10px 0;
+        label{
+            font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: $light_blue;
+            font-weight: 300;
+        }
+        input[type="checkbox"]{
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+          }
+          input[type="checkbox"] + label {
+            display: inline-block;
+            background: url('../../assets/unchecked-blue.png') no-repeat;
+            background-size: 14px 14px;
+            margin-left: 0px;
+            padding-left: 25px;
+            line-height: 14px;
+            cursor: pointer;
+          }
+              
+          input[type="checkbox"]:checked + label {
+            background: url('../../assets/checked-blue.png') no-repeat;
+            background-size: 14px 14px;
+          }
+    }
+    
+
+}
+
+.tab-row{
+    // max-width: 1000px;
+    margin: 0 auto;
+    .selectionable{
+        color: $light_blue;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        font-size: 21px;
+        line-height: 28px;
+        letter-spacing: 1.75px;
+        padding-bottom: 5px;
+        &.select{
+            color: $dark_blue;
+            span{
+                border-bottom: 2px solid $dark_blue;
+            }
+        }
+    }
+
+    .table-title{
+        font-family: 'Open Sans', sans-serif;
+            font-size: 21px;
+            line-height: 31px;
+            color: $light_blue;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 30px;
+            border-bottom: 1px solid $dark_blue;
+    }
+    .custom-pricing-table{
+        border: 1px solid $light_blue;
+       
+        .slider-price{
+            .col-8, .col-4{
+                padding: 20px;
+                border-bottom: 1px solid $light_blue;
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+
+            .col-4{
+                color: $black;
+                font-family: 'Open Sans', sans-serif;
+                font-size: 16px;
+                line-height: 22px;
+                align-items: center;
+                display: flex;
+                justify-content: center;
+                position: relative;
+                input{
+                    background: no-repeat;
+                    border: none;
+                    width: 80px;
+                }
+                button{
+                    background: no-repeat;
+                    border: none;
+                    position: absolute;
+                    right: 25px;
+                    width: 14px;
+                    height: 14px;
+                }
+            }
+        }
+
+        .manual-slider{
+             .col-4{
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                input{
+                    background: none;
+                    border: none;
+                    text-align: center;
+                    font-family: 'Open Sans', sans-serif;
+                    color: $gray;
+                    font-style: italic;
+                    font-size: 16px;
+                    line-height: 22px;
+                    &::placeholder{
+                        color: $gray;
+                    }
+                }
+            }
+            .col-8{
+                padding: 20px 60px;
+            }
+        }
+    }
+}
