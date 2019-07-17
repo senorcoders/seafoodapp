@@ -242,6 +242,7 @@
                                     <span class="has-float-label">
                                         <select id="currency" class="form-control" formControlName="CurrencyofTrade"  [ngClass]="{'is-invalid':sellerForm.get('CurrencyofTrade').invalid && sellerForm.get('CurrencyofTrade').touched}">
                                             <option value="USD">USD</option>   
+                                            <option value="AED">AED</option>   
                                           </select> 
                                         <label for="currency">Currency of Trade</label>
                                         <div class="invalid-feedback" *ngIf="sellerForm.get('CurrencyofTrade').hasError('required')">Currency of Trade is required.</div>
