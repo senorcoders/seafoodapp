@@ -299,6 +299,8 @@ export class AddProductComponent implements OnInit {
       deletedImages: this.deletedImages,
       price: this.price
     });
+    this.productForm.controls['unitOfMeasurement'].disable();
+
 
   }
 
@@ -585,6 +587,7 @@ updateProcess(selectedType){
       console.log("Resultado", result);
       this.raisedArray = result['raisedInfo'];
       this.treatments = result['treatmentInfo'];
+      this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
       if(result['fishPreparationInfo']){
         this.fishPreparation = result['fishPreparationInfo'];
       }else{
