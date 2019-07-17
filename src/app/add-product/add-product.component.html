@@ -376,9 +376,11 @@
                         <div class="col-lg-6">
                           <div class="form-group input-group">
                             <span class="has-float-label">
-                              <input id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfMeasurement" class="form-control"
+                              <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfMeasurement" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('unitOfMeasurement').invalid && productForm.get('unitOfMeasurement').touched}">
-
+                              <option value="">Unit of Sale...*</option>
+                              <option *ngFor="let u of measurements" value="{{u.name}}">{{u.name}}</option>
+                              </select>
                               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
                               <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Port of Loading {{'Register.required' | translate}}.</div>
 

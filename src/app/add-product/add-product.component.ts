@@ -80,6 +80,7 @@ export class AddProductComponent implements OnInit {
   private product: any = {};
   public createProduct = true;
   parent:any;
+  measurements:any = [];
   public options: Options = {
     floor: 0,
     ceil: 0,
@@ -115,6 +116,7 @@ export class AddProductComponent implements OnInit {
     this.getTreatment();
     this.getAllCities();
     this.getAllTypesByLevel();
+    this.getMeasurements();
   }
 
   async getDetails(){
@@ -409,6 +411,12 @@ public getCities() {
   );
 }
 
+private getMeasurements(){
+  this.productService.getData("unitofmeasure").subscribe(res =>{
+    console.log("UM", res);
+    this.measurements = res;
+  })
+}
 private reaised() {
   this.productService.getData("raised").subscribe(it => {
     this.raisedArray = it as any;
