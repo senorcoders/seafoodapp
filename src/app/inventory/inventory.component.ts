@@ -30,7 +30,6 @@ export class InventoryComponent implements OnInit {
   date: FormControl;
   short_date: FormControl;
   quantity: FormControl;
-  pickupCost: FormControl;
   today = new Date();
   min = new Date();
   max = new Date();
@@ -53,15 +52,13 @@ export class InventoryComponent implements OnInit {
     this.date = new FormControl('', Validators.required);
     this.short_date = new FormControl('', Validators.required);
     this.quantity = new FormControl('', Validators.required);
-    this.pickupCost = new FormControl('', Validators.required);
 
     this.myform = new FormGroup({
       seller: this.seller,
       sku: this.sku,
       date: this.date,
       short_date: this.short_date,
-      quantity: this.quantity,
-      pickupCost: this.pickupCost
+      quantity: this.quantity
     });
     this.getSellers();
   }
