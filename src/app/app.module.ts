@@ -49,6 +49,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Homeve2Component } from './homeve2/homeve2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { NgwWowModule } from 'ngx-wow';
+import { ConversionPipe } from './conversion.pipe';
 
 
 
@@ -482,6 +483,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     AccountComponent,
     Homeve2Component,
     NotfoundComponent,
+    ConversionPipe,
   ],
   imports: [
     BrowserAnimationsModule,
