@@ -9,14 +9,14 @@ export class ConversionPipe implements PipeTransform {
     console.log("Argumento", args, value, param2);
     switch (args) {
       case 'g':
-        return Number(value / 1000);
+        return Number(value / 1000) + 'G';
         break;
         case 'box':
-        return parseInt((value / param2).toString());
+        return parseInt((value / param2).toString()) + (((value / param2) > 1) ? ' boxes' : ' box');
           break;
       default:
       return null;
-    }
+    } 
     
    
   }
