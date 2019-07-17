@@ -91,6 +91,7 @@ export class AddProductComponent implements OnInit {
     min: 0,
     max: 1
   };
+  selectedType:any;
 
 
   constructor(private toast:ToastrService, private countryService: CountriesService,
@@ -548,6 +549,7 @@ getOnChangeLevel(level: number, value?) {
       selectedType = this.productForm.get('subspecieVariant').value;
       break;
   }
+  this.selectedType = selectedType;
   this.updateLevels(selectedType, level);
   this.updateProcess(selectedType);
   
@@ -610,9 +612,8 @@ updateProcess(selectedType){
 }
 
 setvariations(){
-  let mainCat = this.productForm.get('category').value;
   let fishp = this.productForm.get('preparation').value;
-  this.productService.getData(`fishtype/${mainCat}/preparation/${fishp}/childs`).subscribe(res => {
+  this.productService.getData(`fishtype/${this.selectedType}/preparation/${fishp}/childs`).subscribe(res => {
     console.log("Childs", res);
     this.preparationChilds = res;
   })
@@ -620,9 +621,8 @@ setvariations(){
 
 
 getKgs(){
-  let cat = this.productForm.get('category').value;
   let preparation = this.productForm.get('childPreparation').value;
-  this.productService.getData(`fishvariations/type/${cat}/preparation/${preparation}`).subscribe(res  => {
+  this.productService.getData(`fishvariations/type/${this.selectedType}/preparation/${preparation}`).subscribe(res  => {
       console.log("KGS", res);
       this.variationInfo = res['variationInfo'];
   });
