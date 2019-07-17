@@ -39,14 +39,7 @@
             <label>{{'Inventory.quantity' | translate}}</label>
             <input id="quantity" type="number" class="form-control" formControlName="quantity" >
           </div>
-        </div>
-
-        <div class="col-md-2">
-            <div class="form-group" >
-              <label>{{'Inventory.pickupCost' | translate}}</label>
-              <input id="pickupCost" type="number" class="form-control" formControlName="pickupCost" >
-            </div>
-          </div>
+        </div>       
 
         <div class="col-md-2">
           <button type="submit" class="btn-red">Save</button>
@@ -68,8 +61,7 @@
             <th scope="col">{{'Inventory.sku' | translate}}</th>
             <th scope="col">{{'Inventory.date' | translate}}</th>
             <th scope="col">{{'Inventory.quantity' | translate}}</th>
-            <th scope="col">{{'Inventory.purchased' | translate}}</th>
-            <th scope="col">{{'Inventory.pickupCost' | translate}}</th>
+            <th scope="col">{{'Inventory.purchased' | translate}}</th>            
           </tr>
         </thead>
         <tbody>
@@ -78,8 +70,7 @@
             <td> {{inventory.variations.sku}} </td>
             <td> {{inventory.short_date}} </td>
             <td> {{inventory.quantity}} </td>
-            <td> {{inventory.purchased}} </td>
-            <td> {{inventory.pickupCost}} </td>
+            <td> {{inventory.purchased}} </td>            
             <td *ngIf="inventory.purchased <= 0"> <span class="blue-btn-light previous" (click)="delete(inventory.id)" >Delete</span> </td>
           </tr>              
         </tbody>

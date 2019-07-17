@@ -666,7 +666,8 @@
 		"flatCustoms": "Flat Customs (AED)",
 		"exchangeRateCommission": "Exchange Commission (%)",
 		"flatHandlingFees": "Flat Handling Fees (AED)",
-		"pickupLogistics": "Pickup Logistics (AED)"
+		"pickupLogistics": "Pickup Logistics (AED)",
+		"partnerFreightCosts": "Partner Freight Costs (AED)"
 	},
 	"FulsfillsOrders": {
 		"title": "Seller Fulfills Orders",
