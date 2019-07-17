@@ -80,6 +80,7 @@ export class AddProductComponent implements OnInit {
   private product: any = {};
   public createProduct = true;
   parent:any;
+  measurements:any = [];
   public options: Options = {
     floor: 0,
     ceil: 0,
@@ -90,6 +91,7 @@ export class AddProductComponent implements OnInit {
     min: 0,
     max: 1
   };
+  selectedType:any;
 
 
   constructor(private toast:ToastrService, private countryService: CountriesService,
@@ -115,6 +117,7 @@ export class AddProductComponent implements OnInit {
     this.getTreatment();
     this.getAllCities();
     this.getAllTypesByLevel();
+    this.getMeasurements();
   }
 
   async getDetails(){
@@ -299,6 +302,8 @@ export class AddProductComponent implements OnInit {
       deletedImages: this.deletedImages,
       price: this.price
     });
+    this.productForm.controls['unitOfMeasurement'].disable();
+
 
   }
 
@@ -407,6 +412,12 @@ public getCities() {
   );
 }
 
+private getMeasurements(){
+  this.productService.getData("unitofmeasure").subscribe(res =>{
+    console.log("UM", res);
+    this.measurements = res;
+  })
+}
 private reaised() {
   this.productService.getData("raised").subscribe(it => {
     this.raisedArray = it as any;
@@ -538,6 +549,7 @@ getOnChangeLevel(level: number, value?) {
       selectedType = this.productForm.get('subspecieVariant').value;
       break;
   }
+  this.selectedType = selectedType;
   this.updateLevels(selectedType, level);
   this.updateProcess(selectedType);
   
@@ -585,6 +597,7 @@ updateProcess(selectedType){
       console.log("Resultado", result);
       this.raisedArray = result['raisedInfo'];
       this.treatments = result['treatmentInfo'];
+      this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
       if(result['fishPreparationInfo']){
         this.fishPreparation = result['fishPreparationInfo'];
       }else{
@@ -599,9 +612,8 @@ updateProcess(selectedType){
 }
 
 setvariations(){
-  let mainCat = this.productForm.get('category').value;
   let fishp = this.productForm.get('preparation').value;
-  this.productService.getData(`fishtype/${mainCat}/preparation/${fishp}/childs`).subscribe(res => {
+  this.productService.getData(`fishtype/${this.selectedType}/preparation/${fishp}/childs`).subscribe(res => {
     console.log("Childs", res);
     this.preparationChilds = res;
   })
@@ -609,9 +621,8 @@ setvariations(){
 
 
 getKgs(){
-  let cat = this.productForm.get('category').value;
   let preparation = this.productForm.get('childPreparation').value;
-  this.productService.getData(`fishvariations/type/${cat}/preparation/${preparation}`).subscribe(res  => {
+  this.productService.getData(`fishvariations/type/${this.selectedType}/preparation/${preparation}`).subscribe(res  => {
       console.log("KGS", res);
       this.variationInfo = res['variationInfo'];
   });
