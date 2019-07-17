@@ -16,6 +16,14 @@ export class CategoriesService {
     return this.http.get(endpoint);
   }
 
+  post( endpoint:string , body ){
+    return this.http.post( endpoint, body );
+  }
+
+  delete( endpoint:string ){
+    return this.http.delete( endpoint );
+  }
+
   saveCategorySetup( id, body ){
     return this.http.post(`fishtype/${id}/setup`, body );
   }

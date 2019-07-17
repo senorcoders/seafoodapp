@@ -105,7 +105,7 @@
                   <a class="purchase_pdf" *ngIf="item.invoice_pdf" target="_blank"
                     href="{{API}}api/shoppingcart/PDF/{{item.invoice_pdf}}/pdf_invoices">Invoice Order PDF</a>
                     <br>
-                    <a class="purchase_pdf" *ngIf="item.orderStatus.id!=='5c017b3c47fb07027943a409'"
+                    <a class="purchase_pdf" *ngIf="item.orderStatus.id!=='5c40b364970dc99bb06bed6a'"
                     routerLink="/amend-invoice/{{item.id}}">Amend Invoice</a>
                     <br>
                     <a class="purchase_pdf" *ngFor="let cl of item.clones" target="_blank"
