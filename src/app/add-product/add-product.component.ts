@@ -80,6 +80,7 @@ export class AddProductComponent implements OnInit {
   private product: any = {};
   public createProduct = true;
   parent:any;
+  measurements:any = [];
   public options: Options = {
     floor: 0,
     ceil: 0,
@@ -115,6 +116,7 @@ export class AddProductComponent implements OnInit {
     this.getTreatment();
     this.getAllCities();
     this.getAllTypesByLevel();
+    this.getMeasurements();
   }
 
   async getDetails(){
@@ -299,6 +301,8 @@ export class AddProductComponent implements OnInit {
       deletedImages: this.deletedImages,
       price: this.price
     });
+    this.productForm.controls['unitOfMeasurement'].disable();
+
 
   }
 
@@ -407,6 +411,12 @@ public getCities() {
   );
 }
 
+private getMeasurements(){
+  this.productService.getData("unitofmeasure").subscribe(res =>{
+    console.log("UM", res);
+    this.measurements = res;
+  })
+}
 private reaised() {
   this.productService.getData("raised").subscribe(it => {
     this.raisedArray = it as any;
@@ -585,6 +595,7 @@ updateProcess(selectedType){
       console.log("Resultado", result);
       this.raisedArray = result['raisedInfo'];
       this.treatments = result['treatmentInfo'];
+      this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
       if(result['fishPreparationInfo']){
         this.fishPreparation = result['fishPreparationInfo'];
       }else{
