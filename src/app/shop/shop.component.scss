@@ -1106,7 +1106,7 @@ input[type=range]:focus::-ms-fill-upper {
 
 .nav-tabs .nav-link{
   font-family: 'Josefin Sans', sans-serif;
-  color: $light_blue !important;
+  color: $gray !important;
   font-size: 14px;
   line-height: 16px;
   background: no-repeat;
@@ -1115,6 +1115,20 @@ input[type=range]:focus::-ms-fill-upper {
   padding: 0 5px !important;
   &:hover{
     border: none;
+  }
+  .small-circle{
+    width: 2px;
+    height: 2px;
+    background: $gray;
+    font-size: 2px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-bottom: 5px;
+  }
+  &:last-child{
+    .small-circle{
+      display: none;
+    }
   }
 }
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
