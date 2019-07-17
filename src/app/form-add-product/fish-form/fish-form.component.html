@@ -41,7 +41,7 @@
         </div>
       </div>
       <div class="col-lg-6">
-        <div class="form-group input-group"
+        <div class="form-group input-group" 
           [ngClass]="{'has-danger': controls().parentSelectedType.invalid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched),'has-success': controls().parentSelectedType.valid && (controls().parentSelectedType.dirty || controls().parentSelectedType.touched)}">
           <span class="has-float-label">
             <select id="cat" placeholder="Sea Life Category...*" formControlName="parentSelectedType"
