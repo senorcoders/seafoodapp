@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AuthenticationService } from '../services/authentication.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
+import { Subject } from 'rxjs';
 
 declare var jQuery: any;
 @Component({
@@ -92,6 +93,12 @@ export class AddProductComponent implements OnInit {
     max: 1
   };
   selectedType:any;
+  sellers: any = [];
+  selectedSeller: string;
+  selectedSellerInfo: any;
+  public sellerChange: Subject<void> = new Subject<void>();
+  public info: any; 
+
 
 
   constructor(private toast:ToastrService, private countryService: CountriesService,
@@ -105,9 +112,11 @@ export class AddProductComponent implements OnInit {
         this.createProduct = false;
         this.getDetails();
       }
-      this.getStore();
     }
   ngOnInit() {
+    if (this.createProduct) {
+      this.getSellers();
+    }
     this.createFormControl();
     this.RegisterProductForm();
     this.onChanges();
@@ -118,8 +127,40 @@ export class AddProductComponent implements OnInit {
     this.getAllCities();
     this.getAllTypesByLevel();
     this.getMeasurements();
+    this.getMyData();
+
   }
 
+  getMyData() {
+    this.info = this.auth.getLoginData();
+    if (this.user['role'] !== 0) {
+      this.getStore();
+    }
+  }
+  emitSellerSelectedToChild() {
+    this.getSeller(this.selectedSeller);
+
+  }
+
+  getSeller(seller_id) {
+    this.productService.getData('user/' + seller_id).subscribe(it => {
+      console.log('user', it);
+      this.getStore();
+      this.selectedSellerInfo = it;
+      this.sellerChange.next(this.selectedSellerInfo);
+    });
+  }
+
+  getSellers() {
+    this.productService.getData(`api/v2/user?where={%22role%22:1}&limit=200`).subscribe(
+      res => {
+        this.sellers = res['data'];
+      },
+      e => {
+        console.log(e);
+      }
+    );
+  }
   async getDetails(){
     this.parent= await this.getParent();
 
@@ -127,6 +168,9 @@ export class AddProductComponent implements OnInit {
       {
         this.product = JSON.parse(JSON.stringify(data));
         console.log("Producto", this.product);
+        this.store = data['store'];
+        this.selectedSeller = data['store']['owner'];
+        this.getSeller(this.selectedSeller);
         this.setValues();
 
     })
@@ -198,46 +242,52 @@ export class AddProductComponent implements OnInit {
     let subSpeciesSelected = this.parent["level2"] ? this.parent["level2"].id : '';
     let descriptorSelected = this.product["descriptor"] ? this.product["descriptor"] : '';
     this.productForm.controls['name'].setValue(this.product.name);
-    this.productForm.controls['name'].disable();
     this.productForm.controls['brand'].setValue(this.product.brandname);
     this.productForm.controls['raised'].setValue(this.product.raised.id);
-    this.productForm.controls['raised'].disable();
     this.productForm.controls['treatment'].setValue(this.product.treatment.id);
-    this.productForm.controls['treatment'].disable();
     this.productForm.controls['sku'].setValue(this.product.seller_sku);
     this.productForm.controls['country'].setValue(this.product.country);
-    this.productForm.controls['country'].disable();
     this.productForm.controls['processingCountry'].setValue(this.product.processingCountry);
-    this.productForm.controls['processingCountry'].disable();
     this.productForm.controls['portOfLoading'].setValue(this.product.city);
-    this.productForm.controls['portOfLoading'].disable();
     this.productForm.controls['hsCode'].setValue(this.product.hsCode);
     this.productForm.controls['domesticFish'].setValue(this.product.foreign_fish);
     this.productForm.controls['comingSoon'].setValue(this.product.cooming_soon);
     this.productForm.controls['unitOfMeasurement'].setValue(this.product.unitOfSale);
-    this.productForm.controls['unitOfMeasurement'].disable();
     this.productForm.controls['minOrder'].setValue(this.product.minimumOrder);
     this.productForm.controls['maxOrder'].setValue(this.product.maximumOrder);
     this.productForm.controls['perBoxes'].setValue(this.product.perBox);
     this.productForm.controls['averageUnitWeight'].setValue(this.product.boxWeight);
     this.productForm.controls['category'].setValue(cat);
-    this.productForm.controls['category'].disable();
     this.productForm.controls['specie'].setValue(speciesSelected);
-    this.productForm.controls['specie'].disable();
     this.productForm.controls['subspecie'].setValue(subSpeciesSelected);
-    this.productForm.controls['subspecie'].disable();
     this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
-    this.productForm.controls['subspecieVariant'].disable();
-    this.updateProcess(cat);
+    if(this.user['role'] != 0){
+      this.productForm.controls['name'].disable();
+      this.productForm.controls['raised'].disable();
+      this.productForm.controls['treatment'].disable();
+      this.productForm.controls['country'].disable();
+      this.productForm.controls['processingCountry'].disable();
+      this.productForm.controls['portOfLoading'].disable();
+      this.productForm.controls['unitOfMeasurement'].disable();
+      this.productForm.controls['category'].disable();
+      this.productForm.controls['specie'].disable();
+      this.productForm.controls['subspecie'].disable();
+      this.productForm.controls['subspecieVariant'].disable();
+    }
+    if(descriptorSelected != ''){
+      this.updateProcess(descriptorSelected);
+    }else{
+      this.updateProcess(subSpeciesSelected);
+    }
     let images = await this.getImages(this.product);
     this.productForm.controls['imagesSend'].setValue(images.forForm);
    
   }
   getStore() {
     let endpoint = this.storeEndpoint + this.user.id;
-    // if (this.user['role'] === 0) {
-    //   endpoint = this.storeEndpoint + this.selectedSeller;
-    // }
+    if (this.user['role'] === 0) {
+      endpoint = this.storeEndpoint + this.selectedSeller;
+    }
     console.log('store endpoint', endpoint);
     this.productService.getData(endpoint).subscribe(results => {
       this.store = results;
@@ -543,15 +593,16 @@ getOnChangeLevel(level: number, value?) {
 
     case 2:
       selectedType = this.productForm.get('subspecie').value;
+      this.updateProcess(selectedType);
       break;
 
     default:
       selectedType = this.productForm.get('subspecieVariant').value;
+      this.updateProcess(selectedType);
       break;
   }
   this.selectedType = selectedType;
   this.updateLevels(selectedType, level);
-  this.updateProcess(selectedType);
   
 }
 
@@ -593,16 +644,19 @@ updateLevels(selectedType, level){
 
 updateProcess(selectedType){
   this.productService.getData(`fishType/${selectedType}/setup`).subscribe(
-    result => {
-      console.log("Resultado", result);
-      this.raisedArray = result['raisedInfo'];
-      this.treatments = result['treatmentInfo'];
-      this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
-      if(result['fishPreparationInfo']){
-        this.fishPreparation = result['fishPreparationInfo'];
-      }else{
-        this.fishPreparation = [];
+    result => { 
+      console.log("Resultado fishtypes", result);
+      if(result['hasSetup'] == true){
+        this.raisedArray = result['raisedInfo'];
+        this.treatments = result['treatmentInfo'];
+        this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+        if(result['fishPreparationInfo']){
+          this.fishPreparation = result['fishPreparationInfo'];
+        }else{
+          this.fishPreparation = [];
+        }
       }
+     
      
     },
     error => {
@@ -1142,5 +1196,12 @@ public b64toBlob(b64Data, contentType) {
 
   const blob = new Blob(byteArrays, { type: contentType });
   return blob;
+}
+
+deleteProduct(id) {
+  this.productService.deleteData('api/fish/' + id).subscribe(result => {
+    this.toast.success('Product deleted successfully!', 'Well Done', { positionClass: 'toast-top-right' });
+    this.router.navigate(['/products-list/page/1']);
+  });
 }
 }

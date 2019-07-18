@@ -65,13 +65,13 @@ const appRoutes: Routes = [
     path: 'register/:page',
     loadChildren: () => import('app/registration-form/registration-form.module').then(m => m.RegistrationFormModule)
   },
+  // {
+  //   path: 'add-product',
+  //   loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
+  //   canActivate: [SellerRouterService]
+  // },
   {
     path: 'add-product',
-    loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
-    canActivate: [SellerRouterService]
-  },
-  {
-    path: 'add-new-product',
     loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
     canActivate: [SellerRouterService]
   },
