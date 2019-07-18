@@ -61,6 +61,10 @@
             <p class="order-number">
               <a *ngIf="order.invoice_pdf" class="purchase_pdf" target="_blank"
                 href="{{API}}api/shoppingcart/PDF/{{order.invoice_pdf}}/pdf_invoices">Invoice Order PDF</a></p>
+            <p class="order-number" *ngFor="let cl of order.clones">
+              <a class="purchase_pdf" target="_blank"
+                href="{{API}}api/shoppingcart/PDF/{{cl.invoice_pdf}}/pdf_invoices">{{cl.invoice_pdf}}</a>
+            </p>
             <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
           </div>
           <div class="col-8">
@@ -78,7 +82,9 @@
 
                   <p class="qty">Seller Price/kg: {{item.price}}</p>
                   <p class="qty">Subtotal price/kg: {{item.subtotal}}</p>
-                  <p class="qty">Taxes and Customs: {{item.itemCharges.customsFee + item.itemCharges.exchangeRateCommission + item.itemCharges.sfsMarginCost}}</p>
+                  <p class="qty">Taxes and Customs:
+                    {{item.itemCharges.customsFee + item.itemCharges.exchangeRateCommission + item.itemCharges.sfsMarginCost}}
+                  </p>
                   <p class="qty">Shipping, Handling and fees: {{item.itemCharges.shippingCost.cost}}</p>
                   <p class="qty">VAT 5%: {{item.itemCharges.uaeTaxesFee}}</p>
                   <p class="total">Total: {{item.itemCharges.finalPrice}} </p>
