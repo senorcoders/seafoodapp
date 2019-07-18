@@ -257,7 +257,7 @@
                   </div>
                   <div class="product-footer">
                     <h4>{{product[1].variations[0].name}} <span *ngIf="product[1].variations[0].variation.fishPreparation != null">({{product[1].variations[0]?.variation?.fishPreparation?.name}})</span> </h4>
-                    <h6><a routerLink="/vendor/{{product[1].variations[0]?.store?.id}}">{{product[1].variations[0]?.store?.name}} <span *ngIf="product[1].variations[0]?.store?.location != ''">({{product[1].variations[0]?.store?.location}})</span></a> 
+                    <h6><a routerLink="/vendor/{{product[1].variations[0]?.store?.id}}">{{product[1].variations[0]?.store?.name}} ({{product[1].variations[0]?.store?.location}})</a> 
                       <span *ngIf="product[1].variations[0].perBox != true"> - In KG</span>
                       <span *ngIf="product[1].variations[0].perBox == true"> - In Boxes</span>
                     </h6>
@@ -323,7 +323,7 @@
                         
                                 <div class="product-footer">
                                     <h4>{{subp.name}} <span *ngIf="subp.variation.fishPreparation != null">({{subp?.variation?.fishPreparation?.name}})</span> </h4>
-                                    <h6><a routerLink="/vendor/{{subp?.store?.id}}">{{subp?.store?.name}} <span *ngIf="subp?.store?.location != ''">({{subp?.store?.location}})</span></a> 
+                                    <h6><a routerLink="/vendor/{{subp?.store?.id}}">{{subp?.store?.name}} ({{subp?.store?.location}})</a> 
                                       <span *ngIf="subp.perBox != true"> - In KG</span>
                                       <span *ngIf="subp.perBox == true"> - In Boxes</span>
                                     </h6>
