@@ -644,16 +644,19 @@ updateLevels(selectedType, level){
 
 updateProcess(selectedType){
   this.productService.getData(`fishType/${selectedType}/setup`).subscribe(
-    result => {
-      console.log("Resultado", result);
-      this.raisedArray = result['raisedInfo'];
-      this.treatments = result['treatmentInfo'];
-      this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
-      if(result['fishPreparationInfo']){
-        this.fishPreparation = result['fishPreparationInfo'];
-      }else{
-        this.fishPreparation = [];
+    result => { 
+      console.log("Resultado fishtypes", result);
+      if(result['hasSetup'] == true){
+        this.raisedArray = result['raisedInfo'];
+        this.treatments = result['treatmentInfo'];
+        this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+        if(result['fishPreparationInfo']){
+          this.fishPreparation = result['fishPreparationInfo'];
+        }else{
+          this.fishPreparation = [];
+        }
       }
+     
      
     },
     error => {
