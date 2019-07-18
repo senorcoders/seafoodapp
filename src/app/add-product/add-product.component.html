@@ -4,7 +4,19 @@
       <div class="col-lg-12 text-center">
         <h1 class="gray-title"><span>Add Product</span></h1>
       </div>
+      <div *ngIf="user['role'] == 0 && createProduct" class="col-lg-12 text-center dl-50">
+          <div class="form-group input-group">
+            <span class="has-float-label">
+                <select id="dlSeller" [(ngModel)]="selectedSeller" (change)="emitSellerSelectedToChild()" placholder="Select a Seller"  class="form-control js-example-basic-single dl-50">
+                  <option *ngFor="let u of sellers" value="{{u.id}}" selected>{{u.firstName}} {{u.lastName}} - {{u.email}}</option>
+                </select>            
+              <label id="dlSeller">Select a seller</label>  
+            </span>            
+          </div>
+            
+        </div>
       <div class="col-lg-12">
+        
         <form [formGroup]="productForm" (submit)="submit()">
           <div class="row">
                 <div class="col-lg-12 text-center">
@@ -518,6 +530,11 @@
                             </div>
                             <div class="col-md-6 px-0">
                               <button type="submit" class="btn btn-save ml-auto">submit product</button>
+                            </div>
+                            <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
+                              <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
+                                Delete
+                              </button>
                             </div>
                             <!-- <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
                               <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">

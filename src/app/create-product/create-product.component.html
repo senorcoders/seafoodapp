@@ -9,7 +9,7 @@
                 <select id="dlSeller" [(ngModel)]="selectedSeller" (change)="emitSellerSelectedToChild()" placholder="Select a Seller"  class="form-control js-example-basic-single dl-50">
                   <option *ngFor="let u of sellers" value="{{u.id}}" selected>{{u.firstName}} {{u.lastName}} - {{u.email}}</option>
                 </select>            
-              <label id="dlSeller">{{'CreateProduct.selectSeller' | translate}}</label>  
+              <label id="dlSeller">Select a seller</label>  
             </span>            
           </div>
             
@@ -52,7 +52,7 @@
                       </div>
                       <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
                         <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
-                          Delete
+                          Delete 
                         </button>
                       </div>
                       
