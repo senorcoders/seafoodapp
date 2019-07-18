@@ -543,15 +543,16 @@ getOnChangeLevel(level: number, value?) {
 
     case 2:
       selectedType = this.productForm.get('subspecie').value;
+      this.updateProcess(selectedType);
       break;
 
     default:
       selectedType = this.productForm.get('subspecieVariant').value;
+      this.updateProcess(selectedType);
       break;
   }
   this.selectedType = selectedType;
   this.updateLevels(selectedType, level);
-  this.updateProcess(selectedType);
   
 }
 
