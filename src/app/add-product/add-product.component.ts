@@ -178,6 +178,12 @@ export class AddProductComponent implements OnInit {
 
   private async getImages(product) {
     console.log(product['images']);
+    if(product['imagePrimary'] === undefined || product['imagePrimary'] === null){
+      return {
+        forForm: '',
+        forInput: []
+      };
+    }
     let forForm = [], forInput = [];
     let imagePrimary, imagePrimaryForForm,
       baseUrl = environment.apiURLImg, imagePrimary64,
