@@ -54,8 +54,8 @@ export class FishInformationManagmentComponent implements OnInit {
     } else {
       this.hasParent = true;
       // get the parents
-      this.category_service.get( 'fishPreparation' ).subscribe(
-        res => {
+      this.category_service.get('fishpreparation/parents/0').subscribe(
+      res => {
           this.currentParents = res;
         }, error => {
           console.log( error );
@@ -63,7 +63,7 @@ export class FishInformationManagmentComponent implements OnInit {
       )
     }
 
-    this.category_service.get( this.selectedType ).subscribe(
+    this.category_service.get( `${this.selectedType}?where={"isActive": true}` ).subscribe(
       res => {
         this.currentData = res;
       }, error => {
@@ -74,7 +74,7 @@ export class FishInformationManagmentComponent implements OnInit {
 
   onSubmit(): void {
     let bodyJSON = this.registerForm.value;
-
+    
     if( !this.hasParent )
       delete bodyJSON.parent;
 
@@ -92,7 +92,7 @@ export class FishInformationManagmentComponent implements OnInit {
   }
 
   delete( id ) {
-    this.category_service.delete( `${this.selectedType}/${id}` ).subscribe(
+    this.category_service.delete( `api/${this.selectedType}/${id}` ).subscribe(
       res => {
         this.showSuccess( 'Record deleted' );
         this.typeChange( this.selectedType );

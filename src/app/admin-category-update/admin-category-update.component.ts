@@ -23,12 +23,15 @@ export class AdminCategoryUpdateComponent implements OnInit {
   childsPreparations: any; // all preparartions what are not top level
   unitOfMeasures: any;
   currentChildPreparations = []; //current child prepraration in this category
+  currentChildPreparationNames = [];
 
   catForm: FormGroup;
   treatment:FormControl;
   fishPreparation: FormControl;
   unitOfMeasure: FormControl;
   name:FormControl;
+
+  hasChildPreparation = false;
   constructor(
     private auth: AuthenticationService, 
     private router:Router, private route: ActivatedRoute, 
@@ -84,6 +87,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
               if( this.childsPreparations !== undefined ) {
                 this.childsPreparations.map( childBD => {                
                   if ( childPreparation == childBD.id ) {
+                    this.hasChildPreparation = true;
                     let value = '';
                     // now let's populate the current variations
                     if ( this.category.variations !== undefined ) {
@@ -180,7 +184,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     return this.formBuilder.group({
       type: [ type, Validators.required ],
       preparation: [ preparation_id, Validators.required ],
-      variations: [ variations, Validators.required ]
+      variations: [ variations, Validators.required ]      
     })
   }
 
@@ -188,8 +192,17 @@ export class AdminCategoryUpdateComponent implements OnInit {
     console.log(this.catForm);
     let parentsPreparation = this.catForm.controls[ 'fishPreparation' ].value;
     let childPreparationControls = this.catForm.controls[ 'fishPreparationChilds' ].value;
+    this.currentChildPreparationNames = []; // reset array
     parentsPreparation.map( item => {
       let founded = false;
+      this.parentPreparations.map( parent => {
+        console.log('item', item);
+        console.log('parent', parent);
+        if( item == parent.id ) {
+          this.currentChildPreparationNames.push( parent.name )
+        }
+      } )
+      console.log( 'names', this.currentChildPreparationNames );
       childPreparationControls.map( childControl => {
         // check if the control is already created
         if( item == childControl.fishParent ){ 
@@ -228,6 +241,13 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.saveCategorySetup( this.category_id, this.catForm.value ).subscribe(
       res => {
         this.showSuccess('Category Updated')
+        //window.location.reload();
+        //(<FormArray>this.catForm.get('fishPreparationChilds')).clear();
+        //this.getCateInfo();
+        this.currentChildPreparations = [];
+        this.catForm.reset();
+        this.createCatForm();
+        this.getCateInfo();
       }, error => {
         this.showError('Something happend, please reload the page')
         console.log( error );
