@@ -337,7 +337,7 @@
                       
                     </div>  
                 <div class="nav nav-tabs" id="nav-tab-{{product[0]}}" role="tablist">
-                  <a *ngFor="let subp of product[1].variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.variation?.id}}" data-toggle="tab" href="#nav-{{subp?.variation?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.variation?.wholeFishWeight?.name}} <div class="small-circle"></div></a>
+                  <a *ngFor="let subp of product[1].variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.variation?.id}}" data-toggle="tab" href="#nav-{{subp?.variation?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.variation?.wholeFishWeight?.name | lowercase}} <div class="small-circle"></div></a>
               
                 </div>
                 <div  id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
