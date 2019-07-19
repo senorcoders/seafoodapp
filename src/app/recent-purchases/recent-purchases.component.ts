@@ -818,7 +818,7 @@ export class RecentPurchasesComponent implements OnInit {
     if (this.currency === 'USD' && isNaN(order.currentCharges.exchangeRates) === false) {
       exchangeRates = Number(order.currentCharges.exchangeRates);
     }
-    total = order.total / exchangeRates;
+    total = order.subTotal / exchangeRates;
     if (isNaN(Number(total)) === true) {
       return 'not available';
     }
@@ -838,8 +838,8 @@ export class RecentPurchasesComponent implements OnInit {
       ) {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
-      if (item && item.total) {
-        result = (Number(item.total) / exchangeRates).toFixed(2);
+      if (item && item.subtotal) {
+        result = (Number(item.subtotal) / exchangeRates).toFixed(2);
       }
     } catch (e) {
       console.error(e);
