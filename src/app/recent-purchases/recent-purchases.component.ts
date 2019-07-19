@@ -838,8 +838,8 @@ export class RecentPurchasesComponent implements OnInit {
       ) {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
-      if (item && item.itemCharges && item.itemCharges.fishCost) {
-        result = (Number(item.itemCharges.fishCost) / exchangeRates).toFixed(2);
+      if (item && item.subtotal) {
+        result = (Number(item.subtotal) / exchangeRates).toFixed(2);
       }
     } catch (e) {
       console.error(e);
