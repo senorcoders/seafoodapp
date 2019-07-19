@@ -98,6 +98,7 @@ export class AddProductComponent implements OnInit {
   selectedSellerInfo: any;
   public sellerChange: Subject<void> = new Subject<void>();
   public info: any; 
+  showSubPreparation:boolean = true;
 
 
 
@@ -670,6 +671,13 @@ setvariations(){
   this.productService.getData(`fishtype/${this.selectedType}/preparation/${fishp}/childs`).subscribe(res => {
     console.log("Childs", res);
     this.preparationChilds = res;
+    if(this.preparationChilds.length == 1){
+      this.productForm.controls['childPreparation'].setValue(this.preparationChilds[0].id);
+      this.getKgs();
+      this.showSubPreparation = false;
+    }else{
+      this.showSubPreparation = true;
+    }
   })
 }
 

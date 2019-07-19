@@ -163,7 +163,7 @@
                       
                       </div>
 
-                      <div class="col-lg-6 fish-group fish-group-2">
+                      <div class="col-lg-6 fish-group fish-group-2" *ngIf="showSubPreparation">
                         <ul class="list-inline">
                           <li class="list-inline-item" *ngFor='let prep of preparationChilds; let i = index'>
                               <input type='radio' value='{{prep?.id}}' name='childPreparation' id='radiochild{{i}}' formControlName="childPreparation" (change)="getKgs()" />
