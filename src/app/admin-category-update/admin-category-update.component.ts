@@ -21,7 +21,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
   selectedFishPreparations: any;
   parentPreparations: any; // only top level preparation
   childsPreparations: any; // all preparartions what are not top level
-  unitOfMeasures = [ { name: 'KG' }, { name: 'LBS'}, { name: 'Pieces' } ];
+  unitOfMeasures: any;
   currentChildPreparations = []; //current child prepraration in this category
 
   catForm: FormGroup;
@@ -41,6 +41,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.category_id = this.route.snapshot.params['category_id'];
       this.getTreatments();
+      this.getUnitOfMeasure();
       this.getRaised();
       this.getParentPreparations();
       this.getChildPreparations();
@@ -118,6 +119,16 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.get('treatment').subscribe(
       res => {
         this.treatments = res;
+      }, error => {
+        console.log( error );
+      }
+    )
+  }
+
+  getUnitOfMeasure() {
+    this.category_service.get('unitOfMeasure').subscribe(
+      res => {
+        this.unitOfMeasures = res;
       }, error => {
         console.log( error );
       }

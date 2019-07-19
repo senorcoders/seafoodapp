@@ -4,7 +4,19 @@
       <div class="col-lg-12 text-center">
         <h1 class="gray-title"><span>Add Product</span></h1>
       </div>
+      <div *ngIf="user['role'] == 0 && createProduct" class="col-lg-12 text-center dl-50">
+          <div class="form-group input-group">
+            <span class="has-float-label">
+                <select id="dlSeller" [(ngModel)]="selectedSeller" (change)="emitSellerSelectedToChild()" placholder="Select a Seller"  class="form-control js-example-basic-single dl-50">
+                  <option *ngFor="let u of sellers" value="{{u.id}}" selected>{{u.firstName}} {{u.lastName}} - {{u.email}}</option>
+                </select>            
+              <label id="dlSeller">Select a seller</label>  
+            </span>            
+          </div>
+            
+        </div>
       <div class="col-lg-12">
+        
         <form [formGroup]="productForm" (submit)="submit()">
           <div class="row">
                 <div class="col-lg-12 text-center">
@@ -49,10 +61,10 @@
                 <div class="col-lg-6">
                     <div class="form-group input-group">
                       <span class="has-float-label">
-                        <select id="cat" placeholder="Product Category...*" formControlName="category" class="form-control"
+                        <select id="cat" (change)="getOnChangeLevel(0)" placeholder="Product Category...*" formControlName="category" class="form-control"
                         [ngClass]="{'is-invalid':productForm.get('category').invalid && productForm.get('category').touched}">
-                          <option value="sjkndsd">Fish</option>
-                        </select>
+                        <option value="">{{'CreateProduct.mainCategory' | translate}}</option>
+                        <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>                        </select>
                         <label id="cat">Product Category...*</label>
             
                         <div class="invalid-feedback" *ngIf="productForm.get('category').hasError('required')">Category {{'Register.required' | translate}}.</div>
@@ -67,10 +79,10 @@
                   <div class="col-lg-6">
                       <div class="form-group input-group">
                         <span class="has-float-label">
-                          <select id="specie" placeholder="Species...*" formControlName="specie" class="form-control"
+                          <select (change)="getOnChangeLevel(1)" id="specie" placeholder="Species...*" formControlName="specie" class="form-control"
                           [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('specie').touched}">
-                            <option value="sjkndsd">Fish</option>
-                          </select>
+                          <option value="">{{'CreateProduct.species' | translate}}</option>
+                          <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>                          </select>
                           <label id="specie">Species...*</label>
               
                           <div class="invalid-feedback" *ngIf="productForm.get('specie').hasError('required')">Specie {{'Register.required' | translate}}.</div>
@@ -81,13 +93,13 @@
                         show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
                       </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" [hidden]="typeLevel2.length == 0">
                         <div class="form-group input-group">
                           <span class="has-float-label">
-                            <select id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
+                            <select (change)="getOnChangeLevel(2)" id="subspecie" placeholder="Subspecies...*" formControlName="subspecie" class="form-control"
                             [ngClass]="{'is-invalid':productForm.get('specie').invalid && productForm.get('subspecie').touched}">
-                              <option value="sjkndsd">Fish</option>
-                            </select>
+                            <option value="">Subspecies...*</option>
+                            <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>                            </select>
                             <label id="subspecie">Subspecies...*</label>
                 
                             <div class="invalid-feedback" *ngIf="productForm.get('subspecie').hasError('required')">Subspecies {{'Register.required' | translate}}.</div>
@@ -99,13 +111,13 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-6">
+                      <div class="col-lg-6" [hidden]="typeLevel3.length == 0">
                           <div class="form-group input-group">
                             <span class="has-float-label">
-                              <select id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
+                              <select (change)="getOnChangeLevel(3)" id="subspecieVariant" placeholder="Subspecies Variant..." formControlName="subspecieVariant" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('subspecieVariant').invalid && productForm.get('subspecieVariant').touched}">
-                                <option value="sjkndsd">Fish</option>
-                              </select>
+                              <option value="">Subspecies Variant...</option>
+                              <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}</option>                              </select>
                               <label id="subspecieVariant">Subspecies Variant...</label>
                   
                               <div class="invalid-feedback" *ngIf="productForm.get('subspecieVariant').hasError('required')">Subspecies Variant {{'Register.required' | translate}}.</div>
@@ -124,19 +136,36 @@
 
                  </div>
 
-                 <div class="row">
+                 <div class="row" *ngIf="fishPreparation.length > 0">
                     <div class="col-lg-6 fish-group">
-                        <label> 
-                          <span class="selectionable select" >WHOLE</span>
-                          |
-                          <span class="selectionable" >FILLETED FISH</span>
-                          |
-                          <span class="selectionable">PACKAGED</span> 
-                          <img
-                            tooltip="The preparation of the fish" placement="right"
-                            show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22">
-                          </label>
+                      <ul class="list-inline">
+                        <li class="list-inline-item" *ngFor='let prep of fishPreparation; let i = index'>
+                            <input type='radio' value='{{prep?.id}}' name='preparation' id='radio{{i}}' formControlName="preparation" (change)="setvariations()"
+                            [ngClass]="{'is-invalid':productForm.get('preparation').invalid && productForm.get('preparation').touched}" />
+                            <label for='radio{{i}}'>{{prep?.name}} <span>|</span></label>
+                        </li>
+                        <li class="list-inline-item">
+                            <img
+                        tooltip="The preparation of the fish" placement="right"
+                        show-delay="0" src="../../../assets/svg/question.svg" alt="" width="22">
+                        </li>
+                      
+                      </ul>
+                      <div class="invalid-feedback" *ngIf="productForm.get('preparation').hasError('required')">Preparation {{'Register.required' | translate}}.</div>
+
+                      
                       </div>
+
+                      <div class="col-lg-6 fish-group fish-group-2">
+                        <ul class="list-inline">
+                          <li class="list-inline-item" *ngFor='let prep of preparationChilds; let i = index'>
+                              <input type='radio' value='{{prep?.id}}' name='childPreparation' id='radiochild{{i}}' formControlName="childPreparation" (change)="getKgs()" />
+                              <label for='radiochild{{i}}'>{{prep?.name}} <span>|</span></label>
+                          </li>
+                          
+                        
+                        </ul>  
+                        </div>
                  </div>
 
                  <div class="row">
@@ -147,6 +176,7 @@
                           
                             <select id="raised" class="form-control js-example-basic-single" style="width: 100%"
                               formControlName="raised" [ngClass]="{'is-invalid':productForm.get('raised').invalid && productForm.get('raised').touched}">
+                              <option value="">Raised...*</option>
                               <option *ngFor="let r of raisedArray" value="{{r.id}}" selected>{{r.name}}</option>
                             </select>
                             <label for="raised">Raised...*</label> 
@@ -167,6 +197,7 @@
                               <select id="treatment" aria-placeholder="Treatment...*" class="form-control js-example-basic-single"
                                 style="width: 100%" formControlName="treatment"
                                 [ngClass]="{'is-invalid':productForm.get('treatment').invalid && productForm.get('treatment').touched}">
+                                <option value="">Treatment...*</option>
                                 <option [value]="tr.id" *ngFor="let tr of treatments">{{tr.name}}</option>
                               </select>
                               <label for="treatment">Treatment...*</label> 
@@ -189,9 +220,11 @@
                         <div class="col-12">
                           <div class="form-group file-input">
                             <label for="file"><img src="../../assets/svg/attachment.svg" alt=""> Upload your images...*</label>
-                            <input id="file" #myInput type="file" multiple class="form-control"
-                              accept="image/png,image/jpeg,image/jpg">
-                            
+                            <input id="file" #myInput type="file" multiple class="form-control" (change)="onFileChange($event)"
+                            accept="image/png,image/jpeg,image/jpg" formControlName="images"
+                            [ngClass]="{'is-invalid':productForm.get('images').invalid && productForm.get('images').touched}">
+                            <div class="invalid-feedback" *ngIf="productForm.get('images').hasError('required')">Image {{'Register.required' | translate}}.</div>
+
                             <button type="button" class="question-btn upload-svg"><img src="../../../assets/svg/upload.svg"
                                 alt=""></button>
                             <button type="button" class="question-btn" tabIndex="-1"
@@ -200,7 +233,10 @@
                           </div>
                         </div>
 
-                        <div class="row gallery-container" *ngIf="images.length===0">
+                        <input type="text" hidden formControlName="imagesSend">
+                        <input type="text" hidden formControlName="deletedImages">
+
+                        <div class="row gallery-container" *ngIf="imagesTmp.length===0">
                           <div class="col-3">
                             <img src="../../assets/add-default.png" width="100%" height="auto">
                           </div>
@@ -212,6 +248,28 @@
                           </div>
                           <div class="col-3">
                             <img src="../../assets/add-default.png" width="100%" height="auto">
+                          </div>
+                        </div>
+
+                        <div class="col-12" *ngIf="imagesTmp.length>0">
+                          <div class="row align-items-center text-center">
+                            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="imagesTmp.length>4">
+                              <i class="fa fa-chevron-left" [hidden]="!inLimit(1)" aria-hidden="true" (click)="toSl(1)"></i>
+                            </div>
+                            <div class="col-10" [ngClass]="imagesTmp.length<=4?'offset-1':''">
+                              <div class="row gallery-container">
+                                <div class="col-3 img-select" [style.left.px]="calcLeft(i)"
+                                  [ngClass]="image.type!=='primary'?'changeable':''" *ngFor="let image of imagesTmp; let i=index;">
+                                  <div class="remove-image" (click)="remove(i)">x</div>
+                                  <img [src]="byPassImageUrl(image.src)">
+                                  <div class="set-default" (click)="setDefaultImage(i)">set as new default</div>
+                                  <div class="default" *ngIf="image.type==='primary'">default image</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-1" style="font-size: 1.4rem; cursor:pointer;" *ngIf="images.length>4">
+                              <i class="fa fa-chevron-right" [hidden]="!inLimit(-1)" aria-hidden="true" (click)="toSl(-1)"></i>
+                            </div>
                           </div>
                         </div>
 
@@ -225,7 +283,7 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="sku" type="text" class="form-control" placeholder="Product SKU..." formControlName="treatment"
+                              <input id="sku" type="text" class="form-control" placeholder="Product SKU..." formControlName="sku"
                               [ngClass]="{'is-invalid':productForm.get('sku').invalid && productForm.get('sku').touched}">
                               <label for="sku">Product SKU...</label> 
                               <div class="invalid-feedback" *ngIf="productForm.get('sku').hasError('required')">Product SKU {{'Register.required' | translate}}.</div>
@@ -332,9 +390,8 @@
                             <span class="has-float-label">
                               <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfMeasurement" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('unitOfMeasurement').invalid && productForm.get('unitOfMeasurement').touched}">
-                                <option value="">{{'CreateProduct.unitOfSale' | translate}}</option>
-                                <option value="kg">Kg</option>
-                                <option value="lbs">Lbs</option>
+                              <option value="">Unit of Sale...*</option>
+                              <option *ngFor="let u of measurements" value="{{u.name}}">{{u.name}}</option>
                               </select>
                               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
                               <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Port of Loading {{'Register.required' | translate}}.</div>
@@ -352,14 +409,14 @@
                         </div>
 
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" *ngIf="showAverageUnit">
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="averageUnitWeight" type="text" class="form-control" placeholder="Average Unit Weight (Kg)...*" formControlName="averageUnitWeight"
+                              <input id="averageUnitWeight" type="text" class="form-control" placeholder="Average Unit Weight ({{weightType}})...*" formControlName="averageUnitWeight"
                               [ngClass]="{'is-invalid':productForm.get('averageUnitWeight').invalid && productForm.get('averageUnitWeight').touched}">
-                              <label for="averageUnitWeight">Average Unit Weight (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('averageUnitWeight').hasError('required')">Average Unit Weight (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="averageUnitWeight">Average Unit Weight ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('averageUnitWeight').hasError('required')">Average Unit Weight ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button tabIndex="-1" type="button" class="question-btn" tabIndex="-1"
@@ -374,10 +431,10 @@
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order (Kg)...*" formControlName="minOrder"
+                              <input id="minOrder" type="text" class="form-control" placeholder="Minimum Order ({{weightType}})...*" [min]="staticmin" formControlName="minOrder"
                               [ngClass]="{'is-invalid':productForm.get('minOrder').invalid && productForm.get('minOrder').touched}">
-                              <label for="minOrder">Minimum Order (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('minOrder').hasError('required')">Minimum Order (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="minOrder">Minimum Order ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('minOrder').hasError('required')">Minimum Order ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1"
@@ -387,14 +444,14 @@
                   
                         </div>
 
-                        <div class="col-lg-6">
+                        <div class="col-lg-6" [ngClass]="showAverageUnit===true?'':'offset-lg-3'">
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
-                              <input id="maxOrder" type="text" class="form-control" placeholder="Maximum Order (Kg)...*" formControlName="maxOrder"
+                              <input id="maxOrder" type="text" class="form-control" placeholder="Maximum Order ({{weightType}})...*" formControlName="maxOrder"
                               [ngClass]="{'is-invalid':productForm.get('maxOrder').invalid && productForm.get('maxOrder').touched}">
-                              <label for="maxOrder">Maximum Order (Kg)...*</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('maxOrder').hasError('required')">Maximum Order (Kg) {{'Register.required' | translate}}.</div>
+                              <label for="maxOrder">Maximum Order ({{weightType}})...*</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('maxOrder').hasError('required')">Maximum Order ({{weightType}}) {{'Register.required' | translate}}.</div>
                 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1"
@@ -402,6 +459,66 @@
                             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
                           </div>
                   
+                        </div>
+
+                        <div class="row" *ngIf="variationInfo.length > 0" style="width: 100%">
+                           <!-- on checkbox -->
+                            <div class="col-12">
+                              <div class="row check-row">
+                                <div class="col-lg-3 form-group" *ngFor="let whole of variationInfo">
+                                  <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}" (click)="pushTab(whole, $event)">
+                                    <label class="form-check-label" for="defaultCheck{{whole?.id}}">
+                                      {{whole?.name}}
+                                    </label>
+                                  </div>
+                                </div>
+
+                              </div>
+                        </div>
+                        </div>
+
+                        <div class="col-lg-12" *ngIf="tabsArray.length > 0">
+                          <div class="row tab-row" >
+                            <div *ngFor="let k of tabsArray"
+                              [ngClass]="keySelect===k.id?'select':''" (click)="selectKey(k)" class="col-lg-3 selectionable">
+                              <span>{{k.name}}</span></div>
+                            <div class="col-12">
+                              <div class="row custom-pricing-table">
+                                <div class="col-8 text-center table-title">quantity range ({{weightType}})</div>
+                                <div class="col-4 text-center table-title">price (USD)</div>
+                      
+                                <div class="col-12">
+                                  <div *ngFor="let price of weights[keySelect]; let i=index;" class="row slider-price">
+                                    <div class="col-8">
+                                      <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights[keySelect][i].min"
+                                        [(highValue)]="weights[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
+                                        [options]="weights[keySelect][i].options"></ng5-slider>
+                                    </div>
+                                    <div class="col-4">
+                                      $<input type="number"
+                                    
+                                        placeholder="Price"
+                                        [(ngModel)]="weights[keySelect][i].price" [ngModelOptions]="{standalone: true}">/{{weightType}}
+                                      <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
+                                          alt=""></button>
+                                    </div>
+                                  </div>
+                                  <div class="row manual-slider" *ngIf="keySelect!==''">
+                                    <div class="col-8">
+                                      <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
+                                        [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+                                    </div>
+                                    <div class="col-4">
+                                      <input type="number" (change)="addPricing()"  placeholder="Price"
+                                        [(ngModel)]="valueExample" [ngModelOptions]="{standalone: true}">
+                                    </div>
+                                  </div>
+                      
+                                </div> 
+                              </div>
+                            </div>
+                          </div>
                         </div>
 
                         <div class="col-lg-12">
@@ -413,6 +530,11 @@
                             </div>
                             <div class="col-md-6 px-0">
                               <button type="submit" class="btn btn-save ml-auto">submit product</button>
+                            </div>
+                            <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
+                              <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
+                                Delete
+                              </button>
                             </div>
                             <!-- <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
                               <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">

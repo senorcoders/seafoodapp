@@ -37,7 +37,7 @@ export class CreateProductComponent implements OnInit {
     'German',
   ];
 
-  public info: any;
+  public info: any; 
   showNoData: boolean = false;
   default = [2, 3, 4, 3, 5];
   defaultTrimming = [];

@@ -4,11 +4,11 @@
     padding-top: 130px;
 }
 
-.form-control{
+.form-control {
     color: black !important;
 }
 
-.new-ammend{
+.new-ammend {
     color: #094D82 !important;
 }
 
@@ -16,7 +16,8 @@
     img {
         width: 100px;
     }
-    span{
+
+    span {
         margin-left: calc(100% - 230px);
         text-decoration: underline;
         cursor: pointer;
@@ -66,7 +67,7 @@
     }
 }
 
-.btn-save{
+.btn-save {
     border: 1px solid $light_blue;
     text-transform: uppercase;
     color: $light_blue;
@@ -86,10 +87,15 @@
     @media screen and (max-width: 768px) {
         font-size: 17px;
 
-      }
-  }
+    }
 
-  .btn-save:hover{
+    .cite-text {
+        font-size: 1rem;
+        font-style: italic;
+    }
+}
+
+.btn-save:hover {
     background: $dark_blue !important;
     border: 1px solid $dark_blue !important;
     color: #ffffff !important;

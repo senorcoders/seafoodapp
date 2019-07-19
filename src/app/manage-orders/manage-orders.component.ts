@@ -218,14 +218,14 @@ export class ManageOrdersComponent implements OnInit {
           if ((val.shoppingCart !== null && val.shoppingCart !== undefined) && val.shoppingCart.orderNumber != this.orderWithData[index - 1].shoppingCart.orderNumber) {
             this.groupOrder.push({
               orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-              invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id
+              invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id, clones: val.shoppingCart.clones
             });
           }
         }
         else {
           this.groupOrder.push({
             orderNumber: val.shoppingCart.orderNumber, xeroRef: val.shoppingCart.xeroRef,
-            invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id
+            invoice_pdf: val.shoppingCart.invoice_pdf, id: val.id, clones: val.shoppingCart.clones
           });
         }
       }

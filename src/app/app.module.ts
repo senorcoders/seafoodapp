@@ -49,6 +49,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Homeve2Component } from './homeve2/homeve2.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { NgwWowModule } from 'ngx-wow';
+import { ConversionPipe } from './conversion.pipe';
 
 
 
@@ -64,13 +65,13 @@ const appRoutes: Routes = [
     path: 'register/:page',
     loadChildren: () => import('app/registration-form/registration-form.module').then(m => m.RegistrationFormModule)
   },
+  // {
+  //   path: 'add-product',
+  //   loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
+  //   canActivate: [SellerRouterService]
+  // },
   {
     path: 'add-product',
-    loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
-    canActivate: [SellerRouterService]
-  },
-  {
-    path: 'add-new-product',
     loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
     canActivate: [SellerRouterService]
   },
@@ -136,7 +137,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'edit-product/:id',
-    loadChildren: () => import('app/create-product/create-product.module').then(m => m.CreateProductModule),
+    loadChildren: () => import('app/add-product/add-product.module').then(m => m.AddProductModule),
     canActivate: [SellerRouterService]
   },
   {
@@ -482,6 +483,7 @@ export function jokesProviderFactory(provider: CDNCheck) {
     AccountComponent,
     Homeve2Component,
     NotfoundComponent,
+    ConversionPipe,
   ],
   imports: [
     BrowserAnimationsModule,
