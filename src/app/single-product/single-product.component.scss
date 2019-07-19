@@ -188,6 +188,13 @@ $marginBottom : '8px';
                 margin-left: 30px;
                 text-align: left;
                 width: 34%;
+                a{
+                    color: $light_blue;
+                    border-bottom: 1px dashed $light_blue;
+                    &:hover{
+                        text-decoration: none;
+                    }
+                }
                 @media screen and (max-width: 992px){
                     text-align: right;
                 }
