@@ -814,27 +814,22 @@ export class RecentPurchasesComponent implements OnInit {
 
   public getTotal(order) {
     let total = 0;
-    let exchangeRates = 0;
-    if (isNaN(order.currentCharges.exchangeRates) === false) {
+    let exchangeRates = 1;
+    if (this.currency === 'USD' && isNaN(order.currentCharges.exchangeRates) === false) {
       exchangeRates = Number(order.currentCharges.exchangeRates);
     }
-    if (this.currency === 'USD')
-      total = order.total / exchangeRates;
-    else
-      total = order.total
+    total = order.total / exchangeRates;
     if (isNaN(Number(total)) === true) {
       return 'not available';
     }
-
     return total.toFixed(2) + this.currency;
-
   }
 
   public getTotalItem(item, order) {
     let result;
     try {
-      let exchangeRates = 0;
-      if (isNaN(order.currentCharges.exchangeRates) === false) {
+      let exchangeRates = 1;
+      if (this.currency === 'USD' && isNaN(order.currentCharges.exchangeRates) === false) {
         exchangeRates = Number(order.currentCharges.exchangeRates);
       }
       if (
@@ -843,15 +838,9 @@ export class RecentPurchasesComponent implements OnInit {
       ) {
         exchangeRates = Number(order.currentCharges.exchangeRates[0].price);
       }
-      if (order.orderNumber === 249) console.log(order.total, this.currency);
       if (item && item.total) {
-        if (this.currency == 'USD')
-          result = (Number(item.total) / exchangeRates).toFixed(2);
-        else
-          result = item.total
+        result = (Number(item.total) / exchangeRates).toFixed(2);
       }
-
-
     } catch (e) {
       console.error(e);
     }
