@@ -263,7 +263,7 @@
                     </h6>
                       <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
                       <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
-                      <p class="eta">Delivery date: {{product[1].variations[0]?.minInventoryDate | date:'fullDate'}}</p>
+                      <p class="eta"><span>Delivery Date:</span>  {{product[1].variations[0]?.minInventoryDate | date:'fullDate'}}</p>
                   </div>
               </div>
             </div>
@@ -344,7 +344,7 @@
                     <div *ngFor="let subp of product[1].variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.variation?.id}}">
                           <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
                           <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
-                          <p class="eta">Delivery date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
+                          <p class="eta">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
                       </div>
                 </div>
               </nav>
