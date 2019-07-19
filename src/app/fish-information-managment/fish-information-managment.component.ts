@@ -54,8 +54,8 @@ export class FishInformationManagmentComponent implements OnInit {
     } else {
       this.hasParent = true;
       // get the parents
-      this.category_service.get( 'fishPreparation' ).subscribe(
-        res => {
+      this.category_service.get('fishpreparation/parents/0').subscribe(
+      res => {
           this.currentParents = res;
         }, error => {
           console.log( error );
