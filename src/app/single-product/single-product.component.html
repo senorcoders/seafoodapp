@@ -112,14 +112,14 @@
                   <span *ngIf="perBox != true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
                   <span *ngIf="perBox == true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row flex-name-row">Taxes, Customs, & Fees <img   tooltip="Taxes, Customs, & Fees"
+                <div class="dashed-row"><span class="name-row flex-name-row">Taxes and Customs<img   tooltip="Taxes, Customs, & Fees"
                   placement="right" show-delay="0" src="../../assets/svg/help-circle-outline.svg" alt=""></span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges?.sfsMarginCost + charges?.exchangeRateCommission +  charges?.customsFee + charges?.inventoryFeeByWeight).toFixed(2)}}</span>
                 </div>
                
                 
-                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping</span>
+                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping, Handling and fees</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span>
                 </div>
