@@ -474,7 +474,7 @@
                               <div class="row check-row">
                                 <div class="col-lg-3 form-group" *ngFor="let whole of variationInfo">
                                   <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}" (click)="pushTab(whole, $event)">
+                                    <input class="form-check-input" type="checkbox" id="defaultCheck{{whole?.id}}" [value]='isSelecChecked(whole?.id)' (click)="pushTab(whole, $event)">
                                     <label class="form-check-label" for="defaultCheck{{whole?.id}}">
                                       {{whole?.name}}
                                     </label>
