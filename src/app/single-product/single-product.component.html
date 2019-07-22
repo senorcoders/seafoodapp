@@ -107,7 +107,7 @@
                   <div class="separator-dashed"></div> <span
                     class="value-row" style="color: #121619;">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Product Price</span>
+                <div class="dashed-row"><span class="name-row">Subtotal Price / kg</span>
                   <div class="separator-dashed"></div> 
                   <span *ngIf="perBox != true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
                   <span *ngIf="perBox == true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>

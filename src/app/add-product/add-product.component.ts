@@ -268,6 +268,15 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['specie'].setValue(speciesSelected);
     this.productForm.controls['subspecie'].setValue(subSpeciesSelected);
     this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
+    this.productForm.controls['preparation'].setValue(this.product.variations[0].parentFishPreparation);
+    this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
+    if(descriptorSelected != ''){
+      this.selectedType = descriptorSelected;
+    }else{
+      this.selectedType = subSpeciesSelected;
+    }
+    this.setvariations();
+    this.getKgs();
     if(this.user['role'] != 0){
       this.productForm.controls['name'].disable();
       this.productForm.controls['raised'].disable();
@@ -359,7 +368,7 @@ export class AddProductComponent implements OnInit {
       deletedImages: this.deletedImages,
       price: this.price
     });
-    this.productForm.controls['unitOfMeasurement'].disable();
+    // this.productForm.controls['unitOfMeasurement'].disable();
 
 
   }
@@ -1001,7 +1010,8 @@ async onSubmit() {
         return it;
       };
 
-        let fishPreparation = value.preparation;
+        let fishPreparation = value.childPreparation;
+        let parentFishPreparation = value.preparation;
         if (variations && Object.keys(variations).length > 0) {
           
           for (const it of Object.keys(variations)) {
@@ -1009,6 +1019,7 @@ async onSubmit() {
             console.log("wholefish", wholeFishWeight);
             const itr = {
               fishPreparation,
+              parentFishPreparation,
               wholeFishWeight,
               prices: variations[it].map(itereOptions)
             };
@@ -1218,4 +1229,8 @@ deleteProduct(id) {
     this.router.navigate(['/products-list/page/1']);
   });
 }
+
+
+
+
 }
