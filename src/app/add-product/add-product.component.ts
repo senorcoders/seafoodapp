@@ -297,7 +297,7 @@ export class AddProductComponent implements OnInit {
     }
     let images = await this.getImages(this.product);
     this.productForm.controls['imagesSend'].setValue(images.forForm);
-   
+    this.addVariationsToPricing(this.product.variations, this.product);
   }
   getStore() {
     let endpoint = this.storeEndpoint + this.user.id;
@@ -1230,7 +1230,41 @@ deleteProduct(id) {
   });
 }
 
-
+private addVariationsToPricing(variations, minMax) {
+  let keys = [];
+  for (let varia of variations) {
+    this.tabsArray.push(varia);
+    keys.push(varia.wholeFishWeight.id);
+    this.weights[varia.wholeFishWeight.id] = varia.prices.sort((a, b) => {
+      return a.min - b.min;
+    }).map(it => {
+      let price = {
+        min: it.min,
+        max: it.max,
+        price : it.price
+      };
+      price = Object.assign(price, this.options);
+      return price;
+    });
+  }
+  this.weights['keys'] = keys;
+  let min = Number(minMax.minimunorder);
+    let max = Number(minMax.maximumorder);
+    if (min > 0 && max > 0) {
+      this.options.floor = min;
+      this.options.ceil = max;
+      const newOptions: Options = Object.assign({}, this.options);
+      newOptions.floor = min;
+      newOptions.ceil = max;
+      this.options = newOptions;
+      this.exampleValues = {
+        min: newOptions.floor,
+        max: newOptions.ceil
+      };
+    }
+    this.priceEnableChange = true;
+    this.setOptionsInAll(true);
+}
 
 
 }
