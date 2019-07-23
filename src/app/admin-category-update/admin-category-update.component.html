@@ -89,7 +89,7 @@
                   </div>
                   <br/><br/><br/>
                   <h2 *ngIf="hasChildPreparation" >Variations</h2>
-                  <h2 *ngIf="!hasChildPreparation" >Save for start the setup of the Variations of the Preparations</h2>
+                  <h2 *ngIf="!hasChildPreparation" >Click save to start the setup of Variations and Preparations for this Category</h2>
                   <div  formArrayName="fishVariations" *ngFor="let child of currentChildPreparations; let i = index">
                     <div class="form-group input-group" [formGroupName]="i">
                       <div class="col-lg-12">                                                  
