@@ -210,12 +210,20 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> 
 </div>
 
 <ng-template #elseBlock>
 
-  <div class="not-found-grid">
-    <p>{{'SingleProduct.no-found' | translate}}</p>
-  </div>
+    <div class="container-fluid empty-container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <img src="../../assets/svg/404.svg" width="350px;" alt="">
+            <h4><strong>ERROR 404:</strong>  PRODUCT NOT FOUND</h4>
+            <button class="outline-btn" routerLink="/">
+              fish somewhere else
+            </button>
+          </div>
+        </div>
+      </div> 
 </ng-template>
