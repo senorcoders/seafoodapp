@@ -439,11 +439,13 @@ const appRoutes: Routes = [
   },
   {
     path: 'update-category/:category_id',
-    loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule )
+    loadChildren: () => import('app/admin-category-update/admin-category-update.module').then( m => m.AdminCategoryUpdateModule ),
+    canActivate: [AdminRouterService]
   },
   {
     path: 'fish-information-managment',
-    loadChildren: () => import('app/fish-information-managment/fish-information-managment.module').then( m => m.FishInformationManagmentModule )
+    loadChildren: () => import('app/fish-information-managment/fish-information-managment.module').then( m => m.FishInformationManagmentModule ),
+    canActivate: [AdminRouterService]
   },
   {
     path: '404', component: NotfoundComponent
