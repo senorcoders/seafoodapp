@@ -698,6 +698,8 @@ export class AddProductComponent implements OnInit {
     let preparation = this.productForm.get('childPreparation').value;
     this.productService.getData(`fishvariations/type/${this.selectedType}/preparation/${preparation}`).subscribe(res => {
       console.log("KGS", res);
+      this.tabsArray = [];
+      this.weights = { keys: [] };
       this.variationInfo = res['variationInfo'];
     });
   }
