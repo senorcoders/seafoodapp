@@ -267,7 +267,7 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['specie'].setValue(speciesSelected);
     this.productForm.controls['subspecie'].setValue(subSpeciesSelected);
     this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
-    this.productForm.controls['preparation'].setValue(this.product.variations[0].parentFishPreparation);
+    this.productForm.controls['preparation'].setValue(this.product.variations[0].parentFishPreparation.id);
     this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
     if (descriptorSelected != '') {
       this.selectedType = descriptorSelected;
@@ -698,8 +698,11 @@ export class AddProductComponent implements OnInit {
     let preparation = this.productForm.get('childPreparation').value;
     this.productService.getData(`fishvariations/type/${this.selectedType}/preparation/${preparation}`).subscribe(res => {
       console.log("KGS", res);
-      this.tabsArray = [];
-      this.weights = { keys: [] };
+      if(this.createProduct){
+        this.tabsArray = [];
+        this.weights = { keys: [] };
+      }
+
       this.variationInfo = res['variationInfo'];
     });
   }
