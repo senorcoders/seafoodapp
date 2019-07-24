@@ -481,7 +481,7 @@ export class ShopComponent implements OnInit {
           jQuery('#amount-' + classes[7]).val(min);
           jQuery('#cart-amount-' + classes[7]).val(min);
 
-          if(classes[16]){
+          if(classes[17]){
             this.products[classes[6]][1].variations[classes[16]].qty = min;
           }else{
             this.products[classes[6]][1].variations[0].qty = min;
@@ -493,7 +493,7 @@ export class ShopComponent implements OnInit {
           jQuery('#amount-' + classes[7]).val(val);
           jQuery('#cart-amount-' + classes[7]).val(val);
 
-          if(classes[16]){
+          if(classes[17]){
             this.products[classes[6]][1].variations[classes[16]].qty = val;
           }else{
             this.products[classes[6]][1].variations[0].qty = val;
@@ -507,7 +507,12 @@ export class ShopComponent implements OnInit {
         this.showQty = true;
         console.log("Stock", classes[15]);
         if((classes[4] != 'coming-true' && classes[15] != 'true')){
-          this.getShippingRates(val, classes[8], classes[7], classes[6]);
+          if(classes[17]){
+            this.getShippingRates(val, classes[8], classes[7], classes[6], classes[17]);
+          }else{
+            this.getShippingRates(val, classes[8], classes[7], classes[6], classes[16]);
+
+          }
         }
       }
 
@@ -522,7 +527,7 @@ export class ShopComponent implements OnInit {
 
   }
   //GET the shipping rates
-  getShippingRates(weight, id, variation, i) {
+  getShippingRates(weight, id, variation, i, unitOfSale) {
     this.productService.getData(`api/fish/${id}/variation/${variation}/charges/${weight}/true`).subscribe(result => {
       console.log("Priceing", result);
       this.tmpPrice = result['price'];
@@ -538,7 +543,7 @@ export class ShopComponent implements OnInit {
         label.innerHTML = result['message'];
       }
       else {
-        label.innerHTML = 'AED ' + priceT + '<span class="delivered-small-span"> (delivered/kg)</span>';
+        label.innerHTML = 'AED ' + priceT + '<span class="delivered-small-span"> (delivered/'+ (unitOfSale).toLowerCase() +')</span>';
       }
       (label as HTMLElement).style.display = 'inline-block';
       (label as HTMLElement).style.whiteSpace = 'nowrap';
@@ -633,7 +638,7 @@ export class ShopComponent implements OnInit {
       if(val <= 1 && product.perBox === true) {
         return 'box';
       }
-      return product.perBox === true ? 'boxes' : 'kg'; 
+      return product.perBox === true ? 'boxes' : (product.unitOfSale).toLowerCase(); 
     }
     catch(e){
       console.log(e);

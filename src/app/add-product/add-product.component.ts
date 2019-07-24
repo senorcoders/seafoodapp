@@ -42,6 +42,7 @@ export class AddProductComponent implements OnInit {
   perBoxes: FormControl;
   averageUnitWeight: FormControl;
   price: FormControl;
+  kgConversionRate: FormControl;
   countries: any = [];
   countriesWithShipping: any = [];
   public cities = [];
@@ -259,6 +260,7 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['domesticFish'].setValue(this.product.foreign_fish);
     this.productForm.controls['comingSoon'].setValue(this.product.cooming_soon);
     this.productForm.controls['unitOfMeasurement'].setValue(this.product.unitOfSale);
+    this.setConversionRate(this.product.unitOfSale);
     this.productForm.controls['minOrder'].setValue(this.product.minimumOrder);
     this.productForm.controls['maxOrder'].setValue(this.product.maximumOrder);
     this.productForm.controls['perBoxes'].setValue(this.product.perBox);
@@ -269,6 +271,8 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
     this.productForm.controls['preparation'].setValue(this.product.variations[0].parentFishPreparation.id);
     this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
+    this.weightType = this.product.unitOfSale;
+    console.log("ACA", this.weightType);
     if (descriptorSelected != '') {
       this.selectedType = descriptorSelected;
     } else {
@@ -335,6 +339,8 @@ export class AddProductComponent implements OnInit {
     this.imagesSend = new FormControl('', Validators.nullValidator);
     this.deletedImages = new FormControl('', Validators.nullValidator);
     this.price = new FormControl('', [Validators.required]);
+    this.kgConversionRate = new FormControl('', Validators.nullValidator);
+
 
   }
 
@@ -365,7 +371,8 @@ export class AddProductComponent implements OnInit {
       images: this.images,
       imagesSend: this.imagesSend,
       deletedImages: this.deletedImages,
-      price: this.price
+      price: this.price,
+      kgConversionRate: this.kgConversionRate
     });
     // this.productForm.controls['unitOfMeasurement'].disable();
 
@@ -510,7 +517,7 @@ export class AddProductComponent implements OnInit {
         this.showAverageUnit = false;
       }
 
-      if (val.unitOfMeasurement != '') {
+      if (val.unitOfMeasurement != '' && this.createProduct) {
         this.weightType = val.unitOfMeasurement
       }
 
@@ -662,7 +669,11 @@ export class AddProductComponent implements OnInit {
         if (result['hasSetup'] == true) {
           this.raisedArray = result['raisedInfo'];
           this.treatments = result['treatmentInfo'];
-          this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+          this.measurements = result['unitOfMeasureInfo'];
+          if(result.hasOwnProperty('unitOfMeasure')){
+            this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+            this.setConversionRate(result['unitOfMeasure']);
+          }
           if (result['fishPreparationInfo']) {
             this.fishPreparation = result['fishPreparationInfo'];
           } else {
@@ -1092,9 +1103,9 @@ export class AddProductComponent implements OnInit {
       'perBox': value.perBoxes,
       'perBoxes': value.perBoxes,
       'unitOfSale': value.unitOfMeasurement,
-      'boxWeight': value.unitOfMeasurement == 'lbs' ? value.averageUnitWeight / 2.205 : value.averageUnitWeight,
-      'minimumOrder': value.unitOfMeasurement == 'lbs' ? value.minOrder / 2.205 : value.minOrder,
-      'maximumOrder': value.unitOfMeasurement == 'lbs' ? value.maxOrder / 2.205 : value.maxOrder,
+      'boxWeight':  value.averageUnitWeight,
+      'minimumOrder': value.minOrder,
+      'maximumOrder': value.maxOrder,
       // "acceptableSpoilageRate": features.acceptableSpoilageRate,
       'raised': value.raised,
       'treatment': value.treatment,
@@ -1108,6 +1119,7 @@ export class AddProductComponent implements OnInit {
       variations: variationsEnd,
       'role': this.user['role'],
       cooming_soon: value.comingSoon,
+      'kgConversionRate': value.kgConversionRate
     };
     if (this.productID !== "") {
       data.idProduct = this.product.id;
@@ -1305,5 +1317,18 @@ export class AddProductComponent implements OnInit {
     this.setOptionsInAll(true);
   }
 
+  setConversionRate(unidad){
+    let unit = unidad;
+    let object = this.filterByValue(this.measurements, unit);
+    console.log(object);
+    this.productForm.controls['kgConversionRate'].setValue(object[0]['kgConversionRate']);
 
+  }
+
+   filterByValue(array, string) {
+    return array.filter(o =>
+        Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
 }
+}
+
+

@@ -74,6 +74,7 @@ export class SingleProductComponent implements OnInit {
   types: any = '';
   perBox:any;
   boxWeight:any;
+  unitOfSale:any = '';
   // mortalityRate: any;
   wholeFishWeight: any = null;
   options: Options = {
@@ -314,6 +315,7 @@ export class SingleProductComponent implements OnInit {
       console.log(data["images"]);
       this.price = data['price'] ? data['price'].description : "";
       this.category = data['type'] ? data['type'].name : '';
+      this.unitOfSale = data['unitOfSale'];
       this.show = true;
       this.perBox = data['perBox'];
       this.boxWeight = data['boxWeight'];
@@ -432,7 +434,7 @@ export class SingleProductComponent implements OnInit {
       if(val <= 1 && perBox === true) {
         return 'box';
       }
-      return perBox === true ? 'boxes' : 'kg'; 
+      return perBox === true ? 'boxes' : (this.unitOfSale).toLowerCase(); 
     }
     catch(e){
       console.log(e);

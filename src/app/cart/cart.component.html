@@ -47,7 +47,7 @@
                               <div class="my-input-container">
                                 <input *ngIf="product.fish.perBox != true" placeholder="enter weight..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product?.maxAvailableInventory, product.fish.minimumOrder)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory.quantity, product.fish.minimumOrder)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minimumOrder)">
                                 <input *ngIf="product.fish.perBox == true" placeholder="enter box..."  id="edit-qty-{{product.fish.id}}" [value]="product.quantity.value / product.fish.boxWeight" class="qty-number" type="number" step="1"  (input)="handleInput($event, product.fish.id, i, product?.maxAvailableInventory / product?.fish?.boxWeight, product.fish.minBox, product.fish.boxWeight)" (keydown.enter)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)" (change)="manualInput(product.fish.id, i, product.inventory?.quantity, product.fish.minBox, product.fish.boxWeight)">
-                                <span class="suffix" [hidden]="isVacio('edit-qty-'+product.fish.id, product.fish.id+ '-suffix')" [id]="product.fish.id+ '-suffix'">{{getTag(product.fish.perBox, 'edit-qty-'+product.fish.id)}}</span>
+                                <span class="suffix" [hidden]="isVacio('edit-qty-'+product.fish.id, product.fish.id+ '-suffix')" [id]="product.fish.id+ '-suffix'">{{getTag(product.fish.perBox, 'edit-qty-'+product.fish.id, product.fish.unitOfSale)}}</span>
                               </div>
                               <span class="amount-span" *ngIf="product.fish.perBox != true">max <br> {{getFixedNumber(product?.maxAvailableInventory)}}</span>
                               <span class="amount-span" *ngIf="product.fish.perBox == true">max <br> {{getFixedNumber((product?.maxAvailableInventory / product?.fish?.boxWeight) )}}</span>
@@ -70,7 +70,7 @@
                     </li>
                     <li class="list-inline-item info-item">
                       <img src="../../assets/svg/tag.svg" alt="" width="18px" height="18px">
-                      {{product?.fish?.price?.value | currency: 'AED'}} / kg
+                      {{product?.fish?.price?.value | currency: 'AED'}} / {{product?.fish?.unitOfSale}}
                     </li>
                     <li class="list-inline-item info-item">
                       <img src="../../assets/svg/knife-military.svg" alt="" width="18px" height="18px">
@@ -108,7 +108,7 @@
                     <h4>PRICE BREAKDOWN <span>AED</span></h4>
                 </div>
                 <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
-                    <h4> {{product?.fish?.name}} (seller price / kg)                                
+                    <h4> {{product?.fish?.name}} (seller price / {{product?.fish?.unitOfSale}})                                
                       <span>{{(product.fish.price.value).toFixed(2)}}</span></h4>
                   </div>
                 

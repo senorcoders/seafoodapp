@@ -54,9 +54,9 @@
                   <a routerLink="/edit-product/{{productID}}" class="">
                     <fa name="pencil" class="pencil"></fa>Edit
                   </a>
-                </div>
+                </div> 
                 <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                  <span>{{(delivered/currentExchangeRate).toFixed(2)}} / kg <small>(delivered price)</small></span></h5>
+                  <span>{{(delivered/currentExchangeRate).toFixed(2)}} / {{unitOfSale}} <small>(delivered price)</small></span></h5>
 
               </h2>
             </div>
@@ -103,11 +103,11 @@
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Seller Price / kg</span>
+                <div class="dashed-row"><span class="name-row">Seller Price / {{unitOfSale}}</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row" style="color: #121619;">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
                 </div>
-                <div class="dashed-row"><span class="name-row">Subtotal Price / kg</span>
+                <div class="dashed-row"><span class="name-row">Subtotal Price / {{unitOfSale}}</span>
                   <div class="separator-dashed"></div> 
                   <span *ngIf="perBox != true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
                   <span *ngIf="perBox == true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>
@@ -173,7 +173,7 @@
 
             <div  class="row range-row">
               <div class="col-md-12" style="padding-left: 0;">
-                <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} kg delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} {{unitOfSale}} delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
                 <p *ngIf="outOfStock || max == 0" class="eta" >Out of Stock.</p>
               </div>
               <div class="col-md-7" *ngIf="!cooming_soon && !outOfStock && max > 0">
@@ -187,7 +187,7 @@
                     </div>
                     <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
                 </form>
-                <p  *ngIf="perBox == true" class="eta text-center" style="margin-top: -15px;"> 1 Box = {{boxWeight}} kg</p>
+                <p  *ngIf="perBox == true" class="eta text-center" style="margin-top: -15px;"> 1 Box = {{boxWeight}} {{unitOfSale}}</p>
               </div>
               <div class="col-md-5">
                 <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"

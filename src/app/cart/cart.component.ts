@@ -164,7 +164,7 @@ export class CartComponent implements OnInit {
     return element.value === '';
   }
 
-  public getTag(perBox, id){
+  public getTag(perBox, id, unitOfSale){
     let element = document.querySelector('#' + id) as HTMLInputElement;
     if (element === null) return '';
     try{
@@ -172,7 +172,7 @@ export class CartComponent implements OnInit {
       if(val <= 1 && perBox === true) {
         return 'box';
       }
-      return perBox === true ? 'boxes' : 'kg'; 
+      return perBox === true ? 'boxes' : (unitOfSale).toLowerCase(); 
     }
     catch(e){
       console.log(e);

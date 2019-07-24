@@ -395,13 +395,13 @@
                         <div class="col-lg-6">
                           <div class="form-group input-group">
                             <span class="has-float-label">
-                              <select id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfMeasurement" class="form-control"
+                              <select (change)="setConversionRate($event.srcElement.value)" id="unitsale" placeholder="Unit of Sale...*" formControlName="unitOfMeasurement" class="form-control"
                               [ngClass]="{'is-invalid':productForm.get('unitOfMeasurement').invalid && productForm.get('unitOfMeasurement').touched}">
                               <option value="">Unit of Sale...*</option>
                               <option *ngFor="let u of measurements" value="{{u.name}}">{{u.name}}</option>
                               </select>
                               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
-                              <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Port of Loading {{'Register.required' | translate}}.</div>
+                              <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Unit of Sale {{'Register.required' | translate}}.</div>
 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1" tooltip="The Unit of measurement of the product."
@@ -451,7 +451,7 @@
                   
                         </div>
 
-                        <div class="col-lg-6" [ngClass]="showAverageUnit===true?'':'offset-lg-3'">
+                        <div class="col-lg-6">
 
                           <div class="form-group input-group">
                            <span class="has-float-label">
@@ -466,6 +466,27 @@
                             placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button>
                           </div>
                   
+                        </div>
+
+                        <div class="col-lg-6">
+
+                          <div class="form-group input-group">
+                           <span class="has-float-label">
+                              <input id="kgConversionRate" type="number" class="form-control" placeholder="Conversion Rate..." formControlName="kgConversionRate"
+                              [ngClass]="{'is-invalid':productForm.get('kgConversionRate').invalid && productForm.get('kgConversionRate').touched}">
+                              <label for="kgConversionRate">Conversion Rate...</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('kgConversionRate').hasError('required')">Conversion Rate ({{weightType}}) {{'Register.required' | translate}}.</div>
+                
+                            </span>
+                        
+                          </div>
+                  
+                        </div>
+
+                        <div class="row single-subpreparation" *ngIf="!showSubPreparation" style="width: 100%">
+                          <div class="col-lg-12 text-center">
+                              <h3>{{preparationChilds[0].name}}</h3>
+                          </div>
                         </div>
 
                         <div class="row" *ngIf="variationInfo.length > 0" style="width: 100%">
