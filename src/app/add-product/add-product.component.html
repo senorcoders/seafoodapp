@@ -401,7 +401,7 @@
                               <option *ngFor="let u of measurements" value="{{u.name}}">{{u.name}}</option>
                               </select>
                               <label for="unitsale">{{'CreateProduct.unitOfSale' | translate}}...*</label>
-                              <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Port of Loading {{'Register.required' | translate}}.</div>
+                              <div class="invalid-feedback" *ngIf="productForm.get('unitOfMeasurement').hasError('required')">Unit of Sale {{'Register.required' | translate}}.</div>
 
                             </span>
                             <button type="button" class="question-btn" tabIndex="-1" tooltip="The Unit of measurement of the product."

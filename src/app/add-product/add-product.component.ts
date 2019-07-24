@@ -269,6 +269,8 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['subspecieVariant'].setValue(descriptorSelected);
     this.productForm.controls['preparation'].setValue(this.product.variations[0].parentFishPreparation.id);
     this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
+    this.weightType = this.product.unitOfSale;
+    console.log("ACA", this.weightType);
     if (descriptorSelected != '') {
       this.selectedType = descriptorSelected;
     } else {
@@ -510,7 +512,7 @@ export class AddProductComponent implements OnInit {
         this.showAverageUnit = false;
       }
 
-      if (val.unitOfMeasurement != '') {
+      if (val.unitOfMeasurement != '' && this.createProduct) {
         this.weightType = val.unitOfMeasurement
       }
 
@@ -662,7 +664,9 @@ export class AddProductComponent implements OnInit {
         if (result['hasSetup'] == true) {
           this.raisedArray = result['raisedInfo'];
           this.treatments = result['treatmentInfo'];
-          this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+          if(result.hasOwnProperty('unitOfMeasure')){
+            this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
+          }
           if (result['fishPreparationInfo']) {
             this.fishPreparation = result['fishPreparationInfo'];
           } else {
