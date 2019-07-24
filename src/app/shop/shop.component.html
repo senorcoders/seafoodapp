@@ -207,7 +207,7 @@
             </div>
 
           <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6">
-            <div *ngIf="product[1].count == 1" class="class1 class2 class3 coming-{{product[1].variations[0].cooming_soon}} {{product[1].variations[0].type}} {{removeSpaces(product[1].variations[0].country)}} {{i}} {{product[1].variations[0].variation.id }} {{product[1].variations[0].id}} category-{{product[1].variations[0].type}} {{product[1].variations[0].variation.max}} {{product[1].variations[0].variation.min}} {{product[1].variations[0].perBox}} {{product[1].variations[0].minBox}} {{product[1].variations[0].maxBox}} {{( product[1].variations[0].variation.outOfStock || ( (getFixedNumber(product[1].variations[0].variation.max) == 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) == 0 ) ) )}}">  
+            <div *ngIf="product[1].count == 1" class="class1 class2 class3 coming-{{product[1].variations[0].cooming_soon}} {{product[1].variations[0].type}} {{removeSpaces(product[1].variations[0].country)}} {{i}} {{product[1].variations[0].variation.id }} {{product[1].variations[0].id}} category-{{product[1].variations[0].type}} {{product[1].variations[0].variation.max}} {{product[1].variations[0].variation.min}} {{product[1].variations[0].perBox}} {{product[1].variations[0].minBox}} {{product[1].variations[0].maxBox}} {{( product[1].variations[0].variation.outOfStock || ( (getFixedNumber(product[1].variations[0].variation.max) == 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) == 0 ) ) )}} {{product[1].variations[0].unitOfSale}}">  
             <div class="single-product-box" >
                   <div class="product-header">
                    <div class="row">
@@ -258,11 +258,11 @@
                   <div class="product-footer">
                     <h4>{{product[1].variations[0].name}} <span *ngIf="product[1].variations[0].variation.fishPreparation != null">({{product[1].variations[0]?.variation?.fishPreparation?.name}})</span> </h4>
                     <h6><a routerLink="/vendor/{{product[1].variations[0]?.store?.id}}">{{product[1].variations[0]?.store?.name}} ({{product[1].variations[0]?.store?.location}})</a> 
-                      <span *ngIf="product[1].variations[0].perBox != true"> - In KG</span>
+                      <span *ngIf="product[1].variations[0].perBox != true"> - In {{product[1].variations[0]?.unitOfSale}}</span>
                       <span *ngIf="product[1].variations[0].perBox == true"> - In Boxes</span>
                     </h6>
-                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
-                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} kg/box)</small></h5>
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
                       <p class="eta"><span>Delivery Date:</span>  {{product[1].variations[0]?.minInventoryDate | date:'fullDate'}}</p>
                   </div>
               </div>
@@ -272,7 +272,7 @@
               <nav>
                   <div class="tab-content" id="nav-tabContent-{{product[0]}}">
                       <div *ngFor="let subp of product[1].variations; let vari = index;" class="tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-{{subp?.variation?.id}}" role="tabpanel" aria-labelledby="nav-tab">
-                        <div class="class1 class2 class3 coming-{{subp.cooming_soon}} {{subp.type}} {{removeSpaces(subp.country)}} {{i}} {{subp.variation.id }} {{subp.id}} category-{{subp.type}} {{subp.variation.max}} {{subp.variation.min}} {{subp.perBox}} {{subp.minBox}} {{subp.maxBox}} {{(subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )}} {{vari}}">
+                        <div class="class1 class2 class3 coming-{{subp.cooming_soon}} {{subp.type}} {{removeSpaces(subp.country)}} {{i}} {{subp.variation.id }} {{subp.id}} category-{{subp.type}} {{subp.variation.max}} {{subp.variation.min}} {{subp.perBox}} {{subp.minBox}} {{subp.maxBox}} {{(subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )}} {{vari}} {{subp?.unitOfSale}}">
                             <div class="single-product-box" style="margin-bottom: 0;">
                                 <div class="product-header">
                                  <div class="row">
@@ -289,7 +289,7 @@
                                           </div>
                                           <span *ngIf="subp.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.variation.max)}}</span>
                                           <span *ngIf="subp.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.maxBox)}}</span>
-                                          <label id="delivere-price-{{subp.variation.id}}"><span>(delivered/kg)</span> AED 12.99</label>
+                                          <label id="delivere-price-{{subp.variation.id}}"><span>(delivered/{{subp?.unitOfSale}})</span> AED 12.99</label>
                                       </form>
                         
                                       <div *ngIf="!subp.cooming_soon && ( subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
@@ -324,7 +324,7 @@
                                 <div class="product-footer">
                                     <h4>{{subp.name}} <span *ngIf="subp.variation.fishPreparation != null">({{subp?.variation?.fishPreparation?.name}})</span> </h4>
                                     <h6><a routerLink="/vendor/{{subp?.store?.id}}">{{subp?.store?.name}} ({{subp?.store?.location}})</a> 
-                                      <span *ngIf="subp.perBox != true"> - In KG</span>
+                                      <span *ngIf="subp.perBox != true"> - In {{subp?.unitOfSale}}</span>
                                       <span *ngIf="subp.perBox == true"> - In Boxes</span>
                                     </h6>
                                   </div>
@@ -342,8 +342,8 @@
                 </div>
                 <div  id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
                     <div *ngFor="let subp of product[1].variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.variation?.id}}">
-                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
-                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / kg <small *ngIf="subp.perBox == true">({{subp.boxWeight}} kg/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
                           <p class="eta">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
                       </div>
                 </div>
