@@ -16,6 +16,7 @@ export class FishInformationManagmentComponent implements OnInit {
   type:FormControl;
   name: FormControl;
   parent:FormControl;
+  kgConversionRate: FormControl;
 
   selectedType: string;
   hasParent = false; // if selected type could have parents
@@ -38,11 +39,13 @@ export class FishInformationManagmentComponent implements OnInit {
     this.name = new FormControl('', [Validators.required] );
     this.type = new FormControl('', [Validators.required] );
     this.parent = new FormControl('');
+    this.kgConversionRate = new FormControl('');
 
     this.registerForm = this.formBuilder.group({
       name: this.name,
       type: this.parent,
-      parent: this.parent
+      parent: this.parent,
+      kgConversionRate: this.kgConversionRate
     });
   }
   typeChange( newType ) {
@@ -77,6 +80,10 @@ export class FishInformationManagmentComponent implements OnInit {
     
     if( !this.hasParent )
       delete bodyJSON.parent;
+
+    if( this.selectedType !== 'unitOfMeasure' ){
+      delete bodyJSON.kgConversionRate;
+    }
 
     delete bodyJSON.type;
     console.info('body', bodyJSON);
