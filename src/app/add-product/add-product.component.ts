@@ -621,7 +621,6 @@ export class AddProductComponent implements OnInit {
         this.updateProcess(selectedType);
         break;
     }
-    this.selectedType = selectedType;
     this.updateLevels(selectedType, level);
 
   }
@@ -667,6 +666,7 @@ export class AddProductComponent implements OnInit {
       result => {
         console.log("Resultado fishtypes", result);
         if (result['hasSetup'] == true) {
+          this.selectedType = selectedType;
           this.raisedArray = result['raisedInfo'];
           this.treatments = result['treatmentInfo'];
           this.measurements = result['unitOfMeasureInfo'];
