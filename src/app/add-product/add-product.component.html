@@ -433,6 +433,20 @@
                   
                         </div>
 
+                        <div class="col-lg-6">
+
+                          <div class="form-group input-group">
+                           <span class="has-float-label">
+                              <input id="kgConversionRate" type="number" class="form-control" placeholder="Unit KG Conversion Rate (optional)" formControlName="kgConversionRate"
+                              [ngClass]="{'is-invalid':productForm.get('kgConversionRate').invalid && productForm.get('kgConversionRate').touched}">
+                              <label for="kgConversionRate">Unit KG Conversion Rate (optional)</label> 
+                              <div class="invalid-feedback" *ngIf="productForm.get('kgConversionRate').hasError('required')">Conversion Rate ({{weightType}}) {{'Register.required' | translate}}.</div>
+                
+                            </span>
+                        
+                          </div>
+                  
+                        </div>
 
                         <div class="col-lg-6">
 
@@ -468,20 +482,7 @@
                   
                         </div>
 
-                        <div class="col-lg-6">
-
-                          <div class="form-group input-group">
-                           <span class="has-float-label">
-                              <input id="kgConversionRate" type="number" class="form-control" placeholder="Conversion Rate..." formControlName="kgConversionRate"
-                              [ngClass]="{'is-invalid':productForm.get('kgConversionRate').invalid && productForm.get('kgConversionRate').touched}">
-                              <label for="kgConversionRate">Conversion Rate...</label> 
-                              <div class="invalid-feedback" *ngIf="productForm.get('kgConversionRate').hasError('required')">Conversion Rate ({{weightType}}) {{'Register.required' | translate}}.</div>
-                
-                            </span>
-                        
-                          </div>
-                  
-                        </div>
+                 
 
                         <div class="row single-subpreparation" *ngIf="!showSubPreparation" style="width: 100%">
                           <div class="col-lg-12 text-center">
