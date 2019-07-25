@@ -184,6 +184,11 @@
       line-height: 34px;
       font-style: italic;
       margin-bottom: 50px;
+      @media screen and (max-width: 992px){
+        font-size: 21px;
+        line-height: 25px;
+        margin-bottom: 0;   
+      }
   }
   h3{
         color: $white;
@@ -193,6 +198,11 @@
         letter-spacing: 1.15px;
         line-height: 45px;
         margin-top: 50px;
+        @media screen and (max-width: 992px){
+            font-size: 28px;
+            line-height: 33px;
+            margin-top: 0;
+        }
         span{
             font-weight: 400;
         }
@@ -206,7 +216,10 @@
       font-size: 21px;
       letter-spacing: 1.15px;
       line-height: 25px;
-      margin: 20px 0
+      margin: 20px 0;
+      @media screen and (max-width: 992px){
+          display: none;
+      }
         span{
             font-weight: 400;
         }
@@ -245,6 +258,9 @@
 
   .section-line{
       margin-top: 300px;
+      @media screen and (max-width: 992px){
+          margin-top: 50px;
+      }
   }
 
   .preview-sfs{
@@ -263,6 +279,9 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            @media screen and (max-width: 992px){
+                height: 171px;
+            }
             button{
                 width: 270px;
                 height: 75px;
@@ -423,7 +442,6 @@
       font-size: 21px;
       font-weight: 300;
       color: $black;
-      line-height: 1.25px;
       margin-top: 20px;
       margin-bottom: 50px;
     }
