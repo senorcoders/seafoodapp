@@ -260,7 +260,7 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['domesticFish'].setValue(this.product.foreign_fish);
     this.productForm.controls['comingSoon'].setValue(this.product.cooming_soon);
     this.productForm.controls['unitOfMeasurement'].setValue(this.product.unitOfSale);
-    this.setConversionRate(this.product.unitOfSale);
+    this.productForm.controls['kgConversionRate'].setValue(this.product.kgConversionRate);
     this.productForm.controls['minOrder'].setValue(this.product.minimumOrder);
     this.productForm.controls['maxOrder'].setValue(this.product.maximumOrder);
     this.productForm.controls['perBoxes'].setValue(this.product.perBox);
