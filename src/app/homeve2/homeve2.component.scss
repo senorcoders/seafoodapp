@@ -125,7 +125,7 @@ section {
     }
     @media screen and (max-width: 992px){
         height: 100vh;
-        .hide-mobile{
+        .hide-mobile{ 
             display: none;
         }
     }
@@ -220,6 +220,10 @@ section {
       font-weight: 300;
       letter-spacing: 1.5px;
       line-height: 75px;
+      &:hover{
+        background: $light_blue;
+        border: 1px solid $light_blue;
+      }
 
   }
 }
