@@ -273,13 +273,8 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
     this.weightType = this.product.unitOfSale;
     console.log("ACA", this.weightType);
-    if (descriptorSelected != '') {
-      this.selectedType = descriptorSelected;
-    } else {
-      this.selectedType = subSpeciesSelected;
-    }
-    this.setvariations();
-    this.getKgs();
+    
+   
     if (this.user['role'] != 0) {
       this.productForm.controls['name'].disable();
       this.productForm.controls['raised'].disable();
@@ -298,6 +293,8 @@ export class AddProductComponent implements OnInit {
     } else {
       this.updateProcess(subSpeciesSelected);
     }
+    this.setvariations();
+    this.getKgs();
     let images = await this.getImages(this.product);
     this.productForm.controls['imagesSend'].setValue(images.forForm);
     this.addVariationsToPricing(this.product.variations, this.product);
@@ -679,12 +676,19 @@ export class AddProductComponent implements OnInit {
           } else {
             this.fishPreparation = [];
           }
+        }else{
+          if(!this.createProduct){
+            this.selectedType = this.productForm.get('subspecie').value;
+            this.updateProcess(this.selectedType);
+            this.setvariations();
+            this.getKgs();
+          }
         }
 
 
       },
       error => {
-        console.log(error);
+        console.log("error on process", error);
       }
     );
   }
