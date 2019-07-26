@@ -24,7 +24,7 @@ export class AmmendInvoiceComponent implements OnInit {
   //indicate if calcs are starts
   public calcNews = false;
   public textSave = 'amend invoice';
-  
+
   public idDelivered = '5c017b3c47fb07027943a409';
   public idCancelledOrder = '5c017b5a47fb07027943a40c';
   public idSellerCancelledOrder = '5c06f4bf7650a503f4b731fd';
@@ -154,6 +154,29 @@ export class AmmendInvoiceComponent implements OnInit {
       console.log(it);
       this.route.navigate(['logistic-management']);
     });
+  }
+
+  public inValidsInputs(item?, prop?) {
+    let val = false;
+    if (item) {
+      if (item[prop] === undefined || item[prop] === null || item[prop] === "" || isNaN(item[prop]) === true || this.Number(item[prop]) < 0) {
+        val = true;
+      }
+    } else {
+      for (let it of this.items) {
+        if (it.quantity === undefined || it.quantity === null || it.quantity === "" || isNaN(it.quantity) === true || this.Number(it.quantity) < 0) {
+          val = true;
+          break;
+        }
+
+        if (it.priceDelivered === undefined || it.priceDelivered === null || it.priceDelivered === "" || isNaN(it.priceDelivered) === true || this.Number(it.priceDelivered) < 0) {
+          val = true;
+          break;
+        }
+      }
+    }
+
+    return val;
   }
 
 }
