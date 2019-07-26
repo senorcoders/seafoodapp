@@ -95,14 +95,52 @@
   }
 
 .homev3-slide{
-    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home1-slide.jpg');
     height: 100vh;
     width: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
     position: relative;
     z-index: 1;
+    .carousel{
+      height: 100vh;
+    }
+    .carousel-item{
+      height: 100vh;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+      background-size: cover !important;
+    }
+    .slide1{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home1-slide.jpg');
+    }
+    .slide2{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Hotel.jpg');
+    }
+    .slide3{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Fisherman.jpg');
+    }
+    .slide4{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Caterer.jpg');
+    }
+    .slide5{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Seafood-Processor.jpg');
+    }
+    .slide6{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Meal-Plan-Company.jpg');
+    }
+    .slide7{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Seafood-Processor.jpg');
+    }
+    .slide8{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Fish-Market.jpg');
+    }
+    .slide9{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/supermarket-949913_1920.jpg');
+    }
+    .slide10{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Reseller.jpg');
+    }
+    .slide11{
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../../assets/home-svg/Distributor.jpg');
+    }
 }
 
 .carousel-nav-sfs{
@@ -198,6 +236,7 @@
         letter-spacing: 1.15px;
         line-height: 45px;
         margin-top: 50px;
+        position: relative;
         @media screen and (max-width: 992px){
             font-size: 28px;
             line-height: 33px;
@@ -206,6 +245,7 @@
         span{
             font-weight: 400;
         }
+        
 
   }
 
@@ -812,3 +852,48 @@
       color: $white !important;
     }
   }
+
+  /* -------------------------------- 
+xloading-bar 
+-------------------------------- */
+
+.cd-headline.loading-bar .cd-words-wrapper {
+  position: relative;
+}
+.cd-headline.loading-bar .cd-words-wrapper::after {
+  /* loading bar */
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: $light_blue;
+  z-index: 2;
+  -webkit-transition: width 0.3s -0.1s;
+  -moz-transition: width 0.3s -0.1s;
+  transition: width 0.3s -0.1s;
+}
+.cd-headline.loading-bar .cd-words-wrapper.is-loading::after {
+  width: 100%;
+  -webkit-transition: width 3s;
+  -moz-transition: width 3s;
+  transition: width 3s;
+}
+.cd-headline.loading-bar b {
+  top: .2em;
+  opacity: 0;
+  -webkit-transition: opacity 0.3s;
+  -moz-transition: opacity 0.3s;
+  transition: opacity 0.3s;
+  display: none;
+}
+.cd-headline.loading-bar b.is-visible {
+  opacity: 1;
+  top: 0;
+  display: initial;
+}
+
+.cd-headline.loading-bar b.is-hidden{
+  display: none;
+}
