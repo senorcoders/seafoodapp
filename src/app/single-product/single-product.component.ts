@@ -271,14 +271,14 @@ export class SingleProductComponent implements OnInit {
 
   getProductDetail() {
     this.productService.getProductDetailVariations(this.productID).subscribe(data => {
-      console.log('Producto', data);
+      console.log('Producto', data); 
       if (this.role !== 1) {
         this.currentExchangeRate = 1;
       }
       if (data['minimumOrder'] < 1) {
         this.min = 0;
       } else {
-        if(data.hasOwnProperty('minBox')){
+        if(data.hasOwnProperty('minBox')){ 
           this.min = data['minBox'];
           this.count = this.min;
         }else{
@@ -286,7 +286,7 @@ export class SingleProductComponent implements OnInit {
           this.count = this.min;
         }
         
-      }
+      } console.log('min', this.min);
       this.outOfStock = data['outOfStock'];
       this.cooming_soon = data['cooming_soon'];
       if(data.hasOwnProperty('maxBox')){
@@ -294,7 +294,7 @@ export class SingleProductComponent implements OnInit {
       }else{
         this.max = data['maximumOrder'];
 
-      }
+      } console.log('max', this.max);
       this.value = this.kg !== 0 ? this.kg : this.min;
       const newOptions: Options = Object.assign({}, this.options);
       newOptions.ceil = this.max;
