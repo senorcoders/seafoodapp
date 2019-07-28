@@ -861,24 +861,25 @@ export class AddProductComponent implements OnInit {
 
 
       }
-    }
-
-    //delete index of keys
-    if (this.weights['keys'].length === 1) {
-      this.weights['keys'] = [];
-    } else {
-      let index = this.weights['keys'].findIndex(it => {
-        return it === whole.id;
-      });
-      if (index !== -1) {
-        this.weights['keys'].splice(index, 1);
+      //delete index of keys
+      if (this.weights['keys'].length === 1) {
+        this.weights['keys'] = [];
+      } else {
+        let index = this.weights['keys'].findIndex(it => {
+          return it === whole.id;
+        });
+        if (index !== -1) {
+          this.weights['keys'].splice(index, 1);
+        }
       }
+
+      this.keySelect = '';
+      if (this.tabsArray.length > 0)
+        this.keySelect = this.tabsArray[0].id;
+      delete this.weights[whole.id];
     }
 
-    this.keySelect = '';
-    if (this.tabsArray.length > 0)
-      this.keySelect = this.tabsArray[0].id;
-    delete this.weights[whole.id];
+
 
   }
 
@@ -1363,5 +1364,3 @@ export class AddProductComponent implements OnInit {
       Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
   }
 }
-
-
