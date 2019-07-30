@@ -428,4 +428,8 @@ shareInstagram(url){
   window.open(newUrl, '_blank');
 }
 
+goToPreview(){
+  this.router.navigate(['/shop'],{ queryParams: { preview:true}})
+}
+
 }
