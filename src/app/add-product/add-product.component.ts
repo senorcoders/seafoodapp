@@ -102,8 +102,8 @@ export class AddProductComponent implements OnInit {
   public sellerChange: Subject<void> = new Subject<void>();
   public info: any;
   showSubPreparation: boolean = true;
-
-
+  public summitted = false;
+  public isAdmin = false;
 
   constructor(private toast: ToastrService, private countryService: CountriesService,
     private productService: ProductService, private sanitizer: DomSanitizer,
@@ -135,10 +135,16 @@ export class AddProductComponent implements OnInit {
 
   }
 
+  public getInvantario() {
+
+  }
+
   getMyData() {
     this.info = this.auth.getLoginData();
     if (this.user['role'] !== 0) {
       this.getStore();
+    } else {
+      this.isAdmin = true;
     }
   }
   emitSellerSelectedToChild() {
@@ -176,7 +182,6 @@ export class AddProductComponent implements OnInit {
       this.selectedSeller = data['store']['owner'];
       this.getSeller(this.selectedSeller);
       this.setValues();
-
     })
   }
 
@@ -380,16 +385,19 @@ export class AddProductComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.productForm.value);
-    if (this.productForm.valid) {
-      console.log("Valido");
-      this.onSubmit();
-    } else {
-      console.log("Invalido");
-      this.validateAllFormFields(this.productForm);
-      this.showError("Please fix all required fields");
-      this.scrollToError();
-    }
+    this.refreshSlider();
+    setTimeout(() => {
+      console.log(this.productForm.valid);
+      if (this.productForm.valid) {
+        console.log("Valido");
+        this.onSubmit();
+      } else {
+        console.log("Invalido");
+        this.validateAllFormFields(this.productForm);
+        this.showError("Please fix all required fields");
+        this.scrollToError();
+      }
+    }, 700);
   }
 
 
@@ -830,7 +838,7 @@ export class AddProductComponent implements OnInit {
       console.log(this.tabsArray, $event);
       this.keySelect = whole.id;
       if (this.weights[this.keySelect] === undefined) {
-        this.weights[this.keySelect] = [{ min: this.options.floor, max: this.options.ceil, price: "", options: Object.assign({}, this.options) }];
+        this.weights[this.keySelect] = [{ min: this.options.floor, max: this.options.ceil, price: "", priceDelivered: '', options: Object.assign({}, this.options) }];
       }
     } else {
       //delete index of tabs
@@ -941,7 +949,7 @@ export class AddProductComponent implements OnInit {
     console.log(this.keySelect);
     let price = this.valueExample && this.valueExample.toString() !== "" && isNaN(this.valueExample) === false ? Number(this.valueExample) : "";
     console.log("Price", this.valueExample);
-    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, options: this.options };
+    let it = { min: this.exampleValues.min, max: this.exampleValues.max, price, priceDelivered: '', options: this.options };
     let index = 0;
     if (this.weights[this.keySelect] == undefined) {
       this.weights[this.keySelect] = [it];
@@ -1034,11 +1042,84 @@ export class AddProductComponent implements OnInit {
     this.refreshSlider();
   }
 
+  public _isNaN = function (value) {
+    if (value === '') return true;
+    return isNaN(value);
+  }
+
+  private validateSliders(key?: string) {
+    let valid: any = true;
+    //if there is key valid for only key
+    if (key) {
+      for (let price of this.weights[key]) {
+        if (this._isNaN(price.price) === true || (this.isAdmin === true && this._isNaN(price.priceDelivered) === true)) {
+          if (this.summitted === true) {
+            valid = false;
+            break;
+          }
+        }
+      }
+    } else {
+      //for all key o tabs
+      for (let key in this.weights) {
+        if (key === 'keys') continue;
+        //check if tabs has prices
+        if (Object.prototype.toString.call(this.weights[key]) !== '[object Array]' || this.weights[key].length === 0) {
+          let tab = this.tabsArray.find(it => it.id === key);
+          valid = {
+            valid: false,
+            message: tab ? tab.name : ''
+          };
+          valid.message += ' has no added prices';
+          break;
+        }
+        //check if all prices is number correct or not empty
+        for (let price of this.weights[key]) {
+          if (this._isNaN(price.price) === true) {
+            valid = {
+              valid: false,
+              message: 'Empty price fields'
+            };
+            break;
+          }
+        }
+        if (valid.valid && valid.valid === false) break;
+      }
+    }
+
+    return valid;
+  }
+
+  public getPriceSeller(index) {
+    if (this._isNaN(this.weights[this.keySelect][index].priceDelivered) === false && this.weights[this.keySelect][index].idVariation) {
+      let price = Number(this.weights[this.keySelect][index].priceDelivered);
+      console.log({
+        "variationID": this.weights[this.keySelect][index].idVariation,
+        "weight": this.weights[this.keySelect][index].min,
+        "deliveredPricePerKG": price
+      });
+      this.productService.saveData('reverse/price', {
+        "variationID": this.weights[this.keySelect][index].idVariation,
+        "weight": this.weights[this.keySelect][index].min,
+        "deliveredPricePerKG": price
+      }).subscribe(it => {
+        console.log(it);
+        if (it['price']) {
+          this.weights[this.keySelect][index].price = it['price'];
+        }
+      });
+    }
+  }
+
   async onSubmit() {
     console.log(this.productForm.value);
     console.log("Weights", this.weights);
     const value = this.productForm.value;
     let product: any = {};
+    this.summitted = true;
+    let validater = this.validateSliders();
+    if (validater.valid === false)
+      return this.toast.error(validater.message, 'Error', { positionClass: 'toast-top-right' });
 
     product.speciesSelected = value.specie;
     product.category = value.category;
@@ -1154,8 +1235,8 @@ export class AddProductComponent implements OnInit {
     };
     if (this.productID !== "") {
       data.idProduct = this.product.id;
-      data.variationsDeleted = this.variationsDeleted;
-      data.pricesDeleted = this.pricesDeleted;
+      // data.variationsDeleted = this.variationsDeleted;
+      // data.pricesDeleted = this.pricesDeleted;
     }
     console.log(data);
 
@@ -1325,7 +1406,10 @@ export class AddProductComponent implements OnInit {
           min: it.min,
           max: it.max,
           price: it.price,
-          id: it.id
+          priceDelivered: this.isAdmin === true ? it.priceDelivered || '' : undefined,
+          id: it.id,
+          stock: varia.stock,
+          idVariation: varia.id
         };
         price = Object.assign(price, this.options);
         return price;

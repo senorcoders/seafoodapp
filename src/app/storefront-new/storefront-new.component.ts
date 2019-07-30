@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class StorefrontNewComponent implements OnInit {
 
   storeID: any;
-  storeEndpoint: any = 'store/';
+  storeEndpoint: any = 'store/'; 
   store: any = {
     id: '',
     name: '',
