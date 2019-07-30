@@ -57,8 +57,10 @@
                   </a>
                 </div>
                 <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                  <span>{{(delivered/currentExchangeRate).toFixed(2)}} / {{unitOfSale}} <small>(delivered
-                      price)</small></span></h5>
+                  <span *ngIf="idUser!==null">{{(delivered/currentExchangeRate).toFixed(2)}} / {{unitOfSale}} <small>(delivered
+                      price)</small></span>
+                      <span *ngIf="idUser===null" style="font-style: italic">sign up to see price</span>
+                    </h5>
 
               </h2>
             </div>
@@ -194,7 +196,7 @@
                   <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
                       Delivered Price</span>
                     <div class="separator-dashed"></div> <span
-                      class="value-row big-font">{{charges.finalPrice}}</span>
+                      class="value-row big-font">Price</span>
                   </div>
                 </ng-template>
 
@@ -226,11 +228,16 @@
                 <div class="dashed-row"><span class="name-row">Raised</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{raised?.name}}</span>
                 </div>
-                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                <div   class="dashed-row" *ngIf="charges && charges.finalPrice && idUser!==null"><span class="name-row big-font">Total
                     Price</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
                 </div>
+                <div   class="dashed-row" *ngIf="charges && charges.finalPrice && idUser===null"><span class="name-row big-font">Total
+                  Price</span>
+                <div class="separator-dashed"></div> <span
+                  class="value-row big-font">Price</span>
+              </div>
               </div>
             </div>
 
@@ -262,8 +269,9 @@
                   {{unitOfSale}}</p>
               </div>
               <div class="col-md-5">
-                <button *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
+                <button *ngIf="!cooming_soon && !outOfStock && max > 0 && idUser!==null" (click)="addToCart()" type="submit"
                   class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+                  <button *ngIf="idUser===null" class="btn-signup" routerLink="/register/buyer">SIGN UP TO ADD</button>
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>
             </div>

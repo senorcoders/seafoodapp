@@ -561,6 +561,20 @@ export class ShopComponent implements OnInit {
       this.isChange[variation] = { status: true, kg: weight };
     });
   }
+
+  addSignUpText(variation){
+    const label = document.getElementById('delivere-price-' + variation);
+    const btn = document.getElementById('btn-add-' + variation);
+    label.innerHTML = 'sign up to see price';
+    (label as HTMLElement).style.color = '#094D82';
+    (label as HTMLElement).style.fontSize = '16px';
+    (label as HTMLElement).style.fontStyle = 'italic';
+    (label as HTMLElement).style.display = 'inline-block';
+    (label as HTMLElement).style.whiteSpace = 'nowrap';
+    (label as HTMLElement).style.textAlign = 'center';
+    (btn as HTMLElement).style.display = 'block';
+
+  }
   //Save product in current usar cart
   addToCart(product) {
     if (this.userInfo === null) return;
