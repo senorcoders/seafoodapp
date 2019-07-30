@@ -684,4 +684,10 @@ form{
 	span{
 		font-weight: 400;
 	}
+	@media screen and (max-width: 992px){
+		width: calc(100% - 120px);
+		left: 70px;
+		font-size: 14px;
+		text-align: center;
+	}
   }
