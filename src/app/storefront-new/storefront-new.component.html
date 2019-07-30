@@ -1,34 +1,35 @@
 <div *ngIf="!empty; else elseBlock">
 
   <section id="di-lyt" *ngIf="simpleLayout; else simpleLayout">
-    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 50%, transparent 50%), url('+ hero +') center/cover'}">
+    <div class="container-fluid hero-container" id="hero"
+      [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 50%, transparent 50%), url('+ hero +') center/cover'}">
       <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
       <div class="hero-text">
         <div class="seller-logo">
           <img [src]="logo" [hidden]='errorLoadingLogo' (error)='errorLoadLogo($event)' class="logo" alt="">
         </div>
         <h1 class="seller-name text-uppercase">{{store.name}}</h1>
-        <p class="seller-description"> 
+        <p class="seller-description">
           {{store.description}}
         </p>
 
         <div id="brands" class="brands-container" *ngIf="brands.length > 0">
           <h3 class="text-uppercase">Brands</h3>
-      
-          <div class="brands-list" >
+
+          <div class="brands-list">
             <div class="brand-logo" *ngFor="let i of brands">
               <img [src]="base + i" alt="">
             </div>
-            
+
           </div>
         </div>
-      
+
         <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
           <h3 class="text-uppercase">Certifications</h3>
-      
+
           <div class="cert-list">
             <div class="cert-logo" *ngFor="let i of certs">
-              <img [src]="base + i" alt="">                  
+              <img [src]="base + i" alt="">
             </div>
 
           </div>
@@ -48,29 +49,29 @@
               <div class="seller-logo">
                 <img src="https://via.placeholder.com/150" class="" alt="">
               </div>
-            
+
               <h1 class="seller-name text-uppercase">{{store.name}}</h1>
               <p class="seller-description">
                 {{store.description}}
               </p>
-            
+
               <div id="brands" class="brands-container" *ngIf="brands.length > 0">
                 <h3 class="text-uppercase">Brands</h3>
-            
+
                 <div class="brands-list" [class.eighty-percent]="brands.length > 7">
                   <div class="brand-logo" *ngFor="let i of brands">
                     <img [src]="base + i" alt="">
                   </div>
-                  
+
                 </div>
               </div>
-            
+
               <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
                 <h3 class="text-uppercase">Certifications</h3>
-            
+
                 <div class="cert-list">
                   <div class="cert-logo" *ngFor="let i of certs">
-                    <img [src]="base + i" alt="">                  
+                    <img [src]="base + i" alt="">
                   </div>
 
                 </div>
@@ -81,13 +82,13 @@
       </div>
     </section>
   </ng-template>
-  
+
 
   <section id="prodcuts">
     <div class="container-fluid product-list">
       <div class="row">
         <div class="col-xl-4 col-lg-4 col-md-6 result" *ngFor="let product of products; let i=index">
-          <div class="single-product-box">
+          <!-- <div *ngIf="product.variations.length==1" class="single-product-box">
             <div class="product-header">
               <div class="row">
                 <div class="col-md-12 text-uppercase">
@@ -99,21 +100,7 @@
               <a routerLink="/edit-product/{{product.id}}" class="image-link-holder">
                 <div class="product-single-img" [style.background-image]="productImage[i]">
                   <div class="product-overlay"></div>
-                  <!-- <div>
-                    <div class="product-status accepted-status" *ngIf="product.status.id == '5c0866f9a0eda00b94acbdc2'">
-                      
-                    </div>
-                    <div class="product-status denied-status" *ngIf="product.status.id == '5c0866f2a0eda00b94acbdc1'">
-                      denied
-                    </div>
-                    <div class="product-status" *ngIf="product.status.id == '5c0866e4a0eda00b94acbdc0'">
-                      
-                    </div>
-                  </div> -->
-            
-            
                   <h2 class="product-view-details">EDIT PRODUCT</h2>
-            
                 </div>
               </a>
             </div>
@@ -121,9 +108,99 @@
               <h4>{{product.name}}</h4>
               <h5>{{product.price.type}} {{product.price.value}} {{product.weight.type}}</h5>
             </div>
-          </div>
+          </div> -->
+
+          <nav>
+            <div class="tab-content" id="nav-tabContent-{{product[0]}}">
+              <div *ngFor="let subp of product.variations; let vari = index;" class="tab-pane fade"
+                [class.active]="vari == 0" [class.show]="vari == 0" id="nav-{{subp?.variation?.id}}" role="tabpanel"
+                aria-labelledby="nav-tab">
+                <div
+                  class="class1 class2 class3 coming-{{subp.cooming_soon}} {{subp.type}} {{i}} {{subp.id }} {{subp.id}} category-{{subp.type}} {{subp.max}} {{subp.min}} {{subp.perBox}} {{subp.minBox}} {{subp.maxBox}} {{(subp.outOfStock || ( (getFixedNumber(subp.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )}} {{vari}} {{subp?.unitOfSale}}">
+                  <div class="single-product-box" style="margin-bottom: 0;">
+                    <div class="product-header">
+                      <div class="row">
+                        <div class="col-md-10">
+
+
+                          <!-- form -->
+
+                          <div
+                            *ngIf="!subp.cooming_soon && ( subp.outOfStock || ( (getFixedNumber(subp.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )">
+                            <h4>Out of Stock</h4>
+                          </div>
+                          <div *ngIf="subp.cooming_soon">
+                            <h4>Coming Soon</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="product-body">
+                      <a
+                        routerLink="/edit-product/{{product.id}}"
+                        class="image-link-holder">
+                        <div class="product-single-img" [style.background-image]="productImage[i]">
+                          <div class="product-overlay"></div>
+                          <h2 class="product-view-details">VIEW DETAILS</h2>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div class="product-footer">
+                      <h4>{{product.name}} <span
+                          *ngIf="subp.fishPreparation != null">({{subp?.fishPreparation?.name}})</span>
+                      </h4>
+                      <h6>
+                        <a routerLink="/vendor/{{store.id}}">{{store.name}}
+                          ({{store.location}})</a>
+                        <span *ngIf="subp.perBox != true"> - In {{subp?.unitOfSale}}</span>
+                        <span *ngIf="subp.perBox == true"> - In Boxes</span>
+                      </h6>
+                    </div>
+
+                  </div>
+                </div>
+
+
+              </div>
+
+            </div>
+            <div class="nav nav-tabs" id="nav-tab-{{product[0]}}" role="tablist">
+              <a *ngFor="let subp of product.variations; let vari = index;" class="nav-item nav-link"
+                [class.active]="vari == 0" id="nav-tab-{{subp?.id}}" data-toggle="tab"
+                href="#nav-footer-{{subp?.id}}" role="tab" aria-controls="nav-home"
+                aria-selected="true">{{subp?.wholeFishWeight?.name | lowercase}} <div class="small-circle">
+                </div></a>
+
+            </div>
+            <div  id="footer-holder-{{product}}"
+              class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
+              <div *ngFor="let subp of product.variations; let vari = index;" class="product-footer tab-pane fade"
+                [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.id}}">
+
+                <h5 id="product-price-{{subp.id}}"
+                  *ngIf='userInfo!==null&&(subp?.minPrice?.finalPrice) != (subp?.maxPrice?.finalPrice)'>
+                  AED
+                  {{(subp?.minPrice?.finalPrice).toFixed(2)}}-{{(subp?.maxPrice?.finalPrice).toFixed(2)}}
+                  / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}}
+                    {{subp?.unitOfSale}}/box)</small></h5>
+                <h5 id="product-price-{{subp.id}}"
+                  *ngIf='userInfo!==null&&(subp?.minPrice?.finalPrice) == (subp?.maxPrice?.finalPrice)'>
+                  AED {{(subp?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small
+                    *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                <h5 id="product-price-{{subp.id}}" *ngIf='userInfo===null'>AED
+                  {{subp?.maxPrice?.finalPrice}} / {{subp?.unitOfSale}} <small
+                    *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                <!-- <p class="eta">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p> -->
+
+              </div>
+            </div>
+            <!-- <div class="signup-box" *ngIf='userInfo===null'>
+              <button class="signup-btn" routerLink='/register/buyer'>SIGN UP TO VIEW PRICE</button>
+            </div> -->
+          </nav>
         </div>
-        
+
         <!-- <div class="col-xl-4 col-lg-6 result" *ngFor="let product of products; let i=index">
           <div class="product-result">
             <div class="col-lg-12 product-img" [style.background-image]="productImage[i]">

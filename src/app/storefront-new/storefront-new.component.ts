@@ -17,6 +17,7 @@ export class StorefrontNewComponent implements OnInit {
   storeID: any;
   storeEndpoint: any = 'store/';
   store: any = {
+    id: '',
     name: '',
     description: '',
     location: '',
@@ -72,11 +73,11 @@ export class StorefrontNewComponent implements OnInit {
   getLogos(){
     this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
         console.log("Logos", result);
-        if(result.hasOwnProperty('brands')){
+        if(result.hasOwnProperty('brands') && result['brands']){
           this.brands = result['brands'];
         } 
 
-        if(result.hasOwnProperty('certifications')){
+        if(result.hasOwnProperty('certifications') && result['certifications']){
           this.certs = result['certifications'];
         } 
        
@@ -138,11 +139,12 @@ export class StorefrontNewComponent implements OnInit {
         } else {
           this.hero = '../../assets/hero_slide.jpg';
         }
+        this.store.id = result['id'];
         this.store.name = result['name'];
         this.store.description = result['description'];
         this.store.location = result['location'];
         this.userID = result['owner'];
-        this.products = result['fishs'];
+        this.products = result['fishs'];  console.log(this.products);
 
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
@@ -159,6 +161,10 @@ export class StorefrontNewComponent implements OnInit {
       }
     });
   }
+  public getFixedNumber(number) {
+    return parseInt(number);
+  }
+
   smallDesc(str) {
     if (str.length > 20) {
       const text = str.split(/\s+/).slice(0, 20).join(' ');
@@ -166,6 +172,10 @@ export class StorefrontNewComponent implements OnInit {
     } else {
       return str;
     }
+  }
+
+  removeSpaces(text) {
+    return text.replace(" ", '-');
   }
 
   sendMail() {
