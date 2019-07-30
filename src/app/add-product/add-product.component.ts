@@ -54,6 +54,7 @@ export class AddProductComponent implements OnInit {
   public typeLevel2 = [];
   public typeLevel3 = [];
   private productID = "";
+  private isEditProduct = false;
   fishPreparation: any = [];
   preparation: FormControl;
   preparationChilds: any = [];
@@ -76,6 +77,7 @@ export class AddProductComponent implements OnInit {
   private storeEndpoint: any = 'api/store/user/';
   public store: any;
   pricesDeleted: any = [];
+  variationsDeleted = [];
   public user: any = {};
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   weightType: any = 'KG';
@@ -167,6 +169,7 @@ export class AddProductComponent implements OnInit {
     this.parent = await this.getParent();
 
     this.productService.getProductDetailVariationsForEdit(this.productID).subscribe(async data => {
+      this.isEditProduct = true;
       this.product = JSON.parse(JSON.stringify(data));
       console.log("Producto", this.product);
       this.store = data['store'];
@@ -247,7 +250,7 @@ export class AddProductComponent implements OnInit {
     let cat = this.parent["level0"] ? this.parent["level0"].id : "";
     let speciesSelected = this.parent["level1"] ? this.parent["level1"].id : '';
     let subSpeciesSelected = this.parent["level2"] ? this.parent["level2"].id : '';
-    let descriptorSelected = this.product["descriptor"] ? this.product["descriptor"] : '';
+    let descriptorSelected = this.product["descriptor"] ? this.product["descriptor"] : ''; console.log(descriptorSelected, subSpeciesSelected, "deldefe");
     this.productForm.controls['name'].setValue(this.product.name);
     this.productForm.controls['brand'].setValue(this.product.brandname);
     this.productForm.controls['raised'].setValue(this.product.raised.id);
@@ -273,8 +276,8 @@ export class AddProductComponent implements OnInit {
     this.productForm.controls['childPreparation'].setValue(this.product.variations[0].fishPreparation.id);
     this.weightType = this.product.unitOfSale;
     console.log("ACA", this.weightType);
-    
-   
+
+
     if (this.user['role'] != 0) {
       this.productForm.controls['name'].disable();
       this.productForm.controls['raised'].disable();
@@ -293,8 +296,8 @@ export class AddProductComponent implements OnInit {
     } else {
       this.updateProcess(subSpeciesSelected);
     }
-    this.setvariations();
-    this.getKgs();
+    // this.setvariations();
+    // this.getKgs();
     let images = await this.getImages(this.product);
     this.productForm.controls['imagesSend'].setValue(images.forForm);
     this.addVariationsToPricing(this.product.variations, this.product);
@@ -510,7 +513,7 @@ export class AddProductComponent implements OnInit {
           val.minOrder = val.averageUnitWeight;
           this.productForm.controls['minOrder'].setValue(val.averageUnitWeight);
         }
-      } else { 
+      } else {
         this.showAverageUnit = false;
       }
 
@@ -667,7 +670,7 @@ export class AddProductComponent implements OnInit {
           this.raisedArray = result['raisedInfo'];
           this.treatments = result['treatmentInfo'];
           this.measurements = result['unitOfMeasureInfo'];
-          if(result.hasOwnProperty('unitOfMeasure')){
+          if (result.hasOwnProperty('unitOfMeasure')) {
             this.productForm.controls['unitOfMeasurement'].setValue(result['unitOfMeasure']);
             this.setConversionRate(result['unitOfMeasure']);
           }
@@ -676,12 +679,12 @@ export class AddProductComponent implements OnInit {
           } else {
             this.fishPreparation = [];
           }
-        }else{
-          if(!this.createProduct){
+          this.setvariations();
+          this.getKgs();
+        } else {
+          if (!this.createProduct) {
             this.selectedType = this.productForm.get('subspecie').value;
             this.updateProcess(this.selectedType);
-            this.setvariations();
-            this.getKgs();
           }
         }
 
@@ -713,12 +716,12 @@ export class AddProductComponent implements OnInit {
     let preparation = this.productForm.get('childPreparation').value;
     this.productService.getData(`fishvariations/type/${this.selectedType}/preparation/${preparation}`).subscribe(res => {
       console.log("KGS", res);
-      if(this.createProduct){
+      if (this.createProduct) {
         this.tabsArray = [];
         this.weights = { keys: [] };
       }
-
-      this.variationInfo = res['variationInfo'];
+      if (res && res['variationInfo'])
+        this.variationInfo = res['variationInfo'];
     });
   }
 
@@ -820,6 +823,7 @@ export class AddProductComponent implements OnInit {
   }
 
   pushTab(whole, $event) {
+    //if no is checkend the add to tabs arrar
     if (this.isSelecChecked(whole.id, false) === false) {
       this.tabsArray.push(whole);
       this.weights['keys'].push(whole.id)
@@ -830,17 +834,33 @@ export class AddProductComponent implements OnInit {
       }
     } else {
       //delete index of tabs
-      if (this.tabsArray.length === 1) {
-        this.tabsArray = [];
-      } else {
-        let index = this.tabsArray.findIndex(it => {
-          return it.id === whole.id;
-        });
-        if (index !== -1) {
+      let index = this.tabsArray.findIndex(it => {
+        return it.id === whole.id;
+      });
+      if (index !== -1) {
+        //in tbasarray is have idVariation
+        let varia = JSON.parse(JSON.stringify(this.tabsArray[index]));
+        if (this.tabsArray.length === 1)
+          this.tabsArray = [];
+        else
           this.tabsArray.splice(index, 1);
-        }
-      }
 
+        //check if add to variotionsDeleted and edit product
+        if (this.isEditProduct === true && varia.idVariation) {
+          index = this.variationsDeleted.findIndex(it => {
+            return it === varia.idVariation;
+          });
+          if (index === -1) {
+            this.variationsDeleted.push(varia.idVariation);
+            //for add id prices for delete on api
+            this.pricesDeleted = this.pricesDeleted.concat(this.weights[whole.id].filter(it => it.id).map(it => {
+              return it.id;
+            }))
+          }
+        }
+
+
+      }
       //delete index of keys
       if (this.weights['keys'].length === 1) {
         this.weights['keys'] = [];
@@ -857,12 +877,12 @@ export class AddProductComponent implements OnInit {
       if (this.tabsArray.length > 0)
         this.keySelect = this.tabsArray[0].id;
       delete this.weights[whole.id];
-
     }
 
 
 
   }
+
 
   public selectKey(k) {
     this.keySelect = k.id;
@@ -998,11 +1018,10 @@ export class AddProductComponent implements OnInit {
   public deletePrice(headAction, i) {
     if (this.productID !== "" &&
       this.weights[this.keySelect][i].id !== null &&
-      this.weights[this.keySelect][i].id !== undefined
+      this.weights[this.keySelect][i].id !== undefined &&
+      this.isEditProduct === true
     ) {
-
       this.pricesDeleted.push(this.weights[this.keySelect][i].id);
-
     }
     if (this.weights[this.keySelect].length === 1) {
       this.weights[this.keySelect] = [];
@@ -1069,12 +1088,20 @@ export class AddProductComponent implements OnInit {
       for (const it of Object.keys(variations)) {
         const wholeFishWeight = it;
         console.log("wholefish", wholeFishWeight);
-        const itr = {
+        let itr: any = {
           fishPreparation,
           parentFishPreparation,
           wholeFishWeight,
           prices: variations[it].map(itereOptions)
         };
+        //if is edit get idVariations if have
+        if (this.isEditProduct === true) {
+          let varI = this.tabsArray.find(it => {
+            return it.id === itr.wholeFishWeight && it.idVariation;
+          });
+          if (varI)
+            itr.idVariation = varI.idVariation;
+        }
         variationsEnd.push(itr);
       }
     }
@@ -1107,7 +1134,7 @@ export class AddProductComponent implements OnInit {
       'perBox': value.perBoxes,
       'perBoxes': value.perBoxes,
       'unitOfSale': value.unitOfMeasurement,
-      'boxWeight':  value.averageUnitWeight,
+      'boxWeight': value.averageUnitWeight,
       'minimumOrder': value.minOrder,
       'maximumOrder': value.maxOrder,
       // "acceptableSpoilageRate": features.acceptableSpoilageRate,
@@ -1127,6 +1154,8 @@ export class AddProductComponent implements OnInit {
     };
     if (this.productID !== "") {
       data.idProduct = this.product.id;
+      data.variationsDeleted = this.variationsDeleted;
+      data.pricesDeleted = this.pricesDeleted;
     }
     console.log(data);
 
@@ -1287,7 +1316,7 @@ export class AddProductComponent implements OnInit {
     let keys = [];
     for (let varia of variations) {
       if (this.keySelect === '') this.keySelect = varia.wholeFishWeight.id;
-      this.tabsArray.push(varia.wholeFishWeight);
+      this.tabsArray.push(Object.assign(varia.wholeFishWeight, { idVariation: varia.id }));
       keys.push(varia.wholeFishWeight.id);
       this.weights[varia.wholeFishWeight.id] = varia.prices.sort((a, b) => {
         return a.min - b.min;
@@ -1295,14 +1324,15 @@ export class AddProductComponent implements OnInit {
         let price = {
           min: it.min,
           max: it.max,
-          price: it.price
+          price: it.price,
+          id: it.id
         };
         price = Object.assign(price, this.options);
         return price;
       });
     }
     this.weights['keys'] = keys;
-    console.log(this.weights);
+    console.log(this.weights, "tabs", this.tabsArray);
     let min = Number(minMax.minimunorder);
     let max = Number(minMax.maximumorder);
     if (min > 0 && max > 0) {
@@ -1321,7 +1351,7 @@ export class AddProductComponent implements OnInit {
     this.setOptionsInAll(true);
   }
 
-  setConversionRate(unidad){
+  setConversionRate(unidad) {
     let unit = unidad;
     let object = this.filterByValue(this.measurements, unit);
     console.log(object);
@@ -1329,10 +1359,8 @@ export class AddProductComponent implements OnInit {
 
   }
 
-   filterByValue(array, string) {
+  filterByValue(array, string) {
     return array.filter(o =>
-        Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
+      Object.keys(o).some(k => o[k].toString().toLowerCase().includes(string.toLowerCase())));
+  }
 }
-}
-
-
