@@ -105,7 +105,7 @@ export class ReviewcartComponent implements OnInit {
       bLastName:this.bLastName,
       bCompany:this.bCompany,
       bAddress:this.bAddress,
-      bCity:this.sCity,
+      bCity:this.bCity,
       bCountry:this.sCountry
       
 
