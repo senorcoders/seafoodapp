@@ -15,7 +15,7 @@ import { environment } from '../../environments/environment';
 export class StorefrontNewComponent implements OnInit {
 
   storeID: any;
-  storeEndpoint: any = 'store/';
+  storeEndpoint: any = 'store/'; 
   store: any = {
     name: '',
     description: '',
@@ -72,11 +72,11 @@ export class StorefrontNewComponent implements OnInit {
   getLogos(){
     this.productService.getData(`api/store/${this.storeID}/brandscertifications`).subscribe(result => {
         console.log("Logos", result);
-        if(result.hasOwnProperty('brands')){
+        if(result.hasOwnProperty('brands') && result['brands']){
           this.brands = result['brands'];
         } 
 
-        if(result.hasOwnProperty('certifications')){
+        if(result.hasOwnProperty('certifications') && result['certifications']){
           this.certs = result['certifications'];
         } 
        
@@ -142,7 +142,7 @@ export class StorefrontNewComponent implements OnInit {
         this.store.description = result['description'];
         this.store.location = result['location'];
         this.userID = result['owner'];
-        this.products = result['fishs'];
+        this.products = result['fishs']; console.log(this.products);
 
         this.products.forEach((data, index) => {
           if (data.imagePrimary && data.imagePrimary !== '') {
