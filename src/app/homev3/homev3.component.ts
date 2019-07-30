@@ -86,7 +86,7 @@ export class Homev3Component implements OnInit {
                     spanWrapper.css('width', newWidth);
                 } else if (!headline.hasClass('type')) {
                   console.log("No soy type");
-                    var words = headline.find('.cd-words-wrapper b'),
+                    var words = headline.find('.cd-words-wrapper b:first-child'),
                         width = 0;
                     words.each(function() {
                         var wordWidth = $(this).width();
@@ -100,8 +100,18 @@ export class Homev3Component implements OnInit {
             });
         }
     
+        function dynamicWidth($headlines, word){
+          $headlines.each(function() {
+          var headline = $(this);
+          var width = 0;
+          var wordWidth = word.width();
+          console.log("Word width", wordWidth);
+          if (wordWidth > width) width = wordWidth;
+          headline.find('.cd-words-wrapper').css('width', width);
+      });
+        }
         function hideWord($word) {
-          $('.carousel').carousel('next')
+          $('.carousel').carousel('next');
 
             var nextWord = takeNext($word);
             if ($word.parents('.cd-headline').hasClass('type')) {
@@ -176,6 +186,7 @@ export class Homev3Component implements OnInit {
     
         function showLetter($letter, $word, $bool, $duration) {
             $letter.addClass('in').removeClass('out');
+
             if (!$letter.is(':last-child')) {
                 setTimeout(function() {
                     showLetter($letter.next(), $word, $bool, $duration);
@@ -191,6 +202,13 @@ export class Homev3Component implements OnInit {
                         hideWord($word)
                     }, animationDelay)
                 }
+
+                setTimeout(() => {
+                  dynamicWidth($('.cd-headline'), $word);
+
+                }, 40);
+
+
             }
         }
     
