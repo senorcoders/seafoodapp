@@ -69,9 +69,11 @@ export class AdminCategoryUpdateComponent implements OnInit {
     this.category_service.getCategoryInfo( this.category_id ).subscribe(
       res => {
         this.category = res;
+        jQuery("html, body").animate({ scrollTop: 100 }, 1000);
+
         //populate current fields in the category
         this.catForm.controls['name'].setValue(this.category.name);
-        this.catForm.controls['raised'].setValue(this.category.raised);
+        this.catForm.controls['raised'].patchValue(this.category.raised);
         this.catForm.controls['treatment'].setValue(this.category.treatment);
         this.catForm.controls['unitOfMeasure'].setValue(this.category.unitOfMeasure);
         this.catForm.controls['fishPreparation'].setValue( Object.keys( this.category.fishPreparation ));
@@ -98,6 +100,7 @@ export class AdminCategoryUpdateComponent implements OnInit {
                       });
                       (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, value ) );
                       this.currentChildPreparations.push( { parent: parentPreparation, preparation: childBD } );
+                     
                     } else { // if didn't had variations yet
                     console.log('adding empty var');
                       (<FormArray>this.catForm.get('fishVariations')).push( this.addOtherFishVariation( this.category.id, childPreparation, '' ) );
