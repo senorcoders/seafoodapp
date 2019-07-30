@@ -3,7 +3,7 @@ import { MenuItems } from './menu-items';
 import { AuthenticationService } from '../../services/authentication.service';
 import { IsLoginService } from '../login/is-login.service';
 import { ProductService } from '../../services/product.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ToastrService } from '../../toast.service';
 import { LanguageService } from '../language/language.service';
@@ -42,11 +42,12 @@ export class MenuNavComponent {
   lastScroll = 0;
   scrollUp: boolean;
   isMobile:boolean = false;
+  preview:boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthenticationService, private menuItems: MenuItems,
     private isLoggedSr: IsLoginService, private router: Router, private productService: ProductService,
     private toast: ToastrService, private translate: TranslateService, private languageService: LanguageService,
-    private cart: CartService, private orders: OrdersService) {
+    private cart: CartService, private orders: OrdersService, private route: ActivatedRoute) {
       jQuery(document).ready(function () {
         if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
           console.log("Es movil");
@@ -58,6 +59,13 @@ export class MenuNavComponent {
           jQuery('.access-seller > li:not(.logout-link)').attr('data-target', '#navbarSupportedContent');
         }
       });
+
+      this.route.queryParams.subscribe(params => {
+          this.preview = params.preview;
+          console.log("preview", this.preview);
+
+      })
+
 
   }
 
@@ -321,5 +329,9 @@ export class MenuNavComponent {
     }, error => {
       console.error(error);
     });
+  }
+
+  goToPreview(){
+    this.router.navigate(['/shop'],{ queryParams: { preview:true}})
   }
 }

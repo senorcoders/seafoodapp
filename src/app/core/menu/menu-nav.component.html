@@ -1,6 +1,8 @@
  <div (window:scroll)="classOnScroll($event)"  [ngClass]="[(isScrolled === true) ? 'scrolled' : '', (scrollUp === true) ? 'fixedAtTop' : '']" class="top-nav fixed-top" id="top-nav">
   <div class="container-fluid">
     <div class="row" style="align-items: center;height: 100%; margin: 0;   flex-wrap: nowrap;">
+        <p class="preview-absolute" *ngIf="preview">YOU ARE CURRENTLY IN <span> PREVIEW MODE</span></p>
+
       <div class="address">
        <a class="navbar-brand" routerLink="/" class="img-logo" [ngClass]="{'menu-buyer':isLogged && role==2}">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -246,10 +248,10 @@
           </ul>
           <!-- end menu seller -->
           <ul class="navbar-nav access" *ngIf="!isLogged">
-              <li class="nav-item flex-nav-link">
-                  <a routerLink="/shop" class="nav-link">shop</a>
+              <li *ngIf="!preview" class="nav-item flex-nav-link" (click)="goToPreview()">
+                  <a  class="nav-link">shop</a>
                 </li>
-            <li class="nav-item flex-nav-link">
+            <li *ngIf="!preview" class="nav-item flex-nav-link">
               <a routerLink="/login" class="nav-link">{{ "Menu.login" | translate }}</a>
             </li>
             
