@@ -126,7 +126,7 @@
         }
     }
 
-    input.form-control.is-invalid {
+    input.form-control.is-invalid, input.error {
         border-bottom: solid 2px $red;
 
     }
@@ -1084,4 +1084,8 @@
         font-weight: 400;
         font-size: 24px;
     }
+}
+
+div.error span, input.error {
+    border-bottom: solid 2px red !important;
 }
