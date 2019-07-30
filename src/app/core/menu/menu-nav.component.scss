@@ -628,6 +628,9 @@ form{
 		padding: 0 !important;
 	}
 	&.blue-nav-bg{
+		a.nav-link{
+			color: $white !important;
+		}
 		background: $light_blue;
 		cursor: pointer;
 		&:hover{
@@ -639,6 +642,9 @@ form{
 	&.gray-nav-bg{
 		background: $gray;
 		cursor: pointer;
+		a.nav-link{
+			color: $white !important;
+		}
 		&:hover{
 			background: $dark-blue !important;
 			border-color: $dark-blue !important;
@@ -667,4 +673,21 @@ form{
     line-height: 25px;
     border-radius: 50%;
     background: #3498e5;
+  }	
+
+  .preview-absolute{
+	position: absolute;
+    left: 180px;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 100;
+	span{
+		font-weight: 400;
+	}
+	@media screen and (max-width: 992px){
+		width: calc(100% - 120px);
+		left: 70px;
+		font-size: 14px;
+		text-align: center;
+	}
   }

@@ -128,12 +128,12 @@ const appRoutes: Routes = [
   {
     path: 'product/:id',
     loadChildren: () => import('app/single-product/single-product.module').then(m => m.SingleProductModule),
-    canActivate: [NonsellerRouterService]
+    canActivate: []
   },
   {
     path: 'product/:id/:kg/:fishOption/:variationId',
     loadChildren: () => import('app/single-product/single-product.module').then(m => m.SingleProductModule),
-    canActivate: [NonsellerRouterService]
+    canActivate: []
   },
   {
     path: 'edit-product/:id',

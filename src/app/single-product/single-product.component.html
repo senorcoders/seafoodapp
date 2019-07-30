@@ -10,29 +10,30 @@
         <div class="col-lg-6 product-img hidden-desktop">
           <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators" *ngIf="images.length > 1">
-              <li   data-target="#carouselExampleIndicators" [attr.data-slide-to]="0" class="active"></li>
-              <li *ngFor="let image of images; index as i;"  data-target="#carouselExampleIndicators" [attr.data-slide-to]="i + 1"></li>
-             
+              <li data-target="#carouselExampleIndicators" [attr.data-slide-to]="0" class="active"></li>
+              <li *ngFor="let image of images; index as i;" data-target="#carouselExampleIndicators"
+                [attr.data-slide-to]="i + 1"></li>
+
             </ol>
 
             <div class="carousel-inner" *ngIf="!images;else sliderMobile">
               <div class="carousel-item active">
                 <div class="main-featured-img" [style.background-image]="'../../assets/default-img-product.jpg'"></div>
               </div>
-             
+
             </div>
             <ng-template #sliderMobile>
-            <div class="carousel-inner">
-              <div class="carousel-item active" *ngIf="mainImg && mainImg!=''">
-                <div  class="main-featured-img" [style.background-image]="mainImg"></div>
-              </div>
-              <div class="carousel-item" *ngFor="let image of images; index as i;">
-                <div  class="main-featured-img" [style.background-image]="image">
+              <div class="carousel-inner">
+                <div class="carousel-item active" *ngIf="mainImg && mainImg!=''">
+                  <div class="main-featured-img" [style.background-image]="mainImg"></div>
                 </div>
-            </div>
-            </div>
+                <div class="carousel-item" *ngFor="let image of images; index as i;">
+                  <div class="main-featured-img" [style.background-image]="image">
+                  </div>
+                </div>
+              </div>
             </ng-template>
-          
+
           </div>
         </div>
         <div class="col-lg-6 product-img hidden-mobile" id="product-images" *ngIf="!showLoading">
@@ -54,9 +55,12 @@
                   <a routerLink="/edit-product/{{productID}}" class="">
                     <fa name="pencil" class="pencil"></fa>Edit
                   </a>
-                </div> 
+                </div>
                 <h5 class="product-type-price" *ngIf="types != ''">{{types?.level0?.name}}
-                  <span>{{(delivered/currentExchangeRate).toFixed(2)}} / {{unitOfSale}} <small>(delivered price)</small></span></h5>
+                  <span *ngIf="idUser!==null">{{(delivered/currentExchangeRate).toFixed(2)}} / {{unitOfSale}} <small>(delivered
+                      price)</small></span>
+                      <span *ngIf="idUser===null" style="font-style: italic">sign up to see price</span>
+                    </h5>
 
               </h2>
             </div>
@@ -94,53 +98,114 @@
             <div class="tab-content" id="single-tabs">
               <div class="tab-pane fade show active" id="nav-price" role="tabpanel" aria-labelledby="nav-price-tab">
 
-                <div class="convert-row">Converted from USD <span>AED</span></div>
-                <!-- <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span>
+                <ng-template [ngIf]='idUser!==null'>
+                  <div class="convert-row">Converted from USD <span>AED</span></div>
+                  <!-- <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span>
                 </div> -->
-                <div class="dashed-row" *ngIf="FXRateFees/currentExchangeRate!==0"><span class="name-row">FX Rate
-                    Fee</span>
-                  <div class="separator-dashed"></div> <span
-                    class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
-                </div>
-                <div class="dashed-row"><span class="name-row">Seller Price / {{unitOfSale}}</span>
-                  <div class="separator-dashed"></div> <span
-                    class="value-row" style="color: #121619;">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
-                </div>
-                <div class="dashed-row"><span class="name-row">Subtotal Price / {{unitOfSale}}</span>
-                  <div class="separator-dashed"></div> 
-                  <span *ngIf="perBox != true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
-                  <span *ngIf="perBox == true"  class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>
-                </div>
-                <div class="dashed-row"><span class="name-row flex-name-row">Taxes and Customs<img   tooltip="Taxes, Customs, & Fees"
-                  placement="right" show-delay="0" src="../../assets/svg/help-circle-outline.svg" alt=""></span>
-                  <div class="separator-dashed"></div> <span
-                    class="value-row">{{(charges?.sfsMarginCost + charges?.exchangeRateCommission +  charges?.customsFee + charges?.inventoryFeeByWeight).toFixed(2)}}</span>
-                </div>
-               
-                
-                <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping, Handling and fees</span>
-                  <div class="separator-dashed"></div> <span
-                    class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span>
-                </div>
-                <!-- <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
+                  <div class="dashed-row" *ngIf="FXRateFees/currentExchangeRate!==0"><span class="name-row">FX Rate
+                      Fee</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{(FXRateFees/currentExchangeRate).toFixed(2)}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row">Seller Price / {{unitOfSale}}</span>
+                    <div class="separator-dashed"></div> <span class="value-row"
+                      style="color: #121619;">{{(charges?.variation?.price/currentExchangeRate).toFixed(2)}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row">Subtotal Price / {{unitOfSale}}</span>
+                    <div class="separator-dashed"></div>
+                    <span *ngIf="perBox != true"
+                      class="value-row">{{((charges?.variation?.price/currentExchangeRate) * count).toFixed(2)}}</span>
+                    <span *ngIf="perBox == true"
+                      class="value-row">{{((charges?.variation?.price/currentExchangeRate) * (count * boxWeight)).toFixed(2)}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row flex-name-row">Taxes and Customs<img
+                        tooltip="Taxes, Customs, & Fees" placement="right" show-delay="0"
+                        src="../../assets/svg/help-circle-outline.svg" alt=""></span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{(charges?.sfsMarginCost + charges?.exchangeRateCommission +  charges?.customsFee + charges?.inventoryFeeByWeight).toFixed(2)}}</span>
+                  </div>
+
+
+                  <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping,
+                      Handling
+                      and fees</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{(charges.shippingCost.cost/currentExchangeRate).toFixed(2)}}</span>
+                  </div>
+                  <!-- <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span>
                 </div> -->
-                 <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">VAT ({{charges?.uaeTaxes}}%)</span>
+                  <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">VAT
+                      ({{charges?.uaeTaxes}}%)</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
+                  </div>
+                  <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                      Delivered Price</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
+                  </div>
+                </ng-template>
+
+                <ng-template [ngIf]='idUser===null'>
+                  <div class="convert-row">Converted from USD <span>AED</span></div>
+                  <!-- <div class="dashed-row"><span class="name-row">Acceptable Spoilage</span>
+                  <div class="separator-dashed"></div> <span class="value-row">{{mortalityRate}}%</span>
+                </div> -->
+                  <div class="dashed-row" *ngIf="FXRateFees/currentExchangeRate!==0"><span class="name-row">FX Rate
+                      Fee</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{FXRateFees}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row">Seller Price / {{unitOfSale}}</span>
+                    <div class="separator-dashed"></div> <span class="value-row"
+                      style="color: #121619;">{{charges?.variation?.price}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row">Subtotal Price / {{unitOfSale}}</span>
+                    <div class="separator-dashed"></div>
+                    <span *ngIf="perBox != true"
+                      class="value-row">{{charges?.variation?.price}}</span>
+                    <span *ngIf="perBox == true"
+                      class="value-row">{{charges?.variation?.price}}</span>
+                  </div>
+                  <div class="dashed-row"><span class="name-row flex-name-row">Taxes and Customs<img
+                        tooltip="Taxes, Customs, & Fees" placement="right" show-delay="0"
+                        src="../../assets/svg/help-circle-outline.svg" alt=""></span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{charges?.sfsMarginCost}}</span>
+                  </div>
+
+
+                  <div class="dashed-row" *ngIf="charges && charges.shippingFee"><span class="name-row">Shipping,
+                      Handling
+                      and fees</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{charges.shippingCost.cost}}</span>
+                  </div>
+                  <!-- <div class="dashed-row"><span class="name-row">Delivered Price / kg</span>
                   <div class="separator-dashed"></div> <span
-                    class="value-row">{{(charges.uaeTaxesFee/currentExchangeRate).toFixed(2)}}</span>
-                </div>
-                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
-                    Delivered Price</span>
-                  <div class="separator-dashed"></div> <span
-                    class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
-                </div>
+                    class="value-row">{{(delivered/currentExchangeRate).toFixed(2)}}</span>
+                </div> -->
+                  <div class="dashed-row" *ngIf="charges && charges.uaeTaxesFee"><span class="name-row">VAT
+                      ({{charges?.uaeTaxes}}%)</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row">{{charges.uaeTaxesFee}}</span>
+                  </div>
+                  <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                      Delivered Price</span>
+                    <div class="separator-dashed"></div> <span
+                      class="value-row big-font">Price</span>
+                  </div>
+                </ng-template>
+
               </div>
               <div class="tab-pane fade" id="nav-product" role="tabpanel" aria-labelledby="nav-product-tab">
 
                 <div class="dashed-row"><span class="name-row">Company</span>
-                  <div class="separator-dashed"></div> <span class="value-row"><a routerLink="/vendor/{{storeId}}">{{storeName}}</a></span>
+                  <div class="separator-dashed"></div> <span class="value-row"><a
+                      routerLink="/vendor/{{storeId}}">{{storeName}}</a></span>
                 </div>
                 <div class="dashed-row" *ngIf="brandname != ''"><span class="name-row">Brand</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{brandname}}</span>
@@ -163,35 +228,50 @@
                 <div class="dashed-row"><span class="name-row">Raised</span>
                   <div class="separator-dashed"></div> <span class="value-row">{{raised?.name}}</span>
                 </div>
-                <div class="dashed-row" *ngIf="charges && charges.finalPrice"><span class="name-row big-font">Total
+                <div   class="dashed-row" *ngIf="charges && charges.finalPrice && idUser!==null"><span class="name-row big-font">Total
                     Price</span>
                   <div class="separator-dashed"></div> <span
                     class="value-row big-font">{{(charges.finalPrice/currentExchangeRate).toFixed(2)}}</span>
                 </div>
+                <div   class="dashed-row" *ngIf="charges && charges.finalPrice && idUser===null"><span class="name-row big-font">Total
+                  Price</span>
+                <div class="separator-dashed"></div> <span
+                  class="value-row big-font">Price</span>
+              </div>
               </div>
             </div>
 
-            <div  class="row range-row">
+            <div class="row range-row">
               <div class="col-md-12" style="padding-left: 0;">
-                <p  class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}} {{unitOfSale}} delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
-                <p *ngIf="outOfStock || max == 0" class="eta" >Out of Stock.</p>
+                <p class="eta" *ngIf="charges?.eta && !outOfStock  && max > 0">Get up to {{charges?.eta?.available}}
+                  {{unitOfSale}} delivered by {{(charges?.eta?.date) | date:'fullDate'}}.</p>
+                <p *ngIf="outOfStock || max == 0" class="eta">Out of Stock.</p>
               </div>
               <div class="col-md-7" *ngIf="!cooming_soon && !outOfStock && max > 0">
 
                 <form *ngIf="!cooming_soon" class="kg-form">
-                    <span class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(min)}}</span>
-                    <div class="my-input-container">  
-                      <input *ngIf="perBox != true" type="number" id="edit-qty-1" placeholder="enter weight..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
-                      <input *ngIf="perBox == true" type="number" id="edit-qty-1"  placeholder="enter box..." pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count" [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()" (change)="verifyQty()">
-                      <span class="suffix" [hidden]="isVacio('edit-qty-1', '1-suffix')" id="1-suffix">{{getTag(perBox, 'edit-qty-1')}}</span>
-                    </div>
-                    <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
+                  <span class="amount-span" style="margin-right: 5px;">min <br> {{getFixedNumber(min)}}</span>
+                  <div class="my-input-container">
+                    <input *ngIf="perBox != true" type="number" id="edit-qty-1" placeholder="enter weight..."
+                      pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count"
+                      [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()"
+                      (change)="verifyQty()">
+                    <input *ngIf="perBox == true" type="number" id="edit-qty-1" placeholder="enter box..."
+                      pattern="[0-9]*" inputmode="numeric" class="qty-number" [(ngModel)]="count"
+                      [ngModelOptions]="{standalone: true}" (input)="handleInput($event)" (keydown.enter)="verifyQty()"
+                      (change)="verifyQty()">
+                    <span class="suffix" [hidden]="isVacio('edit-qty-1', '1-suffix')"
+                      id="1-suffix">{{getTag(perBox, 'edit-qty-1')}}</span>
+                  </div>
+                  <span class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(max)}}</span>
                 </form>
-                <p  *ngIf="perBox == true" class="eta text-center" style="margin-top: -15px;"> 1 Box = {{boxWeight}} {{unitOfSale}}</p>
+                <p *ngIf="perBox == true" class="eta text-center" style="margin-top: -15px;"> 1 Box = {{boxWeight}}
+                  {{unitOfSale}}</p>
               </div>
               <div class="col-md-5">
-                <button  *ngIf="!cooming_soon && !outOfStock && max > 0" (click)="addToCart()" type="submit"
+                <button *ngIf="!cooming_soon && !outOfStock && max > 0 && idUser!==null" (click)="addToCart()" type="submit"
                   class="btn-gray">{{'SingleProduct.add' | translate}}<i class="hook-img"></i></button>
+                  <button *ngIf="idUser===null" class="btn-signup" routerLink="/register/buyer">SIGN UP TO ADD</button>
                 <!-- <button *ngIf="showCart" (click)="goToCart()" class="btn-gray btn-view">{{'SingleProduct.view' | translate}}<i class="hook-img"></i></button> -->
               </div>
             </div>
@@ -210,20 +290,20 @@
         </div>
       </div>
     </div>
-  </div> 
+  </div>
 </div>
 
 <ng-template #elseBlock>
 
-    <div class="container-fluid empty-container">
-        <div class="row">
-          <div class="col-lg-12 text-center">
-            <img src="../../assets/svg/404.svg" width="350px;" alt="">
-            <h4><strong>ERROR 404:</strong>  PRODUCT NOT FOUND</h4>
-            <button class="outline-btn" routerLink="/">
-              fish somewhere else
-            </button>
-          </div>
-        </div>
-      </div> 
+  <div class="container-fluid empty-container">
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <img src="../../assets/svg/404.svg" width="350px;" alt="">
+        <h4><strong>ERROR 404:</strong> PRODUCT NOT FOUND</h4>
+        <button class="outline-btn" routerLink="/">
+          fish somewhere else
+        </button>
+      </div>
+    </div>
+  </div>
 </ng-template>

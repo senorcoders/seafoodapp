@@ -1148,3 +1148,24 @@ input[type=range]:focus::-ms-fill-upper {
 .margin-5{
   margin: 5px auto !important;
 }
+
+.signup-box{
+  max-width: 354px;
+  margin: 15px auto;
+  button{
+    width: 100%;
+    background: $light_blue;
+    border-radius: 2px;
+    height: 65px;
+    line-height: 65px;
+    color: $white;
+    border: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    letter-spacing: 1.5px;
+    &:hover{
+      background: $dark_blue;
+    }
+  }
+}

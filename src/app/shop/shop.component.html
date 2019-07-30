@@ -217,9 +217,14 @@
                         <form *ngIf="!product[1].variations[0].variation.outOfStock && ( (getFixedNumber(product[1].variations[0].variation.max) !== 0 && product[1].variations[0].perBox !== true ) || ( product[1].variations[0].perBox == true && getFixedNumber(product[1].variations[0].maxBox) !== 0 ) )">
                             <span *ngIf="product[1].variations[0].perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product[1].variations[0].variation.min)}}</span>
                             <span *ngIf="product[1].variations[0].perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(product[1].variations[0].minBox)}}</span>
-                            <div class="my-input-container">
+                            <div class="my-input-container" *ngIf="userInfo !== null">
                               <input *ngIf="product[1].variations[0].perBox != true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)" (change)="manualInput(product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)" (keydown.enter)="manualInput(product[1].variations[0].variation.max, product[1].variations[0].variation.min, product[1].variations[0].variation.id, product[1].variations[0].type)">
                               <input *ngIf="product[1].variations[0].perBox == true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)" (change)="manualInput(product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)" (keydown.enter)="manualInput(product[1].variations[0].maxBox, product[1].variations[0].minBox, product[1].variations[0].variation.id, product[1].variations[0].type)">
+                              <span class="suffix" [hidden]="isVacio('amount-'+product[1].variations[0].variation.id, product[1].variations[0].variation.id+ '-suffix')" [id]="product[1].variations[0].variation.id+ '-suffix'">{{getTag(product[1].variations[0], 'amount-'+product[1].variations[0].variation.id)}}</span>
+                            </div>
+                            <div class="my-input-container" *ngIf="userInfo === null">
+                              <input *ngIf="product[1].variations[0].perBox != true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter weight..." class="qty-number" (input)="addSignUpText(product[1].variations[0].variation.id)" (change)="addSignUpText(product[1].variations[0].variation.id)" (keydown.enter)="addSignUpText(product[1].variations[0].variation.id)">
+                              <input *ngIf="product[1].variations[0].perBox == true" type="number" id="amount-{{product[1].variations[0].variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="addSignUpText(product[1].variations[0].variation.id)" (change)="addSignUpText(product[1].variations[0].variation.id)" (keydown.enter)="addSignUpText(product[1].variations[0].variation.id)">
                               <span class="suffix" [hidden]="isVacio('amount-'+product[1].variations[0].variation.id, product[1].variations[0].variation.id+ '-suffix')" [id]="product[1].variations[0].variation.id+ '-suffix'">{{getTag(product[1].variations[0], 'amount-'+product[1].variations[0].variation.id)}}</span>
                             </div>
                             <span *ngIf="product[1].variations[0].perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product[1].variations[0].variation.max)}}</span>
@@ -231,7 +236,8 @@
                         <div *ngIf="product[1].variations[0].cooming_soon" > <h4>Coming Soon</h4></div>
                       </div>
                      <div class="col-md-2 text-right">
-                       <a id="btn-add-{{product[1].variations[0].variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product[1].variations[0])"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                       <a  *ngIf="userInfo !== null" id="btn-add-{{product[1].variations[0].variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(product[1].variations[0])"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                       <a *ngIf="userInfo === null" id="btn-add-{{product[1].variations[0].variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'" disabled  (click)="addToCart(product[1].variations[0])"><img src="../../assets/svg/cart-arrow-down-gray.svg" alt=""></a> 
                      </div>
                    </div>
                   </div>
@@ -255,15 +261,26 @@
                      </div>
                     </a>
                   </div>
-                  <div class="product-footer">
+                  <div class="product-footer" >
                     <h4>{{product[1].variations[0].name}} <span *ngIf="product[1].variations[0].variation.fishPreparation != null">({{product[1].variations[0]?.variation?.fishPreparation?.name}})</span> </h4>
                     <h6><a routerLink="/vendor/{{product[1].variations[0]?.store?.id}}">{{product[1].variations[0]?.store?.name}} ({{product[1].variations[0]?.store?.location}})</a> 
                       <span *ngIf="product[1].variations[0].perBox != true"> - In {{product[1].variations[0]?.unitOfSale}}</span>
                       <span *ngIf="product[1].variations[0].perBox == true"> - In Boxes</span>
                     </h6>
-                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice) && product[1].variations[0].cooming_soon !== true'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].variation.maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
-                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice) && product[1].variations[0].cooming_soon !== true'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
+
+                    <div *ngIf='userInfo!==null'>
+
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='userInfo!==null&&(product[1].variations[0].variation?.minPrice?.finalPrice) != (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.minPrice?.finalPrice).toFixed(2)}}-{{(product[1].variations[0].maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
+                      <h5 id="product-price-{{product[1].variations[0].variation.id}}" *ngIf='userInfo!==null&&(product[1].variations[0].variation?.minPrice?.finalPrice) == (product[1].variations[0].variation?.maxPrice?.finalPrice)'>AED {{(product[1].variations[0].variation?.maxPrice?.finalPrice).toFixed(2)}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
+                      <h5 *ngIf='userInfo===null' id="product-price-{{product[1].variations[0].variation.id}}" >AED {{product[1].variations[0].variation?.maxPrice?.finalPrice}} / {{product[1].variations[0].unitOfSale}} <small *ngIf="product[1].variations[0].perBox == true">({{product[1].variations[0].boxWeight}} {{product[1].variations[0].unitOfSale}}/box)</small></h5>
+
                       <p class="eta"><span>Delivery Date:</span>  {{product[1].variations[0]?.minInventoryDate | date:'fullDate'}}</p>
+                    </div>
+
+                  </div>
+
+                  <div class="signup-box" *ngIf='userInfo===null' style="margin-top: 45px">
+                    <button class="signup-btn" routerLink='/register/buyer'>SIGN UP TO VIEW PRICE</button>
                   </div>
               </div>
             </div>
@@ -340,12 +357,18 @@
                   <a *ngFor="let subp of product[1].variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.variation?.id}}" data-toggle="tab" href="#nav-{{subp?.variation?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.variation?.wholeFishWeight?.name | lowercase}} <div class="small-circle"></div></a>
               
                 </div>
-                <div  id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
+                <div *ngIf='userInfo!==null' id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
                     <div *ngFor="let subp of product[1].variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.variation?.id}}">
-                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice) && subp.cooming_soon !== true'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
-                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice) && subp.cooming_soon !== true'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
-                          <p class="eta" *ngIf="subp.cooming_soon !== true">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
+
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo!==null&&(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}-{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo!==null&&(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice)'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo===null'>AED {{subp.variation?.maxPrice?.finalPrice}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <p class="eta">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
+
                       </div>
+                </div>
+                <div class="signup-box" *ngIf='userInfo===null'>
+                  <button class="signup-btn" routerLink='/register/buyer'>SIGN UP TO VIEW PRICE</button>
                 </div>
               </nav>
               

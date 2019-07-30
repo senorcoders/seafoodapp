@@ -35,7 +35,7 @@ export class SingleProductComponent implements OnInit {
   category: any;
   show = true;
   cart: any;
-  count:any = 1;
+  count: any = 1;
   cartEndpoint: any = 'api/shopping/add/';
   chargesEndpoint: any = 'api/fish/';
   priceValue: any;
@@ -49,7 +49,7 @@ export class SingleProductComponent implements OnInit {
   isLogged: boolean;
   isFavorite = false;
   favorite: any;
-  idUser: string;
+  idUser: string = null;
   favoriteId: string;
   role: number;
   storeId: string;
@@ -72,9 +72,9 @@ export class SingleProductComponent implements OnInit {
   processingCountry: any;
   countries: any = [];
   types: any = '';
-  perBox:any;
-  boxWeight:any;
-  unitOfSale:any = '';
+  perBox: any;
+  boxWeight: any;
+  unitOfSale: any = '';
   // mortalityRate: any;
   wholeFishWeight: any = null;
   options: Options = {
@@ -92,7 +92,7 @@ export class SingleProductComponent implements OnInit {
 
   public inter: any;
   public noWholeFish = false;
-  public kg:any = 0;
+  public kg: any = 0;
   public manualRefresh: EventEmitter<void> = new EventEmitter<void>();
   public variationId = '';
   public fishOption = '';
@@ -115,7 +115,7 @@ export class SingleProductComponent implements OnInit {
       clearInterval(this.inter);
     });
 
-   
+
 
   }
 
@@ -172,7 +172,7 @@ export class SingleProductComponent implements OnInit {
 
   }
 
- async ngOnInit() {
+  async ngOnInit() {
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role;
       if (role === 1) {
@@ -200,10 +200,11 @@ export class SingleProductComponent implements OnInit {
       this.isLogged = val;
     });
     const data = this.auth.getLoginData();
-    this.idUser = data['id'];
-    this.getCart();
-
-    this.getFavorite();
+    if (data !== null) {
+      this.idUser = data['id'];
+      this.getCart();
+      this.getFavorite();
+    }
     this.getTypes();
     this.getCountries();
   }
@@ -220,13 +221,13 @@ export class SingleProductComponent implements OnInit {
     );
   }
 
-  handleInput($event){
+  handleInput($event) {
     console.log("ON INput", $event.srcElement.value);
     let val = $event.srcElement.value;
     this.staticField = $event.srcElement.value;
     var that = this;
     setTimeout(() => {
-      if(that.staticField == val){
+      if (that.staticField == val) {
         console.log("El valor no ha cambiado en un segundo");
         this.verifyQty();
       }
@@ -278,23 +279,23 @@ export class SingleProductComponent implements OnInit {
       if (data['minimumOrder'] < 1) {
         this.min = 0;
       } else {
-        if(data.hasOwnProperty('minBox')){
+        if (data.hasOwnProperty('minBox')) {
           this.min = data['minBox'];
           this.count = this.min;
-        }else{
+        } else {
           this.min = data['minimumOrder'];
           this.count = this.min;
         }
-        
-      }
+
+      } console.log('min', this.min);
       this.outOfStock = data['outOfStock'];
       this.cooming_soon = data['cooming_soon'];
-      if(data.hasOwnProperty('maxBox')){
+      if (data.hasOwnProperty('maxBox')) {
         this.max = data['maxBox'];
-      }else{
+      } else {
         this.max = data['maximumOrder'];
 
-      }
+      } console.log('max', this.max);
       this.value = this.kg !== 0 ? this.kg : this.min;
       const newOptions: Options = Object.assign({}, this.options);
       newOptions.ceil = this.max;
@@ -307,7 +308,7 @@ export class SingleProductComponent implements OnInit {
       this.description = data['description'];
       if (data['images']) {
         data['images'].forEach((value) => {
-          if(typeof value === "object" && value.src)
+          if (typeof value === "object" && value.src)
             value = value.src;
           this.images.push(this.sanitizer.bypassSecurityTrustStyle(`url(${this.base}${value})`));
         });
@@ -426,17 +427,17 @@ export class SingleProductComponent implements OnInit {
     return element.value === '';
   }
 
-  public getTag(perBox, id){
+  public getTag(perBox, id) {
     let element = document.querySelector('#' + id) as HTMLInputElement;
     if (element === null) return '';
-    try{
+    try {
       let val = Number(element.value);
-      if(val <= 1 && perBox === true) {
+      if (val <= 1 && perBox === true) {
         return 'box';
       }
-      return perBox === true ? 'boxes' : (this.unitOfSale).toLowerCase(); 
+      return perBox === true ? 'boxes' : (this.unitOfSale).toLowerCase();
     }
-    catch(e){
+    catch (e) {
       console.log(e);
       return '';
     }
@@ -451,27 +452,27 @@ export class SingleProductComponent implements OnInit {
   }
 
 
-  updateMinMax(id){
+  updateMinMax(id) {
     this.productService.getData(`api/fish/${this.productID}/variations/${id}`).subscribe(data => {
       console.log("Producto VAR", data);
       if (data['minimumOrder'] < 1) {
         this.min = 0;
       } else {
-        if(data.hasOwnProperty('minBox')){
+        if (data.hasOwnProperty('minBox')) {
           this.min = data['minBox'];
           this.count = this.min;
-        }else{
+        } else {
           this.min = data['minimumOrder'];
           this.count = this.min;
         }
-        
+
       }
       this.outOfStock = data['outOfStock'];
       this.cooming_soon = data['cooming_soon'];
 
-      if(data.hasOwnProperty('maxBox')){
+      if (data.hasOwnProperty('maxBox')) {
         this.max = data['maxBox'];
-      }else{
+      } else {
         this.max = data['maximumOrder'];
 
       }
@@ -506,6 +507,7 @@ export class SingleProductComponent implements OnInit {
   }
 
   addToCart() {
+    if (this.idUser === null) return;
     const item = {
       'fish': this.productID,
       'price': {
@@ -519,17 +521,17 @@ export class SingleProductComponent implements OnInit {
       'shippingStatus': 'pending',
       'variation_id': this.currentVaritionID
     };
-    this.productService.saveData(this.cartEndpoint + this.cart['id'] , item).subscribe(result => {
+    this.productService.saveData(this.cartEndpoint + this.cart['id'], item).subscribe(result => {
       this.showCart = true;
       // set the new value to cart
       this.cService.setCart(result);
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
     }, err => {
-      console.log('err', err  );
-      if( err.hasOwnProperty('error') ){
-        this.toast.error( err.error.message, 'Seafood Souq', { positionClass: 'toast-top-right' });
-      } else if ( err.error ) {
+      console.log('err', err);
+      if (err.hasOwnProperty('error')) {
+        this.toast.error(err.error.message, 'Seafood Souq', { positionClass: 'toast-top-right' });
+      } else if (err.error) {
         this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
       } else {
         this.toast.error('An error has occurred', 'Seafood Souq', { positionClass: 'toast-top-right' });
@@ -599,19 +601,19 @@ export class SingleProductComponent implements OnInit {
 
   async getCurrentPricingCharges() {
     await new Promise((resolve, reject) => {
-    this.pricingServices.getCurrentPricingCharges().subscribe(
-      result => {
-        this.currentPrincingCharges = result;
-        console.log('result', result);
-        this.currentExchangeRate = result['exchangeRates'];
-        console.log(this.currentExchangeRate);
-        this.getProductDetail();
-        resolve();
-      }, error => {
-        console.log(error);
-        reject();
-      }
-    )
+      this.pricingServices.getCurrentPricingCharges().subscribe(
+        result => {
+          this.currentPrincingCharges = result;
+          console.log('result', result);
+          this.currentExchangeRate = result['exchangeRates'];
+          console.log(this.currentExchangeRate);
+          this.getProductDetail();
+          resolve();
+        }, error => {
+          console.log(error);
+          reject();
+        }
+      )
     })
   }
   getPricingCharges() {
@@ -620,9 +622,15 @@ export class SingleProductComponent implements OnInit {
       .subscribe(
         res => {
           console.log('Pricing Charges', res, this.count);
-          this.charges = res;
-          this.delivered = res['finalPricePerKG'] / this.count;
-          this.showTaxes = true;
+          if (this.idUser !== null) {
+            this.charges = res;
+            this.delivered = res['finalPricePerKG'] / this.count;
+            this.showTaxes = true;
+          } else {
+            this.charges = res;
+            this.delivered = res['finalPricePerKG']
+            this.showTaxes = true;
+          }
         },
         error => {
           console.log(error);
