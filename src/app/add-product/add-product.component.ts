@@ -104,6 +104,8 @@ export class AddProductComponent implements OnInit {
   showSubPreparation: boolean = true;
   public summitted = false;
   public isAdmin = false;
+  public aed = true;
+  public idEvent = null;
 
   constructor(private toast: ToastrService, private countryService: CountriesService,
     private productService: ProductService, private sanitizer: DomSanitizer,
@@ -1091,6 +1093,15 @@ export class AddProductComponent implements OnInit {
   }
 
   public getPriceSeller(index) {
+    //for execute after of 3 seconds
+    if(this.idEvent !== null){
+      clearTimeout(this.idEvent);
+      this.idEvent = null;
+    }
+    this.idEvent = setTimeout(this.executegetPriceSeller.bind(this), 3000, [index]);
+  }
+
+  private executegetPriceSeller(index){
     if (this._isNaN(this.weights[this.keySelect][index].priceDelivered) === false && this.weights[this.keySelect][index].idVariation) {
       let price = Number(this.weights[this.keySelect][index].priceDelivered);
       console.log({
@@ -1101,7 +1112,8 @@ export class AddProductComponent implements OnInit {
       this.productService.saveData('reverse/price', {
         "variationID": this.weights[this.keySelect][index].idVariation,
         "weight": this.weights[this.keySelect][index].min,
-        "deliveredPricePerKG": price
+        "deliveredPricePerKG": price,
+        "in_AED": this.selectedSellerInfo && this.selectedSellerInfo.dataExtra && this.selectedSellerInfo.dataExtra.currencyTrade ?this.selectedSellerInfo.dataExtra.currencyTrade === 'AED' : true
       }).subscribe(it => {
         console.log(it);
         if (it['price']) {
