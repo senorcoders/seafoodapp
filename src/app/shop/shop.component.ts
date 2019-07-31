@@ -1020,7 +1020,7 @@ export class ShopComponent implements OnInit {
   //GET LIST OF ITEMS FOR EACH FILTER CHECKBOX
   async getPreparation() {
     await new Promise((resolve, reject) => {
-      this.productService.getData(`fishPreparation`).subscribe(res => {
+      this.productService.getData(`fishpreparation/parents/0`).subscribe(res => {
         this.preparataion = res;
         resolve();
       }, error => { reject() })
