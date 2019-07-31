@@ -586,6 +586,9 @@
                           <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
                               alt=""></button>
                         </div>
+                        <div class="col-6 offset-6" *ngIf='weights[keySelect][i].stock===0'>
+                          This variation does not have any inventory and cannot calculate a delivered price
+                        </div>
                       </div>
                       <div class="row manual-slider" *ngIf="keySelect!==''">
                         <div class="col-8">
