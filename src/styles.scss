@@ -1513,8 +1513,8 @@ button:focus {
     }
     .img-logo svg{
       max-width: 100% !important;
-      width: 71px !important; 
-      height: 50px !important;
+      width: auto;
+      height: 30px;
       .st0{
         fill:$white;
         @media screen and (max-width: 992px) {

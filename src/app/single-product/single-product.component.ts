@@ -530,11 +530,11 @@ export class SingleProductComponent implements OnInit {
     }, err => {
       console.log('err', err);
       if (err.hasOwnProperty('error')) {
-        this.toast.error(err.error.message, 'Seafood Souq', { positionClass: 'toast-top-right' });
+        this.toast.error(err.error.message, 'Marketplace', { positionClass: 'toast-top-right' });
       } else if (err.error) {
         this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
       } else {
-        this.toast.error('An error has occurred', 'Seafood Souq', { positionClass: 'toast-top-right' });
+        this.toast.error('An error has occurred', 'Marketplace', { positionClass: 'toast-top-right' });
       }
     });
   }

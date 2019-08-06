@@ -5,8 +5,8 @@
         <div class="col-lg-9 gray-light-side padding-0" id="content_light">
            <div class="row login-nav-logo" >
         <div  [className]="buyer ? 'text-left col-lg-12 ' : 'text-right col-lg-12 '" id="nav_content_light">
-          <a *ngIf="buyer" routerLink="/" class="logo-link"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo"></a> 
-          <a routerLink="/"><img src="../../../assets/svg/sfs-logo.svg" alt="Logo" class="logo-mobile"></a> 
+          <a *ngIf="buyer" routerLink="/" class="logo-link"><img src="../../../assets/svg/marketplace-blue.svg" alt="Logo" class="logo"></a> 
+          <a routerLink="/"><img src="../../../assets/svg/marketplace-blue.svg" alt="Logo" class="logo-mobile"></a> 
 
           <a *ngIf="!buyer" class="nav-link link-desktop" routerLink="/login" style="display: initial;">Login</a>
           <p *ngIf="buyer"><strong>BUYER</strong>&nbsp;&nbsp; | &nbsp;&nbsp;<span (click)="toggle()">SELLER</span>  </p>
@@ -22,7 +22,7 @@
         <div class="col-lg-3  side-dark-gray " id="content_dark">
             <div class="row login-nav-logo" >
         <div  [className]="buyer ? 'text-right col-lg-12 '  : 'text-left col-lg-12 ' " id="nav_content_dark">
-            <a  *ngIf="!buyer" routerLink="/"><img src="../../assets/svg/sfs-logo-white.svg" alt="Logo" class="logo"></a> 
+            <a  *ngIf="!buyer" routerLink="/"><img src="../../assets/svg/marketplace.svg" alt="Logo" class="logo"></a> 
           <a  *ngIf="buyer"class="nav-link" routerLink="/login">Login</a>
         </div>
       </div>
