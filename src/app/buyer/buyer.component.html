@@ -1,0 +1,131 @@
+<div class="container" >
+	<div class="row" style="position: relative; min-height: 50vh;">
+		<div class="wave-loader" *ngIf="showLoading">
+				<div class="wave-loading"></div>
+			</div>
+		<div class="col-12"><h3 class="black-title">{{'Buyer.title' | translate}}</h3></div>
+		<div class="col-12 table-design">
+	        <div class="row row-bg" *ngFor="let user of users; let i=index">
+	          <div class="col-lg-12">
+	            <h2 class="name">
+	              {{getLastLogin(user)}} {{user.firstName}} {{user.lastName}}, {{user.email}}
+	              <img src="../../assets/trash-icon.png" alt="" (click)="deleteUser(user.id)" class="delete">
+	              <fa name="pencil" class="edit" (click)="showEditForm(user.id)" data-toggle="modal" data-target="#editForm"></fa>
+	            </h2>
+	          </div>
+	        </div>
+	    </div>
+	</div>
+	<div class="row">
+		<div class="col">
+			<span class="btn-red-a previous" (click)="previousPage()"
+				*ngIf="page>1">{{'Products.previous' | translate}}</span>
+			<span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+				[ngClass]="{'active': page==(number+1)}" (click)="getUsersWithPagination(number+1)">{{number+1}}</span>
+			<span class="btn-red-a next" (click)="nextPage()"
+				*ngIf="page<paginationNumbers.length">{{'Products.next' | translate}}</span>
+		</div>
+	</div>
+</div> 
+<div class="modal fade" id="editForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'Buyer.edit-title' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      	<form [formGroup]="buyerForm" (submit)="editUser()" class="form-design">
+		        <div class="form-group">
+		        	<label>{{'Buyer.first-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">{{'Buyer.first-name' | translate}} {{'Buyer.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.last-name' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Buyer.last-name' | translate}} {{'Buyer.required' | translate}}.</div>
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.email' | translate}}</label>
+		          <input type="email" class="form-control" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.required' | translate}}.</div>
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Buyer.email' | translate}} {{'Buyer.invalid' | translate}}</div>	
+				</div>
+				<div class="form-group">
+					<div class="form-check">
+					  <input class="form-check-input" type="checkbox" (change)="changeCOD()" formControlName="cod" id="invalidCheck">
+					  <label class="form-check-label" for="invalidCheck">
+						Cash on Delivery - Current Available: AED {{user.cod?.available}}
+					  </label>
+					</div>
+				</div>
+				<div class="form-group" [hidden]="buyerForm.value.cod===false">
+		        	<label>Update Available</label>
+		          <input type="number" min="1" class="form-control" formControlName="limit" [ngClass]="{'is-invalid':buyerForm.get('limit').invalid && buyerForm.get('limit').touched}">
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('limit').hasError('required')">Limit of Cash on Delivery is required</div>	
+		        </div>
+		        <div class="form-group">
+		        	<label>{{'Buyer.tel' | translate}}</label>
+		          <input type="text" class="form-control" formControlName="tel">
+						</div>
+						
+						<div class="form-group">
+							<label>{{'Register.company' | translate}}<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" >
+						</div>
+
+						<div class="form-group">
+              <label>Type of Business<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Type of Business" formControlName="TypeBusiness">              
+            </div>
+						
+						
+						<!-- <div style="display:none;" class="form-group">
+		        	<label>{{'Buyer.banking' | translate}}</label>
+		          <textarea type="text" class="form-control" formControlName="fullBakingInfo"></textarea>
+						</div> -->
+						
+						
+						<div class="form-group">
+							<label>{{'Register.Address' | translate}}<span class="field-status red">*</span></label>
+							<input type="text" class="form-control" placeholder="{{'Register.Address' | translate}}" formControlName="Address"  >
+						</div>
+						
+
+		        <div class="form-group">
+		        	<label>{{'Buyer.country' | translate}}</label>
+		          <select class="form-control" formControlName="country" [ngClass]="{'is-invalid':buyerForm.get('country').invalid && buyerForm.get('country').touched}">								 
+								 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+		          </select>
+		          <div class="invalid-feedback" *ngIf="buyerForm.get('country').hasError('required')"> {{'Buyer.country' | translate}} {{'Buyer.required' | translate}}.</div>
+						</div>
+						
+						<div class="form-group">
+              <label>Emirate<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Emirate" formControlName="City" >              
+						</div>
+						<div class="form-group">
+              <label>TRN (VAT)<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Emirate" formControlName="vat" >              
+						</div>
+						<div class="form-group">
+              <label>Products Interested in Buying<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Products Interested in Buying" formControlName="productsInterestedinBuying" >              
+						</div>
+						<div class="form-group">
+              <label>Additional Items<span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="Additional Items" formControlName="additionalItems" >              
+            </div>
+
+
+		        <div class="form-group">
+		          <input type="submit" class="btn-red" value="{{'Buyer.save' | translate}}" [disabled]="buyerForm.invalid">
+		        </div>
+	      	</form>
+      </div>
+  </div>
+</div>
+</div>

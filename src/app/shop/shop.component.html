@@ -1,0 +1,408 @@
+
+<div class="filter-container">
+  <div class="filter-header">
+      <div class="container-fluid">
+          <ng-template #customLoadingTemplate>
+              <div class="row">
+                <div class="wave-loader" style="background-color: #F9FCFF; z-index: 999999; height: 100px; position:fixed;">
+                  <div class="wave-loading"></div>
+                </div>
+                
+              </div>
+            </ng-template> 
+            <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
+            </ngx-loading>
+        <div class="row">
+          <div class="col-md-10">
+            <h2>FILTER <span *ngIf="!showClear">YOUR SEARCH</span> </h2>
+            <ul class="list-inlint filter-pills hidden-desktop" [hidden]="!showClear">
+              <li class="list-inline-item" *ngIf="showClear">
+                <button (click)="clear()"><span>Clear filters</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+            </ul>
+            <ul class="list-inlint filter-pills hidden-mobile" [hidden]="!showClear">
+              <li class="list-inline-item" id="pill-category">
+                <button (click)="destroyPillCat()"><span>{{tmpCatName}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-subcategory">
+                <button (click)="destroyPillSubat()"><span>{{tmpSubcat}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-specie">
+                <button (click)="destroyPillSpecie()"><span>{{tmpSpecie}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-variant">
+                <button (click)="destroyPillVariant()"><span>{{tmpVariant}}</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              
+              <li class="list-inline-item" id="pill-country">
+                <button (click)="destroyPillRadio('country')"><span>Country</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-preparation">
+                <button (click)="destroyCheckboxPill('preparation')"><span>preparation</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-treatment">
+                <button (click)="destroyCheckboxPill('treatment')"><span>treatment</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+              <li class="list-inline-item" id="pill-raised">
+                <button (click)="destroyCheckboxPill('raised')"><span>raised</span>  <img src="../../assets/svg/close-white.svg" alt=""></button>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-2 text-right">
+            <button *ngIf="showClear" class="clear-btn" (click)="clear()">CLEAR ALL</button>
+            <button [hidden]="!showIcon" class="expandible-link" type="button" data-toggle="collapse" data-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                <img  alt="">
+            </button>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  <!-- <div class="filter-content collapse" id="filterCollapse2">
+    <div class="container second-collapse-container">
+      <div class="row">
+        <div class="col-md-3 filter-col">
+          <h4>ORDER AMOUNT (KG)</h4>
+          <div class="form-group">
+            <form class="form-number">
+              <input [disabled]="disabledInputs" type="number" placeholder="Min..." id="minAmount">
+              <label>to</label>
+              <input [disabled]="disabledInputs" type="number" placeholder="Max..." id="maxAmount">
+            </form>
+          </div>
+        </div>
+        <div class="col-md-3 filter-col">
+          <div class="form-group">
+              <form class="check-form">
+                  <input [disabled]="disabledInputs" type="checkbox" id="cooming">
+                  <label for="cooming">UPCOMING</label>
+                </form>
+          </div>
+         
+        </div>
+      </div>
+      <div class="row">
+          <div class="col-md-12 text-right">
+            <button class="btn-transparent" (click)="showLess()">
+                <img src="../../assets/svg/arrow-up.svg" alt="">
+               LESS FILTERS
+            </button>
+          </div>
+        </div>
+    </div>
+  </div> -->
+  <div class="filter-content collapse show" id="filterCollapse">
+    <div class="container">
+      <div class="row">
+        <div class="col filter-col" [hidden]="hideCat">
+            <h4>CATEGORY</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchCategories; let i=index" class="custom-list">
+                    <input [disabled]="disabledInputs"  type="radio"  name="cat" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col" [hidden]="hideSubcat">
+            <h4>SUB CATEGORY</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchSubcategories; let i=index" class="custom-list">
+                    <input [disabled]="disabledInputs"  type="radio"  name="subcat" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col " [hidden]="hideSpecie">
+            <h4>SUBSPECIES</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchSubSpecie; let i=index" class="custom-list">
+                    <input  [disabled]="disabledInputs" type="radio"  name="specie" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col" [hidden]="hideVariant">
+            <h4>VARIANT</h4>
+            <div class="form-group scroll-div">
+                <div *ngFor="let category of searchDescriptor; let i=index" class="custom-list">
+                    <input [disabled]="disabledInputs" type="radio"  name="variant" id="{{category.id}}" [value]="category.id">
+                    <label  for="{{category.id}}">{{category.name}}</label>
+                </div>
+            </div>
+        </div>
+        <div class="col filter-col">
+            <h4>COUNTRY</h4>
+            <div class="form-group scroll-div">
+                <input *ngIf="filteredItems.length > 3"  #myInput type="text" class="type-input" placeholder="Type..." [(ngModel)]="name" (input)="filterItem(myInput.value)">
+                <div *ngFor="let country of filteredItems; let i=index" class="custom-list">
+                    <input [disabled]="disabledInputs" *ngIf="i<5" type="radio"  name="country" id="{{country.code}}" [value]="country.code">
+                    <label *ngIf="i<5" for="{{country.code}}">{{country.name}}</label>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col filter-col">
+          <h4>PREPARATION</h4>
+          <div class="form-group scroll-div">
+            <div class="custom-list" *ngFor="let item of preparataion">
+              <input [disabled]="disabledInputs" type="checkbox" [id]="item.id" class="input-preparation" name="preparation[]" [value]="item.id" >
+              <label for="{{item.id}}">{{item.name}}</label>
+            </div>
+          </div>
+        </div>
+        <div class="col filter-col">
+            <h4>TREATMENT</h4>
+            <div class="form-group scroll-div">
+              <div class="custom-list" *ngFor="let item of treatment">
+                <input [disabled]="disabledInputs" type="checkbox" class="input-treatment" [id]="item.id" name="treatment[]" [value]="item.id" >
+                <label for="{{item.id}}">{{item.name}}</label>
+              </div>         
+            </div>
+          </div>
+
+          <div class="col filter-col">
+              <h4>RAISED</h4>
+              <div class="form-group scroll-div">
+                <div class="custom-list" *ngFor="let item of raised">
+                  <input [disabled]="disabledInputs" type="checkbox" class="input-raised" [id]="item.id" name="raised[]" [value]="item.id" >
+                  <label for="{{item.id}}">{{item.name}}</label>
+                </div>
+               
+              </div>
+            </div>
+
+            <!-- <div class="col filter-col">
+              <h4>PRICE / KG (AED)</h4>
+              <input type="hidden" id="minPriceValue" name="priceValue">
+              <input type="hidden" id="maxPriceValue" name="priceValue">
+              <ng5-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options" (userChangeEnd)="onUserChangeEnd($event)"></ng5-slider>
+
+            </div> -->
+      </div>
+      <!-- <div class="row">
+        <div class="col-md-12 text-right">
+          <button class="btn-transparent" (click)="showMore()">
+              <img src="../../assets/svg/arrow-down.svg" alt="">
+              MORE FILTERS
+          </button>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+<div class="gray-bg">
+    <div class="container-fluid">
+      <div class="row" style="position: relative; min-height: 50vh;" id="products-container"  
+      infiniteScroll [infiniteScrollDistance]="2" [infiniteScrollThrottle]="50" 
+      (scrolled)="onScroll()" >
+              <div class="wave-loader" *ngIf="showLoading">
+                  <div class="wave-loading"></div>
+                </div>
+            <div class="col-lg-12 not-found-row" *ngIf="showNotFound" style="padding-top: 30px">
+              <div style="width: 100%; text-align:center;">
+                  <h1 class="notfound">BASED ON YOUR SEARCH, NO PRODUCTS WERE FOUND</h1>
+                  <button (click)="clear()">Clear filter</button>
+              </div>
+              
+            </div>
+
+          <div  *ngFor="let product of products; let i=index" class="col-xl-4 col-lg-4 col-md-6">
+          
+
+            <div>
+              <nav>
+                  <div class="tab-content" id="nav-tabContent-{{product[0]}}">
+                      <div *ngFor="let subp of product[1].variations; let vari = index;" class="tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-{{subp?.variation?.id}}" role="tabpanel" aria-labelledby="nav-tab">
+                        <div class="class1 class2 class3 coming-{{subp.cooming_soon}} {{subp.type}} {{removeSpaces(subp.country)}} {{i}} {{subp.variation.id }} {{subp.id}} category-{{subp.type}} {{subp.variation.max}} {{subp.variation.min}} {{subp.perBox}} {{subp.minBox}} {{subp.maxBox}} {{(subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )}} {{vari}} {{subp?.unitOfSale}}">
+                            <div class="single-product-box" style="margin-bottom: 0;">
+                                <div class="product-header">
+                                 <div class="row">
+                                   <div class="col-md-10">
+                                   
+                                     
+                                      <form *ngIf="!subp.variation.outOfStock && ( (getFixedNumber(subp.variation.max) !== 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) !== 0 ) )">
+                                          <span *ngIf="subp.perBox != true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(subp.variation.min)}}</span>
+                                          <span *ngIf="subp.perBox == true"  class="amount-span"style="margin-right: 5px;">min <br> {{getFixedNumber(subp.minBox)}}</span>
+                                          <div class="my-input-container" *ngIf="userInfo !== null">
+                                            <input *ngIf="subp.perBox != true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="handleInput($event, subp.variation.max, subp.variation.min, subp.variation.id, subp.type)" (change)="manualInput(subp.variation.max, subp.variation.min, subp.variation.id, subp.type)" (keydown.enter)="manualInput(subp.variation.max, subp.variation.min, subp.variation.id, subp.type)">
+                                            <input *ngIf="subp.perBox == true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="handleInput($event, subp.maxBox, subp.minBox, subp.variation.id, subp.type)" (change)="manualInput(subp.maxBox, subp.minBox, subp.variation.id, subp.type)" (keydown.enter)="manualInput(subp.maxBox, subp.minBox, subp.variation.id, subp.type)">
+                                            <span class="suffix" [hidden]="isVacio('amount-'+subp.variation.id, subp.variation.id+ '-suffix')" [id]="subp.variation.id+ '-suffix'">{{getTag(subp, 'amount-'+subp.variation.id)}}</span>
+                                          </div>
+
+                                          <div class="my-input-container" *ngIf="userInfo === null">
+                                            <input *ngIf="subp.perBox != true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter weight..." class="qty-number" (input)="addSignUpText(subp.variation.id)" (change)="addSignUpText(subp.variation.id)" (keydown.enter)="addSignUpText(subp.variation.id)">
+                                            <input *ngIf="subp.perBox == true" type="number" id="amount-{{subp.variation.id}}" placeholder="enter boxes..." class="qty-number" (input)="addSignUpText(subp.variation.id)" (change)="addSignUpText(subp.variation.id)" (keydown.enter)="addSignUpText(subp.variation.id)">
+                                            <span class="suffix" [hidden]="isVacio('amount-'+subp.variation.id, subp.variation.id+ '-suffix')" [id]="subp.variation.id+ '-suffix'">{{getTag(subp, 'amount-'+subp.variation.id)}}</span>
+                                          </div>
+                                          <span *ngIf="subp.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.variation.max)}}</span>
+                                          <span *ngIf="subp.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(subp.maxBox)}}</span>
+                                          <label id="delivere-price-{{subp.variation.id}}"><span>(delivered/{{subp?.unitOfSale}})</span> AED 12.99</label>
+                                      </form>
+                        
+                                      <div *ngIf="!subp.cooming_soon && ( subp.variation.outOfStock || ( (getFixedNumber(subp.variation.max) == 0 && subp.perBox !== true ) || ( subp.perBox == true && getFixedNumber(subp.maxBox) == 0 ) ) )" > <h4>Out of Stock</h4></div>
+                                      <div *ngIf="subp.cooming_soon" > <h4>Coming Soon</h4></div>
+                                    </div>
+                                   <div class="col-md-2 text-right">
+                                     <a *ngIf="userInfo !== null" id="btn-add-{{subp.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(subp)"><img src="../../assets/svg/cart-arrow-down.svg" alt=""></a> 
+                                     <a *ngIf="userInfo === null" style="  cursor: not-allowed;" id="btn-add-{{subp.variation.id}}" [ngClass]="isDisabled == true ? 'btn-add-disable' : 'btn-add-enable'"  (click)="addToCart(subp)"><img src="../../assets/svg/cart-arrow-down-gray.svg" alt=""></a> 
+                                   </div>
+                                 </div>
+                                </div>
+                                <div class="product-body">
+                                  <a [hidden]='subp.perBox===true' *ngIf="!isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{subp.variation.min}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                  <a [hidden]='subp.perBox===false||subp.perBox===undefined||subp.perBox===null' *ngIf="!isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{subp.minBox}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                  <a *ngIf="isChange[subp.variation.id]?.status" routerLink="/product/{{subp.id}}/{{isChange[subp.variation.id].kg}}/{{getIdVarian(subp)}}/{{subp.variation.id}}" class="image-link-holder">
+                                    <div class="product-single-img" [style.background-image]="loadImage(subp)">
+                                      <div class="product-overlay"></div>
+                                      <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                                   </div>
+                                  </a>
+                                </div>
+                        
+                                <div class="product-footer">
+                                    <h4>{{subp.name}} <span *ngIf="subp.variation.fishPreparation != null">({{subp?.variation?.fishPreparation?.name}})</span> </h4>
+                                    <h6><a routerLink="/vendor/{{subp?.store?.id}}">{{subp?.store?.name}} ({{subp?.store?.location}})</a> 
+                                      <span *ngIf="subp.perBox != true"> - In {{subp?.unitOfSale}}</span>
+                                      <span *ngIf="subp.perBox == true"> - In Boxes</span>
+                                    </h6>
+                                  </div>
+                               
+                            </div>
+                        </div>
+                      
+                        
+                      </div>
+                      
+                    </div>  
+                <div *ngIf="product[1].count > 1" class="nav nav-tabs" id="nav-tab-{{product[0]}}" role="tablist">
+                  <a *ngFor="let subp of product[1].variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.variation?.id}}" data-toggle="tab" href="#nav-{{subp?.variation?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.variation?.wholeFishWeight?.name | lowercase}} <div class="small-circle"></div></a>
+              
+                </div>
+                <div *ngIf='userInfo!==null' id="footer-holder-{{product[0]}}" class="single-product-box margin-5 tab-content multiple-bottom" style="padding-left: 5px;">
+                    <div *ngFor="let subp of product[1].variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.variation?.id}}">
+
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo!==null&&(subp.variation?.minPrice?.finalPrice) != (subp.variation?.maxPrice?.finalPrice) && subp.cooming_soon !== true'>AED {{(subp.variation?.minPrice?.finalPrice).toFixed(2)}}<span *ngIf="subp.variation?.maxPrice">-</span>{{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo!==null&&(subp.variation?.minPrice?.finalPrice) == (subp.variation?.maxPrice?.finalPrice) && subp.cooming_soon !== true'>AED {{(subp.variation?.maxPrice?.finalPrice).toFixed(2)}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <h5 id="product-price-{{subp.variation.id}}" *ngIf='userInfo===null'>AED {{subp.variation?.maxPrice?.finalPrice}} / {{subp?.unitOfSale}} <small *ngIf="subp.perBox == true">({{subp.boxWeight}} {{subp?.unitOfSale}}/box)</small></h5>
+                          <p class="eta" *ngIf="subp.cooming_soon !== true">Delivery Date: {{subp?.minInventoryDate | date:'fullDate'}}</p>
+
+                      </div>
+                </div>
+                <div class="signup-box" *ngIf='userInfo===null'>
+                  <button class="signup-btn" routerLink='/register/buyer'>VIEW PRICES & BUY NOW</button>
+                </div>
+              </nav>
+              
+            </div>
+          </div>
+
+          <div class="col-lg-12 text-center scroll-animation" *ngIf="showScrollanimation">
+            <div class="spinner-box">
+              <div class="pulse-container">  
+                <div class="pulse-bubble pulse-bubble-1"></div>
+                <div class="pulse-bubble pulse-bubble-2"></div>
+                <div class="pulse-bubble pulse-bubble-3"></div>
+              </div>
+            </div>
+        </div>
+      </div>
+       
+    </div>
+</div>
+
+<div class="cart-window">
+  <div class="container-fluid">
+   
+      <div class="cart-header">
+          <div class="row">
+            <div class="col-md-8">
+                <h2>MY CART <span *ngIf="productsCart.length > 0">({{productsCart.length}})</span></h2>
+            </div>
+            <div class="col-md-4 text-right">
+                <button (click)="closeCart()" class="main-close">
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+                </button>
+            </div>
+            </div>
+      </div>
+      <div class="cart-body" >
+        <div   *ngFor="let product of productsCart; let i=index" class="row cart-item test-class coming-{{product.cooming_soon}} {{product?.fish?.type?.id}} {{removeSpaces(product?.fish?.country)}} {{i}} {{product.variation }} {{product.fish?.id}} category-{{product?.fish?.type?.id}} {{product.fish.maximumOrder}} {{product.fish.minimumOrder}} {{product.fish.perBox}} {{product.fish.minBox}} {{product.fish.maxBox}}">
+            <div class="col-md-4">
+              <div class="bg-img"   [style.background-image]="imageCart[i]"></div>
+            </div>
+            <div class="col-md-6">
+              <h4>{{product?.fish?.name}} - {{product?.fishPreparation[0]?.name}} <span *ngIf="product?.fishPreparation[0]?.id === '5c93bff065e25a011eefbcc2'">- {{product?.wholeFishWeight[0]?.name}} </span></h4>
+              <div class="cart-slide-range">
+                  <form>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-right: 5px;">min <br> {{getFixedNumber(product.fish?.minBox)}}</span>
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-right: 5px;">min <br> {{getFixedNumber(product.fish.minimumOrder)}}</span>
+                      <input *ngIf="product.fish?.perBox != true" disabled   id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value}}" (change)="manualInputCart(product.fish.maximumOrder, product.fish.minimumOrder, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
+                      <input *ngIf="product.fish?.perBox == true"  disabled id="cart-amount-{{product.variation}}" type="number" class="qty-number" value="{{product?.quantity?.value / product.fish?.boxWeight}}" (change)="manualInputCart(product.fish.maxBox, product.fish.minBox, product.variation, product.fish.type.id, product.fish, product.fish.boxWeight)">
+                      <span *ngIf="product.fish?.perBox != true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber(product?.maxAvailableInventory)}}</span>
+                      <span *ngIf="product.fish?.perBox == true"  class="amount-span" style="margin-left: 5px;">max <br> {{getFixedNumber((product?.maxAvailableInventory / product?.fish?.boxWeight))}}</span>
+                      <label id="cart-delivere-price-{{product.variation}}">{{getTotalxItem(product.quantity.value, product.fishCharges.variation.price) | currency: 'AED'}}</label>
+                  </form>
+              </div>
+            </div>
+            <div class="col-md-2 text-right">
+              <button (click)="deleteItem(i, product.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="24" height="24" viewBox="0 0 24 24"><path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+              </button>
+            </div>
+        </div>
+       
+      </div>
+
+      <div class="cart-footer">
+        <div class="row">
+            <div class="col-md-12">
+                <h4>SUBTOTAL <span class="cart-price">{{(total) | currency: 'AED'}}</span></h4>
+                <h6>Shipping & taxes calculated at checkout</h6>
+            </div>
+            <div class="col-md-12">
+              <button class="btn-cart" (click)="checkout()">checkout</button>
+            </div>
+            <div class="col-md-6">
+              <button (click)="closeCart()" class="btn-transparent">CONTINUE SHOPPING</button>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn-transparent" (click)="goToCart()">VIEW MY CART</button>
+              </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+
+<div class="c-mask"></div>
+
+<div class="custom-snackbar" *ngIf="showSnackBar">
+    <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-2">
+              <img src="../../assets/svg/alert-circle-white.svg" alt="">
+          </div>
+          <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length == 1">
+            Your item <strong>{{itemsDeleted[0]['fish']['name']}}</strong>  is no longer available. Please check back later.
+          </div>
+          <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length > 1">
+            Your items <strong *ngFor="let i of itemsDeleted">{{i['fish']['name']}} </strong>  are no longer available. Please check back later.
+          </div>
+          <div class="col-sm-2 text-right">
+            <button class="clear-btn" (click)="closeSnackBar()">OK</button>
+          </div>
+        </div>
+    </div>
+</div>
+
+

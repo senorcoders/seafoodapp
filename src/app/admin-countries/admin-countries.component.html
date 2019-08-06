@@ -1,0 +1,54 @@
+<div class="container" style="padding-top:150px;">
+    <div class="row">
+      <div class="col-12"><h3 class="title">{{'ManageCountries.title'| translate}}</h3></div>
+      <div class="col-12"><h3 class="title">{{'ManageCountries.formTitle' | translate}}</h3></div>
+      <div class="col-md-12">
+        <form novalidate [formGroup]="myform"  class="form-design">
+          <div class="row">
+            
+            <div class="col-md-4">
+              <div class="form-group" >
+                <label>{{'ManageCountries.Country' | translate}}</label>
+                <select id="type" class="form-control" formControlName="country" >
+                    <option value="{{country.id}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+  
+            <div class="col-md-4">
+              <div class="form-group" >
+                <label>{{'ManageCountries.ETA' | translate}}</label>                
+                <input class="form-control" type="number" formControlName="eta">                    
+              </div>
+            </div>
+  
+            <div class="col-md-4">
+              <button type="button" (click)="saveExpectedDeliveryDate()" class="btn-red">Save</button>
+            </div>
+  
+          </div>
+        </form>
+      </div>
+    </div><!--end row-->
+
+  <div class="row curresntPricing">
+      <div class="col-md-12">      
+          <h3>{{'ManageCountries.Countries' | translate}}</h3>
+      </div>
+      <div class="col-md-12">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">{{'ManageCountries.Country' | translate}}</th>
+                <th scope="col">{{'ManageCountries.ETA' | translate}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr  *ngFor="let ccounrty of countries">
+                <td> {{ccounrty.name}} </td>
+                <td> {{ccounrty.eta}} </td>
+              </tr>              
+            </tbody>
+          </table>
+      </div>
+    </div><!--end row-->

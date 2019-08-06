@@ -1,0 +1,359 @@
+<ng-progress></ng-progress>
+<div class="container" *ngIf="show; else elseBlock">
+  <div style="height: 100px;"></div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h1 class="title">{{'Createprod.title' | translate}}</h1>
+    </div>
+    <div class="col-lg-4 col-md-6 mg-bt" *ngIf="primaryImg">
+      <div class="primaryImg-cont">
+        <div class="bg-img" [style.background-image]="primaryImg" *ngIf="!showLoading"></div>
+      </div>
+      <div class="bg">
+        <div class="wave-loader" *ngIf="showLoading">
+          <div class="wave-loading"></div>
+        </div>
+        <span class="primary-label">{{'EditProduct.primary-image' | translate}}</span>
+        <hr class="hr-small">
+        <a class="pink-btn" (click)="showUploadBtn()" *ngIf="showEdit">{{'EditProduct.edit-img' | translate}}</a>
+        <input type="file" id="primary" (change)="updatePrimaryImg($event.target.files)" *ngIf="showUpload">
+      </div>
+    </div>
+    <div class="col-lg-4 col-md-6 mg-bt" *ngFor="let image of images; index as i; first as isFirst">
+      <div class="primaryImg-cont">
+        <div class="bg-img" [style.background-image]="byPassImageUrl(image)" *ngIf="!showLoading"></div>
+      </div>
+      <div class="bg">
+        <a (click)="deleteNode(i)" class="pink-btn">{{'EditProduct.delete-img-btn' | translate}}</a>
+      </div>
+    </div>
+    <div class="col-md-12" style="margin-top: -70px;">
+      <h1 class="title" style="margin-bottom: 20px">{{'EditProduct.detail' | translate}}</h1>
+      <ng-template #customLoadingTemplate>
+        <div class="row">
+          <div class="col">
+            <div class="col-12 text-center"><img class="loader-gif" src="../../assets/loadingfish.gif" alt=""></div>
+          </div>
+        </div>
+      </ng-template>
+      <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
+      </ngx-loading>
+      <form class="form-design">
+        <div class="row">
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'CreateProduct.name' | translate}} <span class="field-status red">*</span></label>
+              <input [disabled]="user['role']!==0" type="text" class="form-control" required [(ngModel)]="name"
+                [ngModelOptions]="{standalone: true}"> 
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Brand Name</label>
+              <input type="text" class="form-control" [(ngModel)]="brandname" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{"CreateProduct.country"}}<span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="country"
+                [ngModelOptions]="{standalone: true}">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'CreateProduct.processingCountry' | translate}} <span class="field-status red">*</span></label>
+              <select (change)="getCities();" [disabled]="user['role'] != 0" class="form-control"
+                [(ngModel)]="processingCountry" [ngModelOptions]="{standalone: true}">
+                <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{"CreateProduct.portLoading" | translate}} <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="city"
+                [ngModelOptions]="{standalone: true}">
+                <option value="{{city.code}}" *ngFor="let city of cities">{{city.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'CreateProduct.price' | translate}} <span class="field-status red">*</span></label>
+              <input type="number" class="form-control" required [(ngModel)]="price"
+                [ngModelOptions]="{standalone: true}">
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Unit of measurement <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="measurement"
+                [ngModelOptions]="{standalone: true}">
+                <option value="kg">KG</option>
+              </select>
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Main Category <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="mainCategory"
+                [ngModelOptions]="{standalone: true}" (change)="getOnChangeLevel(0)">
+                <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Species <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" required [(ngModel)]="specie"
+                [ngModelOptions]="{standalone: true}" (change)="getOnChangeLevel(1, $event.target.value)">
+                <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Subspecies <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="types"
+                [ngModelOptions]="{standalone: true}" (change)="getOnChangeLevel(2)">
+                <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Subspecies Variant</label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="descriptor"
+                [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let type of typeLevel3" [value]="type.id">{{type.name}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>Product SKU</label>
+              <input type="text" class="form-control" [(ngModel)]="seller_sku" [ngModelOptions]="{standalone: true}"
+                required>
+              <input [disabled]="user['role'] != 0" type="hidden" class="form-control" [(ngModel)]="seafood_sku"
+                [ngModelOptions]="{standalone: true}" required>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>HS Code <a href="https://hts.usitc.gov/" target="_blank">(look up code)</a></label>
+              <input type="text" class="form-control" [(ngModel)]="hsCode" [ngModelOptions]="{standalone: true}"
+                required>
+
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group" *ngIf="!primaryImg">
+              <label for="primary">{{'AddProduct.primary-image' | translate}}</label>
+              <input type="file" (change)="addPrimaryImg($event.target.files )" required accept="image/*">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label for="file">{{'AddProduct.images' | translate}}</label>
+              <input type="file" id="file" multiple (change)="handleFileInput($event.target.files)" accept="image/*">
+              <div class="gallery"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.minimun' | translate}}</label>
+              <input type="number" class="form-control" [(ngModel)]="minimumOrder"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.maximum' | translate}}</label>
+              <input type="number" class="form-control" [(ngModel)]="maximumOrder"
+                [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+
+          <div class="col-lg-12">
+            <h2 class="black-title">Products Features</h2>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.mortalityRate' | translate}} <span class="field-status red">*</span></label>
+              <input [disabled]="user['role'] != 0" type="number" class="form-control"
+                [(ngModel)]="acceptableSpoilageRate" [ngModelOptions]="{standalone: true}">
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.raised' | translate}} <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="raised"
+                [ngModelOptions]="{standalone: true}">
+                <option value="farmed">Farmed</option>
+                <option value="organically">Organically Farmed</option>
+                <option value="wild">Wild</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.preparation' | translate}} <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="preparation"
+                [ngModelOptions]="{standalone: true}" (change)="showWhole($event.target.value)">
+                <option value="{{option}}" *ngFor="let option of preparationOptions">{{option}}</option>
+              </select>
+            </div>
+            <div class="form-group" *ngIf="showWholeOptions">
+              <label>Whole Fish Weight</label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="wholeFishWeight"
+                [ngModelOptions]="{standalone: true}">
+                <option value="{{whole}}" *ngFor="let whole of wholeOptions">{{whole}}</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6">
+            <div class="form-group">
+              <label>{{'AddProduct.treatment' | translate}} <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="treatment"
+                [ngModelOptions]="{standalone: true}">
+                <option value="fresh">Fresh</option>
+                <option value="frozen">Frozen</option>
+                <option value="live">Live</option>
+                <option value="smoked">Smoked</option>
+                <option value="canned">Canned</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="col-lg-6" *ngIf="user['role'] == 0">
+            <div class="form-group">
+              <label>{{'AddProduct.cooming_soon' | translate}} <span class="field-status red">*</span></label>
+              <select [disabled]="user['role'] != 0" class="form-control" [(ngModel)]="cooming_soon"
+                [ngModelOptions]="{standalone: true}">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="form-group" >
+      <label>Water Loss Rate</label>
+      <input type="text" class="form-control"  [(ngModel)]="waterLostRate" [ngModelOptions]="{standalone: true}" [disabled]="user['role'] !== 0">
+      
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <ng-container *ngIf="status">
+          <div *ngIf="status.id == '5c0866f9a0eda00b94acbdc2' || status.id == '5c3fc078970dc99bb06bed69'"
+            class="form-group">
+            <label>{{'EditProduct.status' | translate}}</label>
+            <select class="form-control" [(ngModel)]="selectedStatus" [ngModelOptions]="{standalone: true}"
+              [value]="status.id">
+              <option value="5c3fc078970dc99bb06bed69">Inactive</option>
+              <option value="5c0866f9a0eda00b94acbdc2">Active (Showing in Search)</option>
+            </select>
+          </div>
+        </ng-container>
+        <div class="row">
+          <div class="col-md-6">
+            <button class="btn-red" (click)="showModal('update')">{{'EditProduct.update' | translate}}</button>
+          </div>
+          <div class="col-md-6">
+            <button (click)="showModal('delete')" type="button"
+              class="pink-btn bt">{{'EditProduct.delete' | translate}}</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+  <div style="height: 100px;"></div>
+
+
+
+</div>
+
+<ng-template #elseBlock>
+
+  <div class="not-found-grid">
+    <div style="padding: 0 30%;">
+      <p>{{'EditProduct.no-found' | translate}} </p>
+
+    </div>
+  </div>
+</ng-template>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <button (click)="confirm(true,action)" class="blue-btn">Yes</button>
+            <button (click)="confirm(false,action)" class="blue-btn-light">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

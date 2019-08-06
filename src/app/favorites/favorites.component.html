@@ -1,0 +1,40 @@
+<div class="wave-loader" *ngIf="showLoading; else showContent">
+		<div class="wave-loading"></div>
+	</div>
+<ng-template #showContent>
+	<div class="container">
+		<div class="row" *ngIf="hasFavorite; else noFavorite">
+			<div class="col-12">
+				<h3 class="black-title">{{'Favorites.title' | translate}}</h3>
+			</div>
+			<div class="col-12">
+				<div class="row">
+					<div class="col-lg-4 col-md-6" *ngFor="let favorite of favorites; let i=index">
+						<div class="favorites">
+							<div class="actions">
+								<div class="left"><fa name="heart" class="heart" (click)="deletefavorite(favorite.id)"></fa></div>
+								<div class="right"><img src="../../assets/trash-icon.png" alt="" (click)="deletefavorite(favorite.id)"></div>
+							</div>
+							<a routerLink="/product/{{favorite.fish.id}}">
+								<div class="product-img" [style.background-image]="images[i]"></div>
+							</a>
+							<div class="content">
+								<a routerLink="/product/{{favorite.fish.id}}">
+									<h2 class="name">{{favorite.fish.name}}</h2>
+								</a>
+								<h5 class="type">{{favorite.fish.type.name}}</h5>
+								<hr class="hr-small">
+								<span class="price">{{favorite.fish.price.type}} {{favorite.fish.price.value}} {{favorite.fish.weight.type}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+		    </div>
+		</div>
+		<ng-template #noFavorite>
+			<div class="col-12" style="text-align: center; color: red; font-size: 3rem">
+				You don't have Favorites Right Now.
+			</div>
+		</ng-template>
+	</div>
+</ng-template>

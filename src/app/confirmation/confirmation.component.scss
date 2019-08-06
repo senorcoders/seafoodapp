@@ -1,0 +1,329 @@
+@import "../../variables.scss";
+
+.gray-bg{
+    padding: 155px 0;
+    .container-fluid{
+        .sub-nav{
+            @media screen  and (max-width: 992px){
+                .col-md-6{
+                    text-align: center !important;
+                }
+            }
+        }
+        @media screen  and (min-width: 1450px){
+            padding-left: 155px;
+            padding-right: 155px;
+        }
+        .back-btn{
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 21px;
+            letter-spacing: 0.75px;
+            line-height: 25px;
+            color: $light_blue;
+            text-transform: uppercase;
+            font-weight: 300;
+            cursor: pointer;
+            &:hover{
+                text-decoration: none;
+            }
+            img{
+                margin-right: 10px;
+                vertical-align: baseline;
+            }
+        }
+
+        .gray-title{
+            font-family: 'Josefin Sans', sans-serif;
+            font-weight: 300;
+            font-size: 28px;
+            line-height: 45px;
+            letter-spacing: 0.5px;
+            color: $light_blue;
+            text-transform: uppercase;
+            margin: 0 auto;
+            margin-bottom: 100px;
+            @media screen and (max-width: 768px) {
+                font-size: 28px !important;
+    
+              }
+            span{
+                border-bottom: 1px solid $light_blue;
+                padding-bottom: 15px;
+    
+            }
+        }
+
+        .input-group{
+            max-width: 525px;
+            margin: 0 auto;
+            width: 100%;
+            margin-bottom: 50px;
+            margin-top: 50px;
+            background: none !important;
+                .card-img{
+                    position: absolute;
+                    right: 0;
+                    width: 180px;
+                    top: -10px;
+                }
+                .question-btn{
+                    position: absolute;
+                    background: none;
+                    border: none;
+                    width: 22px;
+                    height: 22px;
+                    right: -24px;
+                    @media screen and (max-width: 500px){
+                        display: none;
+                        
+                    }
+                }
+            input.form-control, textarea.form-control{
+                background: none !important;
+                border: 0;
+                border-bottom: solid 2px $gray !important;
+                border-radius: 0 !important;
+                color: $dark_blue !important;
+                font-size: 21px;
+                font-weight: 300;
+                font-family: 'Open Sans', sans-serif;
+                padding: 0 !important;
+                @media screen and (max-width: 768px) {
+                    font-size: 20px !important;
+        
+                  }
+    
+        
+            }
+            
+        
+            select.form-control{
+                background: none !important;
+                border-radius: 0 !important;
+                border: 0;
+                border-bottom: solid 2px $gray !important;
+                -webkit-appearance: none;
+                -webkit-border-radius: 0px;
+                color: $dark_blue !important;
+                font-size: 21px;
+                font-weight: 300;
+                font-family: 'Open Sans', sans-serif;
+                padding: 0 !important;
+                @media screen and (max-width: 768px) {
+                    font-size: 20px !important;
+        
+                  }
+            }
+            input.form-control.is-invalid{
+                border-bottom: solid 2px $red;
+        
+            }
+            input:focus{
+                outline: none !important;
+                box-shadow: none !important;
+                border-bottom: solid 2px $dark_blue !important;
+        
+            }
+            input.form-control:disabled, select.form-control:disabled{
+                color: $gray !important;
+                border-bottom: solid 2px $gray !important;
+    
+            }
+          
+            .has-float-label .form-control:placeholder-shown:not(:focus)+*{
+                
+                font-family: 'Open Sans', sans-serif;
+                font-weight: 300 !important;
+                font-style: italic !important;
+                font-size: 21px !important;
+                line-height: 28px;
+                letter-spacing: normal;
+                text-align: left;
+                color: $gray !important;
+                padding-left: 0 !important;
+                font-weight: 300 !important;
+                top: .3em !important;
+                @media screen and (max-width: 768px) {
+                    font-size: 20px !important;
+        
+                  }
+                .red{
+                    color: $gray;
+                    font-size: 0.8em;
+                
+                }
+            }
+    
+            .has-float-label label{
+                font-size: 16px !important;
+                left: 0 !important;
+                color: $dark_blue !important;
+                line-height: 28px !important;
+                font-style: normal !important;
+                font-weight: 300 !important;
+                top: -0.8em !important;
+                @media screen and (max-width: 768px) {
+                    font-size: 15px !important;
+        
+                  }
+                .red{
+                    color: $dark_blue;
+                    font-size: 0.8em;
+                
+                }
+            }
+    
+            .has-float-label label.disabled-label{
+                color: $gray !important;
+            }
+            .form-control:placeholder-shown:not(:focus)+*{
+             font-size: inherit; 
+            opacity: 1; 
+            }
+          }
+          .has-float-label label::after, .has-float-label>span::after{
+              display: none;
+          }
+
+          .cart-price-breakdown{
+            padding: 50px 0;
+            margin: 50px 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+            .prices-row{
+                .price-title{
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    padding-left: 0;
+                    h4{
+                        color: $black;
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-weight: 300;
+                        font-size: 21px;
+                        letter-spacing: 0.75px;
+                        line-height: 25px;
+                        @media screen  and (max-width: 992px){
+                           font-size: 15px;
+                         }
+                        span{
+                            float: right;
+                        }
+                    }
+                   
+                }
+                .price-total{
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    padding-left: 0;
+                    h4{
+                        color: $black;
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-weight: 300;
+                        font-size: 28px;
+                        letter-spacing: 0.75px;
+                        line-height: 34px;
+                        @media screen  and (max-width: 992px){
+                           font-size: 20px;
+                         }
+                        span{
+                            float: right;
+                        }
+                    }
+                   
+                }
+                .price-item{
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                    padding-left: 0;
+                    h4{
+                        color: $light_blue;
+                        font-family: 'Josefin Sans', sans-serif;
+                        font-weight: 300;
+                        font-size: 21px;
+                        letter-spacing: 0.75px;
+                        line-height: 25px;
+                        @media screen  and (max-width: 992px){
+                            font-size: 15px;
+                          }
+                        span{
+                            float: right;
+                        }
+                    } 
+
+                    .eta-span{
+                        margin-left: 5px;
+                        font-family: 'Open Sans', sans-serif;
+                        color: $gray;
+                        font-size: 16px;
+                        line-height: 22px;
+                        float: none !important;
+                       
+                    }
+                    i{
+                        color: $gray;
+                        font-size: 5px;
+                        vertical-align: middle;
+                    }
+                }
+            }
+    
+            .total-row{
+                h4{
+                    color: $black;
+                    font-family: 'Josefin Sans', sans-serif;
+                    font-weight: 300;
+                    font-size: 21px;
+                    letter-spacing: 0.75px;
+                    line-height: 25px; 
+                    margin-top: 10px;
+                    margin-bottom: 50px;
+                    @media screen  and (max-width: 992px){
+                        font-size: 15px;
+                      }
+                }
+    
+                h2{ 
+                    color: $black;
+                    font-family: 'Josefin Sans', sans-serif;
+                    font-weight: 300;
+                    font-size: 28px;
+                    letter-spacing: 0.75px;
+                    line-height: 45px; 
+                    margin-top: 10px;
+                    margin-bottom: 50px;
+                    @media screen  and (max-width: 992px){
+                        font-size: 28px;
+                      }
+    
+                }
+    
+                .transparent-btn{
+                    color: $light_blue;
+                    background: none;
+                    border: 1px solid $light_blue;
+                    border-radius: 2px;
+                    text-transform: uppercase;
+                    width: 100%;
+                    max-width: 520px;
+                    height: 75px;
+                    font-family: 'Josefin Sans', sans-serif;
+                    font-weight: 300;
+                    font-size: 28px;
+                    line-height: 75px;
+                    margin-top: 10px;
+                    margin-bottom: 10px;
+                    transition: all .2s ease-in-out;
+                    cursor: pointer;
+                    @media screen  and (max-width: 992px){
+                        font-size: 18px;
+                      }
+                    &:hover{
+                        color: #fff;
+                        background: $dark_blue;
+                    }
+    
+                }
+            }
+        }
+    }
+}

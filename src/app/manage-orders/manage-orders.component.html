@@ -1,0 +1,141 @@
+<div class="bg">
+  <div class="container">
+    <div class="row" id="max">
+      <div class="col-12">
+        <h2 class="black-title">{{'ManageOrders.title' | translate}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>{{'ManageOrders.status' | translate}}</label>
+          <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrders(true)" [value]='0'>
+            <option value="0" selected="selected">Select an Option</option>
+            <option *ngFor="let item of orderStatus;" [ngValue]="item.id"> {{item.status}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-3">
+        <div class="form-group">
+          <label>{{'ManageOrders.orderNumber' | translate}}</label>
+          <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders(true)"
+            placeholder="search by Order Number">
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="useFilterDate"
+            (ngModelChange)="filterDateChange()">
+          <label class="form-check-label" for="defaultCheck1">
+            Use Filter Purchase Date
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label>Date Start</label>
+              <input [owlDateTimeTrigger]="dt1" [(ngModel)]="date1" class="form-control" [owlDateTime]="dt1">
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Date End</label>
+              <input [min]="dt1" [owlDateTimeTrigger]="dt2" [(ngModel)]="date2" class="form-control"
+                [owlDateTime]="dt2">
+              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-3">
+        <button class="pink-btn" (click)="clear()">Clear filter</button>
+      </div>
+      <div class="col-3">
+        <a class="pink-btn" href="{{API}}xero/connect">Push All Orders to Xero</a>
+      </div>
+      <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
+        <div class="row row-bg" [hidden]="!filter(order)" *ngFor="let order of groupOrder">
+          <div class="col-4">
+            <p class="order-number">Order #{{order.orderNumber}}</p>
+            <p class="order-number">
+              <a *ngIf="order.invoice_pdf" class="purchase_pdf" target="_blank"
+                href="{{API}}api/shoppingcart/PDF/{{order.invoice_pdf}}/pdf_invoices">Invoice Order PDF</a></p>
+            <p class="order-number" *ngFor="let cl of order.clones">
+              <a class="purchase_pdf" target="_blank"
+                href="{{API}}api/shoppingcart/PDF/{{cl.invoice_pdf}}/pdf_invoices">{{cl.invoice_pdf}}</a>
+            </p>
+            <p *ngIf="order.xeroRef" class="order-number">Xero Ref: #{{order.xeroRef}}</p>
+          </div>
+          <div class="col-8">
+            <div class="row" *ngFor="let item of orderWithData">
+              <div class="col-6">
+                <ng-container
+                  *ngIf="item.shoppingCart!==null&&item.shoppingCart!==undefined? item.shoppingCart.orderNumber==order.orderNumber : false">
+                  <h5 [innerHtml]="item.fish.name"></h5>
+                  <span *ngIf="item.store" class="store">{{item.store.name}}</span>
+                  <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p>
+                  <p *ngIf="item.shoppingCart&&item.shoppingCart.paidDateTime" class="status"><b>Purchase Date:
+                    </b>{{getFormDate(item.shoppingCart.paidDateTime)}}</p>
+                  <p class="buyer"><b>Buyer Maximum Delivery Date: </b>{{item.buyerExpectedDeliveryDate}}</p>
+                  <p class="seller"><b>Seller Expected Delivery Date: </b>{{item.sellerExpectedDeliveryDate}}</p>
+
+                  <p class="qty">Seller Price/kg: {{item.price}}</p>
+                  <p class="qty">Subtotal price/kg: {{item.subtotal}}</p>
+                  <p class="qty">Taxes and Customs:
+                    {{item.itemCharges.customsFee + item.itemCharges.exchangeRateCommission + item.itemCharges.sfsMarginCost}}
+                  </p>
+                  <p class="qty">Shipping, Handling and fees: {{item.itemCharges.shippingCost.cost}}</p>
+                  <p class="qty">VAT 5%: {{item.itemCharges.uaeTaxesFee}}</p>
+                  <p class="total">Total: {{item.itemCharges.finalPrice}} </p>
+                  <a *ngIf="item.po_path" target="_blank"
+                    href="{{API}}api/shoppingcart/PDF/{{item.po_path}}/pdf_purchase_order">Purchase Order PDF</a>
+                </ng-container>
+
+              </div>
+              <div class="col-6">
+                <!-- <ng-container *ngIf="item.shoppingCart.orderNumber==order.orderNumber">
+                      <div *ngIf="item.updateInfo">
+                        <p class="date" *ngFor="let update of item.updateInfo;" >
+                          <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by {{update.by}} </strong>
+                        </p>
+                      </div>
+                    </ng-container> -->
+                <ng-container *ngIf="validateUpdateInfo(item, order)">
+                  <div class="information-log">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    <div class="info-modal-log">
+
+                      <div *ngIf="item.updateInfo">
+                        <p class="date" *ngFor="let update of item.updateInfo;">
+                          <strong>{{update.action}} on {{update.at*1000 | date: 'EEEE, MMMM d, y, HH:mm'}} <br> by
+                            {{update.by}} </strong>
+                        </p>
+                      </div>
+
+                    </div>
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
+        <h2 class="black-title">No records found</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col pagination">
+        <span class="btn-red-a previous" (click)="previousPage()"
+          *ngIf="page>1">{{'Products.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+          [ngClass]="{'active': page==(number+1)}" (click)="getOrdersPage(number+1)">{{number+1}}</span>
+        <span class="btn-red-a next" (click)="nextPage()"
+          *ngIf="page<paginationNumbers.length">{{'Products.next' | translate}}</span>
+      </div>
+    </div>
+
+  </div>
+</div>

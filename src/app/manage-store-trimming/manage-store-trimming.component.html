@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h2 class="black-title">Manage Salmon Trimming</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-10">
+        <div class="row">
+          <div class="col" *ngFor="let part of parts">
+            <span class="parts">{{part.name}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="row" *ngFor="let type of types; let i=index" style="margin-bottom: 20px">
+          <div class="col-2">
+            <span class="types">{{type.name}}</span>
+          </div>
+          <div class="col-10">
+            <div class="row">
+              <div class="col checkboxes" *ngFor="let part of parts; let j=index">
+                <input type="checkbox" class="form-check-input df" [disabled]="isDefault(part.name,type.name)" [checked]="isChecked(part.name,type.name)" (click)="checked($event, type.id, part.id)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

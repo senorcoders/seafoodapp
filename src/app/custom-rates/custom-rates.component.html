@@ -1,0 +1,150 @@
+<div class="container">
+
+  <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().category.invalid && (controls().category.dirty || controls().category.touched),'has-success': controls().category.valid && (controls().category.dirty || controls().category.touched)}">
+          <span class="has-float-label">
+            <select id="category" placeholder="Product Category" (change)="getOnChangeLevel(0, $event.target.value)"
+              class="form-control" formControlName="category">
+              <option value="">Product Category</option>
+              <option *ngFor="let type of typeLevel0" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label for="category">Product Category</label>
+            <div class="form-control-feedback" *ngIf="controls().category.errors&&submitted">
+              <p *ngIf="controls().category.errors.required">Product Category is required</p>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().specie.invalid && (controls().specie.dirty || controls().specie.touched),'has-success': controls().specie.valid && (controls().specie.dirty || controls().specie.touched)}">
+          <span class="has-float-label">
+            <select id="specie" placeholder="Specie" (change)="getOnChangeLevel(1, $event.target.value)"
+              class="form-control" formControlName="specie">
+              <option value="">Specie</option>
+              <option *ngFor="let type of typeLevel1" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label for="specie">Specie</label>
+            <div class="form-control-feedback" *ngIf="controls().specie.errors&&submitted">
+              <p *ngIf="controls().specie.errors.required">Specie is required</p>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().subspecie.invalid && (controls().subspecie.dirty || controls().subspecie.touched),'has-success': controls().subspecie.valid && (controls().subspecie.dirty || controls().subspecie.touched)}">
+          <span class="has-float-label">
+            <select id="subspecie" placeholder="Sub Specie" (change)="getOnChangeLevel(2, $event.target.value)"
+              class="form-control" formControlName="subspecie">
+              <option value="">Sub Specie</option>
+              <option *ngFor="let type of typeLevel2" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label for="subspecie">Specie</label>
+            <div class="form-control-feedback" *ngIf="controls().subspecie.errors&&submitted">
+              <p *ngIf="controls().subspecie.errors.required">Sub Specie is required</p>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().preparation.invalid && (controls().preparation.dirty || controls().preparation.touched),'has-success': controls().preparation.valid && (controls().preparation.dirty || controls().preparation.touched)}">
+          <span class="has-float-label">
+            <select id="preparation" placeholder="Preparation" class="form-control" formControlName="preparation">
+              <option value="">Preparation</option>
+              <option *ngFor="let type of preparations" [value]="type.id">{{type.name}}</option>
+            </select>
+            <label for="preparation">Preparation</label>
+            <div class="form-control-feedback" *ngIf="controls().preparation.errors&&submitted">
+              <p *ngIf="controls().preparation.errors.required">Preparation is required</p>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().mode.invalid && (controls().mode.dirty || controls().mode.touched),'has-success': controls().mode.valid && (controls().mode.dirty || controls().mode.touched)}">
+          <span class="has-float-label">
+            <select id="mode" placeholder="Flat Rate or Percent % " class="form-control" formControlName="mode">
+              <option value="flat">Flat Rate</option>
+              <option value="percent">Percent %</option>
+            </select>
+            <label for="mode">Flat Rate or Percent %</label>
+            <div class="form-control-feedback" *ngIf="controls().mode.errors&&submitted">
+              <p *ngIf="controls().mode.errors.required">Flat Rate or Percent % is required</p>
+            </div>
+          </span>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="form-group input-group"
+          [ngClass]="{'has-danger': controls().val.invalid && (controls().val.dirty || controls().val.touched),'has-success': controls().val.valid && (controls().val.dirty || controls().val.touched)}">
+          <span class="has-float-label">
+            <input id="val" type="number" class="form-control" placeholder="Enter Number" formControlName="val">
+            <label for="val">Enter Number</label>
+            <div class="form-control-feedback" *ngIf="controls().val.errors&&submitted">
+              <p *ngIf="controls().val.errors.required">
+                Number is required
+              </p>
+            </div>
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-sm-10 col-sm-2">
+        <button type="submit" class="btn" [ngClass]="action==='Save' ? 'btn-secondary' : 'btn-info'">{{action}}</button>
+      </div>
+    </div>
+  </form>
+
+  <div class="row items">
+    <div class="col-12">
+
+      <div class="row item-rates" *ngFor="let rate of customRates">
+        <div class="col-10">
+          <div class="row">
+            <div class="col-2">{{rate.category.name}}</div>
+            <div class="col-2">{{rate.specie.name}}</div>
+            <div class="col-2">{{rate.subspecie.name}}</div>
+            <div class="col-2">{{rate.preparation.name}}</div>
+            <div class="col-2">{{rate.mode==='flat'?'Flat Rate': 'Percent %'}}</div>
+            <div class="col-2">{{rate.value}}</div>
+          </div>
+        </div>
+        <div class="col-2 actions">
+          <i class="fa fa-pencil-square-o" aria-hidden="true" (click)="editRate(rate)"></i>
+          &nbsp;&nbsp;
+          <i class="fa fa-times" aria-hidden="true" (click)="showConfirmModal(rate.id)"></i>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <button (click)="confirm(true)" class="blue-btn">Yes</button>
+              <button (click)="confirm(false)" class="blue-btn-light">No</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,71 @@
+<div class="container" style="position: relative; min-height: 50vh;" *ngIf="showLoading; else showContent">
+		<div class="wave-loader" >
+				<div class="wave-loading"></div>
+			</div>
+</div>
+
+<ng-template #showContent>
+	<div class="container">
+	  <div class="row" *ngIf="showPending">
+	    <div class="col-lg-12">
+	      <h1 class="notfound">{{'Comments.no-pending'| translate}}</h1>
+	    </div>
+	  </div>
+	  <div class="row" *ngIf="!showPending">
+	  	<div class="col-12">
+			<h2 class="black-title">{{'Comments.pending-title' | translate}}</h2>
+		</div>
+	  	<div class="col-12 table-design">
+	    	<div class="row row-bg" *ngFor="let pendingcomment of pendingcomments">
+	    		<div class="col-lg-12">
+	    			<h2 class="name">
+	    				{{pendingcomment.buyer.firstName}} {{pendingcomment.buyer.lastName}}
+	    				<img src="../../assets/trash-icon.png" alt="" (click)="deleteComment(pendingcomment.id)" class="delete">
+	    				<span (click)="acceptComment(pendingcomment.id)" class="save"><fa name="check"></fa></span>
+	    				 <bar-rating [(rate)]="pendingcomment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+	    			</h2>
+	    			<div class="date">
+	    				<a routerLink="/vendor/{{pendingcomment.store.id}}">
+	    					{{pendingcomment.store.name}}
+	    				</a>
+	    				<hr class="black-line">
+	    			</div>
+	    			<div class="product">
+	    				{{pendingcomment.comment}}
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	  </div>
+	  <div class="row" *ngIf="!showAcceptedComments">
+	  	<div class="col-lg-12">
+	      <h1 class="notfound">{{'Comments.no-comments'| translate}}</h1>
+	    </div>
+	  </div>
+	  <div class="row" *ngIf="showAcceptedComments">
+	  	<div class="col-12">
+	      	<h2 class="black-title">{{'Comments.comment-title' | translate}}</h2>
+	    </div>
+		<div class="col-12 table-design">
+	    	<div class="row row-bg" *ngFor="let acceptedComment of acceptedComments">
+	    		<div class="col-lg-12">
+	    			<h2 class="name">
+	    				{{acceptedComment.buyer.firstName}} {{acceptedComment.buyer.lastName}}
+	    				<img src="../../assets/trash-icon.png" alt="" (click)="deleteComment(acceptedComment.id)" class="delete">
+	    				 <bar-rating [(rate)]="acceptedComment.stars" [max]="5" [readOnly]="true" [theme]="'fontawesome-o'"></bar-rating>
+	    			</h2>
+	    			<div class="date">
+	    				<a routerLink="/vendor/{{acceptedComment.store.id}}">
+	    					{{acceptedComment.store.name}}
+	    				</a>
+	    				<hr class="black-line">
+	    			</div>
+	    			<div class="product">
+	    				{{acceptedComment.comment}}
+	    			</div>
+	    		</div>
+	    	</div>
+	    </div>
+	  </div>
+	</div>
+</ng-template>

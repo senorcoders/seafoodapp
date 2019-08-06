@@ -1,0 +1,102 @@
+<div class="gray-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+          <br><br><br><br>
+          <br>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+              <h1 class="gray-title" ><span>Fish Information Managment</span></h1>              
+            </div>
+        </div>
+
+      <form  #form  [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          
+              <div class="col-lg-3">
+                <div class="form-group input-group">
+                  <span class="has-float-label">  
+                    <select formControlName="type"  (change)="typeChange($event.target.value)" name="type" id="type">
+                      <option value="0">Choose...</option>
+                      <option value="unitOfMeasure">Unit of Measure</option>
+                      <option value="fishpreparation">Preparation</option>
+                      <option value="raised">Raised</option>
+                      <option value="treatment">Treatment</option>
+                      <option value="wholeFishWeight">Variations</option>
+                    </select>
+                    <label for="name">Type</label>
+                  </span>
+                </div>
+              </div>
+              
+              <div *ngIf="hasParent" class="col-lg-3">
+                <div class="form-group input-group">
+                  <span class="has-float-label">                      
+                      <select formControlName="parent"  name="parent" id="parent">
+                        <option value="">Choose</option>
+                        <option value="0">No Parent</option>
+                        <option *ngFor="let data of currentParents" ngValue="{{data.id}}">{{data.name}}</option>                        
+                      </select>
+                      <label for="parent">Parent</label>
+                    </span>
+                  </div>
+              </div>              
+              <div class="col-lg-3">
+                <div class="form-group input-group">
+                  <span class="has-float-label">  
+                      <input type="text" placeholder="Name...*" class="form-control" formControlName="name"  id="name" name="name">
+                      <label for="name">Name</label>
+                  </span>
+                </div>
+              </div>
+              <div *ngIf="selectedType === 'unitOfMeasure'" class="col-lg-3">
+                <div class="form-group input-group">
+                  <span class="has-float-label">                      
+                      <input formControlName="kgConversionRate"  name="kgConversionRate" id="kgConversionRate" type="number" />
+                      <label for="parent">KG Conversion Rate ( Example for lbs: 0.4535 kg )</label>
+                    </span>
+                  </div>
+              </div>
+              <div class="col-lg-3 text-center" >
+                <div class="form-group">
+                  <button type="submit" class="btn-blue">                        
+                    Save
+                  </button>
+                  </div>
+              </div>
+                
+        </div>
+      </form>
+
+      <div class="row curresntPricing">
+          <div class="col-md-12">      
+            <h3>Current Information</h3>
+            {{selectedType}}
+          </div>
+          <div class="col-md-12">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <!--<th *ngIf="hasParent" scope="col">Parent</th>-->
+                    <th *ngIf="selectedType === 'unitOfMeasure'" >KG Conversion Rate</th>
+                    <th scope="col">Created at</th>
+                    <!--<th scope="col">Delete</th>-->
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of currentData" >
+                      <th scope="row"> {{data.name}} </th>
+                      <!--<th *ngIf="hasParent" scope="row"> {{data.parent}} </th>-->
+                      <td *ngIf="selectedType == 'unitOfMeasure'" >{{data.kgConversionRate}}</td>
+                      <td>{{data.createdAt | date: 'yyyy-MM-dd'}}</td>
+                      <button type="button" (click)=delete(data.id); class="btn-blue">                        
+                          Delete
+                      </button>
+                    </tr>              
+                  </tbody>
+              </table>
+          </div>
+        </div><!--end row-->
+  </div>
+</div>

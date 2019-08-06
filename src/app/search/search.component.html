@@ -1,0 +1,51 @@
+<div class="page-header" id="hero" style="background:url(../../assets/search-bg.jpg)">
+  <div class="overlay" style="background: url(../../assets/overlay-search.png);"></div>
+  <div class="content">
+    <h1 class="big-title">{{'Search.big-title-banner'| translate}}</h1>
+    <h3 class="small-title">{{'Search.small-title-banner'| translate}}</h3>
+    <a href="" class="btn-red-a">{{'Search.banner-button'| translate}}</a>
+  </div>
+</div>
+<div class="products-section" id="search-title">
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2 class="product-result-title">
+      {{'Search.result-title'| translate}}: {{searchQuery}}
+      </h2>
+    </div>
+    <div class="col-lg-12" *ngIf="showNotFound">
+      <h1 class="notfound">{{'Search.no-result'| translate}}</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-4 col-md-6 result" *ngFor="let product of products; let i=index">
+      <div class="search-result">
+        <div class="col-lg-12 search-product-img">
+           <a routerLink="/product/{{product._id}}"><div [style.background-image]="image[i]" class="bg-img-prod"></div></a>
+        </div>
+        <div class="col-lg-12 search-product-desc">
+          <a routerLink="/product/{{product._id}}">
+            <h3 class="search-product-name">{{product.name}}</h3>
+          </a>
+          <span class="coming-from">
+            <a routerLink="/vendor/{{product.store.name}}">{{product.store.name}}</a>
+            <hr class="black-line">
+          </span>
+          <div class="description">{{smallDesc(product.description)}}</div>
+        </div>
+        <span class="price">
+          {{product.price.type}} {{product.price.value}} {{product.weight.type}}
+        </span>
+     </div>
+    </div>
+  </div>
+   <div class="row">
+      <div class="col" style="text-align: center;">
+        <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number)">{{number}}</span>
+        <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+      </div>
+    </div>
+</div>
+</div>

@@ -1,0 +1,332 @@
+@import "../../variables.scss";
+
+.nav-tabs .nav-link:hover, .nav-tabs .nav-link:focus {
+    border:none;
+}
+.orders-tabs{
+    background: $white;
+    padding-top: 110px;
+
+    .p-top {
+        padding-top: 155px;
+        @media screen and (max-width: 768px){
+            padding-top: 0;
+        }
+    }
+    
+    .nav-tabs {
+        border-bottom: 1px solid #b5bed1;
+        position: relative;
+        @media screen and (max-width: 768px){
+            border: none !important;
+            width: 100%;
+            margin: 30px auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .nav-item a{
+            width: 350px;
+		}
+		.filter-field{
+			input{
+				border: none;
+				width: 300px;
+				height: 29px;
+				border-bottom: 1px solid $gray;
+				color: $gray;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 300;
+				font-style: italic;
+				font-size: 12px;
+				line-height: 22px;
+				background: no-repeat;
+				&::placeholder{
+					color: $gray;
+				}
+			}
+			img{
+				position: absolute;
+				right: 0;
+				top: 20%;
+			}
+			right: 20px;
+			position: absolute;
+			top: 40%;
+			
+		}
+    }
+    .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link{
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        color: $dark_blue !important;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 21px;
+        padding: 15px 30px;
+        letter-spacing: 0.75px;
+        line-height: 34px;
+        span{
+            display: none;
+        }
+        @media screen and (max-width: 768px){
+            font-size: 14px;
+            color: $white !important;
+            background: $dark_blue;
+            width: 150px !important;
+            height: 30px;
+            border-radius: 5px;
+            margin: 0 auto;
+            line-height: 34px;
+            padding: 0;
+            border: 1px solid $dark_blue !important;
+        }
+    
+    }
+    .nav-tabs .nav-link{
+        color: $light_blue !important;
+        text-transform: uppercase;
+        font-weight: 300;
+        font-size: 21px;
+        padding: 15px 30px;
+        letter-spacing: 0.75px;
+        border: none;
+        border-bottom: 2px solid transparent;
+        line-height: 34px;
+        @media screen and (max-width: 768px){
+            font-size: 14px;
+            color: $light_blue !important;
+            width: 150px !important;
+            height: 30px;
+            border-radius: 5px;
+            margin: 0 auto;
+            line-height: 34px;
+            padding: 0;
+            border: 1px solid $light_blue !important;
+        }
+    }
+    .table thead th {
+        vertical-align: middle;
+        border-bottom: 1px solid #b5bed1;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        text-transform: uppercase;
+        color: $light_blue;
+        padding: 35px 15px;
+        border-top: none;
+        font-weight: 300;
+        letter-spacing: 0.5px;
+        font-size: 18px;
+        line-height: 21px;
+    
+    }
+
+     .table td {
+        vertical-align: middle;
+        border-top: none;
+        border-bottom: 1px solid #e4e6e9;
+        text-align: center;
+        padding: 35px 15px;
+        font-family: 'Open Sans', sans-serif;
+        color: $black;
+        font-weight: 300;
+        font-size: 16px;
+    line-height: 22px;
+    position: relative;
+    
+        a{
+            float: right;
+            img{
+                height: 14px;
+                width: 14px; 
+                margin-left: 5px; 
+            }
+        }
+        button{
+            float: right;
+            background: transparent;
+            border: none;
+            outline: none;
+			padding: 0;
+			&.btn-text{
+				font-size: 12px;
+				color: $light_blue;
+				letter-spacing: 0.5px;
+				line-height: 23px;
+				font-family: 'Open Sans', sans-serif;
+				font-weight: 300;
+				position: absolute;
+    			right: 0;
+			}
+            img, svg{
+                   height: 14px;
+                    width: 14px;  
+                    margin-left: 5px;            
+            }
+           
+        }
+    }
+
+    .table th, .table td{
+        width: 20%;
+	}
+	
+	#purchased{
+		.table th, .table td{
+			width: 16.6%;
+		}
+	}
+
+	#child-table, #child-table-mobile{
+		display: none;
+		th, td{
+			width: 16.6%;
+		}
+		.pricing-row{
+			margin-top: 50px;
+			h4{
+				font-family: 'Josefin Sans', sans-serif;
+				font-weight: 300;			
+				letter-spacing: 0.5px;
+				line-height: 21px;
+				text-transform: uppercase;
+				margin: 15px;
+				&.pricing-title{
+					font-size: 18px;
+					color: $black;
+				}
+				&.pricing-item{
+					color: $light_blue;
+					font-size: 18px;
+				}
+				&.pricing-total{
+					font-size: 21px;
+					color: $black;
+				}
+				span{
+					float: right
+				}
+			}
+		}
+	}
+
+    
+
+    @media screen and (max-width: 1201px) {
+        min-width: 1000px;
+        overflow: scroll;
+    }
+
+    @media screen and (max-width: 768px){
+       min-width: 100%;
+    }
+}
+     
+
+.hidden-desktop{
+    display: none;
+}
+
+.hidden-mobile{
+    display: initial;
+}
+
+@media screen and (max-width: 768px){
+    .hidden-desktop{
+        display: initial;
+    }
+
+    .hidden-mobile{
+        display: none;
+    }
+
+    .filter-field{
+        input{
+            border: none;
+            width: 100%;
+            max-width: 698px;
+            height: 34px;
+            border-bottom: 1px solid $gray;
+            color: $gray;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
+            font-style: normal;
+            font-size: 21px;
+            line-height: 28px;
+            background: no-repeat;
+            padding-bottom: 5px;
+            &::placeholder{
+                color: $gray;
+                font-style: italic;
+            }
+            @media screen and (max-width: 768px){
+                font-size: 16px;
+                line-height: 22px;
+            }
+        }
+        input:not(:placeholder-shown) {
+            border-bottom: 1px solid $black;
+            color: $black;
+
+          }
+        input:focus{
+            outline: none !important;
+            box-shadow: none !important;
+            color: $dark_blue;
+            border-bottom: solid 1px $dark_blue !important;
+            
+    
+        }
+
+        
+        img{
+            position: absolute;
+            right: 0;
+            top: 20%;
+            width: 18px;
+            height: 18px;
+        }
+        position: relative;
+        width: 80%;
+        max-width: 698px;
+        margin: 0 auto;
+        
+    }
+
+    tbody{
+        border-top: 1px solid $gray !important;
+        border-bottom: 1px solid $gray !important;
+    }
+
+    .table th, .table td{
+        border: none !important;
+    }
+
+    .table tr{
+        border-bottom: 1px solid rgba($color: $gray, $alpha: 0.4);
+    }
+    .table tr:last-child{
+        border: none !important;
+    }
+
+    .table th{
+        font-family: 'Open Sans', sans-serif;
+        color: $light_blue;
+        font-weight: 300;
+        text-transform: uppercase;
+        font-size: 16px;
+        letter-spacing: 1.5px;
+        line-height: 22px;
+    }
+
+    .table td{
+        text-align: right !important;
+        font-family: 'Open Sans', sans-serif !important;
+        color: $black !important;
+        font-weight: 300 !important;
+        font-size: 16px !important;
+        line-height: 22px !important;
+        padding: 15px !important;
+    }
+}

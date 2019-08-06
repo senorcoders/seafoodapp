@@ -1,0 +1,98 @@
+.not-found-grid{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: red;
+}
+#primary{
+    max-width: 100%;
+    width: 155px;
+    display: block;
+    margin: 0 auto 10px;
+    font-family: 'Roboto', sans-serif;
+    position: absolute;
+    bottom: 20px;
+}
+.primary-label{
+    font-family: 'Roboto', sans-serif Light;
+    color: black;
+    margin-top: 10px;
+    display: block;
+}
+.mg-bt{
+    margin-bottom: 150px;
+}
+.title{
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 140px;
+    font-weight: bold;
+}
+.bg-img{
+    background-size: contain !important;
+    background-repeat: no-repeat;
+    background-position: top center !important;
+    height: 200px;
+    width: 100%;
+    border-top-right-radius: 40px;
+    margin-top: -100px;
+}
+.hr-small{
+    background: #000;
+    height: 1px;
+    width: 80px;
+    margin: 5px 0 10px;
+}
+.bg{
+    background: #ebf1f6;
+    padding: 110px 20px 80px;
+    position: relative;
+    margin-top: -100px;
+    height: 100%;
+}
+.primaryImg-cont{
+    padding: 0 20px;
+    z-index: 10;
+    position: relative;
+}
+.pink-btn{
+    bottom: 20px;
+    position: absolute;
+    font-size: 0.8rem;
+}
+.bt{
+    bottom: 0;
+    position: relative;
+    width: 100%;
+    font-size: 1rem;
+    background: transparent;
+}
+@media(max-width: 768px){
+    .bg-img{
+        height: 250px;
+    }
+    .mg-bt:last-child {
+        margin-bottom: 50px !important;
+    }
+    .mg-bt{
+        margin-bottom: 200px;
+    }
+    .bt{
+        margin-top: 20px;
+    }
+}
+.red {
+    color: #f52828;
+    font-size: .8em;
+}
+
+.loader-gif{
+	position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2000;
+    margin: auto;
+}

@@ -1,0 +1,221 @@
+.shoppingcart{
+	width: auto;
+	max-width: 100%;
+	height: auto;
+	max-height: 150px;
+}
+.carts{
+	align-items: center;
+    box-shadow: 2px 5px 20px -4px black;
+    margin-bottom: 20px;
+    padding: 20px 0;
+    .title{
+    	display: block;
+	    text-decoration: none;
+	    font-size: 1.2rem;
+    }
+}
+fa{
+	cursor: pointer;
+}
+.actions{
+	fa{
+		font-size: 1.5rem;
+    	margin-bottom: 10px;
+    	display: inline-block;
+	}
+	.isfavorite{
+		color:#ee434a;
+	}
+}
+.pink-btn{
+	margin-bottom: 20px
+}
+.review{
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    color: black !important;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+    cursor: pointer;
+    img{
+    	margin-right: 10px;
+    }
+}
+.buttons{
+	text-align: center;
+	margin-top: 20px;
+}
+.black-btn{
+	text-transform: capitalize;
+	display: inline-block;
+	margin-bottom: 5px;
+    text-decoration: none;
+    color: white !important;
+}
+.black-title{
+	margin-bottom: 40px;
+	margin-top: 40px
+}
+.title{
+	color: #19465f;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+.comment-container{
+	position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    .outside{
+    	position: absolute;
+    	width: 100%;
+    	height: 100%;
+    	z-index: 8;
+    }
+	.content{
+	  	position: absolute;
+		max-width: 500px;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+		padding: 20px 40px;
+		background: white;
+		box-shadow: 2px 5px 20px -4px black;
+		z-index: 10;
+	}
+	.is-active{
+		color: #e6df03
+	}
+	.start{
+		margin-bottom: 20px;
+	}
+}
+
+.product-cont{
+	border: 2px solid #ebf1f6;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    .product-img {
+	    width: 100%;
+	    height: 200px;
+	    background-size: cover;
+	    background-position: center;
+	    border-top-right-radius: 40px;
+	    clear: both;
+	    border-bottom-right-radius: 15px;
+	}
+    .sold{
+		font-family: 'Roboto', sans-serif;
+	    font-weight: lighter;
+	    text-transform: capitalize;
+	    color:black;
+	}
+	.price{
+	    font-size: 1.2rem;
+	    color: #eb1c24;
+	    font-family: 'Roboto', sans-serif;
+	    font-weight: bold;
+	    display: block;
+	    text-transform: uppercase;
+	  }
+	.hr-small{
+		background: black;
+	    height: 1px;
+	    width: 80px;
+	    margin: 20px 0;
+	}
+	.content{
+		padding: 20px 0 5px;
+	    border-top: 2px solid #f0f2f3;
+	    margin-top: 5px;
+	    a{
+	    	text-decoration: none !important;
+	    }
+	}
+	.name{
+		font-family: 'Roboto', sans-serif;
+	    font-weight: bold;
+	    color: black;
+	    text-transform: uppercase;
+	    font-size: 1.6rem;
+	    letter-spacing: 1px;
+	}
+}
+
+.box-input input{
+    width: 80px;
+    text-align: center;
+    border:2px solid #eb1c24;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+.btn-rm{
+    background: transparent;
+    padding: 5px 20px;
+    font-size: 0.8rem;
+}
+.pink-btn{
+    background: transparent;
+}
+.btn-red{
+    max-width: 200px;
+}
+a.link-cart{
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 20px;
+}
+
+.cart-divider{
+    border-top: 3px solid #eb1c24;
+}
+
+.not-found-grid{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: red;
+}
+.product-name a{
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none !important;
+    color: black !important
+}
+.black-line{
+    height: 0.5px;
+    background: black;
+    width: 80px;
+}
+.subtotal{
+    font-family: 'Roboto', sans-serif;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+}
+.product-description{
+    font-family: 'Roboto', sans-serif Light;
+    color: #969693;
+}
+
+@media(max-width: 998px){
+    .text-center{
+        text-align: left !important;
+    }
+    .sub-total, .table-design .row-bg .pink-btn, .product-name, .product-description{
+        margin-top: 20px;
+    }
+    .box-input{
+        margin-bottom: 20px;
+    }
+}

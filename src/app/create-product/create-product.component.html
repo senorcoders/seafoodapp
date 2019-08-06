@@ -1,0 +1,68 @@
+<ng-progress></ng-progress>
+<div class="gray-bg">
+  <div class="container">
+    <div class="col-lg-12">
+        
+        <div *ngIf="user['role'] == 0 && createProduct" class="col-lg-12 text-center dl-50">
+          <div class="form-group input-group">
+            <span class="has-float-label">
+                <select id="dlSeller" [(ngModel)]="selectedSeller" (change)="emitSellerSelectedToChild()" placholder="Select a Seller"  class="form-control js-example-basic-single dl-50">
+                  <option *ngFor="let u of sellers" value="{{u.id}}" selected>{{u.firstName}} {{u.lastName}} - {{u.email}}</option>
+                </select>            
+              <label id="dlSeller">Select a seller</label>  
+            </span>            
+          </div>
+            
+        </div>
+
+        
+          
+        <form novalidate [formGroup]="myform" (ngSubmit)="onSubmit()" >
+            <div class="row"> 
+              
+                <div class="col-lg-12 text-center">
+                    <h1 class="gray-title" *ngIf="createProduct" ><span>{{'newProduct.title' | translate}}</span></h1>
+                    <h1 class="gray-title" *ngIf="!createProduct" ><span>{{'newProduct.edit' | translate}}</span></h1>
+                  </div>
+                
+                
+                
+                <ng-template #customLoadingTemplate>
+                  <div class="row">
+                    <div class="wave-loader" style="background-color: #F9FCFF; z-index: 999999; height: 100px; position:fixed;">
+                      <div class="wave-loading"></div>
+                    </div>
+                  </div>
+                </ng-template>
+                <ngx-loading [show]="loading" [config]="{ fullScreenBackdrop: true, backdropBackgroundColour: 'transparent'}" [template]="customLoadingTemplate">
+                </ngx-loading>
+          
+                  <fish-form [seller]="sellectedSeller" [events]="sellerChange.asObservable()"  ></fish-form>
+                  <!-- <fish-features></fish-features> -->
+                  <avanced-pricing [events]="eventsSubject.asObservable()" (messageEvent)="receiveMessage($event)"></avanced-pricing>
+                  <div class="col-lg-12">
+                    <div class="row" style="margin-top: 40px;">
+                      <div class="col-md-6 px-0">
+                        <button type="button" class="btn btn-save mr-auto" routerLink="/my-products">
+                          Go back
+                        </button>
+                      </div>
+                      <div class="col-md-6 px-0">
+                        <button type="submit" class="btn btn-save ml-auto">submit product</button>
+                      </div>
+                      <div *ngIf="user['role'] == 0 && !createProduct" class="col-md-6 px-0">
+                        <button type="button" class="btn btn-save mr-auto" (click)="deleteProduct(productID)">
+                          Delete 
+                        </button>
+                      </div>
+                      
+                  </div>
+                  </div>
+            </div>
+            </form>
+
+    </div>
+     
+  
+  </div>
+</div>

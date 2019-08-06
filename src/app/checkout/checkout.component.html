@@ -1,0 +1,234 @@
+<div class="gray-bg">
+    <div class="container-fluid">
+        <div class="row sub-nav" style="padding-top: 50px; padding-bottom: 50px;">
+            <div class="col-md-6">
+                <a (click)="back()" class="back-btn"><img src="../../assets/svg/left-arrow.svg" alt="">back to shipping</a>
+  
+            </div>
+            <div class="col-md-6 text-right">
+              <div class="dots">
+                <div class="active dot"><span>1</span></div>
+                <div class="line"></div>
+                <div class="dot active"><span>2</span></div>
+                <div class="line"></div>
+                <div class="dot active"><span>3</span></div>
+                <div class="line"></div>
+                <div class="dot"></div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+        
+          <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1 class="gray-title" ><span>PAYMENT</span></h1>
+                  </div>
+            </div>
+            <div class="row cod-row" *ngIf="codEnable">
+                <div class="col-sm-12 text-center">
+                    <div class="d-inline-block border-right">
+                      <button (click)="setCod(false)" [class.selected-cod]="!CODPayment">Credit card</button>
+                    </div>
+                    <div class="d-inline-block">
+                      <button class="cod-btn" [class.selected-cod]="CODPayment" (click)="setCod(true)">Cash on Delivery</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="form-check text-center" *ngIf="codEnable">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="CODPayment" id="cod">
+              <label class="form-check-label" for="cod">Pay with COD</label>
+            </div> -->
+              <form  #form  action="{{formAction}}" method="{{formMethod}}" ngNativeValidate (ngSubmit)="form.submit()">                
+              <div [hidden]="CODPayment" class="row">
+                <div class="col-lg-12" *ngIf="error">
+                  <p class="red">We had an error processing your credit card, please try again</p>
+                </div>
+
+              
+                  <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label">  
+                              <input type="text" placeholder="Cardholder Name...*" class="form-control" id="card_holder_name" name="card_holder_name" required [(ngModel)]="name"  [ngModelOptions]="{standalone: true}" (change)="saveArray()">
+                              <label for="card_holder_name">Cardholder Name...*</label>
+
+
+                          </span>
+                          
+                        </div>
+                  </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group" id="card_number_group" [ngClass]="{
+                      'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <input placeholder="Card Number...*"(keypress)="validateLength($event, 13,16, 'card_number')" (change)="validateCreditCardNumber()" id="card_number" type="number" class="form-control" name="card_number" required>
+
+                        <label for="card_number">Card Number...*</label>
+                      </span>
+                      <img src="../../assets/card-gray.png" alt="" class="card-img">
+                      </div>
+                </div>
+               
+                <div class="col-lg-6">
+                    <div class="form-group input-group" [ngClass]="{
+                       'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <input placeholder="Security Code...*"(keypress)="validateLength($event, 4,4, 'card_security_code')" (change)="validateccvNumber()" id="card_security_code" type="number" class="form-control" name="card_security_code" required>
+                        <label for="card_security_code">Security Code...*</label>
+
+                      </span>
+                      <button type="button" class="question-btn"  tabIndex="-1" tooltip="This is the 3 numbers on the back of your card."
+                      placement="right" show-delay="0"><img src="../../../assets/svg/question.svg" alt=""></button> 
+                      </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group input-group" [ngClass]="{
+                      'bg-red': error
+                    }">
+                    <span class="has-float-label"> 
+                        <div class="row">
+                          <div class="col-md-6">
+                              <select required placeholder="Month" class="form-control" [(ngModel)]="selectMonth"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                                  <option value="01">01</option>
+                                  <option value="02">02</option>
+                                  <option value="03">03</option>
+                                  <option value="04">04</option>
+                                  <option value="05">05</option>
+                                  <option value="06">06</option>
+                                  <option value="07">07</option>
+                                  <option value="08">08</option>
+                                  <option value="09">09</option>
+                                  <option value="10">10</option>
+                                  <option value="11">11</option>
+                                  <option value="12">12</option>
+                                </select>
+                          </div>
+                          <div class="col-md-6">
+                              <select required class="form-control" [(ngModel)]="selectYear"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()">
+                                  <option value="" selected>Year</option>
+                                  <option value="19">2019</option>
+                                  <option value="20">2020</option>
+                                  <option value="21">2021</option>
+                                  <option value="22">2022</option>
+                                  <option value="23">2023</option>
+                                  <option value="24">2024</option>
+                                  <option value="25">2025</option>
+                                  <option value="26">2027</option>
+                                  <option value="27">2027</option>
+                                  <option value="28">2028</option>
+                          
+                                </select>
+                          </div>
+                        </div>
+                        <label>Expiration Date...*</label>
+
+                       </span>
+                        <!-- <input type="month" min="2019-01" max="2025-12" class="form-control" required [(ngModel)]="expiryF"  [ngModelOptions]="{standalone: true}" (change)="onDateChange()"> -->
+                        <input type="hidden" class="form-control" name="expiry_date" required [(ngModel)]="expiryDate">
+                        <input type="hidden" name="access_code" [(ngModel)]="accessToken">
+                        <input type="hidden" name="language" value="en">
+                        <input type="hidden" name="merchant_identifier" [(ngModel)]="merchantID">
+                        <input type="hidden" name="merchant_reference" [(ngModel)]="randomID">
+                        <input type="hidden" name="service_command" value="TOKENIZATION">
+                        <input type="hidden" name="signature" [(ngModel)]="signatureCode">
+                      </div>
+                </div>
+                
+              </div>  
+              <!-- <div [hidden]="CODPayment" class="row" style="margin-top: 70px;">
+                <div class="col-lg-12 text-center">
+                  <h1 class="gray-title" ><span>SET DELIVERY DATE</span></h1>
+                </div> 
+                <div class="col-lg-6 delivery-form" *ngFor="let product of products; index as i;">
+                    <div class="form-group">
+                      <label>{{product?.fish?.name}} ({{product.quantity.value}} kg)</label>
+                      <input placeholder="I want this by...*" [min]="product.minDeliveryDate" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" (dateTimeChange)="emitValue()" class="medd form-control" id="medd{{product.id}}" >
+                      <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                    </div>
+                </div>
+              </div> -->
+                    
+              <div class="cart-price-breakdown">
+                  <div class="row">
+                    <div class="col-md-6" style="margin: 0 auto;">
+                      <div class="prices-row">
+                          <div class="col-lg-12 price-title" [hidden]="!CODPayment">
+                              <h4>LIMIT AVAILABLE <span>AED {{info?.cod?.available}}</span></h4>
+                          </div>
+                          <div class="col-lg-12 price-item" [hidden]="!CODPayment">
+                              <h4>Cash on Delivery will be replenished with the full order amount is paid on delivery</h4>
+                            </div>
+                        <div class="col-lg-12 price-item" [hidden]="!CODPayment">
+                          <h4>Cash on Delivery does not affect the number of orders that can be placed using Credit/Debit Card</h4>
+                        </div>
+                         
+                        <div class="col-lg-12 price-title">
+                            <h4>PRICE BREAKDOWN <span>AED</span></h4>
+                        </div>
+                      
+
+                        <div class="col-lg-12 price-item" *ngFor="let product of products; index as i;">
+                          <h4> {{product?.fish?.name}} (seller price / {{product?.fish?.unitOfSale}})                                
+                            <span>{{(product.fish.price.value).toFixed(2)}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>SUBTOTAL PRICE / KG <span>{{(total).toFixed(2)}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>TAXES AND CUSTOMS <span>{{(totalOtherFees).toFixed(2)}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                            <h4>SHIPPING, HANDLING AND FEES <span>{{(shipping).toFixed(2)}}</span></h4>
+                        </div>
+                        <div class="col-lg-12 price-item">
+                          <h4>VAT ({{taxesPer}}%) <span>{{(vat).toFixed(2)}}</span></h4>
+                      </div>
+                        <div class="col-lg-12 price-total">
+                          <h4>TOTAL <span>{{(totalWithShipping).toFixed(2)}}</span></h4>
+                      </div>
+                      <div class="col-lg-12 total-row text-center">
+                        <button (click)="validateCreditCardNumber()" [hidden]="CODPayment" class="transparent-btn" type="submit" [disabled]="all_medd_ok == false">
+                          Place your order
+                        </button>
+                        <button (click)="goToConfirmation()" [hidden]="!CODPayment" class="transparent-btn" type="button">
+                            Place your order
+                          </button>
+                      </div>
+                        
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>         
+            </form>
+          </div>
+       
+        </div>
+
+
+       
+      </div>
+</div>
+
+<div class="custom-snackbar" *ngIf="showSnackBar">
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-2">
+            <img src="../../assets/svg/alert-circle-white.svg" alt="">
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length == 1">
+          Your item <strong>{{itemsDeleted[0]['fish']['name']}}</strong>  is no longer available. Please check back later.
+        </div>
+        <div class="col-sm-8 text-center" *ngIf="itemsDeleted.length > 1">
+          Your items <strong *ngFor="let i of itemsDeleted">{{i['fish']['name']}} </strong>  are no longer available. Please check back later.
+        </div>
+        <div class="col-sm-2 text-right">
+          <button class="clear-btn" (click)="closeSnackBar()">OK</button>
+        </div>
+      </div>
+  </div>
+</div>
+

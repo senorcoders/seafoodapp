@@ -1,0 +1,611 @@
+
+<div *ngIf="loggedIn; else elseBlock">
+  <div class="container">
+    <div style="height: 100px;"></div>
+    <div class="row">
+      <div class="col-lg-3">
+        <h1 class="title">{{'Account.title' | translate}}</h1>
+        <h1 class="subtitle">{{'Account.subtitle' | translate}}</h1>
+      </div>
+      <!-- if user is a buyer -->
+      <div class="col-lg-9" *ngIf="info.role==2">
+        <form (submit)="onSubmit()" [formGroup]="updateForm">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.first-name' | translate}} </label>
+                <input type="text" class="form-control" formControlName="firstName"
+                  [ngClass]="{'is-invalid':updateForm.get('firstName').invalid && updateForm.get('firstName').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('firstName').hasError('required')">
+                  {{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.last-name' | translate}}</label>
+                <input type="text" class="form-control" formControlName="lastName"
+                  [ngClass]="{'is-invalid':updateForm.get('lastName').invalid && updateForm.get('lastName').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('lastName').hasError('required')">
+                  {{'Account.last-name' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.tel' | translate}}</label>
+                <input type="tel" class="form-control" formControlName="telephone"
+                  [ngClass]="{'is-invalid':updateForm.get('telephone').invalid && updateForm.get('telephone').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('telephone').hasError('required')">
+                  {{'Account.tel' | translate}} {{'Register.required' | translate}}.</div>
+                <div class="invalid-feedback" *ngIf="updateForm.controls.telephone.errors">Only numbers allowed</div>
+
+
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label>{{'Account.email' | translate}}</label>
+                <input type="email" class="form-control" formControlName="email"
+                  [ngClass]="{'is-invalid':updateForm.get('email').invalid && updateForm.get('email').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('email').hasError('required')">
+                  {{'Account.email' | translate}} {{'Register.required' | translate}}.</div>
+                <div class="invalid-feedback"
+                  *ngIf="updateForm.get('email').hasError('email') && !updateForm.get('email').hasError('required')">
+                  {{'Account.email' | translate}} {{'Register.invalid' | translate}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}"
+                  formControlName="companyName"
+                  [ngClass]="{'is-invalid':updateForm.get('companyName').invalid && updateForm.get('companyName').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('companyName').hasError('required')">
+                  {{'Account.company' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Type of Business</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company' | translate}}"
+                  formControlName="companyName"
+                  [ngClass]="{'is-invalid':updateForm.get('companyName').invalid && updateForm.get('companyName').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('companyName').hasError('required')">
+                  {{'Account.company' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+
+            <!-- Aqui -->
+
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" formControlName="country"
+                  [ngClass]="{'is-invalid':updateForm.get('country').invalid && updateForm.get('country').touched}">
+                  <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="updateForm.get('country').hasError('required')">
+                  {{'Account.country' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.Address' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}"
+                  formControlName="address"
+                  [ngClass]="{'is-invalid':updateForm.get('address').invalid && updateForm.get('address').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('address').hasError('required')">
+                  {{'Account.Address' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group" *ngIf="info.role==2">
+                <label>{{'Account.City' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}"
+                  formControlName="city"
+                  [ngClass]="{'is-invalid':updateForm.get('city').invalid && updateForm.get('city').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('city').hasError('required')">
+                  {{'Account.city' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+
+          </div>
+          <!-- <div class="row">
+         
+              <div class="col-lg-6">
+                  <div class="form-group" *ngIf="info.role==2">
+                    <label>{{'Account.zipCode' | translate}}</label>
+                    <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" formControlName="zipcode" [ngClass]="{'is-invalid':updateForm.get('zipcode').invalid && updateForm.get('zipcode').touched}">
+                    <div class="invalid-feedback" *ngIf="updateForm.get('zipcode').hasError('required')">{{'Account.zipCode' | translate}} {{'Register.required' | translate}}.</div>
+    
+                  </div>
+                </div>
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role>0">
+                <label>{{'Account.designation' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" formControlName="designation" [ngClass]="{'is-invalid':updateForm.get('designation').invalid && updateForm.get('designation').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('designation').hasError('required')">{{'Account.designation' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==2">
+                <label>{{'Account.deliveryAddress' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.deliveryAddress' | translate}}" formControlName="deliveryAddress" [ngClass]="{'is-invalid':updateForm.get('deliveryAddress').invalid && updateForm.get('deliveryAddress').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('deliveryAddress').hasError('required')">{{'Account.deliveryAddress' | translate}} {{'Register.required' | translate}}.</div>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-email' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" formControlName="companyEmail" [ngClass]="{'is-invalid':updateForm.get('companyEmail').invalid && updateForm.get('companyEmail').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('companyEmail').hasError('required')">{{'Account.company-email' | translate}} {{'Register.required' | translate}}.</div>
+                <div class="invalid-feedback" *ngIf="updateForm.get('companyEmail').hasError('email') && !updateForm.get('companyEmail').hasError('required')">{{'Account.email' | translate}} {{'Register.invalid' | translate}}</div>
+
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-tel' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-tel' | translate}}" formControlName="companyTelephone" [ngClass]="{'is-invalid':updateForm.get('companyTelephone').invalid && updateForm.get('companyTelephone').touched}">
+                <div class="invalid-feedback" *ngIf="updateForm.get('companyTelephone').hasError('required')">{{'Account.company-tel' | translate}} {{'Register.required' | translate}}.</div>
+                <div class="invalid-feedback" *ngIf="updateForm.controls.companyTelephone.errors">Only numbers allowed</div>
+
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.baking' | translate}}</label>
+                <textarea class="form-control" formControlName="bankingInfo" [ngClass]="{'is-invalid':updateForm.get('bankingInfo').invalid && updateForm.get('bankingInfo').touched}"></textarea>
+              </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.logo-company' | translate}} <span class="field-status">(optional)</span></label>
+                  <input type="file" accept="image/*" class="form-control" formControlName="logoCompany" [ngClass]="{'is-invalid':updateForm.get('logoCompany').invalid && updateForm.get('logoCompany').touched}"  (change)="changeListener($event)">
+                </div>
+              </div>
+          </div> -->
+
+          <div class="row">
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+            </div>
+            <div class="col-lg-6">
+              <a class="pink-btn" data-toggle="modal"
+                data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end buyer form -->
+      <!-- start seller form -->
+      <div class="col-lg-9" *ngIf="info.role==1">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.first-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.firstName"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.last-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.lastName"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-6">
+              <div class="form-group">
+                <label>{{'Account.email' | translate}}</label>
+                <input type="email" class="form-control" required [(ngModel)]="info.email"
+                  [ngModelOptions]="{standalone: true}" disabled>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.tel' | translate}}</label>
+                <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <!-- <div class="row">
+              
+              <div class="col-lg-6">
+                <div class="form-group">
+                  <label>{{'Account.designation' | translate}}</label>
+                  <input type="text" class="form-control" placeholder="{{'Account.designation' | translate}}" [(ngModel)]="info.dataExtra['designation']" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>SFS Agreement Form</label>
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">
+                        <input type="checkbox" aria-label="Checkbox for following text input" [checked]="info.dataExtra['sfsAgreementForm']">
+                      </div>
+                    </div>
+                    <input type="text" class="form-control" [(ngModel)]="info.dataExtra['ifLocal']" [ngModelOptions]="{standalone: true}" aria-label="Text input with checkbox" placeholder="SFS Agreement Form">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" [(ngModel)]="info.country" [ngModelOptions]="{standalone: true}">
+                 <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+            </div> -->
+
+            <!-- <div class="row">
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Name</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankName" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Branch</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankBranch" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div>
+
+              <div class="col-6">
+                <div class="form-group">
+                  <label>Bank Address</label>
+                  <input type="text" class="form-control"  [(ngModel)]="sellerBankAddress" [ngModelOptions]="{standalone: true}">
+                </div>
+              </div> -->
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+            </div>
+            <div class="col-lg-6">
+              <a class="pink-btn" data-toggle="modal"
+                data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end seller form -->
+      <!-- start admin form -->
+      <div class="col-lg-9" *ngIf="info.role==0">
+        <form (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.first-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.firstName"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.last-name' | translate}}</label>
+                <input type="text" class="form-control" required [(ngModel)]="info.lastName"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>{{'Account.email' | translate}}</label>
+                <input type="email" class="form-control" required [(ngModel)]="info.email"
+                  [ngModelOptions]="{standalone: true}" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.tel' | translate}}</label>
+                <input type="tel" class="form-control" [(ngModel)]="info.dataExtra['tel']"
+                  [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.country' | translate}}</label>
+                <select class="form-control" [(ngModel)]="info.country" [ngModelOptions]="{standalone: true}">
+                  <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <button type="submit" class="btn btn-red">{{'Account.button-update' | translate}}</button>
+            </div>
+            <div class="col-lg-6">
+              <a class="pink-btn" data-toggle="modal"
+                data-target="#changePassword">{{'Account.title-change-password' | translate}}</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <!-- end admin form -->
+    </div>
+    <!-- start store form -->
+    <div class="row" style="margin-top: 80px" *ngIf="info.role==1">
+      <div class="col-lg-3">
+        <h1 class="subtitle">{{'Store.title' | translate}}</h1>
+      </div>
+      <div class="col-lg-9">
+        <form (ngSubmit)="storeSubmit()">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Store.name' | translate}} <span style="color:red">*</span></label>
+                <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Trade / Brand Name <span style="color:red">*</span></label>
+                <input type="text" class="form-control" [(ngModel)]="store.name" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-type' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-type' | translate}}"
+                  [(ngModel)]="store.type" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>Country <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}"
+                  [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.Address' | translate}} <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Account.Address' | translate}}"
+                  [(ngModel)]="store.Address" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>City <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Account.City' | translate}}"
+                  [(ngModel)]="store.City" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="tradeImg && tradeImg!=''">
+                <img [src]="base + tradeImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-trade' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" type="file" id="sfs-trade"
+                  (change)="handleFileSfs($event.target.files,1)">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
+                <input type="text" class="form-control" placeholder="Food Safety Certificate Number (ISO)">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Corporate Bank Account Number IBAN <span class="field-status red">*</span></label>
+                <input type="text" class="form-control" placeholder="Corporate Bank Account Number IBAN">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Products Interested in Selling <span class="field-status red">*</span></label>
+                <input type="text" class="form-control" placeholder="Products Interested in Selling">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Contact Number <span class="field-status red">*</span></label>
+                <input type="number" class="form-control" placeholder="Contact Number">
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Currency of Trade <span class="field-status red">*</span></label>
+                <select class="form-control">
+                  <option value="AED">AED</option>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                </select>
+              </div>
+            </div>
+            <!-- <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.company-email' | translate}} <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Account.company-email' | translate}}" [(ngModel)]="store.email" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div> -->
+          </div>
+          <!-- <div class="row">
+            <div class="col-12">
+              <div class="form-group">
+                <label>{{'Store.description' | translate}} <span style="color:red">*</span></label>
+                <textarea class="form-control" [(ngModel)]="store.description" [ngModelOptions]="{standalone: true}"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            
+            <div class="col-lg-6">
+              <div class="form-group" *ngIf="info.role==1">
+                <label>{{'Account.product-type' | translate}}</label>
+                <input type="text" class="form-control" placeholder="{{'Account.product-type' | translate}}" [(ngModel)]="store.productType" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Store.location' | translate}} <span style="color:red">*</span></label>
+                <input type="text" class="form-control" [(ngModel)]="store.location" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+           
+          </div>
+          <div class="row">
+           
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label>{{'Account.zipCode' | translate}} <span style="color:red">*</span></label>
+                <input type="text" class="form-control" placeholder="{{'Account.zipCode' | translate}}" [(ngModel)]="store.zipCode" [ngModelOptions]="{standalone: true}">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="salesImg && salesImg!=''">
+                <img [src]="base + salesImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-sales' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" id="sfs-sales" (change)="handleFileSfs($event.target.files,0)">
+              </div>
+            </div>
+           
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="importImg && importImg!=''">
+                <img [src]="base + importImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-import' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" id="sfs-import" (change)="handleFileSfs($event.target.files,2)">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group img-cont" *ngIf="HsImg && HsImg!=''">
+                <img [src]="base + HsImg" alt="">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.sfs-hs' | translate}} <span style="color:red">*</span></label>
+                <input type="file" class="form-control" type="file" id="sfs-hs" (change)="handleFileSfs($event.target.files,3)">
+              </div>
+            </div>
+          </div> -->
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group img-cont">
+                <img [src]="byPassUrl(logo)" alt="" style="width: 150px;">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.logo' | translate}}</label>
+                <input type="file" class="form-control" id="file" (change)="handleFileInput($event.target.files)">
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group img-cont">
+                <img [src]="byPassUrl(hero)" alt="" style="width: 350px;">
+              </div>
+              <div class="form-group">
+                <label>{{'Store.hero' | translate}}</label>
+                <input type="file" class="form-control" type="file" id="fileHero"
+                  (change)="handleFileHero($event.target.files)"> 
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <button type="submit" class="btn-red">{{buttonText}} Store</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <!-- end store form -->
+  </div>
+</div>
+<ng-template #elseBlock>
+  <div class="not-found-grid">
+    <p>You're not allowed to see this page!</p>
+  </div>
+</ng-template>
+<div class="pop-up" *ngIf="showLoading">
+  <div class="content">
+    <h2>{{'Store.upload' | translate}}</h2>
+    <div class="wave-loader">
+        <div class="wave-loading"></div>
+      </div>
+  </div>
+</div>
+<div class="modal fade" id="changePassword" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{'Account.title-change-password' | translate}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form (submit)="updatePassword()">
+          <div class="form-group">
+            <label for="current">{{'Account.current' | translate}}</label>
+            <input type="password" class="form-control" id="current" [(ngModel)]="currentPassword"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="pass">{{'Account.new' | translate}}</label>
+            <input type="password" class="form-control" id="pass" [(ngModel)]="password"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <div class="form-group">
+            <label for="rep">{{'Account.repeat' | translate}}</label>
+            <input type="password" class="form-control" id="rep" [(ngModel)]="repassword"
+              [ngModelOptions]="{standalone: true}">
+          </div>
+          <button class="pink-btn">{{'Account.button-password' | translate}}</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12"><h3 class="black-title">{{'Featured-types.title' | translate}}</h3></div>
+    <div class="col-12 table-design">
+      <div class="row row-bg" *ngFor="let featuredtype of featuredtypes; let i=index">
+        <div class="col-lg-12">
+          <h2 class="name">
+            {{featuredtype.name}}
+            <img src="../../assets/trash-icon.png" alt="" (click)="deletefeatureList(i)" class="delete">
+          </h2>
+        </div>
+      </div>
+    </div>
+	</div>
+	<div class="row">
+    <div class="col-12">
+      <h2 class="black-title">{{'Featured-types.table-title' | translate}}</h2>
+      <div class="form-group" style="margin-bottom: 20px;">
+        <label>{{'Featured-types.types' | translate}}</label><br>
+        <select class="js-example-basic-single types" name="types" data-placeholder="Select Types">
+          <option value=""></option>
+          <option value="{{type.id}}" *ngFor="let type of types">{{type.name}}</option>
+        </select>
+      </div>
+      <div class="table-design">
+        <div class="row row-bg" *ngFor="let featuredList of featuredLists; let i=index">
+          <div class="col-lg-12">
+            <h2 class="name">
+              {{featuredList.name}}
+              <img src="../../assets/trash-icon.png" alt="" (click)="deleteFeatureStore(i)" class="delete">
+            </h2>
+          </div>
+        </div>
+      </div>
+      <a class="btn-red-a" style="margin-top: 20px" (click)="saveFeatures()">{{'Featured-types.save' | translate}}</a>
+    </div>
+  </div>
+</div>

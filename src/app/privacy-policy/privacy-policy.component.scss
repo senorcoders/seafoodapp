@@ -1,0 +1,26 @@
+table {
+    border-collapse: collapse;
+}
+
+table,
+th,
+td {
+    border: 1px solid black;
+}
+td{
+    padding: 15px;
+    p{
+        margin: 0 !important;
+    }
+}
+
+.first-head {
+    background-color: #adadad;
+    td{
+        text-align: center;
+    }
+}
+
+tr:not(.first-head) td:nth-child(2){
+    width: 30%;
+}

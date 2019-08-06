@@ -1,0 +1,154 @@
+<div class="products-section">
+  <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+        <!--Sidebar-->
+        <aside>
+          <div class="box" style="margin-top: 0">
+            <h3 class="black-title">{{'Products.title' | translate}}</h3>
+          </div>
+          <form [formGroup]="filterForm" (submit)="filterProducts()" class="searchAdmin">
+              <div id="filter">
+                <div class="box" style="margin-top: 10px">                
+                  <select class="js-example-basic-single category" name="category" data-placeholder="Select Store">
+                    <option value="0">Select Category</option>
+                    <option value="{{category.id}}" *ngFor="let category of searchCategories">{{category.name}}</option>
+                  </select>
+                </div> 
+                <div class="box subcategory-container">          
+                  <select class="js-example-basic-single subcategory" name="subcategory" data-placeholder="Select Store">
+                    <option value="0">Select Species</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubcategories">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box subspecies-container">          
+                  <select class="js-example-basic-single subspecies" name="subspecies" data-placeholder="Select Store">
+                    <option value="0">Select Sub-Species</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchSubSpecie">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box descriptor-container">          
+                  <select class="js-example-basic-single descriptor" name="descriptor" data-placeholder="Select Store">
+                    <option value="0">Select Sub-species variant</option>
+                    <option value="{{subCategory.id}}" *ngFor="let subCategory of searchDescriptor">{{subCategory.name}}</option>
+                  </select>
+                </div>
+                <div class="box">          
+                  <select class="js-example-basic-single country" name="country" data-placeholder="Select Store">
+                    <option value="0">Select Country</option>            
+                    <option value="{{country.code}}" *ngFor="let country of countries">{{country.name}}</option>
+                  </select>
+                </div>
+                <div class="box">
+                  <button id="clear" name="clear" class="pink-btn" >Clear Filters</button>
+                </div>
+              </div>
+          </form>
+          <div class="box bprice">
+            <label>Price</label><span class="current-price"></span><br>
+            <input type="hidden" id="minPriceValue" name="priceValue">
+            <input type="hidden" id="maxPriceValue" name="priceValue">
+            <input id="sliderPrice"  data-slider-id="sliderPrice" type="text" value="0"/>
+          </div>
+          <div class="box minimum">
+            <label>Minimum Order</label><span class="current-min"></span>
+            <input type="hidden" id="minimumValue" name="minimumValue">
+            <input id="sliderMin" data-slider-id="sliderMin" type="text" data-slider-step="10" value="0"/>
+          </div>
+
+          <div class="box maximum">
+            <label>Maximum Order</label><span class="current-max"></span>
+            <input type="hidden" id="maximumValue" name="maximumValue">
+            <input id="sliderMax" data-slider-id="sliderMax" type="text" data-slider-step="10" value="100"/>
+          </div>                    
+
+          <div class="box cooming-soon">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="comming_soon" id="comming_soon" >
+                <label class="form-check-label" for="comming_soon">
+                  Coming Soon
+                </label>
+              </div>
+          </div> 
+          
+          
+          <div class="box preparation">
+            <select class="js-example-basic-single select-preparation" placeholder="Preparation" id="selectPreparation" name="selectPreparation[]" data-placeholder="Preparation" multiple="multiple">              
+              <option value="filleted">Filleted</option>
+              <option value="whole">Whole</option>
+              <option value="gutted">Gutted</option>
+            </select>
+          </div>
+          <div class="box treatment">
+            <select class="js-example-basic-single select-treatment" id="selectTreatment" name="selectTreatment[]" data-placeholder="Treatment" multiple="multiple">              
+              <option value="fresh">Fresh</option>
+                <option value="frozen">Frozen</option>
+                <option value="live">Live</option>
+                <option value="smoked">Smoked</option>
+                <option value="canned">Canned</option>
+            </select>
+          </div>
+          <div class="box raised">
+            <select class="js-example-basic-single select-raised" id="selectRaised" name="selectRaised[]" data-placeholder="Raised" multiple="multiple">              
+              <option value="farmed">Farmed</option>
+              <option value="organically">Organically Farmed</option>
+              <option value="wild">Wild</option>
+            </select>
+          </div>
+        </aside>
+      </div>
+      
+      <div class="col-lg-9 products-row">          
+          <div class="row" style="margin-left: 0;" id="products-container">
+             
+                <div class="wave-loader" *ngIf="showLoading">
+                    <div class="wave-loading"></div>
+                  </div>
+                <div class="col-lg-12" *ngIf="showNotFound">
+                  <h1 class="notfound">{{'Products.no-result' | translate}}</h1>
+                </div>
+
+              <div  id="product-{{product.id}}" *ngFor="let product of products; let i=index" class="col-lg-4 col-md-6 single-product coming-{{product.cooming_soon}} category-{{removeSpaces(product.type.name)}} {{product.country}} {{i}} {{product.id}} {{product.price.value}}" (mouseenter)="myEnterFunction(product.id)" (mouseleave)="leaveFunction(product.id)">
+                <a routerLink="/product/{{product.id}}">
+                  <div class="single-product-bg " [style.background-image]="image[i]">
+                    <div class="single-kg-box" id="single-price-{{product.id}}">{{product.minimumOrder}} kg</div>
+                 </div>
+                </a>
+                <a routerLink="/product/{{product.id}}" class="single-product-name"><h3>{{product.name}}</h3></a>
+                <p *ngIf="product.price.value" class="single-kg-price">
+                  <span>c </span> 
+                  <span class="sellers-price">Sellers Price</span>
+                   <input [disabled]="product.cooming_soon" type="number" (keyup.enter)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)"  class="single-price"  [(ngModel)]="product.minimumOrder" (input)="getWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">
+                  <span class="single-calc">
+                    <button (click)="increaseWeight(product.minimumOrder, product.maximumOrder, i, product.id, product.country, product.type.name, product.price.value)">+</button>
+                    <button (click)="dicreaseWeight(product.minimumOrder, i, product.id, product.country, product.type.name, product.price.value)">-</button>
+                  </span>
+                </p>                
+                <p class="hidden-prices blue" id="delivered-cont-{{product.id}}" style="display:none;">
+                    <span id="product-{{product.id}}-delivered">{{product.price.type}} {{product.price.value}} / {{product.weight.type}}</span> 
+                    <button style="margin-top: -5px;"  class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+
+                </p>
+                 <button  class="single-add-btn" id="btn-add-{{product.id}}" (click)="addToCart(product)"> Add to Cart</button>
+              </div>
+             
+            </div>
+            <div class="row" *ngIf="!paginationSearch">
+              <div class="col" style="text-align: center;" *ngIf="number > 1">
+                <span class="pink-btn previous" (click)="previousPage()" *ngIf="showPrvP">{{'Archive-product.previous' | translate}}</span>
+                <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,1)">{{number}}</span>
+                <span class="pink-btn next" (click)="nextPage()" *ngIf="showNextP">{{'Archive-product.next' | translate}}</span>
+              </div>
+            </div>
+            <div class="row" *ngIf="paginationSearch">
+              <div class="col" style="text-align: center;">
+                <span class="btn-red-a previous" (click)="previousPageSearch()" *ngIf="showPrvPS">{{'Products.previous' | translate}}</span>
+                <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn" [ngClass]="{'active': page==number}" (click)="goTo(number,2)">{{number}}</span>
+                <span class="btn-red-a next" (click)="nextPageSearch()" *ngIf="showNextPS">{{'Products.next' | translate}}</span>
+              </div>
+            </div>
+      </div>
+    </div>
+    
+  </div>
+</div>   

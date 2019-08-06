@@ -1,0 +1,40 @@
+.container{
+	padding: 150px 15px;
+}
+h5{ 
+	font-family: 'Roboto', sans-serif;
+	font-size: 2rem;
+	text-align: center;
+	a{
+		color: #eb1c24;
+		text-decoration: none !important;
+	}
+}
+.edit{
+	float: right;
+	margin-right: 10px;
+}
+.black-title{
+	margin-bottom: 20px;
+}
+
+.table-design .row-bg {
+    margin: -10px;
+}
+
+.previous, .next{
+	margin-bottom: 20px;
+  }
+  .numberPage{
+	margin-right: 10px;
+	margin-bottom: 10px;
+  }
+  .pink-btn{
+	padding: 10px 15px;
+	color: #0055bd !important;
+	border: 2px solid #0055bd !important;
+  }
+  .active {
+	background: #0055bd;
+	color: white !important;
+  }

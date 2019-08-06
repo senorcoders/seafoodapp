@@ -1,0 +1,30 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h2 class="black-title">{{"Chart.title" | translate}}</h2>
+		</div>
+		<div class="col-12">
+			<canvas id="all-purchases" width="400" height="400"></canvas>
+		</div>
+		<div class="col-12">
+			<h2 class="black-title">{{"Chart.title2" | translate}}</h2>
+		</div>
+		<div class="col-12">
+			<select class="js-example-basic-single fishType" name="fishType">
+	          <option value="">Choose a fish type</option>
+	          <option value="{{fishType.id}}" *ngFor="let fishType of fishTypes">{{fishType.name}}</option>
+	        </select>
+		</div>
+		<div class="col-12">
+			<div *ngIf="showMessage">
+				{{'Chart.message' | translate}}
+			</div>
+			<div class="row">
+				<div class="col" *ngFor="let chart of charts; let i=index">
+					<span (click)="deleteChart(i)" class="delete"><fa name="remove"></fa></span>
+					<canvas id="{{chart}}" width="400" height="400" class="chart"></canvas>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

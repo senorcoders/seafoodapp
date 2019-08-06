@@ -1,0 +1,387 @@
+<div class="gray-bg hidden-mobile">
+	<div class="container fluid wave-container" *ngIf="showLoading; else productshow">
+			<div class="row" >
+					<div class="wave-loader" >
+						<div class="wave-loading"></div>
+					</div>
+				</div>
+	</div>
+
+	
+	<ng-template #productshow>
+
+			<div class="container-fluid orders-tabs px-0">
+	<div class="row">
+			
+		<div class="col-lg-12 p-top">
+				<ul class="nav nav-tabs" id="slidinTab" role="tablist">
+						<li class="nav-item">
+							<a class="nav-link active" id="pending-tab" data-toggle="tab" href="#pending" role="tab"
+								aria-controls="pending" aria-selected="true">open orders <span
+									*ngIf="shoppingCarts.length > 0">({{shoppingCarts.length}})</span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" id="purchased-tab" data-toggle="tab" href="#purchased" role="tab"
+								aria-controls="purchased" aria-selected="false">complete orders <span
+									*ngIf="orders.length > 0">({{orders.length}})</span></a>
+						</li>
+						<div class="filter-field">
+							<input type="text" placeholder="Search by order no."  [(ngModel)]="searchText">
+							<img src="../../assets/svg/magnify.svg" alt="">
+						</div>
+
+						
+					</ul>
+	
+		<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
+					<div class="col-lg-12" id="child-table" >
+							<table class="table">
+									<thead>
+											<tr>
+												<th scope="col">product</th>
+												<th scope="col">seller</th>
+												<th scope="col">Item status</th>
+												<th scope="col">qty</th>
+												<th scope="col">price / kg</th>
+												<th scope="col">total (aed)</th>
+											</tr>
+										</thead>
+										<tbody *ngFor="let item of items ;let i=index ">
+											<tr >
+													<td><button (click)="hideChild()" class="clear-btn" style="float:left;"><img src="../../assets/svg/arrow-left.svg" alt=""></button>{{item?.fish?.name}}</td>
+													<td>{{item?.fish?.store?.name}}</td>
+													<td>{{item?.status?.status}}</td>
+													<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
+													<td *ngIf="item.fish.perBox == true">{{item.quantity.value / item?.fish?.boxWeight}} boxes</td>
+
+													<td>{{(item.price).toFixed(2)}}</td>
+													<td>{{(item.total).toFixed(2)}} <button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
+											</tr>
+											
+										</tbody>
+										
+							</table>
+							<div class="row pricing-row">
+									<div class="col-lg-6"></div>
+									<div class="col-lg-6">
+										<div class="row">
+											<div class="col-lg-12">
+												<h4 class="pricing-title">
+														PRICE BREAKDOWN <span>AED</span>
+												</h4>
+											</div>
+											<div class="col-lg-12">
+													<h4 class="pricing-item">
+															SUBTOTAL <span>{{(subtotal).toFixed(2)}}</span>
+													</h4>
+												</div>
+												<div class="col-lg-12">
+														<h4 class="pricing-item">
+																TAXES, CUSTOMS, & FEES <span>{{(fees).toFixed(2)}}</span>
+														</h4>
+													</div>
+													<div class="col-lg-12">
+															<h4 class="pricing-item">
+																	SHIPPING <span>{{(shipping).toFixed(2)}}</span>
+															</h4>
+														</div>
+														<div class="col-lg-12">
+																<h4 class="pricing-total">
+																		TOTAL <span>{{(total).toFixed(2)}}</span>
+																</h4>
+															</div>
+												
+											
+										</div>
+									</div>
+								</div>
+
+					</div>
+						
+						<table id="open-table" class="table" *ngIf="showData; else noProduct">
+							<thead>
+								<tr>
+									<th scope="col">Order No.</th>
+									<th scope="col">Date Placed</th>
+									<th scope="col">Order Status</th>
+									<th scope="col">No. of Items</th>
+									<th scope="col">total (aed)</th>
+								</tr>
+							</thead>
+							<tbody *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
+								<tr>
+									<td><button class="clear-btn" style="float:left;" (click)="print(shoppingCart.invoice_pdf)"><img src="../../assets/svg/printer.svg" alt=""></button>{{shoppingCart?.orderNumber}}</td>
+									<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
+									<td>{{shoppingCart.orderStatus.status}}</td>
+									<td >{{shoppingCart?.items.length}} items</td>
+									<td >{{shoppingCart.total}} <button class="clear-btn" (click)="openChild(shoppingCart.items, shoppingCart.subTotal, shoppingCart.shipping, shoppingCart.totalOtherFees, shoppingCart.total)"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
+	
+								</tr>
+							</tbody>
+						</table>
+						<ng-template #noProduct>
+							<div class="row">
+								<div class="col-12">
+									<h4 class="black-title">There are no orders yet</h4>
+								</div>
+							</div>
+						</ng-template>
+				</div>
+				<div class="tab-pane" id="purchased" role="tabpanel" aria-labelledby="purchased-tab">
+						<table class="table" *ngIf="!showNoData; else noProductH">
+								<thead>
+									<tr>
+										<th scope="col">Order</th>
+										<th scope="col">product</th>
+										<th scope="col">seller</th>
+										<th scope="col">status</th>
+										<th scope="col">qty</th>
+										<th scope="col" >total (aed)</th>
+									</tr>
+								</thead>
+								<tbody *ngFor="let item of orders | filternumber : searchText ;let i=index ">
+									<tr>
+										<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;" (click)="print('invoice-order-' + item.orderInvoice + '.pdf')"><img src="../../assets/svg/printer.svg" alt=""></button>{{item.shoppingCart.orderNumber}}</td>
+										<td>{{item.fish.name}}</td>
+										<td *ngIf="item.store">{{item.store.name}}</td>
+										<td *ngIf="item.status">{{item.status.status}}</td>
+										<td >{{item.quantity.value}} kg </td>
+										<td *ngIf="item.total">{{(item?.total).toFixed(2)}}</td>
+									</tr>
+								</tbody>
+							</table>
+							<ng-template #noProductH>
+								<div class="row">
+									<div class="col-12">
+										<h4 class="black-title">There are no orders yet</h4>
+									</div>
+								</div>
+							</ng-template>
+				</div>
+		</div>
+	</div>
+	</div>
+			</div>
+	
+		
+	
+	</ng-template>
+
+</div>
+
+<div class="gray-bg hidden-desktop">
+		<div class="container fluid wave-container" *ngIf="showLoading; else productshowMobile">
+				<div class="row" >
+						<div class="wave-loader" >
+							<div class="wave-loading"></div>
+						</div>
+					</div>
+		</div>
+
+		<ng-template #productshowMobile>
+
+				<div class="container-fluid orders-tabs px-0">
+		<div class="row">
+				<div class="col-lg-12">
+						<div class="filter-field">
+								<input type="text" placeholder="Search by order no."  [(ngModel)]="searchText">
+								<img src="../../assets/svg/magnify.svg" alt="">
+							</div>
+				</div>
+			<div class="col-lg-12 p-top">
+					<ul class="nav nav-tabs" id="slidinTab" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link active" id="pending-tab-mobile" data-toggle="tab" href="#pending-mobile" role="tab"
+									aria-controls="pending" aria-selected="true">open<span
+										*ngIf="shoppingCarts.length > 0">({{shoppingCarts.length}})</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="purchased-tab-mobile" data-toggle="tab" href="#purchased-mobile" role="tab"
+									aria-controls="purchased" aria-selected="false">complete <span
+										*ngIf="orders.length > 0">({{orders.length}})</span></a>
+							</li>
+							
+	
+							
+						</ul>
+
+
+						<div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade show active" id="pending-mobile" role="tabpanel" aria-labelledby="pending-tab-mobile">
+									<div class="col-lg-12" id="child-table-mobile" >
+											<table class="table">
+														<tbody *ngFor="let item of items ;let i=index ">
+															<tr>
+																	<th scope="col">product</th>
+																	<td>{{item?.fish?.name}}</td>
+															</tr>
+															<tr>
+																	<th scope="col">seller</th>
+																	<td>{{item?.fish?.store?.name}}</td>
+
+															</tr>
+															<tr>
+																	<th scope="col">Item status</th>
+																	<td>{{item?.status?.status}}</td>
+															</tr>
+															<tr>
+																	<th scope="col">qty</th>
+																	<td *ngIf="item.fish.perBox != true">{{item.quantity.value}} kg</td>
+																	<td *ngIf="item.fish.perBox == true">{{item.quantity.value / item?.fish?.boxWeight}} boxes</td>
+															</tr>
+															<tr>
+																	<th scope="col">price / kg</th>
+																	<td>{{(item.price).toFixed(2)}}</td>
+															</tr>
+															<tr>
+																	<th scope="col">total (aed)</th>
+																<td>{{(item.total).toFixed(2)}} </td>
+															</tr>
+															<tr >
+																<td><button (click)="hideChildMobile()" class="clear-btn" style="float:left;"><img src="../../assets/svg/arrow-left.svg" alt=""></button></td>
+																<td><button *ngIf="item.status.id == '5c017ae247fb07027943a404'" (click)="cancelOrder(item.id)" class="clear-btn btn-text">CANCEL</button></td>
+															</tr>
+															
+														</tbody>
+														
+											</table>
+											<div class="row pricing-row">
+													<div class="col-lg-6"></div>
+													<div class="col-lg-6">
+														<div class="row">
+															<div class="col-lg-12">
+																<h4 class="pricing-title">
+																		PRICE BREAKDOWN <span>AED</span>
+																</h4>
+															</div>
+															<div class="col-lg-12">
+																	<h4 class="pricing-item">
+																			SUBTOTAL <span>{{(subtotal).toFixed(2)}}</span>
+																	</h4>
+																</div>
+																<div class="col-lg-12">
+																		<h4 class="pricing-item">
+																				TAXES, CUSTOMS, & FEES <span>{{(fees).toFixed(2)}}</span>
+																		</h4>
+																	</div>
+																	<div class="col-lg-12">
+																			<h4 class="pricing-item">
+																					SHIPPING <span>{{(shipping).toFixed(2)}}</span>
+																			</h4>
+																		</div>
+																		<div class="col-lg-12">
+																				<h4 class="pricing-total">
+																						TOTAL <span>{{(total).toFixed(2)}}</span>
+																				</h4>
+																			</div>
+																
+															
+														</div>
+													</div>
+												</div>
+				
+									</div>
+
+
+										
+										<table id="open-table-mobile" class="table" *ngIf="showData; else noProduct">
+											
+											<tbody *ngFor="let shoppingCart of shoppingCarts | filternumber : searchText ;let i=index ">
+												<tr>
+													<th scope="col">Order No.</th>
+													<td>{{shoppingCart?.orderNumber}}</td>
+
+												</tr>
+												<tr>
+														<th scope="col">Date Placed</th>
+														<td>{{shoppingCart.updatedAt | date: 'dd/MM/yyyy'}}</td>
+
+												</tr>
+												<tr>
+														<th scope="col">Order Status</th>
+														<td>{{shoppingCart.orderStatus.status}}</td>
+
+
+												</tr>
+												<tr>
+														<th scope="col">No. of Items</th>
+														<td >{{shoppingCart?.items.length}} items</td>
+
+
+												</tr>
+
+												<tr>
+														<th scope="col">total (aed)</th>
+														<td>{{shoppingCart.total}} </td>
+
+												</tr>
+												<tr>
+													<td><button class="clear-btn" style="float:left;" (click)="print(shoppingCart.invoice_pdf)"><img src="../../assets/svg/printer.svg" alt=""></button></td>
+													<td ><button class="clear-btn" (click)="openChildMobile(shoppingCart.items, shoppingCart.subTotal, shoppingCart.shipping, shoppingCart.totalOtherFees, shoppingCart.total)"><img src="../../assets/svg/arrow-right.svg" alt=""></button></td>
+					
+												</tr>
+											</tbody>
+										</table>
+										<ng-template #noProduct>
+											<div class="row">
+												<div class="col-12">
+													<h4 class="black-title">There are no orders yet</h4>
+												</div>
+											</div>
+										</ng-template>
+								</div>
+								<div class="tab-pane" id="purchased-mobile" role="tabpanel" aria-labelledby="purchased-tab-mobile">
+										<table class="table" *ngIf="!showNoData; else noProductH">
+												<tbody *ngFor="let item of orders | filternumber : searchText ;let i=index ">
+													<tr>
+															<th scope="col">Order</th>
+															<td>{{item.shoppingCart.orderNumber}}</td>
+													</tr>
+													<tr>
+															<th scope="col">product</th>
+															<td>{{item.fish.name}}</td>
+													</tr>
+													<tr>
+															<th scope="col">seller</th>
+															<td *ngIf="item.store">{{item.store.name}}</td>
+													</tr>
+													<tr>
+															<th scope="col">status</th>
+															<td *ngIf="item.status">{{item.status.status}}</td>
+													</tr>
+													<tr>
+															<th scope="col">qty</th>
+															<td >{{item.quantity.value}} kg </td>
+													</tr>
+													<tr>
+															<th scope="col" >total (aed)</th>
+															<td *ngIf="item.total">{{(item?.total).toFixed(2)}}</td>
+													</tr>
+													<tr>
+														<td *ngIf="item.shoppingCart" ><button class="clear-btn" style="float:left;" (click)="print('invoice-order-' + item.orderInvoice + '.pdf')"><img src="../../assets/svg/printer.svg" alt=""></button></td>
+													
+													</tr>
+												</tbody>
+											</table>
+
+
+											<ng-template #noProductH>
+												<div class="row">
+													<div class="col-12">
+														<h4 class="black-title">There are no orders yet</h4>
+													</div>
+												</div>
+											</ng-template>
+								</div>
+						</div>
+
+
+
+
+
+			</div>
+			</div>
+				</div>
+		</ng-template>
+</div>

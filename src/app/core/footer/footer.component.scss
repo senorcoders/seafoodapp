@@ -1,0 +1,141 @@
+@import "../../../variables.scss";
+
+footer{
+    background-color: #fff;
+    padding-top: 50px;
+    padding-bottom: 20px;
+    border-top: 2px solid #fafafb;
+
+    strong{
+        color: $black;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        text-transform: uppercase;
+        display: block;
+        margin-bottom: 5px;
+        font-weight: normal;
+    }
+    a{
+        color: $light_blue;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+    }
+
+    a:hover{
+        color: $dark_blue;
+    }
+
+    .col{
+        text-align: center;
+    }
+
+    ul{
+        padding: 0;
+        li{
+            padding: 7px 0;
+        }
+    }
+
+    .logo{
+        width: 50px;
+        margin-bottom: 20px;
+        margin-top: -10px;    }
+
+    p{
+        color: $black;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        margin: 0;
+        line-height: 20px;
+        font-weight: normal;
+    }
+
+   
+}
+
+.sub-footer{
+    border-top: 2px solid #fafafb;
+    .footer-logos{
+        margin: 0;
+        img{
+            height: 35px; 
+            opacity: .5;
+        }
+        li{
+            margin-left: 20px;
+        }
+        li:first-child{
+            img{
+                height: 53px;
+            }
+        }
+        li:last-child{
+            img{
+                height: 14px;
+            }
+        }
+       
+    }
+
+    p{
+        color: $black;
+        font-size: 14px;
+        font-family: 'Josefin Sans', sans-serif;
+        margin: 0;
+        line-height: 20px;
+        font-weight: 400;
+    }
+    ul.copyright{
+        margin: 0;
+        padding: 0;
+        padding-top: 10px;
+        select{
+            color: $black;
+            border-color: $black;
+        }
+    }
+    .container{
+        max-width: 85% !important;
+        .col-md-6{
+            padding: 0;
+        }
+
+        @media screen  and(max-width: 1400px){
+            max-width: 90% !important;
+        }
+       
+    }
+}
+
+
+@media screen and (max-width: 768px){
+    footer{
+        .col{
+            width: 100%;
+            flex-basis: auto;
+            margin: 10px 0;
+        }
+    }
+
+    .sub-footer {
+            .footer-logos {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+
+                .list-inline-item {
+                    margin: 0
+                }
+
+                img {
+                    height: 35px;
+                    max-height: 53px;
+                }
+            }
+
+            ul.copyright {
+                padding-bottom: 20px;
+            }
+        }
+}

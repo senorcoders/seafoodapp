@@ -1,0 +1,80 @@
+<div class="container" style="padding-top:150px;">
+  <div class="row">
+    <div class="col-md-12"><h3 class="title">{{'Inventory.title'| translate}}</h3></div>
+  </div>  
+</div>
+
+<div class="container">
+  <form novalidate [formGroup]="myform" (ngSubmit)="saveInventory()" class="form-design">
+    <div class="row">
+        <div class="col-md-3">
+          <div class="form-group" >
+            <label>{{'Inventory.seller' | translate}}</label>
+            <select (change)="changeSelectedSeller($event.target.value)" id="seller" class="form-control" formControlName="seller" >
+                <option value="{{seller.id}}" *ngFor="let seller of sellers">{{seller.dataExtra?.companyName}} - {{seller.email}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="form-group" >
+            <label>{{'Inventory.sku' | translate}}</label>
+            <select (change)="changeSelectedSku($event.target.value)" id="sku" class="form-control" formControlName="sku" >
+                <option value="-1">Select an SKU</option>
+                <option value="{{sku.id}}" *ngFor="let sku of skus">{{sku.sku}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-2">
+          <div class="form-group" >
+            <label>{{'Inventory.date' | translate}}</label>            
+            <input placeholder="" [min]="min" [max]="max" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" formControlName="date" class="form-control" >
+            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+          </div>
+        </div>
+        
+        <div class="col-md-2">
+          <div class="form-group" >
+            <label>{{'Inventory.quantity' | translate}}</label>
+            <input id="quantity" type="number" class="form-control" formControlName="quantity" >
+          </div>
+        </div>       
+
+        <div class="col-md-2">
+          <button type="submit" class="btn-red">Save</button>
+        </div>
+    </div>
+  </form>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">      
+      <h3>Current Inventory</h3>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-hover">
+        <thead>
+          <tr>          
+            <th scope="col">{{'Inventory.name' | translate}}</th>
+            <th scope="col">{{'Inventory.sku' | translate}}</th>
+            <th scope="col">{{'Inventory.date' | translate}}</th>
+            <th scope="col">{{'Inventory.quantity' | translate}}</th>
+            <th scope="col">{{'Inventory.purchased' | translate}}</th>            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inventory of inventories">            
+            <td> {{inventory.variations.fish.name}} - {{inventory.variations.fishPreparation.name}} {{inventory.variations.wholeFishWeight?.name}}  </td>
+            <td> {{inventory.variations.sku}} </td>
+            <td> {{inventory.short_date}} </td>
+            <td> {{inventory.quantity}} </td>
+            <td> {{inventory.purchased}} </td>            
+            <td *ngIf="inventory.purchased <= 0"> <span class="blue-btn-light previous" (click)="delete(inventory.id)" >Delete</span> </td>
+          </tr>              
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

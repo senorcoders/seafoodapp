@@ -1,0 +1,396 @@
+@import "../../variables.scss";
+
+.login-option{
+    font-family: 'Roboto', sans-serif Medium;
+    display: block;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    a{
+        text-decoration: none;
+    }
+}
+.account{
+    color: #1c1d1d !important;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+}
+
+.login-option a{
+	cursor: pointer;
+}
+.logo{
+    max-width: 100%;
+}
+.black-title {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5rem;
+    color: #1c1d1d;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 30px;
+    text-align: right;
+}
+.return{
+    font-family: 'Roboto', sans-serif Medium;
+    color: #8c8c8c;
+    display: block;
+    text-decoration: none !important;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+}
+.right-side{
+    text-align: right;
+}
+form{
+    padding-top: 40px;
+    label{
+        font-family: 'Roboto', sans-serif Medium;
+        color: black;
+        font-size: 1.2rem;
+        letter-spacing: 1px;
+    }
+}
+.form-control{
+    background: #ebf1f6 !important;
+    border-radius: 0;
+    height: 40px;
+    color: black;
+    border: 0;
+}
+.btn-red{
+    border-radius: 0 !important;
+}
+.popup-form{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    height: 100%;
+    z-index: 9;
+    top: 0;
+    .outside{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        z-index: 8;
+    }
+    .black-title{
+        text-align: center;
+    }
+    .content{
+        position: absolute;
+        max-width: 500px;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        padding: 40px;
+        background: white;
+        box-shadow: 2px 5px 20px -4px black;
+        z-index: 10;
+        @media screen and (max-width: 992px){
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: none;
+            max-width: 100%;
+        }
+    }
+}
+@media(max-width: 998px){
+    .black-title{
+        margin-top: 10px;
+        text-align: center;
+    }
+    .return{
+        margin-top: 10px;
+    }
+    .right-side{
+        text-align: center;
+    }
+    .login-option{
+        text-align: center;
+    }
+    .left-side{
+        text-align: center;
+    }
+    #hero{
+        height: 100vh !important;
+    }
+
+}
+
+.seafoodFormContainer{
+    .content{
+        max-width: 600px;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+}
+
+
+
+  .introductory-title{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    line-height: 34px;
+    color: $light_blue;
+    text-transform: uppercase;
+    text-align: center;
+    span{
+        border-bottom: 1px solid $light_blue;
+        padding-bottom: 10px;
+    }
+    padding-bottom: 50px;
+  }
+
+  .login-nav-logo{
+      padding: 20px 0px;
+      height: 110px;
+      align-items: center;
+      flex-wrap: nowrap;
+      a{
+        padding: 20px 50px;
+        img.logo{
+            max-width: 100%;
+            width: 52px;
+            height: auto;
+        }
+      }
+  }
+
+  .input-group{
+    max-width: 350px;
+    margin: 0 auto;
+    width: 100%;
+    margin-bottom: 50px;
+    background: none !important;
+
+    input.form-control, textarea.form-control{
+        background: none !important;
+        border: 0;
+        border-bottom: solid 2px $gray !important;
+        border-radius: 0 !important;
+        color: $dark_blue !important;
+        font-size: 21px;
+        font-weight: 300;
+        font-family: 'Open Sans', sans-serif;
+        padding: 0 !important;
+       
+
+
+    }
+    
+
+    select.form-control{
+        background: none !important;
+        border-radius: 0 !important;
+        border: 0;
+        border-bottom: solid 2px $gray !important;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0px;
+        color: $dark_blue !important;
+        font-size: 21px;
+        font-weight: 300;
+        font-family: 'Open Sans', sans-serif;
+        padding: 0 !important;
+       
+    }
+    input.form-control.is-invalid{
+        border-bottom: solid 2px $red !important;
+
+    }
+    input:focus{
+        outline: none !important;
+        box-shadow: none !important;
+        border-bottom: solid 2px $dark_blue !important;
+
+    }
+    input.form-control:disabled, select.form-control:disabled{
+        color: $gray !important;
+        border-bottom: solid 2px $gray !important;
+
+    }
+  
+    .has-float-label .form-control:placeholder-shown:not(:focus)+*{
+        
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 300 !important;
+        font-style: italic !important;
+        font-size: 16px !important;
+        line-height: 28px;
+        letter-spacing: normal;
+        text-align: left;
+        color: $gray !important;
+        padding-left: 0 !important;
+        font-weight: 300 !important;
+        top: .3em !important;
+      
+        .red{
+            color: $gray;
+            font-size: 0.8em;
+        
+        }
+    }
+
+    .has-float-label label{
+        font-size: 16px !important;
+        left: 0 !important;
+        color: $dark_blue !important;
+        line-height: 28px !important;
+        font-style: normal !important;
+        font-weight: 300 !important;
+        top: -1em !important;
+        @media screen and (max-width: 768px) {
+            font-size: 15px !important;
+
+          }
+        .red{
+            color: $dark_blue;
+            font-size: 0.8em;
+        
+        }
+    }
+
+    .has-float-label label.disabled-label{
+        color: $gray !important;
+    }
+    .form-control:placeholder-shown:not(:focus)+*{
+     font-size: inherit; 
+    opacity: 1; 
+    }
+  }
+  .has-float-label label::after, .has-float-label>span::after{
+      display: none;
+  }
+
+
+.btn-blue{
+    cursor: pointer;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 300;
+    font-size: 16px;
+    letter-spacing: 0.25px;
+    text-transform: uppercase;
+    line-height: 50px;
+    color: $light_blue;
+    border-radius: 2px;
+    border: 1px solid $light_blue;
+    background: none;
+    width: 200px;
+    height: 50px;
+    vertical-align: middle;
+    transition: all .2s ease-in-out;
+    &:hover{
+        background: $dark_blue;
+        color: $white;
+    }
+}
+
+.btn-blue:focus{
+    outline: none;
+    box-shadow: none;
+}
+
+.recovery{
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: none;
+    font-weight: 300;
+    font-size: 14px;
+    color: $light_blue;
+    line-height: 19px;
+    letter-spacing: initial;
+    padding-bottom: 20px;
+    width: auto;
+}
+
+.modal-confirm{
+    border-radius: 10px;
+    .modal-dialog{
+        max-width: 900px !important;
+        width: 100%;
+    }
+    .modal-content{
+        border-radius: 10px;
+        border: none;
+        height: 350px;
+        .modal-header{
+            border: none;
+            padding: 50px 1rem;
+            .modal-title{
+                text-align: center;
+                font-family: 'Josefin Sans', sans-serif;
+                width: 100%;
+                color: $light_blue;
+                font-weight: 300;
+                padding: 20px;
+                font-size: 28px;
+                letter-spacing: 0.15px;
+                line-height: 45px;
+            }
+        }
+
+        .modal-body{
+            padding-bottom: 30px;
+        }
+
+        .text-center{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .blue-btn-light{
+                width: 175px;
+                background: #ffffff !important;
+                text-transform: uppercase;
+                font-family: 'Josefin Sans', sans-serif;
+                border-radius: 5px;
+                outline: none;
+                color: $light_blue !important;
+                border: 2px solid $light_blue !important;
+                font-weight: 300;
+                margin-right: 10px !important;
+                font-size: 18px !important;
+                letter-spacing: 0.5px;
+                line-height: 25px;
+                height: 60px !important;
+            }
+
+            .blue-btn-light:hover{
+                background: $dark_blue !important;
+                border: 2px solid $dark_blue !important;
+                color: #ffffff !important;
+            }
+        
+    }
+}
+
+@media screen and (max-width: 768px){
+    .introductory-title{
+        font-size: 30px;
+        padding: 10px;
+    }
+
+    .seafoodFormContainer .content{
+        padding: 10px;
+        top: 60%;
+    }
+}
+
+.verified-p{
+    font-family: 'Open Sans', sans-serif;
+    background: $light_blue !important;
+    font-weight: 300;
+    font-size: 14px;
+    color: #ffffff;
+    line-height: 19px;
+    padding: 20px;
+    img{
+        vertical-align: baseline;
+        margin-right: 10px;
+    }
+}

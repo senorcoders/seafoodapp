@@ -1,0 +1,485 @@
+<div class="home-container" id="home-container">
+  <section class="homev3-slide">
+      <div class="carousel-nav-sfs">
+          <app-menu-nav></app-menu-nav>
+        </div>
+      <div id="carouselExampleSlidesOnly" class="carousel slide carousel-fade" data-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active slide1">
+            </div>
+            <div class="carousel-item slide2">
+            </div>
+            <div class="carousel-item slide3">
+            </div>
+            <div class="carousel-item slide4"></div>
+            <div class="carousel-item slide5"></div>
+            <div class="carousel-item slide6"></div>
+            <div class="carousel-item slide7"></div>
+            <div class="carousel-item slide8"></div>
+            <div class="carousel-item slide9"></div>
+            <div class="carousel-item slide10"></div>
+            <div class="carousel-item slide11"></div>
+          </div>
+        </div>
+      
+        <div class="carousel-excerpt">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-12">
+                  <h1>Welcome to your online B2B seafood marketplace</h1>
+                  <h5>Order all your seafood products here</h5>
+                  <button class="light-blue-btn" *ngIf="!isLoggedIn" routerLink='/register/buyer'>Look inside</button>
+                  <h3 class="cd-headline letters rotate-2">For... <span class="cd-words-wrapper">
+                    <b class="is-visible">restaurants</b> 
+                    <b class="is-hidden">hotels</b>
+                    <b class="is-hidden">fishermen</b>
+                    <b class="is-hidden">caterers</b>
+                    <b class="is-hidden">seafood&nbsp;producers</b>
+                    <b class="is-hidden">meal&nbsp;plan&nbsp;companies</b>
+                    <b class="is-hidden"> seafood&nbsp;processors</b>
+                    <b class="is-hidden">fish&nbsp;markets</b>
+                    <b class="is-hidden">supermarkets</b>
+                    <b class="is-hidden">re-sellers</b>
+                    <b class="is-hidden">distributors</b>
+                  </span></h3>
+                </div>
+              </div>
+            </div>
+        
+          </div>
+  </section>
+  <div class="svg" style='width: 100%; z-index: 0; position: absolute; top: 60vh; left: 49.97%; opacity: 0.6;'>
+      <svg height="6000" width="5">
+        <path id="lineAB" d="M 0 0 l 0 5000" stroke="#848A8E" stroke-width="3" fill="none" />
+      </svg>
+    </div>
+    <section id="market-sfs" class="section-line">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12 justify-content-center">
+              <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
+            <h1 class="text-uppercase section-title text-center">An open, free, &amp; transparent market</h1>
+            </div>
+            <div class="col-lg-12 maket-text text-center">
+              <h5>An open marketplace where <span>any</span> business can register to buy or sell.</h5>
+              <h5>A free marketplace that says no to exclusivity contracts and is completely <span>free</span> to use.</h5>
+              <h5>A transparent marketplace where you can discover <span>real</span> market pricing and view full price breakdowns.</h5>
+            </div>
+          </div>
+        </div>
+    </section>
+  <section id="preview-sfs" class="preview-sfs section-line">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 justify-content-center ">
+            <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
+            <h1 class="text-uppercase section-title text-center">Preview Seafood Souq</h1>
+          </div>
+          <div class="col-lg-12">
+            <div class="preview-mode">
+              <button class="shadow-sm" *ngIf="!isLoggedIn" (click)="goToPreview()" >Look inside</button>
+              <button class="shadow-sm" *ngIf="isLoggedIn" routerLink="/shop" >shop now</button>
+            </div>
+          </div>
+        </div>
+        
+    </div>
+  </section>
+
+  <section id="sfs-gives" class="sfs-gives section-line">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="row mb-5">
+              <div class="col-12 justify-content-center">
+                <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
+                <h1 class="text-uppercase section-title text-center">Seafood Souq Gives You...</h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-3">
+              <div class="feat-box">
+                <img src="../../assets/home-svg/direction-alt.svg" alt="Better pricing" class="feat-logo">
+                <h4 class="text-center text-uppercase">CHOICE</h4>
+                <p class="text-center">
+                    <strong>Choose</strong>  from hundreds of products with new items added daily.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="feat-box">
+                <img src="../../assets/home-svg/bar-chart.svg" alt="Streamlined process" class="feat-logo">
+                <h4 class="text-center text-uppercase">COMPARISONS</h4>
+                <p class="text-center">
+                   <strong>Instantly</strong>  compare products to find the best one for you.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="feat-box">
+                <img src="../../assets/home-svg/thumbs-up.svg" alt="Traceability" class="feat-logo">
+                <h4 class="text-center text-uppercase">SIMPLICITY</h4>
+                <p class="text-center">
+                   <strong>Buy and track</strong>  all your orders in one place.
+                </p>
+              </div>
+            </div>
+            <div class="col-12 col-md-3">
+              <div class="feat-box">
+                <img src="../../assets/home-svg/magnifier.svg" alt="Reliable last mile" class="feat-logo">
+                <h4 class="text-center text-uppercase">TRANSPARENCY</h4>
+                <p class="text-center">
+                  <strong>Complete visibility</strong> on seller information, product details and cost breakdowns.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        </section>
+
+        <section id="home-table" class="home-table section-line">
+            <div class="container">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row mb-5">
+                    <div class="col-12 justify-content-center">
+                      <span><img src="../../assets/svg/fish-black-grouper-side-view.svg" class="d-block mx-auto mb-3" alt=""></span>
+                      <h1 class="text-uppercase section-title text-center">BUY FROM ALL SELLER TYPES IN ONE PLACE</h1>
+                      <p class="subtitle">With the added benefit of Seafood Souq's exclusive features designed to improve your buying experience from Sea to B</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row table-sfs table-responsive">
+                <div class="col-lg-12">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col" class="th-mobile"><img class="mobile-only" src="../../assets/svg/gesture-swipe-left.svg" alt=""></th>
+                            <th scope="col"> <div class="number">1</div> INTERNATIONAL PRODUCERS</th>
+                            <th scope="col"><div class="number">2</div>LOCAL SEAFOOD MARKETS</th>
+                            <th scope="col"><div class="number">3</div>DISTRIBUTORS & RESELLERS</th>
+                            <th scope="col"><div class="title">SEAFOOD SOUQ</div> ONE-STOP SOLUTION FOR <span>1</span>, <span>2</span>, & <span>3</span></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">DIRECT FROM SOURCE</th>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td></td>
+                            <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">SMALLER MOQ'S</th>
+                            <td></td>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">NEXT/SAME DAY DELIVERY</th>
+                            <td></td>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                            <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                          </tr>
+                          <tr>
+                              <th scope="row">PAYMENT TERMS</th>
+                              <td></td>
+                              <td></td>
+                              <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                              <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">STAPLE PRODUCTS</th>
+                                <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                              </tr>
+                              <tr>
+                                  <th scope="row">SPECIALITY PRODUCTS</th>
+                                  <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                  <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                  <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                  <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">PROVENANCE</th>
+                                    <td><img src="../../assets/home-svg/check.svg" alt=""></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                  </tr>
+                                  <tr>
+                                      <th scope="row">TRANSPARENT PRICES</th>
+                                      <td></td>
+                                      <td></td>
+                                      <td></td>
+                                      <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">ORDER ANYTIME 24/7</th>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                      </tr>
+                                      <tr>
+                                          <th scope="row">CENTRALIZED ORDERING</th>
+                                          <td></td>
+                                          <td></td>
+                                          <td></td>
+                                          <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                        </tr>
+                                        <tr>
+                                            <th scope="row">100% TRACEABILITY (SFS TRACE)</th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                          </tr>
+                                          <tr>
+                                              <th scope="row">SFS QUALITY CONTROL</th>
+                                              <td></td>
+                                              <td></td>
+                                              <td></td>
+                                              <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">SFS QUALITY INSPECTION</th>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                              </tr>
+                                              <tr>
+                                                  <th scope="row">SFS CUSTOMER SERVICE</th>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td></td>
+                                                  <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                                </tr>
+                                                <tr>
+                                                    <th scope="row">SFS LOGISTICS (EMIRATES SKYCARGO)</th>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td></td>
+                                                    <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                                  </tr>
+                                                  <tr>
+                                                      <th scope="row">ORDER TRACKING</th>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td></td>
+                                                      <td><img src="../../assets/home-svg/check-blue.svg" alt=""></td>
+                                                    </tr>
+                        </tbody>
+                      </table>
+                </div>
+              </div>
+              </div>
+              </section>
+
+              <section id="blog" class="blog section-line">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-12 justify-content-center">
+                        <span><img src="../../assets/svg/rockfish-shape.svg" class="d-block mx-auto mb-3" alt=""></span>
+                        <h1 class="text-uppercase section-title text-center">Keep Up To Date On Our Blog</h1>
+                        <span class="d-block text-center description-span">See why and how we are transforming the seafood
+                          industry</span>
+                      </div>
+                    </div>
+                
+                    <div class="blog-cards-carousel mt-5">
+                      <div class="item" *ngFor="let post of mediumPosts">
+                        <div class="blog-post-card shadow-sm">
+                          <div class="post-bg" [style.background]="'url(' + post.thumbnail +')'"></div>
+                          <div class="blog-content d-flex">
+                            <div class="social-links">
+                              <div class="btn-group-vertical d-flex flex-column h-100" role="group" aria-label="Basic example">
+                                <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareFacebook(post.link)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="10" height="20" viewBox="0 0 10 20">
+                                    <defs>
+                                      <style>
+                                        .a {
+                                          fill: #3498e5;
+                                        }
+                                      </style>
+                                    </defs>
+                                    <path class="a" d="M17,2h0V6H15c-.69,0-1,.81-1,1.5V10h3v4H14v8H10V14H7V10h3V6a4,4,0,0,1,4-4Z"
+                                      transform="translate(-7 -2)" />
+                                  </svg>
+                                </button>
+                                <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareTwitter(post.link)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16.252" viewBox="0 0 20 16.252">
+                                    <defs>
+                                      <style>
+                                        .a {
+                                          fill: #3498e5;
+                                        }
+                                      </style>
+                                    </defs>
+                                    <path class="a"
+                                      d="M21.54,5.912a8.191,8.191,0,0,1-2.352.66,4.11,4.11,0,0,0,1.8-2.275,8.261,8.261,0,0,1-2.6,1A4.039,4.039,0,0,0,15.364,4a4.1,4.1,0,0,0-4.082,4.1,4.263,4.263,0,0,0,.105.937A11.658,11.658,0,0,1,2.936,4.755a4.086,4.086,0,0,0,1.272,5.459,4.056,4.056,0,0,1-1.864-.478v.029A4.1,4.1,0,0,0,5.632,13.79a4.021,4.021,0,0,1-1.845.067,4.092,4.092,0,0,0,3.824,2.849,8.147,8.147,0,0,1-5.1,1.759,8.339,8.339,0,0,1-.975-.057,11.61,11.61,0,0,0,6.291,1.845A11.6,11.6,0,0,0,19.5,8.579c0-.182,0-.354-.01-.535A8.2,8.2,0,0,0,21.54,5.912Z"
+                                      transform="translate(-1.54 -4)" />
+                                  </svg>
+                                </button>
+                                <button type="button" class="btn rounded-0 flex-grow-1 button-post-link" (click)="shareInstagram(post.link)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+                                    <defs>
+                                      <style>
+                                        .a {
+                                          fill: #3498e5;
+                                        }
+                                      </style>
+                                    </defs>
+                                    <path class="a"
+                                      d="M7.8,2h8.4A5.8,5.8,0,0,1,22,7.8v8.4A5.8,5.8,0,0,1,16.2,22H7.8A5.8,5.8,0,0,1,2,16.2V7.8A5.8,5.8,0,0,1,7.8,2M7.6,4A3.6,3.6,0,0,0,4,7.6v8.8A3.6,3.6,0,0,0,7.6,20h8.8A3.6,3.6,0,0,0,20,16.4V7.6A3.6,3.6,0,0,0,16.4,4H7.6m9.65,1.5A1.25,1.25,0,1,1,16,6.75,1.25,1.25,0,0,1,17.25,5.5M12,7a5,5,0,1,1-5,5,5,5,0,0,1,5-5m0,2a3,3,0,1,0,3,3,3,3,0,0,0-3-3Z"
+                                      transform="translate(-2 -2)" />
+                                  </svg>
+                                </button>
+                              </div>
+                            </div>
+                            <div class="post-details">
+                              <div class="author d-flex align-items-center">
+                                <img src="https://miro.medium.com/fit/c/256/256/1*7TdYQtLau48hY8MPHRR6ZA.png" width="60px;" class="rounded-circle mr-2" alt="">
+                                <span>{{post.author}}</span>
+                              </div>
+                      
+                              <p class="blog-post-preview">
+                                {{post.title}}
+                              </p>
+                      
+                              <div class="bottom-row">
+                                <span class="date">{{post.pubDate | date:'mediumDate'}}</span>
+                                <a href="{{post.link}}" target="_blank">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="26.6" height="18.7" viewBox="0 0 26.6 18.7">
+                                    <defs>
+                                      <style>
+                                        .arr-left {
+                                          fill: #3498e5;
+                                        }
+                                      </style>
+                                    </defs>
+                                    <path class="arr-left"
+                                      d="M8.676,4.957a.943.943,0,1,1,1.34,1.327l-6.8,6.8H25.647a.944.944,0,0,1,.952.938.956.956,0,0,1-.952.952H3.22l6.8,6.784a.962.962,0,0,1,0,1.34.939.939,0,0,1-1.34,0L.271,14.689a.946.946,0,0,1,0-1.327Z"
+                                      transform="translate(26.599 23.376) rotate(180)" />
+                                  </svg>
+                                </a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+              
+                  
+                    </div>
+                  </div>
+                </section>
+              
+                <div class="svg-bottom" style="height: 300px">
+                  <div class="wow slideDown" data-wow-duration="1s">
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                      y="0px" viewBox="0 0 262 559" style="enable-background:new 0 0 262 559;" xml:space="preserve">
+                      <style type="text/css">
+                        .r-sv {
+                          opacity: 0.4;
+                          fill: none;
+                          stroke: #848A8E;
+                          stroke-width: 2;
+                          stroke-linecap: round;
+                          enable-background: new;
+                        }
+                      </style>
+                      <polyline id="Line_33" class="r-sv" points="259,558 259,258 258.5,257.5 2.5,1.5 " />
+                    </svg>
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                      y="0px" viewBox="0 0 262 559" style="enable-background:new 0 0 262 559;" xml:space="preserve">
+                      <style type="text/css">
+                        .l-sv {
+                          opacity: 0.4;
+                          fill: none;
+                          stroke: #848A8E;
+                          stroke-width: 2;
+                          stroke-linecap: round;
+                          enable-background: new;
+                        }
+                      </style>
+                      <polyline id="Line_33" class="l-sv" points="259,558 259,258 258.5,257.5 2.5,1.5 " />
+                    </svg>
+                  </div>
+                </div>
+                
+                <section id="get-started" class="get-started">
+                  <div class="container-fluid px-0">
+                    <div class="row justify-content-center align-items-center no-gutters flex-nowrap">
+                      <div class="col fish-small d-none d-lg-block">
+                        <div class="wow slideIn" data-wow-duration="1s">
+                          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                            y="0px" viewBox="0 0 612 400" style="enable-background:new 0 0 612 400;" xml:space="preserve">
+                            <style type="text/css">
+                              .st4 {
+                                opacity: 0.2;
+                              }
+                          
+                              .st1 {
+                                fill: #3498E5;
+                              }
+                          
+                              .st2 {
+                                fill: #F9FCFF;
+                              }
+                            </style>
+                            <g id="logo" class="st4">
+                              <g id="Group_7">
+                                <path id="Path_1" class="st1" d="M244.5,400c-35.8,0.4-116.7-9.7-171-100.6C20.2,210.2,0,200,0,200s20.2-10.2,73.5-99.4
+                                          C127.8,9.7,208.7-0.4,244.5,0h364.7v400L244.5,400L244.5,400z" />
+                                <path id="Path_2" class="st2" d="M68.8,155.7c0,8.9,7.2,16,16,16.1c8.9,0,16-7.2,16.1-16s-7.2-16-16-16.1c0,0,0,0,0,0
+                                          C76,139.6,68.8,146.8,68.8,155.7z" />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                          <button class="btn text-uppercase shadow get-started-btn" *ngIf="isLoggedIn" routerLink="/team">Meet our Team</button>
+                        <button class="btn text-uppercase shadow get-started-btn" *ngIf="!isLoggedIn" routerLink='/register/buyer'>Get Started For Free</button>
+                      </div>
+                      <div class="col fish-small d-none d-lg-block">
+                        <div class="wow slideIn" data-wow-duration="1s">
+                          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px"
+                            y="0px" viewBox="0 0 612 400" style="enable-background:new 0 0 612 400;" xml:space="preserve">
+                            <style type="text/css">
+                              .st4 {
+                                opacity: 0.2;
+                              }
+                          
+                              .st1 {
+                                fill: #3498E5;
+                              }
+                          
+                              .st2 {
+                                fill: #F9FCFF;
+                              }
+                            </style>
+                            <g id="logo" class="st4">
+                              <g id="Group_7">
+                                <path id="Path_1" class="st1" d="M244.5,400c-35.8,0.4-116.7-9.7-171-100.6C20.2,210.2,0,200,0,200s20.2-10.2,73.5-99.4
+                                                    C127.8,9.7,208.7-0.4,244.5,0h364.7v400L244.5,400L244.5,400z" />
+                                <path id="Path_2" class="st2" d="M68.8,155.7c0,8.9,7.2,16,16,16.1c8.9,0,16-7.2,16.1-16s-7.2-16-16-16.1c0,0,0,0,0,0
+                                                    C76,139.6,68.8,146.8,68.8,155.7z" />
+                              </g>
+                            </g>
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+</div>

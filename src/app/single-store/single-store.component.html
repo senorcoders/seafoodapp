@@ -1,0 +1,161 @@
+<div *ngIf="!empty; else elseBlock">
+
+  <section id="di-lyt" *ngIf="!simpleLayout; else anotherLayout">
+    <div class="container-fluid hero-container" id="hero" [ngStyle]="{ 'background': 'linear-gradient(to top right, #F9FCFF 55%, transparent 45%), url('+ hero +') center/cover'}">
+      <div class="mobile-bg d-lg-none" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}"></div>
+      <div class="hero-text">
+        <div class="seller-logo">
+          <img [src]="logo" [hidden]='errorLoadingLogo' (error)='errorLoadLogo($event)' class="logo" alt="">
+        </div>
+        <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+        <p class="seller-description">
+          {{store.description}}
+        </p>
+
+        <div id="brands" class="brands-container" *ngIf="brands.length > 0">
+          <h3 class="text-uppercase">Brands</h3>
+      
+          <div class="brands-list" [class.eighty-percent]="brands.length > 7">
+            <div class="brand-logo" *ngFor="let i of brands">
+              <img [src]="base + i" alt="">
+            </div>
+            
+          </div>
+        </div>
+      
+        <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
+          <h3 class="text-uppercase">Certifications</h3>
+      
+          <div class="cert-list">
+            <div class="cert-logo" *ngFor="let i of certs">
+              <img [src]="base + i" alt="">                  
+            </div>
+
+          </div>
+        </div>
+
+       
+      </div>
+    </div>
+  </section>
+
+  <ng-template #anotherLayout>
+    <section id="hor-lyt">
+      <header id='hero' class="hero-container" [ngStyle]="{'background':  'url('+ hero +') center/cover no-repeat'}">
+      </header>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12 col-md-11 mx-auto">
+            <div class="hero-text">
+              <div class="seller-logo">
+                <img src="https://via.placeholder.com/150" class="" alt="">
+              </div>
+            
+              <h1 class="seller-name text-uppercase">{{store.name}}</h1>
+              <p class="seller-description">
+                {{store.description}}
+              </p>
+            
+              <div id="brands" class="brands-container" *ngIf="brands.length > 0">
+                <h3 class="text-uppercase">Brands</h3>
+            
+                <div class="brands-list" >
+                  <div class="brand-logo" *ngFor="let i of brands">
+                    <img [src]="base + i" alt="">
+                  </div>
+                  
+                </div>
+              </div>
+            
+              <div id="certifications" class="cert-container" *ngIf="certs.length > 0">
+                <h3 class="text-uppercase">Certifications</h3>
+            
+                <div class="cert-list">
+                  <div class="cert-logo" *ngFor="let i of certs">
+                    <img [src]="base + i" alt="">                  
+                  </div>
+
+                </div>
+              </div>
+              
+            
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </ng-template>
+  
+
+  <section id="prodcuts">
+    <div class="container-fluid product-list">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 result" *ngFor="let product of products; let i=index">
+        
+          <nav *ngIf="product.variations.length > 0">
+            <div class="tab-content" id="nav-tabContent-{{product.id}}">
+                <div *ngFor="let subp of product.variations; let vari = index;" class="tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-{{subp?.variation?.id}}" role="tabpanel" aria-labelledby="nav-tab">
+                  <div class="class1 class2 class3">
+                      <div class="single-product-box" style="margin-bottom: 0;">
+                          <div class="product-header">
+                           <div class="row">
+                             <div class="col-md-12 text-uppercase">
+                              <h5>{{'SingleStore.location' | translate}}: {{product.country}}</h5>
+                              </div>
+                            
+                           </div>
+                          </div>
+                          <div class="product-body">
+                            <a  routerLink="/product/{{product.id}}" class="image-link-holder">
+                              <div class="product-single-img" [style.background-image]="loadImage(product)">
+                                <div class="product-overlay"></div>
+                                <h2 class="product-view-details">VIEW DETAILS</h2>                      
+                             </div>
+                            </a>
+                           
+                          </div>
+                  
+                          <div class="product-footer">
+                              <h4>{{product.name}} <span *ngIf="subp.fishPreparation != null">({{subp?.fishPreparation?.name}})</span> </h4>
+                              <h6>
+                                <span *ngIf="product.perBox != true"> In {{subp?.unitOfSale}}</span>
+                                <span *ngIf="product.perBox == true"> In Boxes</span>
+                              </h6>
+                            </div>
+                         
+                      </div>
+                  </div>
+                
+                  
+                </div>
+                
+              </div>  
+          <div *ngIf="product.variations.length > 1"  class="nav nav-tabs" id="nav-tab-{{product.id}}" role="tablist">
+            <a *ngFor="let subp of product.variations; let vari = index;" class="nav-item nav-link" [class.active]="vari == 0" id="nav-tab-{{subp?.id}}" data-toggle="tab" href="#nav-{{subp?.id}}" role="tab" aria-controls="nav-home" aria-selected="true">{{subp?.wholeFishWeight?.name | lowercase}} <div class="small-circle"></div></a>
+        
+          </div>
+          <div  *ngIf='userInfo!==null'  id="footer-holder-{{product.id}}" class="single-product-box margin-5 tab-content multiple-bottom" >
+              <div *ngFor="let subp of product.variations; let vari = index;" class="product-footer tab-pane fade" [class.active]="vari == 0" [class.show]="vari == 0" id="nav-footer-{{subp?.id}}">
+
+                    <h5 id="product-price-{{subp.id}}" *ngIf='(subp?.minPrice?.finalPrice) != (subp?.maxPrice?.finalPrice) && product.cooming_soon !== true'>AED {{(subp?.minPrice?.finalPrice).toFixed(2)}}<span *ngIf="subp?.maxPrice">-</span>{{(subp.maxPrice?.finalPrice).toFixed(2)}} / {{product?.unitOfSale}} <small *ngIf="product.perBox == true">({{product.boxWeight}} {{product?.unitOfSale}}/box)</small></h5>
+                    <h5 id="product-price-{{subp.id}}" *ngIf='(subp?.minPrice?.finalPrice) == (subp?.maxPrice?.finalPrice) && product.cooming_soon !== true'>AED {{(subp?.maxPrice?.finalPrice).toFixed(2)}} / {{product?.unitOfSale}} <small *ngIf="product.perBox == true">({{subp.boxWeight}} {{product?.unitOfSale}}/box)</small></h5>
+
+                </div>
+          </div>
+          <div class="signup-box" *ngIf='userInfo===null'>
+            <button class="signup-btn" routerLink='/register/buyer'>VIEW PRICES & BUY NOW</button>
+          </div>
+        </nav>
+        </div>
+       
+      </div>
+    </div>
+  </section>
+</div>
+
+<ng-template #elseBlock>
+  <div class="not-found-grid">
+    <p>{{'SingleStore.no-store' | translate}}</p>
+  </div>
+</ng-template>

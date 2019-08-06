@@ -1,0 +1,194 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2 class="title">{{'FishType.add' | translate}}</h2>
+      <form [formGroup]="categoryForm" (submit)="addCategory()" class="form-design">
+        <div class="form-group">
+          <label>{{'FishType.name' | translate}}</label>
+          <input type="text" class="form-control" placeholder="{{'FishType.name' | translate}}" formControlName="name" [ngClass]="{'is-invalid':categoryForm.get('name').invalid && categoryForm.get('name').touched}">
+          <div class="invalid-feedback" *ngIf="categoryForm.get('name').hasError('required')">{{'FishType.name' | translate}} {{'FishType.required' | translate}}</div>
+        </div>
+        <div class="form-group">
+          <label>{{'FishType.description' | translate}}</label>
+         <textarea class="form-control" placeholder="{{'FishType.description' | translate}}" formControlName="description" [ngClass]="{'is-invalid':categoryForm.get('description').invalid && categoryForm.get('description').touched}"></textarea>
+          <div class="invalid-feedback" *ngIf="categoryForm.get('description').hasError('required')">{{'FishType.description' | translate}} {{'FishType.required' | translate}}</div>
+        </div>
+        <div class="form-group">
+          <label>{{'FishType.image' | translate}}</label>
+          <input #categoryImageInput type="file" (change)="uploadImage($event.target.files)" class="form-control" id="inputImg">
+          <div class="row">
+            <div class="col">
+              <img src="" height="200" alt="Image preview..." id="previewImg">
+            </div>
+            <div class="col" *ngIf="showImage">
+              <h4>{{'FishType.current-image' | translate}}</h4>
+              <img src="{{currentImage}}" height="200">
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Parent Category</label>
+          <select (change)="getSFSParentMargin();" class="form-control" formControlName="parent">
+            <option value="none">None</option>
+            <option *ngFor="let cat of categories" [value]=cat.id [innerHtml]="cat.name"></option>
+          </select>
+        </div>
+        <!--<div class="form-group">
+          <label>SFS Margin (%)</label>-->
+          <input type="hidden" formControlName="sfsMargin" />            
+        <!--</div>-->
+        <div class="form-group">
+          <label>Ex Works Margin (%)</label>
+          <input type="number" class="form-control" formControlName="exworks" />            
+        </div>
+        <div class="form-group">
+          <label>CIP Margin (%)</label>
+          <input type="number" class="form-control" formControlName="cpi" />            
+        </div>
+        <div class="form-group">
+         <button type="submit" class="btn-red" [disabled]="categoryForm.invalid">{{buttonLabel}}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <h2 class="title">{{'FishType.types' | translate}}</h2>
+      <div class="row">
+        <div class="col table-design">
+          
+            
+                <div class="row" >
+                    <div class="col text-left">
+                        <label class="level-1" > Category</label>
+                      </div>
+                      <div class="col-md-1 text-right"><small>Ex-works</small>
+                      </div>
+                      
+                        
+                      <div class="col-md-1 text-right"><small >CIP</small></div>
+                      <div class="col-md-1 text-right"><small >&nbsp;</small></div>
+                        <div class="col-md-1 text-right"><small >&nbsp;</small>
+                      </div>
+                  
+                </div>
+
+          <div class="row row-bg" *ngFor="let category of orgCats; let i=index">
+            <div class="col text-left">
+              <label class="level-0">
+                  {{category.name}}</label>
+              
+            </div>
+            <div class="col-md-1 text-right"><small *ngIf="category.exworks" >({{category.exworks}} %)</small>
+            </div>
+            
+              
+            <div class="col-md-1 text-right"><small *ngIf="category.cpi">({{category.cpi}} %)</small>
+            </div>
+            <div class="col-md-1">
+              <span (click)="edit(i,category.id)" class="edit"><fa name="pencil"></fa></span>
+            </div>
+            <div class="col-md-1">
+              <img src="../../assets/trash-icon.png" alt="" (click)="deleteCategory(category.id)" class="delete">
+            </div>
+            <div class="col-12">
+              <!--Childs level 1-->
+                <ul>
+                    
+                    
+                  <div *ngFor="let sub0 of category.childs; let i = index">
+                    <li>
+                      <div class="row" >
+                          <div class="col text-left">
+                              <label class="level-1" [innerHtml]="sub0?.name "></label>
+                            </div>
+                            <div class="col-md-1 text-right"><small *ngIf="sub0.exworks">({{sub0.exworks}} %)</small>
+                            </div>
+                            
+                              
+                            <div class="col-md-1 text-right"><small *ngIf="sub0.cpi">({{sub0.cpi}} %)</small>
+                            </div>
+                        <div class="col-md-1">
+                            <span (click)="editSub(sub0.id, sub0, sub0.parent, sub0, sub0.exworks, sub0.cpi)" class="edit"><fa name="pencil"></fa></span>
+                        </div>
+                        <div class="col-md-1">
+                            <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub0.id, sub0.id)" class="delete">
+                        </div>
+                      </div>
+                      <!-- childs level 2 -->
+                      <div class="row">
+                        <div class="col-md-12">
+                            <ul>
+                              <div *ngFor="let sub1 of sub0.childs; let i = index">
+                                <li>
+                                  <div class="row" >
+                                      <div class="col text-left">
+                                          <a href="update-category/{{sub1?.id}}" ><label class="level-2" [innerHtml]="sub1?.name "></label></a>
+                                        </div>
+                                          <div class="col-md-1 text-right"><small *ngIf="sub1.exworks">({{sub1.exworks}} %)</small>
+                                        </div>
+                                        <div class="col-md-1 text-right">
+                                          <small *ngIf="sub1.cpi">({{sub1.cpi}} %)</small>
+                                        </div>
+                                    <div class="col-md-1">
+                                        <span (click)="editSub(sub1.id, sub1, sub1.parent, sub1, sub1.exworks, sub1.cpi)" class="edit"><fa name="pencil"></fa></span>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub1.id, sub1.id)" class="delete">
+                                    </div>
+                                  </div>
+                                  <!-- childs level 3 -->
+                                  <ul>
+                                      <div *ngFor="let sub2 of sub1.childs; let i = index">
+                                        <li>
+                                          <div class="row" >
+                                            <div class="col text-left">
+                                                <a href="update-category/{{sub2?.id}}" ><label class="level-3" [innerHtml]="sub2?.name "></label></a>
+                                            </div>
+                                              <div class="col-md-1 text-right"><small *ngIf="sub2.exworks" >({{sub2.exworks}} %)</small>
+                                            </div>
+                                            <div class="col-md-1 text-right">
+                                             <small *ngIf="sub2.cpi">({{sub2.cpi}} %)</small>
+                                            </div>
+                                            
+                                            <div class="col-md-1 text-right">
+                                                <span (click)="editSub(sub2.id, sub2, sub2.parent, sub2, sub2.exworks, sub2.cpi)" class="edit"><fa name="pencil"></fa></span>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <img src="../../assets/trash-icon.png" alt="" (click)="deleteSubCategory(sub2.id, sub2.id)" class="delete">
+                                            </div>
+                                          </div>
+                                          </li>
+                                        </div>
+                                      </ul>
+                                </li>
+                              </div>
+                            </ul>
+                        </div>
+                      </div>
+                      </li>
+                    </div>
+                  </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--       <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">{{'FishType.name' | translate}}</th>
+            <th scope="col">{{'FishType.edit' | translate}}</th>
+            <th scope="col">{{'FishType.delete' | translate}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr >
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table> -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<h3 class="black-title">{{'PendingOrders.title' | translate}}</h3>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-4" *ngFor="let pendingProduct of pendingProducts; let i=index">
+			<div class="product-card">
+				<img *ngIf="pendingProduct.imagePrimary != null" src="{{imageURL}}{{pendingProduct.imagePrimary}}">
+				<img *ngIf="pendingProduct.imagePrimary == null" src="../../assets/default-img-product.jpg">
+
+				<h2 *ngIf='pendingProduct.brandname' class="name">
+					{{pendingProduct.name}}
+				</h2>
+				<span *ngIf='pendingProduct.brandname' class="brandName"><b>Brand Name:
+					</b>{{pendingProduct.brandname}}</span>
+
+				<span *ngIf="pendingProduct.parentsLevel['level0']&&pendingProduct.parentsLevel['level0'].name" class="type"><b>Main Category: </b>{{pendingProduct.parentsLevel['level0'].name}}</span>
+				<span class="type"><b>Species: </b>{{pendingProduct.parentsLevel['level1'].name}}</span>
+				<span class="type"><b>Subspecies: </b>{{pendingProduct?.type?.name}}</span>
+
+				<span class="weight"><b>Weight: </b>{{pendingProduct.weight.value}}
+					{{pendingProduct.weight.type}}</span>
+				<span class="minimunOrder"><b>Minimun Order: </b>{{pendingProduct.minimumOrder}}</span>
+				<span class="maximumOrder"><b>Maximum Order: </b>{{pendingProduct.maximumOrder}}</span>
+
+				<span class="city"><b>Port of loading: </b>{{pendingProduct.cityName}}</span>
+				<span class="country"><b>Country: </b>{{pendingProduct.countryName}}</span>
+				<span class="processingCountry"><b>Processing Country:
+					</b>{{pendingProduct.processingCountryName}}</span>
+
+				<span class="quality"><b>Quality: </b>{{pendingProduct.quality}}</span>
+				<span class="hscode"><b>HS Code: </b>{{pendingProduct.hsCode}}</span>
+
+				<span class="seller_sku"><b>Product SKU: </b>{{pendingProduct.seller_sku}}</span>
+				<span class="seafood_sku"><b>Seafood SKU: </b>{{pendingProduct.seafood_sku}}</span>
+
+
+				<div class="row">
+					<div class="col-md-6">
+						<h4>Store Information</h4>
+						<span class="storeName"><b>Store: </b>{{pendingProduct.store.name}}</span>
+						<span class="storeLocation"><b>Store Location: </b>{{pendingProduct.store.location}}</span>
+					</div>
+
+
+				</div>
+				<span class="price"><b>Submitted at: </b>{{pendingProduct.createdAt | date: 'yyyy-MM-dd'}}</span><br>
+
+				<a target="_new" href="/edit-product/{{pendingProduct.id}}" class="button red-btn approved">View
+					Product</a>
+				<br>
+				<button class="button red-btn denied" (click)="showDeniedModal(pendingProduct.id)">Reject
+					Product</button>
+
+				<button class="button red-btn approved" (click)="showModal(pendingProduct.id)">Approve</button>
+
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="deniedProducts" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+	aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Deny Products</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<!--<h5 style="font-family: 'Roboto', sans-serif; text-align: left;font-size: 1.2rem">User</h5>-->
+						<hr class="black-line">
+						<form novalidate [formGroup]="deniedProductGroup" class="form-design">
+
+							<div class="form-group">
+								<label>{{'VerifyUser.reason' | translate}}</label>
+								<textarea class="form-control" formControlName="denialMessage"></textarea>
+							</div>
+
+
+
+							<button type="button" (click)="deniedProduct()"
+								class="button red-btn approved">Save</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="confirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" style="text-align: center;">Are you sure? </h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col">
+						<button (click)="confirm(true)" class="blue-btn">Yes</button>
+						<button (click)="confirm(false)" class="blue-btn-light">No</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,126 @@
+<div id="carouselExampleIndicators" class="carousel slide vertical" data-ride="carousel" data-interval="5000">
+  <div class="carousel-nav-sfs">
+      <app-menu-nav ></app-menu-nav>
+  </div>
+
+  <ol class="carousel-indicators">
+    
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" tabindex="1" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1" tabindex="2"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="2" tabindex="3"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="3" tabindex="4"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="4" tabindex="5"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="5" tabindex="6"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="6" tabindex="7"></li>
+        <button class="desktop-prev-btn" (click)="prev()">
+          <img src="../../assets/svg/download-down.svg" alt="">
+        </button>
+      <button class="desktop-next-btn" (click)="next()">
+        <img src="../../assets/svg/download-down.svg" alt="">
+      </button>
+  </ol>
+  <div class="carousel-inner" role="listbox">
+    <div class="carousel-item active slide-video" poster="../../assets/slides/slide1.jpg">
+        <div class="slide-custom-caption">
+            <h4>WELCOME TO SEAFOOD SOUQ...</h4>
+            <h1>THE ONLINE B2B SEAFOOD MARKETPLACE.</h1>
+            <p>Connecting buyers and sellers direct</p>
+            <button type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+      <div class="video-container">
+        <div class="filter"></div>
+          <video width="100%" height="auto" autoplay muted loop style="background:transparent no-repeat 0 0; background-size:cover; display: block;" poster="../../assets/slides/slide1.jpg">
+              <source src="../../assets/videos/sushi.mp4" type="video/mp4"> 
+      </video>
+      </div>
+    </div>
+    <div class="carousel-item slide-2">
+        <div class="slide-custom-caption">
+            <h4>Get better prices</h4>
+            <h1>Cut costs by buying direct <br> from source through <br> our online marketplace</h1>
+            <p>with a transparent cost breakdown </p>
+            <button type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+      <div class="container-fluid padding-0">
+        <div class="row">
+          <div class="col-md-4 light-gray-section"></div>
+          <div class="col-md-8 slide-2-bg background-rules"></div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item slide-3">
+        <div class="slide-custom-caption">
+            <h4>Streamline your ordering</h4>
+            <h1>Order all your Seafood <br> products in one place</h1>
+            <p>make your procurement process easier </p>
+            <button  type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 light-gray-section"></div>
+              <div class="col-md-8 slide-3-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-4">
+        <div class="slide-custom-caption">
+            <h4>Rely on our last mile</h4>
+            <h1>Always receive your order <br> when you need it</h1>
+            <p>we work with Emirates SkyCargo to <br> create a more  efficient supply chain </p>
+            <button type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 dark-gray-section"></div>
+              <div class="col-md-8 slide-4-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-5">
+        <div class="slide-custom-caption">
+            <h4>Discover more choices</h4>
+            <h1>Find new products and origins <br> through an open marketplace</h1>
+            <p>we don’t do exclusivity, all buyers and <br> sellers can trade</p>
+            <button type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 light-gray-section"></div>
+              <div class="col-md-8 slide-5-bg background-rules"></div>
+            </div>
+          </div>
+    </div>
+    <div class="carousel-item slide-6">
+        <div class="slide-custom-caption">
+            <h4>Trace your order from Sea to B</h4>
+            <h1>Get what you paid for <br> with the knowledge of where your <br> fish is really coming from</h1>
+            <p>1 in every 5 samples of seafood tested <br> worldwide in 2018 were mislabelled</p>
+            <button type="button" tabindex="8"  *ngIf="!isLoggedIn" class="cyan-btn" routerLink="/register/buyer">GRANT ME ACCESS!</button>
+          </div>
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-4 dark-gray-section"></div>
+              <div class="col-md-8 slide-6-bg background-rules"></div>
+            </div>  
+          </div>
+    </div>
+    <div class="carousel-item slide-7" style="height: auto;">
+        <div class="container-fluid padding-0">
+            <div class="row">
+              <div class="col-md-6 buyer-section background-rules flex-div">
+                <a *ngIf="!isLoggedIn" routerLink="/register/buyer" class="effect-1">Buy now<img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">Buy now <img src="../../assets/svg/download.svg" alt=""></a>
+              </div>
+              <div class="col-md-6 seller-section background-rules flex-div">
+                <a *ngIf="!isLoggedIn" routerLink="/register/buyer" class="effect-1">Sell now<img src="../../assets/svg/download.svg" alt=""></a>
+                <a *ngIf="isLoggedIn" routerLink="/account" class="effect-1">Sell now<img src="../../assets/svg/download.svg" alt=""></a>
+              </div>
+            </div>
+          </div>
+          <app-footer></app-footer>
+    </div>
+  </div>
+  <button class="mobile-next-btn" (click)="next()">
+    <img src="../../assets/svg/download-down.svg" alt="">
+  </button>
+</div>

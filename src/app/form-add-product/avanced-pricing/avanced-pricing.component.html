@@ -1,0 +1,298 @@
+<div class="row" formGroupName="price">
+
+  <!-- <div class="col-lg-12 text-center">
+    <h1 class="gray-title"><span>ADVANCED PRICING
+        <i class="fa fa-chevron-up" aria-hidden="true"
+          *ngIf="hideTrimesSlides===true||wholeFishAction==='si'"></i> <i class="fa fa-chevron-down"
+          *ngIf="hideTrimesSlides===true||wholeFishAction==='si'" aria-hidden="true"></i>
+      </span>
+    </h1>
+  </div> -->
+
+  <!-- conditions of before to head on gutted and head off gutted: head!=='on'&&head!=='both'||parentSelectedType===crustaceansId -->
+  <div class="col-12 toggle-div" [hidden]="hideTrimesSlides===false&&wholeFishAction!=='si'">
+    <label style="text-align:center; width:100%;">
+      <span class="selectionable" [ngClass]="headAction===false?'':'select'" (click)="assingHead(true)"
+        [hidden]="wholeFishAction!=='si'||parentSelectedType===crustaceansId">Head On Gutted</span>
+      <!-- <span [hidden]="wholeFishAction!=='si'">|</span>
+      <span (click)="assingHead(false)" class="selectionable" [ngClass]="headAction===false?'select':''"
+        [hidden]="wholeFishAction!=='si'||parentSelectedType===crustaceansId">Head Off Gutted</span> -->
+
+      <span class="selectionable select" [hidden]="parentSelectedType!==crustaceansId">Whole</span>
+      <span class="selectionable select" [hidden]="wholeFishAction!=='no'">Fillet</span>
+      <span class="selectionable select" [hidden]="wholeFishAction!=='packaged'">Packaged</span>
+    </label>
+  </div>
+
+  <!-- para guardar la head action -->
+  <div class="form-group" hidden>
+    <input type="text" class="form-control" formControlName="headAction">
+  </div>
+  <div class="form-group" hidden>
+    <input type="text" class="form-control" formControlName="variationsDeleted">
+  </div>
+
+  <!-- on checkbox -->
+  <div class="col-12" [hidden]="hideTrimesSlides===false||wholeFishAction!=='si'||parentSelectedType===crustaceansId">
+    <div class="row check-row" [hidden]="headAction===false">
+      <div class="col-lg-3 form-group" *ngFor="let whole of wholesFish">
+        <div class="form-check">
+          <input class="form-check-input" [formControlName]="whole.id" type="checkbox" id="defaultCheck{{whole.id}}">
+          <label class="form-check-label" for="defaultCheck{{whole.id}}">
+            {{getNameWhole(whole.id)}}
+          </label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- off checkbox -->
+    <div class="row check-row" [hidden]="headAction===true">
+      <div class="col-lg-2 form-group" *ngFor="let whole of wholesFish">
+        <div class="form-check">
+          <input class="form-check-input" [formControlName]="whole.id+'_off'" type="checkbox"
+            id="defaultCheck{{whole.id+'_off'}}">
+          <label class="form-check-label" for="defaultCheck{{whole.id+'_off'}}">
+            {{getNameWhole(whole.id)}}
+          </label>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- los slides se itera por controls de formularios  -->
+  <!-- slides para kg  -->
+  <div class="col-12" *ngIf="hideTrimesSlides===true">
+    <!-- for slide head on gutted -->
+    <div class="row tab-row" [hidden]='headAction!==true'  *ngIf="wholeFishAction==='si'&&parentSelectedType!==crustaceansId">
+      <div *ngFor="let k of weights.on.keys"
+        [class.errorname]="controls()[k+ '_arr']&&controls()[k+ '_arr'].invalid&&parentForm.submitted"
+        [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col-lg-3 selectionable">
+        <span>{{getNameWhole(k)}}</span></div>
+      <div class="col-12">
+        <div class="row custom-pricing-table">
+          <div class="col-8 text-center table-title">quantity range ({{weightType}})</div>
+          <div class="col-4 text-center table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weights.on[keySelect]; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.on[keySelect][i].min"
+                  [(highValue)]="weights.on[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
+                  [options]="weights.on[keySelect][i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
+                $<input type="number"
+                  [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
+                  placeholder="Price"
+                  [class.errorname]="controls()[keySelect+ '_arr']&&controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted"
+                  [formControlName]="i" [(ngModel)]="weights.on[keySelect][i].price">/{{weightType}}
+                <button type="button" (click)="deletePrice(true, i)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
+              </div>
+            </div>
+            <div class="row manual-slider" *ngIf="keySelect!==''">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
+                  [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Price"
+                  [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- for slide head off gutted -->
+    <div class="row  tab-row" [hidden]='headAction!==false' *ngIf="wholeFishAction==='si'&&parentSelectedType!==crustaceansId">
+      <div *ngFor="let k of weights.off.keys" [class.errorname]="controls()[k+ '_arr'].invalid&&parentForm.submitted"
+        [ngClass]="keySelect===k?'select':''" (click)="selectKey(k)" class="col selectionable">
+        <span>{{getNameWhole(k)}}</span></div>
+      <div class="col-12">
+        <div class="row  custom-pricing-table">
+          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-4 table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weights.off[keySelect]; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weights.off[keySelect][i].min"
+                  [(highValue)]="weights.off[keySelect][i].max" (userChangeEnd)="refactorizeRanges(i)"
+                  [options]="weights.off[keySelect][i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="getIdentifier(keySelect)">
+                $<input [ngClass]="getControl(keySelect, i).valid===false&&parentForm.submitted===true?'error-price':''"
+                  type="number" placeholder="Price"
+                  [class.errorname]="controls()[keySelect+ '_arr'].controls[i].invalid&&parentForm.submitted"
+                  [formControlName]="i" [(ngModel)]="weights.off[keySelect][i].price">/{{weightType}}
+                <button type="button" (click)="deletePrice(off, i)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
+
+              </div>
+            </div>
+            <div class="row manual-slider" *ngIf="keySelect!==''">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricing()" [(value)]="exampleValues.min"
+                  [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricing()" formControlName="example" placeholder="Price"
+                  [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- for slide of filleted and crustances -->
+    <div class="row tab-row"
+      *ngIf="wholeFishAction==='no'&&hideTrimesSlides===true||parentSelectedType===crustaceansId">
+      <div class="col selectionable select">
+        <span>{{parentSelectedType === crustaceansId ? 'Whole' : 'Fillet'}}</span></div>
+      <div class="col-12">
+        <div class="row  custom-pricing-table">
+          <div class="col-8 table-title">quantity range ({{weightType}})</div>
+          <div class="col-4 table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weightsFilleted; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weightsFilleted[i].min"
+                  [(highValue)]="weightsFilleted[i].max" (userChangeEnd)="refactorizeRangesFilleted(i)"
+                  [options]="weightsFilleted[i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="nameFilleted">
+                $<input
+                  [ngClass]="getControlFilleted(i, price).valid===false&&parentForm.submitted===true?'error-price':''"
+                  type="number" placeholder="Price"
+                  [class.errorname]="controls()[nameFilleted]&&controls()[nameFilleted].controls[i].invalid&&parentForm.submitted"
+                  [formControlName]="i">/kg
+                <button type="button" (click)="deletePriceFilleted(price)"><img src="../../../assets/svg/close.svg"
+                    alt="here"></button>
+
+              </div>
+            </div>
+            <div class="row manual-slider">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricingFilleted()"
+                  [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricingFilleted()" formControlName="example" placeholder="Price"
+                  [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- for slide to packaged -->
+    <div class="row tab-row" *ngIf="wholeFishAction==='packaged'">
+      <div class="col selectionable select">
+        <span>Packaged</span></div>
+      <div class="col-12">
+        <div class="row  custom-pricing-table">
+          <div class="col-8 table-title">quantity range ({{weightType}})</div>
+          <div class="col-4 table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of weightsPackaged; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="weightsPackaged[i].min"
+                  [(highValue)]="weightsPackaged[i].max" (userChangeEnd)="refactorizeRangesPackaged(i)"
+                  [options]="weightsPackaged[i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="namePackaged">
+                $<input
+                  [ngClass]="getControlPackaged(i, price).valid===false&&parentForm.submitted===true?'error-price':''"
+                  type="number" placeholder="Price"
+                  [class.errorname]="controls()[namePackaged]&&controls()[namePackaged].controls[i].invalid&&parentForm.submitted"
+                  [formControlName]="i">/kg
+                <button type="button" (click)="deletePricePackaged(price)"><img src="../../../assets/svg/close.svg"
+                    alt="here"></button>
+
+              </div>
+            </div>
+            <div class="row manual-slider">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricingPackaged()"
+                  [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricingPackaged()" formControlName="example" placeholder="Price"
+                  [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- slides para trimmings  -->
+  <div class="col-12" [hidden]="hideTrimesSlides===true||wholeFishAction==='si'">
+    <div class="row check-row">
+
+      <div *ngFor="let tri of trimmings" [ngClass]="isSelectTrim(tri.id)?'select':''"
+        class="col-lg-2 custom-trim-square">
+
+        <div (click)="selectKeyTrim(tri.id)" class="square selectionable"></div> <span class="selectionable"
+          (click)="selectKeyTrim(tri.id)" style="text-transform: uppercase;">{{tri.name}}</span>
+      </div>
+    </div>
+    <div class="row tab-row">
+      <div *ngFor="let tri of getSelects()" class="col-lg-2">
+
+        <div class="selectionable"
+          [class.errorname]="controls()[tri.id+ '_trim']&&controls()[tri.id+ '_trim'].invalid&&parentForm.submitted"
+          [ngClass]="keySelectTrim===tri.id?'select':''" (click)="selectKeyTrimAdd(tri.id)"
+          style="text-transform: uppercase;"><span>{{tri.name}}</span></div>
+      </div>
+      <div class="col-12">
+        <div class="row custom-pricing-table">
+          <div class="col-8 table-title">quantity range (kg)</div>
+          <div class="col-4 table-title">price (USD)</div>
+
+          <div class="col-12">
+            <div *ngFor="let price of trimWeights[keySelectTrim]; let i=index;" class="row slider-price">
+              <div class="col-8">
+                <ng5-slider [manualRefresh]="manualRefresh" [(value)]="trimWeights[keySelectTrim][i].min"
+                  [(highValue)]="trimWeights[keySelectTrim][i].max" (userChangeEnd)="refactorizeRanges(i)"
+                  [options]="trimWeights[keySelectTrim][i].options"></ng5-slider>
+              </div>
+              <div class="col-4" [formGroupName]="getIdentifierTrim(keySelectTrim)">
+                $<input type="number"
+                  [ngClass]="getControlTrim(keySelectTrim, price).valid===false&&parentForm.submitted===true?'error-price':''"
+                  placeholder="Price" [formControlName]="getNameTrim(price)"
+                  [class.errorname]="controls()[keySelectTrim+ '_trim']&&controls()[keySelectTrim+ '_trim'].controls[i].invalid&&parentForm.submitted"
+                  [(ngModel)]="trimWeights[keySelectTrim][i].price">/kg
+                <button type="button" (click)="deletePriceTrims(price)"><img src="../../../assets/svg/close.svg"
+                    alt=""></button>
+              </div>
+            </div>
+            <div class="row manual-slider" *ngIf="keySelectTrim!==''">
+              <div class="col-8 ">
+                <ng5-slider [manualRefresh]="manualRefresh" (userChangeEnd)="addPricingTrim()"
+                  [(value)]="exampleValues.min" [(highValue)]="exampleValues.max" [options]="options"></ng5-slider>
+              </div>
+              <div class="col-4">
+                <input type="number" (change)="addPricingTrim()" formControlName="example" placeholder="Price"
+                  [(ngModel)]="valueExample">
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.3, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 248 226" style="enable-background:new 0 0 248 226;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#3498E5;}
+	.st1{fill:#094D82;}
+	.st2{fill:url(#Rectangle_71_1_);}
+	.st3{fill:#3AD29F;}
+	.st4{fill:url(#Path_55_1_);}
+	.st5{opacity:0.2;enable-background:new    ;}
+</style>
+<path id="Path_51" class="st0" d="M39.4,129.1L0,84.4L117.8,0l117.8,84.4l-40,44.7H39.4z"/>
+<path id="Path_52" class="st1" d="M39.4,129.1L0,84.4L117.8,0l117.8,84.4l-40,44.7H39.4z"/>
+<rect id="Rectangle_70" y="90.1" class="st0" width="229.9" height="100.4"/>
+<linearGradient id="Rectangle_71_1_" gradientUnits="userSpaceOnUse" x1="-611.2912" y1="666.2379" x2="-611.2912" y2="667.2379" gradientTransform="matrix(229.865 0 0 -100.447 140629.3906 67112.1016)">
+	<stop  offset="0" style="stop-color:#000000;stop-opacity:0.122"/>
+	<stop  offset="0.551" style="stop-color:#000000;stop-opacity:9.000000e-02"/>
+	<stop  offset="1" style="stop-color:#000000;stop-opacity:2.000000e-02"/>
+</linearGradient>
+<rect id="Rectangle_71" y="90.1" class="st2" width="229.9" height="100.4"/>
+<path id="Path_53" class="st0" d="M235.5,226.4H0v-142l117.8,71.2l117.8-71.2V226.4z"/>
+<path id="Path_54" class="st3" d="M205.5,36.8l-25-19.2l-66.2,86.3L77.6,75.7l-19.2,25l49.2,37.7l0,0l12.6,9.5L205.5,36.8z"/>
+<linearGradient id="Path_55_1_" gradientUnits="userSpaceOnUse" x1="-609.5729" y1="663.1307" x2="-609.5729" y2="663.9548" gradientTransform="matrix(24.908 0 0 -22.68 15195.751 15026.2451)">
+	<stop  offset="0" style="stop-color:#808080;stop-opacity:0.251"/>
+	<stop  offset="0.535" style="stop-color:#808080;stop-opacity:0.122"/>
+	<stop  offset="1" style="stop-color:#808080;stop-opacity:0.102"/>
+</linearGradient>
+<path id="Path_55" class="st4" d="M1,52.5L0.1,53l0.1-0.2l-0.1,0l0.1-0.1l12.6-22.4l6.4,5.5l5.5,5.1l-1.6,0.8l1.8,3.1L1,52.5z"/>
+<path id="Path_56" class="st0" d="M18.6,36.4l5.1,4.7L0.8,52.5l12.2-15.6L18.6,36.4z"/>
+<path id="Path_57" class="st5" d="M18.6,36.4l5.1,4.7L0.8,52.5l12.2-15.6L18.6,36.4z"/>
+<path id="Path_58" class="st0" d="M12.7,31.4l-12,21.1l17.8-16.1L12.7,31.4z"/>
+<path id="Path_59" class="st0" d="M23.8,44.7l-23,7.6L20,38L23.8,44.7z"/>
+<path id="Path_60" class="st0" d="M216.3,12.2l-5,8.7l37,6l-23.8-16.6L216.3,12.2z"/>
+<path id="Path_61" class="st5" d="M216.3,12.2l-5,8.7l37,6l-23.8-16.6L216.3,12.2z"/>
+<path id="Path_62" class="st0" d="M222.4,2.6L248.3,27l-31.9-14.8L222.4,2.6z"/>
+<path id="Path_63" class="st0" d="M212.6,26.1l35.5,0.7L215,15L212.6,26.1z"/>
+</svg>

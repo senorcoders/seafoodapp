@@ -1,0 +1,243 @@
+<div class="bg">
+  <div class="container">
+    <div class="row" id="max">
+      <div class="col-12">
+        <h2 class="black-title">{{'LogisticManagment.title' | translate}}</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Type Order</label>
+          <select class="form-control" name="type" [(ngModel)]="type" (change)="getOrdersPage(page)">
+            <option value="all">All</option>
+            <option value="cc">CC</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>{{'ManageOrders.status' | translate}}</label>
+          <select class="form-control" name="status" [(ngModel)]="status" (change)="getOrdersPage(page)" [value]='0'>
+            <option value="0" selected="selected">Select an Option</option>
+            <option *ngFor="let item of orderStatus;" [ngValue]="item.id"> {{item.status}}</option>
+          </select>
+        </div>
+
+      </div>
+      <div class="col-2">
+        <div class="form-group">
+          <label>{{'ManageOrders.orderNumber' | translate}}</label>
+          <input type="text" class="form-control" [(ngModel)]="orderNumber" (keyup.enter)="getOrders()"
+            placeholder="search by Order Number">
+        </div>
+      </div>
+      <div class="col-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" [(ngModel)]="useFilterDate"
+            (ngModelChange)="filterDateChange()">
+          <label class="form-check-label" for="defaultCheck1">
+            Use Filter Purchase Date
+          </label>
+        </div>
+        <div class="row">
+          <div class="col-6">
+            <div class="form-group">
+              <label>Date Start</label>
+              <input [owlDateTimeTrigger]="dt1" [(ngModel)]="date1" class="form-control" [owlDateTime]="dt1">
+              <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label>Date End</label>
+              <input [min]="dt1" [owlDateTimeTrigger]="dt2" [(ngModel)]="date2" class="form-control"
+                [owlDateTime]="dt2">
+              <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-3">
+        <div class="form-group">
+          <label>Date End</label>
+          <input [owlDateTimeTrigger]="dt2" class="form-control" [owlDateTime]="dt2">
+          <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+        </div>
+      </div> -->
+      <div class="col-2">
+        <button class="pink-btn" (click)="clearFilters()">Clear filter</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 table-design" style="margin-top: 20px; margin-bottom: 20px" *ngIf="!showNoData">
+        <div class="row">
+          <div class="col-6">
+            <p class="order-number size-40">Order</p>
+          </div>
+          <div class="col-6">
+            <p class="order-number size-40">Items</p>
+          </div>
+        </div>
+        <div *ngFor="let item of rows">
+
+          <div class="row row-bg" *ngIf="item.items.length > 0&&filter(item)">
+            <div class="col-6">
+              <div class="row">
+                <div class="col-12">
+                  <p *ngIf="item.orderStatus" class="order-number text-uppercase">{{item.orderStatus.status}}</p>
+                </div>
+                <div class="col-4">
+                  <p class="order-number">Buyer Name</p>
+                  <p class="order-number">Order Number</p>
+                  <p class="order-number" *ngIf="item.paidDateTime != ''">Order Date</p>
+                  <p class="order-number" *ngIf="item.shippingAddress">Shipping Address</p>
+                  <p class="order-number" *ngIf="item.billingAddress">Billing Address</p>
+
+                </div>
+                <div class="col-8">
+                  <p class="order-number"><strong>{{item.buyer.firstName}} {{item.buyer.lastName}}</strong></p>
+                  <p class="order-number">{{item.orderNumber}}</p>
+                  <p class="order-number" *ngIf="item.paidDateTime != ''">{{item.paidDateTime | date}}</p>
+                  <p class="order-number" *ngIf="item.shippingAddress">{{item?.shippingAddress?.address}}, {{item?.shippingAddress?.city}}, {{item?.shippingAddress?.country}}</p>
+                  <p class="order-number" *ngIf="item.billingAddress">{{item?.billingAddress?.address}}, {{item?.billingAddress?.city}}, {{item?.billingAddress?.country}}</p>
+
+                  <a class="purchase_pdf" *ngIf="item.invoice_pdf" target="_blank"
+                    href="{{API}}api/shoppingcart/PDF/{{item.invoice_pdf}}/pdf_invoices">Invoice Order PDF</a>
+                    <br>
+                    <a class="purchase_pdf" *ngIf="item.orderStatus.id!=='5c40b364970dc99bb06bed6a'"
+                    routerLink="/amend-invoice/{{item.id}}">Amend Invoice</a>
+                    <br>
+                    <a class="purchase_pdf" *ngFor="let cl of item.clones" target="_blank"
+                    href="{{API}}api/shoppingcart/PDF/{{cl.invoice_pdf}}/pdf_invoices">{{cl.invoice_pdf}}</a>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-6">
+
+              <div class="row">
+                <div class="col-12 order-col" [ngClass]="filterStatus(i)===true?'':'hidden'"
+                  *ngFor="let i of item.items">
+
+
+                  <ng-container>
+                    <table class="full-table">
+
+                      <tr *ngIf="i.fishItem.store">
+                        <td>Seller Name:</td>
+                        <td>{{i.fishItem.store.name}}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Product Title:</td>
+                        <td [innerHtml]="i.fishItem.name"></td>
+                      </tr>
+                    </table>
+                    <table class="mediana-tabla">
+                      <tr *ngIf="i.fishItem.preparation">
+                        <td>Preparation:</td>
+                        <td>{{i.fishItem.preparation}}</td>
+                      </tr>
+                      <tr>
+                        <td>Seller SKU:</td>
+                        <td>{{i.fishItem.seller_sku}}</td>
+                      </tr>
+                    </table>
+                    <table class="medium-table">
+                      <tr>
+                        <td>Quantity:</td>
+                        <td>{{i.quantity.value}} Kg</td>
+                      </tr>
+
+                      <tr>
+                        <td>Price:</td>
+                        <td *ngIf="item.total">{{item.total | currency:'AED'}}</td>
+                      </tr>
+                    </table>
+
+                    <table *ngIf='i.inventory && i.inventory.short_date' class="medium-table">
+                      <tr>
+                        <td>ETA:</td>
+                        <td>{{i.inventory && i.inventory.short_date ? i.inventory.short_date : ''}}</td>
+                      </tr>
+
+
+                    </table>
+
+                    <a class="purchase_pdf" *ngIf="item.po_path" target="_blank"
+                      href="{{API}}api/shoppingcart/PDF/{{i.po_path}}/pdf_purchase_order">Purchase Order PDF</a>
+                    <!-- <h5 [innerHtml]="item.fish.name"></h5>                
+                      <span *ngIf="item.store" class="store">{{item.store.name}}</span>               
+                      <p *ngIf="item.status" class="status"><b>Status: </b>{{item.status.status}}</p> -->
+                    <!-- <p class="qty">Quantity {{item.quantity.value}} kg</p>  
+                      <p class="total">Total: {{((item.quantity.value * item.price.value ) + item.shipping + item.customs + item.uaeTaxes + item.sfsMargin) | currency:'AED'}}</p> -->
+                  </ng-container>
+                  <ng-container>
+                    <table class="medium-table">
+                      <tr>
+                        <td>Status:</td>
+                        <td>
+
+                          <select class="form-control" name="status" #device
+                            (change)="confirmUpdatestatus($event.target.value, i.id)">
+                            <option *ngFor="let sitem of orderStatus;" [selected]="i.status == sitem.id"
+                              [ngValue]="sitem.id">
+                              {{sitem.status}}</option>
+
+
+                          </select>
+                        </td>
+                      </tr>
+                    </table>
+                  </ng-container>
+                  <div *ngFor="let sf of i.shippingFiles" [innerHtml]="mapDocs(sf)"></div>
+                </div>
+
+                <!-- <div class="col-4">
+                   
+                  </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="showNoData" style="margin-bottom: 20px;">
+        <h2 class="black-title">No records found</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col pagination">
+        <span class="btn-red-a previous" (click)="previousPage()"
+          *ngIf="page>1">{{'Products.previous' | translate}}</span>
+        <span *ngFor="let number of paginationNumbers" class="numberPage pink-btn"
+          [ngClass]="{'active': page==(number+1)}" (click)="getOrdersPage(number+1)">{{number+1}}</span>
+        <span class="btn-red-a next" (click)="nextPage()"
+          *ngIf="page<paginationNumbers.length">{{'Products.next' | translate}}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="confirmUpdateStatus" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">You want to update the status to {{selectedStatus}}?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col">
+            <button type="button" (click)="updateStatus()" class="blue-btn">Yes</button>
+            <button type="button" (click)="noUpdate()" class="blue-btn-light">No</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

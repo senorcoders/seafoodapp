@@ -1,0 +1,238 @@
+
+          <div class="container max-800" >
+                  <div class="row">
+                      <div class="col-lg-12">
+                          <h1 class="gray-title"><span>{{'Register.buyer-title' | translate}}</span> </h1>
+                      </div>
+                  </div>
+                  
+                  <form [formGroup]="buyerForm" (submit)="submitStep1()">
+                    <div class="row">
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="first" type="text" class="form-control" placeholder="{{'Register.first-name' | translate}}" formControlName="firstName" [ngClass]="{'is-invalid':buyerForm.get('firstName').invalid && buyerForm.get('firstName').touched}">
+                                  <label for="first">{{'Register.first-name' | translate}}</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('firstName').hasError('required')">{{'Register.first-name' | translate}} {{'Register.required' | translate}}.</div>
+      
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="last" type="text" class="form-control" placeholder="{{'Register.last-name' | translate}}" formControlName="lastName" [ngClass]="{'is-invalid':buyerForm.get('lastName').invalid && buyerForm.get('lastName').touched}">
+                                  <label for="last">{{'Register.last-name' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('lastName').hasError('required')">{{'Register.last-name' | translate}} {{'Register.required' | translate}}.</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                              <input id="email" type="email" class="form-control" placeholder="{{'Register.email' | translate}}" formControlName="email" [ngClass]="{'is-invalid':buyerForm.get('email').invalid && buyerForm.get('email').touched}" (change)="verifyEmail($event.target.value)">
+                              <label for="email">{{'Register.email' | translate}}</label> 
+                              <div class="EmailNotification" *ngIf="showEmailVerification">{{'Register.EmailNotification' | translate}}</div>
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.required' | translate}}.</div>
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('email').hasError('email') && !buyerForm.get('email').hasError('required')">{{'Register.email' | translate}} {{'Register.invalid' | translate}}</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input  class="form-control" type="tel" id="phone" (blur)="validateBuyerPhone()">
+                                  <label for="phone">{{'Register.tel' | translate}}</label> 
+                            <input class="form-control" type="hidden"  formControlName="tel" [ngClass]="{'is-invalid':buyerForm.get('tel').invalid && buyerForm.get('tel').touched}">
+      
+                          <div class="invalid-feedback" *ngIf="buyerForm.get('tel').hasError('required')"> {{'Register.tel' | translate}} {{'Register.required' | translate}}.</div>
+                          <div class="invalid-feedback" *ngIf="buyerForm?.controls?.tel?.errors">Only numbers allowed</div>
+                          <div *ngIf="buyerPhoneValid" class="invalid-phone">Please follow the phone number format</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="password" type="password"  minlength="8" class="form-control" placeholder="{{'Register.password' | translate}}" formControlName="password" [ngClass]="{'is-invalid':buyerForm.get('password').invalid && buyerForm.get('password').touched}">
+                                  <label for="password">{{'Register.password' | translate}}</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('password').hasError('password') || buyerForm.get('password').hasError('required')">{{'Register.password' | translate}} {{'Register.required' | translate}}.</div>	
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('password').errors?.pattern">{{'Register.passwordPatternError' | translate}}</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input  id="repassword" type="password" class="form-control" placeholder="{{'Register.repeat' | translate}}" formControlName="rePassword" [ngClass]="{'is-invalid':buyerForm.get('rePassword').invalid && buyerForm.get('rePassword').touched}">
+                                  <label for="repassword">Confirm password</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('rePassword').hasError('required')"> {{'Register.rePassword' | translate}} {{'Register.required' | translate}}.</div>
+                                  <div class="invalid-feedback" *ngIf="buyerForm.controls.rePassword.errors?.MatchPassword"> Passwords not match</div>
+                            </span>         
+                          </div>
+                      </div>
+                    
+                     
+      
+                     
+                     
+                    </div>
+      
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1 class="gray-title company-title"><span>COMPANY INFO</span> </h1>
+                        </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="companyName" type="text" class="form-control" placeholder="{{'Register.company' | translate}}" formControlName="companyName" [ngClass]="{'is-invalid':buyerForm.get('companyName').invalid && buyerForm.get('companyName').touched}">
+                                  <label for="companyName">{{'Register.company' | translate}}</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('companyName').hasError('required')"> {{'Register.company' | translate}} {{'Register.required' | translate}}.</div>
+      
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="type" type="text" class="form-control" placeholder="Type of Business" formControlName="TypeBusiness" [ngClass]="{'is-invalid':buyerForm.get('TypeBusiness').invalid && buyerForm.get('TypeBusiness').touched}">
+                                  <label for="type">Type of business</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('TypeBusiness').hasError('required')"> Type of Business is required.</div>
+      
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <select disabled id="country" class="form-control" formControlName="location" [ngClass]="{'is-invalid':buyerForm.get('location').invalid && buyerForm.get('location').touched}">
+                                      <option value="AE">United Arab Emirates</option>
+                                    </select>                    
+                                   <label for="country">{{'Register.country' | translate}}</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('location').hasError('required')"> {{'Register.country' | translate}} {{'Register.required' | translate}}.</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label select-float-label">    
+                                  <select id="city" class="form-control" style="width: 100%" formControlName="City" [ngClass]="{'is-invalid':buyerForm.get('City').invalid && buyerForm.get('City').touched}">
+                                    <option value="">Select an Emirate...</option>
+                                    <option value="Dubai">Dubai</option>
+                                    <option value="Abu Dhabi">Abu Dhabi</option>
+                                    <option value="Ajman">Ajman</option>
+                                    <option value="Fujairah">Fujairah</option>
+                                    <option value="Ras Al Khaimah">Ras Al Khaimah</option>
+                                    <option value="Sharjah">Sharjah</option>
+                                    <option value="Umm Al Quwain">Umm Al Quwain</option>
+                                  </select> 
+                                  <label for="city">Emirate</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('City').hasError('required')"> Emirate {{'Register.required' | translate}}.</div>
+      
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                          <div class="form-group input-group">
+                              <span class="has-float-label">    
+                                  <input id="address" type="text" class="form-control" placeholder="Billing Address" formControlName="Address"  [ngClass]="{'is-invalid':buyerForm.get('Address').invalid && buyerForm.get('Address').touched}">
+                                  <label for="address">Billing Address</label> 
+                                  <div class="invalid-feedback" *ngIf="buyerForm.get('Address').hasError('required')"> {{'Register.Address' | translate}} {{'Register.required' | translate}}.</div>
+                            </span>         
+                          </div>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="form-group input-group">
+                            <span class="has-float-label">    
+                                <input id="vat" type="number" class="form-control" placeholder="TRN (VAT)" formControlName="vat" [ngClass]="{'is-invalid':buyerForm.get('vat').invalid && buyerForm.get('vat').touched}">
+                                <label for="vat">TRN (VAT)</label> 
+                                <div class="invalid-feedback" *ngIf="buyerForm.get('vat').hasError('required')">TRN (VAT) {{'Register.required' | translate}}.</div>
+    
+                          </span>         
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group input-group">
+                          <span class="has-float-label"> 
+                              <ng-select [items]="productsI" bindLabel="name" bindValue="id" labelForId="productsInterestedinBuying"
+                              [multiple]="true" placeholder="Product Interested in Buying" clearAllText="Clear"
+                              formControlName="productsInterestedinBuying" >
+                            </ng-select>   
+                              <!-- <select multiple id="productsInterestedinBuying" placeholder="test" class="form-control selectpicker"  data-live-search="true" style="width: 100%" formControlName="productsInterestedinBuying" [ngClass]="{'is-invalid':buyerForm.get('productsInterestedinBuying').invalid && buyerForm.get('productsInterestedinBuying').touched}">
+                                <option value="Atlantic Salmon - HOG">Atlantic Salmon - HOG</option>
+                                <option value="Pacific Salmon - HOG">Pacific Salmon - HOG</option>
+                                <option value="Atlantic Salmon - Fillet">Atlantic Salmon - Fillet</option>
+                                <option value="Pacific Salmon - Fillet">Pacific Salmon - Fillet</option>
+                                <option value="Local Seabass - Whole">Local Seabass - Whole</option>
+                                <option value="Local Seabream - Whole">Local Seabream - Whole</option>
+                                <option value="European Seabass - Whole">European Seabass - Whole</option>
+                                <option value="European Seabream - Whole">European Seabream - Whole</option>
+                                <option value="Local Seabass - Fillet">Local Seabass - Fillet</option>
+                                <option value="Local Seabream - Fillet">Local Seabream - Fillet</option>
+                                <option value="European Seabass - Fillet">European Seabass - Fillet</option>
+                                <option value="European Seabream - Fillet">European Seabream - Fillet</option>
+                                <option value="European Lobster">European Lobster</option>
+                                <option value="American Lobster">American Lobster</option>
+                                <option value="Mud Crab">Mud Crab</option>
+                                <option value="King Crab">King Crab</option>
+                                <option value="Blue Crab">Blue Crab</option>
+                                <option value="Langoustines">Langoustines</option>
+                                <option value="Bluefin Tuna">Bluefin Tuna</option>
+                                <option value="Yellowfin Tuna">Yellowfin Tuna</option>
+                                <option value="European Oysters">European Oysters</option>
+                                <option value="Local Oysters">Local Oysters</option>
+                                <option value="Fresh Shrimps">Fresh Shrimps</option>
+                                <option value="Frozen Shrimps">Frozen Shrimps</option>
+                                <option value="Squid">Squid</option>
+                                <option value="Frozen Squid">Frozen Squid</option>
+                              </select>  -->
+                              <label for="productsInterestedinBuying">Products Interested in Buying</label> 
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('productsInterestedinBuying').hasError('required')"> Products Interested in Buying {{'Register.required' | translate}}.</div>
+  
+                        </span>         
+                      </div>
+                  </div>
+                  <div class="col-lg-6">
+                    <div class="form-group input-group">
+                        <span class="has-float-label">    
+                            <input id="additionalItems" type="text" class="form-control" placeholder="Additional Items (Optional)" formControlName="additionalItems" [ngClass]="{'is-invalid':buyerForm.get('additionalItems').invalid && buyerForm.get('additionalItems').touched}">
+                            <label for="additionalItems">Additional Items (Optional)</label> 
+                            <div class="invalid-feedback" *ngIf="buyerForm.get('additionalItems').hasError('required')">Additional Items {{'Register.required' | translate}}.</div>
+
+                      </span>         
+                    </div>
+                </div>
+                  
+                <div class="col-lg-12 text-center">
+                  <div class="form-check">
+                      <input type="checkbox" class="form-check-input" id="enableCash" formControlName="enableCash" [ngClass]="{'is-invalid':buyerForm.get('enableCash').invalid && buyerForm.get('enableCash').touched}">
+                      <label class="form-check-label" for="enableCash">Enable cash on delivery (Tick box to enable Cash On Delivery option for your account)</label>
+                      <div class="invalid-feedback" *ngIf="buyerForm.get('enableCash').hasError('required')"> Enable Cash or not</div>
+
+                    </div>
+              </div>
+                      <div class="col-lg-12 text-center">
+                          <div class="form-check">
+                              <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">
+                              <label class="form-check-label" for="tcs">I agree to <a routerLink="/terms-conditions" target="_blank">Terms and Conditions</a></label>
+                              <div class="invalid-feedback" *ngIf="buyerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
+      
+                            </div>
+                      </div>
+                     
+                      <div class="col-lg-12 text-center" >
+                          <div class="form-group">
+                            <button type="submit" class="btn-blue" [disabled]="isValid">
+                                <fa name="spinner" animation="spin" [hidden]="!isValid"></fa>
+                                  {{btnText}}
+                                </button>
+                            </div>
+                      </div>
+                    </div>
+                  </form>
+            
+          </div>
+
+
+   
+

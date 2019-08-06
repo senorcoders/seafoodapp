@@ -1,0 +1,48 @@
+.firstSection{
+	background: rgba(230, 230, 230, 0.2);
+}
+.container{
+	padding-top: 150px;
+}
+.delete{
+	cursor: pointer;
+    color: #ec4343;
+}
+.save{
+	cursor: pointer;
+	color:#3838e0
+}
+.black-title{
+    margin-bottom: 20px;
+}
+.EmailNotification{
+    color: #f52828;
+    font-size: 0.9rem;
+}
+.update-table{
+    padding-top: 20px;
+}
+.row-bg {
+    background: white;
+    select{
+        background: #ebf1f6
+    }
+}
+.table-design .row-bg:nth-of-type(odd){
+    select{
+        background: white
+    }
+}
+.table-design{
+    .pink-btn{
+        margin-top: 10px;
+    }
+}
+.form-group{
+    background: #ebf1f6!important;
+    border-radius: 6px;
+    padding: 10px;
+    label{
+        font-family: 'Roboto', sans-serif
+    }
+}

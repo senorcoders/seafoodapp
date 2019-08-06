@@ -1,0 +1,41 @@
+.btn-pagination{   
+  background: #123345;
+    color: white;
+    border: 0;
+    padding: 12px 20px;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 0.8rem;
+    float: left;
+  cursor:pointer;
+  display:inline-block;
+  &:hover{
+    background-color: #83b0d1;
+    -webkit-transition: background-color 0.5s;
+  }
+}
+.previous, .next{
+  margin-bottom: 20px;
+  margin-bottom: 20px;
+}
+.store-img{
+  max-width:100%;
+  height: auto;
+  max-height: 100px;
+}
+.store-info{
+  font-size: 1rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.numberPage{
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.active {
+  background: #ee434a;
+  color: white !important;
+}
+.pink-btn{
+  padding: 10px 15px;
+}
