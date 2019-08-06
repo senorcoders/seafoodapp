@@ -52,7 +52,11 @@ CurrencyofTrade:FormControl;
 ContactNumber:FormControl;
 ProductsInterestedSelling:FormControl;
 companyType: FormControl;
-  constructor(private fb:FormBuilder, private auth: AuthenticationService, 
+iti:any;
+buyerPhoneValid: boolean = false;
+sellerPhoneValid: boolean = false;
+
+constructor(private fb:FormBuilder, private auth: AuthenticationService, 
     private router:Router, private toast:ToastrService,  private isLoggedSr: IsLoginService, 
     private product:ProductService,private route:ActivatedRoute,
     private countryService: CountriesService,
@@ -74,25 +78,80 @@ companyType: FormControl;
 
 
   ngOnInit() {
-    jQuery(document).ready(function(){
-
-      var input = document.querySelector("#phone");
-      var inputS = document.querySelector("#phoneS");
-      window.intlTelInput(input);
-      window.intlTelInput(inputS);
-    
-    });  
-    // this.RegisterBuyerForm();
     this.createFormControls();
     this.RegisterBuyerForm();
     this.RegistersellerForm();
     this.getCountries();
+    var that = this;
+
+    jQuery(document).ready(function(){
+
+      var input = document.querySelector("#phone");
+      var inputS = document.querySelector("#phoneS");
+      var iti = window.intlTelInput(input);
+      var itiseller = window.intlTelInput(inputS);
+      var handleChange = function() {
+        var text = (iti.isValidNumber()) ?  iti.getNumber() : "Please enter a number below";
+        console.log("text", text);
+        if(iti.isValidNumber()){
+          that.buyerPhoneValid = false;
+
+          that.buyerForm.controls['tel'].setValue(text);
+        }else{
+          that.buyerPhoneValid = true;
+        }
+
+      };
+
+
+      var handleChangeSeller = function() {
+        var text = (itiseller.isValidNumber()) ?  itiseller.getNumber() : "Please enter a number below";
+        console.log("text", text);
+        if(itiseller.isValidNumber()){
+          that.sellerPhoneValid = false;
+
+          that.sellerForm.controls['tel'].setValue(text);
+        }else{
+          that.sellerPhoneValid = true;
+        }
+
+      };
+      
+      // listen to "keyup", but also "change" to update when the user selects a country
+      input.addEventListener('change', handleChange);
+      input.addEventListener('keyup', handleChange);
+      inputS.addEventListener('change', handleChangeSeller);
+      inputS.addEventListener('keyup', handleChangeSeller);
+     
+    });  
+    
+    
+    // this.RegisterBuyerForm();
+   
 
 
   }
    ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
+  validateBuyerPhone(){
+    console.log("Validating", this.buyerPhoneValid, this.buyerForm.get('tel').value);
+    if(this.buyerPhoneValid == true){
+      jQuery('#phone').val('');
+    }
+  }
+
+  validateSellerPhone(){
+    console.log("Validating", this.sellerPhoneValid, this.sellerForm.get('tel').value);
+    if(this.sellerPhoneValid == true){
+      jQuery('#phoneS').val('');
+    }
+  }
+
+ 
+  
+  
   getCountries() {
     this.countryService.getCountries().subscribe(
       result => {
@@ -264,6 +323,7 @@ verifyMatch(){
       }
       this.auth.register(this.buyerForm.value, 2, dataExtra).subscribe(
         result=>{
+          console.log("Resgistro", result);
           this.email=this.buyerForm.get('email').value;
           this.showConfirmation=false;
         },

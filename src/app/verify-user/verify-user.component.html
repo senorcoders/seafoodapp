@@ -5,21 +5,48 @@
 			<h3 class="black-title">{{'VerifyUser.title' | translate}}</h3>
 		</div>
 		<div class="col-12 table-design">
-			<div class="row row-bg" *ngFor="let user of users; let i=index">
-				<div class="col-lg-12">
-					<h2 class="name">
-						{{user.firstName}} 
-						<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
-						<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
-						<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
-						<fa name="eye" class="edit" (click)="popUp(i)"></fa>
-					</h2>
-					<div class="product">
-						{{user.email}}
-						<hr class="black-line">
-					</div>
+			<div class="row">
+				<div class="col-lg-6">
+						<h3 class="black-title">Buyers</h3>
+
+						<div class="row row-bg" *ngFor="let user of buyers; let i=index">
+								<div class="col-lg-12">
+									<h2 class="name">
+										{{user.firstName}} 
+										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
+										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
+										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
+										<fa name="eye" class="edit" (click)="popUp(i, 'buyer')"></fa>
+									</h2>
+									<div class="product">
+										{{user.email}}
+										<hr class="black-line">
+									</div>
+								</div>
+							</div>
+				</div>
+
+				<div class="col-lg-6">
+						<h3 class="black-title">Sellers</h3>
+
+						<div class="row row-bg" *ngFor="let user of sellers; let i=index">
+								<div class="col-lg-12">
+									<h2 class="name">
+										{{user.firstName}} 
+										<!-- {{user.lastName}} {{user.role===1?'seller':user.role===2?'buyer':'admin'}} -->
+										<img src="../../assets/trash-icon.png" alt="" (click)="showConfirmModal(user.id)" class="delete">
+										<fa name="check" class="edit" (click)="confirmModal(user.id)"></fa>
+										<fa name="eye" class="edit" (click)="popUp(i, 'seller')"></fa>
+									</h2>
+									<div class="product">
+										{{user.email}}
+										<hr class="black-line">
+									</div>
+								</div>
+							</div>
 				</div>
 			</div>
+			
 		</div>
 	</div>
 </div>

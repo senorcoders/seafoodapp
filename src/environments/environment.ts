@@ -6,12 +6,8 @@
 export const environment = {
 	production: false,
 	payfort: false,
-  //apiURL:"http://devapi.seafoodsouq.com/",
-	//apiURLImg:"http://devapi.seafoodsouq.com",
-	apiURL:"http://devapi.seafoodsouq.com/",
-  apiURLImg:"http://devapi.seafoodsouq.com",
-  //apiURL:"http://localhost:7000/",
-  //apiURLImg:"http://localhost:7000",
+	apiURL:"https://devapi.seafoodsouq.com/",
+  apiURLImg:"https://devapi.seafoodsouq.com",
   countries:[
 	    {name: "Afghanistan", code: "AF"},
 	    {name: "Åland Islands", code: "AX"},

@@ -10,6 +10,8 @@ declare var jQuery: any;
 import { DomSanitizer, SafeResourceUrl, SafeUrl, SafeStyle } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 import { CountriesService } from '../services/countries.service';
+import 'rxjs/add/operator/catch';
+
 @Component({
   selector: 'app-single-product',
   templateUrl: './single-product.component.html',
@@ -279,6 +281,10 @@ export class SingleProductComponent implements OnInit {
       this.cartService.setCart(result);
       this.toast.success('Product added to the cart!', 'Product added', { positionClass: 'toast-top-right' });
 
+    }, err => {
+      if ( err.error ) {
+      this.toast.error('An error has occurred', err.error.message, { positionClass: 'toast-top-right' });
+      }
     });
   }
 

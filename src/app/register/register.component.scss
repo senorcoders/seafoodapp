@@ -120,6 +120,11 @@ form{
         text-decoration: underline;
     }
 }
+
+.invalid-phone{
+    font-size: 13px;
+    color: #dc3545;
+}
 @media(max-width: 998px){
     .black-title{
         margin-top: 10px;
