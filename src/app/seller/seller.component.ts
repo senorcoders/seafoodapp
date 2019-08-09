@@ -309,7 +309,7 @@ export class SellerComponent implements OnInit {
       "ContactNumber": this.user.dataExtra['contactNumber'],
       "CorporateBankAccountNumber": this.user.dataExtra['iban'],
       "CurrencyofTrade": this.user.dataExtra['currencyTrade'],
-      "FoodSafetyCertificateNumber": this.user.dataExtra['iso'],
+      "food SafetyCertificateNumber": this.user.dataExtra['iso'],
       "ProductsInterestedSelling": this.user.dataExtra['productsIntered'],
       "TradeBrandName": this.user.dataExtra['productsIntered'],
       "TradeLicenseNumber": this.user.dataExtra['licenseNumber']

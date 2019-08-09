@@ -71,7 +71,7 @@ export class ProductService {
     return this.http.get(`api/fish/pending`);
   }
 
-  //Function to get the Seafood SKU required to upload a new product
+  //Function to get the food SKU required to upload a new product
   generateSKU(store: string, category: string, subcategory: string, country_code: string) {
     const data = {
       store_code: store,

@@ -1,9 +1,9 @@
 export const environment = {
 	production: false,
 	payfort: false,
-  apiURL:"https://stagingapi.seafoodsouq.com/",
-	apiURLImg:"https://stagingapi.seafoodsouq.com",
-	cdnURL:"https://staging.seafoodsouq.com/",
+  apiURL:"https://stagingapi.seafood souq.com/",
+	apiURLImg:"https://stagingapi.seafood souq.com",
+	cdnURL:"https://staging.seafood souq.com/",
 	// apiURL:"http://localhost:7000/",
   // apiURLImg:"http://localhost:7000",
   currentCDN: "",

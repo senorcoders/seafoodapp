@@ -444,7 +444,7 @@ export class EditAccountComponent implements OnInit {
       "ContactNumber": this.sellerForm.get('contactNumber').value,
       "CorporateBankAccountNumber": this.sellerForm.get('iban').value,
       "CurrencyofTrade": this.sellerForm.get('currencyTrade').value,
-      "FoodSafetyCertificateNumber": this.sellerForm.get('iso').value,
+      "food SafetyCertificateNumber": this.sellerForm.get('iso').value,
       "ProductsInterestedSelling": this.sellerForm.get('productsIntered').value,
       "TradeBrandName": this.sellerForm.get('trade').value,
       "TradeLicenseNumber": this.sellerForm.get('licenseNumber').value,

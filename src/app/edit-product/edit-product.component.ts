@@ -150,7 +150,7 @@ export class EditProductComponent implements OnInit {
       this.treatment = data['treatment'];
       this.cooming_soon = data['cooming_soon'];
       this.seller_sku = data['seller_sku'];
-      this.seafood_sku = data['seafood_sku'];
+      this.seafood_sku = data['seafood _sku'];
       this.status = data['status'];
       this.wholeFishWeight = data['wholeFishWeight'];
       (data['status'] != null) ? this.selectedStatus = this.status.id : this.selectedStatus = null;
@@ -227,7 +227,7 @@ export class EditProductComponent implements OnInit {
       'treatment': this.treatment,
       'coomingSoon': this.cooming_soon,
       'seller_sku': this.seller_sku,
-      'seafood_sku': this.seafood_sku,
+      'seafood _sku': this.seafood_sku,
       'status': this.selectedStatus,
       'descriptor': this.descriptor,
       'wholeFishWeight': whole,

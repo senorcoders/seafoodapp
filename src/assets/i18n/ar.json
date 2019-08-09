@@ -20,9 +20,9 @@
 		"logout": "Logout"
 	},
 	"Home": {
-		"big-title-banner": "GET SEAFOOD",
+		"big-title-banner": "GET SEAfood ",
 		"big-title-banner-2": "DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"title": "Featured Products",
 		"featuredSeller": "Featured Seller",
@@ -86,8 +86,8 @@
 		"filter-country": "Select a Country"
 	},
 	"Archive-product": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"result-title": "Category Results",
 		"view-button": "View Details",
@@ -100,8 +100,8 @@
 		"next": "next"
 	},
 	"Search": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"result-title": "Search Results",
 		"view-button": "View Details",
@@ -117,8 +117,8 @@
 		"no-empty": "Search field not should be empty"
 	},
 	"MyProducts": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"title": "My products",
 		"description": "Fish Description",
@@ -150,7 +150,7 @@
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
 		"seller_sku": "Seller SKU",
-		"seafood_sku": "Marketplace SKU",
+		"seafood _sku": "Marketplace SKU",
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
@@ -186,7 +186,7 @@
 		"treatment": "Treatment",
 		"cooming_soon": "Coming Soon",
 		"seller_sku": "Seller SKU",
-		"seafood_sku": "Marketplace SKU",
+		"seafood _sku": "Marketplace SKU",
 		"city": "City",
 		"stock": "Available Stock",
 		"waterLostRate": "Water Lost Rate",
@@ -250,7 +250,7 @@
 		"no-found": "Sorry, Product Not found",
 		"detail": "Product details",
 		"seller_sku": "SKU",
-		"seafood_sku": "Marketplace SKU",
+		"seafood _sku": "Marketplace SKU",
 		"city": "City",
 		"status": "Status"
 	},
@@ -266,8 +266,8 @@
 		"image": "Add Image"
 	},
 	"Cart": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"back": "Back To Shopping",
 		"delete": "Delete",
@@ -331,8 +331,8 @@
 		"logo-company": "Logo Company"
 	},
 	"Featured-product": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"title": "Featured Products",
 		"table-title": "Add Products",
@@ -343,8 +343,8 @@
 		"save": "Save Products"
 	},
 	"Featured-seller": {
-		"big-title-banner": "GET SEAFOOD DELIVERED TO YOUR HOME",
-		"small-title-banner": "Fresh seafood",
+		"big-title-banner": "GET food DELIVERED TO YOUR HOME",
+		"small-title-banner": "Fresh seafood ",
 		"banner-button": "Shop Now",
 		"title": "Featured Seller",
 		"table-title": "Add Seller",

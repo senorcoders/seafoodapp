@@ -1,9 +1,9 @@
 export const environment = {
 	production: true,
 	payfort: true,
-  apiURL:"https://api.seafoodsouq.com/",
-  apiURLImg:"https://api.seafoodsouq.com",
-  cdnURL:"https://seafoodsouq.com/",
+  apiURL:"https://api.seafood souq.com/",
+  apiURLImg:"https://api.seafood souq.com",
+  cdnURL:"https://seafood souq.com/",
   currentCDN: "",
   countries:[
 	    {name: "Afghanistan", code: "AF"},

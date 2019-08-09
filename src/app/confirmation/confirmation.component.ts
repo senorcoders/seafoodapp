@@ -44,7 +44,7 @@ export class ConfirmationComponent implements OnInit {
   token: any;
   info: any;
   payFortApi: any = 'https://sbpaymentservices.payfort.com/FortAPI/paymentApi';
-  // payFortApi = 'https://apiseafood.senorcoders.com/payfort/'
+  // payFortApi = 'https://apiseafood .senorcoders.com/payfort/'
   description: any;
   buyerId: any;
   apiShopID: any;
@@ -134,7 +134,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     if (!isFound) {
-        var dynamicScripts = ["https://devapi.seafoodsouq.com/cdn/snare.js"];
+        var dynamicScripts = ["https://devapi.seafood souq.com/cdn/snare.js"];
 
         for (var i = 0; i < dynamicScripts .length; i++) {
             let node = document.createElement('script');
@@ -216,7 +216,7 @@ export class ConfirmationComponent implements OnInit {
 	  const finger: HTMLInputElement = <HTMLInputElement>document.getElementById( 'device_fingerprint' );
 	  console.log('finger', finger.value);*/
 
-	  //const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}customer_ip=${this.ip}device_fingerprint=${finger.value}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafoodstoken_name=${this.token}${this.apiPass}`;
+	  //const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}customer_ip=${this.ip}device_fingerprint=${finger.value}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}settlement_reference=Seafood stoken_name=${this.token}${this.apiPass}`;
     //const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}customer_ip=${this.ip}device_fingerprint=${finger.value}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}token_name=${this.token}${this.apiPass}`;
     const string = `${this.apiPass}access_code=${this.accessToken}amount=${this.total}command=${this.command}currency=AEDcustomer_email=${this.info['email']}customer_ip=${this.ip}language=enmerchant_identifier=${this.merchantID}merchant_reference=${this.shoppingCartId}order_description=${this.description}token_name=${this.token}${this.apiPass}`;
 	  console.log(string);
@@ -302,7 +302,7 @@ export class ConfirmationComponent implements OnInit {
         'language': 'en',
         'token_name': this.token,
         'signature': this.signature,
-        'settlement_reference': 'Seafoods',
+        'settlement_reference': 'Seafood s',
         'customer_email': this.email,
         'amount': (this.total).toString(),
         'order_description': this.description,
@@ -312,7 +312,7 @@ export class ConfirmationComponent implements OnInit {
 
       // bypass payfort, payfort only works in main domain
       if ( this.env.payfort ) {
-      //this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=${this.accessToken}&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafoods&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
+      //this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=${this.accessToken}&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&settlement_reference=Seafood s&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { 'device_fingerprint': finger.value } )
       this.http.post(`payfort/authorization?command=${this.command}&customer_ip=${this.ip}&access_code=chArgcTLiDtoP5wO1hFh&merchant_identifier=${this.merchantID}&merchant_reference=${this.shoppingCartId}&currency=AED&language=en&token_name=${this.token}&signature=${this.signature}&customer_email=${this.email}&amount=${this.total}&order_description=${this.description}`, { } )
       //this.http.post( `${API}payfort/authorization`, body )
       .subscribe(res => {
@@ -320,7 +320,7 @@ export class ConfirmationComponent implements OnInit {
         if (res['status'] === '20') {
           console.log( '3ds url', res['3ds_url'] );
           if ( res['response_code'] === '20064' ) {
-          this.toast.success( res['response_message'], 'Seafoodsouq', {positionClass: 'toast-top-right'} );
+          this.toast.success( res['response_message'], 'Seafood souq', {positionClass: 'toast-top-right'} );
           console.log( '3ds url', res['3ds_url'] );
           setTimeout(() => {
             window.location.assign( res['3ds_url'] );

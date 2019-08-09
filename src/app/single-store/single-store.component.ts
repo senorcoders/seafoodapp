@@ -153,7 +153,7 @@ export class SingleStoreComponent implements OnInit {
         if (result['logo'] && result['logo'] !== '') {
           this.logo = this.base + result['logo'];
         } else {
-          this.logo = '../../assets/seafood-souq-seller-logo-default.png';
+          this.logo = '../../assets/seafood -souq-seller-logo-default.png';
         }
         if (result['heroImage'] && result['heroImage'] !== '') {
           this.hero = this.base + result['heroImage'];

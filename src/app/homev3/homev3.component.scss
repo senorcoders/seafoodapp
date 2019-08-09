@@ -313,6 +313,15 @@
 
   .preview-sfs{
       padding-top:  20px;
+      .subtitle{
+        text-align: center;
+        font-family: 'Josefin Sans', sans-serif;
+        font-weight: 300;
+        color: $black;
+        font-size: 21px;
+        line-height: 25px;
+        margin: 20px 0; 
+    }
       .preview-mode{
           width: 100%;
           max-width: 1220px;
@@ -321,7 +330,7 @@
           background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/Online-Catalogue-PNG.png');
             margin: 0 auto;
             background-size: cover;
-            background-position: top;
+            background-position: center;
             background-repeat: no-repeat;
             margin-top: 50px;
             display: flex;

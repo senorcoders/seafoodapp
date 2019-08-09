@@ -194,7 +194,7 @@ export class HomeComponent implements OnInit {
             this.logos[index] = this.API + result['logo'];
           }
           else {
-            this.logos[index] = "../../assets/seafood-souq-seller-logo-default.png";
+            this.logos[index] = "../../assets/seafood -souq-seller-logo-default.png";
           }
         },
         error => {

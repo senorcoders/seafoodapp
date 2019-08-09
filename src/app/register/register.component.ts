@@ -45,7 +45,7 @@ TypeBusiness:FormControl;
  tcs:FormControl;
  TradeBrandName:FormControl;
 TradeLicenseNumber:FormControl;
-FoodSafetyCertificateNumber:FormControl;
+foodSafetyCertificateNumber:FormControl;
 CorporateBankAccountNumber:FormControl;
 swiftCode:FormControl;
 CurrencyofTrade:FormControl;
@@ -197,7 +197,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
     this.tcs = new FormControl('', [Validators.requiredTrue]);
     this.TradeBrandName= new FormControl('', [Validators.required]);
     this.TradeLicenseNumber= new FormControl('', [Validators.required]);
-    this.FoodSafetyCertificateNumber= new FormControl('', [Validators.required]);
+    this.foodSafetyCertificateNumber= new FormControl('', [Validators.required]);
     this.CorporateBankAccountNumber= new FormControl('', [Validators.required]);
     this.swiftCode = new FormControl('', [Validators.nullValidator]);
     this.CurrencyofTrade= new FormControl('', [Validators.required]);
@@ -249,7 +249,7 @@ constructor(private fb:FormBuilder, private auth: AuthenticationService,
       tcs:this.tcs,
       TradeBrandName:this.TradeBrandName,
       TradeLicenseNumber:this.TradeLicenseNumber,
-      FoodSafetyCertificateNumber:this.FoodSafetyCertificateNumber,
+      foodSafetyCertificateNumber:this.foodSafetyCertificateNumber,
       CorporateBankAccountNumber:this.CorporateBankAccountNumber,
       swiftCode:this.swiftCode,
       CurrencyofTrade:this.CurrencyofTrade,
@@ -356,7 +356,7 @@ verifyMatch(){
           "ContactNumber": this.sellerForm.get('ContactNumber').value,
           "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
           "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
-          "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+          "food SafetyCertificateNumber": this.sellerForm.get('food SafetyCertificateNumber').value,
           "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
           "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
           "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value
@@ -394,7 +394,7 @@ verifyMatch(){
       'companyName' : this.sellerForm.get('companyName').value,
       'companyType' : this.sellerForm.get('companyType').value,
       'licenseNumber' : this.sellerForm.get('TradeLicenseNumber').value,
-      'iso' : this.sellerForm.get('FoodSafetyCertificateNumber').value,
+      'iso' : this.sellerForm.get('food SafetyCertificateNumber').value,
       'iban' : this.sellerForm.get('CorporateBankAccountNumber').value,
       'swiftCode' : this.sellerForm.get('swiftCode').value,
       'productsIntered' : this.sellerForm.get('ProductsInterestedSelling').value,
@@ -445,7 +445,7 @@ verifyMatch(){
       //           "ContactNumber": this.sellerForm.get('ContactNumber').value,
       //           "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
       //           "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
-      //           "FoodSafetyCertificateNumber": this.sellerForm.get('FoodSafetyCertificateNumber').value,
+      //           "food SafetyCertificateNumber": this.sellerForm.get('food SafetyCertificateNumber').value,
       //           "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
       //           "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
       //           "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value

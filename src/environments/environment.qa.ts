@@ -1,8 +1,8 @@
 export const environment = {
 	production: false,
 	payfort: false,
-	apiURL: "https://qaapi.seafoodsouq.com/",
-	apiURLImg: "https://qaapi.seafoodsouq.com",
+	apiURL: "https://qaapi.seafood souq.com/",
+	apiURLImg: "https://qaapi.seafood souq.com",
 	cdnURL: "https://d2jztj5rpu8tit.cloudfront.net/",
 	currentCDN: "",
 	countries: [

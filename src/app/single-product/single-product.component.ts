@@ -348,7 +348,7 @@ export class SingleProductComponent implements OnInit {
       if (data['store'].logo && data['store'].logo !== '') {
         this.logo = this.base + data['store'].logo;
       } else {
-        this.logo = '../../assets/seafood-souq-seller-logo-default.png';
+        this.logo = '../../assets/seafood -souq-seller-logo-default.png';
       }
 
       if (data.hasOwnProperty('wholeFishWeight') && data['wholeFishWeight'] != '') {

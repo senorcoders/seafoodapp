@@ -237,7 +237,7 @@ export class Homev3Component implements OnInit {
     console.log("Probando Home");
 
     this.getLoginStatus();
-    this.getMediumPosts();
+    //this.getMediumPosts();
     
     this.isLoggedSr.role.subscribe((role: number) => {
       this.role = role
@@ -394,7 +394,7 @@ export class Homev3Component implements OnInit {
 
   //GET POST FROM MEDIUM
   getMediumPosts(){
-    this.httpO.get('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@seafoodsouq').subscribe(res=>{
+    this.httpO.get('https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@seafood souq').subscribe(res=>{
         console.log("Medium Posts", res);
         this.mediumPosts = res['items'];
         var that = this;
@@ -443,7 +443,7 @@ shareTwitter(url){
 }
 
 shareInstagram(url){
-  var newUrl = 'https://www.instagram.com/seafoodsouq/';
+  var newUrl = 'https://www.instagram.com/seafood souq/';
   window.open(newUrl, '_blank');
 }
 
