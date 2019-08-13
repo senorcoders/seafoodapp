@@ -1,4 +1,4 @@
-<div class="page-header seafood FormContainer" id="hero" style="background:url(../../assets/login-bg.jpg)" *ngIf="showConfirmation">
+<div class="page-header seafoodFormContainer" id="hero" style="background:url(../../assets/login-bg.jpg)" *ngIf="showConfirmation">
   <div class="content">
    <div class="row top">
      <div class="col-lg-4 left-side"><img class="logo" src="../../assets/logo-login.png" alt=""></div>
@@ -121,7 +121,7 @@
          <div class="col-md-12">
            <div class="form-check">
              <input type="checkbox" class="form-check-input" id="tcs" formControlName="tcs" [ngClass]="{'is-invalid':buyerForm.get('tcs').invalid && buyerForm.get('tcs').touched}">
-             <label class="form-check-label" for="tcs" style="font-size: 13px;">I agree to the <a href="http://seafood souq.com/terms.html" target="_blank">Terms and Conditions</a></label>
+             <label class="form-check-label" for="tcs" style="font-size: 13px;">I agree to the <a href="http://seafoodsouq.com/terms.html" target="_blank">Terms and Conditions</a></label>
              <div class="invalid-feedback" *ngIf="buyerForm.get('tcs').hasError('required')"> You have to accept Terms & Conditions.</div>
            </div>
          </div>
@@ -252,9 +252,9 @@
           </div>
           <div class="col-md-6">  
             <div class="form-group">
-              <label>food  Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
-              <input type="text" class="form-control" placeholder="food  Safety Certificate Number (ISO)" formControlName="food SafetyCertificateNumber"  [ngClass]="{'is-invalid':sellerForm.get('food SafetyCertificateNumber').invalid && sellerForm.get('food SafetyCertificateNumber').touched}">
-              <div class="invalid-feedback" *ngIf="sellerForm.get('food SafetyCertificateNumber').hasError('required')">food  Safety Certificate Number (ISO) is required.</div>
+              <label>food Safety Certificate Number (ISO) <span class="field-status red">*</span></label>
+              <input type="text" class="form-control" placeholder="food Safety Certificate Number (ISO)" formControlName="foodSafetyCertificateNumber"  [ngClass]="{'is-invalid':sellerForm.get('foodSafetyCertificateNumber').invalid && sellerForm.get('foodSafetyCertificateNumber').touched}">
+              <div class="invalid-feedback" *ngIf="sellerForm.get('foodSafetyCertificateNumber').hasError('required')">food  Safety Certificate Number (ISO) is required.</div>
             </div>
           </div>
           <div class="col-md-6">  
@@ -317,7 +317,7 @@
 </div>
 <div class="container-confirmation" *ngIf="!showConfirmation">
  <div class="content">
-   <h1>{{'Register.message' | translate}} <a href="https://medium.com/@seafood souq" target="_blank" rel="noopener noreferrer">blog</a><</h1>
+   <h1>{{'Register.message' | translate}} <a href="https://medium.com/@seafoodsouq" target="_blank" rel="noopener noreferrer">blog</a><</h1>
    <a routerLink="/"><h2>{{'Register.submessage' | translate}}</h2></a>
  </div>
 </div>   
