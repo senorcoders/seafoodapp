@@ -134,7 +134,7 @@ export class ConfirmationComponent implements OnInit {
     }
 
     if (!isFound) {
-        var dynamicScripts = ["https://devapi.seafood souq.com/cdn/snare.js"];
+        var dynamicScripts = ["https://devapi.seafoodsouq.com/cdn/snare.js"];
 
         for (var i = 0; i < dynamicScripts .length; i++) {
             let node = document.createElement('script');
@@ -302,7 +302,7 @@ export class ConfirmationComponent implements OnInit {
         'language': 'en',
         'token_name': this.token,
         'signature': this.signature,
-        'settlement_reference': 'Seafood s',
+        'settlement_reference': 'Seafoods',
         'customer_email': this.email,
         'amount': (this.total).toString(),
         'order_description': this.description,

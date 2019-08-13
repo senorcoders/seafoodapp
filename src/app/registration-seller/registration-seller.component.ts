@@ -304,7 +304,7 @@ export class RegistrationSellerComponent implements OnInit {
       'companyName': this.sellerForm.get('companyName').value,
       'companyType': this.sellerForm.get('companyType').value,
       'licenseNumber': this.sellerForm.get('TradeLicenseNumber').value,
-      'iso': this.sellerForm.get('food SafetyCertificateNumber').value,
+      'iso': this.sellerForm.get('foodSafetyCertificateNumber').value,
       'iban': this.sellerForm.get('CorporateBankAccountNumber').value,
       'swiftCode': this.sellerForm.get('swiftCode').value,
       'productsIntered': this.sellerForm.get('ProductsInterestedSelling').value,
@@ -325,7 +325,7 @@ export class RegistrationSellerComponent implements OnInit {
       "ContactNumber": this.sellerForm.get('ContactNumber').value,
       "CorporateBankAccountNumber": this.sellerForm.get('CorporateBankAccountNumber').value,
       "CurrencyofTrade": this.sellerForm.get('CurrencyofTrade').value,
-      "food SafetyCertificateNumber": this.sellerForm.get('food SafetyCertificateNumber').value,
+      "foodSafetyCertificateNumber": this.sellerForm.get('foodSafetyCertificateNumber').value,
       "ProductsInterestedSelling": this.sellerForm.get('ProductsInterestedSelling').value,
       "TradeBrandName": this.sellerForm.get('TradeBrandName').value,
       "TradeLicenseNumber": this.sellerForm.get('TradeLicenseNumber').value

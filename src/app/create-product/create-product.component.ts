@@ -612,7 +612,7 @@ export class CreateProductComponent implements OnInit {
           'raised': features.raised,
           'treatment': features.treatment,
           'seller_sku': product.seller_sku,
-          'seafood _sku': this.seafood_sku,
+          'seafood_sku': this.seafood_sku,
           'mortalityRate': 1,
           'waterLostRate': '0',
           'status': this.user['role'] !== 0 ? '5c0866e4a0eda00b94acbdc0' : product.status,

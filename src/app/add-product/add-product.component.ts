@@ -1241,7 +1241,7 @@ export class AddProductComponent implements OnInit {
       'raised': value.raised,
       'treatment': value.treatment,
       'seller_sku': value.sku,
-      'seafood _sku': '',
+      'seafood_sku': '',
       'mortalityRate': 1,
       'waterLostRate': '0',
       'status': this.user['role'] !== 0 ? '5c0866e4a0eda00b94acbdc0' : product.status,
